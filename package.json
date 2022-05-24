@@ -6,8 +6,17 @@
     "start": "next start"
   },
   "dependencies": {
+    "apisauce": "^2.1.5",
+    "autoprefixer": "^10.4.7",
+    "classnames": "^2.3.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.3",
     "next": "latest",
+    "qs": "^6.10.3",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-hook-form": "^7.31.2",
+    "reactstrap": "^9.0.2",
+    "sass": "^1.52.1"
   }
 }

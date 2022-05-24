@@ -1,0 +1,14 @@
+.main-footer{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+  height: $main-footer-height;
+  line-height: $main-footer-height;
+  text-align: center;
+  font-size: 11px;
+
+  .main-footer_container{
+    border-top: 1px solid #CCC;
+  }  
+}

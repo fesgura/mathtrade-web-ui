@@ -1,0 +1,26 @@
+html,body{
+  height: 100%;
+}
+
+
+body{
+  background-color: $body-bg;
+}
+
+#__next{
+  height: 100%;
+}
+
+.main-container{
+  max-width: 1300px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.main-container-wide{
+  margin: 0 50px;
+}
+
+.pointer{
+  cursor: pointer;
+}
