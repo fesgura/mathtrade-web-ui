@@ -10,9 +10,15 @@ const PublicLayout = ({ title, children }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="wrap">
-        <div className="main-container py-3">{children}</div>
-        <Footer />
+      <main className="wrap-public">
+        <div className="v-centered">
+          <div className="v-centered_col">
+            <div className="main-container-public">
+              {children}
+              <Footer className="text-white" />
+            </div>
+          </div>
+        </div>
       </main>
     </>
   );

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Noto+Sans:wght@400;700&display=swap');
 
 @import 'variables';
 
@@ -6,7 +6,9 @@
 @import 'logo';
 @import 'text';
 @import 'avatar';
+@import 'bg';
 @import 'card';
+@import 'button';
 @import 'form';
 @import 'dropdown';
 @import 'pagination';
@@ -14,4 +16,6 @@
 @import 'header';
 @import 'footer';
 @import 'section';
-@import 'layouts/default';
+@import 'layouts/private';
+
+@import 'pages/login';

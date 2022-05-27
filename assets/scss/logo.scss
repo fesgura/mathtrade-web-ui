@@ -1,9 +1,45 @@
-.main-logo{
-  width: 100%;
-  height: 100%;
-  img{
-    display: block;
-    width: auto;
-    height: 100%;
+
+
+.main-logo{ 
+}
+.main-logo_text{
+  @include font-alt;
+}
+.main-logo_horizontal{
+  .main-logo_text{
+    font-size: 24px;
+    line-height: 1.2;
+    padding-left: .5em;
+  }
+}
+
+.main-logo_vertical{
+  .main-logo_img{
+    width: 180px;
+    margin: 0 auto;
+  }
+  .main-logo_text{
+    text-align: center;
+    color: #FFF;
+    font-size: 46px;
+    line-height: 1.1;
+    padding-left: .5em;
+    //
+    .main-logo_text-line-2{
+      text-transform: uppercase;
+      font-size: 60%;
+    }
+  }
+}
+
+
+@media screen and (max-width:990px) {
+  .main-logo_vertical{
+    .main-logo_img{
+      width: 70px;
+    }
+    .main-logo_text{
+      font-size: 26px;
+    }
   }
 }

@@ -1,3 +1,24 @@
+body{
+  font-family: $font;
+  color:#333;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+  @include font-alt;
+  color:#111;
+}
+
 a{
   color:$primary;
+}
+.muted{
+  color:#999;
+}
+
+.smallest{
+  font-size: 75%;
 }

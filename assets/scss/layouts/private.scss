@@ -1,0 +1,15 @@
+.wrap{
+  min-height: 100%;
+  position: relative;
+  padding-bottom: $main-footer-height;
+  animation: show-wrap .7s;
+}
+
+@keyframes show-wrap {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}

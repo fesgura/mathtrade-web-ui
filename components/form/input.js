@@ -4,6 +4,11 @@ import classNames from "classnames";
 
 const twoPointsReg = new RegExp(":", "g");
 
+const validateMessage = {
+  required: "Este campo es requerido",
+  email: "Email inválido",
+};
+
 const Input = ({
   label,
   labelFloating,
@@ -45,7 +50,10 @@ const Input = ({
           {before ? <span className="input-group-text">{before}</span> : null}
           {beforeButton ? beforeButton : null}
           <select
-            {...register(name, { required, ...(validation ? validation : {}) })}
+            {...register(name, {
+              ...(required ? { required: validateMessage.required } : {}),
+              ...(validation ? validation : {}),
+            })}
             className={classNames(
               "form-select",
               size ? `form-select-${size}` : "",
@@ -82,7 +90,9 @@ const Input = ({
               "form-check-input",
               errors && errors[name] ? "is-invalid" : ""
             )}
-            {...register(name, { required })}
+            {...register(name, {
+              ...(required ? { required: validateMessage.required } : {}),
+            })}
             type="checkbox"
             id={`checkbox-${id}`}
             {...rest}
@@ -106,7 +116,9 @@ const Input = ({
                     "form-check-input",
                     errors && errors[name] ? "is-invalid" : ""
                   )}
-                  {...register(name, { required })}
+                  {...register(name, {
+                    ...(required ? { required: validateMessage.required } : {}),
+                  })}
                   name={name}
                   value={opt.value}
                   type="radio"
@@ -130,7 +142,9 @@ const Input = ({
         <input
           type="range"
           className="form-range"
-          {...register(name, { required })}
+          {...register(name, {
+            ...(required ? { required: validateMessage.required } : {}),
+          })}
           {...rest}
         />
       );
@@ -148,7 +162,10 @@ const Input = ({
 
           <textarea
             id={id + "-textarea"}
-            {...register(name, { required, ...(validation ? validation : {}) })}
+            {...register(name, {
+              ...(required ? { required: validateMessage.required } : {}),
+              ...(validation ? validation : {}),
+            })}
             className={classNames(
               readOnly ? "form-control-plaintext" : "form-control",
               type === "color" ? "form-control-color" : "",
@@ -178,7 +195,18 @@ const Input = ({
           <input
             type={type}
             id={id + "-input"}
-            {...register(name, { required, ...(validation ? validation : {}) })}
+            {...register(name, {
+              ...(required ? { required: validateMessage.required } : {}),
+              ...(validation ? validation : {}),
+              ...(type === "email"
+                ? {
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: validateMessage.email,
+                    },
+                  }
+                : {}),
+            })}
             className={classNames(
               readOnly ? "form-control-plaintext" : "form-control",
               type === "color" ? "form-control-color" : "",
@@ -205,7 +233,7 @@ const Input = ({
       {inputContent}
       {errors && errors[name] && (
         <div className="invalid-feedback" style={{ display: "block" }}>
-          This field is required
+          {errors[name].message}
         </div>
       )}
     </div>

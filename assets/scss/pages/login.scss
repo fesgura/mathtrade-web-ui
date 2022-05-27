@@ -1,0 +1,40 @@
+.login-slider-container{
+  position: relative;
+  background-color: darken($bg-body-3, 10);
+  height: 100%;
+  min-height: 160px;
+ overflow: hidden;
+
+  .login-slider-container_float{
+   width: 120%;
+    height: 100%;
+    margin-left: -10%;
+  }
+
+  // .login-slider-container_wrap{
+  //   position: absolute;
+  //   top: 0;
+  //   left: 0;
+  //   height: 100%;
+  // }
+
+ .splide{
+    opacity: 0.2;
+    line-height: 0;
+    span,
+    img{
+      display: block !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+ }
+}
+
+.login-logo-container{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  transform: translateY(-50%);
+
+}

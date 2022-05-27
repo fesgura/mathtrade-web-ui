@@ -4,7 +4,7 @@ html,body{
 
 
 body{
-  background-color: $body-bg;
+ 
 }
 
 #__next{
@@ -12,15 +12,41 @@ body{
 }
 
 .main-container{
-  max-width: 1300px;
+  max-width: $main-container-width;
   padding: 0 15px;
   margin: 0 auto;
+}
+
+.main-container-public{
+  max-width: $main-container-width;
+  margin: 0 auto;
+  min-height: 100%;
+  position: relative;
+  padding: 25px 15px;
 }
 
 .main-container-wide{
   margin: 0 50px;
 }
 
+.wrap-public{
+  background: $bg-body-1;
+  background: linear-gradient(0deg, $bg-body-2 0%, $bg-body-1 80%);
+}
+
 .pointer{
   cursor: pointer;
+}
+
+.v-centered{
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+  .v-centered_col{
+    
+    width: 100%;
+  }
 }

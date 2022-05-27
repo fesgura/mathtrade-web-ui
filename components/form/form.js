@@ -23,9 +23,9 @@ const Form = ({
 
   const [showRespOnSave, set_howRespOnSave] = useState(false);
 
-  useEffect(() => {
-    methods.reset(data);
-  }, [methods, data]);
+  // useEffect(() => {
+  //   methods.reset(data);
+  // }, [methods, data]);
 
   useEffect(() => {
     let timer = null;
@@ -52,6 +52,7 @@ const Form = ({
           <form
             onSubmit={methods.handleSubmit(onSubmit)}
             className={classNames("form-react", className)}
+            noValidate
           >
             {children}
             {/* {errorText && !isEmpty(methods.formState.errors) ? (
