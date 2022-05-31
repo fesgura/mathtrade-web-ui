@@ -15,11 +15,11 @@ const InputGroup = ({
 }) => {
   return (
     <div
-      className={classNames(
-        "input-group",
-        size ? `input-group-${size}` : "",
-        error ? "is-invalid" : ""
-      )}
+      className={classNames("input-group", size ? `input-group-${size}` : "", {
+        "is-invalid": error,
+        "with-before": before || beforeButton,
+        "with-after": after || afterButton,
+      })}
     >
       {before ? <span className="input-group-text">{before}</span> : null}
       {beforeButton ? beforeButton : null}

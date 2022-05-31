@@ -3,6 +3,7 @@ import PublicLayout from "layouts/public";
 import { Card, CardBody, Button, Col, Row } from "reactstrap";
 import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
+import Icon from "components/icon";
 
 const data = {
   nombre: "Pablito",
@@ -58,7 +59,7 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       setFormStatus={setFormStatus}
                       validation={["required"]}
                       size="lg"
-                      before="A"
+                      before={<Icon type="user" />}
                     />
                     <Input
                       label="Contraseña"
@@ -68,7 +69,7 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       setFormStatus={setFormStatus}
                       validation={["required"]}
                       size="lg"
-                      before="B"
+                      before={<Icon type="key" />}
                     />
 
                     <div className="text-center py-4">

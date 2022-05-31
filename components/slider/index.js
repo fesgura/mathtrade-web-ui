@@ -31,7 +31,6 @@ const Slider = ({ images = [], ...rest }) => {
   return images.length ? (
     <div className="slider-fade" {...rest}>
       {images.map((img, k) => {
-        console.log(img.src);
         return (
           <div
             className={classNames("slider-fade-item", {
