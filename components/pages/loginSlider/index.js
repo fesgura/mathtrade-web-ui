@@ -8,20 +8,8 @@ import Logo from "components/logo";
 const LoginSlider = () => {
   return (
     <div className="login-slider-container">
-      <div className="login-slider-container_float d-lg-block d-none">
+      <div className="login-slider-container_float">
         <Slider
-          options={{
-            rewind: true,
-            pagination: false,
-            arrows: false,
-            autoplay: true,
-            type: "fade",
-            autoWidth: true,
-            autoHeight: true,
-            padding: 0,
-            gap: 0,
-            speed: 1000,
-          }}
           images={[
             { src: pic1, alt: "MathTrade Argentina" },
             { src: pic2, alt: "MathTrade Argentina" },

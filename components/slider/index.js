@@ -1,23 +1,51 @@
-import { Splide, SplideSlide } from "@splidejs/react-splide";
-import "@splidejs/react-splide/css";
-import Image from "next/image";
+import classNames from "classnames";
+import { useState, useEffect } from "react";
 
-const Slider = ({ images = [], width = 528, height = 500, ...rest }) => {
+const Slider = ({ images = [], ...rest }) => {
+  const [current, set_current] = useState(0);
+  const [prev, set_prev] = useState(images.length - 1);
+
+  useEffect(() => {
+    let Timer = setInterval(() => {
+      set_prev((v) => {
+        let c = v + 1;
+        if (c >= images.length) {
+          return 0;
+        }
+        return c;
+      });
+      set_current((v) => {
+        let c = v + 1;
+        if (c >= images.length) {
+          return 0;
+        }
+        return c;
+      });
+    }, 7000);
+
+    return () => {
+      clearInterval(Timer);
+    };
+  }, [images]);
+
   return images.length ? (
-    <Splide {...rest}>
+    <div className="slider-fade" {...rest}>
       {images.map((img, k) => {
+        console.log(img.src);
         return (
-          <SplideSlide key={k}>
-            <Image
-              src={img.src}
-              alt={img.alt || "image"}
-              width={`${width}px`}
-              height={`${height}px`}
-            />
-          </SplideSlide>
+          <div
+            className={classNames("slider-fade-item", {
+              current: k === current,
+              prev: k === prev,
+            })}
+            key={k}
+            style={{
+              backgroundImage: `url(${img.src.src})`,
+            }}
+          />
         );
       })}
-    </Splide>
+    </div>
   ) : null;
 };
 

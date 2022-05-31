@@ -1,9 +1,32 @@
+import { useState } from "react";
 import PublicLayout from "layouts/public";
 import { Card, CardBody, Button, Col, Row } from "reactstrap";
 import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
 
+const data = {
+  nombre: "Pablito",
+  apellido: "Cazorla",
+  puede: true,
+};
+
 const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
+  const [formStatus, setFormStatus] = useState({});
+  /*
+  {
+    nombre : {
+      value:'',
+      validation:[],
+      error:null
+    },
+    apellido : {
+      value:'',
+      validation:[],
+      error:null
+    },
+    __SHOW_ERRORS__:false
+  }
+*/
   return (
     <PublicLayout>
       <Row className="justify-content-center">
@@ -21,8 +44,40 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       Ingresa con tu nombre email y contraseña
                     </p>
                   </div>
-
                   <Form
+                    onSubmit={onSubmit}
+                    formStatus={formStatus}
+                    setFormStatus={setFormStatus}
+                  >
+                    <Input
+                      label="Email"
+                      name="email"
+                      type="email"
+                      placeholder="email"
+                      formStatus={formStatus}
+                      setFormStatus={setFormStatus}
+                      validation={["required"]}
+                      size="lg"
+                      before="A"
+                    />
+                    <Input
+                      label="Contraseña"
+                      name="password"
+                      type="password"
+                      formStatus={formStatus}
+                      setFormStatus={setFormStatus}
+                      validation={["required"]}
+                      size="lg"
+                      before="B"
+                    />
+
+                    <div className="text-center py-4">
+                      <Button color="primary" size="lg" type="submit">
+                        Ingresar
+                      </Button>
+                    </div>
+                  </Form>
+                  {/* <Form
                     onSubmit={onSubmit}
                     //data={data}
                     loading={loading}
@@ -57,7 +112,7 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                         ¿Olvidaste tu contraseña?
                       </a>
                     </div>
-                  </Form>
+                  </Form> */}
                   <hr />
                   <div className="text-center">
                     <p className="muted small">

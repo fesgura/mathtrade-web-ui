@@ -1,91 +1,118 @@
-import { useState, useEffect } from "react";
-import Section from "components/section";
-import { Card, CardBody, Button } from "reactstrap";
-import { Form, Input } from "components/form";
+<Form onSubmit={onSubmit} formStatus={formStatus} setFormStatus={setFormStatus}>
+  <Input
+    label="Nombre"
+    name="nombre"
+    placeholder="nombresss"
+    data={data}
+    formStatus={formStatus}
+    setFormStatus={setFormStatus}
+    validation={["required"]}
+    size="lg"
+    // before="A"
+    // after="A"
+  />
 
-const UserEdit = () => {
-  const [data, set_data] = useState({});
-
-  useEffect(() => {
-    setTimeout(() => {
-      set_data({ example: "pablo", chk: false, exampleRequired: "" });
-    }, 5000);
-  }, []);
-
-  const onSubmit = (da) => {
-    console.log("onSubmit", da);
-  };
-
-  return (
-    <Section title="User X" breadcrumbs={["users"]}>
-      <Card>
-        <CardBody>
-          <Form onSubmit={onSubmit} data={data} errorText="Please, Correct!!!">
-            <Input
-              type="select"
-              name="exampleSelect"
-              required
-              // size="lg"
-              label="ExampleSelect"
-              before="Q"
-              options={[
-                { value: "canada", text: "Canada" },
-                { value: "argentina", text: "Argentina" },
-                { value: "mexico", text: "Mexico" },
-              ]}
-            />
-            <Input
-              name="chk"
-              label="Color"
-              labelCheckbox="Pancita"
-              type="checkbox"
-              required
-            />
-            <Input name="example" size="" label="Color" />
-            <Input
-              type="radio"
-              name="exampleRadio"
-              required
-              //size="lg"
-              label="ExampleRadio"
-              options={[
-                { value: "canada", text: "Canada" },
-                { value: "argentina", text: "Argentina" },
-                { value: "mexico", text: "Mexico" },
-              ]}
-            />
-            <Input
-              name="chkb"
-              label="Switch"
-              labelCheckbox="Pancita"
-              type="switch"
-              required
-            />
-            <Input name="rrr" label="Rage" type="range" min="0" max="5" />
-            <Input
-              label="Email"
-              type="email"
-              name="exampleRequired"
-              required
-              placeholder="hola"
-              before="R"
-              size="lg"
-            />
-            <Input
-              label="Comment"
-              name="comment"
-              type="textarea"
-              required
-              placeholder="hola"
-              before="R"
-            />
-            <Button color="primary" size="lg" type="submit">
-              Enviar
-            </Button>
-          </Form>
-        </CardBody>
-      </Card>
-    </Section>
-  );
-};
-export default UserEdit;
+  <Input
+    label="Apellido"
+    name="apellido"
+    data={data}
+    formStatus={formStatus}
+    setFormStatus={setFormStatus}
+    size="lg"
+  />
+  <Input
+    label="Descripcion"
+    name="description"
+    type="textarea"
+    placeholder="Descripcion"
+    data={data}
+    formStatus={formStatus}
+    setFormStatus={setFormStatus}
+    //  validation={["required"]}
+    size="lg"
+    before="A"
+  />
+  <Input
+    label="Selector"
+    name="selector"
+    type="select"
+    data={data}
+    formStatus={formStatus}
+    setFormStatus={setFormStatus}
+    // validation={["required"]}
+    //size="lg"
+    options={[
+      { text: "Argentina", value: "axr" },
+      { text: "Brasil", value: "bxr" },
+    ]}
+    before="A"
+  />
+  <Input
+    label="rang"
+    name="rang"
+    type="range"
+    placeholder="Descripcion"
+    data={data}
+    formStatus={formStatus}
+    setFormStatus={setFormStatus}
+    size="lg"
+    before="A"
+    min="0"
+    max="8"
+  />
+  <Input
+    label="Se puede?"
+    labelCheckbox="A ver si se puede"
+    name="puede"
+    type="checkbox"
+    data={data}
+    formStatus={formStatus}
+    setFormStatus={setFormStatus}
+    //validation={["required"]}
+    //size="lg"
+  />
+  <Input
+    label="Se puede?"
+    labelCheckbox="A ver si se puede"
+    name="puede_switch"
+    type="switch"
+    data={data}
+    formStatus={formStatus}
+    setFormStatus={setFormStatus}
+    //validation={["required"]}
+    //size="lg"
+  />
+  <Input
+    label="Selector radio"
+    name="selector_radio"
+    type="radio"
+    data={data}
+    formStatus={formStatus}
+    setFormStatus={setFormStatus}
+    validation={["required"]}
+    //size="lg"
+    options={[
+      { text: "Argentina", value: "axr" },
+      { text: "Brasil", value: "bxr" },
+    ]}
+    before="A"
+  />
+  <Input
+    label="Email"
+    name="email"
+    type="email"
+    placeholder="nombresss"
+    data={data}
+    formStatus={formStatus}
+    setFormStatus={setFormStatus}
+    //validation={["required"]}
+    size="lg"
+    // before="A"
+    // after="A"
+  />
+  <div className="text-center py-4">
+    <Button color="primary" size="lg" type="submit">
+      Ingresar
+    </Button>
+  </div>
+</Form>;

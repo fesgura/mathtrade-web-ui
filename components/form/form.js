@@ -1,78 +1,44 @@
-import classNames from "classnames";
-import { useState, useEffect } from "react";
-import { useForm, FormProvider } from "react-hook-form";
-import { Alert } from "reactstrap";
-import { LoadingBox } from "components/loading";
+import { useCallback } from "react";
 
-// const isEmpty = (o) => {
-//   return Object.keys(o).length === 0 && o.constructor === Object;
-// };
+import { Form } from "reactstrap";
 
-const Form = ({
-  onSubmit,
-  data = {},
-  className,
-  errorText,
-  children,
-  footer = null,
-  respOnSave,
-  errors,
-  loading,
-}) => {
-  const methods = useForm({ defaultValues: data });
+const FormComp = ({ onSubmit, formStatus, setFormStatus, children }) => {
+  const onSubmitForm = useCallback(
+    (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const formProps = Object.fromEntries(formData);
 
-  const [showRespOnSave, set_howRespOnSave] = useState(false);
+      const formToSend = {};
 
-  // useEffect(() => {
-  //   methods.reset(data);
-  // }, [methods, data]);
+      let __SHOW_ERRORS__ = false;
 
-  useEffect(() => {
-    let timer = null;
-    if (respOnSave) {
-      set_howRespOnSave(true);
-      timer = setTimeout(() => {
-        set_howRespOnSave(false);
-      }, 1600);
-    }
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [respOnSave]);
+      for (let a in formProps) {
+        if (formStatus && formStatus[a] && formStatus[a].error) {
+          __SHOW_ERRORS__ = true;
+        } else {
+          if (a.indexOf("__excluded__") !== 0) {
+            formToSend[a] = formProps[a];
+          }
+        }
+      }
+      setFormStatus((obj) => {
+        return {
+          ...obj,
+          __SHOW_ERRORS__,
+        };
+      });
+      if (!__SHOW_ERRORS__) {
+        onSubmit(formToSend);
+      }
+    },
+    [onSubmit, formStatus, setFormStatus]
+  );
 
   return (
-    <div className={classNames("form-container", { loading })}>
-      {errors ? (
-        <Alert color="danger" className="text-center">
-          {errors.error}
-        </Alert>
-      ) : (
-        <FormProvider {...methods}>
-          <form
-            onSubmit={methods.handleSubmit(onSubmit)}
-            className={classNames("form-react", className)}
-            noValidate
-          >
-            {children}
-            {/* {errorText && !isEmpty(methods.formState.errors) ? (
-              <Alert color="danger" className="text-center">
-                {errorText}
-              </Alert>
-            ) : null} */}
-
-            {showRespOnSave ? (
-              <Alert color="success" className="text-center">
-                Data saved!
-              </Alert>
-            ) : null}
-            {footer}
-          </form>
-        </FormProvider>
-      )}
-
-      {loading ? <LoadingBox /> : null}
-    </div>
+    <form onSubmit={onSubmitForm} noValidate>
+      {children}
+    </form>
   );
 };
-export default Form;
+export default FormComp;

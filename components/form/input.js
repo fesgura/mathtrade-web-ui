@@ -1,68 +1,86 @@
 import { useId } from "react";
-import { useFormContext } from "react-hook-form";
+import { Input } from "reactstrap";
 import classNames from "classnames";
 
 const twoPointsReg = new RegExp(":", "g");
 
-const validateMessage = {
-  required: "Este campo es requerido",
-  email: "Email inválido",
+const InputGroup = ({
+  size,
+  error,
+  before,
+  beforeButton,
+  after,
+  afterButton,
+  children,
+}) => {
+  return (
+    <div
+      className={classNames(
+        "input-group",
+        size ? `input-group-${size}` : "",
+        error ? "is-invalid" : ""
+      )}
+    >
+      {before ? <span className="input-group-text">{before}</span> : null}
+      {beforeButton ? beforeButton : null}
+
+      {children}
+
+      {after ? <span className="input-group-text">{after}</span> : null}
+      {afterButton ? afterButton : null}
+    </div>
+  );
 };
 
-const Input = ({
+const InputComp = ({
+  name,
+  value,
+  onChange,
+  error,
+  required,
+  //
+  type,
   label,
-  labelFloating,
-  type = "text",
-  name = "",
   size,
   className,
   classNameContainer,
-  validation,
-  required = false,
-  readOnly,
-  after = null,
-  before = null,
-  afterButton = null,
-  beforeButton = null,
-  onChange = () => {},
-  options = [],
+  after,
+  before,
+  afterButton,
+  beforeButton,
+  options,
   labelCheckbox,
+  readOnly,
+  placeholder,
   ...rest
 }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext();
-
   const id = useId("a").replace(twoPointsReg, "");
-
   let inputContent = null;
 
   switch (type) {
     case "select":
       inputContent = (
-        <div
-          className={classNames(
-            "input-group",
-            size ? `input-group-${size}` : ""
-          )}
+        <InputGroup
+          size={size}
+          error={error}
+          before={before}
+          beforeButton={beforeButton}
+          after={after}
+          afterButton={afterButton}
         >
-          {before ? <span className="input-group-text">{before}</span> : null}
-          {beforeButton ? beforeButton : null}
           <select
-            {...register(name, {
-              ...(required ? { required: validateMessage.required } : {}),
-              ...(validation ? validation : {}),
-            })}
+            name={name}
+            value={value}
+            onChange={onChange}
+            type={type}
             className={classNames(
               "form-select",
-              size ? `form-select-${size}` : "",
-              errors && errors[name] ? "is-invalid" : "",
+              error ? "is-invalid" : "",
               className
             )}
-            onChange={onChange}
             {...rest}
           >
+            <option value="">{placeholder || "Selecciona..."}</option>
             {options.map((opt) => {
               return (
                 <option value={opt.value} key={opt.value}>
@@ -71,9 +89,7 @@ const Input = ({
               );
             })}
           </select>
-          {after ? <span className="input-group-text">{after}</span> : null}
-          {afterButton ? afterButton : null}
-        </div>
+        </InputGroup>
       );
       break;
     case "checkbox":
@@ -88,14 +104,23 @@ const Input = ({
           <input
             className={classNames(
               "form-check-input",
-              errors && errors[name] ? "is-invalid" : ""
+              error ? "is-invalid" : ""
             )}
-            {...register(name, {
-              ...(required ? { required: validateMessage.required } : {}),
-            })}
             type="checkbox"
             id={`checkbox-${id}`}
+            checked={value}
+            onChange={(e) => {
+              const a = {
+                target: { value: e.target.checked },
+              };
+              onChange(a);
+            }}
             {...rest}
+          />
+          <input
+            type="hidden"
+            value={value === "" ? "false" : value}
+            name={name}
           />
           {labelCheckbox ? (
             <label className="form-check-label" htmlFor={`checkbox-${id}`}>
@@ -114,13 +139,11 @@ const Input = ({
                 <input
                   className={classNames(
                     "form-check-input",
-                    errors && errors[name] ? "is-invalid" : ""
+                    error ? "is-invalid" : ""
                   )}
-                  {...register(name, {
-                    ...(required ? { required: validateMessage.required } : {}),
-                  })}
-                  name={name}
+                  name={"__excluded__" + name}
                   value={opt.value}
+                  onChange={onChange}
                   type="radio"
                   id={`radio-${id}-${k}-${opt.value}`}
                   {...rest}
@@ -134,91 +157,73 @@ const Input = ({
               </div>
             );
           })}
+          <input type="hidden" name={name} value={value} />
         </>
       );
       break;
     case "range":
       inputContent = (
         <input
+          name={name}
           type="range"
           className="form-range"
-          {...register(name, {
-            ...(required ? { required: validateMessage.required } : {}),
-          })}
+          value={value}
+          onChange={onChange}
           {...rest}
         />
       );
       break;
     case "textarea":
       inputContent = (
-        <div
-          className={classNames(
-            "input-group",
-            size ? `input-group-${size}` : ""
-          )}
+        <InputGroup
+          size={size}
+          error={error}
+          before={before}
+          beforeButton={beforeButton}
+          after={after}
+          afterButton={afterButton}
         >
-          {before ? <span className="input-group-text">{before}</span> : null}
-          {beforeButton ? beforeButton : null}
-
           <textarea
-            id={id + "-textarea"}
-            {...register(name, {
-              ...(required ? { required: validateMessage.required } : {}),
-              ...(validation ? validation : {}),
-            })}
+            name={name}
+            value={value}
+            onChange={onChange}
+            type={type}
             className={classNames(
               readOnly ? "form-control-plaintext" : "form-control",
-              type === "color" ? "form-control-color" : "",
-              errors && errors[name] ? "is-invalid" : ""
+              error ? "is-invalid" : "",
+              className
             )}
-            //valid={false}
             readOnly={readOnly}
-            onChange={onChange}
             {...rest}
           />
-          {after ? <span className="input-group-text">{after}</span> : null}
-          {afterButton ? afterButton : null}
-        </div>
+        </InputGroup>
       );
       break;
     default:
       inputContent = (
-        <div
-          className={classNames(
-            "input-group",
-            size ? `input-group-${size}` : ""
-          )}
+        <InputGroup
+          size={size}
+          error={error}
+          before={before}
+          beforeButton={beforeButton}
+          after={after}
+          afterButton={afterButton}
         >
-          {before ? <span className="input-group-text">{before}</span> : null}
-          {beforeButton ? beforeButton : null}
-
           <input
+            name={name}
+            value={value}
+            onChange={onChange}
             type={type}
-            id={id + "-input"}
-            {...register(name, {
-              ...(required ? { required: validateMessage.required } : {}),
-              ...(validation ? validation : {}),
-              ...(type === "email"
-                ? {
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: validateMessage.email,
-                    },
-                  }
-                : {}),
-            })}
             className={classNames(
               readOnly ? "form-control-plaintext" : "form-control",
               type === "color" ? "form-control-color" : "",
-              errors && errors[name] ? "is-invalid" : ""
+              error ? "is-invalid" : "",
+              className
             )}
             readOnly={readOnly}
-            onChange={onChange}
             {...rest}
           />
-          {after ? <span className="input-group-text">{after}</span> : null}
-          {afterButton ? afterButton : null}
-        </div>
+        </InputGroup>
       );
   }
 
@@ -231,13 +236,13 @@ const Input = ({
         </label>
       ) : null}
       {inputContent}
-      {errors && errors[name] && (
+      {error ? (
         <div className="invalid-feedback" style={{ display: "block" }}>
-          {errors[name].message}
+          {error}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
 
-export default Input;
+export default InputComp;
