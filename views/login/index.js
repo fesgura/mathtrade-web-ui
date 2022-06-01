@@ -29,7 +29,7 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
   }
 */
   return (
-    <PublicLayout>
+    <PublicLayout loading={loading}>
       <Row className="justify-content-center">
         <Col lg={10} md={6}>
           <Card>

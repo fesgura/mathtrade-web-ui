@@ -1,7 +1,8 @@
 import Head from "next/head";
 import Footer from "components/footer";
+import { LoadingScreen } from "components/loading";
 
-const PublicLayout = ({ title, children }) => {
+const PublicLayout = ({ title, loading, children }) => {
   return (
     <>
       <Head>
@@ -94,6 +95,7 @@ const PublicLayout = ({ title, children }) => {
           </div>
         </div>
       </main>
+      {loading ? <LoadingScreen /> : null}
     </>
   );
 };

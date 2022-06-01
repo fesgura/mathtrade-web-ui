@@ -1,4 +1,3 @@
-import { Container } from "reactstrap";
 import classNames from "classnames";
 
 const Footer = ({ absolute, className }) => {
@@ -6,7 +5,7 @@ const Footer = ({ absolute, className }) => {
     <footer className={classNames("main-footer", { absolute }, className)}>
       <div className="main-container">
         <div className="main-footer_container">
-          Copyright 2022 - MathTrade Argentina
+          Copyright {new Date().getFullYear()} - MathTrade Argentina
         </div>
       </div>
     </footer>

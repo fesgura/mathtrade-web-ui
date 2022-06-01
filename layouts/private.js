@@ -4,33 +4,37 @@ import Head from "next/head";
 import { useApi, BggUserService } from "api";
 import Header from "components/header";
 import Footer from "components/footer";
-import { LoadingPage } from "components/loading";
+import { LoadingPage, LoadingScreen } from "components/loading";
 
-const PrivateLayout = ({ title, children }) => {
+const PrivateLayout = ({ title, children, loading }) => {
   const [logged, set_logged] = useState(false);
-  //const [loading, set_loading] = useState(false);
+  //const [loadingPrivate, set_loadingPrivate] = useState(false);
 
-  const [fetchData, data, loading] = useApi({
+  const [fetchDataPrivate, dataPrivate, loadingPrivate] = useApi({
     promise: BggUserService.get,
     forBGG: true,
   });
 
   useEffect(() => {
     set_logged(false);
-    fetchData("davicazuxxx");
-  }, [fetchData]);
+    fetchDataPrivate("davicazuxxx");
+  }, [fetchDataPrivate]);
 
   useEffect(() => {
-    if (!loading && data) {
-      if (data && data.user && typeof data.user.id !== "undefined") {
-        if (data.user.id !== "") {
+    if (!loadingPrivate && dataPrivate) {
+      if (
+        dataPrivate &&
+        dataPrivate.user &&
+        typeof dataPrivate.user.id !== "undefined"
+      ) {
+        if (dataPrivate.user.id !== "") {
           set_logged(true);
         } else {
           Router.push("/login");
         }
       }
     }
-  }, [data, loading]);
+  }, [dataPrivate, loadingPrivate]);
 
   // useEffect(() => {
   //   set_loading(true);
@@ -47,7 +51,6 @@ const PrivateLayout = ({ title, children }) => {
 
   return (
     <>
-      <LoadingPage loading={loading} />
       <Head>
         <title>{title ? `${title} | ` : ""}MathTrade Argentina</title>
         <link rel="icon" href="/favicon.ico" />
@@ -128,13 +131,16 @@ const PrivateLayout = ({ title, children }) => {
         />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-
+      <LoadingPage loading={loadingPrivate} />
       {logged ? (
-        <main className="wrap">
-          <Header />
-          <div className="main-container py-3">{children}</div>
-          <Footer absolute />
-        </main>
+        <>
+          <main className="wrap">
+            <Header />
+            <div className="main-container py-3">{children}</div>
+            <Footer absolute />
+          </main>
+          {loading ? <LoadingScreen /> : null}
+        </>
       ) : null}
     </>
   );
