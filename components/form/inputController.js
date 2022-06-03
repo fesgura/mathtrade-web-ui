@@ -1,5 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
-import { Input } from "reactstrap";
+import { useState, useEffect } from "react";
 import applyValidations from "./validations";
 import InputComp from "./input";
 
@@ -16,6 +15,7 @@ const InputController = ({
   className,
   classNameContainer,
   after = null,
+  icon = null,
   before = null,
   afterButton = null,
   beforeButton = null,
@@ -23,6 +23,7 @@ const InputController = ({
   labelCheckbox,
   readOnly = false,
   placeholder = "",
+  question = null,
   ...rest
 }) => {
   const [initial, setInitial] = useState(true);
@@ -105,6 +106,7 @@ const InputController = ({
       className={className}
       classNameContainer={classNameContainer}
       after={after}
+      icon={icon}
       before={before}
       afterButton={afterButton}
       beforeButton={beforeButton}
@@ -112,6 +114,7 @@ const InputController = ({
       labelCheckbox={labelCheckbox}
       readOnly={readOnly}
       placeholder={placeholder}
+      question={question}
       {...rest}
     />
   );

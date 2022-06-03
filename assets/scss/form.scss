@@ -1,81 +1,104 @@
-
-.form-container{
+.form-container {
   position: relative;
- .form-react{
-    transition: opacity .15s;
+  .form-react {
+    transition: opacity 0.15s;
   }
 
-  &.loading{
-    .form-react{
+  &.loading {
+    .form-react {
       opacity: 0.3;
     }
   }
 }
 
-.input-container{
+.input-container {
   margin-bottom: 1.4em;
 }
 
-.form-label{
+.form-label {
   font-size: 14px;
   font-weight: bold;
   line-height: 1;
   margin-bottom: 0.4em;
 
-  .req{
+  .req {
     display: inline-block;
     padding: 0 0.2em;
-    color:$primary;
+    color: $primary;
   }
 }
 
 .form-control,
 .form-select,
-input,textarea,select{
-  &:focus{
+input,
+textarea,
+select {
+  &:focus {
     box-shadow: none !important;
     outline: none !important;
   }
 }
 
-textarea.form-control{
+textarea.form-control {
   min-height: 120px;
 }
 
 select,
-.form-check-label{
+.form-check-label {
   cursor: pointer;
 }
 
-::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+::-webkit-input-placeholder {
+  /* Chrome/Opera/Safari */
   font-style: italic;
   opacity: 0.6 !important;
 }
-::-moz-placeholder { /* Firefox 19+ */
+::-moz-placeholder {
+  /* Firefox 19+ */
   font-style: italic;
   opacity: 0.6 !important;
 }
-::placeholder { /* Firefox 18- */
+::placeholder {
+  /* Firefox 18- */
   font-style: italic;
   opacity: 0.6 !important;
 }
 
-.input-group{
-  &.with-before{
-    input,select{
+.input-group {
+  &.with-before {
+    input,
+    select {
       border-left: none;
     }
   }
-  &.with-after{
-    input,select{
+  &.with-after {
+    input,
+    select {
       border-right: none;
     }
   }
 
-  &.is-invalid{
-    .input-group-text{
+  &.is-invalid {
+    .input-group-text {
       border-color: $danger;
       color: $danger;
     }
   }
+}
+
+.form-question {
+  $w: 18px;
+
+  display: inline-block;
+  width: $w;
+  height: $w;
+  line-height: $w;
+  text-align: center;
+  background-color: $secondary;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-left: 5px;
 }

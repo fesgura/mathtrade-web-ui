@@ -1,6 +1,7 @@
 import { useId } from "react";
-import { Input } from "reactstrap";
+import { UncontrolledTooltip } from "reactstrap";
 import classNames from "classnames";
+import Icon from "components/icon";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -45,6 +46,7 @@ const InputComp = ({
   className,
   classNameContainer,
   after,
+  icon,
   before,
   afterButton,
   beforeButton,
@@ -52,10 +54,13 @@ const InputComp = ({
   labelCheckbox,
   readOnly,
   placeholder,
+  question,
   ...rest
 }) => {
   const id = useId("a").replace(twoPointsReg, "");
   let inputContent = null;
+
+  const beforeContent = icon ? <Icon type={icon} /> : null;
 
   switch (type) {
     case "select":
@@ -63,7 +68,7 @@ const InputComp = ({
         <InputGroup
           size={size}
           error={error}
-          before={before}
+          before={beforeContent}
           beforeButton={beforeButton}
           after={after}
           afterButton={afterButton}
@@ -178,7 +183,7 @@ const InputComp = ({
         <InputGroup
           size={size}
           error={error}
-          before={before}
+          before={beforeContent}
           beforeButton={beforeButton}
           after={after}
           afterButton={afterButton}
@@ -204,7 +209,7 @@ const InputComp = ({
         <InputGroup
           size={size}
           error={error}
-          before={before}
+          before={beforeContent}
           beforeButton={beforeButton}
           after={after}
           afterButton={afterButton}
@@ -233,6 +238,19 @@ const InputComp = ({
         <label className="form-label">
           {label}
           {required ? <span className="req">*</span> : null}
+          {question ? (
+            <>
+              <span className="form-question" id={`tt-label-q-${id}`}>
+                ?
+              </span>
+              <UncontrolledTooltip
+                //placement="right"
+                target={`tt-label-q-${id}`}
+              >
+                {question}
+              </UncontrolledTooltip>
+            </>
+          ) : null}
         </label>
       ) : null}
       {inputContent}

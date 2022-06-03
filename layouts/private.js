@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Router from "next/router";
+import { publicRoutes } from "config/routes";
 import Head from "next/head";
 import { useApi, BggUserService } from "api";
 import Header from "components/header";
@@ -30,7 +31,7 @@ const PrivateLayout = ({ title, children, loading }) => {
         if (dataPrivate.user.id !== "") {
           set_logged(true);
         } else {
-          Router.push("/login");
+          Router.push(`/${publicRoutes.signin.path}`);
         }
       }
     }

@@ -11,6 +11,12 @@ const validationTypes = {
     }
     return null;
   },
+  phone: (value) => {
+    if (value && !/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g.test(value)) {
+      return "Completa el teléfono correctamente";
+    }
+    return null;
+  },
 };
 
 const applyValidations = (value, validation, type) => {
@@ -21,6 +27,9 @@ const applyValidations = (value, validation, type) => {
   switch (type) {
     case "email":
       validationsToApply.push("email");
+      break;
+    case "phone":
+      validationsToApply.push("phone");
       break;
     default:
     //

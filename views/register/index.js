@@ -36,9 +36,9 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
               <Col lg={6}>
                 <CardBody className="p-5">
                   <div className="text-center mb-4">
-                    <h1>Hola!</h1>
+                    <h1>Creá tu cuenta</h1>
                     <p className="muted">
-                      Ingresa con tu nombre email y contraseña
+                      Completá los datos para crear tu cuenta
                     </p>
                   </div>
                   <Form
@@ -46,6 +46,17 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                     formStatus={formStatus}
                     setFormStatus={setFormStatus}
                   >
+                    <Input
+                      label="Nombre y apellido"
+                      name="name"
+                      placeholder="Nombre y apellido"
+                      formStatus={formStatus}
+                      setFormStatus={setFormStatus}
+                      validation={["required"]}
+                      size="lg"
+                      icon="user"
+                      //question="Ayudita"
+                    />
                     <Input
                       label="Email"
                       name="email"
@@ -55,69 +66,44 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       setFormStatus={setFormStatus}
                       validation={["required"]}
                       size="lg"
-                      before={<Icon type="user" />}
+                      icon="envelope"
                     />
                     <Input
-                      label="Contraseña"
-                      name="password"
-                      type="password"
+                      label="Teléfono"
+                      name="phone"
+                      type="phone"
+                      placeholder="Teléfono"
                       formStatus={formStatus}
                       setFormStatus={setFormStatus}
                       validation={["required"]}
                       size="lg"
-                      before={<Icon type="key" />}
+                      icon="phone"
+                    />
+                    <Input
+                      label="Telegram"
+                      name="telegram"
+                      placeholder="Telegram"
+                      formStatus={formStatus}
+                      setFormStatus={setFormStatus}
+                      validation={["required"]}
+                      size="lg"
+                      icon="telegram"
                     />
 
                     <div className="text-center py-4">
                       <Button color="primary" size="lg" type="submit">
-                        Ingresar
+                        Crear cuenta
                       </Button>
                     </div>
                   </Form>
-                  {/* <Form
-                    onSubmit={onSubmit}
-                    //data={data}
-                    loading={loading}
-                    respOnSave={respOnSave}
-                    errors={errors}
-                    errorText="Please, Correct!!!"
-                    footer={
-                      <div className="text-center py-4">
-                        <Button color="primary" size="lg" type="submit">
-                          Ingresar
-                        </Button>
-                      </div>
-                    }
-                  >
-                    <Input
-                      name="email"
-                      label="Email"
-                      type="email"
-                      required
-                      size="lg"
-                    />
-                    <Input
-                      name="password"
-                      label="Contraseña"
-                      type="password"
-                      required
-                      size="lg"
-                      classNameContainer="mb-0"
-                    />
-                    <div className="text-end">
-                      <a href="#" className="smallest">
-                        ¿Olvidaste tu contraseña?
-                      </a>
-                    </div>
-                  </Form> */}
                   <hr />
                   <div className="text-center">
                     <p className="muted small">
-                      Si todavía no creaste tu cuenta, podés hacerlo aquí:
+                      ¿Ya tenés cuenta, ingresá aquí:
                     </p>
-                    <Link href={`/${publicRoutes.signup.path}`}>
+                    <Link href={`/${publicRoutes.signin.path}`}>
                       <Button color="secondary" size="sm" outline>
-                        Registrate
+                        Ingresar
                       </Button>
                     </Link>
                   </div>
