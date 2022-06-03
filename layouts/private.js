@@ -8,34 +8,34 @@ import Footer from "components/footer";
 import { LoadingPage, LoadingScreen } from "components/loading";
 
 const PrivateLayout = ({ title, children, loading }) => {
-  const [logged, set_logged] = useState(false);
+  const [logged, set_logged] = useState(true);
   //const [loadingPrivate, set_loadingPrivate] = useState(false);
 
-  const [fetchDataPrivate, dataPrivate, loadingPrivate] = useApi({
-    promise: BggUserService.get,
-    forBGG: true,
-  });
+  // const [fetchDataPrivate, dataPrivate, loadingPrivate] = useApi({
+  //   promise: BggUserService.get,
+  //   forBGG: true,
+  // });
 
-  useEffect(() => {
-    set_logged(false);
-    fetchDataPrivate("davicazuxxx");
-  }, [fetchDataPrivate]);
+  // useEffect(() => {
+  //   set_logged(false);
+  //   fetchDataPrivate("davicazuxxx");
+  // }, [fetchDataPrivate]);
 
-  useEffect(() => {
-    if (!loadingPrivate && dataPrivate) {
-      if (
-        dataPrivate &&
-        dataPrivate.user &&
-        typeof dataPrivate.user.id !== "undefined"
-      ) {
-        if (dataPrivate.user.id !== "") {
-          set_logged(true);
-        } else {
-          Router.push(`/${publicRoutes.signin.path}`);
-        }
-      }
-    }
-  }, [dataPrivate, loadingPrivate]);
+  // useEffect(() => {
+  //   if (!loadingPrivate && dataPrivate) {
+  //     if (
+  //       dataPrivate &&
+  //       dataPrivate.user &&
+  //       typeof dataPrivate.user.id !== "undefined"
+  //     ) {
+  //       if (dataPrivate.user.id !== "") {
+  //         set_logged(true);
+  //       } else {
+  //         Router.push(`/${publicRoutes.signin.path}`);
+  //       }
+  //     }
+  //   }
+  // }, [dataPrivate, loadingPrivate]);
 
   // useEffect(() => {
   //   set_loading(true);
@@ -132,7 +132,7 @@ const PrivateLayout = ({ title, children, loading }) => {
         />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <LoadingPage loading={loadingPrivate} />
+      <LoadingPage loading={false} />
       {logged ? (
         <>
           <main className="wrap">

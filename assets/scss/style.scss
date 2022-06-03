@@ -1,22 +1,22 @@
+@import "variables";
 
+@import "common";
+@import "logo";
+@import "text";
+@import "avatar";
+@import "bg";
+@import "card";
+@import "button";
+@import "form";
+@import "dropdown";
+@import "pagination";
+@import "loading/index.scss";
+@import "header";
+@import "footer";
+@import "section";
+@import "slider";
 
-@import 'variables';
+@import "layouts/public";
+@import "layouts/private";
 
-@import 'common';
-@import 'logo';
-@import 'text';
-@import 'avatar';
-@import 'bg';
-@import 'card';
-@import 'button';
-@import 'form';
-@import 'dropdown';
-@import 'pagination';
-@import 'loading/index.scss';
-@import 'header';
-@import 'footer';
-@import 'section';
-@import 'slider';
-@import 'layouts/private';
-
-@import 'pages/login';
+@import "pages/login";

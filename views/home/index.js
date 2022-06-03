@@ -1,7 +1,7 @@
 import PrivateLayout from "layouts/private";
 
 const HomeView = () => {
-  return <PrivateLayout>Home</PrivateLayout>;
+  return <PrivateLayout></PrivateLayout>;
 };
 
 export default HomeView;

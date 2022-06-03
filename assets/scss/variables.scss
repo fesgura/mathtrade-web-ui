@@ -1,25 +1,30 @@
 // COLORS
 
-$primary:rgb(206, 0, 137);
-$secondary:rgb(34,193,195);
+$primary: rgb(206, 0, 137);
+$secondary: rgb(34, 193, 195);
 
-$bg-body-1: rgb(27,86,135);
-$bg-body-2: rgb(34,193,195);
+$bg-body-1: rgb(27, 86, 135);
+$bg-body-2: rgb(34, 193, 195);
 $bg-body-3: rgb(64, 0, 124);
 
-$bg-primary:#279;
-$bg-secondary:#279;
+$bg-primary: #279;
+$bg-secondary: #279;
 
-$danger:#dc3545;
+$danger: #dc3545;
+
+$text-menu-color: #444;
 
 // SIZES
-$main-header-height:60px;
-$main-footer-height:40px;
-$main-container-width:1300px;
+$main-header-height: 60px;
+$main-footer-height: 40px;
+$main-container-width: 1300px;
+
+// mobile limit
+$mobile_limit: 992px;
 
 // FONTS
-$font: 'Noto Sans', sans-serif;
-$font-alt: 'Comfortaa', sans-serif;
+$font: "Noto Sans", sans-serif;
+$font-alt: "Comfortaa", sans-serif;
 
 @mixin font-alt {
   font-family: $font-alt;
