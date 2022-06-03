@@ -5,7 +5,6 @@ import PublicLayout from "layouts/public";
 import { Card, CardBody, Button, Col, Row } from "reactstrap";
 import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
-import Icon from "components/icon";
 
 const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
   const [formStatus, setFormStatus] = useState({});
@@ -67,7 +66,6 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       size="lg"
                       icon="key"
                     />
-
                     <div className="text-center py-4">
                       <Button color="primary" size="lg" type="submit">
                         Ingresar

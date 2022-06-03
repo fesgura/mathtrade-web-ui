@@ -37,7 +37,6 @@ const applyValidations = (value, validation, type) => {
 
   if (validationsToApply.length) {
     validationsToApply.forEach((name) => {
-      console.log(typeof name);
       if (typeof name === "string" && validationTypes[name]) {
         error = error || validationTypes[name](value);
       }

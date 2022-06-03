@@ -84,7 +84,6 @@ const PublicLayout = ({ title, loading, children }) => {
         />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-
       <main className="wrap-public">
         <div className="v-centered">
           <div className="v-centered_col">

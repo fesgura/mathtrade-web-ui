@@ -1,15 +1,47 @@
+import { useCallback } from "react";
 import NewPasswordView from "views/newPassword";
+import {
+  GoogleReCaptchaProvider,
+  useGoogleReCaptcha,
+} from "react-google-recaptcha-v3";
+import { google_recaptcha_v3_client_key } from "config";
 
 const NewPassword = () => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+  const handleSubmit = useCallback(
+    async (formData) => {
+      if (!executeRecaptcha) {
+        console.log("Execute recaptcha not yet available");
+        return;
+      }
+      const token = await executeRecaptcha("newPassword");
+
+      formData.recaptcha_token = token;
+
+      delete formData.password2;
+      console.log("formToSend", formData);
+    },
+    [executeRecaptcha]
+  );
   return (
     <NewPasswordView
-      onSubmit={(a) => {
-        console.log(a);
-      }}
+      onSubmit={handleSubmit}
       //loading={true}
       respOnSave={() => {}}
     />
   );
 };
 
-export default NewPassword;
+const RecaptchaContainer = () => {
+  return (
+    <GoogleReCaptchaProvider
+      reCaptchaKey={google_recaptcha_v3_client_key}
+      language="es"
+    >
+      <NewPassword />
+    </GoogleReCaptchaProvider>
+  );
+};
+
+export default RecaptchaContainer;
