@@ -55,7 +55,7 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       setFormStatus={setFormStatus}
                       validation={["required"]}
                       size="lg"
-                      before={<Icon type="user" />}
+                      icon="envelope"
                     />
                     <Input
                       label="Contraseña"
@@ -65,7 +65,7 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       setFormStatus={setFormStatus}
                       validation={["required"]}
                       size="lg"
-                      before={<Icon type="key" />}
+                      icon="key"
                     />
 
                     <div className="text-center py-4">
@@ -74,42 +74,6 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       </Button>
                     </div>
                   </Form>
-                  {/* <Form
-                    onSubmit={onSubmit}
-                    //data={data}
-                    loading={loading}
-                    respOnSave={respOnSave}
-                    errors={errors}
-                    errorText="Please, Correct!!!"
-                    footer={
-                      <div className="text-center py-4">
-                        <Button color="primary" size="lg" type="submit">
-                          Ingresar
-                        </Button>
-                      </div>
-                    }
-                  >
-                    <Input
-                      name="email"
-                      label="Email"
-                      type="email"
-                      required
-                      size="lg"
-                    />
-                    <Input
-                      name="password"
-                      label="Contraseña"
-                      type="password"
-                      required
-                      size="lg"
-                      classNameContainer="mb-0"
-                    />
-                    <div className="text-end">
-                      <a href="#" className="smallest">
-                        ¿Olvidaste tu contraseña?
-                      </a>
-                    </div>
-                  </Form> */}
                   <hr />
                   <div className="text-center">
                     <p className="muted small">
