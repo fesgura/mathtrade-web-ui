@@ -5,4 +5,7 @@ export const publicRoutes = {
   signup: {
     path: "signup",
   },
+  newPassword: {
+    path: "new-password",
+  },
 };

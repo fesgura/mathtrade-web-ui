@@ -37,8 +37,12 @@ const applyValidations = (value, validation, type) => {
 
   if (validationsToApply.length) {
     validationsToApply.forEach((name) => {
-      if (validationTypes[name]) {
+      console.log(typeof name);
+      if (typeof name === "string" && validationTypes[name]) {
         error = error || validationTypes[name](value);
+      }
+      if (typeof name === "function") {
+        error = error || name.apply(null, [value]);
       }
     });
   }
