@@ -137,7 +137,7 @@ const PrivateLayout = ({ title, children, loading }) => {
         <>
           <main className="wrap">
             <Header />
-            <div className="main-container py-3">{children}</div>
+            <div className="main-container pt-5 py-3">{children}</div>
             <Footer absolute />
           </main>
           {loading ? <LoadingScreen /> : null}

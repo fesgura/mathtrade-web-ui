@@ -1,0 +1,20 @@
+.menu-horizontal {
+  .menu-horizontal-item {
+    display: block;
+    text-align: center;
+    line-height: 2.4em;
+    font-size: 16px;
+    text-decoration: none;
+    color: $text-muted;
+    margin-bottom: 5px;
+    border-radius: 1.2em;
+
+    &.current {
+      color: #000;
+      font-weight: bold;
+      background-color: $secondary;
+      color: #fff;
+      cursor: default;
+    }
+  }
+}
