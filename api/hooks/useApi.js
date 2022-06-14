@@ -13,13 +13,14 @@ const handlePromise = (promise) =>
 const useApi = ({
   initialState = null,
   promise,
-  toggleErrorAlert = () => {},
+  //toggleErrorAlert = () => {},
   format = (j) => j,
   forBGG = false,
   conditional = true,
   afterLoad = null,
 }) => {
   const [data, setData] = useState(initialState);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [dataLoading, setDataLoading] = useState(false);
 
   const fetchData = useCallback(
@@ -32,7 +33,7 @@ const useApi = ({
         setDataLoading(false);
 
         if (!response.ok) {
-          return toggleErrorAlert(errors);
+          setErrorMessage(errors);
         }
         const jsonData = forBGG
           ? format(xmlParser(responseData), props)
@@ -51,6 +52,6 @@ const useApi = ({
     [afterLoad, conditional] //eslint-disable-line
   );
 
-  return [fetchData, data, dataLoading];
+  return [fetchData, data, dataLoading, errorMessage];
 };
 export default useApi;

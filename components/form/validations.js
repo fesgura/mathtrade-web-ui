@@ -26,10 +26,14 @@ const applyValidations = (value, validation, type) => {
 
   switch (type) {
     case "email":
-      validationsToApply.push("email");
+      if (validationsToApply.indexOf("email") < 0) {
+        validationsToApply.push("email");
+      }
       break;
     case "phone":
-      validationsToApply.push("phone");
+      if (validationsToApply.indexOf("phone") < 0) {
+        validationsToApply.push("phone");
+      }
       break;
     default:
     //

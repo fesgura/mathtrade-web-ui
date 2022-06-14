@@ -8,7 +8,7 @@ import Footer from "components/footer";
 import { LoadingPage, LoadingScreen } from "components/loading";
 
 const PrivateLayout = ({ title, children, loading }) => {
-  const [logged, set_logged] = useState(true);
+  const [logged, set_logged] = useState(false);
   //const [loadingPrivate, set_loadingPrivate] = useState(false);
 
   // const [fetchDataPrivate, dataPrivate, loadingPrivate] = useApi({
@@ -20,6 +20,10 @@ const PrivateLayout = ({ title, children, loading }) => {
   //   set_logged(false);
   //   fetchDataPrivate("davicazuxxx");
   // }, [fetchDataPrivate]);
+
+  useEffect(() => {
+    Router.push(`/${publicRoutes.signin.path}`);
+  }, []);
 
   // useEffect(() => {
   //   if (!loadingPrivate && dataPrivate) {

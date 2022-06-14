@@ -43,6 +43,7 @@ const InputComp = ({
   type,
   label,
   size,
+  loading,
   className,
   classNameContainer,
   after,
@@ -80,13 +81,20 @@ const InputComp = ({
             type={type}
             className={classNames(
               "form-select",
-              error ? "is-invalid" : "",
+              {
+                "is-invalid": error,
+              },
               className
             )}
             {...rest}
           >
-            <option value="">{placeholder || "Selecciona..."}</option>
+            {loading ? null : (
+              <option value="">{placeholder || "Selecciona..."}</option>
+            )}
             {options.map((opt) => {
+              if (loading) {
+                return null;
+              }
               return (
                 <option value={opt.value} key={opt.value}>
                   {opt.text}
@@ -94,6 +102,11 @@ const InputComp = ({
               );
             })}
           </select>
+          {loading ? (
+            <div className="input-loading">
+              <Icon type="refresh fa-spin" />
+            </div>
+          ) : null}
         </InputGroup>
       );
       break;

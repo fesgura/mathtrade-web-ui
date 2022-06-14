@@ -102,3 +102,13 @@ select,
   cursor: pointer;
   margin-left: 5px;
 }
+.input-group {
+  .input-loading {
+    position: absolute;
+    top: 50%;
+    left: 60px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    opacity: 0.6;
+  }
+}

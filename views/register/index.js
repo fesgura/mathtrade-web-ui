@@ -1,29 +1,22 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { publicRoutes } from "config/routes";
 import PublicLayout from "layouts/public";
 import { Card, CardBody, Button, Col, Row } from "reactstrap";
 import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
-import Icon from "components/icon";
+import { locationsToOptions } from "utils";
 
-const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
+const LoginView = ({
+  dataInitial = {},
+  loading,
+  dataLocations,
+  loadingLocations,
+  onSubmit,
+  respOnSave,
+}) => {
   const [formStatus, setFormStatus] = useState({});
-  /*
-  {
-    nombre : {
-      value:'',
-      validation:[],
-      error:null
-    },
-    apellido : {
-      value:'',
-      validation:[],
-      error:null
-    },
-    __SHOW_ERRORS__:false
-  }
-*/
+
   return (
     <PublicLayout loading={loading}>
       <Row className="justify-content-center">
@@ -47,9 +40,10 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                     setFormStatus={setFormStatus}
                   >
                     <Input
-                      label="Nombre y apellido"
-                      name="name"
-                      placeholder="Nombre y apellido"
+                      data={dataInitial}
+                      label="Nombre"
+                      name="first_name"
+                      placeholder="Nombre"
                       formStatus={formStatus}
                       setFormStatus={setFormStatus}
                       validation={["required"]}
@@ -58,6 +52,19 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       //question="Ayudita"
                     />
                     <Input
+                      data={dataInitial}
+                      label="Apellido"
+                      name="last_name"
+                      placeholder="Apellido"
+                      formStatus={formStatus}
+                      setFormStatus={setFormStatus}
+                      validation={["required"]}
+                      size="lg"
+                      icon="user"
+                      //question="Ayudita"
+                    />
+                    <Input
+                      data={dataInitial}
                       label="Email"
                       name="email"
                       type="email"
@@ -69,6 +76,7 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       icon="envelope"
                     />
                     <Input
+                      data={dataInitial}
                       label="Teléfono"
                       name="phone"
                       type="phone"
@@ -80,6 +88,19 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       icon="phone"
                     />
                     <Input
+                      data={dataInitial}
+                      label="WhatsApp"
+                      name="whatsapp"
+                      type="phone"
+                      placeholder="Teléfono"
+                      formStatus={formStatus}
+                      setFormStatus={setFormStatus}
+                      validation={["required"]}
+                      size="lg"
+                      icon="whatsapp"
+                    />
+                    <Input
+                      data={dataInitial}
                       label="Telegram"
                       name="telegram"
                       placeholder="Telegram"
@@ -89,7 +110,32 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       size="lg"
                       icon="telegram"
                     />
-
+                    <Input
+                      data={dataInitial}
+                      label="Ubicación"
+                      name="location"
+                      type="select"
+                      options={locationsToOptions(dataLocations)}
+                      loading={loadingLocations}
+                      formStatus={formStatus}
+                      setFormStatus={setFormStatus}
+                      validation={["required"]}
+                      size="lg"
+                      icon="map-marker"
+                      question="Si no aparece tu ciudad, o no estás cerca de ninguna de las ciudades del listado, por favor contactate con la organización."
+                    />
+                    <Input
+                      data={dataInitial}
+                      label="Usuario BGG"
+                      name="bgg_user"
+                      placeholder="Usuario BGG"
+                      formStatus={formStatus}
+                      setFormStatus={setFormStatus}
+                      size="lg"
+                      icon="address-book"
+                      question="Podés poner tu alias en la BGG."
+                    />
+                    <input type="hidden" name="referred" value="Luis Olcese" />
                     <div className="text-center py-4">
                       <Button color="primary" size="lg" type="submit">
                         Crear cuenta
