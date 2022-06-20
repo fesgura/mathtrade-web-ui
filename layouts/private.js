@@ -7,8 +7,12 @@ import Header from "components/header";
 import Footer from "components/footer";
 import { LoadingPage, LoadingScreen } from "components/loading";
 
-const PrivateLayout = ({ title, children, loading }) => {
-  const [logged, set_logged] = useState(false);
+const PrivateLayout = ({ store, title, children, loading }) => {
+  // const [store, updateStore] = useState(null);
+
+  // useEffect(() => {}, []);
+
+  // const [logged, set_logged] = useState(false);
   //const [loadingPrivate, set_loadingPrivate] = useState(false);
 
   // const [fetchDataPrivate, dataPrivate, loadingPrivate] = useApi({
@@ -21,9 +25,9 @@ const PrivateLayout = ({ title, children, loading }) => {
   //   fetchDataPrivate("davicazuxxx");
   // }, [fetchDataPrivate]);
 
-  useEffect(() => {
-    Router.push(`/${publicRoutes.signin.path}`);
-  }, []);
+  // useEffect(() => {
+  //   Router.push(`/${publicRoutes.signin.path}`);
+  // }, []);
 
   // useEffect(() => {
   //   if (!loadingPrivate && dataPrivate) {
@@ -136,8 +140,7 @@ const PrivateLayout = ({ title, children, loading }) => {
         />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <LoadingPage loading={false} />
-      {logged ? (
+      {store && store.auth ? (
         <>
           <main className="wrap">
             <Header />
@@ -146,7 +149,9 @@ const PrivateLayout = ({ title, children, loading }) => {
           </main>
           {loading ? <LoadingScreen /> : null}
         </>
-      ) : null}
+      ) : (
+        <LoadingPage loading={true} />
+      )}
     </>
   );
 };

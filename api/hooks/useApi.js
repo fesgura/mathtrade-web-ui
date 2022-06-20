@@ -6,7 +6,7 @@ const handlePromise = (promise) =>
   promise
     .then((response) => {
       if (response.ok) return [null, response, response.data];
-      return [response.errors, response, null];
+      return [{ error: true, data: response.data }, response, response.data];
     })
     .catch((error) => Promise.resolve([error, { ok: false }, null]));
 
@@ -27,6 +27,7 @@ const useApi = ({
     (apiParams, apiProps) => {
       const getData = async (params, props) => {
         setDataLoading(true);
+        setErrorMessage(null);
         const [errors, response, responseData] = await handlePromise(
           promise(params)
         );
@@ -38,7 +39,7 @@ const useApi = ({
         const jsonData = forBGG
           ? format(xmlParser(responseData), props)
           : format(responseData, props);
-        if (afterLoad) {
+        if (afterLoad && !errors) {
           afterLoad(jsonData);
         }
         setData(_.isEmpty(responseData) ? initialState : jsonData);

@@ -6,21 +6,10 @@ export const api = create({
   paramsSerializer: function (params) {
     return Qs.stringify(params, { arrayFormat: "repeat" });
   },
-  baseURL: "https://mathtrade-back.herokuapp.com/api/",
+  baseURL: "https://mathtrade-back.herokuapp.com/",
   headers: {
     Accept: "application/json",
-    Authorization: "Basic bWF0aGFkbWluOk1lZXBsZUxhbmQ=",
-  },
-});
-export const apiPost = create({
-  timeout: 60000,
-  paramsSerializer: function (params) {
-    return Qs.stringify(params, { arrayFormat: "repeat" });
-  },
-  baseURL: "https://mathtrade-back.herokuapp.com/api/",
-  headers: {
-    Accept: "application/x-www-form-urlencoded",
-    Authorization: "Basic bWF0aGFkbWluOk1lZXBsZUxhbmQ=",
+    "content-Type": "application/json",
   },
 });
 

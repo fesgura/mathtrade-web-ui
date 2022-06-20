@@ -1,0 +1,56 @@
+import { useState, useEffect, useCallback } from "react";
+import storage from "utils/storage";
+import Router from "next/router";
+import {
+  GoogleReCaptchaProvider,
+  useGoogleReCaptcha,
+} from "react-google-recaptcha-v3";
+import { google_recaptcha_v3_client_key } from "config";
+
+const PublicEnvComp = ({ ContainerComp }) => {
+  const [verifingAuth, setVerifingAuth] = useState(true);
+
+  useEffect(() => {
+    const newStore = storage.get();
+    if (newStore && newStore.auth) {
+      //comprobar time
+      Router.push("/");
+    } else {
+      setVerifingAuth(false);
+    }
+  }, []);
+
+  const { executeRecaptcha } = useGoogleReCaptcha();
+
+  const onGetCaptcha = useCallback(
+    async (pageId, callback) => {
+      if (!executeRecaptcha) {
+        console.log("Execute recaptcha not yet available");
+        return;
+      }
+      const token = await executeRecaptcha(pageId);
+
+      callback(token);
+    },
+    [executeRecaptcha]
+  );
+
+  return (
+    <>
+      <ContainerComp verifingAuth={verifingAuth} onGetCaptcha={onGetCaptcha} />
+    </>
+  );
+};
+
+const PublicEnv = ({ Container }) => {
+  return (
+    <GoogleReCaptchaProvider
+      reCaptchaKey={google_recaptcha_v3_client_key}
+      language="es"
+    >
+      <PublicEnvComp ContainerComp={Container} />
+    </GoogleReCaptchaProvider>
+  );
+};
+
+export default PublicEnv;

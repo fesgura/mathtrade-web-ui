@@ -2,7 +2,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { publicRoutes } from "config/routes";
 import PublicLayout from "layouts/public";
-import { Card, CardBody, Button, Col, Row } from "reactstrap";
+import { Card, CardBody, Button, Col, Row, Alert } from "reactstrap";
 import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
 
@@ -46,15 +46,14 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                     setFormStatus={setFormStatus}
                   >
                     <Input
-                      label="Email"
-                      name="email"
-                      type="email"
-                      placeholder="email"
+                      label="Nombre de usuario"
+                      name="username"
+                      placeholder="Nombre de usuario"
                       formStatus={formStatus}
                       setFormStatus={setFormStatus}
                       validation={["required"]}
                       size="lg"
-                      icon="envelope"
+                      icon="user"
                     />
                     <Input
                       label="Contraseña"
@@ -66,6 +65,11 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       size="lg"
                       icon="key"
                     />
+                    {errors ? (
+                      <Alert color="danger" className="text-center">
+                        Error, usuario y/o contraseña incorrectos.
+                      </Alert>
+                    ) : null}
                     <div className="text-center py-4">
                       <Button color="primary" size="lg" type="submit">
                         Ingresar

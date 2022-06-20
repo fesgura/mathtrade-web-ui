@@ -6,9 +6,10 @@ import { Card, CardBody, Button, Col, Row } from "reactstrap";
 import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
 import { locationsToOptions } from "utils";
+import Icon from "components/icon";
 
 const LoginView = ({
-  dataInitial = {},
+  dataInitial = null,
   loading,
   dataLocations,
   loadingLocations,
@@ -34,11 +35,64 @@ const LoginView = ({
                       Completá los datos para crear tu cuenta
                     </p>
                   </div>
+                  {/* <div className="text-danger text-center">
+                    No está abierta la registración por el momento.
+                  </div> */}
                   <Form
                     onSubmit={onSubmit}
                     formStatus={formStatus}
                     setFormStatus={setFormStatus}
                   >
+                    <hr />
+                    <h5 className="text-center py-4 m-0">Datos de ingreso</h5>
+                    <Input
+                      data={dataInitial}
+                      label="Nombre de usuario"
+                      name="username"
+                      placeholder="Nombre"
+                      formStatus={formStatus}
+                      setFormStatus={setFormStatus}
+                      validation={["required"]}
+                      size="lg"
+                      icon="user"
+                      //question="Ayudita"
+                    />
+                    <Input
+                      data={dataInitial}
+                      label="Contraseña"
+                      name="password"
+                      placeholder="******"
+                      type="password"
+                      formStatus={formStatus}
+                      setFormStatus={setFormStatus}
+                      validation={["required"]}
+                      size="lg"
+                      icon="user"
+                      //question="Ayudita"
+                    />
+                    <Input
+                      data={dataInitial}
+                      label="Repetí la contraseña"
+                      name="password2"
+                      placeholder="******"
+                      type="password"
+                      formStatus={formStatus}
+                      setFormStatus={setFormStatus}
+                      validation={[
+                        "required",
+                        (password2) => {
+                          const password = formStatus.password.value;
+                          return password2 !== password
+                            ? "Las contraseñas no coinciden"
+                            : null;
+                        },
+                      ]}
+                      size="lg"
+                      icon="user"
+                      //question="Ayudita"
+                    />{" "}
+                    <hr />
+                    <h5 className="text-center py-4 m-0">Datos de tu cuenta</h5>
                     <Input
                       data={dataInitial}
                       label="Nombre"
@@ -124,18 +178,22 @@ const LoginView = ({
                       icon="map-marker"
                       question="Si no aparece tu ciudad, o no estás cerca de ninguna de las ciudades del listado, por favor contactate con la organización."
                     />
+                    <hr />
+                    <h5 className="text-center py-4 m-0">Datos desde BGG</h5>
                     <Input
                       data={dataInitial}
-                      label="Usuario BGG"
+                      label="Usuario en la BGG"
                       name="bgg_user"
                       placeholder="Usuario BGG"
                       formStatus={formStatus}
                       setFormStatus={setFormStatus}
                       size="lg"
-                      icon="address-book"
+                      icon="bgg"
                       question="Podés poner tu alias en la BGG."
+                      validation={["required"]}
                     />
                     <input type="hidden" name="referred" value="Luis Olcese" />
+                    <hr />
                     <div className="text-center py-4">
                       <Button color="primary" size="lg" type="submit">
                         Crear cuenta

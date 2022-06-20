@@ -1,62 +1,60 @@
 import { useState, useEffect, useCallback } from "react";
 import RegisterView from "views/register";
-import {
-  GoogleReCaptchaProvider,
-  useGoogleReCaptcha,
-} from "react-google-recaptcha-v3";
-import { google_recaptcha_v3_client_key } from "config";
+import PublicEnv from "environments/public";
 import { useApi, LocationService, UserService } from "api";
 
-const RegisterContainer = () => {
+const RegisterContainer = ({ verifingAuth, onGetCaptcha }) => {
   const [fetchLocations, dataLocations, loadingLocations] = useApi({
     promise: LocationService.getList,
+    initialState: [],
   });
 
   const [createUser, userResponse, loadingUser, errorUser] = useApi({
     promise: UserService.create,
   });
 
-  const [dataInitial, set_dataInitial] = useState({});
+  const [dataInitial, set_dataInitial] = useState(null);
 
   console.log(userResponse, errorUser);
 
   useEffect(() => {
-    fetchLocations();
-    setTimeout(() => {
-      set_dataInitial({
-        first_name: "Pablito",
-        last_name: "Cazu",
-        email: "pablocazu@gmmail.com",
-        phone: "+549262544781",
-        whatsapp: "+549262544781",
-        telegram: "cazu",
-        location: "https://mathtrade-back.herokuapp.com/api/locations/3/",
-        bgg_user: "cazu",
-      });
-    }, 50);
-  }, []);
+    if (!verifingAuth) {
+      fetchLocations();
+      setTimeout(() => {
+        set_dataInitial({
+          username: "math",
+          password: "MeepleLand",
+          //"pbkdf2_sha256$320000$VAsLul4gDbcrCU7cBfDTud$3UxjELJDOx1WXoO3H8MhkshT7JN5Nxgxqdv5ibs/Rwg="
+          password2: "MeepleLand",
+          first_name: "Math",
+          last_name: "Trade",
+          email: "mathtradearg@gmmail.com",
+          phone: "+549262544781",
+          whatsapp: "+549262544781",
+          telegram: "MT2022",
+          location: "3",
+          bgg_user: "davicazu",
+        });
+      }, 500);
+    }
+  }, [verifingAuth]);
 
-  // Google Captcha
-  const { executeRecaptcha } = useGoogleReCaptcha();
   const handleSubmit = useCallback(
-    async (formData) => {
-      if (!executeRecaptcha) {
-        console.log("Execute recaptcha not yet available");
-        return;
-      }
-      const token = await executeRecaptcha("signup");
-
-      //formData.recaptcha_token = token;
-      console.log("formToSend", formData);
-      var form_data = new FormData();
-
-      for (var key in formData) {
-        form_data.append(key, formData[key]);
-      }
-      createUser(formData);
+    (formData) => {
+      onGetCaptcha("sign_up", (recaptcha) => {
+        delete formData.password2;
+        const dataToSend = {
+          ...formData,
+          location: `https://mathtrade-back.herokuapp.com/api/locations/${formData.location}/`,
+          recaptcha,
+        };
+        console.log("dataToSend", dataToSend);
+        createUser(dataToSend);
+      });
     },
-    [executeRecaptcha]
+    [onGetCaptcha, createUser]
   );
+
   return (
     <RegisterView
       onSubmit={handleSubmit}
@@ -69,15 +67,6 @@ const RegisterContainer = () => {
   );
 };
 
-const RecaptchaContainer = () => {
-  return (
-    <GoogleReCaptchaProvider
-      reCaptchaKey={google_recaptcha_v3_client_key}
-      language="es"
-    >
-      <RegisterContainer />
-    </GoogleReCaptchaProvider>
-  );
+export default () => {
+  return <PublicEnv Container={RegisterContainer} />;
 };
-
-export default RecaptchaContainer;

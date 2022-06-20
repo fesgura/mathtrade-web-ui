@@ -1,75 +1,90 @@
-.btn{
-
+.btn {
   border-radius: 20px;
   padding-left: 2em;
   padding-right: 2em;
 
-  &.btn-primary{
+  &.btn-primary {
     background-color: $primary;
     border-color: $primary;
     &:hover,
-    &:active{
+    &:active {
       background-color: darken($primary, 10);
-      border-color: darken($primary, 10);    
+      border-color: darken($primary, 10);
     }
     &:focus,
-    &:focus-visible{
+    &:focus-visible {
       outline: none;
-      box-shadow: 0 0 0 4px rgba($primary,.5)
+      box-shadow: 0 0 0 4px rgba($primary, 0.5);
     }
   }
 
-  &.btn-outline-primary{
-    color:$primary;
+  &.btn-outline-primary {
+    color: $primary;
     border-color: $primary;
     &:hover,
-    &:active{
-      color:#FFF;
+    &:active {
+      color: #fff;
       background-color: darken($primary, 10);
-      border-color: darken($primary, 10);    
+      border-color: darken($primary, 10);
     }
     &:focus,
-    &:focus-visible{
+    &:focus-visible {
       outline: none;
-      box-shadow: 0 0 0 4px rgba($primary,.5)
+      box-shadow: 0 0 0 4px rgba($primary, 0.5);
     }
   }
 
-  &.btn-secondary{
+  &.btn-secondary {
     background-color: $secondary;
     border-color: $secondary;
     &:hover,
-    &:active{
+    &:active {
       background-color: darken($secondary, 10);
-      border-color: darken($secondary, 10);    
+      border-color: darken($secondary, 10);
     }
     &:focus,
-    &:focus-visible{
+    &:focus-visible {
       outline: none;
-      box-shadow: 0 0 0 4px rgba($secondary,.5)
+      box-shadow: 0 0 0 4px rgba($secondary, 0.5);
     }
   }
 
-  &.btn-outline-secondary{
-    color:$secondary;
+  &.btn-outline-secondary {
+    color: $secondary;
     border-color: $secondary;
     &:hover,
-    &:active{
-      color:#FFF;
+    &:active {
+      color: #fff;
       background-color: darken($secondary, 10);
-      border-color: darken($secondary, 10);    
+      border-color: darken($secondary, 10);
     }
     &:focus,
-    &:focus-visible{
+    &:focus-visible {
       outline: none;
-      box-shadow: 0 0 0 4px rgba($secondary,.5)
+      box-shadow: 0 0 0 4px rgba($secondary, 0.5);
     }
   }
 
-  &.btn-sm{
+  &.btn-orange {
+    background-color: $orange;
+    border-color: $orange;
+    color: #fff;
+    &:hover,
+    &:active {
+      background-color: darken($orange, 10);
+      border-color: darken($orange, 10);
+    }
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba($orange, 0.5);
+    }
+  }
+
+  &.btn-sm {
     border-radius: 16px;
   }
-  &.btn-lg{
+  &.btn-lg {
     border-radius: 25px;
   }
 }

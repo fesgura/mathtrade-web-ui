@@ -1,46 +1,49 @@
 import { useCallback } from "react";
+import PublicEnv from "environments/public";
 import LoginView from "views/login";
-import {
-  GoogleReCaptchaProvider,
-  useGoogleReCaptcha,
-} from "react-google-recaptcha-v3";
-import { google_recaptcha_v3_client_key } from "config";
+import { useApi, UserService } from "api";
 
-const LoginContainer = () => {
-  const { executeRecaptcha } = useGoogleReCaptcha();
+const LoginContainer = ({ verifingAuth, onGetCaptcha }) => {
+  // const [getUser, userData, loadingUser, errorApiUser] = useApi({
+  //   promise: UserService.get,
+  // });
+
+  const [loginUser, , loading, errorApi] = useApi({
+    promise: UserService.login,
+    afterLoad: (dat) => {
+      console.log("dat", dat);
+      //  getUser();
+    },
+  });
+
+  // console.log("userResponse", userResponse);
+  // console.log("errorApi", errorApi);
+  // console.log("------------");
 
   const handleSubmit = useCallback(
-    async (formData) => {
-      if (!executeRecaptcha) {
-        console.log("Execute recaptcha not yet available");
-        return;
-      }
-      const token = await executeRecaptcha("signin");
-
-      formData.recaptcha_token = token;
-      console.log("formToSend", formData);
+    (formData) => {
+      onGetCaptcha("sign_in", (recaptcha) => {
+        const dataToSend = {
+          ...formData,
+          recaptcha,
+        };
+        // console.log("dataToSend", dataToSend);
+        loginUser(dataToSend);
+      });
     },
-    [executeRecaptcha]
+    [onGetCaptcha, loginUser]
   );
 
-  return (
+  return verifingAuth ? null : (
     <LoginView
       onSubmit={handleSubmit}
-      //loading={true}
+      loading={loading || loadingUser}
+      errors={errorApi || errorApiUser}
       respOnSave={() => {}}
     />
   );
 };
 
-const RecaptchaContainer = () => {
-  return (
-    <GoogleReCaptchaProvider
-      reCaptchaKey={google_recaptcha_v3_client_key}
-      language="es"
-    >
-      <LoginContainer />
-    </GoogleReCaptchaProvider>
-  );
+export default () => {
+  return <PublicEnv Container={LoginContainer} />;
 };
-
-export default RecaptchaContainer;
