@@ -25,6 +25,8 @@ const InputController = ({
   readOnly = false,
   placeholder = "",
   question = null,
+  onChange = null,
+  compareValue = null,
   ...rest
 }) => {
   const [initial, setInitial] = useState(true);
@@ -41,26 +43,31 @@ const InputController = ({
           [name]: {
             value,
             validation,
-            error: applyValidations(value, validation, type),
+            error: applyValidations(value, validation, type, compareValue),
           },
         };
       });
     }
-  }, [initial, name, data, setFormStatus]);
+  }, [initial, name, data, setFormStatus, compareValue]);
 
   useEffect(() => {
     setFormStatus((obj) => {
-      const value = data && typeof data[name] !== "undefined" ? data[name] : "";
+      const value =
+        data && typeof data[name] !== "undefined"
+          ? data[name]
+          : obj && typeof obj[name] !== "undefined"
+          ? obj[name].value
+          : "";
       return {
         ...obj,
         [name]: {
           value,
           validation,
-          error: applyValidations(value, validation, type),
+          error: applyValidations(value, validation, type, compareValue),
         },
       };
     });
-  }, [data, setFormStatus]);
+  }, [data, setFormStatus, compareValue]);
 
   useEffect(() => {
     if (
@@ -87,6 +94,9 @@ const InputController = ({
         validation && validation.length && validation.indexOf("required") >= 0
       }
       onChange={(e) => {
+        if (onChange) {
+          onChange(e.target.value);
+        }
         setFormStatus((obj) => {
           const value = e.target.value;
           return {
@@ -94,7 +104,7 @@ const InputController = ({
             [name]: {
               value,
               validation,
-              error: applyValidations(value, validation, type),
+              error: applyValidations(value, validation, type, compareValue),
             },
           };
         });

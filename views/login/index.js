@@ -6,6 +6,8 @@ import { Card, CardBody, Button, Col, Row, Alert } from "reactstrap";
 import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
 
+const dataInitial = { username: "math", password: "MeepleLand" };
+
 const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
   const [formStatus, setFormStatus] = useState({});
   /*
@@ -35,7 +37,7 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
               <Col lg={6}>
                 <CardBody className="p-5">
                   <div className="text-center mb-4">
-                    <h1>Hola!</h1>
+                    <h1>¡Hola!</h1>
                     <p className="muted">
                       Ingresa con tu nombre email y contraseña
                     </p>
@@ -46,6 +48,7 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                     setFormStatus={setFormStatus}
                   >
                     <Input
+                      data={dataInitial}
                       label="Nombre de usuario"
                       name="username"
                       placeholder="Nombre de usuario"
@@ -56,6 +59,7 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                       icon="user"
                     />
                     <Input
+                      data={dataInitial}
                       label="Contraseña"
                       name="password"
                       type="password"

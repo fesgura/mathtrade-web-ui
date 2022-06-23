@@ -3,12 +3,16 @@ const dicc = {
   telegram: true,
 };
 
+const diccFa = {
+  loading: "refresh fa-spin fa-fw",
+};
+
 const Icon = ({ type = "times", className }) => {
   return (
     <i
-      className={`icon ${dicc[type] ? "icomoon-" : "fa fa-"}${type} ${
-        className || ""
-      }`}
+      className={`icon ${dicc[type] ? "icomoon-" : "fa fa-"}${
+        diccFa[type] ? diccFa[type] : type
+      } ${className || ""}`}
       aria-hidden="true"
     />
   );

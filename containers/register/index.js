@@ -4,38 +4,41 @@ import PublicEnv from "environments/public";
 import { useApi, LocationService, UserService } from "api";
 
 const RegisterContainer = ({ verifingAuth, onGetCaptcha }) => {
+  const [dataInitial, set_dataInitial] = useState(null);
+
+  const [isSuccess, set_isSuccess] = useState(false);
+
   const [fetchLocations, dataLocations, loadingLocations] = useApi({
     promise: LocationService.getList,
     initialState: [],
   });
 
-  const [createUser, userResponse, loadingUser, errorUser] = useApi({
+  const [createUser, , loadingUser, errorUser] = useApi({
     promise: UserService.create,
+    afterLoad: (data) => {
+      set_isSuccess(true);
+    },
   });
-
-  const [dataInitial, set_dataInitial] = useState(null);
-
-  console.log(userResponse, errorUser);
 
   useEffect(() => {
     if (!verifingAuth) {
       fetchLocations();
-      setTimeout(() => {
-        set_dataInitial({
-          username: "math",
-          password: "MeepleLand",
-          //"pbkdf2_sha256$320000$VAsLul4gDbcrCU7cBfDTud$3UxjELJDOx1WXoO3H8MhkshT7JN5Nxgxqdv5ibs/Rwg="
-          password2: "MeepleLand",
-          first_name: "Math",
-          last_name: "Trade",
-          email: "mathtradearg@gmmail.com",
-          phone: "+549262544781",
-          whatsapp: "+549262544781",
-          telegram: "MT2022",
-          location: "3",
-          bgg_user: "davicazu",
-        });
-      }, 500);
+      // setTimeout(() => {
+      //   set_dataInitial({
+      //     username: "math2",
+      //     password: "MeepleLand",
+      //     //"pbkdf2_sha256$320000$VAsLul4gDbcrCU7cBfDTud$3UxjELJDOx1WXoO3H8MhkshT7JN5Nxgxqdv5ibs/Rwg="
+      //     password2: "MeepleLand",
+      //     first_name: "Math",
+      //     last_name: "Trade",
+      //     email: "mathtradearg2@gmmail.com",
+      //     phone: "+549262544781",
+      //     whatsapp: "+549262544781",
+      //     telegram: "MT2022",
+      //     location: "3",
+      //     bgg_user: "davicazu",
+      //   });
+      // }, 500);
     }
   }, [verifingAuth]);
 
@@ -61,8 +64,9 @@ const RegisterContainer = ({ verifingAuth, onGetCaptcha }) => {
       dataLocations={dataLocations}
       loadingLocations={loadingLocations}
       loading={loadingUser}
-      respOnSave={() => {}}
       dataInitial={dataInitial}
+      errors={errorUser}
+      isSuccess={isSuccess}
     />
   );
 };

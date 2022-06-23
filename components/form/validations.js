@@ -17,9 +17,15 @@ const validationTypes = {
     }
     return null;
   },
+  password: (value) => {
+    if (value && value.length < 8) {
+      return "La contraseña debe tener al menos 8 caracteres.";
+    }
+    return null;
+  },
 };
 
-const applyValidations = (value, validation, type) => {
+const applyValidations = (value, validation, type, compareValue) => {
   let error = null;
 
   const validationsToApply = validation && validation.length ? validation : [];
@@ -35,6 +41,11 @@ const applyValidations = (value, validation, type) => {
         validationsToApply.push("phone");
       }
       break;
+    case "password":
+      if (validationsToApply.indexOf("password") < 0) {
+        validationsToApply.push("password");
+      }
+      break;
     default:
     //
   }
@@ -45,7 +56,7 @@ const applyValidations = (value, validation, type) => {
         error = error || validationTypes[name](value);
       }
       if (typeof name === "function") {
-        error = error || name.apply(null, [value]);
+        error = error || name.apply(null, [value, compareValue]);
       }
     });
   }

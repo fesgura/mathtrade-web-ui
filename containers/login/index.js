@@ -2,23 +2,17 @@ import { useCallback } from "react";
 import PublicEnv from "environments/public";
 import LoginView from "views/login";
 import { useApi, UserService } from "api";
+import storage from "utils/storage";
+import Router from "next/router";
 
 const LoginContainer = ({ verifingAuth, onGetCaptcha }) => {
-  // const [getUser, userData, loadingUser, errorApiUser] = useApi({
-  //   promise: UserService.get,
-  // });
-
   const [loginUser, , loading, errorApi] = useApi({
     promise: UserService.login,
-    afterLoad: (dat) => {
-      console.log("dat", dat);
-      //  getUser();
+    afterLoad: (data) => {
+      storage.setToStorage(data);
+      Router.push("/");
     },
   });
-
-  // console.log("userResponse", userResponse);
-  // console.log("errorApi", errorApi);
-  // console.log("------------");
 
   const handleSubmit = useCallback(
     (formData) => {
@@ -27,7 +21,6 @@ const LoginContainer = ({ verifingAuth, onGetCaptcha }) => {
           ...formData,
           recaptcha,
         };
-        // console.log("dataToSend", dataToSend);
         loginUser(dataToSend);
       });
     },
@@ -37,8 +30,8 @@ const LoginContainer = ({ verifingAuth, onGetCaptcha }) => {
   return verifingAuth ? null : (
     <LoginView
       onSubmit={handleSubmit}
-      loading={loading || loadingUser}
-      errors={errorApi || errorApiUser}
+      loading={loading}
+      errors={errorApi}
       respOnSave={() => {}}
     />
   );

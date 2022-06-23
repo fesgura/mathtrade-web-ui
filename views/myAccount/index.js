@@ -5,7 +5,7 @@ import PageHeader from "containers/pageHeader";
 import { Row, Col } from "reactstrap";
 import MenuHorizontal from "components/menuHorizontal";
 
-const MyAccountView = () => {
+const MyAccountView = ({ store, loading }) => {
   const [current, set_current] = useState(null);
 
   // const router = useRouter();
@@ -42,10 +42,8 @@ const MyAccountView = () => {
     };
   }, []);
 
-  console.log(current);
-
   return (
-    <PrivateLayout>
+    <PrivateLayout store={store} loading={loading}>
       <Row className="justify-content-center">
         <Col xl={10}>
           <PageHeader title="Mi cuenta" />
@@ -69,7 +67,7 @@ const MyAccountView = () => {
                 current={current}
               />
             </Col>
-            <Col md={8}>a</Col>
+            <Col md={8}>TO DO</Col>
           </Row>
         </Col>
       </Row>

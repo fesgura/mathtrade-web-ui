@@ -80,6 +80,21 @@
       box-shadow: 0 0 0 4px rgba($orange, 0.5);
     }
   }
+  &.btn-outline-orange {
+    color: $orange;
+    border-color: $orange;
+    &:hover,
+    &:active {
+      color: #fff;
+      background-color: darken($orange, 10);
+      border-color: darken($orange, 10);
+    }
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba($orange, 0.5);
+    }
+  }
 
   &.btn-sm {
     border-radius: 16px;

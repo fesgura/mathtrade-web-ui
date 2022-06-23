@@ -1,21 +1,43 @@
+import { useState, useEffect } from "react";
+import Router from "next/router";
+import { publicRoutes } from "config/routes";
 import UserAvatar from "components/avatar";
 import Link from "next/link";
 import { mainMenuUserList } from "config/routes";
 import Icon from "components/icon";
+import storage from "utils/storage";
 
-const UserHeader = ({
-  src = "https://www.pngkit.com/png/full/115-1150342_user-avatar-icon-iconos-de-mujeres-a-color.png",
-  username = "Davicazu",
-  onSignOut = () => {},
-}) => {
+const UserHeader = ({ store, onSignOut = () => {} }) => {
+  const [userState, seUserState] = useState({
+    username: "Davicazu",
+    src: null,
+  });
+
+  useEffect(() => {
+    if (store) {
+      const { username, avatar } = storage.getFromStore(store, "user");
+      const { avatarlink } = storage.getFromStore(store, "bggUser");
+      seUserState({
+        username,
+        src: avatar || (avatarlink ? avatarlink.value : null),
+      });
+    }
+  }, [store]);
+
   return (
     <div className="main-user">
       <div className="main-user-avatar">
-        <UserAvatar src={src} className="pointer" />
+        <UserAvatar
+          src={userState.src}
+          username={userState.username}
+          className="pointer"
+        />
       </div>
 
       <div className="main-user-menu">
-        <div className="main-user-menu-name">{username}</div>
+        {userState.username ? (
+          <div className="main-user-menu-name">{userState.username}</div>
+        ) : null}
         {mainMenuUserList.map((item, k) => {
           const { path, title, icon } = item;
           return (
@@ -32,7 +54,8 @@ const UserHeader = ({
           href="#"
           onClick={(e) => {
             e.preventDefault();
-            onSignOut();
+            storage.clear();
+            Router.push(`/${publicRoutes.signin.path}`);
           }}
         >
           <Icon type="sign-out" />

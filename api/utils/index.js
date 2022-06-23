@@ -13,7 +13,6 @@ export const api = create({
   },
 });
 
-//export const API_URL = "https://mathtrade-back.herokuapp.com/api/";
-
-export const BGG2_API_URL = "https://www.boardgamegeek.com/xmlapi2/";
-export const BGG1_API_URL = "https://www.boardgamegeek.com/xmlapi/";
+export const apiBGG = create({
+  baseURL: "https://www.boardgamegeek.com/xmlapi2/",
+});

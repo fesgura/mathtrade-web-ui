@@ -8,56 +8,6 @@ import Footer from "components/footer";
 import { LoadingPage, LoadingScreen } from "components/loading";
 
 const PrivateLayout = ({ store, title, children, loading }) => {
-  // const [store, updateStore] = useState(null);
-
-  // useEffect(() => {}, []);
-
-  // const [logged, set_logged] = useState(false);
-  //const [loadingPrivate, set_loadingPrivate] = useState(false);
-
-  // const [fetchDataPrivate, dataPrivate, loadingPrivate] = useApi({
-  //   promise: BggUserService.get,
-  //   forBGG: true,
-  // });
-
-  // useEffect(() => {
-  //   set_logged(false);
-  //   fetchDataPrivate("davicazuxxx");
-  // }, [fetchDataPrivate]);
-
-  // useEffect(() => {
-  //   Router.push(`/${publicRoutes.signin.path}`);
-  // }, []);
-
-  // useEffect(() => {
-  //   if (!loadingPrivate && dataPrivate) {
-  //     if (
-  //       dataPrivate &&
-  //       dataPrivate.user &&
-  //       typeof dataPrivate.user.id !== "undefined"
-  //     ) {
-  //       if (dataPrivate.user.id !== "") {
-  //         set_logged(true);
-  //       } else {
-  //         Router.push(`/${publicRoutes.signin.path}`);
-  //       }
-  //     }
-  //   }
-  // }, [dataPrivate, loadingPrivate]);
-
-  // useEffect(() => {
-  //   set_loading(true);
-
-  //   let timer = setTimeout(() => {
-  //     set_logged(true);
-  //     set_loading(false);
-  //   }, 4000);
-
-  //   return () => {
-  //     clearTimeout(timer);
-  //   };
-  // }, []);
-
   return (
     <>
       <Head>
@@ -143,7 +93,7 @@ const PrivateLayout = ({ store, title, children, loading }) => {
       {store && store.auth ? (
         <>
           <main className="wrap">
-            <Header />
+            <Header store={store} />
             <div className="main-container pt-5 py-3">{children}</div>
             <Footer absolute />
           </main>

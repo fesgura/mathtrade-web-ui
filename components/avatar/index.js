@@ -1,7 +1,11 @@
-const UserAvatar = ({ size = "sm", src, className }) => {
+const UserAvatar = ({ size = "sm", src, username = "U", className }) => {
   return (
     <div className={`avatar ${size} ${className}`}>
-      <img src={src} alt="" />
+      {src ? (
+        <img src={src} alt="" />
+      ) : (
+        <span className="avatar-letter">{username.substring(0, 1)}</span>
+      )}
     </div>
   );
 };

@@ -12,7 +12,7 @@ const NewPassword = () => {
   const handleSubmit = useCallback(
     async (formData) => {
       if (!executeRecaptcha) {
-        console.log("Execute recaptcha not yet available");
+        //console.log("Execute recaptcha not yet available");
         return;
       }
       const token = await executeRecaptcha("newPassword");
@@ -20,7 +20,7 @@ const NewPassword = () => {
       formData.recaptcha_token = token;
 
       delete formData.password2;
-      console.log("formToSend", formData);
+      //console.log("formToSend", formData);
     },
     [executeRecaptcha]
   );

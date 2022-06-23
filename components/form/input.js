@@ -22,12 +22,14 @@ const InputGroup = ({
         "with-after": after || afterButton,
       })}
     >
-      {before ? <span className="input-group-text">{before}</span> : null}
+      {before ? (
+        <span className="input-group-text before">{before}</span>
+      ) : null}
       {beforeButton ? beforeButton : null}
 
       {children}
 
-      {after ? <span className="input-group-text">{after}</span> : null}
+      {after ? <span className="input-group-text after">{after}</span> : null}
       {afterButton ? afterButton : null}
     </div>
   );

@@ -78,6 +78,12 @@ select,
     }
   }
 
+  .input-group-text {
+    &.after {
+      background-color: #fff;
+    }
+  }
+
   &.is-invalid {
     .input-group-text {
       border-color: $danger;
