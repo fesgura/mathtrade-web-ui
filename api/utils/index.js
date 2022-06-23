@@ -10,6 +10,7 @@ export const api = create({
   headers: {
     Accept: "application/json",
     "content-Type": "application/json",
+    "Access-Control-Allow-Origin": "*",
   },
 });
 
