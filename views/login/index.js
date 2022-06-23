@@ -6,7 +6,7 @@ import { Card, CardBody, Button, Col, Row, Alert } from "reactstrap";
 import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
 
-const dataInitial = { username: "math", password: "MeepleLand" };
+const dataInitial = null; //{ username: "math", password: "MeepleLand" };
 
 const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
   const [formStatus, setFormStatus] = useState({});
