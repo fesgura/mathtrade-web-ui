@@ -12,7 +12,6 @@ export const api = create({
     "content-Type": "application/json",
   },
 });
-
 export const apiBGG = create({
   baseURL: "https://www.boardgamegeek.com/xmlapi2/",
 });
