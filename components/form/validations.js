@@ -12,7 +12,12 @@ const validationTypes = {
     return null;
   },
   phone: (value) => {
-    if (value && !/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g.test(value)) {
+    if (
+      value &&
+      !/^(?:(?:00)?549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$/g.test(
+        value
+      )
+    ) {
       return "Completa el teléfono correctamente";
     }
     return null;

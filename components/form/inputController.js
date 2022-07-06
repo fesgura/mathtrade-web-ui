@@ -94,11 +94,14 @@ const InputController = ({
         validation && validation.length && validation.indexOf("required") >= 0
       }
       onChange={(e) => {
+        let value = e.target.value;
+        if (type === "phone") {
+          value = e.target.value.replace(/[^0-9]/g, "");
+        }
         if (onChange) {
           onChange(e.target.value);
         }
         setFormStatus((obj) => {
-          const value = e.target.value;
           return {
             ...obj,
             [name]: {

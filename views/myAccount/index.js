@@ -228,7 +228,7 @@ const MyAccountView = ({
                           setFormStatus={setFormStatus}
                           validation={["required"]}
                           icon="phone"
-                          onChange={() => {
+                          onChange={(v) => {
                             setModified(true);
                           }}
                         />
@@ -242,7 +242,6 @@ const MyAccountView = ({
                           placeholder="Teléfono"
                           formStatus={formStatus}
                           setFormStatus={setFormStatus}
-                          validation={["required"]}
                           icon="whatsapp"
                           onChange={() => {
                             setModified(true);
@@ -257,7 +256,6 @@ const MyAccountView = ({
                           placeholder="Telegram"
                           formStatus={formStatus}
                           setFormStatus={setFormStatus}
-                          validation={["required"]}
                           icon="telegram"
                           onChange={() => {
                             setModified(true);

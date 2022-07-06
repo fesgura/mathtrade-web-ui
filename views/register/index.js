@@ -193,7 +193,6 @@ const LoginView = ({
                           placeholder="Teléfono"
                           formStatus={formStatus}
                           setFormStatus={setFormStatus}
-                          validation={["required"]}
                           size="lg"
                           icon="whatsapp"
                         />
@@ -204,7 +203,6 @@ const LoginView = ({
                           placeholder="Telegram"
                           formStatus={formStatus}
                           setFormStatus={setFormStatus}
-                          validation={["required"]}
                           size="lg"
                           icon="telegram"
                         />
