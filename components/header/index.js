@@ -7,7 +7,7 @@ import Logo from "components/logo";
 import Icon from "components/icon";
 import classNames from "classnames";
 
-const Header = ({ store }) => {
+const Header = () => {
   const [menuMobileVisible, set_menuMobileVisible] = useState(false);
 
   return (
@@ -43,7 +43,7 @@ const Header = ({ store }) => {
                     <MainMenu />
                   </Col>
                   <Col lg="auto" className="order-lg-2 order-1">
-                    <UserHeader store={store} />
+                    <UserHeader />
                   </Col>
                 </Row>
                 <div

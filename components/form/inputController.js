@@ -53,10 +53,10 @@ const InputController = ({
   useEffect(() => {
     setFormStatus((obj) => {
       const value =
-        data && typeof data[name] !== "undefined"
-          ? data[name]
-          : obj && typeof obj[name] !== "undefined"
+        obj && typeof obj[name] !== "undefined" && obj[name].value !== ""
           ? obj[name].value
+          : data && typeof data[name] !== "undefined"
+          ? data[name]
           : "";
       return {
         ...obj,

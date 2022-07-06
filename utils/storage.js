@@ -75,15 +75,19 @@ storage.setToStorage = (options) => {
   }
   storage.set(store);
 };
-storage.getFromStore = (store, item) => {
+storage.getFromStore = (item) => {
   /*
   user => user.data
   auth => auth
   bggUser => user.bgg
   */
+
+  const store = storage.get();
+
   if (!store) {
     return null;
   }
+
   switch (item) {
     case "user":
       return store.user ? store.user.data : null;
@@ -91,6 +95,8 @@ storage.getFromStore = (store, item) => {
       return store.user ? store.user.bgg : null;
     case "auth":
       return store.auth;
+    case "token":
+      return store.auth.token;
     default:
       return store[item] || null;
   }

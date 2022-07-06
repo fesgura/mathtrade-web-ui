@@ -25,16 +25,18 @@ const LoginView = ({
 
   useEffect(() => {
     if (errors) {
-      const { data } = errors;
+      //const { data } = errors;
       let errorMge = "Ocurrió un error. Por favor, intenta nuevamente.";
-      if (data) {
-        for (let a in data) {
-          if (data[a].length) {
-            errorMge = data[a][0];
-          }
-        }
-      }
+      // if (data) {
+      //   for (let a in data) {
+      //     if (data[a].length) {
+      //       errorMge = data[a][0];
+      //     }
+      //   }
+      // }
       setErrorMessage(errorMge);
+    } else {
+      setErrorMessage(null);
     }
   }, [errors]);
 

@@ -5,9 +5,7 @@ import Router from "next/router";
 import { publicRoutes } from "config/routes";
 import { useApi, BggUserService } from "api";
 
-const PrivateEnv = ({ Container }) => {
-  const [store, updateStore] = useState(null);
-
+const PrivateEnv = ({ children }) => {
   const [getBGGuser] = useApi({
     promise: BggUserService.get,
     forBGG: true,
@@ -15,26 +13,20 @@ const PrivateEnv = ({ Container }) => {
       if (data && data.user && data.user.id && data.user.id !== "") {
         const bggData = { bggUser: data.user };
         storage.setToStorage(bggData);
-        updateStore((s) => {
-          return storage.mergeStore(s, bggData);
-        });
+        Router.reload(window.location.pathname);
       }
     },
   });
 
   useEffect(() => {
-    const newStore = storage.get();
-    const auth = storage.getFromStore(newStore, "auth");
-    if (auth) {
-      const { expires } = auth;
+    const store = storage.get();
+    if (store.auth) {
+      const { expires } = store.auth;
       const d = new Date();
       const currentTime = d.getTime();
       if (currentTime < expires) {
-        updateStore(newStore);
-        const bggUser = storage.getFromStore(newStore, "bggUser");
-        if (_.isEmpty(bggUser)) {
-          const user = storage.getFromStore(newStore, "user");
-          getBGGuser(user.bgg_user);
+        if (_.isEmpty(store.user.bgg)) {
+          getBGGuser(store.user.data.bgg_user);
         }
       } else {
         storage.clear();
@@ -46,7 +38,7 @@ const PrivateEnv = ({ Container }) => {
     }
   }, []);
 
-  return <Container store={store} />;
+  return <>{children}</>;
 };
 
 export default PrivateEnv;

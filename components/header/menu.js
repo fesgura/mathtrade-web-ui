@@ -10,7 +10,7 @@ const MainMenu = () => {
           const { path, title, children } = item;
           return (
             <li key={k}>
-              {path ? (
+              {typeof path !== "undefined" ? (
                 <Link href={`/${path}`}>
                   <a
                     className={classNames("a-item", {

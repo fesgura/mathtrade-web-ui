@@ -12,7 +12,7 @@ export const publicRoutes = {
 
 export const privateRoutes = {
   home: {
-    path: "/",
+    path: "",
   },
   myAccount: {
     path: "my-account",

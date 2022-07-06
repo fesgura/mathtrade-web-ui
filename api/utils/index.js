@@ -1,5 +1,6 @@
 import { create } from "apisauce";
 import Qs from "qs";
+import storage from "utils/storage";
 
 export const api = create({
   timeout: 60000,
@@ -12,6 +13,18 @@ export const api = create({
     "content-Type": "application/json",
   },
 });
+
+export const setAuth = () => {
+  if (!api.headers.Authorization) {
+    const token = storage.getFromStore("token");
+    if (token) {
+      api.setHeaders({
+        Authorization: "token " + token,
+      });
+    }
+  }
+};
+
 export const apiBGG = create({
   baseURL: "https://www.boardgamegeek.com/xmlapi2/",
 });

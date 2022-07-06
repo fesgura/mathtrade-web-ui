@@ -3,9 +3,11 @@ import HomeView from "views/home";
 
 const HomeContainer = ({ store }) => {
   // Logic about HOME
-  return <HomeView store={store} />;
+  return (
+    <PrivateEnv>
+      <HomeView store={store} />
+    </PrivateEnv>
+  );
 };
 
-export default () => {
-  return <PrivateEnv Container={HomeContainer} />;
-};
+export default HomeContainer;

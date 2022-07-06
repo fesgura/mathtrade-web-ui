@@ -7,36 +7,23 @@ import { mainMenuUserList } from "config/routes";
 import Icon from "components/icon";
 import storage from "utils/storage";
 
-const UserHeader = ({ store, onSignOut = () => {} }) => {
-  const [userState, seUserState] = useState({
-    username: "Davicazu",
-    src: null,
-  });
+const UserHeader = () => {
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
-    if (store) {
-      const { username, avatar } = storage.getFromStore(store, "user");
-      const { avatarlink } = storage.getFromStore(store, "bggUser");
-      seUserState({
-        username,
-        src: avatar || (avatarlink ? avatarlink.value : null),
-      });
-    }
-  }, [store]);
+    const user = storage.getFromStore("user");
+    setUsername(user?.username);
+  }, []);
 
   return (
     <div className="main-user">
       <div className="main-user-avatar">
-        <UserAvatar
-          src={userState.src}
-          username={userState.username}
-          className="pointer"
-        />
+        <UserAvatar className="pointer" />
       </div>
 
       <div className="main-user-menu">
-        {userState.username ? (
-          <div className="main-user-menu-name">{userState.username}</div>
+        {username ? (
+          <div className="main-user-menu-name">{username}</div>
         ) : null}
         {mainMenuUserList.map((item, k) => {
           const { path, title, icon } = item;

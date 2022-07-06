@@ -6,8 +6,16 @@ import { useApi, BggUserService } from "api";
 import Header from "components/header";
 import Footer from "components/footer";
 import { LoadingPage, LoadingScreen } from "components/loading";
+import storage from "utils/storage";
 
-const PrivateLayout = ({ store, title, children, loading }) => {
+const PrivateLayout = ({ title, children, loading }) => {
+  const [auth, setAuth] = useState(null);
+
+  useEffect(() => {
+    const auth = storage.getFromStore("token");
+    setAuth(auth);
+  }, []);
+
   return (
     <>
       <Head>
@@ -90,10 +98,10 @@ const PrivateLayout = ({ store, title, children, loading }) => {
         />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      {store && store.auth ? (
+      {auth ? (
         <>
           <main className="wrap">
-            <Header store={store} />
+            <Header />
             <div className="main-container pt-5 py-3">{children}</div>
             <Footer absolute />
           </main>

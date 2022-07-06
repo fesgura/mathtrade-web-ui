@@ -2,6 +2,16 @@
 $colorArray: rgb(0, 184, 240) #b75eff #ff39b3 #ff5f5f;
 $n: 5;
 
+.loading-box {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  height: 100%;
+  z-index: 20;
+  background-color: rgba(#fff, 0.8);
+}
+
 .loading-graph {
   position: absolute;
   top: 50%;
