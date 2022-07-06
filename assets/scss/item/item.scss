@@ -1,0 +1,23 @@
+.item {
+  margin-bottom: 20px;
+}
+
+.item-card-container {
+  padding: 0;
+  &.for-combo {
+    padding: 0 20px 10px;
+  }
+}
+
+.item-title-combo {
+  font-size: 24px;
+  line-height: 1.3;
+  padding: 12px 0 12px 185px;
+  .item-title-combo-cont {
+    padding-bottom: 4px;
+    display: inline-block;
+    border-bottom: 1px solid #ddd;
+  }
+}
+.item-elements-list {
+}

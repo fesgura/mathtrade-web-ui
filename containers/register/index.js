@@ -23,22 +23,6 @@ const RegisterContainer = ({ verifingAuth, onGetCaptcha }) => {
   useEffect(() => {
     if (!verifingAuth) {
       fetchLocations();
-      // setTimeout(() => {
-      //   set_dataInitial({
-      //     username: "math2",
-      //     password: "MeepleLand",
-      //     //"pbkdf2_sha256$320000$VAsLul4gDbcrCU7cBfDTud$3UxjELJDOx1WXoO3H8MhkshT7JN5Nxgxqdv5ibs/Rwg="
-      //     password2: "MeepleLand",
-      //     first_name: "Math",
-      //     last_name: "Trade",
-      //     email: "mathtradearg2@gmmail.com",
-      //     phone: "+549262544781",
-      //     whatsapp: "+549262544781",
-      //     telegram: "MT2022",
-      //     location: "3",
-      //     bgg_user: "davicazu",
-      //   });
-      // }, 500);
     }
   }, [verifingAuth]);
 
@@ -48,7 +32,6 @@ const RegisterContainer = ({ verifingAuth, onGetCaptcha }) => {
         delete formData.password2;
         const dataToSend = {
           ...formData,
-          // location: `https://mathtrade-back.herokuapp.com/api/locations/${formData.location}/`,
           recaptcha,
         };
         console.log("dataToSend", dataToSend);

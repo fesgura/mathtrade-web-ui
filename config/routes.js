@@ -35,7 +35,7 @@ export const mainMenuList = [
   //   ],
   // },
   { path: privateRoutes.home.path, title: "Inicio" },
-  // { path: privateRoutes.myItems.path, title: "Mis items" },
+  { path: privateRoutes.myItems.path, title: "Mis items" },
 ];
 export const mainMenuUserList = [
   { path: privateRoutes.myAccount.path, title: "Mi cuenta", icon: "user" },
