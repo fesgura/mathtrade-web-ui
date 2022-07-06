@@ -5,7 +5,7 @@ const UserService = {
     return api.post("api-token-auth/", data);
   },
   create: (data) => {
-    return api.post("api/users/", data);
+    return api.post("api/register/", data);
   },
   // PRIVATE
   get: (id) => {

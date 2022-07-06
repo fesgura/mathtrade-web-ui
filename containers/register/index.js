@@ -48,7 +48,7 @@ const RegisterContainer = ({ verifingAuth, onGetCaptcha }) => {
         delete formData.password2;
         const dataToSend = {
           ...formData,
-          location: `https://mathtrade-back.herokuapp.com/api/locations/${formData.location}/`,
+          // location: `https://mathtrade-back.herokuapp.com/api/locations/${formData.location}/`,
           recaptcha,
         };
         console.log("dataToSend", dataToSend);
