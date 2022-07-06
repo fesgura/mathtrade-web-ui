@@ -20,7 +20,7 @@ const PrivateEnv = ({ children }) => {
 
   useEffect(() => {
     const store = storage.get();
-    if (store.auth) {
+    if (store && store.auth) {
       const { expires } = store.auth;
       const d = new Date();
       const currentTime = d.getTime();
