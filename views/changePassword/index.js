@@ -5,8 +5,11 @@ import { Button, Alert } from "reactstrap";
 import { LoadingBox } from "components/loading";
 
 const ChangePasswordView = ({ loginUser, errors, loading }) => {
-  const [formStatus, setFormStatus] = useState({});
+  const [validationStatus, setValidationStatus] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const [passwordValue, setPasswordValue] = useState("");
+  const [password2Value, setPassword2Value] = useState("");
 
   useEffect(() => {
     if (errors) {
@@ -14,6 +17,19 @@ const ChangePasswordView = ({ loginUser, errors, loading }) => {
       setErrorMessage(errorMge);
     }
   }, [errors]);
+
+  const validations = {
+    oldpassword: ["required"],
+    password: ["required"],
+    password2: [
+      "required",
+      function () {
+        return passwordValue === password2Value
+          ? null
+          : "Las contraseñas no coinciden";
+      },
+    ],
+  };
   return (
     <div className="relative py-3 px-4">
       <div className="text-center mb-4">
@@ -21,19 +37,54 @@ const ChangePasswordView = ({ loginUser, errors, loading }) => {
         <p className="muted">Por favor, ingresa contraseña actual.</p>
       </div>
       <Form
+        validations={validations}
+        validationStatus={validationStatus}
+        setValidationStatus={setValidationStatus}
         onSubmit={loginUser}
-        formStatus={formStatus}
-        setFormStatus={setFormStatus}
+        format={(dataToSend) => {
+          delete dataToSend.password2;
+          return dataToSend;
+        }}
       >
         <Input
+          validations={validations}
+          validationStatus={validationStatus}
+          setValidationStatus={setValidationStatus}
           label="Contraseña actual"
-          name="password"
+          name="oldpassword"
           type="password"
-          formStatus={formStatus}
-          setFormStatus={setFormStatus}
-          validation={["required"]}
           icon="key"
         />
+        <Input
+          validations={validations}
+          validationStatus={validationStatus}
+          setValidationStatus={setValidationStatus}
+          label="Contraseña"
+          name="password"
+          placeholder="******"
+          type="password"
+          size="lg"
+          icon="key"
+          onChange={setPasswordValue}
+        />
+        <Input
+          validations={validations}
+          validationStatus={validationStatus}
+          setValidationStatus={setValidationStatus}
+          label="Repetí la contraseña"
+          name="password2"
+          placeholder="******"
+          type="password"
+          size="lg"
+          icon="key"
+          onChange={setPassword2Value}
+        />
+        <hr />
+        {errorMessage ? (
+          <Alert color="danger" className="text-center">
+            {errorMessage}
+          </Alert>
+        ) : null}
         <div className="text-center">
           <Button color="secondary" type="submit">
             Continuar <Icon type="chevron-right" />

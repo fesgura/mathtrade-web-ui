@@ -30,30 +30,28 @@ const validationTypes = {
   },
 };
 
-const applyValidations = (value, validation, type, compareValue) => {
+const applyValidations = (value, validationsToApply, compareValue) => {
   let error = null;
 
-  const validationsToApply = validation && validation.length ? validation : [];
-
-  switch (type) {
-    case "email":
-      if (validationsToApply.indexOf("email") < 0) {
-        validationsToApply.push("email");
-      }
-      break;
-    case "phone":
-      if (validationsToApply.indexOf("phone") < 0) {
-        validationsToApply.push("phone");
-      }
-      break;
-    case "password":
-      if (validationsToApply.indexOf("password") < 0) {
-        validationsToApply.push("password");
-      }
-      break;
-    default:
-    //
-  }
+  // switch (type) {
+  //   case "email":
+  //     if (validationsToApply.indexOf("email") < 0) {
+  //       validationsToApply.push("email");
+  //     }
+  //     break;
+  //   case "phone":
+  //     if (validationsToApply.indexOf("phone") < 0) {
+  //       validationsToApply.push("phone");
+  //     }
+  //     break;
+  //   case "password":
+  //     if (validationsToApply.indexOf("password") < 0) {
+  //       validationsToApply.push("password");
+  //     }
+  //     break;
+  //   default:
+  //   //
+  // }
 
   if (validationsToApply.length) {
     validationsToApply.forEach((name) => {

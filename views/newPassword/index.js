@@ -1,29 +1,25 @@
 import { useState } from "react";
-import Link from "next/link";
-import { publicRoutes } from "config/routes";
 import PublicLayout from "layouts/public";
 import { Card, CardBody, Button, Col, Row } from "reactstrap";
-import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
-import Icon from "components/icon";
 
 const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
-  const [formStatus, setFormStatus] = useState({});
-  /*
-  {
-    nombre : {
-      value:'',
-      validation:[],
-      error:null
-    },
-    apellido : {
-      value:'',
-      validation:[],
-      error:null
-    },
-    __SHOW_ERRORS__:false
-  }
-*/
+  const [validationStatus, setValidationStatus] = useState({});
+  const [passwordValue, setPasswordValue] = useState("");
+  const [password2Value, setPassword2Value] = useState("");
+
+  const validations = {
+    password: ["required"],
+    password2: [
+      "required",
+      function () {
+        return passwordValue === password2Value
+          ? null
+          : "Las contraseñas no coinciden";
+      },
+    ],
+  };
+
   return (
     <PublicLayout loading={loading}>
       <Row className="justify-content-center">
@@ -36,36 +32,35 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
               </div>
               <Form
                 onSubmit={onSubmit}
-                formStatus={formStatus}
-                setFormStatus={setFormStatus}
+                validations={validations}
+                validationStatus={validationStatus}
+                setValidationStatus={setValidationStatus}
+                format={(dataToSend) => {
+                  delete dataToSend.password2;
+                  return dataToSend;
+                }}
               >
                 <Input
+                  validations={validations}
+                  validationStatus={validationStatus}
+                  setValidationStatus={setValidationStatus}
                   label="Nueva contraseña"
                   name="password"
                   type="password"
-                  formStatus={formStatus}
-                  setFormStatus={setFormStatus}
-                  validation={["required"]}
                   size="lg"
                   icon="key"
+                  onChange={setPasswordValue}
                 />
                 <Input
+                  validations={validations}
+                  validationStatus={validationStatus}
+                  setValidationStatus={setValidationStatus}
                   label="Repetir nueva contraseña"
                   name="password2"
                   type="password"
-                  formStatus={formStatus}
-                  setFormStatus={setFormStatus}
-                  validation={[
-                    "required",
-                    (password2) => {
-                      const password = formStatus.password.value;
-                      return password2 !== password
-                        ? "Las contraseñas no coinciden"
-                        : null;
-                    },
-                  ]}
                   size="lg"
                   icon="key"
+                  onChange={setPassword2Value}
                 />
 
                 <div className="text-center pt-4">

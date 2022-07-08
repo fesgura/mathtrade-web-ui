@@ -9,8 +9,7 @@ import { locationsToOptions } from "utils";
 import Icon from "components/icon";
 import TestBGGuser from "components/testBGGuser";
 
-const LoginView = ({
-  dataInitial = null,
+const RegisterView = ({
   errors,
   loading,
   dataLocations,
@@ -18,27 +17,53 @@ const LoginView = ({
   onSubmit,
   isSuccess,
 }) => {
-  const [formStatus, setFormStatus] = useState({});
+  const [validationStatus, setValidationStatus] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const [passwordValue, setPasswordValue] = useState("");
+  const [password2Value, setPassword2Value] = useState("");
+  const [BGGuser, setBGGuser] = useState("");
 
   const [validBGGuser, onValidateBGGuser] = useState(null);
 
   useEffect(() => {
     if (errors) {
-      //const { data } = errors;
       let errorMge = "Ocurrió un error. Por favor, intenta nuevamente.";
-      // if (data) {
-      //   for (let a in data) {
-      //     if (data[a].length) {
-      //       errorMge = data[a][0];
-      //     }
-      //   }
-      // }
       setErrorMessage(errorMge);
     } else {
       setErrorMessage(null);
     }
   }, [errors]);
+
+  const validations = {
+    username: ["required"],
+    password: ["required"],
+    password2: [
+      "required",
+      function () {
+        return passwordValue === password2Value
+          ? null
+          : "Las contraseñas no coinciden";
+      },
+    ],
+    first_name: ["required"],
+    last_name: ["required"],
+    email: ["required", "email"],
+    phone: ["required", "phone"],
+    whatsapp: ["phone"],
+    location: ["required"],
+    bgg_user: [
+      "required",
+      function () {
+        validBGGuser;
+        return !validBGGuser
+          ? "Tenés que comprobar tu usuario en BGG."
+          : validBGGuser === "no"
+          ? "Este usuario no aparece en la BGG."
+          : null;
+      },
+    ],
+  };
 
   return (
     <PublicLayout loading={loading}>
@@ -81,141 +106,127 @@ const LoginView = ({
                     No está abierta la registración por el momento.
                   </div> */}
                       <Form
+                        validations={validations}
+                        validationStatus={validationStatus}
+                        setValidationStatus={setValidationStatus}
                         onSubmit={onSubmit}
-                        formStatus={formStatus}
-                        setFormStatus={setFormStatus}
+                        format={(dataToSend) => {
+                          delete dataToSend.password2;
+                          return dataToSend;
+                        }}
                       >
                         <hr />
                         <h5 className="text-center py-4 m-0">
                           Datos de ingreso
                         </h5>
                         <Input
-                          data={dataInitial}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Nombre de usuario"
                           name="username"
                           placeholder="Nombre"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           size="lg"
                           icon="user"
                           question="Tu nombre de usuario lo necesitarás para poder ingresar al sistema."
                         />
                         <Input
-                          data={dataInitial}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Contraseña"
                           name="password"
                           placeholder="******"
                           type="password"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           size="lg"
-                          icon="user"
+                          icon="key"
+                          onChange={setPasswordValue}
                         />
                         <Input
-                          data={dataInitial}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Repetí la contraseña"
                           name="password2"
                           placeholder="******"
                           type="password"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          compareValue={formStatus?.password?.value}
-                          validation={[
-                            "required",
-                            (password2, compareValue) => {
-                              return password2 !== compareValue
-                                ? "Las contraseñas no coinciden"
-                                : null;
-                            },
-                          ]}
                           size="lg"
-                          icon="user"
-                        />{" "}
+                          icon="key"
+                          onChange={setPassword2Value}
+                        />
                         <hr />
+
                         <h5 className="text-center py-4 m-0">
                           Datos de tu cuenta
                         </h5>
                         <Input
-                          data={dataInitial}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Nombre"
                           name="first_name"
                           placeholder="Nombre"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           size="lg"
                           icon="user"
                           //question="Ayudita"
                         />
                         <Input
-                          data={dataInitial}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Apellido"
                           name="last_name"
                           placeholder="Apellido"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           size="lg"
                           icon="user"
                           //question="Ayudita"
                         />
                         <Input
-                          data={dataInitial}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Email"
                           name="email"
                           type="email"
                           placeholder="email"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           size="lg"
                           icon="envelope"
                         />
                         <Input
-                          data={dataInitial}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Teléfono"
                           name="phone"
                           type="phone"
                           placeholder="Teléfono"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           size="lg"
                           icon="phone"
                         />
                         <Input
-                          data={dataInitial}
                           label="WhatsApp"
                           name="whatsapp"
                           type="phone"
                           placeholder="Teléfono"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
                           size="lg"
                           icon="whatsapp"
                         />
                         <Input
-                          data={dataInitial}
                           label="Telegram"
                           name="telegram"
                           placeholder="Telegram"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
                           size="lg"
                           icon="telegram"
                         />
                         <Input
-                          data={dataInitial}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Ubicación"
                           name="location"
                           type="select"
                           options={locationsToOptions(dataLocations)}
                           loading={loadingLocations}
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           size="lg"
                           icon="map-marker"
                           question="Si no aparece tu ciudad, o no estás cerca de ninguna de las ciudades del listado, por favor contactate con la organización."
@@ -225,27 +236,17 @@ const LoginView = ({
                           Datos desde BGG
                         </h5>
                         <Input
-                          data={dataInitial}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Usuario en la BGG"
                           name="bgg_user"
                           placeholder="Usuario BGG"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
                           size="lg"
                           icon="bgg"
                           question="Podés poner tu alias en la BGG."
-                          compareValue={validBGGuser}
-                          validation={[
-                            "required",
-                            (val, compareValue) => {
-                              return !compareValue
-                                ? "Tenés que comprobar tu usuario en BGG."
-                                : compareValue === "no"
-                                ? "Este usuario no aparece en la BGG."
-                                : null;
-                            },
-                          ]}
-                          onChange={() => {
+                          onChange={(v) => {
+                            setBGGuser(v);
                             onValidateBGGuser(null);
                           }}
                           after={
@@ -266,7 +267,7 @@ const LoginView = ({
                         />
                         <div className="text-center">
                           <TestBGGuser
-                            username={formStatus?.bgg_user?.value}
+                            username={BGGuser}
                             onValidateUser={onValidateBGGuser}
                           />
                         </div>
@@ -310,4 +311,4 @@ const LoginView = ({
   );
 };
 
-export default LoginView;
+export default RegisterView;

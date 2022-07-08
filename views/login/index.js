@@ -8,23 +8,14 @@ import { Form, Input } from "components/form";
 
 const dataInitial = null; //{ username: "math", password: "MeepleLand" };
 
-const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
-  const [formStatus, setFormStatus] = useState({});
-  /*
-  {
-    nombre : {
-      value:'',
-      validation:[],
-      error:null
-    },
-    apellido : {
-      value:'',
-      validation:[],
-      error:null
-    },
-    __SHOW_ERRORS__:false
-  }
-*/
+const validations = {
+  username: ["required"],
+  password: ["required"],
+};
+
+const LoginView = ({ loading, errors, onSubmit }) => {
+  const [validationStatus, setValidationStatus] = useState({});
+
   return (
     <PublicLayout loading={loading}>
       <Row className="justify-content-center">
@@ -43,29 +34,30 @@ const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
                     </p>
                   </div>
                   <Form
+                    validations={validations}
+                    validationStatus={validationStatus}
+                    setValidationStatus={setValidationStatus}
                     onSubmit={onSubmit}
-                    formStatus={formStatus}
-                    setFormStatus={setFormStatus}
                   >
                     <Input
                       data={dataInitial}
+                      validations={validations}
+                      validationStatus={validationStatus}
+                      setValidationStatus={setValidationStatus}
                       label="Nombre de usuario"
                       name="username"
                       placeholder="Nombre de usuario"
-                      formStatus={formStatus}
-                      setFormStatus={setFormStatus}
-                      validation={["required"]}
                       size="lg"
                       icon="user"
                     />
                     <Input
                       data={dataInitial}
+                      validations={validations}
+                      validationStatus={validationStatus}
+                      setValidationStatus={setValidationStatus}
                       label="Contraseña"
                       name="password"
                       type="password"
-                      formStatus={formStatus}
-                      setFormStatus={setFormStatus}
-                      validation={["required"]}
                       size="lg"
                       icon="key"
                     />

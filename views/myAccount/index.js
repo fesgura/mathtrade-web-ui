@@ -27,11 +27,14 @@ const MyAccountView = ({
   onSubmit,
   errors,
 }) => {
-  const [formStatus, setFormStatus] = useState({});
+  const [validationStatus, setValidationStatus] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
 
   const [modified, setModified] = useState(false);
 
+  const [BGGuser, setBGGuser] = useState(
+    data && data.bgg_user ? data.bgg_user : ""
+  );
   const [validBGGuser, onValidateBGGuser] = useState("yes");
 
   const [isOpenModalPassword, setIsOpenModalPassword] = useState(false);
@@ -44,6 +47,27 @@ const MyAccountView = ({
       setErrorMessage(null);
     }
   }, [errors]);
+
+  const validations = {
+    username: ["required"],
+    first_name: ["required"],
+    last_name: ["required"],
+    email: ["required", "email"],
+    phone: ["required", "phone"],
+    whatsapp: ["phone"],
+    location: ["required"],
+    bgg_user: [
+      "required",
+      function () {
+        validBGGuser;
+        return !validBGGuser
+          ? "Tenés que comprobar tu usuario en BGG."
+          : validBGGuser === "no"
+          ? "Este usuario no aparece en la BGG."
+          : null;
+      },
+    ],
+  };
 
   return (
     <PrivateLayout loading={loading}>
@@ -79,20 +103,21 @@ const MyAccountView = ({
                     onSubmit={(formData) => {
                       onSubmit(data.id, formData);
                     }}
-                    formStatus={formStatus}
-                    setFormStatus={setFormStatus}
+                    validations={validations}
+                    validationStatus={validationStatus}
+                    setValidationStatus={setValidationStatus}
                   >
                     <h5 className="py-4 m-0">Datos de ingreso</h5>
                     <Row className="align-items-end">
                       <Col md={6}>
                         <Input
                           data={data}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Nombre de usuario"
                           name="username"
                           placeholder="Nombre"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           icon="user"
                           question="Tu nombre de usuario lo necesitarás para poder ingresar al sistema."
                           onChange={() => {
@@ -152,12 +177,12 @@ const MyAccountView = ({
                       <Col md={6}>
                         <Input
                           data={data}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Nombre"
                           name="first_name"
                           placeholder="Nombre"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           icon="user"
                           onChange={() => {
                             setModified(true);
@@ -167,12 +192,12 @@ const MyAccountView = ({
                       <Col md={6}>
                         <Input
                           data={data}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Apellido"
                           name="last_name"
                           placeholder="Apellido"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           icon="user"
                           onChange={() => {
                             setModified(true);
@@ -184,13 +209,13 @@ const MyAccountView = ({
                       <Col md={7}>
                         <Input
                           data={data}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Email"
                           name="email"
                           type="email"
                           placeholder="email"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           icon="envelope"
                           onChange={() => {
                             setModified(true);
@@ -200,14 +225,14 @@ const MyAccountView = ({
                       <Col md={5}>
                         <Input
                           data={data}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Ubicación"
                           name="location"
                           type="select"
                           options={locationsToOptions(dataLocations)}
                           loading={loadingLocations}
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           icon="map-marker"
                           question="Si no aparece tu ciudad, o no estás cerca de ninguna de las ciudades del listado, por favor contactate con la organización."
                           onChange={() => {
@@ -220,13 +245,13 @@ const MyAccountView = ({
                       <Col md={4}>
                         <Input
                           data={data}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Teléfono"
                           name="phone"
                           type="phone"
                           placeholder="Teléfono"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
-                          validation={["required"]}
                           icon="phone"
                           onChange={(v) => {
                             setModified(true);
@@ -240,8 +265,6 @@ const MyAccountView = ({
                           name="whatsapp"
                           type="phone"
                           placeholder="Teléfono"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
                           icon="whatsapp"
                           onChange={() => {
                             setModified(true);
@@ -254,8 +277,6 @@ const MyAccountView = ({
                           label="Telegram"
                           name="telegram"
                           placeholder="Telegram"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
                           icon="telegram"
                           onChange={() => {
                             setModified(true);
@@ -269,26 +290,17 @@ const MyAccountView = ({
                       <Col>
                         <Input
                           data={data}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="Usuario en la BGG"
                           name="bgg_user"
                           placeholder="Usuario BGG"
-                          formStatus={formStatus}
-                          setFormStatus={setFormStatus}
                           icon="bgg"
                           question="Podés poner tu alias en la BGG."
-                          compareValue={validBGGuser}
-                          validation={[
-                            "required",
-                            (v, compareValue) => {
-                              return !compareValue
-                                ? "Tenés que comprobar tu usuario en BGG."
-                                : compareValue === "no"
-                                ? "Este usuario no aparece en la BGG."
-                                : null;
-                            },
-                          ]}
-                          onChange={() => {
+                          onChange={(v) => {
                             setModified(true);
+                            setBGGuser(v);
                             onValidateBGGuser(null);
                           }}
                           after={
@@ -311,7 +323,7 @@ const MyAccountView = ({
                       <Col xs="auto">
                         <div className="pb-2">
                           <TestBGGuser
-                            username={formStatus?.bgg_user?.value}
+                            username={BGGuser}
                             onValidateUser={onValidateBGGuser}
                           />
                         </div>

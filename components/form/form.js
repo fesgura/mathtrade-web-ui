@@ -1,38 +1,40 @@
 import { useCallback } from "react";
+import _ from "lodash";
+import applyValidations from "./validations";
 
-import { Form } from "reactstrap";
-
-const FormComp = ({ onSubmit, formStatus, setFormStatus, children }) => {
+const Form = ({
+  children,
+  onSubmit,
+  validations = {},
+  validationStatus,
+  setValidationStatus = () => {},
+  format = null,
+}) => {
   const onSubmitForm = useCallback(
     (e) => {
       e.preventDefault();
+
       const formData = new FormData(e.target);
       const formProps = Object.fromEntries(formData);
 
-      const formToSend = {};
-
-      let __SHOW_ERRORS__ = false;
+      const errorsForm = {};
 
       for (let a in formProps) {
-        if (formStatus && formStatus[a] && formStatus[a].error) {
-          __SHOW_ERRORS__ = true;
-        } else {
-          if (a.indexOf("__excluded__") !== 0) {
-            formToSend[a] = formProps[a];
+        if (validations[a]) {
+          const error = applyValidations(formProps[a], validations[a]);
+          if (error) {
+            errorsForm[a] = error;
           }
         }
       }
-      setFormStatus((obj) => {
-        return {
-          ...obj,
-          __SHOW_ERRORS__,
-        };
-      });
-      if (!__SHOW_ERRORS__) {
-        onSubmit(formToSend);
+
+      setValidationStatus(errorsForm);
+
+      if (_.isEmpty(errorsForm)) {
+        onSubmit(format ? format(formProps) : formProps);
       }
     },
-    [onSubmit, formStatus, setFormStatus]
+    [onSubmit, validations, setValidationStatus]
   );
 
   return (
@@ -41,4 +43,4 @@ const FormComp = ({ onSubmit, formStatus, setFormStatus, children }) => {
     </form>
   );
 };
-export default FormComp;
+export default Form;
