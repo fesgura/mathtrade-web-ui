@@ -17,7 +17,7 @@ import { locationsToOptions } from "utils";
 import TestBGGuser from "components/testBGGuser";
 import Icon from "components/icon";
 import UserAvatar from "components/avatar";
-import ChangePassword from "containers/changePassword";
+import ChangePassword from "containers/myAccount/changePassword";
 
 const MyAccountView = ({
   data,
@@ -125,20 +125,20 @@ const MyAccountView = ({
                           }}
                         />
                       </Col>
-                      {/* <Col xs="auto">
+                      <Col xs="auto">
                         <div className="pb-4">
                           <Button
                             outline
-                            color="info"
+                            color="secondary"
                             size="sm"
                             onClick={() => {
                               setIsOpenModalPassword(true);
                             }}
                           >
-                            Modificar contraseña
+                            Cambiar contraseña
                           </Button>
                         </div>
-                      </Col> */}
+                      </Col>
                     </Row>
 
                     {/* <Input
@@ -373,7 +373,11 @@ const MyAccountView = ({
           setIsOpenModalPassword((v) => !v);
         }}
       >
-        <ModalBody>{isOpenModalPassword ? <ChangePassword /> : null}</ModalBody>
+        <ModalBody>
+          {isOpenModalPassword ? (
+            <ChangePassword setIsOpenModalPassword={setIsOpenModalPassword} />
+          ) : null}
+        </ModalBody>
       </Modal>
     </PrivateLayout>
   );

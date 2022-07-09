@@ -4,7 +4,12 @@ import Icon from "components/icon";
 import { Button, Alert } from "reactstrap";
 import { LoadingBox } from "components/loading";
 
-const ChangePasswordView = ({ loginUser, errors, loading }) => {
+const ChangePasswordView = ({
+  setIsOpenModalPassword,
+  onSubmit,
+  errors,
+  loading,
+}) => {
   const [validationStatus, setValidationStatus] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -14,14 +19,17 @@ const ChangePasswordView = ({ loginUser, errors, loading }) => {
   useEffect(() => {
     if (errors) {
       let errorMge = "Ocurrió un error. Por favor, intenta nuevamente.";
+      if (errors?.data?.old_password) {
+        errorMge = "La contraseña actual es incorrecta.";
+      }
       setErrorMessage(errorMge);
     }
   }, [errors]);
 
   const validations = {
-    oldpassword: ["required"],
-    password: ["required"],
-    password2: [
+    old_password: ["required"],
+    new_password: ["required"],
+    new_password2: [
       "required",
       function () {
         return passwordValue === password2Value
@@ -34,36 +42,38 @@ const ChangePasswordView = ({ loginUser, errors, loading }) => {
     <div className="relative py-3 px-4">
       <div className="text-center mb-4">
         <h4>Cambiar contraseña</h4>
-        <p className="muted">Por favor, ingresa contraseña actual.</p>
       </div>
       <Form
         validations={validations}
         validationStatus={validationStatus}
         setValidationStatus={setValidationStatus}
-        onSubmit={loginUser}
+        onSubmit={onSubmit}
         format={(dataToSend) => {
-          delete dataToSend.password2;
+          delete dataToSend.new_password2;
           return dataToSend;
         }}
       >
+        <p className="muted text-center">
+          Por favor, ingresa contraseña actual, luego tu nueva contraseña.
+        </p>
         <Input
           validations={validations}
           validationStatus={validationStatus}
           setValidationStatus={setValidationStatus}
           label="Contraseña actual"
-          name="oldpassword"
+          name="old_password"
           type="password"
           icon="key"
         />
+        <hr />
         <Input
           validations={validations}
           validationStatus={validationStatus}
           setValidationStatus={setValidationStatus}
-          label="Contraseña"
-          name="password"
+          label="Nueva contraseña"
+          name="new_password"
           placeholder="******"
           type="password"
-          size="lg"
           icon="key"
           onChange={setPasswordValue}
         />
@@ -71,23 +81,35 @@ const ChangePasswordView = ({ loginUser, errors, loading }) => {
           validations={validations}
           validationStatus={validationStatus}
           setValidationStatus={setValidationStatus}
-          label="Repetí la contraseña"
-          name="password2"
+          label="Repetí la nueva contraseña"
+          name="new_password2"
           placeholder="******"
           type="password"
-          size="lg"
           icon="key"
           onChange={setPassword2Value}
         />
-        <hr />
+
         {errorMessage ? (
           <Alert color="danger" className="text-center">
             {errorMessage}
           </Alert>
         ) : null}
+        <Alert color="warning" className="text-center">
+          Recuerda que luego <b>deberás volver a ingresar</b> con{" "}
+          <b>tu nueva contraseña</b>.
+        </Alert>
         <div className="text-center">
+          <Button
+            className="me-2"
+            color="cancel"
+            onClick={() => {
+              setIsOpenModalPassword(false);
+            }}
+          >
+            Cancelar
+          </Button>
           <Button color="secondary" type="submit">
-            Continuar <Icon type="chevron-right" />
+            Cambiar contraseña
           </Button>
         </div>
       </Form>

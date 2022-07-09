@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import classNames from "classnames";
 import Icon from "components/icon";
 
-const SVG_HAND = ({ fill = "#FFF" }) => {
+const SVG_HAND = ({ fill }) => {
   return (
     <svg
       width="100%"
@@ -29,7 +29,7 @@ const SVG_HAND = ({ fill = "#FFF" }) => {
   );
 };
 
-export const LoadingGraph = () => {
+export const LoadingGraph = ({ fill = "#FFF" }) => {
   const list = [1, 2, 3, 4];
   return (
     <div className="loading-graph">
@@ -38,7 +38,7 @@ export const LoadingGraph = () => {
           return (
             <div className="domino-item" key={a}>
               <div className="domino-hand">
-                <SVG_HAND fill="rgb(27, 86, 135)" />
+                <SVG_HAND fill={fill} />
               </div>
             </div>
           );
@@ -51,7 +51,7 @@ export const LoadingGraph = () => {
 export const LoadingBox = () => {
   return (
     <div className="loading-box">
-      <LoadingGraph />
+      <LoadingGraph fill="rgb(27, 86, 135)" />
     </div>
   );
 };

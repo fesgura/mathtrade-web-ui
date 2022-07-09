@@ -18,7 +18,7 @@ const UserService = {
   },
   changePassword: (data) => {
     setAuth();
-    return apiLogged.post("api-auth/login/", data);
+    return api.put("api/change-password/", data);
   },
 };
 
