@@ -85,10 +85,19 @@ const Element = ({ element = null, item, afterAnyChange }) => {
           deleteElement(idElement);
         }
       }}
+      deleteItem={deleteItem}
       loading={
-        loadingEditElement || loadingCreateElement || loadingDeleteElement
+        loadingEditElement ||
+        loadingCreateElement ||
+        loadingDeleteElement ||
+        loadingDeleteItem
       }
-      errors={errorEditMessage || errorCreateMessage || errorDeleteMessage}
+      errors={
+        errorEditMessage ||
+        errorCreateMessage ||
+        errorDeleteMessage ||
+        errorDeleteItemMessage
+      }
       // BGG ELEMENT
       fetchBGGelement={fetchBGGelement}
       BGGelement={BGGelement}

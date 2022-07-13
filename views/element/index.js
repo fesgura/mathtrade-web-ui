@@ -9,6 +9,7 @@ const ElementView = ({
   item,
   onSaveElement,
   deleteElement,
+  deleteItem,
   loading,
   errors,
   // BGG ELEMENT
@@ -42,15 +43,37 @@ const ElementView = ({
                 text: "Eliminar",
                 className: "text-danger",
                 onClick: () => {
-                  setModalDeleteOpen(true);
+                  setModalDeleteOpen("element");
                 },
               },
+              item?.elements?.length > 1
+                ? {
+                    icon: "trash",
+                    text: (
+                      <>
+                        Eliminar todo el <b>combo</b>
+                      </>
+                    ),
+                    className: "text-danger bt mt-2 pt-2",
+                    onClick: () => {
+                      setModalDeleteOpen("item");
+                    },
+                  }
+                : null,
             ]}
           />
           <Modal isOpen={modalDeleteOpen} centered>
             <ModalBody className="text-center">
               <h5 className="mb-4">
-                ¿Eliminar <em>{element.name}</em> ?
+                ¿Eliminar{" "}
+                {modalDeleteOpen === "element" ? (
+                  <em>{element.name}</em>
+                ) : (
+                  <em>
+                    <u>todo el combo</u>
+                  </em>
+                )}{" "}
+                ?
               </h5>
               <div>
                 <Button
@@ -67,8 +90,12 @@ const ElementView = ({
                 <Button
                   color="danger"
                   onClick={() => {
+                    if (modalDeleteOpen === "item") {
+                      deleteItem(item.id);
+                    } else {
+                      deleteElement(element.id);
+                    }
                     setModalDeleteOpen(false);
-                    deleteElement(element.id);
                   }}
                 >
                   Sí, eliminar

@@ -15,6 +15,9 @@ const MinMenu = ({ options }) => {
         </DropdownToggle>
         <DropdownMenu end>
           {options.map((op, k) => {
+            if (!op) {
+              return null;
+            }
             const { icon, text, className, onClick } = op;
             return (
               <DropdownItem className={className} onClick={onClick} key={k}>
