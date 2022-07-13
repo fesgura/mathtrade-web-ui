@@ -4,7 +4,7 @@ import { publicRoutes } from "config/routes";
 import PublicLayout from "layouts/public";
 import { Card, CardBody, Button, Col, Row, Alert } from "reactstrap";
 import LoginSlider from "components/pages/loginSlider";
-import { Form, Input } from "components/form";
+import { Form, Input, Hidden } from "components/form";
 import { locationsToOptions } from "utils";
 import Icon from "components/icon";
 import TestBGGuser from "components/testBGGuser";
@@ -22,6 +22,7 @@ const RegisterView = ({
 
   const [passwordValue, setPasswordValue] = useState("");
   const [password2Value, setPassword2Value] = useState("");
+  const [avatar, setAvatar] = useState("");
   const [BGGuser, setBGGuser] = useState("");
 
   const [validBGGuser, onValidateBGGuser] = useState(null);
@@ -159,6 +160,7 @@ const RegisterView = ({
                         <h5 className="text-center py-4 m-0">
                           Datos de tu cuenta
                         </h5>
+                        <Hidden name="avatar" value={avatar} />
                         <Input
                           validations={validations}
                           validationStatus={validationStatus}
@@ -269,13 +271,12 @@ const RegisterView = ({
                           <TestBGGuser
                             username={BGGuser}
                             onValidateUser={onValidateBGGuser}
+                            onGetAvatar={(avatarlink) => {
+                              setAvatar(avatarlink);
+                            }}
                           />
                         </div>
-                        <input
-                          type="hidden"
-                          name="referred"
-                          value="Luis Olcese"
-                        />
+                        <Hidden name="referred" value="Luis Olcese" />
                         <hr />
                         {errorMessage ? (
                           <Alert color="danger" className="text-center">

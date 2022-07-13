@@ -2,7 +2,7 @@ import { Button } from "reactstrap";
 import { useApi, BggUserService } from "api";
 import Icon from "components/icon";
 
-const TestBGGuser = ({ username, onValidateUser }) => {
+const TestBGGuser = ({ username, onValidateUser, onGetAvatar }) => {
   const [getBGGuser, , loading] = useApi({
     promise: BggUserService.get,
     forBGG: true,
@@ -11,6 +11,14 @@ const TestBGGuser = ({ username, onValidateUser }) => {
         onValidateUser("yes");
       } else {
         onValidateUser("no");
+      }
+      if (
+        data &&
+        data.user &&
+        data.user.avatarlink &&
+        data.user.avatarlink.value
+      ) {
+        onGetAvatar(data.user.avatarlink.value);
       }
     },
   });

@@ -12,7 +12,7 @@ import {
   Modal,
   ModalBody,
 } from "reactstrap";
-import { Form, Input } from "components/form";
+import { Form, Input, Hidden } from "components/form";
 import { locationsToOptions } from "utils";
 import TestBGGuser from "components/testBGGuser";
 import Icon from "components/icon";
@@ -35,6 +35,7 @@ const MyAccountView = ({
   const [BGGuser, setBGGuser] = useState(
     data && data.bgg_user ? data.bgg_user : ""
   );
+  const [avatar, setAvatar] = useState(data && data.avatar ? data.avatar : "");
   const [validBGGuser, onValidateBGGuser] = useState("yes");
 
   const [isOpenModalPassword, setIsOpenModalPassword] = useState(false);
@@ -140,39 +141,9 @@ const MyAccountView = ({
                         </div>
                       </Col>
                     </Row>
-
-                    {/* <Input
-                      data={data}
-                      label="Contraseña"
-                      name="password"
-                      placeholder="******"
-                      type="password"
-                      formStatus={formStatus}
-                      setFormStatus={setFormStatus}
-                      validation={["required"]}
-                      icon="user"
-                    />
-                    <Input
-                      data={data}
-                      label="Repetí la contraseña"
-                      name="password2"
-                      placeholder="******"
-                      type="password"
-                      formStatus={formStatus}
-                      setFormStatus={setFormStatus}
-                      compareValue={formStatus?.password?.value}
-                      validation={[
-                        "required",
-                        (password2, compareValue) => {
-                          return password2 !== compareValue
-                            ? "Las contraseñas no coinciden"
-                            : null;
-                        },
-                      ]}
-                      icon="user"
-                    />{" "} */}
                     <hr />
                     <h5 className="py-4 m-0">Datos de tu cuenta</h5>
+                    <Hidden name="avatar" value={avatar} />
                     <Row>
                       <Col md={6}>
                         <Input
@@ -325,12 +296,14 @@ const MyAccountView = ({
                           <TestBGGuser
                             username={BGGuser}
                             onValidateUser={onValidateBGGuser}
+                            onGetAvatar={(avatarlink) => {
+                              setAvatar(avatarlink);
+                            }}
                           />
                         </div>
                       </Col>
                     </Row>
-
-                    <input type="hidden" name="referred" value="Luis Olcese" />
+                    <Hidden name="referred" value="Luis Olcese" />
                     <hr />
                     {errorMessage ? (
                       <Alert color="danger" className="text-center">
