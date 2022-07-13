@@ -25,7 +25,7 @@ const PublicEnvComp = ({ ContainerComp }) => {
   const onGetCaptcha = useCallback(
     async (pageId, callback) => {
       if (!executeRecaptcha) {
-        console.log("Execute recaptcha not yet available");
+        //console.log("Execute recaptcha not yet available");
         return;
       }
       const token = await executeRecaptcha(pageId);

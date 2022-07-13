@@ -1,72 +1,113 @@
-import { Col, Row } from "reactstrap";
-import classNames from "classnames";
-import StatusBadge from "components/statusBadge";
-import { dependencyTypes } from "config";
+import { useState } from "react";
+import ElementResume from "./resume";
+import ElementEdit from "./edit";
+import ElementCreate from "./create";
+import { Modal, ModalBody, Button } from "reactstrap";
 
-const ElementView = ({ element, forCombo }) => {
-  console.log("element", element);
-  return (
-    <div
-      className={classNames("element", {
-        "for-combo": forCombo,
-      })}
-    >
-      <Row className="g-0 align-items-stretch">
-        <Col md={"auto"}>
-          <div
-            className={classNames("element-thumbnail-container", {
-              "for-combo": forCombo,
-            })}
-          >
-            <div className="element-thumbnail">
-              <img src={element?.thumbnail} alt="" />
-            </div>
-          </div>
-        </Col>
-        <Col>
-          <div
-            className={classNames("element-data-container", {
-              "for-combo": forCombo,
-            })}
-          >
-            <div className="element-name">
-              <div className="element-name-cont">{element.name}</div>
-            </div>
-            <div className="element-row">
-              <div className="element-col">
-                <b>Edición:</b>
-                <br />
-                {`${element.publisher} (${element.year})`}
+const ElementView = ({
+  element,
+  item,
+  onSaveElement,
+  deleteElement,
+  loading,
+  errors,
+  // BGG ELEMENT
+  fetchBGGelement,
+  BGGelement,
+  loadingBGGelement,
+}) => {
+  const [statusUI, setStatusUI] = useState(element ? "resume" : "create");
+
+  const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
+
+  switch (statusUI) {
+    case "resume":
+      return (
+        <>
+          <ElementResume
+            element={element}
+            item={item}
+            loading={loading}
+            errors={errors}
+            menuOptions={[
+              {
+                icon: "pencil",
+                text: "Editar",
+                onClick: () => {
+                  setStatusUI("edit");
+                },
+              },
+              {
+                icon: "trash",
+                text: "Eliminar",
+                className: "text-danger",
+                onClick: () => {
+                  setModalDeleteOpen(true);
+                },
+              },
+            ]}
+          />
+          <Modal isOpen={modalDeleteOpen} centered>
+            <ModalBody className="text-center">
+              <h5 className="mb-4">
+                ¿Eliminar <em>{element.name}</em> ?
+              </h5>
+              <div>
+                <Button
+                  color="link"
+                  tag="a"
+                  className="me-1"
+                  outline
+                  onClick={() => {
+                    setModalDeleteOpen(false);
+                  }}
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  color="danger"
+                  onClick={() => {
+                    setModalDeleteOpen(false);
+                    deleteElement(element.id);
+                  }}
+                >
+                  Sí, eliminar
+                </Button>
               </div>
-              <div className="element-col">
-                <b>Idioma:</b>
-                <br />
-                {element.languaje}
-              </div>
-              <div className="element-col">
-                <b>Dependencia de idioma:</b>
-                <br />
-                {dependencyTypes[element.dependency]}
-              </div>
-              <div className="element-col">
-                <b>Estado:</b>
-                <br />
-                <StatusBadge status={element.status} />
-              </div>
-            </div>
-            {element.comment !== "" ? (
-              <div className="element-row">
-                <div className="element-col pb-0">
-                  <b>Comentario:</b>
-                  <br />
-                  {element.comment}
-                </div>
-              </div>
-            ) : null}
-          </div>
-        </Col>
-      </Row>
-    </div>
-  );
+            </ModalBody>
+          </Modal>
+        </>
+      );
+    case "edit":
+      return (
+        <ElementEdit
+          element={element}
+          item={item}
+          onCancel={() => {
+            setStatusUI("resume");
+          }}
+          onSaveElement={onSaveElement}
+          loading={loading}
+          errors={errors}
+          // BGG ELEMENT
+          fetchBGGelement={fetchBGGelement}
+          BGGelement={BGGelement}
+          loadingBGGelement={loadingBGGelement}
+        />
+      );
+    case "create":
+      return (
+        <ElementCreate
+          item={item}
+          onSaveElement={onSaveElement}
+          loading={loading}
+          errors={errors}
+          // BGG ELEMENT
+          fetchBGGelement={fetchBGGelement}
+          BGGelement={BGGelement}
+          loadingBGGelement={loadingBGGelement}
+        />
+      );
+  }
 };
 export default ElementView;

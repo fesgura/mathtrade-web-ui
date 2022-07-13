@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, useState, useEffect, useRef } from "react";
 import { UncontrolledTooltip } from "reactstrap";
 import classNames from "classnames";
 import Icon from "components/icon";
@@ -63,13 +63,38 @@ const InputComp = ({
   loading,
   //
   options,
+  drop,
+  nowrite,
+  startFocus,
   //
   ...rest
 }) => {
   const id = useId("a").replace(twoPointsReg, "");
   let inputContent = null;
-
   const beforeContent = icon ? <Icon type={icon} /> : null;
+
+  /* DROP */
+  const [isFocus, setIsFocus] = useState(false);
+  const [waitBlur, setWaitBlur] = useState(false);
+  const inputDropRef = useRef(null);
+
+  useEffect(() => {
+    if (startFocus && inputDropRef && inputDropRef.current) {
+      inputDropRef.current.focus();
+      setIsFocus(true);
+    }
+  }, [inputDropRef, startFocus]);
+
+  useEffect(() => {
+    let timer = null;
+    if (waitBlur) {
+      setWaitBlur(false);
+      timer = setTimeout(() => {
+        setIsFocus(false);
+      }, 200);
+    }
+  }, [waitBlur]);
+  /* END DROP */
 
   switch (type) {
     case "select":
@@ -227,6 +252,60 @@ const InputComp = ({
             readOnly={readOnly}
             {...rest}
           />
+        </InputGroup>
+      );
+      break;
+    case "input-drop":
+      inputContent = (
+        <InputGroup
+          size={size}
+          error={error}
+          before={loading ? <Icon type="refresh fa-spin" /> : beforeContent}
+          beforeButton={beforeButton}
+          after={after}
+          afterButton={afterButton}
+        >
+          <input
+            name={name}
+            value={value}
+            onChange={(e) => {
+              onChange(e.target.value);
+            }}
+            onBlur={() => {
+              setWaitBlur(true);
+            }}
+            onFocus={(e) => {
+              setIsFocus(true);
+              e.target.select();
+            }}
+            ref={inputDropRef}
+            type={type}
+            className={classNames(
+              readOnly ? "form-control-plaintext" : "form-control",
+              type === "color" ? "form-control-color" : "",
+              error ? "is-invalid" : "",
+              className
+            )}
+            readOnly={readOnly}
+            {...rest}
+          />
+          {nowrite ? (
+            <div className="no-write">
+              <input
+                onBlur={() => {
+                  setWaitBlur(true);
+                }}
+                onFocus={() => {
+                  setIsFocus(true);
+                }}
+              />
+            </div>
+          ) : null}
+          {drop && isFocus ? (
+            <div className="input-drop-pad_cont">
+              <div className="input-drop-pad">{drop}</div>
+            </div>
+          ) : null}
         </InputGroup>
       );
       break;

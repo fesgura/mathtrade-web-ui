@@ -16,9 +16,10 @@ const MyItems = () => {
   return (
     <PrivateEnv>
       <MyItemsView
-        itemList={itemList}
+        itemList={loadingItemsList ? [] : itemList}
         loading={loadingItemsList}
         errors={errorItemsList}
+        listItems={listItems}
       />
     </PrivateEnv>
   );

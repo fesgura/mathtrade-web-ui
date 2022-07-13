@@ -1,0 +1,19 @@
+.element-edit {
+  padding: 15px;
+  .element-thumbnail-container {
+    width: 210px;
+    padding-right: 20px;
+    border-right: 1px solid #ddd;
+  }
+  &.for-combo {
+    border: 1px solid #ddd;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+.element-form-container {
+  padding-right: 60px;
+}

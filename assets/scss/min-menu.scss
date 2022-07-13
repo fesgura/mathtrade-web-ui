@@ -1,0 +1,22 @@
+.min-menu {
+  .min-menu-btn {
+    $w: 30px;
+
+    background-color: lighten($secondary, 12);
+    color: #fff;
+    width: $w;
+    height: $w;
+    line-height: $w;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 26px;
+    letter-spacing: -0.03em;
+    cursor: pointer;
+    transition: background-color 0.1s;
+  }
+  &:hover {
+    .element-menu-btn {
+      background-color: $secondary;
+    }
+  }
+}

@@ -1,3 +1,13 @@
 .modal-content {
   border-radius: 0;
+  border: none;
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.4);
+}
+
+.modal-backdrop {
+  background-color: rgb(197, 197, 197);
+}
+
+.modal-body {
+  padding: 20px 30px;
 }

@@ -20,4 +20,10 @@
   &.bg-mu {
     background-color: rgb(66, 65, 65);
   }
+
+  &.bg-expansion {
+    background-color: rgb(255, 236, 129);
+    color: rgb(102, 90, 24) !important;
+    border: 1px solid rgb(190, 168, 39);
+  }
 }

@@ -1,24 +1,17 @@
-import { useState, useEffect } from "react";
 import { Card } from "reactstrap";
 import Element from "containers/element";
 import classNames from "classnames";
 
-const ItemView = ({ item }) => {
-  const [isCombo, setIsCombo] = useState(false);
-
-  useEffect(() => {
-    setIsCombo(item?.elements?.length > 1);
-  }, [item]);
-
+const ItemView = ({ item, afterAnyChange }) => {
   return (
     <div className="item">
       <Card>
         <div
           className={classNames("item-card-container", {
-            "for-combo": isCombo,
+            "for-combo": item?.elements?.length > 1,
           })}
         >
-          {isCombo ? (
+          {item?.elements?.length > 1 ? (
             <div className="item-title-combo">
               <div className="item-title-combo-cont">
                 <b>Combo:</b> {item?.title}
@@ -30,15 +23,16 @@ const ItemView = ({ item }) => {
               {item.elements.map((element, k) => {
                 return (
                   <Element
-                    element={element}
                     key={k}
-                    itemId={item?.id}
-                    forCombo={isCombo}
+                    element={element}
+                    item={item}
+                    afterAnyChange={afterAnyChange}
                   />
                 );
               })}
             </div>
           ) : null}
+          <Element item={item} afterAnyChange={afterAnyChange} />
         </div>
       </Card>
     </div>

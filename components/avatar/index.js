@@ -15,11 +15,14 @@ const UserAvatar = ({ size = "sm", src = null, username = "", className }) => {
       });
     } else {
       const user = storage.getFromStore("user");
-      const { avatarlink } = storage.getFromStore("bggUser");
+
+      const bggUser = storage.getFromStore("bggUser");
 
       setUserState({
         uname: user?.username || "",
-        s: user?.avatar || (avatarlink ? avatarlink.value : null),
+        s:
+          user?.avatar ||
+          (bggUser && bggUser.avatarlink ? bggUser.avatarlink.value : null),
       });
     }
   }, [username, src]);

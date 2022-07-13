@@ -56,3 +56,16 @@ body {
 b {
   font-weight: bold;
 }
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: none;
+  background-color: #ccc;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $secondary;
+  outline: none;
+}

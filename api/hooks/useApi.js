@@ -2,6 +2,8 @@ import { useState, useCallback } from "react";
 import _ from "lodash";
 import xmlParser from "../utils/xmlParser";
 
+const delayTime = (ms) => new Promise((r) => setTimeout(r, ms));
+
 const handlePromise = (promise) =>
   promise
     .then((response) => {
@@ -26,8 +28,12 @@ const useApi = ({
   const fetchData = useCallback(
     (apiParams, apiProps) => {
       const getData = async (params, props) => {
+        setData(initialState);
         setDataLoading(true);
         setErrorMessage(null);
+
+        await delayTime(forBGG ? 600 : 1);
+
         const [errors, response, responseData] = await handlePromise(
           promise(params)
         );
@@ -35,14 +41,15 @@ const useApi = ({
 
         if (!response.ok) {
           setErrorMessage(errors);
+        } else {
+          const jsonData = forBGG
+            ? format(xmlParser(responseData), props)
+            : format(responseData, props);
+          if (afterLoad && !errors) {
+            afterLoad(jsonData);
+          }
+          setData(_.isEmpty(responseData) ? initialState : jsonData);
         }
-        const jsonData = forBGG
-          ? format(xmlParser(responseData), props)
-          : format(responseData, props);
-        if (afterLoad && !errors) {
-          afterLoad(jsonData);
-        }
-        setData(_.isEmpty(responseData) ? initialState : jsonData);
       };
       if (conditional) {
         getData(apiParams, apiProps);

@@ -1,0 +1,21 @@
+.element-resume {
+  padding: 15px;
+  .element-thumbnail-container {
+    width: 171px;
+    padding-right: 20px;
+    border-right: 1px solid #ddd;
+
+    &.for-combo {
+      width: 158px;
+    }
+  }
+  &.for-combo {
+    padding: 7px;
+    border: 1px solid #ddd;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

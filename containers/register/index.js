@@ -34,7 +34,6 @@ const RegisterContainer = ({ verifingAuth, onGetCaptcha }) => {
           ...formData,
           recaptcha,
         };
-        console.log("dataToSend", dataToSend);
         createUser(dataToSend);
       });
     },

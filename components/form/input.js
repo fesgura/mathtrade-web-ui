@@ -31,6 +31,9 @@ const Input = ({
   loading,
   //
   options = [],
+  drop,
+  nowrite,
+  startFocus,
   //
   ...rest
 }) => {
@@ -99,6 +102,9 @@ const Input = ({
       loading={loading}
       //
       options={options}
+      drop={drop}
+      nowrite={nowrite}
+      startFocus={startFocus}
       {...rest}
     />
   );
