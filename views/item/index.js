@@ -20,16 +20,20 @@ const ItemView = ({ item, afterAnyChange }) => {
           ) : null}
           {item && item.elements && item.elements.length ? (
             <div className="item-elements-list">
-              {item.elements.map((element, k) => {
-                return (
-                  <Element
-                    key={k}
-                    element={element}
-                    item={item}
-                    afterAnyChange={afterAnyChange}
-                  />
-                );
-              })}
+              {item.elements
+                .sort((a, b) => {
+                  return a.id < b.id ? -1 : 1;
+                })
+                .map((element, k) => {
+                  return (
+                    <Element
+                      key={k}
+                      element={element}
+                      item={item}
+                      afterAnyChange={afterAnyChange}
+                    />
+                  );
+                })}
             </div>
           ) : null}
           <Element item={item} afterAnyChange={afterAnyChange} />

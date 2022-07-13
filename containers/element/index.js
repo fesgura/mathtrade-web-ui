@@ -1,5 +1,5 @@
 import ElementView from "views/element";
-import { useApi, BggElementService, ElementService } from "api";
+import { useApi, BggElementService, ElementService, ItemService } from "api";
 import { setItemTitle } from "./utils";
 
 const Element = ({ element = null, item, afterAnyChange }) => {
@@ -46,6 +46,15 @@ const Element = ({ element = null, item, afterAnyChange }) => {
   });
   // End DELETE ELEMENT
 
+  // DELETE ITEM
+  const [deleteItem, , loadingDeleteItem, errorDeleteItemMessage] = useApi({
+    promise: ItemService.delete,
+    afterLoad: () => {
+      afterAnyChange();
+    },
+  });
+  // End DELETE ELEMENT
+
   return (
     <ElementView
       element={element}
@@ -69,7 +78,13 @@ const Element = ({ element = null, item, afterAnyChange }) => {
           });
         }
       }}
-      deleteElement={deleteElement}
+      deleteElement={(idElement) => {
+        if (item.elements.length === 1) {
+          deleteItem(item.id);
+        } else {
+          deleteElement(idElement);
+        }
+      }}
       loading={
         loadingEditElement || loadingCreateElement || loadingDeleteElement
       }
