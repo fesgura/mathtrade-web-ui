@@ -57,7 +57,10 @@ b {
   font-weight: bold;
 }
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
+}
+body::-webkit-scrollbar {
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {

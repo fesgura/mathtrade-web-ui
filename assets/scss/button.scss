@@ -118,4 +118,14 @@
   &.btn-lg {
     border-radius: 25px;
   }
+
+  &.btn-outline-link {
+    border-color: #ccc;
+    &:hover,
+    &:active {
+      color: #fff;
+      background-color: #aaa;
+      border-color: #aaa;
+    }
+  }
 }

@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { dependencyList, statusList, typeOfElements } from "config";
 import ElementDropVersions from "components/element/elementDropVersions";
 import { Form, Input, Hidden } from "components/form";
+import Icon from "components/icon";
 import { LoadingBox } from "components/loading";
 import { getVersionNameFromId, createVersionList } from "./utils";
 import validations from "./validations";
@@ -101,6 +102,13 @@ const ElementEdit = ({
                     Expansión
                   </Badge>
                 ) : null}
+                <a
+                  href={`https://boardgamegeek.com/boardgame/${bgg_id}/`}
+                  target="_blank"
+                  className="element-name-bgg-link"
+                >
+                  BGG <Icon type="external-link" />
+                </a>
               </div>
             </div>
             <div className="element-form-container">
