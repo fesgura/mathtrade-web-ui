@@ -3,7 +3,7 @@ import { Row, Col } from "reactstrap";
 const PageHeader = ({ title = "title", rightSide }) => {
   return (
     <div className="page-header">
-      <Row className="align-items-center">
+      <Row className="align-items-center justify-content-between">
         <Col xs="auto">
           <h1>{title}</h1>
         </Col>

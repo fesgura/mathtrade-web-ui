@@ -13,7 +13,7 @@ const ElementCreateStep1 = ({ item, setStep }) => {
         Agregar:
         {item?.elements?.length > 0 ? null : (
           <div className="element-create-options_subtitle">
-            (Para crear un combo de varios juegos, empieza agregando algo.)
+            (Para crear un combo de varios juegos, empezá agregando algo.)
           </div>
         )}
       </div>

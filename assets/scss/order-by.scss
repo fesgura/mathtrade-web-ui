@@ -1,0 +1,16 @@
+.order-by {
+  font-size: 12px;
+  .order-by_label {
+    padding-right: 5px;
+  }
+
+  .order-by_select {
+    min-width: 120px;
+    select {
+      width: 100%;
+      border: 1px solid #ccc;
+      padding: 0 0.5em;
+      background-color: #fff;
+    }
+  }
+}

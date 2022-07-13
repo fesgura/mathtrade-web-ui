@@ -6,6 +6,7 @@ import { dependencyTypes } from "config";
 import MinMenu from "components/min-menu";
 import { typeOfElements } from "config";
 import { LoadingBox } from "components/loading";
+import Icon from "components/icon";
 
 const ElementResume = ({ element, item, menuOptions, loading, errors }) => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -62,6 +63,13 @@ const ElementResume = ({ element, item, menuOptions, loading, errors }) => {
                     Expansión
                   </Badge>
                 ) : null}
+                <a
+                  href={`https://boardgamegeek.com/boardgame/${element.bgg_id}/`}
+                  target="_blank"
+                  className="element-name-bgg-link"
+                >
+                  BGG <Icon type="external-link" />
+                </a>
               </div>
             </div>
             <div className="element-row">

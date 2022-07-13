@@ -1,11 +1,28 @@
 import PrivateLayout from "layouts/private";
 import PageHeader from "components/pageHeader";
 import Item from "containers/item";
+//import OrderBy from "components/orderBy";
 
 const MyItemsView = ({ itemList = [], loading, errors, listItems }) => {
   return (
     <PrivateLayout loading={loading}>
-      <PageHeader title="Mis items" />
+      <PageHeader
+        title="Mis items"
+        // rightSide={
+        //   <OrderBy
+        //     options={[
+        //       {
+        //         value: "name",
+        //         text: "Nombre",
+        //       },
+        //       {
+        //         value: "date",
+        //         text: "Fecha",
+        //       },
+        //     ]}
+        //   />
+        // }
+      />
       <div className="item-list">
         {itemList.length ? (
           itemList.map((item, k) => {

@@ -66,6 +66,19 @@
     vertical-align: middle;
     margin-left: 1em;
   }
+  .element-name-bgg-link {
+    font-size: 11px;
+    vertical-align: middle;
+    margin-left: 1em;
+    display: inline-block;
+    color: $orange;
+    .icon {
+      margin-left: 0.3em;
+    }
+    &:hover {
+      color: darken($orange, 10);
+    }
+  }
 
   &.for-combo {
     .element-name {
