@@ -75,3 +75,11 @@ body::-webkit-scrollbar {
 .bt {
   border-top: 1px solid #ccc;
 }
+section {
+  padding: 40px 0;
+  border-bottom: 1px solid #ccc;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}

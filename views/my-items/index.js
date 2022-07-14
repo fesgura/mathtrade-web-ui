@@ -7,7 +7,7 @@ const MyItemsView = ({ itemList = [], loading, errors, listItems }) => {
   return (
     <PrivateLayout loading={loading}>
       <PageHeader
-        title="Mis items"
+        title="Mis ítems"
         // rightSide={
         //   <OrderBy
         //     options={[
@@ -29,14 +29,18 @@ const MyItemsView = ({ itemList = [], loading, errors, listItems }) => {
             return <Item item={item} key={k} afterAnyChange={listItems} own />;
           })
         ) : (
-          <div className="item-list_empty">
-            <p className="lead mb-4">
-              Crea <b>tu primer item</b>: juego, expansión, combo, etc.
-              <br />
-              Luego, podrás agregarlo al <b>Math Trade</b> en curso (y/o
-              guardarlo para futuros Math Trades.)
-            </p>
-          </div>
+          <>
+            {loading ? null : (
+              <div className="item-list_empty">
+                <p className="lead mb-4">
+                  Crea <b>tu primer item</b>: juego, expansión, combo, etc.
+                  <br />
+                  Luego, podrás agregarlo al <b>Math Trade</b> en curso (y/o
+                  guardarlo para futuros Math Trades.)
+                </p>
+              </div>
+            )}
+          </>
         )}
         {!loading ? <Item item={null} afterAnyChange={listItems} own /> : null}
       </div>
