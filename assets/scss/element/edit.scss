@@ -15,5 +15,17 @@
   }
 }
 .element-form-container {
-  padding-right: 60px;
+  max-width: 835px;
+}
+
+@media screen and (max-width: 768px) {
+  .element-edit {
+    .element-thumbnail-container {
+      padding-right: 0;
+      border-right: none;
+    }
+    .element-data-container {
+      padding-left: 0;
+    }
+  }
 }

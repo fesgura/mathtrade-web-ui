@@ -34,9 +34,9 @@ const ElementResume = ({ element, item, menuOptions, loading, errors }) => {
       })}
     >
       <Row className="g-0 align-items-stretch">
-        <Col md={"auto"}>
+        <Col sm={"auto"}>
           <div
-            className={classNames("element-thumbnail-container", {
+            className={classNames("element-thumbnail-container mx-auto mb-4", {
               "for-combo": item?.elements?.length > 1,
             })}
           >
@@ -110,7 +110,7 @@ const ElementResume = ({ element, item, menuOptions, loading, errors }) => {
             ) : null}
           </div>
         </Col>
-        <Col md={"auto"}>
+        <Col sm={"auto"} xs={12} className="pt-sm-0 pt-3 text-end">
           <MinMenu options={menuOptions} />
         </Col>
       </Row>

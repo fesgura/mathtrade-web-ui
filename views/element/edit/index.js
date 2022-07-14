@@ -78,7 +78,7 @@ const ElementEdit = ({
     >
       <Row className="g-0 align-items-stretch">
         <Col md={"auto"}>
-          <div className="element-thumbnail-container">
+          <div className="element-thumbnail-container mx-auto mb-4">
             <div
               className={classNames("element-thumbnail", {
                 loading: loadingBGGelement,
@@ -158,7 +158,7 @@ const ElementEdit = ({
                   }
                 />
                 <Row>
-                  <Col md={4}>
+                  <Col md={4} sm={6}>
                     <Input
                       data={data}
                       validations={validations}
@@ -168,7 +168,7 @@ const ElementEdit = ({
                       name="language"
                     />
                   </Col>
-                  <Col md={6}>
+                  <Col lg={6} md={5} xs={7}>
                     <Input
                       data={data}
                       validations={validations}
@@ -178,7 +178,7 @@ const ElementEdit = ({
                       name="publisher"
                     />
                   </Col>
-                  <Col md={2}>
+                  <Col lg={2} md={3} xs={5}>
                     <Input
                       data={data}
                       validations={validations}
@@ -233,7 +233,7 @@ const ElementEdit = ({
                   <Button
                     color="link"
                     tag="a"
-                    className="me-2"
+                    className="me-2 mb-sm-0 mb-2"
                     outline
                     onClick={(e) => {
                       e.preventDefault();
