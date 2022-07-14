@@ -76,10 +76,10 @@ const MyAccountView = ({
         <Col xl={12}>
           <PageHeader title="Mi cuenta" />
           <Card>
-            <CardBody className="pe-5">
+            <CardBody className="pe-lg-5">
               <Row>
-                <Col md={3}>
-                  <div className="p-5">
+                <Col lg={3} md={4}>
+                  <div className="p-md-5 pt-4">
                     <div
                       style={{
                         maxWidth: 120,
@@ -99,7 +99,7 @@ const MyAccountView = ({
                     </div>
                   </div>
                 </Col>
-                <Col md={9}>
+                <Col lg={9} md={8}>
                   <Form
                     onSubmit={(formData) => {
                       onSubmit(data.id, formData);
@@ -291,7 +291,7 @@ const MyAccountView = ({
                           classNameContainer="mb-2"
                         />
                       </Col>
-                      <Col xs="auto">
+                      <Col md="auto" xs={12}>
                         <div className="pb-2">
                           <TestBGGuser
                             username={BGGuser}
@@ -314,7 +314,7 @@ const MyAccountView = ({
                       <Button
                         color="link"
                         tag="a"
-                        className="me-2"
+                        className="me-2 mb-sm-0 mb-2"
                         outline
                         onClick={(e) => {
                           e.preventDefault();
