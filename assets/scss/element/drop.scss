@@ -2,7 +2,8 @@
   $thumb_width: 220px;
 
   position: relative;
-  min-height: $thumb_width;
+  height: $thumb_width * 2;
+  overflow: hidden;
 
   .element-drop-version_thumbnail {
     // position: absolute;
@@ -42,6 +43,27 @@
       }
       &.next {
         border-top-left-radius: 20px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .element-drop-version {
+    height: 220px;
+    .element-drop-version_thumbnail {
+      display: none;
+    }
+    .element-drop-version_list {
+      position: relative;
+      left: 0;
+      height: 100%;
+      .element-drop-version_item {
+        &.prev {
+          border-bottom-left-radius: 0;
+        }
+        &.next {
+          border-top-left-radius: 0;
+        }
       }
     }
   }
