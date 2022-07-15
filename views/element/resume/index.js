@@ -7,6 +7,7 @@ import MinMenu from "components/min-menu";
 import { typeOfElements } from "config";
 import { LoadingBox } from "components/loading";
 import Icon from "components/icon";
+import Dependency from "./dependency";
 
 const ElementResume = ({ element, item, menuOptions, loading, errors }) => {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -84,9 +85,8 @@ const ElementResume = ({ element, item, menuOptions, loading, errors }) => {
                 {element.language}
               </div>
               <div className="element-col">
-                <b>Dependencia de idioma:</b>
-                <br />
-                {dependencyTypes[element.dependency]}
+                <b>Dependencia de idioma (BGG):</b>
+                <Dependency dependency={element.dependency} />
               </div>
               <div className="element-col">
                 <b>Estado:</b>

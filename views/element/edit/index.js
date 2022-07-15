@@ -6,7 +6,11 @@ import ElementDropVersions from "components/element/elementDropVersions";
 import { Form, Input, Hidden } from "components/form";
 import Icon from "components/icon";
 import { LoadingBox } from "components/loading";
-import { getVersionNameFromId, createVersionList } from "./utils";
+import {
+  getVersionNameFromId,
+  createVersionList,
+  getDependency,
+} from "../utils";
 import validations from "./validations";
 
 const ElementEdit = ({
@@ -27,6 +31,7 @@ const ElementEdit = ({
 
   const [thumbnail, set_thumbnail] = useState(element.thumbnail);
   const [bgg_id, set_bgg_id] = useState(element.bgg_id);
+  const [dependency, set_dependency] = useState("");
   const [bgg_version_id, set_bgg_version_id] = useState(element.bgg_version_id);
 
   const [versionList, setVersionList] = useState([]);
@@ -48,6 +53,7 @@ const ElementEdit = ({
 
   useEffect(() => {
     if (BGGelement) {
+      // console.log(BGGelement);
       if (BGGelement.versions && BGGelement.versions.item) {
         const versions =
           typeof BGGelement.versions.item.forEach === "undefined"
@@ -59,6 +65,7 @@ const ElementEdit = ({
         set_thumbnail(BGGelement.thumbnail);
       }
     }
+    set_dependency(getDependency(BGGelement));
   }, [BGGelement, create]);
 
   useEffect(() => {
@@ -130,6 +137,7 @@ const ElementEdit = ({
                 <Hidden name="bgg_version_id" value={bgg_version_id} />
                 <Hidden name="thumbnail" value={thumbnail} />
                 <Hidden name="complete" value={false} />
+                <Hidden name="dependency" value={dependency} />
 
                 <Input
                   data={getVersionNameFromId(bgg_version_id, versionList)}
@@ -190,18 +198,6 @@ const ElementEdit = ({
                   </Col>
                 </Row>
                 <Row>
-                  <Col md={6}>
-                    <Input
-                      data={data}
-                      validations={validations}
-                      validationStatus={validationStatus}
-                      setValidationStatus={setValidationStatus}
-                      label="Dependencia"
-                      name="dependency"
-                      type="select"
-                      options={dependencyList}
-                    />
-                  </Col>
                   <Col md={6}>
                     <Input
                       data={data}

@@ -3,9 +3,9 @@ const validations = {
   language: ["required"],
   publisher: ["required"],
   year: ["required"],
-  dependency: ["required"],
   status: ["required"],
   //comment NO REQUIRED
+  //dependency  NO REQUIRED ,
 
   //item_title = name
 
