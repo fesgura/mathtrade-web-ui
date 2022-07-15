@@ -91,7 +91,7 @@ const listDependencyTexts = [
   },
   {
     min: "Algunos textos",
-    max: "Algunos textos del juego,fáciles de memorizar",
+    max: "Algunos textos del juego, fáciles de memorizar",
   },
   {
     min: "Moderada",
