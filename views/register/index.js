@@ -129,7 +129,7 @@ const RegisterView = ({
                           placeholder="Nombre"
                           size="lg"
                           icon="user"
-                          question="Tu nombre de usuario lo necesitarás para poder ingresar al sistema."
+                          question="Tu nombre de usuario. Lo necesitarás para poder ingresar al sistema."
                         />
                         <Input
                           validations={validations}

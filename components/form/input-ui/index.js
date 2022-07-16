@@ -124,7 +124,7 @@ const InputComp = ({
             {...rest}
           >
             {loading ? null : (
-              <option value="">{placeholder || "Selecciona..."}</option>
+              <option value="">{placeholder || "Seleccioná..."}</option>
             )}
             {options.map((opt) => {
               if (loading) {

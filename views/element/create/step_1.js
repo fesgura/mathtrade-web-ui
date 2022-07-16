@@ -27,7 +27,7 @@ const ElementCreateStep1 = ({ item, setStep }) => {
           >
             <Icon type="bgg" />{" "}
             <div className="element-create-options_text">
-              Juego <span>ó</span> expansión
+              Juego <span>o</span> expansión
             </div>
           </div>
           <div className="element-create-options_col disabled">

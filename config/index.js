@@ -5,8 +5,8 @@ export const storageName = "MathTradeArgentina";
 export const daysExpireToken = 1;
 
 export const statusTypes = {
-  CE: "Cerrado con el envoltorio original",
-  NU: "Nuevo, Perfecto",
+  CE: "Cerrado en el envoltorio original",
+  NU: "Nuevo, perfecto",
   CN: "Casi nuevo",
   EX: "Excelente",
   MB: "Muy bueno",

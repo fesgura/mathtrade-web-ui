@@ -90,16 +90,16 @@ const listDependencyTexts = [
     max: "Ninguna: sin texto en juego",
   },
   {
-    min: "Algunos textos",
-    max: "Algunos textos del juego, fáciles de memorizar",
+    min: "Poco texto",
+    max: "Pocos textos, fáciles de memorizar",
   },
   {
     min: "Moderada",
-    max: "Moderada: textos en el juego que necesitan hoja de referencia",
+    max: "Moderada: es necesaria una hoja de referencia",
   },
   {
-    min: "Extensivo uso de texto",
-    max: "Extensivo uso de texto: se necesita conocer el idioma para poder jugar",
+    min: "Uso extensivo de texto",
+    max: "Uso extensivo de texto: se necesita conocer el idioma para poder jugar",
   },
   {
     min: "Injugable en otro idioma",

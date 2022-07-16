@@ -30,7 +30,7 @@ const LoginView = ({ loading, errors, onSubmit }) => {
                   <div className="text-center mb-4">
                     <h1>¡Hola!</h1>
                     <p className="muted">
-                      Ingresa con tu nombre email y contraseña
+                      Ingresá con tu nombre email y contraseña
                     </p>
                   </div>
                   <Form
