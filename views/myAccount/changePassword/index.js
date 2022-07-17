@@ -54,7 +54,7 @@ const ChangePasswordView = ({
         }}
       >
         <p className="muted text-center">
-          Por favor, ingresa contraseña actual, luego tu nueva contraseña.
+          Por favor, ingresá contraseña actual, luego tu nueva contraseña.
         </p>
         <Input
           validations={validations}
