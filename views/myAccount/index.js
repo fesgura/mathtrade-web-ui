@@ -232,6 +232,9 @@ const MyAccountView = ({
                       <Col md={4}>
                         <Input
                           data={data}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="WhatsApp"
                           name="whatsapp"
                           type="phone"

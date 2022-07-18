@@ -323,7 +323,11 @@ const InputComp = ({
             name={name}
             value={value}
             onChange={(e) => {
-              onChange(e.target.value);
+              let val = e.target.value;
+              if (type === "phone") {
+                val = e.target.value.replace(/\D/g, "");
+              }
+              onChange(val);
             }}
             type={type}
             className={classNames(

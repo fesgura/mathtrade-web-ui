@@ -206,6 +206,9 @@ const RegisterView = ({
                           icon="phone"
                         />
                         <Input
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="WhatsApp"
                           name="whatsapp"
                           type="phone"
