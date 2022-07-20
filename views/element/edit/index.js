@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Col, Row, Button, Alert, Badge } from "reactstrap";
 import classNames from "classnames";
-import { dependencyList, statusList, typeOfElements } from "config";
+import { languageList, statusList, typeOfElements } from "config";
 import ElementDropVersions from "components/element/elementDropVersions";
 import { Form, Input, Hidden } from "components/form";
 import Icon from "components/icon";
@@ -12,6 +12,7 @@ import {
   getDependency,
 } from "../utils";
 import validations from "./validations";
+import { dependencyToData } from "../utils";
 
 const ElementEdit = ({
   element,
@@ -101,23 +102,30 @@ const ElementEdit = ({
         </Col>
         <Col>
           <div className="element-data-container">
-            <div className="element-name">
-              <div className="element-name-cont">
-                {element.name}{" "}
-                {element.type === typeOfElements["expansion"] ? (
-                  <Badge color="expansion" className="element-name-badge">
-                    Expansión
-                  </Badge>
-                ) : null}
+            <Row className="align-items-center mb-4">
+              <Col xs="auto">
+                <div className="element-name">
+                  <div className="element-name-cont">
+                    {element.name}{" "}
+                    {element.type === typeOfElements["expansion"] ? (
+                      <Badge color="expansion" className="element-name-badge">
+                        Expansión
+                      </Badge>
+                    ) : null}
+                  </div>
+                </div>
+              </Col>
+              <Col>
                 <a
                   href={`https://boardgamegeek.com/boardgame/${bgg_id}/`}
                   target="_blank"
-                  className="element-name-bgg-link"
+                  className="bgg-link"
                 >
                   BGG <Icon type="external-link" />
                 </a>
-              </div>
-            </div>
+              </Col>
+            </Row>
+
             <div className="element-form-container">
               <Form
                 onSubmit={(formData) => {
@@ -166,17 +174,31 @@ const ElementEdit = ({
                   }
                 />
                 <Row>
-                  <Col md={4} sm={6}>
+                  <Col>
                     <Input
                       data={data}
                       validations={validations}
                       validationStatus={validationStatus}
                       setValidationStatus={setValidationStatus}
+                      type="select"
+                      options={languageList}
                       label="Idioma"
                       name="language"
                     />
                   </Col>
-                  <Col lg={6} md={5} xs={7}>
+                  <Col xs="auto">
+                    <Input
+                      type="textinfo"
+                      data={{
+                        dependencyTextInfo: dependencyToData(dependency).most,
+                      }}
+                      label="Dependencia de idioma"
+                      name="dependencyTextInfo"
+                    />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col lg={8} xs={7}>
                     <Input
                       data={data}
                       validations={validations}
@@ -186,7 +208,7 @@ const ElementEdit = ({
                       name="publisher"
                     />
                   </Col>
-                  <Col lg={2} md={3} xs={5}>
+                  <Col lg={4} xs={5}>
                     <Input
                       data={data}
                       validations={validations}

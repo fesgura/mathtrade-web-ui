@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
-import { Col, Row, Badge, Alert } from "reactstrap";
+import { useId, useState, useEffect } from "react";
+import { Col, Row, Badge, Alert, UncontrolledTooltip } from "reactstrap";
 import classNames from "classnames";
 import StatusBadge from "components/statusBadge";
-import { dependencyTypes } from "config";
+import Icon from "components/icon";
 import MinMenu from "components/min-menu";
 import { typeOfElements } from "config";
 import { LoadingBox } from "components/loading";
-import Icon from "components/icon";
 import Dependency from "./dependency";
+import BGGinfoElement from "./bgg";
+
+const twoPointsReg = new RegExp(":", "g");
 
 const ElementResume = ({ element, item, menuOptions, loading, errors }) => {
+  const id = useId("a").replace(twoPointsReg, "");
   const [errorMessage, setErrorMessage] = useState(null);
 
   useEffect(() => {
@@ -37,9 +40,12 @@ const ElementResume = ({ element, item, menuOptions, loading, errors }) => {
       <Row className="g-0 align-items-stretch">
         <Col sm={"auto"}>
           <div
-            className={classNames("element-thumbnail-container mx-auto mb-4", {
-              "for-combo": item?.elements?.length > 1,
-            })}
+            className={classNames(
+              "element-thumbnail-container mx-auto mb-md-0 mb-4",
+              {
+                "for-combo": item?.elements?.length > 1,
+              }
+            )}
           >
             <div className="element-thumbnail">
               {element && element.thumbnail ? (
@@ -56,28 +62,42 @@ const ElementResume = ({ element, item, menuOptions, loading, errors }) => {
               "for-combo": item?.elements?.length > 1,
             })}
           >
-            <div className="element-name">
-              <div className="element-name-cont">
-                {element.name}{" "}
-                {element.type === typeOfElements["expansion"] ? (
-                  <Badge color="expansion" className="element-name-badge">
-                    Expansión
-                  </Badge>
-                ) : null}
-                <a
-                  href={`https://boardgamegeek.com/boardgame/${element.bgg_id}/`}
-                  target="_blank"
-                  className="element-name-bgg-link"
-                >
-                  BGG <Icon type="external-link" />
-                </a>
-              </div>
-            </div>
+            <Row className="align-items-center mb-4">
+              <Col xs="auto">
+                <div className="element-name">
+                  <div className="element-name-cont">
+                    {element.name}{" "}
+                    {element.type === typeOfElements["expansion"] ? (
+                      <Badge color="expansion" className="element-name-badge">
+                        Expansión
+                      </Badge>
+                    ) : null}
+                  </div>
+                </div>
+              </Col>
+              <Col>
+                <BGGinfoElement element={element} />
+              </Col>
+            </Row>
+
             <div className="element-row">
               <div className="element-col">
                 <b>Edición:</b>
                 <br />
-                {`${element.publisher} (${element.year})`}
+                {`${element.publisher} (${element.year})`}{" "}
+                <a
+                  href={`https://boardgamegeek.com/boardgameversion/${element?.bgg_version_id}/`}
+                  target="_blank"
+                  className="bgg-link"
+                  id={`bgg-link-edition-${id}`}
+                >
+                  BGG <Icon type="external-link" />
+                </a>
+                <UncontrolledTooltip target={`bgg-link-edition-${id}`}>
+                  <div className="bgg-info-element_tooltip">
+                    Ver edición en la BGG
+                  </div>
+                </UncontrolledTooltip>
               </div>
               <div className="element-col">
                 <b>Idioma:</b>

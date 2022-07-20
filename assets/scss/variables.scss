@@ -16,6 +16,21 @@ $orange: rgb(255, 81, 0);
 $text-menu-color: #444;
 $text-muted: #777;
 
+// Ratings BGG
+$ratingsBGG: (
+  "0": #666e75,
+  "1": #b2151f,
+  "2": #b2151f,
+  "3": #d71925,
+  "4": #d71925,
+  "5": #5369a2,
+  "6": #5369a2,
+  "7": #1978b3,
+  "8": #1d804c,
+  "9": #186b40,
+  "10": #186b40,
+);
+
 // SIZES
 $main-header-height: 60px;
 $main-footer-height: 40px;

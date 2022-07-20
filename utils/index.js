@@ -1,3 +1,5 @@
+import { languageTranslations } from "config";
+
 export const locationsToOptions = (locations) => {
   if (!locations) {
     return [];
@@ -12,33 +14,8 @@ export const locationsToOptions = (locations) => {
 };
 export const translateText = (str) => {
   const dicc = {
-    Korean: "Coreano",
-    Bulgarian: "Búlgaro",
-    Chinese: "Chino",
-    Czech: "Checo",
-    Slovak: "Eslovaco",
-    Danish: "Danés",
-    Portuguese: "Portugués",
-    Dutch: "Holandés",
-    English: "Inglés",
-    Estonian: "Estonio",
-    Finnish: "Finés",
-    French: "Francés",
-    German: "Alemán",
-    Greek: "Griego",
-    Hungarian: "Húngaro",
-    Italian: "Italiano",
-    Japanese: "Japonés",
-    Lithuanian: "Lituano",
-    Polish: "Polaco",
-    Romanian: "Rumano",
-    Russian: "Ruso",
-    Serbian: "Serbio",
-    Spanish: "Español",
-    Swedish: "Sueco",
-    Turkish: "Turco",
-    Ukrainian: "Ucraniano",
+    ...languageTranslations,
   };
 
-  return dicc[str] || str;
+  return dicc[str] || "Otro";
 };

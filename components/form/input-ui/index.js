@@ -255,6 +255,13 @@ const InputComp = ({
         </InputGroup>
       );
       break;
+    case "textinfo":
+      inputContent = (
+        <div className={classNames("form-info-control", className)}>
+          {value}
+        </div>
+      );
+      break;
     case "input-drop":
       inputContent = (
         <InputGroup

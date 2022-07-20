@@ -54,6 +54,8 @@ const Input = ({
       validations[name].indexOf("required") >= 0
     ) {
       setRequired(true);
+    } else {
+      setRequired(false);
     }
   }, [validations, name]);
 
