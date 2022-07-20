@@ -10,8 +10,9 @@ export const createVersionList = (versions) => {
       yearpublished && yearpublished.value ? yearpublished.value : "";
     const version_name = (name && name.value ? name.value : "") + ` (${year})`;
 
-    let language = "";
     let publisher = "";
+
+    const languageList = [];
 
     if (link && link.length) {
       link.forEach((li) => {
@@ -19,9 +20,27 @@ export const createVersionList = (versions) => {
           publisher = li.value;
         }
         if (li.type.indexOf("language") >= 0) {
-          language = translateText(li.value);
+          languageList.push(translateText(li.value));
         }
       });
+    }
+
+    let language = "";
+    if (languageList.length) {
+      if (languageList.length === 1) {
+        language = languageList[0];
+      } else {
+        language = "Multilenguaje";
+        if (languageList.indexOf("Español") >= 0) {
+          language += " (incluye Español)";
+        } else {
+          if (languageList.indexOf("Inglés") >= 0) {
+            language += " (sin Español, incluye Inglés)";
+          } else {
+            language += " (sin Español ni Inglés)";
+          }
+        }
+      }
     }
 
     list.push({
@@ -69,7 +88,7 @@ export const getDependency = (BGGelement) => {
       const results = dependencyPoll[0]?.results?.result;
       if (results && results.length) {
         let txt = "";
-        console.log(results);
+
         results
           .sort((a, b) => {
             return a.level < b.level ? -1 : 1;

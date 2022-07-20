@@ -5,7 +5,7 @@ import classNames from "classnames";
 const ItemView = ({ item, afterAnyChange }) => {
   return (
     <div className="item">
-      <Card>
+      <Card className="shadow-sm">
         <div
           className={classNames("item-card-container", {
             "for-combo": item?.elements?.length > 1,
