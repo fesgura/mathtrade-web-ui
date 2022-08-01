@@ -86,10 +86,11 @@ const InputComp = ({
   }, [inputDropRef, startFocus]);
 
   useEffect(() => {
-    let timer = null;
+    //let timer = null;
     if (waitBlur) {
       setWaitBlur(false);
-      timer = setTimeout(() => {
+      // timer =
+      setTimeout(() => {
         setIsFocus(false);
       }, 200);
     }

@@ -6,7 +6,7 @@ const Form = ({
   children,
   onSubmit,
   validations = {},
-  validationStatus,
+  // validationStatus,
   setValidationStatus = () => {},
   format = null,
 }) => {
@@ -34,7 +34,7 @@ const Form = ({
         onSubmit(format ? format(formProps) : formProps);
       }
     },
-    [onSubmit, validations, setValidationStatus]
+    [onSubmit, format, validations, setValidationStatus]
   );
 
   return (
