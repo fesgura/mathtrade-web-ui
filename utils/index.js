@@ -17,5 +17,5 @@ export const translateText = (str) => {
     ...languageTranslations,
   };
 
-  return dicc[str] || "Otro";
+  return dicc[str] || "Otro (no listado)";
 };

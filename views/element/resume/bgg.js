@@ -7,22 +7,31 @@ const twoPointsReg = new RegExp(":", "g");
 
 const BGGinfoElement = ({ element }) => {
   const id = useId("a").replace(twoPointsReg, "");
+
+  const stats = {
+    rate: Math.round(element.rate * 10) / 10,
+    rateClass: Math.floor(element.rate),
+    rateVotes: parseInt(element.rate_votes, 10),
+    weight: Math.round(element.weight * 100) / 100,
+    weightVotes: parseInt(element.weight_votes, 10),
+  };
+
   return (
     <div className="bgg-info-element">
       <Row className="align-items-center g-0">
-        {/* <Col xs="auto">
+        <Col xs="auto">
           <div className="bgg-info-element_rating">
             <div
-              className={`bgg-info-element_rating-num bgg-rating-${6}`}
+              className={`bgg-info-element_rating-num bgg-rating-${stats.rateClass}`}
               id={`bgg-rank-${id}`}
             >
-              6.7
+              {stats.rate}
             </div>
             <UncontrolledTooltip target={`bgg-rank-${id}`}>
               <div className="bgg-info-element_tooltip">
                 <b>Rating BGG</b>
                 <br />
-                535 ratings
+                {stats.rateVotes} ratings
               </div>
             </UncontrolledTooltip>
           </div>
@@ -33,7 +42,7 @@ const BGGinfoElement = ({ element }) => {
             id={`bgg-dificultad-${id}`}
           >
             <div className="bgg-info-element_rating-dificultad-num">
-              <b>1.25</b>/5
+              <b>{stats.weight}</b>/5
             </div>
             <div className="bgg-info-element_rating-dificultad-label">
               Dificultad
@@ -43,10 +52,10 @@ const BGGinfoElement = ({ element }) => {
             <div className="bgg-info-element_tooltip">
               <b>Dificultad</b>
               <br />
-              46 votos
+              {stats.weightVotes} votos
             </div>
           </UncontrolledTooltip>
-        </Col> */}
+        </Col>
         <Col xs="auto">
           <a
             href={`https://boardgamegeek.com/boardgame/${element?.bgg_id}/`}

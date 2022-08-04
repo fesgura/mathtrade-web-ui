@@ -8,11 +8,10 @@ import Icon from "components/icon";
 import { LoadingBox } from "components/loading";
 import {
   getVersionNameFromId,
-  createVersionList,
-  getDependency,
+  processBGGdata,
+  dependencyToData,
 } from "../utils";
 import validations from "./validations";
-import { dependencyToData } from "../utils";
 
 const ElementEdit = ({
   element,
@@ -32,8 +31,18 @@ const ElementEdit = ({
 
   const [thumbnail, set_thumbnail] = useState(element.thumbnail);
   const [bgg_id, set_bgg_id] = useState(element.bgg_id);
-  const [dependency, set_dependency] = useState("");
   const [bgg_version_id, set_bgg_version_id] = useState(element.bgg_version_id);
+
+  const [dependency, set_dependency] = useState({
+    value: "",
+    votes: "",
+  });
+  const [bgg_stats, set_bgg_stats] = useState({
+    rate: "",
+    rate_votes: "",
+    weight: "",
+    weight_votes: "",
+  });
 
   const [versionList, setVersionList] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -48,25 +57,20 @@ const ElementEdit = ({
 
   useEffect(() => {
     if (bgg_id !== "") {
-      fetchBGGelement({ id: bgg_id, versions: 1 });
+      fetchBGGelement({ id: bgg_id, versions: 1, stats: 1 });
     }
   }, [bgg_id]);
 
   useEffect(() => {
-    if (BGGelement) {
-      // console.log(BGGelement);
-      if (BGGelement.versions && BGGelement.versions.item) {
-        const versions =
-          typeof BGGelement.versions.item.forEach === "undefined"
-            ? [BGGelement.versions.item]
-            : BGGelement.versions.item;
-        setVersionList(createVersionList(versions));
-      }
-      if (create && BGGelement.thumbnail) {
-        set_thumbnail(BGGelement.thumbnail);
+    const BGGdata = processBGGdata(BGGelement);
+    if (BGGdata) {
+      setVersionList(BGGdata.versionList);
+      set_dependency(BGGdata.dependency);
+      set_bgg_stats(BGGdata.stats);
+      if (create) {
+        set_thumbnail(BGGdata.thumbnail);
       }
     }
-    set_dependency(getDependency(BGGelement));
   }, [BGGelement, create]);
 
   useEffect(() => {
@@ -145,7 +149,13 @@ const ElementEdit = ({
                 <Hidden name="bgg_version_id" value={bgg_version_id} />
                 <Hidden name="thumbnail" value={thumbnail} />
                 <Hidden name="complete" value={false} />
-                <Hidden name="dependency" value={dependency} />
+
+                <Hidden name="dependency" value={dependency.value} />
+                <Hidden name="dependency_votes" value={dependency.votes} />
+                <Hidden name="rate" value={bgg_stats.rate} />
+                <Hidden name="rate_votes" value={bgg_stats.rate_votes} />
+                <Hidden name="weight" value={bgg_stats.weight} />
+                <Hidden name="weight_votes" value={bgg_stats.weight_votes} />
 
                 <Input
                   data={getVersionNameFromId(bgg_version_id, versionList)}
@@ -180,7 +190,7 @@ const ElementEdit = ({
                       validations={validations}
                       validationStatus={validationStatus}
                       setValidationStatus={setValidationStatus}
-                      type="select"
+                      type="select-multiple"
                       options={languageList}
                       label="Idioma"
                       name="language"

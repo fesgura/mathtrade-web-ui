@@ -50,33 +50,83 @@ export const typeOfElements = {
 };
 
 export const languageTranslations = {
-  Korean: "Coreano",
+  Afrikaans: "Afrikaans",
+  Albanian: "Albanés",
+  Arabic: "Arábigo",
+  Armenian: "Armenio",
+  Azerbaijani: "Azerbaiyano",
+  Basque: "Vasco",
+  Belarusian: "Bielorruso",
+  Bengali: "Bengalí",
+  Bosnian: "Bosnio",
+  Breton: "Bretón",
   Bulgarian: "Búlgaro",
+  Burmese: "Birmano",
+  Catalan: "Catalán",
   Chinese: "Chino",
+  Croatian: "Croata",
   Czech: "Checo",
-  Slovak: "Eslovaco",
   Danish: "Danés",
-  Portuguese: "Portugués",
   Dutch: "Holandés",
   English: "Inglés",
+  Esperanto: "Esperanto",
   Estonian: "Estonio",
+  Faroese: "Feroés",
+  Filipino: "Filipino",
   Finnish: "Finés",
   French: "Francés",
+  Galician: "Gallego",
+  Georgian: "Georgiano",
   German: "Alemán",
   Greek: "Griego",
+  Hebrew: "Hebreo",
+  Hindi: "Hindi",
   Hungarian: "Húngaro",
+  Icelandic: "Islandés",
+  Indonesian: "Indonesio",
+  Inuktitut: "Inuktitut",
+  Iranian: "Iraní",
+  Irish: "Irlandés",
   Italian: "Italiano",
   Japanese: "Japonés",
+  Korean: "Coreano",
+  Latin: "Latin",
+  Latvian: "Letón",
   Lithuanian: "Lituano",
+  Luxembourgish: "Luxemburgués",
+  Macedonian: "Macedonio",
+  Malay: "Malayo",
+  Maltese: "Maltés",
+  Mapudungun: "Mapudungún",
+  Norwegian: "Noruego",
+  Persian: "Persa",
   Polish: "Polaco",
+  Portuguese: "Portugués",
   Romanian: "Rumano",
+  Romansh: "Románico",
   Russian: "Ruso",
+  "Salishan languages": "Salishan",
+  Sardinian: "Sardinian",
+  "Scottish Gaelic": "Gaélico escocés",
   Serbian: "Serbio",
+  Slovak: "Eslovaco",
+  Slovenian: "Esloveno",
   Spanish: "Español",
+  Swahili: "Swahili",
   Swedish: "Sueco",
+  Tamil: "Tamil",
+  Thai: "Thai",
   Turkish: "Turco",
   Ukrainian: "Ucraniano",
+  Uyghur: "Uyghur",
+  Vietnamese: "Vietnamita",
+  Welsh: "Galés",
 };
+// otros.forEach((lan) => {
+//   aaa[lan] = languageTranslations[lan] || lan;
+// });
+
+// console.log(JSON.stringify(aaa));
 
 export const languageList = (() => {
   const list = [];
@@ -89,22 +139,14 @@ export const languageList = (() => {
     });
   }
 
-  list.push({
-    value: "Multilenguaje (incluye Español)",
-    text: "Multilenguaje (incluye Español)",
-  });
-  list.push({
-    value: "Multilenguaje (sin Español, incluye Inglés)",
-    text: "Multilenguaje (sin Español, incluye Inglés)",
-  });
-  list.push({
-    value: "Multilenguaje (sin Español ni Inglés)",
-    text: "Multilenguaje (sin Español ni Inglés)",
-  });
-  list.push({
-    value: "Otro",
-    text: "Otro",
-  });
+  list
+    .sort((a, b) => {
+      return a.text < b.text ? -1 : 1;
+    })
+    .push({
+      value: "Otro (no listado)",
+      text: "Otro (no listado)",
+    });
 
   return list;
 })();

@@ -2,6 +2,7 @@ import { useId, useState, useEffect, useRef } from "react";
 import { UncontrolledTooltip } from "reactstrap";
 import classNames from "classnames";
 import Icon from "components/icon";
+import { selectMultipleToArray } from "./utils";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -260,6 +261,58 @@ const InputComp = ({
       inputContent = (
         <div className={classNames("form-info-control", className)}>
           {value}
+        </div>
+      );
+      break;
+    case "select-multiple":
+      inputContent = (
+        <div
+          className={classNames("form-control form-select-multiple", className)}
+        >
+          {selectMultipleToArray(value).map((lab, k) => {
+            return (
+              <div className="form-select-multiple_badge" key={k}>
+                <span className="form-select-multiple_label">{lab}</span>
+                <span
+                  className="form-select-multiple_icon"
+                  onClick={() => {
+                    const arr = selectMultipleToArray(value);
+                    const ind = arr.indexOf(lab);
+                    // const resArr =
+                    arr.splice(ind, 1);
+                    onChange(arr.join(","));
+                  }}
+                >
+                  <Icon />
+                </span>
+              </div>
+            );
+          })}
+          <input type="hidden" name={name} value={value} />
+          <select
+            onChange={(e) => {
+              const newValue =
+                value + (value === "" ? e.target.value : "," + e.target.value);
+              onChange(newValue);
+            }}
+          >
+            {loading ? null : (
+              <option value="">{placeholder || "Seleccioná..."}</option>
+            )}
+            {options.map((opt) => {
+              if (value.indexOf(opt.value) >= 0) {
+                return null;
+              }
+              if (loading) {
+                return null;
+              }
+              return (
+                <option value={opt.value} key={opt.value}>
+                  {opt.text}
+                </option>
+              );
+            })}
+          </select>
         </div>
       );
       break;

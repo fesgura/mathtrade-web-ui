@@ -1,6 +1,6 @@
 import { translateText } from "utils";
 
-export const createVersionList = (versions) => {
+const createVersionList = (versions) => {
   const list = [];
 
   versions.forEach((version) => {
@@ -25,23 +25,23 @@ export const createVersionList = (versions) => {
       });
     }
 
-    let language = "";
-    if (languageList.length) {
-      if (languageList.length === 1) {
-        language = languageList[0];
-      } else {
-        language = "Multilenguaje";
-        if (languageList.indexOf("Español") >= 0) {
-          language += " (incluye Español)";
-        } else {
-          if (languageList.indexOf("Inglés") >= 0) {
-            language += " (sin Español, incluye Inglés)";
-          } else {
-            language += " (sin Español ni Inglés)";
-          }
-        }
-      }
-    }
+    const language = languageList.join(",");
+    // if (languageList.length) {
+    //   if (languageList.length === 1) {
+    //     language = languageList[0];
+    //   } else {
+    //     language = "Multilenguaje";
+    //     if (languageList.indexOf("Español") >= 0) {
+    //       language += " (incluye Español)";
+    //     } else {
+    //       if (languageList.indexOf("Inglés") >= 0) {
+    //         language += " (sin Español, incluye Inglés)";
+    //       } else {
+    //         language += " (sin Español ni Inglés)";
+    //       }
+    //     }
+    //   }
+    // }
 
     list.push({
       formData: {
@@ -78,29 +78,97 @@ export const getVersionNameFromId = (bgg_version_id, versionList) => {
   }
 };
 
-export const getDependency = (BGGelement) => {
-  if (BGGelement && BGGelement.poll && BGGelement.poll.length) {
+const getDependency = (BGGelement) => {
+  if (BGGelement.poll && BGGelement.poll.length) {
     const dependencyPoll = BGGelement.poll.filter((p) => {
       return p.name === "language_dependence";
     });
 
     if (dependencyPoll[0]) {
       const results = dependencyPoll[0]?.results?.result;
+
       if (results && results.length) {
         let txt = "";
 
-        results
-          .sort((a, b) => {
-            return a.level < b.level ? -1 : 1;
-          })
-          .forEach((r) => {
-            txt += "|" + (r.numvotes || "0");
-          });
-        return txt.substring(1);
+        results.sort((a, b) => {
+          return a.level < b.level ? -1 : 1;
+        });
+
+        let most = 0;
+        let max = -1;
+
+        results.forEach((r, i) => {
+          const num = parseInt(r.numvotes, 10);
+          if (num > max) {
+            max = num;
+            most = i;
+          }
+
+          txt += "|" + (`${num}` || "0");
+        });
+
+        return {
+          value: most,
+          votes: txt.substring(1),
+        };
       }
     }
   }
-  return "";
+  return {
+    value: "",
+    votes: "",
+  };
+};
+const getStats = (BGGelement) => {
+  let rate = "";
+  let rate_votes = "";
+  let weight = "";
+  let weight_votes = "";
+
+  if (BGGelement.statistics && BGGelement.statistics.ratings) {
+    if (BGGelement.statistics.ratings.average) {
+      rate = BGGelement.statistics.ratings.average.value;
+    }
+    if (BGGelement.statistics.ratings.usersrated) {
+      rate_votes = BGGelement.statistics.ratings.usersrated.value;
+    }
+    if (BGGelement.statistics.ratings.averageweight) {
+      weight = BGGelement.statistics.ratings.averageweight.value;
+    }
+    if (BGGelement.statistics.ratings.numweights) {
+      weight_votes = BGGelement.statistics.ratings.numweights.value;
+    }
+  }
+  return {
+    rate,
+    rate_votes,
+    weight,
+    weight_votes,
+  };
+};
+export const processBGGdata = (BGGelement) => {
+  //console.log("BGGelement", BGGelement);
+
+  if (!BGGelement) {
+    return null;
+  }
+
+  const BGGdata = { versionList: [] };
+  if (BGGelement.versions && BGGelement.versions.item) {
+    const versions =
+      typeof BGGelement.versions.item.forEach === "undefined"
+        ? [BGGelement.versions.item]
+        : BGGelement.versions.item;
+    BGGdata.versionList = createVersionList(versions);
+  }
+  // dependency
+  BGGdata.dependency = getDependency(BGGelement);
+
+  // stats
+  BGGdata.stats = getStats(BGGelement);
+
+  BGGdata.thumbnail = BGGelement.thumbnail || "";
+  return BGGdata;
 };
 
 const listDependencyTexts = [
@@ -126,29 +194,21 @@ const listDependencyTexts = [
   },
 ];
 
-export const dependencyToData = (dependencyStr) => {
-  if (dependencyStr && dependencyStr !== "" && dependencyStr.indexOf("|") > 0) {
-    const dependencyStrList = dependencyStr.split("|");
-    let most = "Sin datos";
-    let mostNum = 0;
-    const list = dependencyStrList.map((str, i) => {
-      const value = parseInt(str, 10);
-      if (value > mostNum) {
-        mostNum = value;
-        most = listDependencyTexts[i].min;
-      }
-      return {
-        value,
-        text: listDependencyTexts[i].max,
-      };
-    });
+export const dependencyToData = (dependency) => {
+  if (!dependency || dependency.value.length === 0) {
     return {
-      most,
-      list,
+      most: "Sin datos",
+      list: [],
     };
   }
+
   return {
-    most: "Sin datos",
-    list: [],
+    most: listDependencyTexts[parseInt(dependency.value, 10)].min,
+    list: dependency.votes.split("|").map((vote, i) => {
+      return {
+        value: parseInt(vote, 10),
+        text: listDependencyTexts[i].max,
+      };
+    }),
   };
 };

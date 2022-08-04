@@ -154,3 +154,55 @@ select,
     cursor: pointer;
   }
 }
+
+// SELECT MULTIPLE
+.form-select-multiple {
+  position: relative;
+  min-height: 40px;
+  padding-bottom: 0;
+  padding-right: 0;
+
+  .form-select-multiple_badge {
+    position: relative;
+    z-index: 2;
+    display: inline-block;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    line-height: 1.8;
+    padding: 0 0.4em 0 0.8em;
+    margin: 0 0.4em 0.4em 0;
+    border-radius: 0.3em;
+    cursor: default;
+
+    .form-select-multiple_label {
+      margin-right: 0.5em;
+    }
+    .form-select-multiple_icon {
+      opacity: 0.25;
+      cursor: pointer;
+    }
+
+    &:hover {
+      .form-select-multiple_icon {
+        opacity: 1;
+      }
+    }
+  }
+
+  select {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    bottom: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: text;
+    opacity: 0;
+  }
+}

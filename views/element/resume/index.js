@@ -102,11 +102,11 @@ const ElementResume = ({ element, item, menuOptions, loading, errors }) => {
               <div className="element-col">
                 <b>Idioma:</b>
                 <br />
-                {element.language}
+                {element.language.replace(/,/g, ", ")}
               </div>
               <div className="element-col">
                 <b>Dependencia de idioma (BGG):</b>
-                <Dependency dependency={element.dependency} />
+                <Dependency element={element} />
               </div>
               <div className="element-col">
                 <b>Estado:</b>

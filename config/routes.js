@@ -17,8 +17,16 @@ export const privateRoutes = {
   myItems: {
     path: "my-items",
   },
+
   myAccount: {
     path: "my-account",
+  },
+
+  mathTrade: {
+    path: "mathtrade/",
+    itemList: {
+      path: "item-list",
+    },
   },
 };
 
@@ -36,6 +44,16 @@ export const mainMenuList = [
   // },
   { path: privateRoutes.home.path, title: "Inicio" },
   { path: privateRoutes.myItems.path, title: "Mis ítems" },
+  {
+    title: "Math Trade",
+    children: [
+      {
+        path:
+          privateRoutes.mathTrade.path + privateRoutes.mathTrade.itemList.path,
+        title: "Item List",
+      },
+    ],
+  },
 ];
 export const mainMenuUserList = [
   { path: privateRoutes.myAccount.path, title: "Mi cuenta", icon: "user" },

@@ -10,15 +10,20 @@ import {
 } from "reactstrap";
 import { dependencyToData } from "../utils";
 
-const Dependency = ({ dependency }) => {
+const Dependency = ({ element }) => {
   const [dataDependency, setDataDependency] = useState({
     most: "Sin datos",
     list: [],
   });
 
   useEffect(() => {
-    setDataDependency(dependencyToData(dependency));
-  }, [dependency]);
+    setDataDependency(
+      dependencyToData({
+        value: element.dependency,
+        votes: element.dependency_votes,
+      })
+    );
+  }, [element]);
 
   return (
     <div className="element-dependency">
@@ -31,7 +36,7 @@ const Dependency = ({ dependency }) => {
           tag="div"
           title="Votos en la BGG"
         >
-          {dataDependency.most}
+          {dataDependency.most}{" "}
         </DropdownToggle>
         {dataDependency.list.length ? (
           <DropdownMenu>
