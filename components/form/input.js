@@ -34,6 +34,7 @@ const Input = ({
   drop,
   nowrite,
   startFocus,
+  disabled,
   //
   ...rest
 }) => {
@@ -107,6 +108,7 @@ const Input = ({
       drop={drop}
       nowrite={nowrite}
       startFocus={startFocus}
+      disabled={disabled}
       {...rest}
     />
   );

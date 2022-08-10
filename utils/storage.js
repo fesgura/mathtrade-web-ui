@@ -31,6 +31,9 @@ const model = {
     token: "",
     expires: 123,
   },
+  mathtrade:{
+
+  }
 };
 */
 
@@ -43,6 +46,7 @@ const defaultModel = {
     token: null,
     expires: 0,
   },
+  mathtrade: null,
 };
 
 storage.setToStorage = (options) => {
@@ -50,6 +54,7 @@ storage.setToStorage = (options) => {
   user => user.data
   token => auth.token
   bggUser => user.bgg
+  mathtrade => mathtrade
   */
   const store = storage.get() || { ...defaultModel };
 
@@ -58,6 +63,7 @@ storage.setToStorage = (options) => {
     if (value) {
       switch (a) {
         case "user":
+          delete value.token;
           store.user.data = value;
           break;
         case "token":
@@ -67,6 +73,9 @@ storage.setToStorage = (options) => {
           break;
         case "bggUser":
           store.user.bgg = value;
+          break;
+        case "mathtrade":
+          store.mathtrade = value;
           break;
         default:
         //
@@ -80,6 +89,7 @@ storage.getFromStore = (item) => {
   user => user.data
   auth => auth
   bggUser => user.bgg
+  mathtrade => mathtrade
   */
 
   const store = storage.get();
@@ -97,6 +107,8 @@ storage.getFromStore = (item) => {
       return store.auth;
     case "token":
       return store.auth.token;
+    case "mathtrade":
+      return store.mathtrade;
     default:
       return store[item] || null;
   }

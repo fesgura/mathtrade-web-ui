@@ -16,6 +16,7 @@ const ElementView = ({
   fetchBGGelement,
   BGGelement,
   loadingBGGelement,
+  own,
 }) => {
   const [statusUI, setStatusUI] = useState(element ? "resume" : "create");
 
@@ -30,37 +31,41 @@ const ElementView = ({
             item={item}
             loading={loading}
             errors={errors}
-            menuOptions={[
-              {
-                icon: "pencil",
-                text: "Editar",
-                onClick: () => {
-                  setStatusUI("edit");
-                },
-              },
-              {
-                icon: "trash",
-                text: "Eliminar",
-                className: "text-danger",
-                onClick: () => {
-                  setModalDeleteOpen("element");
-                },
-              },
-              item?.elements?.length > 1
-                ? {
-                    icon: "trash",
-                    text: (
-                      <>
-                        Eliminar todo el <b>combo</b>
-                      </>
-                    ),
-                    className: "text-danger bt mt-2 pt-2",
-                    onClick: () => {
-                      setModalDeleteOpen("item");
+            menuOptions={
+              own
+                ? [
+                    {
+                      icon: "pencil",
+                      text: "Editar",
+                      onClick: () => {
+                        setStatusUI("edit");
+                      },
                     },
-                  }
-                : null,
-            ]}
+                    {
+                      icon: "trash",
+                      text: "Eliminar",
+                      className: "text-danger",
+                      onClick: () => {
+                        setModalDeleteOpen("element");
+                      },
+                    },
+                    item?.elements?.length > 1
+                      ? {
+                          icon: "trash",
+                          text: (
+                            <>
+                              Eliminar todo el <b>combo</b>
+                            </>
+                          ),
+                          className: "text-danger bt mt-2 pt-2",
+                          onClick: () => {
+                            setModalDeleteOpen("item");
+                          },
+                        }
+                      : null,
+                  ]
+                : null
+            }
           />
           <Modal isOpen={modalDeleteOpen} centered>
             <ModalBody className="text-center">

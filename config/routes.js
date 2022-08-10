@@ -22,7 +22,13 @@ export const privateRoutes = {
     path: "my-account",
   },
 
-  mathTrade: {
+  mathTradeDisabled: {
+    path: "mathtrade/",
+    myData: {
+      path: "my-data",
+    },
+  },
+  mathTradeEnabled: {
     path: "mathtrade/",
     itemList: {
       path: "item-list",
@@ -44,17 +50,46 @@ export const mainMenuList = [
   // },
   { path: privateRoutes.home.path, title: "Inicio" },
   { path: privateRoutes.myItems.path, title: "Mis ítems" },
-  {
-    title: "Math Trade",
-    children: [
-      {
-        path:
-          privateRoutes.mathTrade.path + privateRoutes.mathTrade.itemList.path,
-        title: "Item List",
-      },
-    ],
-  },
+  // {
+  //   title: "Math Trade",
+  //   children: [
+  //     {
+  //       path:
+  //         privateRoutes.mathTrade.path + privateRoutes.mathTrade.itemList.path,
+  //       title: "Lista de Items",
+  //     },
+  //   ],
+  // },
 ];
+export const mathtradeMenuList = {
+  disabled: [
+    {
+      path:
+        privateRoutes.mathTradeDisabled.path +
+        privateRoutes.mathTradeDisabled.myData.path,
+      title: "Inscribite",
+      icon: "star",
+    },
+  ],
+  enabled: [
+    {
+      path:
+        privateRoutes.mathTradeEnabled.path +
+        privateRoutes.mathTradeEnabled.itemList.path,
+      title: "Lista de Items",
+      icon: "list",
+    },
+    { separator: true },
+    {
+      path:
+        privateRoutes.mathTradeDisabled.path +
+        privateRoutes.mathTradeDisabled.myData.path,
+      title: "Mis datos",
+      icon: "user",
+    },
+  ],
+};
+
 export const mainMenuUserList = [
   { path: privateRoutes.myAccount.path, title: "Mi cuenta", icon: "user" },
 ];

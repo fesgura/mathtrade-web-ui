@@ -57,6 +57,7 @@
 
     & > li {
       position: relative;
+
       height: $main-header-height;
       transition: background-color 0.1s;
 
@@ -84,7 +85,7 @@
       ul {
         background-color: #fff;
         position: absolute;
-        z-index: 11;
+        z-index: 100;
         top: 95%;
         right: 0;
         display: block;
@@ -155,6 +156,7 @@
     visibility: hidden;
     transition: all 0.2s;
     position: absolute;
+    z-index: 12;
     top: 95%;
     right: 0;
     background-color: #fff;

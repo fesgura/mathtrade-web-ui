@@ -8,18 +8,15 @@ import storage from "utils/storage";
 const MyAccountContainer = () => {
   const [getUser, dataGetUser, loadingGetUser, errorGetUser] = useApi({
     promise: UserService.get,
-    format: (data) => {
-      return {
-        ...data,
-        location: data?.location?.id,
-      };
-    },
+    // format: (data) => {
+    //   return data;
+    // },
   });
 
   const [editUser, dataEditUser, loadingEditUser, errorEditUser] = useApi({
     promise: UserService.put,
     afterLoad: (user) => {
-      storage.setToStorage({ user, bggUser: {} });
+      storage.setToStorage({ user, bggUser: {}, mathtrade: null });
       Router.reload(window.location.pathname);
     },
   });

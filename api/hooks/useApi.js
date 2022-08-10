@@ -20,10 +20,11 @@ const useApi = ({
   forBGG = false,
   conditional = true,
   afterLoad = null,
+  startLoading = false,
 }) => {
   const [data, setData] = useState(initialState);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [dataLoading, setDataLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(startLoading);
 
   const fetchData = useCallback(
     (apiParams, apiProps) => {

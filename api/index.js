@@ -5,3 +5,4 @@ export { default as UserService } from "./services/user";
 export { default as ItemService } from "./services/item";
 export { default as BggElementService } from "./services/bggElement";
 export { default as ElementService } from "./services/element";
+export { default as MathTradeService } from "./services/mathtrade";

@@ -85,19 +85,24 @@ const ElementResume = ({ element, item, menuOptions, loading, errors }) => {
                 <b>Edición:</b>
                 <br />
                 {`${element.publisher} (${element.year})`}{" "}
-                <a
-                  href={`https://boardgamegeek.com/boardgameversion/${element?.bgg_version_id}/`}
-                  target="_blank"
-                  className="bgg-link"
-                  id={`bgg-link-edition-${id}`}
-                >
-                  BGG <Icon type="external-link" />
-                </a>
-                <UncontrolledTooltip target={`bgg-link-edition-${id}`}>
-                  <div className="bgg-info-element_tooltip">
-                    Ver edición en la BGG
-                  </div>
-                </UncontrolledTooltip>
+                {element.bgg_version_id &&
+                element.bgg_version_id !== "other" ? (
+                  <>
+                    <a
+                      href={`https://boardgamegeek.com/boardgameversion/${element?.bgg_version_id}/`}
+                      target="_blank"
+                      className="bgg-link"
+                      id={`bgg-link-edition-${id}`}
+                    >
+                      BGG <Icon type="external-link" />
+                    </a>
+                    <UncontrolledTooltip target={`bgg-link-edition-${id}`}>
+                      <div className="bgg-info-element_tooltip">
+                        Ver edición en la BGG
+                      </div>
+                    </UncontrolledTooltip>
+                  </>
+                ) : null}
               </div>
               <div className="element-col">
                 <b>Idioma:</b>

@@ -67,6 +67,7 @@ const InputComp = ({
   drop,
   nowrite,
   startFocus,
+  disabled,
   //
   ...rest
 }) => {
@@ -123,6 +124,7 @@ const InputComp = ({
               },
               className
             )}
+            disabled={disabled}
             {...rest}
           >
             {loading ? null : (
@@ -167,6 +169,7 @@ const InputComp = ({
             onChange={(e) => {
               onChange(e.target.checked);
             }}
+            disabled={disabled}
             {...rest}
           />
           <input
@@ -200,6 +203,7 @@ const InputComp = ({
                   }}
                   type="radio"
                   id={`radio-${id}-${k}-${opt.value}`}
+                  disabled={disabled}
                   {...rest}
                 />
                 <label
@@ -225,6 +229,7 @@ const InputComp = ({
           onChange={(e) => {
             onChange(e.target.value);
           }}
+          disabled={disabled}
           {...rest}
         />
       );
@@ -252,6 +257,7 @@ const InputComp = ({
               className
             )}
             readOnly={readOnly}
+            disabled={disabled}
             {...rest}
           />
         </InputGroup>
@@ -267,20 +273,29 @@ const InputComp = ({
     case "select-multiple":
       inputContent = (
         <div
-          className={classNames("form-control form-select-multiple", className)}
+          className={classNames(
+            "form-control form-select-multiple",
+            error ? "is-invalid" : "",
+            className,
+            { disabled, readOnly }
+          )}
         >
           {selectMultipleToArray(value).map((lab, k) => {
             return (
               <div className="form-select-multiple_badge" key={k}>
                 <span className="form-select-multiple_label">{lab}</span>
                 <span
-                  className="form-select-multiple_icon"
+                  className={classNames("form-select-multiple_icon", {
+                    disabled: disabled || readOnly,
+                  })}
                   onClick={() => {
-                    const arr = selectMultipleToArray(value);
-                    const ind = arr.indexOf(lab);
-                    // const resArr =
-                    arr.splice(ind, 1);
-                    onChange(arr.join(","));
+                    if (!disabled && !readOnly) {
+                      const arr = selectMultipleToArray(value);
+                      const ind = arr.indexOf(lab);
+                      // const resArr =
+                      arr.splice(ind, 1);
+                      onChange(arr.join(","));
+                    }
                   }}
                 >
                   <Icon />
@@ -288,13 +303,14 @@ const InputComp = ({
               </div>
             );
           })}
-          <input type="hidden" name={name} value={value} />
+          <input type="hidden" name={name} value={value} disabled={disabled} />
           <select
             onChange={(e) => {
               const newValue =
                 value + (value === "" ? e.target.value : "," + e.target.value);
               onChange(newValue);
             }}
+            disabled={disabled}
           >
             {loading ? null : (
               <option value="">{placeholder || "Seleccioná..."}</option>
@@ -348,6 +364,7 @@ const InputComp = ({
               className
             )}
             readOnly={readOnly}
+            disabled={disabled}
             {...rest}
           />
           {nowrite ? (
@@ -359,6 +376,7 @@ const InputComp = ({
                 onFocus={() => {
                   setIsFocus(true);
                 }}
+                disabled={disabled}
               />
             </div>
           ) : null}
@@ -398,6 +416,7 @@ const InputComp = ({
               className
             )}
             readOnly={readOnly}
+            disabled={disabled}
             {...rest}
           />
         </InputGroup>
@@ -409,7 +428,7 @@ const InputComp = ({
       {label ? (
         <label className="form-label">
           {label}
-          {required ? <span className="req">*</span> : null}
+          {required && !readOnly ? <span className="req">*</span> : null}
           {question ? (
             <>
               <span className="form-question" id={`tt-label-q-${id}`}>

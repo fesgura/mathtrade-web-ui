@@ -13,6 +13,11 @@ import {
 } from "../utils";
 import validations from "./validations";
 
+const maxYear = (function () {
+  const d = new Date();
+  return `${d.getFullYear()}`;
+})();
+
 const ElementEdit = ({
   element,
   create,
@@ -54,6 +59,8 @@ const ElementEdit = ({
       ...newData,
     });
   };
+
+  console.log("bgg_version_id", bgg_version_id);
 
   useEffect(() => {
     if (bgg_id !== "") {
@@ -167,6 +174,7 @@ const ElementEdit = ({
                   name="version_name"
                   nowrite
                   icon={"book"}
+                  autoComplete="off"
                   loading={loadingBGGelement}
                   drop={
                     !loadingBGGelement ? (
@@ -194,6 +202,9 @@ const ElementEdit = ({
                       options={languageList}
                       label="Idioma"
                       name="language"
+                      readOnly={
+                        bgg_version_id !== "other" && bgg_version_id !== ""
+                      }
                     />
                   </Col>
                   <Col xs="auto">
@@ -216,6 +227,9 @@ const ElementEdit = ({
                       setValidationStatus={setValidationStatus}
                       label="Editorial"
                       name="publisher"
+                      readOnly={
+                        bgg_version_id !== "other" && bgg_version_id !== ""
+                      }
                     />
                   </Col>
                   <Col lg={4} xs={5}>
@@ -225,7 +239,13 @@ const ElementEdit = ({
                       validationStatus={validationStatus}
                       setValidationStatus={setValidationStatus}
                       label="Año"
+                      type="number"
+                      min="1"
+                      max={maxYear}
                       name="year"
+                      readOnly={
+                        bgg_version_id !== "other" && bgg_version_id !== ""
+                      }
                     />
                   </Col>
                 </Row>

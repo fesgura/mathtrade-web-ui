@@ -25,8 +25,11 @@
 @import "item/index.scss";
 @import "element/index.scss";
 @import "order-by";
+@import "invite";
 
 @import "layouts/public";
 @import "layouts/private";
 
 @import "pages/login";
+
+@import "mt/register";

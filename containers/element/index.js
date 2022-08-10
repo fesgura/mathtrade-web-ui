@@ -2,7 +2,7 @@ import ElementView from "views/element";
 import { useApi, BggElementService, ElementService, ItemService } from "api";
 import { setItemTitle } from "./utils";
 
-const Element = ({ element = null, item, afterAnyChange }) => {
+const Element = ({ element = null, item, afterAnyChange, own }) => {
   // BGG ELEMENT
   const [fetchBGGelement, BGGelement, loadingBGGelement, errorMessage] = useApi(
     {
@@ -102,6 +102,7 @@ const Element = ({ element = null, item, afterAnyChange }) => {
       fetchBGGelement={fetchBGGelement}
       BGGelement={BGGelement}
       loadingBGGelement={loadingBGGelement}
+      own={own}
     />
   );
 };

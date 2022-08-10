@@ -5,7 +5,7 @@ import { useApi, ItemService } from "api";
 
 const MyItems = () => {
   const [listItems, itemList, loadingItemsList, errorItemsList] = useApi({
-    promise: ItemService.list,
+    promise: ItemService.listMyItems,
     initialState: [],
   });
 

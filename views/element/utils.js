@@ -1,6 +1,6 @@
 import { translateText } from "utils";
 
-const createVersionList = (versions) => {
+const createVersionList = (versions, defaultThumbnail) => {
   const list = [];
 
   versions.forEach((version) => {
@@ -26,22 +26,6 @@ const createVersionList = (versions) => {
     }
 
     const language = languageList.join(",");
-    // if (languageList.length) {
-    //   if (languageList.length === 1) {
-    //     language = languageList[0];
-    //   } else {
-    //     language = "Multilenguaje";
-    //     if (languageList.indexOf("Español") >= 0) {
-    //       language += " (incluye Español)";
-    //     } else {
-    //       if (languageList.indexOf("Inglés") >= 0) {
-    //         language += " (sin Español, incluye Inglés)";
-    //       } else {
-    //         language += " (sin Español ni Inglés)";
-    //       }
-    //     }
-    //   }
-    // }
 
     list.push({
       formData: {
@@ -55,6 +39,19 @@ const createVersionList = (versions) => {
         bgg_version_id: id,
       },
     });
+  });
+
+  list.push({
+    formData: {
+      language: "",
+      publisher: "",
+      year: "",
+      version_name: "Otra, no listada",
+    },
+    versionData: {
+      thumbnail: defaultThumbnail,
+      bgg_version_id: "other",
+    },
   });
 
   return list;
@@ -159,7 +156,10 @@ export const processBGGdata = (BGGelement) => {
       typeof BGGelement.versions.item.forEach === "undefined"
         ? [BGGelement.versions.item]
         : BGGelement.versions.item;
-    BGGdata.versionList = createVersionList(versions);
+    BGGdata.versionList = createVersionList(
+      versions,
+      BGGelement.thumbnail || ""
+    );
   }
   // dependency
   BGGdata.dependency = getDependency(BGGelement);

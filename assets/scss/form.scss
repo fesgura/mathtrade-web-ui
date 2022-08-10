@@ -133,9 +133,11 @@ select,
     overflow-y: auto;
   }
 }
-
+.form-control-plaintext,
 .form-info-control {
-  padding: 6px 0;
+  padding: 6px;
+  background-color: #f4f4f4;
+  min-height: 38px;
 }
 
 .no-write {
@@ -180,10 +182,13 @@ select,
     .form-select-multiple_icon {
       opacity: 0.25;
       cursor: pointer;
+      &.disabled {
+        cursor: default;
+      }
     }
 
     &:hover {
-      .form-select-multiple_icon {
+      .form-select-multiple_icon:not(.disabled) {
         opacity: 1;
       }
     }
@@ -204,5 +209,20 @@ select,
     background-color: transparent;
     cursor: text;
     opacity: 0;
+  }
+  &.disabled {
+    background-color: #e9ecef;
+    select {
+      display: none;
+    }
+  }
+  &.readOnly {
+    border: none;
+    border-radius: 0;
+    background-color: #f4f4f4;
+    min-height: 38px;
+    select {
+      display: none;
+    }
   }
 }

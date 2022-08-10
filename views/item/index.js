@@ -2,7 +2,7 @@ import { Card } from "reactstrap";
 import Element from "containers/element";
 import classNames from "classnames";
 
-const ItemView = ({ item, afterAnyChange }) => {
+const ItemView = ({ item, afterAnyChange, own }) => {
   return (
     <div className="item">
       <Card className="shadow-sm">
@@ -31,12 +31,15 @@ const ItemView = ({ item, afterAnyChange }) => {
                       element={element}
                       item={item}
                       afterAnyChange={afterAnyChange}
+                      own={own}
                     />
                   );
                 })}
             </div>
           ) : null}
-          <Element item={item} afterAnyChange={afterAnyChange} />
+          {own ? (
+            <Element item={item} afterAnyChange={afterAnyChange} own={own} />
+          ) : null}
         </div>
       </Card>
     </div>

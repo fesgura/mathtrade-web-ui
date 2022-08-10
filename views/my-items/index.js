@@ -1,11 +1,13 @@
 import PrivateLayout from "layouts/private";
 import PageHeader from "components/pageHeader";
 import Item from "containers/item";
+import InviteRegisterMT from "components/inviteRegisterMathTrade";
 //import OrderBy from "components/orderBy";
 
 const MyItemsView = ({ itemList = [], loading, errors, listItems }) => {
   return (
     <PrivateLayout loading={loading}>
+      <InviteRegisterMT />
       <PageHeader
         title="Mis ítems"
         // rightSide={
@@ -26,7 +28,9 @@ const MyItemsView = ({ itemList = [], loading, errors, listItems }) => {
       <div className="item-list">
         {itemList.length ? (
           itemList.map((item, k) => {
-            return <Item item={item} key={k} afterAnyChange={listItems} own />;
+            return (
+              <Item item={item} key={k} afterAnyChange={listItems} forceOwn />
+            );
           })
         ) : (
           <>
@@ -42,7 +46,9 @@ const MyItemsView = ({ itemList = [], loading, errors, listItems }) => {
             )}
           </>
         )}
-        {!loading ? <Item item={null} afterAnyChange={listItems} own /> : null}
+        {!loading ? (
+          <Item item={null} afterAnyChange={listItems} forceOwn />
+        ) : null}
       </div>
     </PrivateLayout>
   );
