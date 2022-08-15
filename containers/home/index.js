@@ -1,11 +1,11 @@
 import PrivateEnv from "environments/private";
 import HomeView from "views/home";
 
-const HomeContainer = ({ store }) => {
+const HomeContainer = () => {
   // Logic about HOME
   return (
     <PrivateEnv>
-      <HomeView store={store} />
+      <HomeView />
     </PrivateEnv>
   );
 };

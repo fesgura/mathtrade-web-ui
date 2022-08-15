@@ -68,6 +68,7 @@ const InputComp = ({
   nowrite,
   startFocus,
   disabled,
+  textSize,
   //
   ...rest
 }) => {
@@ -250,6 +251,7 @@ const InputComp = ({
             onChange={(e) => {
               onChange(e.target.value);
             }}
+            maxLength={textSize || 99999}
             type={type}
             className={classNames(
               readOnly ? "form-control-plaintext" : "form-control",
@@ -429,6 +431,9 @@ const InputComp = ({
         <label className="form-label">
           {label}
           {required && !readOnly ? <span className="req">*</span> : null}
+          {textSize ? (
+            <span className="form-label-resume">{`(Máx. ${textSize} caracteres)`}</span>
+          ) : null}
           {question ? (
             <>
               <span className="form-question" id={`tt-label-q-${id}`}>

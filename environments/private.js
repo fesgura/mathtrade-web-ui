@@ -42,7 +42,6 @@ const PrivateEnv = ({ children }) => {
 
   useEffect(() => {
     const store = storage.get();
-
     if (store && store.auth) {
       const { expires } = store.auth;
       const d = new Date();

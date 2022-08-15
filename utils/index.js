@@ -24,9 +24,13 @@ export const translateText = (str) => {
 export const IamInMathtrade = () => {
   const user = storage.getFromStore("user");
   const mathtrade = storage.getFromStore("mathtrade");
+  const cancelInviteMT = storage.getFromOptions("cancelInviteMT");
+
   if (!mathtrade) {
     return {
       mathtrade: null,
+      user,
+      cancelInviteMT: cancelInviteMT || false,
       IamIn: false,
     };
   }
@@ -37,6 +41,8 @@ export const IamInMathtrade = () => {
 
   return {
     mathtrade,
+    user,
+    cancelInviteMT: cancelInviteMT || false,
     IamIn: arrExistUserInMathtrade.length > 0,
   };
 };

@@ -32,7 +32,8 @@
   }
   .invite-container {
     &,
-    h3 {
+    h3,
+    h4 {
       color: #fff;
     }
 
@@ -43,5 +44,16 @@
     max-height: 1000px;
     margin-bottom: 20px;
     opacity: 1;
+  }
+
+  .cancel-invite-mt {
+    color: #fff;
+    font-size: 11px;
+    font-style: italic;
+  }
+}
+.invite-menor {
+  .main-logo_text {
+    font-size: 30px;
   }
 }

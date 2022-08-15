@@ -11,6 +11,7 @@ export const LogoImg = ({ className, height = 60 }) => {
         alt="MathTrade Argentina"
         width={height}
         height={height}
+        priority
       />
     </div>
   );

@@ -1,9 +1,10 @@
+import classNames from "classnames";
 import { Row, Col } from "reactstrap";
-import Breadcrumbs from "components/breadcrumbs";
+//import Breadcrumbs from "components/breadcrumbs";
 
-const Section = ({ title, rightHeader, children, breadcrumbs }) => {
+const Section = ({ title, rightHeader, children, breadcrumbs, className }) => {
   return (
-    <section className="main-section">
+    <section className={classNames("main-section", className)}>
       {title || rightHeader || breadcrumbs ? (
         <header className="main-section-header">
           {title || rightHeader ? (
@@ -14,7 +15,7 @@ const Section = ({ title, rightHeader, children, breadcrumbs }) => {
               {rightHeader ? <Col xs="auto">{rightHeader}</Col> : null}
             </Row>
           ) : null}
-          {breadcrumbs ? <Breadcrumbs breadcrumbs={breadcrumbs} /> : null}
+          {/* {breadcrumbs ? <Breadcrumbs breadcrumbs={breadcrumbs} /> : null} */}
         </header>
       ) : null}
       {children}

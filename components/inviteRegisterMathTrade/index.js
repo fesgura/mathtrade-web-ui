@@ -5,6 +5,7 @@ import Logo from "components/logo";
 import { privateRoutes } from "config/routes";
 import { IamInMathtrade } from "utils";
 import Link from "next/link";
+import CancelInviteMT from "./cancel";
 
 const InviteRegisterMT = ({ className }) => {
   const [mathtradeName, set_mathtradeName] = useState("");
@@ -12,9 +13,10 @@ const InviteRegisterMT = ({ className }) => {
 
   useEffect(() => {
     const mathtradeData = IamInMathtrade();
+
     if (mathtradeData.mathtrade && !mathtradeData.IamIn) {
       set_mathtradeName(mathtradeData.mathtrade.name || "");
-      set_visible(true);
+      set_visible(!mathtradeData.cancelInviteMT);
     }
   }, []);
 
@@ -48,6 +50,13 @@ const InviteRegisterMT = ({ className }) => {
             </a>
           </Link>
         </p>
+        <div className="text-center">
+          <CancelInviteMT
+            onClick={() => {
+              set_visible(false);
+            }}
+          />
+        </div>
       </div>
     </div>
   );

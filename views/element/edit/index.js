@@ -60,8 +60,6 @@ const ElementEdit = ({
     });
   };
 
-  console.log("bgg_version_id", bgg_version_id);
-
   useEffect(() => {
     if (bgg_id !== "") {
       fetchBGGelement({ id: bgg_id, versions: 1, stats: 1 });
@@ -268,7 +266,8 @@ const ElementEdit = ({
                   validations={validations}
                   validationStatus={validationStatus}
                   setValidationStatus={setValidationStatus}
-                  label="Comentarios"
+                  label="Comentario"
+                  textSize={500}
                   name="comment"
                   type="textarea"
                 />

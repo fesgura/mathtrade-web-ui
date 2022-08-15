@@ -35,6 +35,7 @@ const Input = ({
   nowrite,
   startFocus,
   disabled,
+  textSize,
   //
   ...rest
 }) => {
@@ -109,6 +110,7 @@ const Input = ({
       nowrite={nowrite}
       startFocus={startFocus}
       disabled={disabled}
+      textSize={textSize}
       {...rest}
     />
   );

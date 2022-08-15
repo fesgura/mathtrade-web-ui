@@ -4,9 +4,9 @@ import InviteRegisterMT from "components/inviteRegisterMathTrade";
 import LinkInternal from "components/link-internal";
 import Crecimiento from "./crecimiento";
 
-const HomeView = ({ store, loading }) => {
+const HomeView = ({ loading }) => {
   return (
-    <PrivateLayout store={store} loading={loading}>
+    <PrivateLayout loading={loading}>
       <Script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-bundle.min.js"></Script>
       {/* <PageHeader title="Math Trade Argentina" /> */}
       <InviteRegisterMT />

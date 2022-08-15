@@ -1,4 +1,4 @@
-import { storageName, daysExpireToken } from "config";
+import { storageName, storageOptionsName, daysExpireToken } from "config";
 
 const storage = {
   get: () => {
@@ -20,22 +20,21 @@ const storage = {
       window.localStorage.removeItem(storageName);
     }
   },
-};
-/*
-const model = {
-  user: {
-    data: {},
-    bgg: {},
+  getOptions: () => {
+    if (window) {
+      const dataString = window.localStorage.getItem(storageOptionsName);
+      if (dataString) {
+        return JSON.parse(dataString);
+      }
+    }
+    return null;
   },
-  auth: {
-    token: "",
-    expires: 123,
+  setOptions: (data) => {
+    if (window && data) {
+      window.localStorage.setItem(storageOptionsName, JSON.stringify(data));
+    }
   },
-  mathtrade:{
-
-  }
 };
-*/
 
 const defaultModel = {
   user: {
@@ -49,17 +48,20 @@ const defaultModel = {
   mathtrade: null,
 };
 
-storage.setToStorage = (options) => {
+const defaultOptionsModel = {};
+
+storage.setToStorage = (opts) => {
   /*
   user => user.data
   token => auth.token
   bggUser => user.bgg
   mathtrade => mathtrade
+  options => options
   */
   const store = storage.get() || { ...defaultModel };
 
-  for (let a in options) {
-    const value = options[a];
+  for (let a in opts) {
+    const value = opts[a];
     if (value) {
       switch (a) {
         case "user":
@@ -92,7 +94,7 @@ storage.getFromStore = (item) => {
   mathtrade => mathtrade
   */
 
-  const store = storage.get();
+  const store = storage.get() || { ...defaultModel };
 
   if (!store) {
     return null;
@@ -109,28 +111,32 @@ storage.getFromStore = (item) => {
       return store.auth.token;
     case "mathtrade":
       return store.mathtrade;
+    case "options":
+      return store.options || {};
     default:
       return store[item] || null;
   }
 };
-storage.mergeStore = (store, options) => {
-  const newStore = JSON.parse(JSON.stringify(store));
-  for (let a in options) {
-    const value = options[a];
+
+storage.setToOptions = (opts) => {
+  const optionStored = storage.getOptions() || { ...defaultOptionsModel };
+
+  for (let a in opts) {
+    const value = opts[a];
     if (value) {
-      switch (a) {
-        case "user":
-          newStore.user.data = value;
-          break;
-        case "bggUser":
-          newStore.user.bgg = value;
-          break;
-        default:
-        //
-      }
+      optionStored[a] = value;
     }
   }
-  return newStore;
+  storage.setOptions(optionStored);
+};
+storage.getFromOptions = (itemName) => {
+  const optionStored = storage.getOptions();
+
+  if (!optionStored || !optionStored[itemName]) {
+    return null;
+  }
+
+  return optionStored[itemName];
 };
 
 export default storage;

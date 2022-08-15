@@ -6,9 +6,31 @@ const MathTradeService = {
     setAuth();
     return api.get("api/mathtrades/");
   },
-  signInMathTrade: (mathTradeId) => {
+  signInMathTrade: (props) => {
     setAuth();
-    return api.put("api/mathtrades/" + mathTradeId + "/");
+    return api.post(
+      "api/mathtrades/" + props.mathTradeId + "/members/",
+      props.data
+    );
+  },
+  editMemberMathTrade: (props) => {
+    setAuth();
+    return api.put(
+      "api/mathtrades/" + props.mathTradeId + "/members/" + props.userId + "/",
+      props.data
+    );
+  },
+  cancelMemberMathTrade: (props) => {
+    setAuth();
+    return api.delete(
+      "api/mathtrades/" + props.mathTradeId + "/members/" + props.userId + "/"
+    );
+  },
+  getMathTradeUser: (props) => {
+    setAuth();
+    return api.get(
+      "api/mathtrades/" + props.mathTradeId + "/users/" + props.userId + "/"
+    );
   },
 };
 

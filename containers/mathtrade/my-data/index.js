@@ -1,81 +1,121 @@
 import { useState, useEffect } from "react";
+import Router from "next/router";
 import PrivateEnv from "environments/private";
 import MT_MyDataView from "views/mathtrade/my-data";
-import { useApi, LocationService, UserService, MathTradeService } from "api";
+import { useApi, LocationService, MathTradeService } from "api";
+import { IamInMathtrade } from "utils";
 import storage from "utils/storage";
 
 const MT_MyData = () => {
-  const [dataInitial, set_dataInitial] = useState(null);
-
-  useEffect(() => {
-    fetchLocations();
-    //
-    const user = storage.getFromStore("user");
-    const mathtrade = storage.getFromStore("mathtrade");
-    if (mathtrade) {
-      const arrExistUserInMathtrade = mathtrade.users.filter((userMT) => {
-        return user.id == userMT;
-      });
-      const isUserInMT = arrExistUserInMathtrade[0] ? true : false;
-      set_dataInitial({
-        mathtrade,
-        user,
-        isUserInMT,
-      });
-    }
-  }, []);
-
-  ////////////
+  const [mathtradeData, set_mathtradeData] = useState(null);
 
   const [fetchLocations, dataLocations, loadingLocations] = useApi({
     promise: LocationService.getList,
     initialState: [],
   });
 
-  const [editUser, , loadingEditUser, errorEditUser] = useApi({
-    promise: UserService.put,
+  const [
+    fetchMathTradeUser,
+    MathTradeUserInitial,
+    loadingMathTradeUser,
+    errorMathTradeUser,
+  ] = useApi({
+    promise: MathTradeService.getMathTradeUser,
     initialState: {},
-    afterLoad: (user) => {
-      storage.setToStorage({ user });
-      set_dataInitial((v) => {
-        return {
-          ...v,
-          user,
-        };
-      });
-      // if(){
+  });
 
-      // }
-      const mathtrade = storage.getFromStore("mathtrade");
-      if (user.mathtrades.indexOf(mathtrade.id) < 0) {
-        signMathTrade(mathtrade.id);
+  const [getMathTrade, , loadingGetMathTrade] = useApi({
+    promise: MathTradeService.listMathTrades,
+    afterLoad: (data) => {
+      if (data && data.length) {
+        const mathtradeActiveArray = data.filter((mt) => {
+          return mt.active;
+        });
+        const mathtrade = mathtradeActiveArray[0] || null;
+        if (mathtrade) {
+          storage.setToStorage({ mathtrade });
+        } else {
+          storage.setToStorage({ mathtrade: "none" });
+        }
+      } else {
+        storage.setToStorage({ mathtrade: "none" });
       }
-      //
+      Router.reload(window.location.pathname);
     },
   });
+
   const [signMathTrade, , loadingSignMathTrade, errorSignMathTrade] = useApi({
     promise: MathTradeService.signInMathTrade,
-    //initialState: {},
     afterLoad: (data) => {
-      // console.log("signIn", data);
+      getMathTrade();
     },
   });
+  const [
+    editMemberMathTrade,
+    ,
+    loadingEditMemberMathTrade,
+    errorEditMemberMathTrade,
+  ] = useApi({
+    promise: MathTradeService.editMemberMathTrade,
+    afterLoad: (data) => {
+      getMathTrade();
+    },
+  });
+  const [
+    cancelMemberMathTrade,
+    ,
+    loadingCancelMemberMathTrade,
+    errorCancelMemberMathTrade,
+  ] = useApi({
+    promise: MathTradeService.cancelMemberMathTrade,
+    afterLoad: (data) => {
+      getMathTrade();
+    },
+  });
+
+  //////////////////////
+  useEffect(() => {
+    fetchLocations();
+    //
+    const newMathtradeData = IamInMathtrade();
+
+    if (newMathtradeData.IamIn) {
+      fetchMathTradeUser({
+        mathTradeId: newMathtradeData.mathtrade.id,
+        userId: newMathtradeData.user.id,
+      });
+    }
+    set_mathtradeData(newMathtradeData);
+  }, []);
 
   return (
     <PrivateEnv>
       <MT_MyDataView
-        dataInitial={dataInitial}
+        mathtradeData={mathtradeData}
+        MathTradeUserInitial={MathTradeUserInitial}
         dataLocations={dataLocations}
         loadingLocations={loadingLocations}
-        loading={loadingEditUser || loadingSignMathTrade}
-        errors={errorEditUser || errorSignMathTrade}
-        onSubmit={(id, data) => {
-          editUser({ id, data });
+        loading={
+          loadingMathTradeUser ||
+          loadingSignMathTrade ||
+          loadingGetMathTrade ||
+          loadingEditMemberMathTrade ||
+          loadingCancelMemberMathTrade
+        }
+        errors={
+          errorMathTradeUser ||
+          errorSignMathTrade ||
+          errorEditMemberMathTrade ||
+          errorCancelMemberMathTrade
+        }
+        onSubmit={(IamIn, props) => {
+          if (IamIn) {
+            editMemberMathTrade(props);
+          } else {
+            signMathTrade(props);
+          }
         }}
-        signOutMathTrade={() => {
-          const mathtrade = storage.getFromStore("mathtrade");
-          signMathTrade(mathtrade.id, { remove_user: true });
-        }}
+        cancelMemberMathTrade={cancelMemberMathTrade}
       />
     </PrivateEnv>
   );
