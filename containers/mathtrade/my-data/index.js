@@ -3,7 +3,7 @@ import Router from "next/router";
 import PrivateEnv from "environments/private";
 import MT_MyDataView from "views/mathtrade/my-data";
 import { useApi, LocationService, MathTradeService } from "api";
-import { IamInMathtrade } from "utils";
+import { getMathtradeStored } from "utils";
 import storage from "utils/storage";
 
 const MT_MyData = () => {
@@ -77,15 +77,15 @@ const MT_MyData = () => {
   useEffect(() => {
     fetchLocations();
     //
-    const newMathtradeData = IamInMathtrade();
+    const newMathtradeStored = getMathtradeStored();
 
-    if (newMathtradeData.IamIn) {
+    if (newMathtradeStored.IamIn) {
       fetchMathTradeUser({
-        mathTradeId: newMathtradeData.mathtrade.id,
-        userId: newMathtradeData.user.id,
+        mathTradeId: newMathtradeStored.data.id,
+        userId: newMathtradeStored.memberId,
       });
     }
-    set_mathtradeData(newMathtradeData);
+    set_mathtradeData(newMathtradeStored);
   }, []);
 
   return (

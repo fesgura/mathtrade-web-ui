@@ -56,7 +56,6 @@ storage.setToStorage = (opts) => {
   token => auth.token
   bggUser => user.bgg
   mathtrade => mathtrade
-  options => options
   */
   const store = storage.get() || { ...defaultModel };
 
@@ -76,8 +75,18 @@ storage.setToStorage = (opts) => {
         case "bggUser":
           store.user.bgg = value;
           break;
-        case "mathtrade":
-          store.mathtrade = value;
+        case "mathtrade.data":
+          const memberId = store.user.data.id;
+
+          const arrExistUserInMathtrade = value.users.filter((userMT) => {
+            return memberId == userMT;
+          });
+
+          store.mathtrade = {
+            IamIn: arrExistUserInMathtrade.length > 0,
+            data: value,
+            memberId,
+          };
           break;
         default:
         //

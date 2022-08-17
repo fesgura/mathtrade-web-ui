@@ -6,7 +6,7 @@ const MT_ItemListView = ({ itemsData, loading, errors }) => {
   return (
     <PrivateLayout loading={loading}>
       <PageHeader
-        title="Lista de Items"
+        title="Lista de Juegos"
         // rightSide={
         //   <OrderBy
         //     options={[

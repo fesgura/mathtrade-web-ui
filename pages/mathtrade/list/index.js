@@ -1,4 +1,4 @@
-import MT_ItemList from "containers/mathtrade/itemlist";
+import MT_ItemList from "containers/mathtrade/list";
 
 const MT_ItemListPage = () => {
   return <MT_ItemList />;

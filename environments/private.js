@@ -29,12 +29,15 @@ const PrivateEnv = ({ children }) => {
         });
         const mathtrade = mathtradeActiveArray[0] || null;
         if (mathtrade) {
-          storage.setToStorage({ mathtrade });
+          storage.setToStorage({
+            mathtrade: mathtrade,
+            "mathtrade.data": mathtrade,
+          });
         } else {
-          storage.setToStorage({ mathtrade: "none" });
+          storage.setToStorage({ mathtrade: null });
         }
       } else {
-        storage.setToStorage({ mathtrade: "none" });
+        storage.setToStorage({ mathtrade: null });
       }
       set_loadedMT(true);
     },

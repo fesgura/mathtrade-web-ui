@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import PrivateEnv from "environments/private";
-import MT_ItemListView from "views/mathtrade/itemlist";
+import MT_ItemListView from "views/mathtrade/list";
 import { useApi, ItemService } from "api";
 
 const MT_ItemList = () => {

@@ -3,7 +3,8 @@ import classNames from "classnames";
 import Icon from "components/icon";
 import Logo from "components/logo";
 import { privateRoutes } from "config/routes";
-import { IamInMathtrade } from "utils";
+import storage from "utils/storage";
+import { getMathtradeStored } from "utils";
 import Link from "next/link";
 import CancelInviteMT from "./cancel";
 
@@ -12,11 +13,14 @@ const InviteRegisterMT = ({ className }) => {
   const [visible, set_visible] = useState(false);
 
   useEffect(() => {
-    const mathtradeData = IamInMathtrade();
+    const mathtradeStored = getMathtradeStored();
 
-    if (mathtradeData.mathtrade && !mathtradeData.IamIn) {
-      set_mathtradeName(mathtradeData.mathtrade.name || "");
-      set_visible(!mathtradeData.cancelInviteMT);
+    if (mathtradeStored && !mathtradeStored.IamIn) {
+      set_mathtradeName(mathtradeStored.data.name || "");
+
+      const cancelInviteMT = storage.getFromOptions("cancelInviteMT");
+
+      set_visible(!cancelInviteMT);
     }
   }, []);
 

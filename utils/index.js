@@ -21,28 +21,8 @@ export const translateText = (str) => {
   return dicc[str] || "Otro (no listado)";
 };
 
-export const IamInMathtrade = () => {
-  const user = storage.getFromStore("user");
+export const getMathtradeStored = () => {
   const mathtrade = storage.getFromStore("mathtrade");
-  const cancelInviteMT = storage.getFromOptions("cancelInviteMT");
 
-  if (!mathtrade) {
-    return {
-      mathtrade: null,
-      user,
-      cancelInviteMT: cancelInviteMT || false,
-      IamIn: false,
-    };
-  }
-
-  const arrExistUserInMathtrade = mathtrade.users.filter((userMT) => {
-    return user.id == userMT;
-  });
-
-  return {
-    mathtrade,
-    user,
-    cancelInviteMT: cancelInviteMT || false,
-    IamIn: arrExistUserInMathtrade.length > 0,
-  };
+  return mathtrade;
 };

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 import { mainMenuList, mathtradeMenuList } from "config/routes";
-import { IamInMathtrade } from "utils";
+import { getMathtradeStored } from "utils";
 import Link from "next/link";
 import Icon from "components/icon";
 
@@ -9,11 +9,11 @@ const MainMenu = () => {
   const [mathtrade, set_mathtrade] = useState(null);
 
   useEffect(() => {
-    const mathtradeData = IamInMathtrade();
-    if (mathtradeData.mathtrade) {
+    const mathtradeStored = getMathtradeStored();
+    if (mathtradeStored) {
       const newMathTrade = {
-        name: mathtradeData.mathtrade.name || "",
-        menu: mathtradeData.IamIn
+        name: mathtradeStored.data.name || "",
+        menu: mathtradeStored.IamIn
           ? mathtradeMenuList.enabled
           : mathtradeMenuList.disabled,
       };
