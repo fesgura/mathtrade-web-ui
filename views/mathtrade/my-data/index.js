@@ -8,6 +8,7 @@ import Section from "components/section";
 import Icon from "components/icon";
 import CancelInviteMT from "components/inviteRegisterMathTrade/cancel";
 import classNames from "classnames";
+import storage from "utils/storage";
 
 const validations = {
   location: ["required"],
@@ -56,8 +57,9 @@ const MT_MyDataView = ({
   }, [errors]);
 
   useEffect(() => {
+    const user = storage.getFromStore("user");
     const locationId = `${
-      MathTradeUserInitial?.location?.id || mathtradeData?.user?.location?.id
+      MathTradeUserInitial?.location?.id || user?.location?.id
     }`;
     const newLocation = getLocationById(locationId, dataLocations);
     setCurrentLocation(newLocation);
@@ -104,7 +106,6 @@ const MT_MyDataView = ({
           >
             {mathtradeData.IamIn ? null : (
               <div className="text-center">
-                <h5 className="mb-5">Hola {mathtradeData.user.first_name}.</h5>
                 <p>
                   Antes de inscribirte, asegurate de que la <b>ciudad</b> desde
                   la que participás es la correcta, y/o{" "}
@@ -116,8 +117,8 @@ const MT_MyDataView = ({
             <Form
               onSubmit={(formData) => {
                 const dataToSend = {
-                  mathTradeId: mathtradeData.mathtrade.id,
-                  userId: mathtradeData.user.id,
+                  mathTradeId: mathtradeData.data.id,
+                  userId: mathtradeData.memberId,
                   data: {
                     ...formData,
                     event_attendance: formData.event_attendance === "true",
@@ -230,7 +231,7 @@ const MT_MyDataView = ({
                   <Button color="primary" type="submit" size="lg">
                     ¡Inscribirme al
                     <br />
-                    Math Trade Argentina {mathtradeData.mathtrade?.name}
+                    Math Trade Argentina {mathtradeData.data?.name}
                   </Button>
                 )}
               </div>
@@ -282,8 +283,8 @@ const MT_MyDataView = ({
                     onClick={() => {
                       setModalExit(false);
                       cancelMemberMathTrade({
-                        mathTradeId: mathtradeData.mathtrade.id,
-                        userId: mathtradeData.user.id,
+                        mathTradeId: mathtradeData.data.id,
+                        userId: mathtradeData.memberId,
                       });
                     }}
                   >

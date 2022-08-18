@@ -76,17 +76,22 @@ storage.setToStorage = (opts) => {
           store.user.bgg = value;
           break;
         case "mathtrade.data":
-          const memberId = store.user.data.id;
+          if (value) {
+            const memberId = store.user.data.id;
 
-          const arrExistUserInMathtrade = value.users.filter((userMT) => {
-            return memberId == userMT;
-          });
+            const arrExistUserInMathtrade = value.users.filter((userMT) => {
+              return memberId == userMT;
+            });
 
-          store.mathtrade = {
-            IamIn: arrExistUserInMathtrade.length > 0,
-            data: value,
-            memberId,
-          };
+            store.mathtrade = {
+              IamIn: arrExistUserInMathtrade.length > 0,
+              data: value,
+              memberId,
+            };
+          } else {
+            store.mathtrade = null;
+          }
+
           break;
         default:
         //

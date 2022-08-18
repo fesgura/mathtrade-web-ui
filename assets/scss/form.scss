@@ -114,6 +114,14 @@ select,
   border-radius: 50%;
   cursor: pointer;
   margin-left: 5px;
+
+  &.min {
+    $w2: 14px;
+    width: $w2;
+    height: $w2;
+    line-height: $w2;
+    font-size: 11px;
+  }
 }
 .input-group {
   .input-loading {

@@ -1,14 +1,22 @@
 import { Card } from "reactstrap";
 import Element from "containers/element";
 import classNames from "classnames";
+import MathTradeItemTools from "components/mathtradeItemTools";
 
-const ItemView = ({ item, afterAnyChange, own }) => {
+const ItemView = ({
+  IamInMathTrade,
+  item,
+  itemMathTradeData,
+  afterAnyChange,
+  own,
+}) => {
   return (
     <div className="item">
       <Card className="shadow-sm">
         <div
           className={classNames("item-card-container", {
             "for-combo": item?.elements?.length > 1,
+            "published-item": itemMathTradeData,
           })}
         >
           {item?.elements?.length > 1 ? (
@@ -41,6 +49,13 @@ const ItemView = ({ item, afterAnyChange, own }) => {
             <Element item={item} afterAnyChange={afterAnyChange} own={own} />
           ) : null}
         </div>
+        {IamInMathTrade ? (
+          <MathTradeItemTools
+            item={item}
+            itemMathTradeData={itemMathTradeData}
+            afterAnyChange={afterAnyChange}
+          />
+        ) : null}
       </Card>
     </div>
   );

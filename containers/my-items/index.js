@@ -1,12 +1,38 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import PrivateEnv from "environments/private";
 import MyItemsView from "views/my-items";
-import { useApi, ItemService } from "api";
+import { useApi, ItemService, MathTradeService } from "api";
+import { getMathtradeStored } from "utils";
 
 const MyItems = () => {
+  const [IamInMathTrade, setIamInMathTrade] = useState(false);
+  /* Math Trade */
+  const [
+    getMyItemsInMathTrade,
+    itemsInMathTradeList,
+    loadingItemsInMathTradeList,
+    errorItemsInMathTradeList,
+  ] = useApi({
+    promise: MathTradeService.listMyItems,
+    initialState: [],
+    // afterLoad: (data) => {
+    //   console.log("data", data);
+    // },
+  });
+
+  /* END Math Trade */
+
   const [listItems, itemList, loadingItemsList, errorItemsList] = useApi({
     promise: ItemService.listMyItems,
     initialState: [],
+    afterLoad: () => {
+      const mathtradeStored = getMathtradeStored();
+      if (mathtradeStored && mathtradeStored.IamIn) {
+        setIamInMathTrade(true);
+        const mathTradeId = mathtradeStored.data.id;
+        getMyItemsInMathTrade({ mathTradeId });
+      }
+    },
   });
 
   useEffect(() => {
@@ -16,9 +42,11 @@ const MyItems = () => {
   return (
     <PrivateEnv>
       <MyItemsView
+        IamInMathTrade={IamInMathTrade}
         itemList={loadingItemsList ? [] : itemList}
-        loading={loadingItemsList}
-        errors={errorItemsList}
+        itemsInMathTradeList={itemsInMathTradeList}
+        loading={loadingItemsList || loadingItemsInMathTradeList}
+        errors={errorItemsList || errorItemsInMathTradeList}
         listItems={listItems}
       />
     </PrivateEnv>

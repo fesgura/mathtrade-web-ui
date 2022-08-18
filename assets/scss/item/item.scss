@@ -4,8 +4,14 @@
 
 .item-card-container {
   padding: 0;
+  border: 3px solid transparent;
+  border-bottom-width: 0;
   &.for-combo {
     padding: 0 20px 10px;
+  }
+
+  &.published-item {
+    border-color: $mathtrade-bg-2;
   }
 }
 
@@ -19,5 +25,49 @@
     border-bottom: 1px solid #ddd;
   }
 }
-.item-elements-list {
+///////////////
+.mathtrade-item-tools {
+  $h: 25px;
+  background-color: $mathtrade-bg-1;
+  height: $h;
+  font-size: 12px;
+  // padding: 4px;
+
+  .mathtrade-item-tools_btn {
+    padding: 0 1em;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    line-height: $h;
+    height: $h;
+    transition: background-color 0.15s;
+
+    &.btn-publish {
+      background-color: $mathtrade;
+      &:hover {
+        background-color: $mathtrade-hover;
+      }
+    }
+    &.btn-unpublish {
+      background-color: $mathtrade-bg-3;
+      &:hover {
+        background-color: $mathtrade-hover;
+      }
+    }
+
+    &.error {
+      background-color: #d00;
+    }
+  }
+
+  &.published-item {
+    $h2: 44px;
+    background-color: $mathtrade-bg-2;
+    height: $h2;
+    padding-right: 3px;
+    .mathtrade-item-tools_btn {
+      line-height: $h2;
+      height: $h2;
+    }
+  }
 }

@@ -3,6 +3,12 @@
 $primary: rgb(206, 0, 137);
 $secondary: rgb(34, 193, 195);
 
+$mathtrade: rgb(206, 0, 137);
+$mathtrade-bg-1: rgba($mathtrade, 0.06);
+$mathtrade-bg-2: rgba($mathtrade, 0.4);
+$mathtrade-bg-3: rgba($mathtrade, 0.2);
+$mathtrade-hover: darken($mathtrade, 20);
+
 $bg-body-1: rgb(27, 86, 135);
 $bg-body-2: rgb(34, 193, 195);
 $bg-body-3: rgb(64, 0, 124);
@@ -29,6 +35,21 @@ $ratingsBGG: (
   "8": #1d804c,
   "9": #186b40,
   "10": #186b40,
+);
+
+// STARS
+$starsColor: (
+  "0": #aaa,
+  "1": #fb0900,
+  "2": #e04b00,
+  "3": #cf7100,
+  "4": #bd9200,
+  "5": #a7a900,
+  "6": #8aa803,
+  "7": #6ba806,
+  "8": #47a80d,
+  "9": #24a812,
+  "10": #0aa516,
 );
 
 // SIZES

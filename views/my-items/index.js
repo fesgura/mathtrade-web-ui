@@ -4,7 +4,14 @@ import Item from "containers/item";
 import InviteRegisterMT from "components/inviteRegisterMathTrade";
 //import OrderBy from "components/orderBy";
 
-const MyItemsView = ({ itemList = [], loading, errors, listItems }) => {
+const MyItemsView = ({
+  IamInMathTrade,
+  itemList = [],
+  itemsInMathTradeList,
+  loading,
+  errors,
+  listItems,
+}) => {
   return (
     <PrivateLayout loading={loading}>
       <InviteRegisterMT />
@@ -29,7 +36,14 @@ const MyItemsView = ({ itemList = [], loading, errors, listItems }) => {
         {itemList.length ? (
           itemList.map((item, k) => {
             return (
-              <Item item={item} key={k} afterAnyChange={listItems} forceOwn />
+              <Item
+                IamInMathTrade={IamInMathTrade}
+                item={item}
+                itemsInMathTradeList={itemsInMathTradeList}
+                key={k}
+                afterAnyChange={listItems}
+                forceOwn
+              />
             );
           })
         ) : (

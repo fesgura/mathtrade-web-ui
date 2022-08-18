@@ -33,21 +33,31 @@ const MT_MyData = () => {
         });
         const mathtrade = mathtradeActiveArray[0] || null;
         if (mathtrade) {
-          storage.setToStorage({ mathtrade });
+          storage.setToStorage({ "mathtrade.data": mathtrade });
         } else {
-          storage.setToStorage({ mathtrade: "none" });
+          storage.setToStorage({ "mathtrade.data": null });
         }
       } else {
-        storage.setToStorage({ mathtrade: "none" });
+        storage.setToStorage({ "mathtrade.data": null });
       }
-      Router.reload(window.location.pathname);
+      setTimeout(() => {
+        const newMathtradeStored = getMathtradeStored();
+
+        if (newMathtradeStored.IamIn) {
+          fetchMathTradeUser({
+            mathTradeId: newMathtradeStored.data.id,
+            userId: newMathtradeStored.memberId,
+          });
+        }
+        set_mathtradeData(newMathtradeStored);
+      }, 200);
     },
   });
 
   const [signMathTrade, , loadingSignMathTrade, errorSignMathTrade] = useApi({
     promise: MathTradeService.signInMathTrade,
     afterLoad: (data) => {
-      getMathTrade();
+      Router.reload(window.location.pathname);
     },
   });
   const [
@@ -58,7 +68,7 @@ const MT_MyData = () => {
   ] = useApi({
     promise: MathTradeService.editMemberMathTrade,
     afterLoad: (data) => {
-      getMathTrade();
+      Router.reload(window.location.pathname);
     },
   });
   const [
@@ -69,23 +79,15 @@ const MT_MyData = () => {
   ] = useApi({
     promise: MathTradeService.cancelMemberMathTrade,
     afterLoad: (data) => {
-      getMathTrade();
+      Router.reload(window.location.pathname);
     },
   });
 
   //////////////////////
   useEffect(() => {
     fetchLocations();
+    getMathTrade();
     //
-    const newMathtradeStored = getMathtradeStored();
-
-    if (newMathtradeStored.IamIn) {
-      fetchMathTradeUser({
-        mathTradeId: newMathtradeStored.data.id,
-        userId: newMathtradeStored.memberId,
-      });
-    }
-    set_mathtradeData(newMathtradeStored);
   }, []);
 
   return (

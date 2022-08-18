@@ -6,12 +6,16 @@ import {
 } from "reactstrap";
 import Icon from "components/icon";
 
-const MinMenu = ({ options }) => {
+const MinMenu = ({ options, iconMenu, title = "Menú" }) => {
   return options ? (
     <div className="min-menu">
       <UncontrolledButtonDropdown size="sm">
-        <DropdownToggle className="min-menu-btn" tag="div" title="Menú">
-          ···
+        <DropdownToggle className="min-menu-btn" tag="div" title={title}>
+          {iconMenu ? (
+            <Icon type={iconMenu} />
+          ) : (
+            <span className="elip">···</span>
+          )}
         </DropdownToggle>
         <DropdownMenu end>
           {options.map((op, k) => {

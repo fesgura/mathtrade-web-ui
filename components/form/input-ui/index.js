@@ -1,8 +1,8 @@
 import { useId, useState, useEffect, useRef } from "react";
-import { UncontrolledTooltip } from "reactstrap";
 import classNames from "classnames";
 import Icon from "components/icon";
 import { selectMultipleToArray } from "./utils";
+import Question from "components/question";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -434,19 +434,7 @@ const InputComp = ({
           {textSize ? (
             <span className="form-label-resume">{`(Máx. ${textSize} caracteres)`}</span>
           ) : null}
-          {question ? (
-            <>
-              <span className="form-question" id={`tt-label-q-${id}`}>
-                ?
-              </span>
-              <UncontrolledTooltip
-                //placement="right"
-                target={`tt-label-q-${id}`}
-              >
-                {question}
-              </UncontrolledTooltip>
-            </>
-          ) : null}
+          <Question question={question} />
         </label>
       ) : null}
       {inputContent}

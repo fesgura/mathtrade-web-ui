@@ -136,7 +136,11 @@ const ElementResume = ({ element, item, menuOptions, loading, errors }) => {
           </div>
         </Col>
         <Col sm={"auto"} xs={12} className="pt-sm-0 pt-3 text-end">
-          <MinMenu options={menuOptions} />
+          <MinMenu
+            options={menuOptions}
+            iconMenu="pencil"
+            title="Editar juego"
+          />
         </Col>
       </Row>
       {loading ? <LoadingBox /> : null}
