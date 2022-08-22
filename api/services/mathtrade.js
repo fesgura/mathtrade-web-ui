@@ -53,14 +53,10 @@ const MathTradeService = {
       "api/mathtrades/" + props.mathTradeId + "/items/" + props.itemId + "/"
     );
   },
-  valuatePutItem: (props) => {
+  valuatePostItem: (props) => {
     setAuth();
-    return api.put(
-      "api/mathtrades/" +
-        props.mathTradeId +
-        "/user-values/" +
-        props.itemId +
-        "/",
+    return api.post(
+      "api/mathtrades/" + props.mathTradeId + "/user-values/",
       props.data
     );
   },
@@ -78,6 +74,13 @@ const MathTradeService = {
   wants: (props) => {
     setAuth();
     return api.get("api/mathtrades/" + props.mathTradeId + "/user-wants/");
+  },
+  setWant: (props) => {
+    setAuth();
+    return api.post(
+      "api/mathtrades/" + props.mathTradeId + "/user-wants/",
+      props.data
+    );
   },
 };
 

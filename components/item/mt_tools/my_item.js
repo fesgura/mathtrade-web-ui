@@ -25,8 +25,6 @@ const MT_ToolItem_MyItem = ({ item, itemMathTradeData, afterAnyChange }) => {
     },
   });
 
-  console.log(itemMathTradeData);
-
   return (
     <div className="mt_tools">
       {!itemMathTradeData ? (

@@ -1,10 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Valuation from "components/valuation";
 import { Button, Modal, ModalBody } from "reactstrap";
-import Item from "..";
+import MT_Tool_WantEditor from "./want_editor";
 
-const MT_ToolItem_ItemMT = ({ item, afterAnyChange }) => {
+const MT_ToolItem_ItemMT = ({ item, afterAnyChange, itemWants }) => {
   const [modalWantOpen, setModalWantOpen] = useState(false);
+
+  const [wantInfo, setWantInfo] = useState(null);
+
+  useEffect(() => {
+    const newWantInfoArr = itemWants.filter((itm) => {
+      return itm.want.id === item.id;
+    });
+    if (newWantInfoArr.length) {
+      const newWantInfo = newWantInfoArr[0].items.map((itm) => {
+        return itm.id;
+      });
+      setWantInfo(newWantInfo);
+    } else {
+      setWantInfo(null);
+    }
+  }, [item, itemWants]);
+
   return (
     <div className="mt_tools">
       <div className="mt_tools-container">
@@ -20,7 +37,19 @@ const MT_ToolItem_ItemMT = ({ item, afterAnyChange }) => {
             setModalWantOpen(true);
           }}
         >
-          ¡Lo quiero!
+          {wantInfo ? (
+            <>
+              En mi Want List
+              <br />
+              <span className="small">
+                (
+                {`por ${wantInfo.length} item${wantInfo.length > 1 ? "s" : ""}`}
+                )
+              </span>
+            </>
+          ) : (
+            "¡Lo quiero!"
+          )}
         </Button>
       </div>
 
@@ -33,49 +62,14 @@ const MT_ToolItem_ItemMT = ({ item, afterAnyChange }) => {
         size="lg"
       >
         <ModalBody>
-          <h3 className="mb-3 text-center">Agregar a mi Want List:</h3>
-          <Item item={item} card={false} bordered className="shadow-sm" />
-          <h5 className="mb-3 text-center">Me gustaría cambiarlo por:</h5>
-          LISTADO DE MIS ITEMS
-          <br />
-          LISTADO DE MIS ITEMS
-          <br />
-          LISTADO DE MIS ITEMS
-          <br />
-          LISTADO DE MIS ITEMS
-          <br />
-          LISTADO DE MIS ITEMS
-          <br />
-          LISTADO DE MIS ITEMS
-          <br />
-          <div className="text-center mt-4">
-            <Button
-              color="link"
-              tag="a"
-              className="me-1"
-              outline
-              onClick={() => {
-                setModalWantOpen(false);
-              }}
-            >
-              Cancelar
-            </Button>
-            <Button
-              color="primary"
-              onClick={() => {
-                setModalWantOpen(false);
-
-                // const mathtradeStored = getMathtradeStored();
-                // const mathTradeId = mathtradeStored.data.id;
-                // unpublishItem({
-                //   mathTradeId,
-                //   itemId: item.id,
-                // });
-              }}
-            >
-              ¡Lo quiero!
-            </Button>
-          </div>
+          {modalWantOpen ? (
+            <MT_Tool_WantEditor
+              item={item}
+              afterAnyChange={afterAnyChange}
+              setModalWantOpen={setModalWantOpen}
+              wantInfo={wantInfo}
+            />
+          ) : null}
         </ModalBody>
       </Modal>
     </div>

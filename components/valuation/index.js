@@ -23,6 +23,18 @@ const valuesPossibles = (() => {
   return list;
 })();
 
+export const ValuationLabel = ({ loading, value }) => {
+  return (
+    <div className="valuation-btn">
+      <Icon
+        type={loading ? "loading" : "star"}
+        className={`valuation-btn_star star-color-${value}`}
+      />
+      <div className="valuation-btn_num">{value}</div>
+    </div>
+  );
+};
+
 const Valuation = ({ className, item, afterAnyChange }) => {
   const [valueInternal, setValueInternal] = useState(minValue);
 
@@ -47,8 +59,8 @@ const Valuation = ({ className, item, afterAnyChange }) => {
   }, [item]);
 
   ////////////////////////
-  const [valuatePutItem, , loadingPutItem] = useApi({
-    promise: MathTradeService.valuatePutItem,
+  const [valuatePostItem, , loadingPutItem] = useApi({
+    promise: MathTradeService.valuatePostItem,
     afterLoad: () => {
       afterAnyChange();
     },
@@ -67,13 +79,7 @@ const Valuation = ({ className, item, afterAnyChange }) => {
             :
           </div>
           <div className="valuation-col ps-2">
-            <div className="valuation-btn">
-              <Icon
-                type={loadingPutItem ? "loading" : "star"}
-                className={`valuation-btn_star star-color-${valueInternal}`}
-              />
-              <div className="valuation-btn_num">{valueInternal}</div>
-            </div>
+            <ValuationLabel loading={loadingPutItem} value={valueInternal} />
           </div>
         </DropdownToggle>
         <DropdownMenu end>
@@ -97,9 +103,8 @@ const Valuation = ({ className, item, afterAnyChange }) => {
                         setValueInternal(v);
                         const mathtradeStored = getMathtradeStored();
                         const mathTradeId = mathtradeStored.data.id;
-                        valuatePutItem({
+                        valuatePostItem({
                           mathTradeId,
-                          itemId: item.id,
                           data: {
                             value: v,
                             item_id: item.id,

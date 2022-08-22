@@ -1,0 +1,25 @@
+.min-list-items {
+  border-bottom: 1px solid #ccc;
+
+  .min-list-items_header {
+    border: 1px solid #ccc;
+    border-bottom: none;
+    padding: 5px;
+    background-color: #eee;
+  }
+
+  .min-item {
+    border: 1px solid #ccc;
+    border-bottom: none;
+    padding: 5px;
+
+    &.selected {
+      background-color: $mathtrade-bg-3;
+    }
+    &:hover {
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+    }
+  }
+}

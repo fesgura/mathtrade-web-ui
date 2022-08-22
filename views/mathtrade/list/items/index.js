@@ -8,6 +8,7 @@ import Pagination from "components/pagination";
 
 const MT_ItemListView = ({
   list,
+  itemWants,
   filters,
   setFilters,
   loading,
@@ -61,6 +62,7 @@ const MT_ItemListView = ({
                 return (
                   <MT_ItemListViewItem
                     item={item}
+                    itemWants={itemWants}
                     key={k}
                     afterAnyChange={afterAnyChange}
                   />

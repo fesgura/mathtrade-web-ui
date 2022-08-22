@@ -53,8 +53,6 @@ const MT_ItemListContainer = () => {
     listWants({ mathTradeId: newMathtradeStored.data.id });
   }, []);
 
-  console.log("itemWants", itemWants);
-
   return (
     <MT_ItemListView
       list={list}
@@ -75,12 +73,12 @@ const MT_ItemListContainer = () => {
       afterAnyChange={() => {
         const newMathtradeStored = getMathtradeStored();
         listWants({ mathTradeId: newMathtradeStored.data.id });
-        setFilters((fil) => {
-          return {
-            ...fil,
-            d: getUniqueId(),
-          };
-        });
+        // setFilters((fil) => {
+        //   return {
+        //     ...fil,
+        //     d: getUniqueId(),
+        //   };
+        // });
       }}
     />
   );

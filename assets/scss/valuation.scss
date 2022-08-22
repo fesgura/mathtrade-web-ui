@@ -1,3 +1,27 @@
+.valuation-btn {
+  $h: 36px;
+  position: relative;
+
+  .valuation-btn_star {
+    font-size: 32px;
+    line-height: $h;
+    height: $h;
+    //color: $mathtrade;
+  }
+  .valuation-btn_num {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    line-height: 1;
+    transform: translateY(-50%);
+    font-weight: bold;
+    font-size: 14px;
+  }
+}
+
 .valuation {
   $h: 36px;
   background-color: #fff;
@@ -13,28 +37,6 @@
 
     .valuation-label {
       font-size: 13px;
-    }
-
-    .valuation-btn {
-      position: relative;
-
-      .valuation-btn_star {
-        font-size: 32px;
-        line-height: $h;
-        height: $h;
-        //color: $mathtrade;
-      }
-      .valuation-btn_num {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: 100%;
-        color: #fff;
-        text-align: center;
-        line-height: 1;
-        transform: translateY(-50%);
-        font-weight: bold;
-      }
     }
 
     &:hover {

@@ -241,3 +241,26 @@ select,
     }
   }
 }
+/*****************/
+.checkbox-btn {
+  $w: 22px;
+  .checkbox-btn-square {
+    border: 1px solid $mathtrade;
+    border-radius: 20%;
+    font-size: 16px;
+    width: $w;
+    height: $w;
+    line-height: $w - 2px;
+    text-align: center;
+    color: #fff;
+    background-color: #fff;
+    cursor: pointer;
+
+    &.checked {
+      background-color: $mathtrade;
+    }
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
