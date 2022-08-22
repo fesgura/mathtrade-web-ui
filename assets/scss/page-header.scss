@@ -7,3 +7,46 @@
     padding: 0;
   }
 }
+.page-header-tab {
+  padding: 1em 0 0;
+  margin-bottom: 1.8em;
+  h1 {
+    margin: 0;
+    padding: 0;
+  }
+  .list-tab-header {
+    display: flex;
+    align-items: center;
+    @include font-alt;
+
+    .list-tab-header-h {
+      font-size: 24px;
+      border: 1px solid transparent;
+      border-bottom-color: #999;
+      border-radius: 8px 8px 0 0;
+      padding: 0 1em;
+      line-height: 48px;
+      a {
+        text-decoration: none;
+        color: #000;
+        opacity: 0.2;
+        display: block;
+      }
+      &.current {
+        border-color: #999;
+        border-bottom-color: transparent;
+
+        a {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  .page-header-tab-right-side {
+    border-bottom: 1px solid #999;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 50px;
+  }
+}

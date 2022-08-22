@@ -1,31 +1,37 @@
 .element-edit {
-  padding: 15px;
-  .element-thumbnail-container {
-    width: 210px;
-    padding-right: 20px;
-    border-right: 1px solid #ddd;
+  .element-edit-container {
+    position: relative;
+    padding: 10px;
   }
-  &.for-combo {
-    border: 1px solid #ddd;
-    margin-bottom: 14px;
-    border-radius: 8px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-}
-.element-form-container {
-  max-width: 835px;
-}
 
-@media screen and (max-width: 768px) {
-  .element-edit {
-    .element-thumbnail-container {
-      padding-right: 0;
-      border-right: none;
+  .element-thumbnail-container {
+    position: relative;
+    overflow: hidden;
+    border-right: 1px solid #ddd;
+    padding-right: 10px;
+    width: 172px;
+    height: 100%;
+
+    // &.loading {
+    //   opacity: 0.5;
+    // }
+    .picture {
+      border: 1px solid #ddd;
     }
-    .element-data-container {
-      padding-left: 0;
+  }
+  .element-edit-data-container {
+    padding: 0 30px;
+  }
+  .element-title {
+    font-weight: bold;
+    font-size: 22px;
+    .element-title-badge {
+      font-size: 10px;
+      vertical-align: middle;
     }
+  }
+
+  &.create {
+    border-top: 1px solid #ddd;
   }
 }

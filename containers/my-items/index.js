@@ -4,7 +4,7 @@ import MyItemsView from "views/my-items";
 import { useApi, ItemService, MathTradeService } from "api";
 import { getMathtradeStored } from "utils";
 
-const MyItems = () => {
+const MyItemsContainer = () => {
   const [IamInMathTrade, setIamInMathTrade] = useState(false);
   /* Math Trade */
   const [
@@ -53,4 +53,4 @@ const MyItems = () => {
   );
 };
 
-export default MyItems;
+export default MyItemsContainer;

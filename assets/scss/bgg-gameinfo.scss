@@ -1,0 +1,50 @@
+@each $num, $color in $ratingsBGG {
+  .bgg-rating-#{$num} {
+    background-color: $color;
+    color: #fff;
+  }
+}
+.bgg-link {
+  font-size: 11px;
+  display: inline-block;
+  color: $orange;
+  .icon {
+    margin-left: 0.3em;
+  }
+  &:hover {
+    color: darken($orange, 10);
+  }
+}
+.bgg-game-info {
+  .bgg-game-info_rating-num {
+    $w: 30px;
+    width: $w;
+    height: $w;
+    line-height: $w;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 50%;
+    cursor: default;
+  }
+  .bgg-game-info_rating-dificultad {
+    text-align: center;
+    padding: 0 10px;
+    cursor: default;
+    .bgg-game-info_rating-dificultad-num {
+      line-height: 1;
+      font-size: 14px;
+      padding-bottom: 2px;
+    }
+    .bgg-game-info_rating-dificultad-label {
+      line-height: 1;
+      font-size: 9px;
+    }
+  }
+  .bgg-link {
+    display: block;
+  }
+}
+.bgg-game-info_tooltip {
+  font-size: 12px;
+}

@@ -1,9 +1,9 @@
-.paginator{
-  .paginator-row{
+.paginator {
+  .paginator-row {
     padding: 10px 0;
     text-align: center;
 
-    .paginator-item{
+    .paginator-item {
       width: 26px;
       text-align: center;
       font-size: 16px;
@@ -13,26 +13,26 @@
       margin: 0 2px;
       display: inline-block;
       cursor: pointer;
-      color:#444;
-      transition: color .1s;
+      color: #444;
+      transition: color 0.1s;
+      text-decoration: none;
 
-      &:not(.paginator-item_points):not(.paginator-item_current):hover{
-        color:#AAA;
+      &:not(.paginator-item_points):not(.paginator-item_current):hover {
+        color: #aaa;
       }
 
-      &.paginator-item_current{
-        color:$primary;
+      &.paginator-item_current {
+        color: $primary;
         text-decoration: underline;
         cursor: default;
       }
-      &.paginator-item_points{
+      &.paginator-item_points {
         cursor: default;
       }
       &.paginator-item_first,
-      &.paginator-item_last{
+      &.paginator-item_last {
         font-size: 12px;
       }
-
     }
   }
 }

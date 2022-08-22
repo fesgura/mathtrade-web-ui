@@ -7,13 +7,11 @@ const ElementDropVersions = ({ versionList, onChange = () => {} }) => {
   return versionList && versionList.length ? (
     <div className="element-drop-version">
       <div className="element-drop-version_thumbnail">
-        <div className="element-thumbnail">
-          {versionList[selected].versionData.thumbnail ? (
-            <img src={versionList[selected].versionData.thumbnail} alt="" />
-          ) : (
-            <div className="element-thumbnail_placeholder" />
-          )}
-        </div>
+        {versionList[selected].versionData.thumbnail ? (
+          <img src={versionList[selected].versionData.thumbnail} alt="" />
+        ) : (
+          <div className="img_placeholder" />
+        )}
       </div>
       <div className="element-drop-version_list">
         {versionList.map((version, k) => {

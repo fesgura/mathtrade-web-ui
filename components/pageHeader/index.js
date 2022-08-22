@@ -1,15 +1,12 @@
 import { Row, Col } from "reactstrap";
 
-const PageHeader = ({ title = "title", rightSide }) => {
+const PageHeader = ({ title = "title", leftSide, rightSide }) => {
   return (
     <div className="page-header">
       <Row className="align-items-center justify-content-between">
-        <Col xs="auto">
-          <h1>{title}</h1>
-        </Col>
+        <Col xs="auto">{leftSide ? leftSide : <h1>{title}</h1>}</Col>
         {rightSide ? <Col xs="auto">{rightSide}</Col> : null}
       </Row>
-      <h1></h1>
     </div>
   );
 };

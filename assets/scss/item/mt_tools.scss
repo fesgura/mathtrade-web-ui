@@ -1,0 +1,20 @@
+.mt_tools {
+  background-color: $mathtrade-bg-3;
+
+  height: 100%;
+  border-radius: 0 10px 10px 0;
+  .mt_tools-container {
+    padding: 10px;
+  }
+
+  .mt_tools-title {
+    text-align: center;
+    background-color: rgba($mathtrade, 0.4);
+    border-radius: 0 10px 0 0;
+    color: #fff; //rgba($mathtrade-darken, 0.7);
+    font-size: 12px;
+    line-height: 2;
+    font-weight: bold;
+    margin-bottom: 2px;
+  }
+}

@@ -18,6 +18,7 @@ import TestBGGuser from "components/testBGGuser";
 import Icon from "components/icon";
 import UserAvatar from "components/avatar";
 import ChangePassword from "containers/myAccount/changePassword";
+import ErrorAlert from "components/errorAlert";
 
 const MyAccountView = ({
   data,
@@ -28,7 +29,6 @@ const MyAccountView = ({
   errors,
 }) => {
   const [validationStatus, setValidationStatus] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
 
   const [modified, setModified] = useState(false);
 
@@ -39,15 +39,6 @@ const MyAccountView = ({
   const [validBGGuser, onValidateBGGuser] = useState("yes");
 
   const [isOpenModalPassword, setIsOpenModalPassword] = useState(false);
-
-  useEffect(() => {
-    if (errors) {
-      let errorMge = "Ocurrió un error. Por favor, intenta nuevamente.";
-      setErrorMessage(errorMge);
-    } else {
-      setErrorMessage(null);
-    }
-  }, [errors]);
 
   const validations = {
     username: ["required"],
@@ -308,11 +299,7 @@ const MyAccountView = ({
                     </Row>
                     <Hidden name="referred" value="Luis Olcese" />
                     <hr />
-                    {errorMessage ? (
-                      <Alert color="danger" className="text-center">
-                        {errorMessage}
-                      </Alert>
-                    ) : null}
+                    <ErrorAlert errors={errors} />
                     <div className="text-center py-4">
                       <Button
                         color="link"

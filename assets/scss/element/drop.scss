@@ -1,5 +1,5 @@
 .element-drop-version {
-  $thumb_width: 220px;
+  $thumb_width: 192px;
 
   position: relative;
   height: $thumb_width * 2;
@@ -11,6 +11,12 @@
     // left: 0;
     width: $thumb_width;
     padding: 10px;
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid #ddd;
+    }
   }
   .element-drop-version_list {
     position: absolute;

@@ -30,6 +30,8 @@
     &:focus,
     &:focus-visible {
       outline: none;
+      color: #fff;
+      background-color: darken($primary, 10);
       box-shadow: 0 0 0 4px rgba($primary, 0.5);
     }
   }
@@ -112,6 +114,16 @@
     }
   }
 
+  &.btn-xs {
+    border-radius: 16px;
+  }
+
+  &.btn-xs {
+    border-radius: 10px;
+    font-size: 12px;
+    line-height: 1.2;
+    padding: 0.2em 0.8em;
+  }
   &.btn-sm {
     border-radius: 16px;
   }

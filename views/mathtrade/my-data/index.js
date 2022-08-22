@@ -7,8 +7,8 @@ import { Button, Alert, Modal, ModalBody, Row, Col } from "reactstrap";
 import Section from "components/section";
 import Icon from "components/icon";
 import CancelInviteMT from "components/inviteRegisterMathTrade/cancel";
-import classNames from "classnames";
 import storage from "utils/storage";
+import ErrorAlert from "components/errorAlert";
 
 const validations = {
   location: ["required"],
@@ -35,7 +35,6 @@ const MT_MyDataView = ({
   cancelMemberMathTrade,
 }) => {
   const [validationStatus, setValidationStatus] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [modalExit, setModalExit] = useState(false);
 
@@ -46,15 +45,6 @@ const MT_MyDataView = ({
     },
     [dataLocations]
   );
-
-  useEffect(() => {
-    if (errors) {
-      let errorMge = "Ocurrió un error. Por favor, intenta nuevamente.";
-      setErrorMessage(errorMge);
-    } else {
-      setErrorMessage(null);
-    }
-  }, [errors]);
 
   useEffect(() => {
     const user = storage.getFromStore("user");
@@ -217,11 +207,7 @@ const MT_MyDataView = ({
                   currentLocation && currentLocation.mandatory_attendance
                 }
               />
-              {errorMessage ? (
-                <Alert color="danger" className="text-center">
-                  {errorMessage}
-                </Alert>
-              ) : null}
+              <ErrorAlert errors={errors} />
               <div className="text-center py-4">
                 {mathtradeData.IamIn ? (
                   <Button color="primary" type="submit">

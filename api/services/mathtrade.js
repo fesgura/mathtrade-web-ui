@@ -64,6 +64,17 @@ const MathTradeService = {
       props.data
     );
   },
+  listGames: (props) => {
+    setAuth();
+    return api.get("api/mathtrades/" + props.mathTradeId + "/games/");
+  },
+  listItems: (props) => {
+    setAuth();
+    return api.get(
+      "api/mathtrades/" + props.mathTradeId + "/items/",
+      props.query
+    );
+  },
 };
 
 export default MathTradeService;

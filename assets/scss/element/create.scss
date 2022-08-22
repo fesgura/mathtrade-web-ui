@@ -1,16 +1,10 @@
 .element-create {
   .element-create_step-0 {
-    padding: 10px;
+    padding: 6px;
     text-align: center;
-
-    &.for-combo {
-      padding-bottom: 0;
-      // margin-top: 8px;
-    }
   }
-
   .element-create_step-1 {
-    padding: 20px;
+    padding: 15px;
     max-width: 440px;
     margin: 0 auto;
     text-align: center;
@@ -87,22 +81,15 @@
       }
     }
   }
-
   .element-create-step-2 {
     padding: 25px;
+    .element-create_bgg-search {
+      max-width: 400px;
+      margin: 0 auto;
+    }
   }
 
-  &.for-second-element {
+  &.for-combo {
     border-top: 1px solid #ddd;
-  }
-
-  .element-create_bgg-search {
-    max-width: 400px;
-    margin: 0 auto;
-  }
-
-  .element-create_edit {
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
   }
 }

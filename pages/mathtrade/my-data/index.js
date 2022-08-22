@@ -1,7 +1,7 @@
-import MT_Register from "containers/mathtrade/my-data";
+import MT_MyDataContainer from "containers/mathtrade/my-data";
 
-const MT_RegisterPage = () => {
-  return <MT_Register />;
+const MT_MyDataPage = () => {
+  return <MT_MyDataContainer />;
 };
 
-export default MT_RegisterPage;
+export default MT_MyDataPage;

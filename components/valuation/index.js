@@ -59,7 +59,7 @@ const Valuation = ({ className, item, afterAnyChange }) => {
       <UncontrolledDropdown direction="down">
         <DropdownToggle tag="div" className="valuation-row">
           <div className="valuation-col">
-            Valor
+            <span className="valuation-label">Valor</span>
             <Question
               question="Podés asignarle un valor a este item, según tu propio criterio. Esto te va a ayudar luego a filtrar items, asociarlos, tec."
               min

@@ -1,7 +1,7 @@
-import MyItems from "containers/my-items";
+import MyItemsContainer from "containers/my-items";
 
 const MyItemsPage = () => {
-  return <MyItems />;
+  return <MyItemsContainer />;
 };
 
 export default MyItemsPage;

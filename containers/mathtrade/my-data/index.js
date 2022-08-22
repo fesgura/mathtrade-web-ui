@@ -6,7 +6,7 @@ import { useApi, LocationService, MathTradeService } from "api";
 import { getMathtradeStored } from "utils";
 import storage from "utils/storage";
 
-const MT_MyData = () => {
+const MT_MyDataContainer = () => {
   const [mathtradeData, set_mathtradeData] = useState(null);
 
   const [fetchLocations, dataLocations, loadingLocations] = useApi({
@@ -123,4 +123,4 @@ const MT_MyData = () => {
   );
 };
 
-export default MT_MyData;
+export default MT_MyDataContainer;

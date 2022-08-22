@@ -30,8 +30,14 @@ export const privateRoutes = {
   },
   mathTradeEnabled: {
     path: "mathtrade/",
+    list: {
+      path: "list/games",
+    },
+    gameList: {
+      path: "list/games",
+    },
     itemList: {
-      path: "list",
+      path: "list/items",
     },
   },
 };
@@ -75,7 +81,7 @@ export const mathtradeMenuList = {
     {
       path:
         privateRoutes.mathTradeEnabled.path +
-        privateRoutes.mathTradeEnabled.itemList.path,
+        privateRoutes.mathTradeEnabled.gameList.path,
       title: "Lista de juegos",
       icon: "list",
     },

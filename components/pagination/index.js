@@ -1,19 +1,33 @@
 import classNames from "classnames";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 const Pagination = ({
-  page,
-  elementsPerPage,
+  filters,
+  setFilters,
   elementsTotal,
   setPage = () => {},
 }) => {
+  const [page, set_page] = useState(1);
+  // const [elementsPerPage, set_elementsPerPage] = useState(25);
+  //
   const [pagesTotal, set_pagesTotal] = useState(1);
   const [listPages, set_listPages] = useState([1]);
 
   useEffect(() => {
-    const newPagesTotal = Math.ceil(elementsTotal / elementsPerPage);
+    if (filters.query.page) {
+      set_page(parseInt(filters.query.page, 10));
+    }
+
+    let newElementsPerPage = 25;
+    if (filters.query.page_size) {
+      newElementsPerPage = parseInt(filters.query.page_size, 10);
+      // set_elementsPerPage(newElementsPerPage);
+    }
+
+    const newPagesTotal = Math.ceil(elementsTotal / newElementsPerPage);
     set_pagesTotal(newPagesTotal);
-  }, [elementsPerPage, elementsTotal]);
+  }, [filters, elementsTotal]);
 
   useEffect(() => {
     const listPages = [1];
@@ -43,46 +57,72 @@ const Pagination = ({
     <div className="paginator">
       <div className="paginator-row">
         {page > 1 ? (
-          <div
-            className="paginator-item paginator-item_first"
-            onClick={() => {
-              setPage({ page: page - 1 });
+          <Link
+            href={{
+              pathname: filters.pathname,
+              query: { ...filters.query, page: page - 1 },
             }}
-            title={`Previous page (${page - 1})`}
           >
-            <i className="fa fa-chevron-left" />
-          </div>
+            <a
+              className="paginator-item paginator-item_first"
+              title={`Página anterior (${page - 1})`}
+              onClick={() => {
+                setFilters({ page: `${page - 1}` });
+              }}
+            >
+              <i className="fa fa-chevron-left" />
+            </a>
+          </Link>
         ) : null}
         {listPages.map((num, k) => {
+          const { pathname, query } = filters;
           const numRendered = num > 0 ? num : "...";
+          if (numRendered === "...") {
+            return (
+              <div className="paginator-item paginator-item_points" key={k}>
+                ...
+              </div>
+            );
+          }
           return (
-            <div
-              className={classNames("paginator-item", {
-                "paginator-item_current": num === page,
-                "paginator-item_points": num < 0,
-              })}
-              key={k}
-              onClick={() => {
-                if (num !== page && num > 0) {
-                  setPage({ page: num });
-                }
+            <Link
+              href={{
+                pathname,
+                query: { ...query, page: num },
               }}
-              title={num !== page && num > 0 ? `Page ${num}` : null}
+              key={k}
             >
-              {numRendered}
-            </div>
+              <a
+                className={classNames("paginator-item", {
+                  "paginator-item_current": num === page,
+                  "paginator-item_points": num < 0,
+                })}
+                onClick={() => {
+                  setFilters({ page: `${num}` });
+                }}
+              >
+                {numRendered}
+              </a>
+            </Link>
           );
         })}
         {page < pagesTotal ? (
-          <div
-            className="paginator-item paginator-item_last"
-            onClick={() => {
-              setPage({ page: page + 1 });
+          <Link
+            href={{
+              pathname: filters.pathname,
+              query: { ...filters.query, page: page + 1 },
             }}
-            title={`Next page (${page + 1})`}
           >
-            <i className="fa fa-chevron-right" />
-          </div>
+            <a
+              className="paginator-item paginator-item_last"
+              title={`Página siguiente (${page + 1})`}
+              onClick={() => {
+                setFilters({ page: `${page + 1}` });
+              }}
+            >
+              <i className="fa fa-chevron-right" />
+            </a>
+          </Link>
         ) : null}
       </div>
     </div>
