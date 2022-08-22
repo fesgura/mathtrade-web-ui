@@ -3,15 +3,27 @@ import classNames from "classnames";
 import User from "./user";
 import { Col, Row } from "reactstrap";
 
-const Item = ({ item, afterAnyChange, card = true, tools }) => {
+const Item = ({
+  item,
+  afterAnyChange,
+  card = true,
+  bordered,
+  className,
+  tools,
+}) => {
   return (
-    <div className="item mb-4">
+    <div className={classNames("item mb-4", { wanted: false })}>
       <Row className="align-items-stretch g-0">
         <Col>
           <div
-            className={classNames("item-container", {
-              "card shadow-sm": card,
-            })}
+            className={classNames(
+              "item-container",
+              {
+                "card shadow-sm": card,
+                bordered,
+              },
+              className
+            )}
           >
             {item?.elements?.length > 1 ? (
               <div className="item-title">

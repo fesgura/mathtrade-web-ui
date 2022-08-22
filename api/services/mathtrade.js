@@ -75,6 +75,10 @@ const MathTradeService = {
       props.query
     );
   },
+  wants: (props) => {
+    setAuth();
+    return api.get("api/mathtrades/" + props.mathTradeId + "/user-wants/");
+  },
 };
 
 export default MathTradeService;

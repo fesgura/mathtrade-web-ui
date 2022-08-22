@@ -3,10 +3,12 @@
   background-color: #fff;
   padding: 0 (0.3 * $h);
   border-radius: $h;
+  text-align: center;
 
   .valuation-row {
     display: flex;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
 
     .valuation-label {

@@ -4,6 +4,12 @@
     padding: 15px 10px;
   }
 
+  .item-container {
+    &.bordered {
+      border: 1px solid #ccc;
+    }
+  }
+
   .item-elementlist {
     &.combo {
       padding: 0 10px;
@@ -28,5 +34,9 @@
       padding-left: 10px;
       font-size: 12px;
     }
+  }
+  &.wanted {
+    border: 2px solid $mathtrade-bg-2;
+    border-radius: 0 10px 10px 0;
   }
 }

@@ -18,6 +18,11 @@ const MT_ItemListContainer = () => {
     startLoading: true,
   });
 
+  const [listWants, itemWants, loadingItemWants, errorsItemWants] = useApi({
+    promise: MathTradeService.wants,
+    initialState: [],
+  });
+
   useEffect(() => {
     //
     let timer = setTimeout(() => {
@@ -43,9 +48,17 @@ const MT_ItemListContainer = () => {
     }
   }, [filters]);
 
+  useEffect(() => {
+    const newMathtradeStored = getMathtradeStored();
+    listWants({ mathTradeId: newMathtradeStored.data.id });
+  }, []);
+
+  console.log("itemWants", itemWants);
+
   return (
     <MT_ItemListView
       list={list}
+      itemWants={itemWants}
       filters={filters}
       setFilters={(newFilters) => {
         setFilters({
@@ -57,9 +70,11 @@ const MT_ItemListContainer = () => {
           d: getUniqueId(),
         });
       }}
-      loading={loading}
-      errors={errors}
+      loading={loading || loadingItemWants}
+      errors={errors || errorsItemWants}
       afterAnyChange={() => {
+        const newMathtradeStored = getMathtradeStored();
+        listWants({ mathTradeId: newMathtradeStored.data.id });
         setFilters((fil) => {
           return {
             ...fil,
