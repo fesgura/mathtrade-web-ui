@@ -6,13 +6,14 @@ import { Col, Row } from "reactstrap";
 const Item = ({
   item,
   afterAnyChange,
+  wanted,
   card = true,
   bordered,
   className,
   tools,
 }) => {
   return (
-    <div className={classNames("item mb-4", { wanted: false })}>
+    <div className={classNames("item mb-4", { wanted, owner: item?.owner })}>
       <Row className="align-items-stretch g-0">
         <Col>
           <div
@@ -26,7 +27,7 @@ const Item = ({
             )}
           >
             {item?.elements?.length > 1 ? (
-              <div className="item-title">
+              <div className={classNames("item-title", { owner: item?.owner })}>
                 <b>Combo:</b> {item?.title}
               </div>
             ) : null}
@@ -34,6 +35,7 @@ const Item = ({
               <div
                 className={classNames("item-elementlist", {
                   combo: item?.elements?.length > 1,
+                  owner: item?.owner,
                 })}
               >
                 {item.elements
@@ -41,11 +43,20 @@ const Item = ({
                     return a.id < b.id ? -1 : 1;
                   })
                   .map((element, k) => {
-                    return <Element key={k} element={element} item={item} />;
+                    return (
+                      <Element
+                        key={k}
+                        element={element}
+                        item={item}
+                        owner={item?.owner}
+                      />
+                    );
                   })}
               </div>
             ) : null}
-            {item && item.user ? <User user={item.user} /> : null}
+            {item && item.user && !item?.owner ? (
+              <User user={item.user} />
+            ) : null}
           </div>
         </Col>
         {tools ? <Col xs="auto">{tools}</Col> : null}

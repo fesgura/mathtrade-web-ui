@@ -2,6 +2,9 @@
   .item-title {
     font-size: 20px;
     padding: 15px 10px;
+    &.owner {
+      min-height: $item-owner-min-h;
+    }
   }
 
   .item-container {
@@ -24,6 +27,11 @@
           font-size: 16px;
         }
       }
+
+      &.owner {
+        overflow: hidden;
+        max-height: 0;
+      }
     }
   }
 
@@ -38,5 +46,19 @@
   &.wanted {
     border: 2px solid $mathtrade-bg-2;
     border-radius: 0 10px 10px 0;
+  }
+  &.owner {
+    opacity: 0.4;
+    transition: opacity 0.2s;
+    &:hover {
+      opacity: 1;
+
+      .item-elementlist {
+        &.combo.owner {
+          transition: max-height 0.3s;
+          max-height: 2600px;
+        }
+      }
+    }
   }
 }

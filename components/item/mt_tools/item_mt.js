@@ -1,26 +1,11 @@
 import { useState, useEffect } from "react";
+import classNames from "classnames";
 import Valuation from "components/valuation";
 import { Button, Modal, ModalBody } from "reactstrap";
 import MT_Tool_WantEditor from "./want_editor";
 
-const MT_ToolItem_ItemMT = ({ item, afterAnyChange, itemWants }) => {
+const MT_ToolItem_ItemMT = ({ item, afterAnyChange, wantInfo }) => {
   const [modalWantOpen, setModalWantOpen] = useState(false);
-
-  const [wantInfo, setWantInfo] = useState(null);
-
-  useEffect(() => {
-    const newWantInfoArr = itemWants.filter((itm) => {
-      return itm.want.id === item.id;
-    });
-    if (newWantInfoArr.length) {
-      const newWantInfo = newWantInfoArr[0].items.map((itm) => {
-        return itm.id;
-      });
-      setWantInfo(newWantInfo);
-    } else {
-      setWantInfo(null);
-    }
-  }, [item, itemWants]);
 
   return (
     <div className="mt_tools">
@@ -28,29 +13,35 @@ const MT_ToolItem_ItemMT = ({ item, afterAnyChange, itemWants }) => {
         <Valuation
           item={item}
           afterAnyChange={afterAnyChange}
-          className="mb-3"
+          className={classNames({ "mb-3": !item?.owner })}
         />
-        <Button
-          color="primary"
-          size="sm"
-          onClick={() => {
-            setModalWantOpen(true);
-          }}
-        >
-          {wantInfo ? (
-            <>
-              En mi Want List
-              <br />
-              <span className="small">
-                (
-                {`por ${wantInfo.length} item${wantInfo.length > 1 ? "s" : ""}`}
-                )
-              </span>
-            </>
-          ) : (
-            "¡Lo quiero!"
-          )}
-        </Button>
+        {item?.owner ? (
+          <div className="small mt_tools_owner-banner">Item propio</div>
+        ) : (
+          <Button
+            color="primary"
+            size="sm"
+            onClick={() => {
+              setModalWantOpen(true);
+            }}
+          >
+            {wantInfo ? (
+              <>
+                En mi Want List
+                <br />
+                <span className="small">
+                  (
+                  {`por ${wantInfo.length} item${
+                    wantInfo.length > 1 ? "s" : ""
+                  }`}
+                  )
+                </span>
+              </>
+            ) : (
+              "¡Lo quiero!"
+            )}
+          </Button>
+        )}
       </div>
 
       <Modal

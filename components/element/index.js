@@ -10,10 +10,10 @@ import Picture from "components/picture";
 
 const twoPointsReg = new RegExp(":", "g");
 
-const Element = ({ element }) => {
+const Element = ({ element, owner }) => {
   const id = useId("a").replace(twoPointsReg, "");
   return (
-    <div className="element">
+    <div className={classNames("element", { owner })}>
       <div className="element-container">
         <Row className="g-0 align-items-stretch">
           <Col sm={"auto"}>

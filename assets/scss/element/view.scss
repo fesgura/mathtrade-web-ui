@@ -78,4 +78,28 @@
       padding: 0 2em 1em 0;
     }
   }
+
+  &.owner {
+    .element-thumbnail-container {
+      overflow: hidden;
+      max-height: $item-owner-min-h;
+    }
+    .element-data-element {
+      overflow: hidden;
+      max-height: 0;
+    }
+  }
+}
+
+.item.owner:hover .element.owner {
+  .element-thumbnail-container {
+    max-height: 800px;
+  }
+  .element-data-element {
+    max-height: 800px;
+  }
+  .element-thumbnail-container,
+  .element-data-element {
+    transition: max-height 0.5s;
+  }
 }
