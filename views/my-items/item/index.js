@@ -50,13 +50,15 @@ const ItemView = ({
             <Element item={item} afterAnyChange={afterAnyChange} own={own} />
           </div>
         </Col>
-        <Col xs="auto">
-          <MT_ToolItem_MyItem
-            item={item}
-            itemMathTradeData={itemMathTradeData}
-            afterAnyChange={afterAnyChange}
-          />
-        </Col>
+        {IamInMathTrade ? (
+          <Col xs="auto">
+            <MT_ToolItem_MyItem
+              item={item}
+              itemMathTradeData={itemMathTradeData}
+              afterAnyChange={afterAnyChange}
+            />
+          </Col>
+        ) : null}
       </Row>
     </div>
   );

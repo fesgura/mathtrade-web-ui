@@ -47,9 +47,7 @@ const MyItemsView = ({
                 )}
               </>
             )}
-            {!loading ? (
-              <Item item={null} afterAnyChange={listItems} forceOwn />
-            ) : null}
+            {!loading ? <Item item={null} afterAnyChange={listItems} /> : null}
           </div>
           <ErrorAlert errors={errors} />
         </Col>
