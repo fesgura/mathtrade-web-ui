@@ -58,14 +58,19 @@ const MT_ItemListContainer = () => {
       list={list}
       itemWants={itemWants}
       filters={filters}
-      setFilters={(newFilters) => {
-        setFilters({
+      setFilters={(filterInput) => {
+        const newFilters = {
           ...filters,
           query: {
             ...filters.query,
-            ...newFilters,
+            ...filterInput,
           },
           d: getUniqueId(),
+        };
+        setFilters(newFilters);
+        router.push({
+          path: newFilters.path,
+          query: newFilters.query,
         });
       }}
       loading={loading || loadingItemWants}

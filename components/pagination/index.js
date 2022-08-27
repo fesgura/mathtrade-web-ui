@@ -1,16 +1,8 @@
 import classNames from "classnames";
 import { useState, useEffect } from "react";
-import Link from "next/link";
 
-const Pagination = ({
-  filters,
-  setFilters,
-  elementsTotal,
-  setPage = () => {},
-}) => {
+const Pagination = ({ filters, setFilters, elementsTotal }) => {
   const [page, set_page] = useState(1);
-  // const [elementsPerPage, set_elementsPerPage] = useState(25);
-  //
   const [pagesTotal, set_pagesTotal] = useState(1);
   const [listPages, set_listPages] = useState([1]);
 
@@ -22,7 +14,6 @@ const Pagination = ({
     let newElementsPerPage = 25;
     if (filters.query.page_size) {
       newElementsPerPage = parseInt(filters.query.page_size, 10);
-      // set_elementsPerPage(newElementsPerPage);
     }
 
     const newPagesTotal = Math.ceil(elementsTotal / newElementsPerPage);
@@ -57,25 +48,19 @@ const Pagination = ({
     <div className="paginator">
       <div className="paginator-row">
         {page > 1 ? (
-          <Link
-            href={{
-              pathname: filters.pathname,
-              query: { ...filters.query, page: page - 1 },
+          <a
+            className="paginator-item paginator-item_first"
+            title={`Página anterior (${page - 1})`}
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              setFilters({ page: `${page - 1}` });
             }}
           >
-            <a
-              className="paginator-item paginator-item_first"
-              title={`Página anterior (${page - 1})`}
-              onClick={() => {
-                setFilters({ page: `${page - 1}` });
-              }}
-            >
-              <i className="fa fa-chevron-left" />
-            </a>
-          </Link>
+            <i className="fa fa-chevron-left" />
+          </a>
         ) : null}
         {listPages.map((num, k) => {
-          const { pathname, query } = filters;
           const numRendered = num > 0 ? num : "...";
           if (numRendered === "...") {
             return (
@@ -85,44 +70,34 @@ const Pagination = ({
             );
           }
           return (
-            <Link
-              href={{
-                pathname,
-                query: { ...query, page: num },
-              }}
+            <a
               key={k}
+              className={classNames("paginator-item", {
+                "paginator-item_current": num === page,
+                "paginator-item_points": num < 0,
+              })}
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                setFilters({ page: `${num}` });
+              }}
             >
-              <a
-                className={classNames("paginator-item", {
-                  "paginator-item_current": num === page,
-                  "paginator-item_points": num < 0,
-                })}
-                onClick={() => {
-                  setFilters({ page: `${num}` });
-                }}
-              >
-                {numRendered}
-              </a>
-            </Link>
+              {numRendered}
+            </a>
           );
         })}
         {page < pagesTotal ? (
-          <Link
-            href={{
-              pathname: filters.pathname,
-              query: { ...filters.query, page: page + 1 },
+          <a
+            className="paginator-item paginator-item_last"
+            title={`Página siguiente (${page + 1})`}
+            href="/"
+            onClick={(e) => {
+              e.preventDefault();
+              setFilters({ page: `${page + 1}` });
             }}
           >
-            <a
-              className="paginator-item paginator-item_last"
-              title={`Página siguiente (${page + 1})`}
-              onClick={() => {
-                setFilters({ page: `${page + 1}` });
-              }}
-            >
-              <i className="fa fa-chevron-right" />
-            </a>
-          </Link>
+            <i className="fa fa-chevron-right" />
+          </a>
         ) : null}
       </div>
     </div>
