@@ -264,3 +264,108 @@ select,
     }
   }
 }
+// range-multiple
+.range-multiple-container {
+  $r: 10px;
+
+  .range-multiple-label {
+    display: inline-block;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 0 0.4em;
+    min-width: 56px;
+    cursor: default;
+  }
+
+  .range-multiple-content {
+    position: relative;
+    height: 2 * $r;
+
+    .range-multiple-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 2 * $r;
+      height: 2 * $r;
+
+      .range-multiple-btn {
+        width: 2 * $r;
+        height: 2 * $r;
+        background-color: $secondary;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 (0.5 * $r) #fff, 0 0 5px rgba(0, 0, 0, 0.3);
+      }
+      .range-multiple-line_stroke {
+        $h-stroke: 5px;
+        position: absolute;
+        top: 0.5 * (2 * $r - $h-stroke);
+        left: $r;
+        right: -$r;
+        height: $h-stroke;
+        background-color: $secondary;
+        border-radius: 0.5 * $h-stroke;
+        .range-multiple-line_stroke-str {
+          position: absolute;
+          top: 0;
+          height: 100%;
+          width: 1px;
+          background-color: #fff;
+        }
+      }
+    }
+
+    input {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      pointer-events: none;
+      outline: none;
+      //
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      opacity: 0;
+
+      cursor: grab;
+      /*
+      
+      width: 100%;
+      //
+      
+      //background: none;
+      
+      height: 60px;
+      */
+
+      &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        pointer-events: all;
+        background-color: #f00;
+        width: 2 * $r;
+        height: 2 * $r;
+      }
+      &::-moz-range-thumb {
+        pointer-events: all;
+      }
+      &::-ms-thumb {
+        pointer-events: all;
+      }
+      &::-ms-track {
+        width: 100%;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

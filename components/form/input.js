@@ -37,6 +37,10 @@ const Input = ({
   disabled,
   textSize,
   //
+  min = 0,
+  max = 10,
+  step = 1,
+  //
   ...rest
 }) => {
   const [value, setValue] = useState("");
@@ -111,6 +115,11 @@ const Input = ({
       startFocus={startFocus}
       disabled={disabled}
       textSize={textSize}
+      //
+      min={min}
+      max={max}
+      step={step}
+      //
       {...rest}
     />
   );

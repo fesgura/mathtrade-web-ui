@@ -1,25 +1,68 @@
 import classNames from "classnames";
 import { Form, Input } from "components/form";
+import { Button } from "reactstrap";
 
-const FiltersComp = ({ filters, setFilters, model = [], className }) => {
+const FiltersComp = ({
+  filters,
+  setFilters,
+  clearFilters = () => {},
+  model = [],
+  className,
+}) => {
   return (
     <div className={classNames("filters", className)}>
       <div className="filters-container">
-        Filters
-        {/* <Form
-          onSubmit={(formData) => {
-            console.log(formData);
-          }}
-        >
-          <Input
-            data={filters}
-            label="Nombre de usuario"
-            name="username"
-            placeholder="Nombre"
-            //icon="user"
-            question="Tu nombre de usuario lo necesitarás para poder ingresar al sistema."
-          />
-        </Form> */}
+        <Form onSubmit={setFilters}>
+          {model.map((inputData, k) => {
+            const {
+              hr,
+              data,
+              type,
+              name,
+              size,
+              label,
+              icon,
+              question,
+              placeholder,
+              min,
+              max,
+              options,
+            } = inputData;
+            return (
+              <div key={k}>
+                <Input
+                  data={data || filters?.query[name]}
+                  label={label}
+                  name={name}
+                  type={type || "text"}
+                  icon={icon}
+                  placeholder={placeholder}
+                  min={min}
+                  max={max}
+                  size={size || "sm"}
+                  options={options}
+                  question={question}
+                />
+                {hr ? <hr /> : null}
+              </div>
+            );
+          })}
+          <hr />
+          <Button type="submit" block size="lg">
+            Filtrar
+          </Button>
+          <div className="clear-filter-box">
+            <a
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                clearFilters();
+              }}
+            >
+              Limpiar filtros
+            </a>
+          </div>
+        </Form>
       </div>
     </div>
   );

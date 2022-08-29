@@ -10,6 +10,7 @@ import Filters_MT_Items from "./filters";
 
 const MT_ItemListView = ({
   list,
+  locations,
   itemWants,
   filters,
   setFilters,
@@ -38,37 +39,46 @@ const MT_ItemListView = ({
           },
         ]}
       />
+      <Row className="align-items-center mb-4 justify-content-end">
+        <Col xs="auto">
+          <OrderBy
+            valueInitial={filters?.query?.order}
+            options={[
+              { text: "Fecha", value: "id" },
+              { text: "Nombre", value: "name" },
+              { text: "Valor", value: "value" },
+              { text: "Idioma", value: "language" },
+              { text: "Dependencia de idioma", value: "dependency" },
+              { text: "Estado", value: "status" },
+              { text: "Dificultad (BGG)", value: "weight" },
+              { text: "Rating (BGG)", value: "rate" },
+              { text: "id (BGG)", value: "bgg_id" },
+            ]}
+            onChange={(order, desc) => {
+              setFilters({
+                order: `${desc ? "-" : ""}${order}`,
+              });
+            }}
+          />
+        </Col>
+      </Row>
       <Row>
         <Col xs={3}>
-          <Filters_MT_Items filters={filters} setFilters={setFilters} />
+          <Filters_MT_Items
+            filters={filters}
+            setFilters={setFilters}
+            locations={locations.map((loc, k) => {
+              return {
+                text: loc.name,
+                value: loc.name,
+                id: loc.id,
+              };
+            })}
+          />
         </Col>
         <Col xs={9}>
-          <Row className="align-items-center mb-4 justify-content-end">
-            <Col xs="auto">
-              <OrderBy
-                valueInitial={filters?.query?.order}
-                options={[
-                  { text: "Fecha", value: "id" },
-                  { text: "Nombre", value: "name" },
-                  { text: "Valor", value: "value" },
-                  { text: "Idioma", value: "language" },
-                  { text: "Dependencia de idioma", value: "dependency" },
-                  { text: "Estado", value: "status" },
-                  { text: "Dificultad (BGG)", value: "weight" },
-                  { text: "Rating (BGG)", value: "rate" },
-                  { text: "id (BGG)", value: "bgg_id" },
-                ]}
-                onChange={(order, desc) => {
-                  setFilters({
-                    order: `${desc ? "-" : ""}${order}`,
-                  });
-                }}
-              />
-            </Col>
-          </Row>
           <div className="item-list pb-1">
-            {list &&
-              list.results &&
+            {list && list.results && list.results.length ? (
               list.results.map((item, k) => {
                 return (
                   <MT_ItemListViewItem
@@ -78,7 +88,14 @@ const MT_ItemListView = ({
                     afterAnyChange={afterAnyChange}
                   />
                 );
-              })}
+              })
+            ) : loading ? null : (
+              <div className="item-list_empty">
+                <p className="lead py-4">
+                  Sin <b>items</b> encontrados.
+                </p>
+              </div>
+            )}
           </div>
         </Col>
       </Row>

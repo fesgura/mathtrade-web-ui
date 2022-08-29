@@ -26,22 +26,48 @@ export const statusList = (() => {
   return list;
 })();
 
-export const dependencyTypes = {
-  1: "Alta",
-  2: "Media",
-  3: "Baja",
-  4: "Nula",
-};
+export const listDependencyTexts = [
+  {
+    min: "Ninguna",
+    max: "Ninguna: sin texto en juego",
+    value: 0,
+  },
+  {
+    min: "Poco texto",
+    max: "Pocos textos, fáciles de memorizar",
+    value: 1,
+  },
+  {
+    min: "Moderada",
+    max: "Moderada: es necesaria una hoja de referencia",
+    value: 2,
+  },
+  {
+    min: "Uso extensivo de texto",
+    max: "Uso extensivo de texto: se necesita conocer el idioma para poder jugar",
+    value: 3,
+  },
+  {
+    min: "Injugable en otro idioma",
+    max: "Injugable en otro idioma",
+    value: 4,
+  },
+];
 
 export const dependencyList = (() => {
-  const list = [];
-  for (let i in dependencyTypes) {
-    list.push({
-      text: dependencyTypes[i],
-      value: i,
+  const dl = {
+    options: [],
+    labels: [],
+  };
+  listDependencyTexts.forEach((dep) => {
+    dl.options.push({
+      text: dep.min,
+      value: dep.min,
     });
-  }
-  return list;
+    dl.labels.push(dep.min);
+  });
+
+  return dl;
 })();
 
 export const typeOfElements = {
@@ -51,6 +77,13 @@ export const typeOfElements = {
 };
 
 export const languageTranslations = {
+  Spanish: "Español",
+  English: "Inglés",
+  Portuguese: "Portugués",
+  German: "Alemán",
+  French: "Francés",
+  Chinese: "Chino",
+  Catalan: "Catalán",
   Afrikaans: "Afrikaans",
   Albanian: "Albanés",
   Arabic: "Arábigo",
@@ -63,22 +96,17 @@ export const languageTranslations = {
   Breton: "Bretón",
   Bulgarian: "Búlgaro",
   Burmese: "Birmano",
-  Catalan: "Catalán",
-  Chinese: "Chino",
   Croatian: "Croata",
   Czech: "Checo",
   Danish: "Danés",
   Dutch: "Holandés",
-  English: "Inglés",
   Esperanto: "Esperanto",
   Estonian: "Estonio",
   Faroese: "Feroés",
   Filipino: "Filipino",
   Finnish: "Finés",
-  French: "Francés",
   Galician: "Gallego",
   Georgian: "Georgiano",
-  German: "Alemán",
   Greek: "Griego",
   Hebrew: "Hebreo",
   Hindi: "Hindi",
@@ -102,7 +130,6 @@ export const languageTranslations = {
   Norwegian: "Noruego",
   Persian: "Persa",
   Polish: "Polaco",
-  Portuguese: "Portugués",
   Romanian: "Rumano",
   Romansh: "Románico",
   Russian: "Ruso",
@@ -112,7 +139,6 @@ export const languageTranslations = {
   Serbian: "Serbio",
   Slovak: "Eslovaco",
   Slovenian: "Esloveno",
-  Spanish: "Español",
   Swahili: "Swahili",
   Swedish: "Sueco",
   Tamil: "Tamil",
@@ -141,9 +167,9 @@ export const languageList = (() => {
   }
 
   list
-    .sort((a, b) => {
-      return a.text < b.text ? -1 : 1;
-    })
+    // .sort((a, b) => {
+    //   return a.text < b.text ? -1 : 1;
+    // })
     .push({
       value: "Otro (no listado)",
       text: "Otro (no listado)",

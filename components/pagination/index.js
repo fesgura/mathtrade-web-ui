@@ -9,6 +9,8 @@ const Pagination = ({ filters, setFilters, elementsTotal }) => {
   useEffect(() => {
     if (filters.query.page) {
       set_page(parseInt(filters.query.page, 10));
+    } else {
+      set_page(1);
     }
 
     let newElementsPerPage = 25;
@@ -54,7 +56,9 @@ const Pagination = ({ filters, setFilters, elementsTotal }) => {
             href="/"
             onClick={(e) => {
               e.preventDefault();
-              setFilters({ page: `${page - 1}` });
+              let newPage = `${page - 1}`;
+              newPage = newPage === "1" ? undefined : newPage;
+              setFilters({ page: newPage });
             }}
           >
             <i className="fa fa-chevron-left" />
@@ -79,7 +83,9 @@ const Pagination = ({ filters, setFilters, elementsTotal }) => {
               href="/"
               onClick={(e) => {
                 e.preventDefault();
-                setFilters({ page: `${num}` });
+                let newPage = `${num}`;
+                newPage = newPage === "1" ? undefined : newPage;
+                setFilters({ page: newPage });
               }}
             >
               {numRendered}
@@ -93,7 +99,9 @@ const Pagination = ({ filters, setFilters, elementsTotal }) => {
             href="/"
             onClick={(e) => {
               e.preventDefault();
-              setFilters({ page: `${page + 1}` });
+              let newPage = `${page + 1}`;
+              newPage = newPage === "1" ? undefined : newPage;
+              setFilters({ page: newPage });
             }}
           >
             <i className="fa fa-chevron-right" />

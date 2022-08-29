@@ -3,6 +3,7 @@ import classNames from "classnames";
 import Icon from "components/icon";
 import { selectMultipleToArray } from "./utils";
 import Question from "components/question";
+import RangeMultiple from "./range-multiple";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -69,6 +70,10 @@ const InputComp = ({
   startFocus,
   disabled,
   textSize,
+  //
+  min,
+  max,
+  step,
   //
   ...rest
 }) => {
@@ -235,6 +240,20 @@ const InputComp = ({
         />
       );
       break;
+    case "range-multiple":
+      inputContent = (
+        <RangeMultiple
+          name={name}
+          value={value}
+          onChange={(newVal) => {
+            onChange(newVal);
+          }}
+          min={min}
+          max={max}
+          step={step}
+        />
+      );
+      break;
     case "textarea":
       inputContent = (
         <InputGroup
@@ -248,6 +267,7 @@ const InputComp = ({
           <textarea
             name={name}
             value={value}
+            placeholder={placeholder}
             onChange={(e) => {
               onChange(e.target.value);
             }}
@@ -403,6 +423,7 @@ const InputComp = ({
           <input
             name={name}
             value={value}
+            placeholder={placeholder}
             onChange={(e) => {
               let val = e.target.value;
               if (type === "phone") {
