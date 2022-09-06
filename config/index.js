@@ -13,6 +13,7 @@ export const statusTypes = {
   MB: "Muy bueno",
   BU: "Bastante usado",
   MU: "Muy usado",
+  IN: "Incompleto",
 };
 
 export const statusList = (() => {

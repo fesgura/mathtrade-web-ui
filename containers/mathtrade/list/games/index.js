@@ -16,6 +16,6 @@ const MT_GameListContainer = () => {
     //
   }, []);
 
-  return <MT_GameListView list={list} />;
+  return <MT_GameListView list={list} loading={loading} errors={errors} />;
 };
 export default MT_GameListContainer;
