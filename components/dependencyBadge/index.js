@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import { dependencyToData } from "utils";
 
-const Dependency = ({ element }) => {
+const DependencyBadge = ({ element }) => {
   const [dataDependency, setDataDependency] = useState({
     most: "Sin datos",
     list: [],
@@ -62,4 +62,4 @@ const Dependency = ({ element }) => {
     </div>
   );
 };
-export default Dependency;
+export default DependencyBadge;

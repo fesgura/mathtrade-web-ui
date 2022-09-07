@@ -76,7 +76,6 @@ const Filters_MT_Items = ({ filters, setFilters, clearFilters, locations }) => {
           newFilters["location[]"] = formData.location
             .split(",")
             .map((locName) => {
-              console.log(locName);
               const locArr = locations.filter((loc) => {
                 return loc.text === locName;
               });

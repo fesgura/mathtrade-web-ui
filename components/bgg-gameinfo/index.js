@@ -1,6 +1,7 @@
 import { useId } from "react";
 import { Col, Row, UncontrolledTooltip } from "reactstrap";
 import Icon from "components/icon";
+import BggLink from "./bgg_link";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -56,17 +57,7 @@ const BGGgameInfo = ({ element }) => {
           </UncontrolledTooltip>
         </Col>
         <Col xs="auto">
-          <a
-            href={`https://boardgamegeek.com/boardgame/${element?.bgg_id}/`}
-            target="_blank"
-            className="bgg-link"
-            id={`bgg-link-${id}`}
-          >
-            BGG <Icon type="external-link" />
-          </a>
-          <UncontrolledTooltip target={`bgg-link-${id}`}>
-            <div className="bgg-game-info_tooltip">Abrir página en la BGG</div>
-          </UncontrolledTooltip>
+          <BggLink bgg_id={element?.bgg_id} />
         </Col>
       </Row>
     </div>

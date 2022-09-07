@@ -1,6 +1,6 @@
 import Element from "components/element";
 import classNames from "classnames";
-import User from "./user";
+import UserPublished from "components/user_published";
 import { Col, Row } from "reactstrap";
 
 const Item = ({
@@ -55,7 +55,7 @@ const Item = ({
               </div>
             ) : null}
             {item && item.user && !item?.owner ? (
-              <User user={item.user} />
+              <UserPublished user={item.user} />
             ) : null}
           </div>
         </Col>

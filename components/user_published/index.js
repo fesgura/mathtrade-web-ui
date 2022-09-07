@@ -1,7 +1,7 @@
 import UserAvatar from "components/avatar";
 import { Col, Row } from "reactstrap";
 
-const User = ({ user }) => {
+const UserPublished = ({ user }) => {
   return (
     <div className="item-user">
       <Row className="align-items-center g-0">
@@ -11,7 +11,8 @@ const User = ({ user }) => {
         <Col>
           {" "}
           <div className="item-user_text">
-            Publicado por {`${user?.first_name} ${user?.last_name}`}{" "}
+            <span className="public-for">Publicado por</span>{" "}
+            {`${user?.first_name} ${user?.last_name}`}{" "}
             <b> {`(${user?.location?.name})`}</b>
           </div>
         </Col>
@@ -19,4 +20,4 @@ const User = ({ user }) => {
     </div>
   );
 };
-export default User;
+export default UserPublished;

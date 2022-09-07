@@ -4,7 +4,7 @@ import classNames from "classnames";
 import StatusBadge from "components/statusBadge";
 import Icon from "components/icon";
 import { typeOfElements } from "config";
-import Dependency from "./dependency";
+import DependencyBadge from "components/dependencyBadge";
 import BGGgameInfo from "components/bgg-gameinfo";
 import Picture from "components/picture";
 
@@ -79,7 +79,7 @@ const Element = ({ element, owner }) => {
                 </div>
                 <div className="element-data-element_row">
                   <b>Dependencia de idioma (BGG):</b>
-                  <Dependency element={element} />
+                  <DependencyBadge element={element} />
                 </div>
                 <div className="element-data-element_row">
                   <b>Estado:</b>

@@ -1,14 +1,13 @@
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
-import Game from "components/game";
+import MT_GameListViewGame from "./game";
 import { Col, Row } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
 import Pagination from "components/pagination";
 import OrderBy from "components/orderBy";
 
 const MT_GameListView = ({ list, filters, setFilters, loading, errors }) => {
-  console.log(list);
   return (
     <PrivateLayout loading={loading}>
       <PageHeaderTabs
@@ -30,7 +29,6 @@ const MT_GameListView = ({ list, filters, setFilters, loading, errors }) => {
           },
         ]}
       />
-
       <Row className="align-items-center mb-4 justify-content-end">
         <Col xs="auto">
           <OrderBy
@@ -56,6 +54,7 @@ const MT_GameListView = ({ list, filters, setFilters, loading, errors }) => {
       </Row>
       <Row>
         <Col xs={3}>
+          FILTERS (TODO)
           {/* <Filters_MT_Items
             filters={filters}
             setFilters={setFilters}
@@ -69,11 +68,11 @@ const MT_GameListView = ({ list, filters, setFilters, loading, errors }) => {
           /> */}
         </Col>
         <Col xs={9}>
-          <div className="item-list">
+          <div className="game-list">
             {list && list.results && list.results.length ? (
               list.results.map((game, k) => {
                 return (
-                  <Game
+                  <MT_GameListViewGame
                     game={game}
                     //itemWants={itemWants}
                     key={k}
@@ -92,6 +91,7 @@ const MT_GameListView = ({ list, filters, setFilters, loading, errors }) => {
         </Col>
       </Row>
       <ErrorAlert errors={errors} />
+      PAGINATION (TODO)
       {/* <Pagination
         filters={filters}
         setFilters={setFilters}
