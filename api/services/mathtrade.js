@@ -62,7 +62,10 @@ const MathTradeService = {
   },
   listGames: (props) => {
     setAuth();
-    return api.get("api/mathtrades/" + props.mathTradeId + "/games/");
+    return api.get(
+      "api/mathtrades/" + props.mathTradeId + "/games/",
+      props.query
+    );
   },
   listItems: (props) => {
     setAuth();

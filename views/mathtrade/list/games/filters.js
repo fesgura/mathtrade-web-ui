@@ -1,16 +1,13 @@
 import FiltersComp from "components/filters";
 import { languageList, statusList, dependencyList } from "config";
 
-const minValue = 0;
-const maxValue = 10;
-
 const minRate = 1;
 const maxRate = 10;
 
 const minWeight = 1;
 const maxWeight = 5;
 
-const Filters_MT_Items = ({ filters, setFilters, locations }) => {
+const Filters_MT_Games = ({ filters, setFilters }) => {
   return (
     <FiltersComp
       filters={filters}
@@ -18,12 +15,9 @@ const Filters_MT_Items = ({ filters, setFilters, locations }) => {
         const newFilters = {};
         [
           "keyword",
-          "value-from",
-          "value-to",
           "language[]",
           "dependency[]",
           "status[]",
-          "location[]",
           "rate-from",
           "rate-to",
           "weight-from",
@@ -39,19 +33,6 @@ const Filters_MT_Items = ({ filters, setFilters, locations }) => {
           newFilters.keyword = formData.keyword;
         } else {
           newFilters.keyword = undefined;
-        }
-        if (formData.value) {
-          const valueValues = formData.value.split(",");
-          if (
-            valueValues[0] !== `${minValue}` ||
-            valueValues[1] !== `${maxValue}`
-          ) {
-            newFilters["value-from"] = valueValues[0];
-            newFilters["value-to"] = valueValues[1];
-          } else {
-            newFilters["value-from"] = undefined;
-            newFilters["value-to"] = undefined;
-          }
         }
         if (formData.language !== "") {
           newFilters["language[]"] = formData.language.split(",");
@@ -71,18 +52,6 @@ const Filters_MT_Items = ({ filters, setFilters, locations }) => {
           newFilters["status[]"] = formData.status.split(",");
         } else {
           newFilters["status[]"] = undefined;
-        }
-        if (formData.location !== "") {
-          newFilters["location[]"] = formData.location
-            .split(",")
-            .map((locName) => {
-              const locArr = locations.filter((loc) => {
-                return loc.text === locName;
-              });
-              return locArr[0].id;
-            });
-        } else {
-          newFilters["location[]"] = undefined;
         }
         if (formData.rate) {
           const rateValues = formData.rate.split(",");
@@ -125,20 +94,6 @@ const Filters_MT_Items = ({ filters, setFilters, locations }) => {
           },
         },
         {
-          type: "range-multiple",
-          name: "value",
-          label: "Valor",
-          min: minValue,
-          max: maxValue,
-          data: (() => {
-            const d = { value: `${minValue},${maxValue}` };
-            if (typeof filters?.query["value-from"] !== "undefined") {
-              d.value = `${filters.query["value-from"]},${filters.query["value-to"]}`;
-            }
-            return d;
-          })(),
-        },
-        {
           type: "select-multiple",
           name: "status",
           label: "Estado",
@@ -153,32 +108,6 @@ const Filters_MT_Items = ({ filters, setFilters, locations }) => {
                 list = [filters.query["status[]"]];
               }
               d.status = list.join(",");
-            }
-            return d;
-          })(),
-        },
-        {
-          type: "select-multiple",
-          name: "location",
-          label: "Ubicación",
-          placeholder: "Seleccioná...",
-          options: locations,
-          data: (() => {
-            const d = { location: "" };
-
-            if (typeof filters?.query["location[]"] !== "undefined") {
-              let list = filters.query["location[]"];
-              if (typeof filters.query["location[]"].forEach === "undefined") {
-                list = [filters.query["location[]"]];
-              }
-              d.location = list
-                .map((id) => {
-                  const locArr = locations.filter((loc) => {
-                    return `${loc.id}` === `${id}`;
-                  });
-                  return locArr[0].value;
-                })
-                .join(",");
             }
             return d;
           })(),
@@ -258,4 +187,4 @@ const Filters_MT_Items = ({ filters, setFilters, locations }) => {
   );
 };
 
-export default Filters_MT_Items;
+export default Filters_MT_Games;

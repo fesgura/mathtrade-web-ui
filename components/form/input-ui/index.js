@@ -351,6 +351,9 @@ const InputComp = ({
               );
             })}
           </select>
+          {value === "" && placeholder !== "" ? (
+            <div className="form-placeholder-float">{placeholder}</div>
+          ) : null}
         </div>
       );
       break;

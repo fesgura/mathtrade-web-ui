@@ -264,6 +264,12 @@ select,
     }
   }
 }
+
+.form-placeholder-float {
+  font-style: italic;
+  opacity: 0.5;
+}
+
 // range-multiple
 .range-multiple-container {
   $r: 10px;

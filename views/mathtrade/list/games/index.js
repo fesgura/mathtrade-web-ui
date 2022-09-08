@@ -6,8 +6,16 @@ import { Col, Row } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
 import Pagination from "components/pagination";
 import OrderBy from "components/orderBy";
+import Filters_MT_Games from "./filters";
 
-const MT_GameListView = ({ list, filters, setFilters, loading, errors }) => {
+const MT_GameListView = ({
+  list,
+  filters,
+  setFilters,
+  loading,
+  errors,
+  afterAnyChange,
+}) => {
   return (
     <PrivateLayout loading={loading}>
       <PageHeaderTabs
@@ -34,9 +42,8 @@ const MT_GameListView = ({ list, filters, setFilters, loading, errors }) => {
           <OrderBy
             valueInitial={filters?.query?.order}
             options={[
-              { text: "Fecha", value: "id" },
               { text: "Nombre", value: "name" },
-              { text: "Valor", value: "value" },
+              // { text: "Valor", value: "value" },
               { text: "Idioma", value: "language" },
               { text: "Dependencia de idioma", value: "dependency" },
               { text: "Estado", value: "status" },
@@ -54,18 +61,7 @@ const MT_GameListView = ({ list, filters, setFilters, loading, errors }) => {
       </Row>
       <Row>
         <Col xs={3}>
-          FILTERS (TODO)
-          {/* <Filters_MT_Items
-            filters={filters}
-            setFilters={setFilters}
-            locations={locations.map((loc, k) => {
-              return {
-                text: loc.name,
-                value: loc.name,
-                id: loc.id,
-              };
-            })}
-          /> */}
+          <Filters_MT_Games filters={filters} setFilters={setFilters} />
         </Col>
         <Col xs={9}>
           <div className="game-list">
@@ -91,12 +87,11 @@ const MT_GameListView = ({ list, filters, setFilters, loading, errors }) => {
         </Col>
       </Row>
       <ErrorAlert errors={errors} />
-      PAGINATION (TODO)
-      {/* <Pagination
+      <Pagination
         filters={filters}
         setFilters={setFilters}
         elementsTotal={list?.count || 0}
-      /> */}
+      />
     </PrivateLayout>
   );
 };

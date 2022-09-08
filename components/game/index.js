@@ -5,8 +5,9 @@ import Picture from "components/picture";
 import BGGgameInfo from "components/bgg-gameinfo";
 import DependencyBadge from "components/dependencyBadge";
 import ItemGame from "./item";
+import MT_ToolGame_GameMT from "./mt_tools/game_mt";
 
-const Game = ({ game, tools, wanted }) => {
+const Game = ({ game, wanted }) => {
   const [itemsSelected, setItemsSelected] = useState([]);
 
   useEffect(() => {
@@ -85,7 +86,13 @@ const Game = ({ game, tools, wanted }) => {
             </Row>
           </Card>
         </Col>
-        {tools ? <Col xs="auto">{tools}</Col> : null}
+        <Col xs="auto">
+          <MT_ToolGame_GameMT
+            game={game}
+            // afterAnyChange={afterAnyChange}
+            // wantInfo={wantInfo}
+          />
+        </Col>
       </Row>
     </div>
   );

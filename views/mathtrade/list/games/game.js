@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Game from "components/game";
-import MT_ToolGame_GameMT from "components/game/mt_tools/game_mt";
 
 const MT_GameListViewGame = ({ game, afterAnyChange, itemWants }) => {
   /*
@@ -25,13 +24,6 @@ const MT_GameListViewGame = ({ game, afterAnyChange, itemWants }) => {
       game={game}
       //wanted={wantInfo !== null}
       wanted={false}
-      tools={
-        <MT_ToolGame_GameMT
-          game={game}
-          // afterAnyChange={afterAnyChange}
-          // wantInfo={wantInfo}
-        />
-      }
     />
   );
 };
