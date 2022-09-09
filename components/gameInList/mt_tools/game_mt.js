@@ -1,8 +1,8 @@
 import { Button, Modal, ModalBody } from "reactstrap";
 
-const MT_ToolGame_GameMT = ({ game, afterAnyChange, wantInfo }) => {
+const MT_ToolGame_GameMT = ({ game, afterAnyChange, wantInfo, style }) => {
   return (
-    <div className="mt_tools">
+    <div className="mt_tools" style={style}>
       <div className="mt_tools-container">
         <Button
           color="primary"

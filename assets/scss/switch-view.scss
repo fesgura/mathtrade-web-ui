@@ -1,0 +1,33 @@
+.switch-view {
+  $w: 25px;
+
+  display: flex;
+
+  .switch-view_item {
+    font-size: 15px;
+    line-height: $w;
+    height: $w;
+    width: $w;
+    text-align: center;
+    border: 1px solid $switch-view-color;
+    color: $switch-view-color;
+    background-color: $bg-body;
+    cursor: pointer;
+
+    &.current {
+      background-color: $switch-view-color;
+      color: $bg-body;
+      box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.6);
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+      cursor: default;
+    }
+
+    &:first-child {
+      border-right: none;
+      border-radius: 6px 0 0 6px;
+    }
+    &:last-child {
+      border-radius: 0 6px 6px 0;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import Game from "components/game";
+import Game from "components/gameInList";
 
-const MT_GameListViewGame = ({ game, afterAnyChange, itemWants }) => {
+const MT_GameListViewGame = ({ viewType, game, afterAnyChange, itemWants }) => {
   /*
   const [wantInfo, setWantInfo] = useState(null);
 
@@ -22,6 +22,7 @@ const MT_GameListViewGame = ({ game, afterAnyChange, itemWants }) => {
   return (
     <Game
       game={game}
+      viewType={viewType}
       //wanted={wantInfo !== null}
       wanted={false}
     />

@@ -37,7 +37,7 @@
     padding: 10px $px;
   }
   .game-data-body {
-    padding: 10px $px;
+    padding: 10px $px 15px;
   }
 
   .game-title {
@@ -136,5 +136,9 @@
         }
       }
     }
+  }
+
+  &.wanted {
+    border: 2px solid $mathtrade;
   }
 }

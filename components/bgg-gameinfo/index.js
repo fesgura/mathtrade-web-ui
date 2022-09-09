@@ -2,10 +2,11 @@ import { useId } from "react";
 import { Col, Row, UncontrolledTooltip } from "reactstrap";
 import Icon from "components/icon";
 import BggLink from "./bgg_link";
+import classNames from "classnames";
 
 const twoPointsReg = new RegExp(":", "g");
 
-const BGGgameInfo = ({ element }) => {
+const BGGgameInfo = ({ element, centered }) => {
   const id = useId("a").replace(twoPointsReg, "");
 
   const stats = {
@@ -18,7 +19,11 @@ const BGGgameInfo = ({ element }) => {
 
   return (
     <div className="bgg-game-info">
-      <Row className="align-items-center g-0">
+      <Row
+        className={classNames("align-items-center g-0", {
+          "justify-content-center": centered,
+        })}
+      >
         <Col xs="auto">
           <div className="bgg-game-info_rating">
             <div

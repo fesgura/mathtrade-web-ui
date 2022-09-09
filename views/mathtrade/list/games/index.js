@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
@@ -7,6 +8,7 @@ import ErrorAlert from "components/errorAlert";
 import Pagination from "components/pagination";
 import OrderBy from "components/orderBy";
 import Filters_MT_Games from "./filters";
+import SwitchView from "components/switchView";
 
 const MT_GameListView = ({
   list,
@@ -16,6 +18,8 @@ const MT_GameListView = ({
   errors,
   afterAnyChange,
 }) => {
+  const [viewType, setViewType] = useState(0);
+
   return (
     <PrivateLayout loading={loading}>
       <PageHeaderTabs
@@ -37,7 +41,14 @@ const MT_GameListView = ({
           },
         ]}
       />
-      <Row className="align-items-center mb-4 justify-content-end">
+      <Row className="align-items-center mb-4 justify-content-end g-3">
+        <Col xs="auto">
+          <SwitchView
+            options={[{ icon: "th-large" }, { icon: "list-ul" }]}
+            value={viewType}
+            onChange={setViewType}
+          />
+        </Col>
         <Col xs="auto">
           <OrderBy
             valueInitial={filters?.query?.order}
@@ -65,24 +76,29 @@ const MT_GameListView = ({
         </Col>
         <Col xs={9}>
           <div className="game-list">
-            {list && list.results && list.results.length ? (
-              list.results.map((game, k) => {
-                return (
-                  <MT_GameListViewGame
-                    game={game}
-                    //itemWants={itemWants}
-                    key={k}
-                    //afterAnyChange={afterAnyChange}
-                  />
-                );
-              })
-            ) : loading ? null : (
-              <div className="item-list_empty">
-                <p className="lead py-4">
-                  Sin <b>juegos</b> encontrados.
-                </p>
-              </div>
-            )}
+            <Row>
+              {list && list.results && list.results.length ? (
+                list.results.map((game, k) => {
+                  return (
+                    <MT_GameListViewGame
+                      viewType={viewType}
+                      game={game}
+                      //itemWants={itemWants}
+                      key={k}
+                      //afterAnyChange={afterAnyChange}
+                    />
+                  );
+                })
+              ) : loading ? null : (
+                <Col xs={12}>
+                  <div className="item-list_empty">
+                    <p className="lead py-4">
+                      Sin <b>juegos</b> encontrados.
+                    </p>
+                  </div>
+                </Col>
+              )}
+            </Row>
           </div>
         </Col>
       </Row>
