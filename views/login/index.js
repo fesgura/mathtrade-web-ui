@@ -58,6 +58,7 @@ const LoginView = ({ loading, errors, onSubmit }) => {
                       label="Contraseña"
                       name="password"
                       type="password"
+                      placeholder="*****"
                       size="lg"
                       icon="key"
                     />

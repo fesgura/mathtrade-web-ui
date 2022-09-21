@@ -88,13 +88,17 @@ const BGGsearch = ({ label, question, onResult = () => {} }) => {
   // Search Effect
   useEffect(() => {
     if (inputValue.searchElement.length >= 3 && !inputValue.forSelect) {
-      searchBGGelements({
-        type: "boardgame,boardgameexpansion",
-        query: inputValue.searchElement,
-      });
+      const delayDebounceFn = setTimeout(() => {
+        searchBGGelements({
+          type: "boardgame,boardgameexpansion",
+          query: inputValue.searchElement,
+        });
+      }, 350)
+      return () => clearTimeout(delayDebounceFn)
     } else {
       setList(null);
     }
+
   }, [inputValue]);
 
   return (
