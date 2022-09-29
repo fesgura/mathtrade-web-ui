@@ -2,12 +2,14 @@ import { create } from "apisauce";
 import Qs from "qs";
 import storage from "utils/storage";
 
+const apiHost = process.env.NEXT_PUBLIC_API_HOST || "https://mathtrade-back.herokuapp.com/";
+
 export const api = create({
   timeout: 60000,
   paramsSerializer: function (params) {
     return Qs.stringify(params, { arrayFormat: "repeat" });
   },
-  baseURL: "https://mathtrade-back.herokuapp.com/",
+  baseURL: apiHost,
   headers: {
     Accept: "application/json",
     "content-Type": "application/json",
