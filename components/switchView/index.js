@@ -12,6 +12,7 @@ const SwitchView = ({ options = [], value = 0, onChange = () => {} }) => {
             onClick={() => {
               onChange(k);
             }}
+            key={k}
           >
             {icon ? <Icon type={icon} /> : null}
             {text ? text : null}
