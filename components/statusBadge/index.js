@@ -4,7 +4,7 @@ import { statusTypes } from "config";
 const StatusBadge = ({ status }) => {
   return (
     <>
-      <Badge color={status.toLowerCase()}>{status}</Badge> {statusTypes[status]}
+      <Badge color={status.toLowerCase()}>{statusTypes[status]}</Badge>
     </>
   );
 };

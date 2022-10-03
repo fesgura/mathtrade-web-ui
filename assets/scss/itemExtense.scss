@@ -1,0 +1,16 @@
+.item-extense_element {
+  .thumbnail {
+    width: 200px;
+    max-height: 400px;
+  }
+  .title-element {
+    font-weight: bold;
+    font-size: 18px;
+    padding: 1px 0 8px;
+  }
+
+  &.is-combo {
+    border-top: 1px solid #ccc;
+    padding: 20px 0 10px;
+  }
+}

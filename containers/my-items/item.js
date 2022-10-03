@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import ItemView from "views/my-items/item";
-import storage from "utils/storage";
 
 const ItemContainer = ({
   IamInMathTrade,
   item = null,
   itemsInMathTradeList = [],
   afterAnyChange = () => {},
+  editItem,
 }) => {
   const [itemMathTradeData, setItemMathTradeData] = useState(null);
 
@@ -27,6 +27,7 @@ const ItemContainer = ({
       item={item}
       itemMathTradeData={itemMathTradeData}
       afterAnyChange={afterAnyChange}
+      editItem={editItem}
     />
   );
 };

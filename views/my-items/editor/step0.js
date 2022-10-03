@@ -1,28 +1,18 @@
-import classNames from "classnames";
 import Icon from "components/icon";
 
-const ElementCreateStep1 = ({ item, setStep }) => {
+const ElementCreateStep0 = ({ setStep }) => {
   return (
-    <div
-      className={classNames("element-create_step-1 fade-in", {
-        "for-combo": item?.elements?.length > 1,
-      })}
-    >
+    <div className="element-create_step-1">
       <div className="element-create-options_title">
         <Icon type="plus" className="me-1" />
         Agregar:
-        {item?.elements?.length > 0 ? null : (
-          <div className="element-create-options_subtitle">
-            (Para crear un combo de varios juegos, empezá agregando algo.)
-          </div>
-        )}
       </div>
       <div className="element-create-options_row_cont">
         <div className="element-create-options_row">
           <div
             className="element-create-options_col"
             onClick={() => {
-              setStep(2);
+              setStep(1);
             }}
           >
             <Icon type="bgg" />{" "}
@@ -39,4 +29,5 @@ const ElementCreateStep1 = ({ item, setStep }) => {
     </div>
   );
 };
-export default ElementCreateStep1;
+
+export default ElementCreateStep0;

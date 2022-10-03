@@ -1,10 +1,12 @@
+import { useState, useEffect } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeader from "components/pageHeader";
-import Item from "containers/my-items/item";
 import InviteRegisterMT from "components/inviteRegisterMathTrade";
-import { Col, Row } from "reactstrap";
+import { Col, Row, Modal, ModalBody } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
-//import OrderBy from "components/orderBy";
+import Item from "containers/my-items/item";
+import AddItem from "components/myItems_tools/addItem";
+import ElementEditor from "containers/my-items/editor";
 
 const MyItemsView = ({
   IamInMathTrade,
@@ -14,6 +16,9 @@ const MyItemsView = ({
   errors,
   listItems,
 }) => {
+  const [modalEditOpen, setModalEditOpen] = useState(false);
+  const [objToEdit, setObjToEdit] = useState({ item: null, element: null });
+
   return (
     <PrivateLayout loading={loading}>
       <InviteRegisterMT />
@@ -22,14 +27,18 @@ const MyItemsView = ({
         <Col xl={9}>
           <div className="item-list">
             {itemList.length ? (
-              itemList.map((item, k) => {
+              itemList.map((itemToShow, k) => {
                 return (
                   <Item
+                    item={itemToShow}
                     IamInMathTrade={IamInMathTrade}
-                    item={item}
                     itemsInMathTradeList={itemsInMathTradeList}
-                    key={k}
                     afterAnyChange={listItems}
+                    key={k}
+                    editItem={(item, element) => {
+                      setObjToEdit({ item, element });
+                      setModalEditOpen(true);
+                    }}
                   />
                 );
               })
@@ -47,11 +56,40 @@ const MyItemsView = ({
                 )}
               </>
             )}
-            {!loading ? <Item item={null} afterAnyChange={listItems} /> : null}
+            {loading ? null : (
+              <div className="card-comp">
+                <div className="card-comp_body py-3">
+                  <AddItem
+                    onClick={() => {
+                      setObjToEdit({ item: null, element: null });
+                      setModalEditOpen(true);
+                    }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
           <ErrorAlert errors={errors} />
         </Col>
       </Row>
+      <Modal
+        isOpen={modalEditOpen}
+        toggle={() => {
+          setModalEditOpen((v) => !v);
+        }}
+        centered
+        size="lg"
+      >
+        <ModalBody>
+          <ElementEditor
+            objToEdit={objToEdit}
+            onClose={() => {
+              setModalEditOpen(false);
+            }}
+            afterAnyChange={listItems}
+          />
+        </ModalBody>
+      </Modal>
     </PrivateLayout>
   );
 };

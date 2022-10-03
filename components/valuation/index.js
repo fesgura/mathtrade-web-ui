@@ -69,21 +69,19 @@ const Valuation = ({ className, item, afterAnyChange }) => {
   return (
     <div className={classNames("valuation", className)}>
       <UncontrolledDropdown direction="down">
-        <DropdownToggle tag="div" className="valuation-row">
-          <div className="valuation-col">
-            <span className="valuation-label">Valor</span>
-            <Question
-              question="Podés asignarle un valor a este item, según tu propio criterio. Esto te va a ayudar luego a filtrar items, asociarlos, tec."
-              min
-            />{" "}
-            :
-          </div>
-          <div className="valuation-col ps-2">
-            <ValuationLabel loading={loadingPutItem} value={valueInternal} />
-          </div>
+        <DropdownToggle tag="div" className="valuation-btn-cont">
+          <ValuationLabel loading={loadingPutItem} value={valueInternal} />
         </DropdownToggle>
         <DropdownMenu end>
           <DropdownItem tag="div">
+            <div className="valuation-label">
+              Valor
+              <Question
+                question="Podés asignarle un valor a este item, según tu propio criterio. Esto te va a ayudar luego a filtrar items, asociarlos, tec."
+                min
+              />{" "}
+              :
+            </div>
             <div
               className="valuation-liner"
               onMouseLeave={() => {

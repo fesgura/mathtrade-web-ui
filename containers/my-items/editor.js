@@ -1,8 +1,8 @@
-import ElementView from "views/my-items/element";
+import ElementEditorView from "views/my-items/editor";
 import { useApi, BggElementService, ElementService, ItemService } from "api";
 import { setItemTitle } from "./utils";
 
-const ElementContainer = ({ element = null, item, afterAnyChange, own }) => {
+const ElementEditor = ({ objToEdit, onClose, afterAnyChange }) => {
   // BGG ELEMENT
   const [fetchBGGelement, BGGelement, loadingBGGelement, errorMessage] = useApi(
     {
@@ -23,6 +23,7 @@ const ElementContainer = ({ element = null, item, afterAnyChange, own }) => {
   const [createElement, , loadingCreateElement, errorCreateMessage] = useApi({
     promise: ElementService.post,
     afterLoad: () => {
+      onClose();
       afterAnyChange();
     },
   });
@@ -32,6 +33,7 @@ const ElementContainer = ({ element = null, item, afterAnyChange, own }) => {
   const [editElement, , loadingEditElement, errorEditMessage] = useApi({
     promise: ElementService.put,
     afterLoad: () => {
+      onClose();
       afterAnyChange();
     },
   });
@@ -41,6 +43,7 @@ const ElementContainer = ({ element = null, item, afterAnyChange, own }) => {
   const [deleteElement, , loadingDeleteElement, errorDeleteMessage] = useApi({
     promise: ElementService.delete,
     afterLoad: () => {
+      onClose();
       afterAnyChange();
     },
   });
@@ -50,22 +53,23 @@ const ElementContainer = ({ element = null, item, afterAnyChange, own }) => {
   const [deleteItem, , loadingDeleteItem, errorDeleteItemMessage] = useApi({
     promise: ItemService.delete,
     afterLoad: () => {
+      onClose();
       afterAnyChange();
     },
   });
   // End DELETE ELEMENT
 
   return (
-    <ElementView
-      element={element}
-      item={item}
+    <ElementEditorView
+      objToEdit={objToEdit}
+      onClose={onClose}
       onSaveElement={(data) => {
         let dataToSend = JSON.parse(JSON.stringify(data));
         const create = dataToSend.create;
         delete dataToSend.create;
 
-        dataToSend.item_title = setItemTitle(item, data);
-        dataToSend.item_id = item ? item.id : null;
+        dataToSend.item_title = setItemTitle(objToEdit.item, data);
+        dataToSend.item_id = objToEdit.item ? objToEdit.item.id : null;
 
         if (create) {
           // Create new
@@ -79,13 +83,12 @@ const ElementContainer = ({ element = null, item, afterAnyChange, own }) => {
         }
       }}
       deleteElement={(idElement) => {
-        if (item.elements.length === 1) {
-          deleteItem(item.id);
+        if (objToEdit.item.elements.length === 1) {
+          deleteItem(objToEdit.item.id);
         } else {
           deleteElement(idElement);
         }
       }}
-      deleteItem={deleteItem}
       loading={
         loadingEditElement ||
         loadingCreateElement ||
@@ -102,8 +105,8 @@ const ElementContainer = ({ element = null, item, afterAnyChange, own }) => {
       fetchBGGelement={fetchBGGelement}
       BGGelement={BGGelement}
       loadingBGGelement={loadingBGGelement}
-      own={own}
     />
   );
 };
-export default ElementContainer;
+
+export default ElementEditor;

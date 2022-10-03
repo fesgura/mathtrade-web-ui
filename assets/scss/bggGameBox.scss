@@ -1,0 +1,60 @@
+@each $num, $color in $ratingsBGG {
+  .bgg-rating-#{$num} {
+    background-color: $color;
+    color: #fff;
+  }
+}
+.bgg-game-box_rating-num {
+  $w: 34px;
+  width: $w;
+  height: $w;
+  line-height: $w;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 50%;
+  cursor: default;
+}
+.bgg-game-box_elem {
+  text-align: center;
+  padding: 0 10px;
+  cursor: default;
+}
+.bgg-link {
+  font-size: 14px;
+  display: block;
+  font-weight: bold;
+  color: darken($bgg, 10);
+  .icon {
+    margin-left: 0.3em;
+  }
+  &:hover {
+    color: darken($bgg, 25);
+  }
+}
+.bgg-game-box_tooltip {
+  font-size: 12px;
+}
+
+.bgg-game-box_dependency-btn {
+  &.enabled {
+    cursor: pointer;
+  }
+}
+.dropdown-item-text {
+  border-bottom: 1px solid #ddd;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  cursor: default;
+
+  &:last-child {
+    border-bottom: none;
+  }
+  &:hover {
+    background-color: rgba($bgg, 0.2);
+  }
+}
+.bgg-game-box_dependency_list-item {
+  width: 520px;
+  font-size: 12px;
+}

@@ -1,0 +1,10 @@
+.thumbnail {
+  overflow: hidden;
+  border-radius: $border-radius;
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: $border-radius;
+  }
+}

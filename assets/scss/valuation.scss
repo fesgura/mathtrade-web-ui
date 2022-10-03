@@ -1,52 +1,39 @@
-.valuation-btn {
+.valuation-btn-cont {
   $h: 36px;
-  position: relative;
 
-  .valuation-btn_star {
-    font-size: 32px;
-    line-height: $h;
-    height: $h;
-    //color: $mathtrade;
-  }
-  .valuation-btn_num {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    color: #fff;
-    text-align: center;
-    line-height: 1;
-    transform: translateY(-50%);
-    font-weight: bold;
-    font-size: 14px;
+  .valuation-btn {
+    position: relative;
+
+    cursor: pointer;
+
+    .valuation-btn_star {
+      font-size: 32px;
+      line-height: $h;
+      height: $h;
+      //color: $mathtrade;
+    }
+    .valuation-btn_num {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      color: #fff;
+      text-align: center;
+      line-height: 1;
+      transform: translateY(-50%);
+      font-weight: bold;
+      font-size: 14px;
+    }
   }
 }
 
 .valuation {
   $h: 36px;
   background-color: #fff;
-  padding: 0 (0.3 * $h);
+  width: $h;
   border-radius: $h;
   text-align: center;
 
-  .valuation-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-
-    .valuation-label {
-      font-size: 13px;
-    }
-
-    &:hover {
-      .valuation-btn {
-        .valuation-btn_star {
-          color: $mathtrade-hover;
-        }
-      }
-    }
-  }
   .dropdown-menu {
     padding: 0;
     .dropdown-item {
@@ -56,11 +43,17 @@
       }
     }
   }
+  .valuation-label {
+    padding: 5px 20px;
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: bold;
+  }
   .valuation-liner {
     $h3: 26px;
     display: flex;
     align-items: center;
-    padding: 15px 20px;
+    padding: 0 20px 15px;
     .valuation-line-star {
       .valuation-line-btn {
         position: relative;

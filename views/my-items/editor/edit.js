@@ -9,6 +9,8 @@ import { LoadingBox } from "components/loading";
 import { getVersionNameFromId, processBGGdata, dependencyToData } from "utils";
 import Picture from "components/picture";
 import BGGgameInfo from "components/bgg-gameinfo";
+import Thumbnail from "components/thumbnail";
+import BggGameBox from "components/bggGameBox";
 
 const validations = {
   version_name: ["required"],
@@ -46,7 +48,10 @@ const ElementEdit = ({
   onSaveElement,
   loading,
   errors,
+  deleteElement,
 }) => {
+  const [showDelete, setShowDelete] = useState(false);
+
   const [validationStatus, setValidationStatus] = useState({});
 
   const [thumbnail, set_thumbnail] = useState(element.thumbnail);
@@ -82,13 +87,15 @@ const ElementEdit = ({
   }, [bgg_id]);
 
   useEffect(() => {
-    const BGGdata = processBGGdata(BGGelement);
-    if (BGGdata) {
-      setVersionList(BGGdata.versionList);
-      set_dependency(BGGdata.dependency);
-      set_bgg_stats(BGGdata.stats);
-      if (create) {
-        set_thumbnail(BGGdata.thumbnail);
+    if (BGGelement) {
+      const BGGdata = processBGGdata(BGGelement);
+      if (BGGdata) {
+        setVersionList(BGGdata.versionList);
+        set_dependency(BGGdata.dependency);
+        set_bgg_stats(BGGdata.stats);
+        if (create) {
+          set_thumbnail(BGGdata.thumbnail);
+        }
       }
     }
   }, [BGGelement, create]);
@@ -113,27 +120,45 @@ const ElementEdit = ({
         <Row className="g-0 align-items-stretch">
           <Col md={"auto"}>
             <div className="element-thumbnail-container">
-              <Picture src={thumbnail} />
+              <Thumbnail src={thumbnail} />
+              {create ? null : (
+                <div className="text-center py-3">
+                  <Button
+                    color="danger"
+                    outline
+                    size="xs"
+                    onClick={() => {
+                      setShowDelete(true);
+                    }}
+                  >
+                    <Icon type="trash" className="me-1" />
+                    Eliminar
+                  </Button>
+                </div>
+              )}
             </div>
           </Col>
           <Col>
             <div className="element-edit-data-container">
-              <Row className="align-items-center mb-4 py-2">
-                <Col xs="auto">
-                  <div className="element-title">
-                    {element.name}{" "}
-                    {element.type === typeOfElements["expansion"] ? (
-                      <Badge color="expansion" className="element-title-badge">
-                        Expansión
-                      </Badge>
-                    ) : null}
-                  </div>
-                </Col>
-                <Col>
-                  <BGGgameInfo element={{ ...element, ...bgg_stats }} />
-                </Col>
-              </Row>
-
+              <div className="element-title mb-2">
+                {element.name}{" "}
+                {element.type === typeOfElements["expansion"] ? (
+                  <Badge color="expansion" className="element-title-badge">
+                    Expansión
+                  </Badge>
+                ) : null}
+              </div>
+              {BGGelement ? (
+                <BggGameBox
+                  element={{
+                    ...element,
+                    ...bgg_stats,
+                    dependency: dependency?.value || 0,
+                    dependency_votes: dependency?.votes || "",
+                  }}
+                  className="mb-4"
+                />
+              ) : null}
               <div className="element-form-container">
                 <Form
                   onSubmit={(formData) => {
@@ -202,16 +227,6 @@ const ElementEdit = ({
                         readOnly={
                           bgg_version_id !== "other" && bgg_version_id !== ""
                         }
-                      />
-                    </Col>
-                    <Col xs="auto">
-                      <Input
-                        type="textinfo"
-                        data={{
-                          dependencyTextInfo: dependencyToData(dependency).most,
-                        }}
-                        label="Dependencia de idioma"
-                        name="dependencyTextInfo"
                       />
                     </Col>
                   </Row>
@@ -299,6 +314,35 @@ const ElementEdit = ({
         </Row>
         {loading ? <LoadingBox /> : null}
       </div>
+      {showDelete ? (
+        <div className="element-delete fade-in">
+          <div className="element-delete-cont">
+            <h5 className="mb-4">¿Eliminar "{element.name}"?</h5>
+
+            <Button
+              color="link"
+              tag="a"
+              className="me-2 mb-sm-0 mb-2"
+              outline
+              onClick={(e) => {
+                e.preventDefault();
+                setShowDelete(false);
+              }}
+            >
+              Cancelar
+            </Button>
+            <Button
+              color="danger"
+              onClick={() => {
+                setShowDelete(false);
+                deleteElement(element.id);
+              }}
+            >
+              Eliminar
+            </Button>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

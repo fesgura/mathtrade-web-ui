@@ -1,6 +1,7 @@
 body {
   font-family: $font;
   color: #333;
+  font-weight: 500;
 }
 h1,
 h2,
@@ -27,4 +28,7 @@ a {
 }
 .italic {
   font-style: italic;
+}
+.text-normal {
+  font-weight: normal !important;
 }

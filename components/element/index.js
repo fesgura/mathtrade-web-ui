@@ -77,10 +77,7 @@ const Element = ({ element, owner }) => {
                   <br />
                   {element.language.replace(/,/g, ", ")}
                 </div>
-                <div className="element-data-element_row">
-                  <b>Dependencia de idioma (BGG):</b>
-                  <DependencyBadge element={element} />
-                </div>
+
                 <div className="element-data-element_row">
                   <b>Estado:</b>
                   <br />

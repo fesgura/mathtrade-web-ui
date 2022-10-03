@@ -2,6 +2,7 @@
   border-radius: 20px;
   padding-left: 2em;
   padding-right: 2em;
+  font-weight: 500;
 
   &.btn-primary {
     background-color: $primary;
@@ -95,6 +96,37 @@
     &:focus-visible {
       outline: none;
       box-shadow: 0 0 0 4px rgba($orange, 0.5);
+    }
+  }
+
+  &.btn-white {
+    background-color: #fff;
+    border-color: #fff;
+    color: $primary;
+    &:hover,
+    &:active {
+      background-color: darken(#fff, 10);
+      border-color: darken(#fff, 10);
+    }
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(#fff, 0.5);
+    }
+  }
+  &.btn-outline-white {
+    color: #fff;
+    border-color: #fff;
+    &:hover,
+    &:active {
+      color: $primary;
+      background-color: darken(#fff, 10);
+      border-color: darken(#fff, 10);
+    }
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(#fff, 0.5);
     }
   }
 
