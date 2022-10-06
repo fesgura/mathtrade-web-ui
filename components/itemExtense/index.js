@@ -1,9 +1,8 @@
-import { useId, useState, useEffect } from "react";
-import { UncontrolledTooltip } from "reactstrap";
+import { useState, useEffect } from "react";
+import { getTitleFromItem } from "utils";
 import CardComp from "components/cardComp";
 import UserBox from "components/userBox";
 import Element from "./element";
-import Icon from "components/icon";
 import EditBtn from "./editBtn";
 
 const ItemExtense = ({
@@ -14,19 +13,22 @@ const ItemExtense = ({
   high,
   showUser = true,
   onEdit,
+  inModal,
 }) => {
   const [title, setTitle] = useState("");
   const [isCombo, setIsCombo] = useState(false);
 
   useEffect(() => {
-    setIsCombo((item?.elements?.length || 1) > 1);
+    if (item) {
+      setIsCombo((item?.elements?.length || 1) > 1);
 
-    let newTitle = "";
-    item?.elements?.forEach((element) => {
-      newTitle += " + " + element?.name;
-    });
+      let newTitle = "";
+      item?.elements?.forEach((element) => {
+        newTitle += " + " + element?.name;
+      });
 
-    setTitle(newTitle.substring(3));
+      setTitle(getTitleFromItem(item));
+    }
   }, [item]);
 
   return (
@@ -56,6 +58,7 @@ const ItemExtense = ({
         }
         footer={footer}
         high={high}
+        inModal={inModal}
       >
         {item?.elements.map((element, k) => {
           return (

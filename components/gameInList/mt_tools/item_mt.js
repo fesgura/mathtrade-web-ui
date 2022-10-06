@@ -11,7 +11,7 @@ const MT_ToolItem_ItemMT = ({ item, afterAnyChange, wantInfo }) => {
     <div className="mt_tools">
       <div className="mt_tools-container">
         <Valuation
-          item={item}
+          items={[item]}
           afterAnyChange={afterAnyChange}
           className={classNames({ "mb-3": !item?.owner })}
         />

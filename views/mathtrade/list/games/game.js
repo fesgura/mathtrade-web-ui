@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import Game from "components/gameInList";
+import GameQuadCard from "components/gameQuadCard";
+import MT_tools from "components/MathtradeTools/game-list";
+import { Col, Row } from "reactstrap";
 
 const MT_GameListViewGame = ({ viewType, game, afterAnyChange, itemWants }) => {
   /*
@@ -20,11 +22,21 @@ const MT_GameListViewGame = ({ viewType, game, afterAnyChange, itemWants }) => {
   }, [item, itemWants]);
 */
   return (
-    <Game
+    <GameQuadCard
       game={game}
-      viewType={viewType}
       //wanted={wantInfo !== null}
       wanted={false}
+      footer={
+        <Row className="justify-content-center">
+          <Col xs="auto">
+            <MT_tools
+              game={game}
+              afterAnyChange={afterAnyChange}
+              // wantInfo={wantInfo}
+            />
+          </Col>
+        </Row>
+      }
     />
   );
 };

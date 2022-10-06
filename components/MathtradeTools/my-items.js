@@ -91,7 +91,7 @@ const MathtradeTools_MyItems = ({
             </Col>
             <Col xs="auto">
               <Valuation
-                item={itemMathTradeData}
+                items={[itemMathTradeData]}
                 afterAnyChange={afterAnyChange}
               />
             </Col>

@@ -262,6 +262,13 @@ select,
     &:hover {
       opacity: 0.7;
     }
+    &.disabled {
+      border-color: #ccc;
+      cursor: not-allowed;
+      &.checked {
+        background-color: #ccc;
+      }
+    }
   }
 }
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import ItemExtense from "components/itemExtense";
-import MT_tools from "components/MathtradeTools/item-list";
+import Item from "components/item";
+import MT_ToolItem_ItemMT from "components/item/mt_tools/item_mt";
 
 const MT_ItemListViewItem = ({ item, afterAnyChange, itemWants }) => {
   const [wantInfo, setWantInfo] = useState(null);
@@ -20,11 +20,11 @@ const MT_ItemListViewItem = ({ item, afterAnyChange, itemWants }) => {
   }, [item, itemWants]);
 
   return (
-    <ItemExtense
+    <Item
       item={item}
-      high={wantInfo !== null}
-      rightHeader={
-        <MT_tools
+      wanted={wantInfo !== null}
+      tools={
+        <MT_ToolItem_ItemMT
           item={item}
           afterAnyChange={afterAnyChange}
           wantInfo={wantInfo}

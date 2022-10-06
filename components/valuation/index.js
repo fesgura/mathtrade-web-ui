@@ -35,7 +35,7 @@ export const ValuationLabel = ({ loading, value }) => {
   );
 };
 
-const Valuation = ({ className, item, afterAnyChange }) => {
+const Valuation = ({ className, items, afterAnyChange }) => {
   const [valueInternal, setValueInternal] = useState(minValue);
 
   const [valueHover, setValueHover] = useState(minValue);
@@ -48,15 +48,18 @@ const Valuation = ({ className, item, afterAnyChange }) => {
 
   useEffect(() => {
     if (
-      item &&
-      typeof item.value === "number" &&
-      item.value >= minValue &&
-      item.value <= maxValue
+      items &&
+      items[0] &&
+      typeof items[0].value === "number" &&
+      items[0].value >= minValue &&
+      items[0].value <= maxValue
     ) {
-      setValueInternal(item.value);
+      setValueInternal(items[0].value);
     }
-    resetValueHover(item.value);
-  }, [item]);
+    if (items && items[0]) {
+      resetValueHover(items[0]?.value || 0);
+    }
+  }, [items]);
 
   ////////////////////////
   const [valuatePostItem, , loadingPutItem] = useApi({
@@ -97,15 +100,15 @@ const Valuation = ({ className, item, afterAnyChange }) => {
                       setValueHover(v);
                     }}
                     onClick={() => {
-                      if (v !== item.value) {
+                      if (v !== items[0].value) {
                         setValueInternal(v);
-                        const mathtradeStored = getMathtradeStored();
-                        const mathTradeId = mathtradeStored.data.id;
+                        console.log(items);
                         valuatePostItem({
-                          mathTradeId,
                           data: {
                             value: v,
-                            item_id: item.id,
+                            item_ids: items.map((itm) => {
+                              return itm.id;
+                            }),
                           },
                         });
                       }

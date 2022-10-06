@@ -36,10 +36,6 @@ const MathTradeService = {
     setAuth();
     return api.get("api/mathtrades/" + props.mathTradeId + "/user-items/");
   },
-  listMyItemValues: (props) => {
-    setAuth();
-    return api.get("api/mathtrades/" + props.mathTradeId + "/user-values/");
-  },
   publishItem: (props) => {
     setAuth();
     return api.post(
@@ -53,12 +49,13 @@ const MathTradeService = {
       "api/mathtrades/" + props.mathTradeId + "/items/" + props.itemId + "/"
     );
   },
+  listMyItemValues: (props) => {
+    setAuth();
+    return api.get("api/items/item-values/");
+  },
   valuatePostItem: (props) => {
     setAuth();
-    return api.post(
-      "api/mathtrades/" + props.mathTradeId + "/user-values/",
-      props.data
-    );
+    return api.post("api/items/item-values/", props.data);
   },
   listGames: (props) => {
     setAuth();

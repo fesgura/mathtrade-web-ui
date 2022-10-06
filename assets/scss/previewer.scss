@@ -1,0 +1,29 @@
+.previewer {
+  $w: 30px;
+  border: 1px solid $secondary;
+  width: $w;
+  height: $w;
+  line-height: 1;
+  border-radius: 5px;
+  background-color: transparent;
+  color: $secondary;
+  font-size: 16px;
+  transition: all 0.1s;
+
+  &:hover,
+  &:focus {
+    background-color: $secondary;
+    color: #fff;
+  }
+}
+.previewer-container {
+  padding: 15px;
+  min-width: 800px;
+  max-height: 90vh;
+  overflow: auto;
+}
+.previewer-popover {
+  .popover {
+    max-width: 900px;
+  }
+}

@@ -1,3 +1,15 @@
+.box_item {
+  .box_item-text {
+    font-size: 14px;
+    padding-bottom: 2px;
+    font-weight: bold;
+  }
+  .box_item-label {
+    line-height: 1;
+    font-size: 10px;
+  }
+}
+
 .box {
   background-color: #eee;
   padding: 8px;
@@ -11,15 +23,8 @@
   &.bg-element {
     background-color: rgba($element, 0.25);
   }
-}
-.box_item {
-  .box_item-text {
-    font-size: 14px;
-    padding-bottom: 2px;
-    font-weight: bold;
-  }
-  .box_item-label {
-    line-height: 1;
-    font-size: 10px;
+  &.minimal {
+    margin-bottom: 0;
+    padding: 4px 6px;
   }
 }

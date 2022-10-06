@@ -1,29 +1,28 @@
 .valuation-btn-cont {
+}
+
+.valuation-btn {
+  position: relative;
   $h: 36px;
+  cursor: pointer;
 
-  .valuation-btn {
-    position: relative;
-
-    cursor: pointer;
-
-    .valuation-btn_star {
-      font-size: 32px;
-      line-height: $h;
-      height: $h;
-      //color: $mathtrade;
-    }
-    .valuation-btn_num {
-      position: absolute;
-      top: 50%;
-      left: 0;
-      width: 100%;
-      color: #fff;
-      text-align: center;
-      line-height: 1;
-      transform: translateY(-50%);
-      font-weight: bold;
-      font-size: 14px;
-    }
+  .valuation-btn_star {
+    font-size: 32px;
+    line-height: $h;
+    height: $h;
+    //color: $mathtrade;
+  }
+  .valuation-btn_num {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    line-height: 1;
+    transform: translateY(-50%);
+    font-weight: bold;
+    font-size: 14px;
   }
 }
 

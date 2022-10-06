@@ -49,4 +49,11 @@
       border-bottom-color: $mathtrade;
     }
   }
+  &.inModal {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
+    border-radius: $border-radius;
+    .card-comp_header {
+      border-radius: $border-radius $border-radius 0 0;
+    }
+  }
 }

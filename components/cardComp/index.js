@@ -6,12 +6,13 @@ const CardComp = ({
   title,
   rightHeader,
   leftHeader,
-  high,
   footer,
   children,
+  high,
+  inModal,
 }) => {
   return (
-    <div className={classNames("card-comp", className, { high })}>
+    <div className={classNames("card-comp", className, { high, inModal })}>
       <div className={classNames("card-comp_header")}>
         <Row className="align-items-center justify-content-between">
           <Col>

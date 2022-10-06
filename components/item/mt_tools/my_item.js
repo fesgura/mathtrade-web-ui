@@ -71,7 +71,7 @@ const MT_ToolItem_MyItem = ({ item, itemMathTradeData, afterAnyChange }) => {
           <div className="mt_tools-title">En el Math Trade</div>
           <div className="mt_tools-container">
             <Valuation
-              item={itemMathTradeData}
+              items={[itemMathTradeData]}
               afterAnyChange={afterAnyChange}
               className="mb-3"
             />

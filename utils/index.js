@@ -241,3 +241,12 @@ export const dependencyToData = (dependency) => {
 };
 
 export const getUniqueId = () => new Date().valueOf();
+
+export const getTitleFromItem = (item) => {
+  let newTitle = "";
+  item?.elements?.forEach((element) => {
+    newTitle += " + " + element?.name;
+  });
+
+  return newTitle.substring(3);
+};
