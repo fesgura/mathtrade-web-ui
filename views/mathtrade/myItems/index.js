@@ -4,7 +4,7 @@ import PageHeader from "components/pageHeader";
 import { Col, Row, Modal, ModalBody } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
 import Item from "containers/myCollection/item";
-import AddItem from "components/myItems_tools/addItem";
+import AddItem from "components/pages/myItems/addItem";
 import ElementEditor from "containers/myCollection/editor";
 
 const MyItemsView = ({

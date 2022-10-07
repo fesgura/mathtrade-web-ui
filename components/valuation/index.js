@@ -102,7 +102,7 @@ const Valuation = ({ className, items, afterAnyChange }) => {
                     onClick={() => {
                       if (v !== items[0].value) {
                         setValueInternal(v);
-                        console.log(items);
+
                         valuatePostItem({
                           data: {
                             value: v,

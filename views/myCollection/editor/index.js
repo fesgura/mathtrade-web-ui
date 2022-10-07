@@ -6,6 +6,7 @@ import ElementCreateStep0 from "./step0";
 //////////////////////////////////////////////
 
 const ElementEditorView = ({
+  onClose,
   objToEdit,
   onSaveElement,
   loading,
@@ -55,9 +56,7 @@ const ElementEditorView = ({
             element={ElementToEdit}
             create={!objToEdit.element}
             item={objToEdit.item}
-            onCancel={() => {
-              //setStep(1);
-            }}
+            onClose={onClose}
             onSaveElement={onSaveElement}
             loading={loading}
             errors={errors}

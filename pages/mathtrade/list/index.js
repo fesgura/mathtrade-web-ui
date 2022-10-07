@@ -4,7 +4,7 @@ import { privateRoutes } from "config/routes";
 
 const MT_ItemListPage = () => {
   useEffect(() => {
-    Router.push(privateRoutes.mathtrade.gameList);
+    Router.push("/" + privateRoutes.mathtrade.gameList.path);
   }, []);
 
   return null;

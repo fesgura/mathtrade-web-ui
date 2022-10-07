@@ -7,7 +7,6 @@ import Previewer from "components/previewer";
 import ItemExtense from "components/itemExtense";
 
 const ItemMinimal = ({ item, disabled }) => {
-  console.log("item", item);
   const [data, setData] = useState({
     title: "",
     subtitle: "",

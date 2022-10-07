@@ -3,7 +3,7 @@ import { useApi, MathTradeService } from "api";
 import { getMathtradeStored } from "utils";
 import ErrorAlert from "components/errorAlert";
 import { Col, Row } from "reactstrap";
-import Picture from "components/picture";
+import Thumbnail from "components/thumbnail";
 import { ValuationLabel } from "components/valuation";
 import Checkbox from "components/checkbox";
 import OrderBy from "components/orderBy";
@@ -118,7 +118,11 @@ const MyItems = ({ onChangeList, myItemsToOffer }) => {
                     />
                   </Col>
                   <Col xs="auto" className="px-3">
-                    <Picture src={elements[0].thumbnail} width={30} />
+                    <Thumbnail
+                      src={elements[0].thumbnail}
+                      width={30}
+                      noRadius
+                    />
                   </Col>
                   <Col>
                     {elements.length > 1 ? <b>Combo:</b> : null}

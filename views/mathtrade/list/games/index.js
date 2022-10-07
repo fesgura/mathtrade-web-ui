@@ -8,7 +8,6 @@ import ErrorAlert from "components/errorAlert";
 import Pagination from "components/pagination";
 import OrderBy from "components/orderBy";
 import Filters_MT_Games from "./filters";
-import SwitchView from "components/switchView";
 
 const GameListView = ({ list, filters, setFilters, loading, errors }) => {
   const [viewType, setViewType] = useState(0);
@@ -29,13 +28,6 @@ const GameListView = ({ list, filters, setFilters, loading, errors }) => {
         ]}
       />
       <Row className="align-items-center mb-4 justify-content-end g-3">
-        <Col xs="auto">
-          <SwitchView
-            options={[{ icon: "th-large" }, { icon: "list-ul" }]}
-            value={viewType}
-            onChange={setViewType}
-          />
-        </Col>
         <Col xs="auto">
           <OrderBy
             valueInitial={filters?.query?.order}

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Col, Row, Button, Alert, Badge } from "reactstrap";
 import classNames from "classnames";
 import { languageList, statusList, typeOfElements } from "config";
-import ElementDropVersions from "components/element/elementDropVersions";
+import ElementDropVersions from "components/elementDropVersions";
 import { Form, Input, Hidden } from "components/form";
 import Icon from "components/icon";
 import { LoadingBox } from "components/loading";
@@ -36,7 +36,7 @@ const maxYear = (function () {
 const ElementEdit = ({
   element,
   create,
-  onCancel,
+  onClose,
   // BGG ELEMENT
   fetchBGGelement,
   BGGelement,
@@ -295,7 +295,7 @@ const ElementEdit = ({
                       outline
                       onClick={(e) => {
                         e.preventDefault();
-                        onCancel();
+                        onClose();
                       }}
                     >
                       Cancelar

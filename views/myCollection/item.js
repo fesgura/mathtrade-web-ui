@@ -1,6 +1,6 @@
 import ItemExtense from "components/itemExtense";
 import MT_Tools from "components/MathtradeTools/my-items";
-import AddItem from "components/myItems_tools/addItem";
+import AddItem from "components/pages/myItems/addItem";
 
 const Item = ({
   IamInMathTrade,
