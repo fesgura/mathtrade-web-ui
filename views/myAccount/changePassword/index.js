@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Form, Input } from "components/form";
-import Icon from "components/icon";
 import { Button, Alert } from "reactstrap";
 import { LoadingBox } from "components/loading";
 

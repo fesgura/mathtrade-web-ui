@@ -24,7 +24,7 @@ const getLocationById = (locationId, dataLocations) => {
   return locArr[0] || null;
 };
 
-const MT_MyDataView = ({
+const MyDataView = ({
   mathtradeData,
   MathTradeUserInitial,
   dataLocations,
@@ -285,4 +285,4 @@ const MT_MyDataView = ({
     </PrivateLayout>
   );
 };
-export default MT_MyDataView;
+export default MyDataView;

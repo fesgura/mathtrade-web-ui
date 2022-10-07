@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
 import GameQuadCard from "components/gameQuadCard";
 import MT_tools from "components/MathtradeTools/game-list";
 import { Col, Row } from "reactstrap";
 
-const MT_GameListViewGame = ({ viewType, game, afterAnyChange, itemWants }) => {
+const Game_in_list = ({ game, afterAnyChange }) => {
   /*
   const [wantInfo, setWantInfo] = useState(null);
 
@@ -40,4 +39,4 @@ const MT_GameListViewGame = ({ viewType, game, afterAnyChange, itemWants }) => {
     />
   );
 };
-export default MT_GameListViewGame;
+export default Game_in_list;

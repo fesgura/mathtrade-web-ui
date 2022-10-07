@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useApi, MathTradeService } from "api";
 import { getMathtradeStored, getUniqueId } from "utils";
-import MT_GameListView from "views/mathtrade/list/games";
+import GameListView from "views/mathtrade/list/games";
 
 const MT_GameListContainer = () => {
   const router = useRouter();
@@ -43,7 +43,7 @@ const MT_GameListContainer = () => {
   }, [filters]);
 
   return (
-    <MT_GameListView
+    <GameListView
       list={list}
       filters={filters}
       setFilters={(filterInput) => {
@@ -68,16 +68,16 @@ const MT_GameListContainer = () => {
       }}
       loading={loading}
       errors={errors}
-      afterAnyChange={() => {
-        //const newMathtradeStored = getMathtradeStored();
-        //listWants({ mathTradeId: newMathtradeStored.data.id });
-        // setFilters((fil) => {
-        //   return {
-        //     ...fil,
-        //     d: getUniqueId(),
-        //   };
-        // });
-      }}
+      // afterAnyChange={() => {
+      //   const newMathtradeStored = getMathtradeStored();
+      //   listWants({ mathTradeId: newMathtradeStored.data.id });
+      //   setFilters((fil) => {
+      //     return {
+      //       ...fil,
+      //       d: getUniqueId(),
+      //     };
+      //   });
+      // }}
     />
   );
 };

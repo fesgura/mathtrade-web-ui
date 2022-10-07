@@ -82,6 +82,14 @@ const MathTradeService = {
       props.data
     );
   },
+  //
+  listMyItemGroups: (props) => {
+    setAuth();
+    return api.get(
+      "api/mathtrades/" + props.mathTradeId + "/user-item-groups/",
+      props.query
+    );
+  },
 };
 
 export default MathTradeService;

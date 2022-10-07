@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { privateRoutes } from "config/routes";
 
-const LinkInternal = ({ path, children, className }) => {
-  const href = privateRoutes[path] ? privateRoutes[path].path : path;
+const LinkInternal = ({ path, mathtrade = false, children, className }) => {
+  const href = mathtrade
+    ? privateRoutes.mathtrade[path].path || ""
+    : privateRoutes[path].path || "";
+
   return (
     <Link href={`/${href}`}>
       <a className={className}>{children}</a>

@@ -6,9 +6,7 @@ import ElementDropVersions from "components/element/elementDropVersions";
 import { Form, Input, Hidden } from "components/form";
 import Icon from "components/icon";
 import { LoadingBox } from "components/loading";
-import { getVersionNameFromId, processBGGdata, dependencyToData } from "utils";
-import Picture from "components/picture";
-import BGGgameInfo from "components/bgg-gameinfo";
+import { getVersionNameFromId, processBGGdata } from "utils";
 import Thumbnail from "components/thumbnail";
 import BggGameBox from "components/bggGameBox";
 
@@ -38,7 +36,6 @@ const maxYear = (function () {
 const ElementEdit = ({
   element,
   create,
-  item,
   onCancel,
   // BGG ELEMENT
   fetchBGGelement,

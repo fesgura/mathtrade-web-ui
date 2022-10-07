@@ -1,4 +1,4 @@
-import ElementEditorView from "views/my-items/editor";
+import ElementEditorView from "views/myCollection/editor";
 import { useApi, BggElementService, ElementService, ItemService } from "api";
 import { setItemTitle } from "./utils";
 

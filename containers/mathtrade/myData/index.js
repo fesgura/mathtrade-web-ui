@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Router from "next/router";
 import PrivateEnv from "environments/private";
-import MT_MyDataView from "views/mathtrade/my-data";
+import MyDataView from "views/mathtrade/myData";
 import { useApi, LocationService, MathTradeService } from "api";
 import { getMathtradeStored } from "utils";
 import storage from "utils/storage";
@@ -92,7 +92,7 @@ const MT_MyDataContainer = () => {
 
   return (
     <PrivateEnv>
-      <MT_MyDataView
+      <MyDataView
         mathtradeData={mathtradeData}
         MathTradeUserInitial={MathTradeUserInitial}
         dataLocations={dataLocations}

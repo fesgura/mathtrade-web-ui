@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import PrivateEnv from "environments/private";
-import MyItemsView from "views/my-items";
+import MyCollectionView from "views/myCollection";
 import { useApi, ItemService, MathTradeService } from "api";
 import { getMathtradeStored } from "utils";
 
-const MyItemsContainer = () => {
+const MyCollectionContainer = () => {
   const [IamInMathTrade, setIamInMathTrade] = useState(false);
   /* Math Trade */
   const [
@@ -41,7 +41,7 @@ const MyItemsContainer = () => {
 
   return (
     <PrivateEnv>
-      <MyItemsView
+      <MyCollectionView
         IamInMathTrade={IamInMathTrade}
         itemList={loadingItemsList ? [] : itemList}
         itemsInMathTradeList={itemsInMathTradeList}
@@ -53,4 +53,4 @@ const MyItemsContainer = () => {
   );
 };
 
-export default MyItemsContainer;
+export default MyCollectionContainer;

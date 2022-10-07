@@ -18,7 +18,7 @@ const HomeView = ({ loading }) => {
         </p>
         <p>
           Podés empezar <i>cargando tus ítems</i> para intercambiar en{" "}
-          <LinkInternal path="myItems">Mis ítems</LinkInternal>.
+          <LinkInternal path="myCollection">Mi collección</LinkInternal>.
         </p>
       </section>
       <Crecimiento />

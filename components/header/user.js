@@ -3,7 +3,7 @@ import Router from "next/router";
 import { publicRoutes } from "config/routes";
 import UserAvatar from "components/avatar";
 import Link from "next/link";
-import { mainMenuUserList } from "config/routes";
+import { menuUser } from "config/routes";
 import Icon from "components/icon";
 import storage from "utils/storage";
 
@@ -25,7 +25,7 @@ const UserHeader = () => {
         {username ? (
           <div className="main-user-menu-name">{username}</div>
         ) : null}
-        {mainMenuUserList.map((item, k) => {
+        {menuUser.map((item, k) => {
           const { path, title, icon } = item;
           return (
             <Link href={`/${path}`} key={k}>

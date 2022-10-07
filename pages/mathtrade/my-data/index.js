@@ -1,4 +1,4 @@
-import MT_MyDataContainer from "containers/mathtrade/my-data";
+import MT_MyDataContainer from "containers/mathtrade/myData";
 
 const MT_MyDataPage = () => {
   return <MT_MyDataContainer />;

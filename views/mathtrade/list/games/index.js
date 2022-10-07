@@ -2,7 +2,7 @@ import { useState } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
-import MT_GameListViewGame from "./game";
+import Game from "./game";
 import { Col, Row } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
 import Pagination from "components/pagination";
@@ -10,14 +10,7 @@ import OrderBy from "components/orderBy";
 import Filters_MT_Games from "./filters";
 import SwitchView from "components/switchView";
 
-const MT_GameListView = ({
-  list,
-  filters,
-  setFilters,
-  loading,
-  errors,
-  afterAnyChange,
-}) => {
+const GameListView = ({ list, filters, setFilters, loading, errors }) => {
   const [viewType, setViewType] = useState(0);
 
   return (
@@ -25,19 +18,13 @@ const MT_GameListView = ({
       <PageHeaderTabs
         tabs={[
           {
-            text: "Lista de Juegos",
-            path: `/${
-              privateRoutes.mathTradeEnabled.path +
-              privateRoutes.mathTradeEnabled.gameList.path
-            }`,
+            text: "Listado de Juegos",
+            path: `/${privateRoutes.mathtrade.gameList.path}`,
             current: true,
           },
           {
-            text: "Lista de Items",
-            path: `/${
-              privateRoutes.mathTradeEnabled.path +
-              privateRoutes.mathTradeEnabled.itemList.path
-            }`,
+            text: "Listado de Items",
+            path: `/${privateRoutes.mathtrade.itemList.path}`,
           },
         ]}
       />
@@ -80,7 +67,7 @@ const MT_GameListView = ({
               {list && list.results && list.results.length ? (
                 list.results.map((game, k) => {
                   return (
-                    <MT_GameListViewGame
+                    <Game
                       viewType={viewType}
                       game={game}
                       //itemWants={itemWants}
@@ -111,4 +98,4 @@ const MT_GameListView = ({
     </PrivateLayout>
   );
 };
-export default MT_GameListView;
+export default GameListView;

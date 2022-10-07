@@ -8,7 +8,7 @@ import Pagination from "components/pagination";
 import OrderBy from "components/orderBy";
 import Filters_MT_Items from "./filters";
 
-const MT_ItemListView = ({
+const ItemListView = ({
   list,
   locations,
   itemWants,
@@ -23,18 +23,12 @@ const MT_ItemListView = ({
       <PageHeaderTabs
         tabs={[
           {
-            text: "Lista de Juegos",
-            path: `/${
-              privateRoutes.mathTradeEnabled.path +
-              privateRoutes.mathTradeEnabled.gameList.path
-            }`,
+            text: "Listado de Juegos",
+            path: `/${privateRoutes.mathtrade.gameList.path}`,
           },
           {
-            text: "Lista de Items",
-            path: `/${
-              privateRoutes.mathTradeEnabled.path +
-              privateRoutes.mathTradeEnabled.itemList.path
-            }`,
+            text: "Listado de Items",
+            path: `/${privateRoutes.mathtrade.itemList.path}`,
             current: true,
           },
         ]}
@@ -108,4 +102,4 @@ const MT_ItemListView = ({
     </PrivateLayout>
   );
 };
-export default MT_ItemListView;
+export default ItemListView;

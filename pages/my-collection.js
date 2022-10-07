@@ -1,4 +1,4 @@
-import MyItemsContainer from "containers/my-items";
+import MyItemsContainer from "containers/myCollection";
 
 const MyItemsPage = () => {
   return <MyItemsContainer />;

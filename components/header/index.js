@@ -13,7 +13,7 @@ const Header = () => {
   return (
     <div className="main-header">
       <div className="main-container">
-        <Row className="main-row align-items-center justify-content-between">
+        <Row className="main-row align-items-center ">
           <Col xs="auto">
             <Link href={"/"}>
               <a className="logo-link">
@@ -21,7 +21,7 @@ const Header = () => {
               </a>
             </Link>
           </Col>
-          <Col xs="auto">
+          <Col>
             <div
               className={classNames("main-menu-container", {
                 visible: menuMobileVisible,
@@ -38,7 +38,7 @@ const Header = () => {
                   visible: menuMobileVisible,
                 })}
               >
-                <Row className="align-items-center g-0">
+                <Row className="align-items-center g-0 justify-content-between">
                   <Col lg="auto" className="order-lg-1 order-2">
                     <MainMenu />
                   </Col>

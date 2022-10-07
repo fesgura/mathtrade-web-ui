@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { publicRoutes } from "config/routes";
 import PublicLayout from "layouts/public";

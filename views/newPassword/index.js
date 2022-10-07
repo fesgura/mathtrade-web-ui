@@ -3,7 +3,7 @@ import PublicLayout from "layouts/public";
 import { Card, CardBody, Button, Col, Row } from "reactstrap";
 import { Form, Input } from "components/form";
 
-const LoginView = ({ loading, errors, onSubmit, respOnSave }) => {
+const LoginView = ({ loading, onSubmit }) => {
   const [validationStatus, setValidationStatus] = useState({});
   const [passwordValue, setPasswordValue] = useState("");
   const [password2Value, setPassword2Value] = useState("");

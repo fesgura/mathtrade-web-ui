@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ItemView from "views/my-items/item";
+import ItemView from "views/myCollection/item";
 
 const ItemContainer = ({
   IamInMathTrade,

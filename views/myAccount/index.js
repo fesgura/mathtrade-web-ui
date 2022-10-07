@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Router from "next/router";
 import PrivateLayout from "layouts/private";
 import PageHeader from "components/pageHeader";

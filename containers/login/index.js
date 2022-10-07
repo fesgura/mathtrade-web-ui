@@ -28,12 +28,7 @@ const LoginContainer = ({ verifingAuth, onGetCaptcha }) => {
   );
 
   return verifingAuth ? null : (
-    <LoginView
-      onSubmit={handleSubmit}
-      loading={loading}
-      errors={errorApi}
-      respOnSave={() => {}}
-    />
+    <LoginView onSubmit={handleSubmit} loading={loading} errors={errorApi} />
   );
 };
 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import PrivateEnv from "environments/private";
-import MyItemsView from "views/my-items";
+import MyItemsView from "views/myCollection";
 import { useApi, MathTradeService } from "api";
 import { getMathtradeStored } from "utils";
 

@@ -1,15 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeader from "components/pageHeader";
-import InviteRegisterMT from "components/inviteRegisterMathTrade";
 import { Col, Row, Modal, ModalBody } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
-import Item from "containers/my-items/item";
+import Item from "containers/myCollection/item";
 import AddItem from "components/myItems_tools/addItem";
-import ElementEditor from "containers/my-items/editor";
+import ElementEditor from "containers/myCollection/editor";
 
 const MyItemsView = ({
-  IamInMathTrade,
   itemList = [],
   itemsInMathTradeList,
   loading,
@@ -21,17 +19,15 @@ const MyItemsView = ({
 
   return (
     <PrivateLayout loading={loading}>
-      <InviteRegisterMT />
       <PageHeader title="Mis ítems" />
       <Row className="justify-content-center">
-        <Col xl={9}>
+        <Col xl={8}>
           <div className="item-list">
             {itemList.length ? (
               itemList.map((itemToShow, k) => {
                 return (
                   <Item
                     item={itemToShow}
-                    IamInMathTrade={IamInMathTrade}
                     itemsInMathTradeList={itemsInMathTradeList}
                     afterAnyChange={listItems}
                     key={k}
@@ -59,12 +55,12 @@ const MyItemsView = ({
             {loading ? null : (
               <div className="card-comp">
                 <div className="card-comp_body py-3">
-                  <AddItem
+                  {/* <AddItem
                     onClick={() => {
                       setObjToEdit({ item: null, element: null });
                       setModalEditOpen(true);
                     }}
-                  />
+                  /> */}
                 </div>
               </div>
             )}

@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import classNames from "classnames";
 import Icon from "components/icon";
 import Logo from "components/logo";
-import { privateRoutes } from "config/routes";
 import storage from "utils/storage";
 import { getMathtradeStored } from "utils";
 import Link from "next/link";
@@ -42,12 +41,7 @@ const InviteRegisterMT = ({ className }) => {
         </h3>
         <p>Inscribite para participar aquí:</p>
         <p>
-          <Link
-            href={`/${
-              privateRoutes.mathTradeDisabled.path +
-              privateRoutes.mathTradeDisabled.myData.path
-            }`}
-          >
+          <Link href={`/mathtrade/my-data`}>
             <a className="btn btn-secondary btn-lg">
               <Icon type="star" className="me-2" />
               Participar

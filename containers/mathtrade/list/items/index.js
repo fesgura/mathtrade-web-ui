@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useApi, MathTradeService, LocationService } from "api";
 import { getMathtradeStored, getUniqueId } from "utils";
-import MT_ItemListView from "views/mathtrade/list/items";
+import ItemListView from "views/mathtrade/list/items";
 
 const MT_ItemListContainer = () => {
   const router = useRouter();
@@ -60,7 +60,7 @@ const MT_ItemListContainer = () => {
   }, []);
 
   return (
-    <MT_ItemListView
+    <ItemListView
       list={list}
       itemWants={itemWants}
       filters={filters}

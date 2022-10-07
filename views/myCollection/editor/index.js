@@ -1,16 +1,12 @@
 import { useState } from "react";
-import classNames from "classnames";
-import Icon from "components/icon";
 import BGGsearch from "components/bgg-search";
 import ElementEdit from "./edit";
-import { Button } from "reactstrap";
 import ElementCreateStep0 from "./step0";
 
 //////////////////////////////////////////////
 
 const ElementEditorView = ({
   objToEdit,
-  onClose,
   onSaveElement,
   loading,
   errors,
