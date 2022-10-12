@@ -50,13 +50,12 @@ const MathTradeService = {
       "api/mathtrades/" + mathTradeId + "/items/" + props.itemId + "/"
     );
   },
-  listMyItemValues: (props) => {
-    setAuth();
-    return api.get("api/items/item-values/");
-  },
+  // listMyItemValues: (props) => {
+  //   setAuth();
+  //   return api.get("api/items/item-values/");
+  // },
   valuatePostItem: (props) => {
     setAuth();
-
     return api.post("api/items/item-values/", props.data);
   },
   listGames: (props) => {
