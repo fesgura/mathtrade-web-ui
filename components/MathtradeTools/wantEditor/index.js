@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { Button } from "reactstrap";
 import { useApi, MathTradeService } from "api";
-import { getMathtradeStored } from "utils";
 import ErrorAlert from "components/errorAlert";
 import { LoadingBox } from "components/loading";
 import MyItems from "./my-items";
+import { useSelector } from "react-redux";
+import { selectStoreData } from "store/slices/storeData";
 
 const WantEditor = ({
   objToWant,
@@ -14,6 +15,7 @@ const WantEditor = ({
   setModalWantOpen,
   wantInfo,
 }) => {
+  const storeData = useSelector(selectStoreData);
   const [myItemsToOffer, setMyItemsToOffer] = useState([]);
   const [setWant, , loading, errors] = useApi({
     promise: MathTradeService.setWant,
@@ -58,8 +60,7 @@ const WantEditor = ({
           color="primary"
           disabled={loading}
           onClick={() => {
-            // const mathtradeStored = getMathtradeStored();
-            // const mathTradeId = mathtradeStored.data.id;
+            const mathTradeId = storeData?.mathtrade?.data.id;
             // setWant({
             //   mathTradeId,
             //   data: {

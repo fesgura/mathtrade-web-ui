@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useApi, MathTradeService, LocationService } from "api";
-import { getMathtradeStored, getUniqueId } from "utils";
+import { getUniqueId } from "utils";
 import ItemListView from "views/mathtrade/list/items";
+import { useSelector } from "react-redux";
+import { selectStoreData } from "store/slices/storeData";
 
 const MT_ItemListContainer = () => {
+  const storeData = useSelector(selectStoreData);
   const router = useRouter();
 
   const [filters, setFilters] = useState({
@@ -45,19 +48,19 @@ const MT_ItemListContainer = () => {
 
   useEffect(() => {
     if (filters.d) {
-      const newMathtradeStored = getMathtradeStored();
+      const mathTradeId = storeData?.mathtrade?.data.id;
       listItems({
-        mathTradeId: newMathtradeStored.data.id,
+        mathTradeId,
         query: filters.query,
       });
     }
-  }, [filters]);
+  }, [filters, storeData]);
 
   useEffect(() => {
     fetchLocations();
-    const newMathtradeStored = getMathtradeStored();
-    listWants({ mathTradeId: newMathtradeStored.data.id });
-  }, []);
+    const mathTradeId = storeData?.mathtrade?.data.id;
+    listWants({ mathTradeId });
+  }, [storeData]);
 
   return (
     <ItemListView
@@ -88,8 +91,8 @@ const MT_ItemListContainer = () => {
       loading={loading || loadingItemWants}
       errors={errors || errorsItemWants}
       afterAnyChange={() => {
-        const newMathtradeStored = getMathtradeStored();
-        listWants({ mathTradeId: newMathtradeStored.data.id });
+        const mathTradeId = storeData?.mathtrade?.data.id;
+        listWants({ mathTradeId });
         // setFilters((fil) => {
         //   return {
         //     ...fil,

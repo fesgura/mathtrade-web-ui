@@ -6,8 +6,11 @@ import MainMenu from "./menu";
 import Logo from "components/logo";
 import Icon from "components/icon";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
+import { selectStoreData } from "store/slices/storeData";
 
 const Header = () => {
+  const storeData = useSelector(selectStoreData);
   const [menuMobileVisible, set_menuMobileVisible] = useState(false);
 
   return (
@@ -40,10 +43,10 @@ const Header = () => {
               >
                 <Row className="align-items-center g-0 justify-content-between">
                   <Col lg="auto" className="order-lg-1 order-2">
-                    <MainMenu />
+                    <MainMenu storeData={storeData} />
                   </Col>
                   <Col lg="auto" className="order-lg-2 order-1">
-                    <UserHeader />
+                    <UserHeader storeData={storeData} />
                   </Col>
                 </Row>
                 <div

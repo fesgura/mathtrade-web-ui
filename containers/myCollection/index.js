@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import PrivateEnv from "environments/private";
 import MyCollectionView from "views/myCollection";
 import { useApi, ItemService, MathTradeService } from "api";
-import { getMathtradeStored } from "utils";
+import { useSelector } from "react-redux";
+import { selectStoreData } from "store/slices/storeData";
 
 const MyCollectionContainer = () => {
-  const [IamInMathTrade, setIamInMathTrade] = useState(false);
+  const storeData = useSelector(selectStoreData);
   /* Math Trade */
   const [
     getMyItemsInMathTrade,
@@ -26,9 +27,8 @@ const MyCollectionContainer = () => {
     promise: ItemService.listMyItems,
     initialState: [],
     afterLoad: () => {
-      const mathtradeStored = getMathtradeStored();
+      const mathtradeStored = storeData?.mathtrade;
       if (mathtradeStored && mathtradeStored.IamIn) {
-        setIamInMathTrade(true);
         const mathTradeId = mathtradeStored.data.id;
         getMyItemsInMathTrade({ mathTradeId });
       }
@@ -42,7 +42,7 @@ const MyCollectionContainer = () => {
   return (
     <PrivateEnv>
       <MyCollectionView
-        IamInMathTrade={IamInMathTrade}
+        IamInMathTrade={storeData?.mathtrade?.IamIn}
         itemList={loadingItemsList ? [] : itemList}
         itemsInMathTradeList={itemsInMathTradeList}
         loading={loadingItemsList || loadingItemsInMathTradeList}

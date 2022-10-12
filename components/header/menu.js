@@ -1,29 +1,24 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 import { menu_no_mathTrade, menu_yes_mathTrade } from "config/routes";
-import { getMathtradeStored } from "utils";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Icon from "components/icon";
 
-const MainMenu = () => {
+const MainMenu = ({ storeData }) => {
   const router = useRouter();
 
   const [menuList, set_menuList] = useState([]);
   const [mathTradeName, set_mathTradeName] = useState("");
 
   useEffect(() => {
-    const mathtradeStored = getMathtradeStored();
-    if (mathtradeStored) {
-      const newMathTradeName = mathtradeStored.data.name || "";
-      mathtradeStored.IamIn;
-
-      set_mathTradeName(newMathTradeName);
+    if (storeData) {
       set_menuList(
-        mathtradeStored.IamIn ? menu_yes_mathTrade : menu_no_mathTrade
+        storeData?.mathtrade?.IamIn ? menu_yes_mathTrade : menu_no_mathTrade
       );
+      set_mathTradeName(storeData?.mathtrade?.data?.name || "");
     }
-  }, []);
+  }, [storeData]);
 
   return (
     <menu className="main-menu">
@@ -32,7 +27,7 @@ const MainMenu = () => {
           const { path, icon, title, children, disabled, bordered } = item;
           const titleComp =
             title === "MT_NAME"
-              ? `Inscribite al MathTrade${mathTradeName}`
+              ? `Inscribite al MathTrade ${mathTradeName}`
               : title;
           return (
             <li key={k}>

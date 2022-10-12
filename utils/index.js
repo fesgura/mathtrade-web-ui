@@ -21,11 +21,6 @@ export const translateText = (str) => {
   return dicc[str] || "Otro (no listado)";
 };
 
-export const getMathtradeStored = () => {
-  const mathtrade = storage.getFromStore("mathtrade");
-
-  return mathtrade;
-};
 // ELEMENTS
 const createVersionList = (versions, defaultThumbnail) => {
   const list = [];

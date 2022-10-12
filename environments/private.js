@@ -2,12 +2,13 @@ import { useState, useEffect } from "react";
 import _ from "lodash";
 import storage from "utils/storage";
 import Router from "next/router";
+import { useSelector, useDispatch } from "react-redux";
 import { publicRoutes } from "config/routes";
 import { useApi, BggUserService, MathTradeService } from "api";
+import { setStoreData, setUserBGG, setMathtrade } from "store/slices/storeData";
 
 const PrivateEnv = ({ children }) => {
-  const [loadedBGG, set_loadedBGG] = useState(false);
-  const [loadedMT, set_loadedMT] = useState(false);
+  const dispatch = useDispatch();
 
   const [getBGGuser] = useApi({
     promise: BggUserService.get,
@@ -15,9 +16,10 @@ const PrivateEnv = ({ children }) => {
     afterLoad: (data) => {
       if (data && data.user && data.user.id && data.user.id !== "") {
         const bggData = { bggUser: data.user };
+
         storage.setToStorage(bggData);
+        dispatch(setUserBGG(data.user));
       }
-      set_loadedBGG(true);
     },
   });
   const [getMathTrade] = useApi({
@@ -29,17 +31,31 @@ const PrivateEnv = ({ children }) => {
         });
         const mathtrade = mathtradeActiveArray[0] || null;
         if (mathtrade) {
-          storage.setToStorage({
-            mathtrade: mathtrade,
-            "mathtrade.data": mathtrade,
+          const store = storage.get();
+          const memberId = store.user.data.id;
+
+          const arrExistUserInMathtrade = mathtrade.users.filter((userMT) => {
+            return memberId == userMT;
           });
+
+          const mathtradeData = {
+            IamIn: arrExistUserInMathtrade.length > 0,
+            data: mathtrade,
+            memberId,
+          };
+
+          storage.setToStorage({
+            mathtrade: mathtradeData,
+          });
+          dispatch(setMathtrade(mathtradeData));
         } else {
           storage.setToStorage({ mathtrade: null });
+          dispatch(setMathtrade(null));
         }
       } else {
         storage.setToStorage({ mathtrade: null });
+        dispatch(setMathtrade(null));
       }
-      set_loadedMT(true);
     },
   });
 
@@ -50,6 +66,7 @@ const PrivateEnv = ({ children }) => {
       const d = new Date();
       const currentTime = d.getTime();
       if (currentTime < expires) {
+        dispatch(setStoreData(store));
         if (_.isEmpty(store.user.bgg)) {
           getBGGuser(store.user.data.bgg_user);
         }
@@ -64,13 +81,7 @@ const PrivateEnv = ({ children }) => {
       storage.clear();
       Router.push(`/${publicRoutes.signin.path}`);
     }
-  }, []);
-
-  useEffect(() => {
-    if (loadedBGG && loadedMT) {
-      Router.reload(window.location.pathname);
-    }
-  }, [loadedBGG, loadedMT]);
+  }, [dispatch]);
 
   return <>{children}</>;
 };

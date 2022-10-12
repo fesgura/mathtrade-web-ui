@@ -6,14 +6,14 @@ import Link from "next/link";
 import { menuUser } from "config/routes";
 import Icon from "components/icon";
 import storage from "utils/storage";
+import { selectStoreData } from "store/slices/storeData";
 
-const UserHeader = () => {
+const UserHeader = ({ storeData }) => {
   const [username, setUsername] = useState("");
 
   useEffect(() => {
-    const user = storage.getFromStore("user");
-    setUsername(user?.username);
-  }, []);
+    setUsername(storeData?.user?.data?.username);
+  }, [storeData]);
 
   return (
     <div className="main-user">

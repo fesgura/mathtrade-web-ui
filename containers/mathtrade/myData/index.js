@@ -3,10 +3,13 @@ import Router from "next/router";
 import PrivateEnv from "environments/private";
 import MyDataView from "views/mathtrade/myData";
 import { useApi, LocationService, MathTradeService } from "api";
-import { getMathtradeStored } from "utils";
+
 import storage from "utils/storage";
+import { useSelector } from "react-redux";
+import { selectStoreData } from "store/slices/storeData";
 
 const MT_MyDataContainer = () => {
+  const storeData = useSelector(selectStoreData);
   const [mathtradeData, set_mathtradeData] = useState(null);
 
   const [fetchLocations, dataLocations, loadingLocations] = useApi({
@@ -41,7 +44,7 @@ const MT_MyDataContainer = () => {
         storage.setToStorage({ "mathtrade.data": null });
       }
       setTimeout(() => {
-        const newMathtradeStored = getMathtradeStored();
+        const newMathtradeStored = storeData?.mathtrade;
 
         if (newMathtradeStored.IamIn) {
           fetchMathTradeUser({

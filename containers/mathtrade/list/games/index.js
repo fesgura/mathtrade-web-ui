@@ -1,10 +1,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useApi, MathTradeService } from "api";
-import { getMathtradeStored, getUniqueId } from "utils";
+import { getUniqueId } from "utils";
 import GameListView from "views/mathtrade/list/games";
+import { useSelector } from "react-redux";
+import { selectStoreData } from "store/slices/storeData";
 
 const MT_GameListContainer = () => {
+  const storeData = useSelector(selectStoreData);
   const router = useRouter();
 
   const [filters, setFilters] = useState({
@@ -34,13 +37,13 @@ const MT_GameListContainer = () => {
 
   useEffect(() => {
     if (filters.d) {
-      const newMathtradeStored = getMathtradeStored();
+      const mathTradeId = storeData?.mathtrade?.data.id;
       listGames({
-        mathTradeId: newMathtradeStored.data.id,
+        mathTradeId,
         query: filters.query,
       });
     }
-  }, [filters]);
+  }, [filters, storeData]);
 
   return (
     <GameListView
@@ -69,8 +72,8 @@ const MT_GameListContainer = () => {
       loading={loading}
       errors={errors}
       // afterAnyChange={() => {
-      //   const newMathtradeStored = getMathtradeStored();
-      //   listWants({ mathTradeId: newMathtradeStored.data.id });
+      //   const mathTradeId = storeData?.mathtrade?.data.id;
+      //   listWants({ mathTradeId });
       //   setFilters((fil) => {
       //     return {
       //       ...fil,

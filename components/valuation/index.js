@@ -9,7 +9,6 @@ import {
 } from "reactstrap";
 import Question from "components/question";
 import { useApi, MathTradeService } from "api";
-import { getMathtradeStored } from "utils";
 
 const minValue = 0;
 const maxValue = 10;
