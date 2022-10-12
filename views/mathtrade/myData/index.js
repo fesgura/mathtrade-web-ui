@@ -107,7 +107,6 @@ const MyDataView = ({
             <Form
               onSubmit={(formData) => {
                 const dataToSend = {
-                  mathTradeId: mathtradeData.data.id,
                   userId: mathtradeData.memberId,
                   data: {
                     ...formData,
@@ -269,7 +268,6 @@ const MyDataView = ({
                     onClick={() => {
                       setModalExit(false);
                       cancelMemberMathTrade({
-                        mathTradeId: mathtradeData.data.id,
                         userId: mathtradeData.memberId,
                       });
                     }}

@@ -3,11 +3,8 @@ import { useRouter } from "next/router";
 import { useApi, MathTradeService, LocationService } from "api";
 import { getUniqueId } from "utils";
 import ItemListView from "views/mathtrade/list/items";
-import { useSelector } from "react-redux";
-import { selectStoreData } from "store/slices/storeData";
 
 const MT_ItemListContainer = () => {
-  const storeData = useSelector(selectStoreData);
   const router = useRouter();
 
   const [filters, setFilters] = useState({
@@ -48,19 +45,16 @@ const MT_ItemListContainer = () => {
 
   useEffect(() => {
     if (filters.d) {
-      const mathTradeId = storeData?.mathtrade?.data.id;
       listItems({
-        mathTradeId,
         query: filters.query,
       });
     }
-  }, [filters, storeData]);
+  }, [filters]);
 
   useEffect(() => {
     fetchLocations();
-    const mathTradeId = storeData?.mathtrade?.data.id;
-    listWants({ mathTradeId });
-  }, [storeData]);
+    listWants();
+  }, []);
 
   return (
     <ItemListView
@@ -91,8 +85,7 @@ const MT_ItemListContainer = () => {
       loading={loading || loadingItemWants}
       errors={errors || errorsItemWants}
       afterAnyChange={() => {
-        const mathTradeId = storeData?.mathtrade?.data.id;
-        listWants({ mathTradeId });
+        listWants();
         // setFilters((fil) => {
         //   return {
         //     ...fil,

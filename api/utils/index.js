@@ -2,7 +2,8 @@ import { create } from "apisauce";
 import Qs from "qs";
 import storage from "utils/storage";
 
-const apiHost = process.env.NEXT_PUBLIC_API_HOST || "https://mathtrade-back.herokuapp.com/";
+const apiHost =
+  process.env.NEXT_PUBLIC_API_HOST || "https://mathtrade-back.herokuapp.com/";
 
 export const api = create({
   timeout: 60000,
@@ -25,6 +26,10 @@ export const setAuth = () => {
       });
     }
   }
+};
+export const getMathtradeId = () => {
+  const mathtrade = storage.getFromStore("mathtrade");
+  return mathtrade ? mathtrade.data.id : "";
 };
 
 export const apiBGG = create({

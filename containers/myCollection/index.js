@@ -29,8 +29,7 @@ const MyCollectionContainer = () => {
     afterLoad: () => {
       const mathtradeStored = storeData?.mathtrade;
       if (mathtradeStored && mathtradeStored.IamIn) {
-        const mathTradeId = mathtradeStored.data.id;
-        getMyItemsInMathTrade({ mathTradeId });
+        getMyItemsInMathTrade();
       }
     },
   });

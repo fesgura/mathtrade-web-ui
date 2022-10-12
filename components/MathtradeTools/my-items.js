@@ -4,8 +4,6 @@ import Icon from "components/icon";
 import Valuation from "components/valuation";
 import { Col, Row, Modal, ModalBody, Button } from "reactstrap";
 import { useApi, MathTradeService } from "api";
-import { useSelector } from "react-redux";
-import { selectStoreData } from "store/slices/storeData";
 
 const MathtradeTools_MyItems = ({
   item,
@@ -15,7 +13,6 @@ const MathtradeTools_MyItems = ({
   if (!item) {
     return null;
   }
-  const storeData = useSelector(selectStoreData);
 
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
 
@@ -41,9 +38,7 @@ const MathtradeTools_MyItems = ({
             size="xs"
             onClick={() => {
               if (!loadingPublishItem) {
-                const mathTradeId = storeData?.mathtrade?.data.id;
                 publishItem({
-                  mathTradeId,
                   data: {
                     item_id: item.id,
                   },
@@ -124,10 +119,7 @@ const MathtradeTools_MyItems = ({
               color="danger"
               onClick={() => {
                 setModalDeleteOpen(false);
-
-                const mathTradeId = storeData?.mathtrade?.data.id;
                 unpublishItem({
-                  mathTradeId,
                   itemId: item.id,
                 });
               }}

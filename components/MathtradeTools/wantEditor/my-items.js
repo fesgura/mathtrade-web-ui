@@ -8,11 +8,8 @@ import Checkbox from "components/checkbox";
 import OrderBy from "components/orderBy";
 import classNames from "classnames";
 import { LoadingBox } from "components/loading";
-import { useSelector } from "react-redux";
-import { selectStoreData } from "store/slices/storeData";
 
 const MyItems = ({ onChangeList, myItemsToOffer }) => {
-  const storeData = useSelector(selectStoreData);
   const [orderByOpt, setOrderByOpt] = useState({ value: null, order: false });
 
   const [myItemsIdToChangeSelectAll, setMyItemsIdToChangeSelectAll] =
@@ -24,9 +21,8 @@ const MyItems = ({ onChangeList, myItemsToOffer }) => {
   });
 
   useEffect(() => {
-    const mathTradeId = storeData?.mathtrade?.data.id;
-    getMyItemsInMathTrade({ mathTradeId });
-  }, [storeData]);
+    getMyItemsInMathTrade();
+  }, []);
 
   useEffect(() => {
     if (myItemList.length) {

@@ -48,7 +48,6 @@ const MT_MyDataContainer = () => {
 
         if (newMathtradeStored.IamIn) {
           fetchMathTradeUser({
-            mathTradeId: newMathtradeStored.data.id,
             userId: newMathtradeStored.memberId,
           });
         }

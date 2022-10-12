@@ -19,8 +19,7 @@ const MyItems = () => {
       // const mathtradeStored = storeData?.mathtrade;
       // if (mathtradeStored && mathtradeStored.IamIn) {
       //   setIamInMathTrade(true);
-      //   const mathTradeId = mathtradeStored.data.id;
-      //   getMyItemsInMathTrade({ mathTradeId });
+      //   getMyItemsInMathTrade();
       // }
     },
   });
@@ -28,8 +27,7 @@ const MyItems = () => {
   useEffect(() => {
     const mathtradeStored = storeData?.mathtrade;
     if (mathtradeStored && mathtradeStored.IamIn) {
-      const mathTradeId = mathtradeStored.data.id;
-      listItemGroups({ mathTradeId });
+      listItemGroups();
     }
   }, [storeData]);
 
