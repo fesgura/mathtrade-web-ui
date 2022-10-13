@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useApi, BggElementService } from "api";
+import { useApi, BggService } from "api";
 import { Input } from "components/form";
 import { Badge } from "reactstrap";
 import { typeOfElements } from "config";
@@ -29,7 +29,7 @@ const BGGsearch = ({ label, question, onResult = () => {} }) => {
   const [list, setList] = useState(null);
 
   const [searchBGGelements, , loading] = useApi({
-    promise: BggElementService.search,
+    promise: BggService.searchElement,
     forBGG: true,
     afterLoad: (data) => {
       let dataList = [];
@@ -93,12 +93,11 @@ const BGGsearch = ({ label, question, onResult = () => {} }) => {
           type: "boardgame,boardgameexpansion",
           query: inputValue.searchElement,
         });
-      }, 350)
-      return () => clearTimeout(delayDebounceFn)
+      }, 350);
+      return () => clearTimeout(delayDebounceFn);
     } else {
       setList(null);
     }
-
   }, [inputValue]);
 
   return (

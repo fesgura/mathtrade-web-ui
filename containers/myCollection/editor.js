@@ -1,12 +1,12 @@
 import ElementEditorView from "views/myCollection/editor";
-import { useApi, BggElementService, ElementService, ItemService } from "api";
+import { useApi, BggService, ElementService, myCollectionService } from "api";
 import { setItemTitle } from "./utils";
 
 const ElementEditor = ({ objToEdit, onClose, afterAnyChange }) => {
   // BGG ELEMENT
   const [fetchBGGelement, BGGelement, loadingBGGelement, errorMessage] = useApi(
     {
-      promise: BggElementService.get,
+      promise: BggService.getElement,
       forBGG: true,
       format: (data) => {
         if (data && data.items && data.items.item) {
@@ -41,7 +41,7 @@ const ElementEditor = ({ objToEdit, onClose, afterAnyChange }) => {
 
   // DELETE ELEMENT
   const [deleteElement, , loadingDeleteElement, errorDeleteMessage] = useApi({
-    promise: ElementService.delete,
+    promise: ElementService.deleteItem,
     afterLoad: () => {
       onClose();
       afterAnyChange();
@@ -51,7 +51,7 @@ const ElementEditor = ({ objToEdit, onClose, afterAnyChange }) => {
 
   // DELETE ITEM
   const [deleteItem, , loadingDeleteItem, errorDeleteItemMessage] = useApi({
-    promise: ItemService.delete,
+    promise: myCollectionService.deleteItem,
     afterLoad: () => {
       onClose();
       afterAnyChange();

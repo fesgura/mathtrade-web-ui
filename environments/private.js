@@ -2,16 +2,16 @@ import { useState, useEffect } from "react";
 import _ from "lodash";
 import storage from "utils/storage";
 import Router from "next/router";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { publicRoutes } from "config/routes";
-import { useApi, BggUserService, MathTradeService } from "api";
+import { useApi, BggService, MathTradeService } from "api";
 import { setStoreData, setUserBGG, setMathtrade } from "store/slices/storeData";
 
 const PrivateEnv = ({ children }) => {
   const dispatch = useDispatch();
 
   const [getBGGuser] = useApi({
-    promise: BggUserService.get,
+    promise: BggService.getUser,
     forBGG: true,
     afterLoad: (data) => {
       if (data && data.user && data.user.id && data.user.id !== "") {

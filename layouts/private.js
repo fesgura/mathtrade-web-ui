@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
-import Router from "next/router";
-import { publicRoutes } from "config/routes";
 import Head from "next/head";
-import { useApi, BggUserService } from "api";
 import Header from "components/header";
 import Footer from "components/footer";
 import { LoadingPage, LoadingScreen } from "components/loading";

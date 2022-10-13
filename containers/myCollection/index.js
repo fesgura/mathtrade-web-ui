@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import PrivateEnv from "environments/private";
 import MyCollectionView from "views/myCollection";
-import { useApi, ItemService, MathTradeService } from "api";
+import { useApi, myCollectionService, MathTradeService } from "api";
 import { useSelector } from "react-redux";
 import { selectStoreData } from "store/slices/storeData";
 
@@ -24,7 +24,7 @@ const MyCollectionContainer = () => {
   /* END Math Trade */
 
   const [listItems, itemList, loadingItemsList, errorItemsList] = useApi({
-    promise: ItemService.listMyItems,
+    promise: myCollectionService.listItems,
     initialState: [],
     afterLoad: () => {
       const mathtradeStored = storeData?.mathtrade;

@@ -1,24 +1,25 @@
 import { api, setAuth } from "../utils";
+import endpoints from "api/utils/endpoints";
 
 const UserService = {
   login: (data) => {
-    return api.post("api-token-auth/", data);
+    return api.post(endpoints.LOGIN, data);
   },
   create: (data) => {
-    return api.post("api/register/", data);
+    return api.post(endpoints.POST_USER, data);
   },
   // PRIVATE
   get: (id) => {
     setAuth();
-    return api.get("api/users/" + id + "/");
+    return api.get(endpoints.compose("GET_USER", [id]));
   },
   put: (params) => {
     setAuth();
-    return api.put("api/users/" + params.id + "/", params.data);
+    return api.put(endpoints.compose("PUT_USER", [params.id]), params.data);
   },
   changePassword: (data) => {
     setAuth();
-    return api.put("api/change-password/", data);
+    return api.put(endpoints.PUT_PASSWORD, data);
   },
 };
 
