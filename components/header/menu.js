@@ -27,7 +27,7 @@ const MainMenu = ({ storeData }) => {
           const { path, icon, title, children, disabled, bordered } = item;
           const titleComp =
             title === "MT_NAME"
-              ? `Inscribite al MathTrade ${mathTradeName}`
+              ? `Inscribite al Math Trade ${mathTradeName}`
               : title;
           return (
             <li key={k}>

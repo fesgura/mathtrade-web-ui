@@ -5,7 +5,7 @@ const Footer = ({ absolute, className }) => {
     <footer className={classNames("main-footer", { absolute }, className)}>
       <div className="main-container">
         <div className="main-footer_container">
-          Copyright {new Date().getFullYear()} - MathTrade Argentina
+          Copyright {new Date().getFullYear()} - Math Trade Argentina
         </div>
       </div>
     </footer>

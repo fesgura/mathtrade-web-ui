@@ -7,6 +7,7 @@ const ItemContainer = ({
   itemsInMathTradeList = [],
   afterAnyChange = () => {},
   editItem,
+  notShowAddItem,
 }) => {
   const [itemMathTradeData, setItemMathTradeData] = useState(null);
 
@@ -28,6 +29,7 @@ const ItemContainer = ({
       itemMathTradeData={itemMathTradeData}
       afterAnyChange={afterAnyChange}
       editItem={editItem}
+      notShowAddItem={notShowAddItem}
     />
   );
 };

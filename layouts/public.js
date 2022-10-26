@@ -6,7 +6,7 @@ const PublicLayout = ({ title, loading, children }) => {
   return (
     <>
       <Head>
-        <title>{title ? `${title} | ` : ""}MathTrade Argentina</title>
+        <title>{title ? `${title} | ` : ""}Math Trade Argentina</title>
         <link
           rel="apple-touch-icon"
           sizes="57x57"

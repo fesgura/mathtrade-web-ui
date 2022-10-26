@@ -8,7 +8,7 @@ export const LogoImg = ({ className, height = 60 }) => {
     <div className={classNames("main-logo_img", className)}>
       <Image
         src={logoSrc}
-        alt="MathTrade Argentina"
+        alt="Math Trade Argentina"
         width={height}
         height={height}
         priority

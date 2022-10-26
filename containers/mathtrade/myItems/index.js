@@ -7,13 +7,8 @@ import { selectStoreData } from "store/slices/storeData";
 
 const MyItems = () => {
   const storeData = useSelector(selectStoreData);
-  const [
-    listItemGroups,
-    itemGroupList,
-    loadingItemGroupList,
-    errorItemGroupList,
-  ] = useApi({
-    promise: MathTradeService.listMyItemGroups,
+  const [listItems, itemList, loadingItemList, errorItemList] = useApi({
+    promise: MathTradeService.listMyItems,
     initialState: [],
     afterLoad: () => {
       // const mathtradeStored = storeData?.mathtrade;
@@ -27,15 +22,18 @@ const MyItems = () => {
   useEffect(() => {
     const mathtradeStored = storeData?.mathtrade;
     if (mathtradeStored && mathtradeStored.IamIn) {
-      listItemGroups();
+      listItems();
     }
   }, [storeData]);
 
-  //console.log(itemGroupList);
-
   return (
     <PrivateEnv>
-      <MyItemsView />
+      <MyItemsView
+        itemList={itemList}
+        loading={loadingItemList}
+        errors={errorItemList}
+        listItems={listItems}
+      />
     </PrivateEnv>
   );
 };

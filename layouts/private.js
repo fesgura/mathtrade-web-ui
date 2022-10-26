@@ -16,7 +16,7 @@ const PrivateLayout = ({ title, children, loading }) => {
   return (
     <>
       <Head>
-        <title>{title ? `${title} | ` : ""}MathTrade Argentina</title>
+        <title>{title ? `${title} | ` : ""}Math Trade Argentina</title>
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="apple-touch-icon"

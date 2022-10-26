@@ -21,7 +21,7 @@ const Element = ({ item, element, isCombo, onEdit }) => {
               {onEdit ? (
                 <EditBtn
                   onEdit={() => {
-                    onEdit(item, item?.elements[0]);
+                    onEdit(item, element);
                   }}
                 />
               ) : null}

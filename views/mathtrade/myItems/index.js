@@ -1,19 +1,15 @@
 import { useState } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeader from "components/pageHeader";
-import { Col, Row, Modal, ModalBody } from "reactstrap";
+import { Col, Row, Modal, ModalBody, Button } from "reactstrap";
+import LinkInternal from "components/link-internal";
 import ErrorAlert from "components/errorAlert";
 import Item from "containers/myCollection/item";
-import AddItem from "components/pages/myItems/addItem";
 import ElementEditor from "containers/myCollection/editor";
+import AddItem from "containers/mathtrade/myItems/addItem";
 
-const MyItemsView = ({
-  itemList = [],
-  itemsInMathTradeList,
-  loading,
-  errors,
-  listItems,
-}) => {
+const MyItemsView = ({ itemList = [], loading, errors, listItems }) => {
+  const [modalAddOpen, setModalAddOpen] = useState(false);
   const [modalEditOpen, setModalEditOpen] = useState(false);
   const [objToEdit, setObjToEdit] = useState({ item: null, element: null });
 
@@ -27,14 +23,16 @@ const MyItemsView = ({
               itemList.map((itemToShow, k) => {
                 return (
                   <Item
+                    IamInMathTrade={true}
+                    itemsInMathTradeList={itemList}
                     item={itemToShow}
-                    itemsInMathTradeList={itemsInMathTradeList}
                     afterAnyChange={listItems}
                     key={k}
                     editItem={(item, element) => {
                       setObjToEdit({ item, element });
                       setModalEditOpen(true);
                     }}
+                    notShowAddItem={true}
                   />
                 );
               })
@@ -42,32 +40,74 @@ const MyItemsView = ({
               <>
                 {loading ? null : (
                   <div className="item-list_empty">
-                    <p className="lead mb-4">
-                      Crea <b>tu primer item</b>: juego, expansión, combo, etc.
-                      <br />
-                      Luego, podrás agregarlo al <b>Math Trade</b> en curso (y/o
-                      guardarlo para futuros Math Trades.)
+                    <p className="lead mb-4 text-center">
+                      Agregá <b>los items</b> de{" "}
+                      <LinkInternal path="myCollection">
+                        Mi colección
+                      </LinkInternal>{" "}
+                      aquí, para sumarlos a la lista de intercambios.
                     </p>
                   </div>
                 )}
               </>
             )}
             {loading ? null : (
-              <div className="card-comp">
-                <div className="card-comp_body py-3">
-                  {/* <AddItem
-                    onClick={() => {
-                      setObjToEdit({ item: null, element: null });
-                      setModalEditOpen(true);
-                    }}
-                  /> */}
-                </div>
-              </div>
+              <></>
+              // <div className="card-comp">
+              //   <div className="card-comp_body py-3">
+              //     <AddItem
+              //       onClick={() => {
+              //         setObjToEdit({ item: null, element: null });
+              //         setModalEditOpen(true);
+              //       }}
+              //     />
+              //   </div>
+              // </div>
             )}
           </div>
           <ErrorAlert errors={errors} />
+          <div className="text-center pt-1">
+            <Button
+              color="primary"
+              className="mb-2"
+              size="lg"
+              onClick={() => {
+                setModalAddOpen(true);
+              }}
+            >
+              Agregar al Math Trade
+            </Button>
+            <div className="small">
+              <i>
+                (de{" "}
+                <LinkInternal path="myCollection">Mi colección</LinkInternal>)
+              </i>
+            </div>
+          </div>
         </Col>
       </Row>
+
+      <Modal
+        isOpen={modalAddOpen}
+        toggle={() => {
+          setModalAddOpen((v) => !v);
+        }}
+        centered
+        size="lg"
+      >
+        <ModalBody>
+          {modalAddOpen ? (
+            <AddItem
+              onClose={() => {
+                setModalAddOpen(false);
+              }}
+              itemList={itemList}
+              afterAnyChange={listItems}
+            />
+          ) : null}
+        </ModalBody>
+      </Modal>
+
       <Modal
         isOpen={modalEditOpen}
         toggle={() => {

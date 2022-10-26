@@ -11,10 +11,10 @@ const LoginSlider = () => {
       <div className="login-slider-container_float">
         <Slider
           images={[
-            { src: pic1, alt: "MathTrade Argentina" },
-            { src: pic2, alt: "MathTrade Argentina" },
-            { src: pic3, alt: "MathTrade Argentina" },
-            { src: pic4, alt: "MathTrade Argentina" },
+            { src: pic1, alt: "Math Trade Argentina" },
+            { src: pic2, alt: "Math Trade Argentina" },
+            { src: pic3, alt: "Math Trade Argentina" },
+            { src: pic4, alt: "Math Trade Argentina" },
           ]}
         />
       </div>

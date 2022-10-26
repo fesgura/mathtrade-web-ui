@@ -54,7 +54,9 @@ const MathtradeTools_MyItems = ({
                 />
               </Col>
               <Col>
-                {loadingPublishItem ? "Publicando..." : "PUBLICAR en el MT"}
+                {loadingPublishItem
+                  ? "Publicando..."
+                  : "PUBLICAR en el Math Trade"}
               </Col>
             </Row>
           </Button>
@@ -80,7 +82,9 @@ const MathtradeTools_MyItems = ({
                     />
                   </Col>
                   <Col xs="auto">
-                    {loadingPublishItem ? "Quitando..." : "Quitar del MT"}
+                    {loadingPublishItem
+                      ? "Quitando..."
+                      : "Quitar del Math Trade"}
                   </Col>
                 </Row>
               </Button>

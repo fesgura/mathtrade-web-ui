@@ -8,6 +8,7 @@ const Item = ({
   itemMathTradeData,
   afterAnyChange,
   editItem,
+  notShowAddItem,
 }) => {
   return (
     <ItemExtense
@@ -23,7 +24,9 @@ const Item = ({
         ) : null
       }
       onEdit={editItem}
-      footer={<AddItem item={item} onClick={editItem} />}
+      footer={
+        !notShowAddItem ? <AddItem item={item} onClick={editItem} /> : null
+      }
       showUser={false}
     />
   );

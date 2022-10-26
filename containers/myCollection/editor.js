@@ -41,7 +41,7 @@ const ElementEditor = ({ objToEdit, onClose, afterAnyChange }) => {
 
   // DELETE ELEMENT
   const [deleteElement, , loadingDeleteElement, errorDeleteMessage] = useApi({
-    promise: ElementService.deleteItem,
+    promise: ElementService.delete,
     afterLoad: () => {
       onClose();
       afterAnyChange();
