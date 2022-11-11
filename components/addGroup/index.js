@@ -33,19 +33,6 @@ const AddGroup = ({ onCancel, item, group, afterAnyChange }) => {
     },
   });
 
-  /*
-  const [deleteMyItemGroups] = useApi({
-    promise: MathTradeService.deleteMyItemGroups,
-    afterLoad: () => {
-      console.log("ELIMNADO");
-    },
-  });
-
-  useEffect(() => {
-    deleteMyItemGroups({ id: 2 });
-  }, []);
-  */
-
   return (
     <FormAddGroup
       item={item}

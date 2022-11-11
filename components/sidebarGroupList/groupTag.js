@@ -1,4 +1,5 @@
-import { useId, useState, useEffect } from "react";
+import { useState } from "react";
+import { Dropper } from "components/dragNdrop";
 import classNames from "classnames";
 import Icon from "components/icon";
 import AddGroup from "components/addGroup";
@@ -18,32 +19,35 @@ const GroupTag = ({
       <div
         className={classNames("sidebar-group-list_tag", {
           current: groupIdSelected === group.id,
+          child: group.id >= 0,
         })}
         onClick={() => {
           setGroupIdSelected(group.id);
         }}
       >
-        <div
-          className="sidebar-group-list_tag_inner"
-          style={{
-            backgroundColor: group?.color || "#999999",
-            color: getTextColorByBackgroundColor(group?.color || "#999999"),
-          }}
-        >
-          {`${group?.name || "Sin título"} (${count || 0})`}
-          {group.id > 0 ? (
-            <span
-              className="sidebar-group-list_tag_edit"
-              title="Editar"
-              onClick={(e) => {
-                e.stopPropagation();
-                setModalEditOpen(true);
-              }}
-            >
-              <Icon type="pencil" />
-            </span>
-          ) : null}
-        </div>
+        <Dropper accept="item" data={{ group_id: group.id }}>
+          <div
+            className="sidebar-group-list_tag_inner"
+            style={{
+              backgroundColor: group?.color || "#999999",
+              color: getTextColorByBackgroundColor(group?.color || "#999999"),
+            }}
+          >
+            {`${group?.name || "Sin título"} (${count || 0})`}
+            {group.id > 0 ? (
+              <span
+                className="sidebar-group-list_tag_edit"
+                title="Editar"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setModalEditOpen(true);
+                }}
+              >
+                <Icon type="pencil" />
+              </span>
+            ) : null}
+          </div>
+        </Dropper>
       </div>
       {modalEditOpen ? (
         <AddGroup

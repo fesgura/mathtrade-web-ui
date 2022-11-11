@@ -8,22 +8,9 @@ const SidebarGroupList = ({
   groupIdSelected,
   setGroupIdSelected,
   afterAnyChange,
-  itemListTotal,
+  itemListTotal = 0,
 }) => {
   const [modalAddOpen, setModalAddOpen] = useState(false);
-  const [countSinAgrupar, setCountSinAgrupar] = useState(0);
-
-  useEffect(() => {
-    console.log(groups);
-    if (groups) {
-      let countAgrupados = 0;
-      groups.forEach((g) => {
-        countAgrupados += g.items.length;
-      });
-
-      setCountSinAgrupar(itemListTotal - countAgrupados);
-    }
-  }, [groups, itemListTotal]);
 
   return (
     <>
@@ -34,12 +21,12 @@ const SidebarGroupList = ({
             <GroupTag
               group={{
                 id: -1,
-                name: "Sin agrupar",
+                name: "Todos",
                 color: "#FFFFFF",
               }}
               groupIdSelected={groupIdSelected}
               setGroupIdSelected={setGroupIdSelected}
-              count={countSinAgrupar}
+              count={itemListTotal}
             />
             {groups.map((group) => {
               return (
@@ -81,27 +68,3 @@ const SidebarGroupList = ({
 };
 
 export default SidebarGroupList;
-
-/* 
-
-          <hr />
-          <Row>
-            <Col xs={6}>
-              <Dropper accept="item" data={{ saludo: "HOsssLA" }}>
-                <div className="dropper-temp">Dropper</div>
-              </Dropper>
-            </Col>
-            <Col xs={6}>
-              <Dragger
-                type="item"
-                data={{ saluta: "Omar" }}
-                onDrop={(dataDragger, dataDropper) => {
-                  
-                }}
-              >
-                <div className="dragger-temp"></div>
-              </Dragger>
-            </Col>
-          </Row>
-
-          <hr /> */

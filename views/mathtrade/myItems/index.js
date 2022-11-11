@@ -9,13 +9,14 @@ import ElementEditor from "containers/myCollection/editor";
 import AddItem from "containers/mathtrade/myItems/addItem";
 import SidebarGroupList from "components/sidebarGroupList";
 import OrderBy from "components/orderBy";
-import { Dragger, Dropper } from "components/dragNdrop";
+import { Dragger } from "components/dragNdrop";
 
 const MyItemsView = ({
   itemList = [],
   groups = [],
   loading,
   errors,
+  dragToGroup,
   afterAnyChange,
 }) => {
   const [modalAddOpen, setModalAddOpen] = useState(false);
@@ -119,11 +120,10 @@ const MyItemsView = ({
                     data={itemToShow}
                     color="primary"
                     className={"dragger-for-item-extense"}
-                    onDrop={(dataDragger, dataDropper) => {
-                      console.log(dataDragger);
-                      console.log(dataDropper);
+                    onDrop={(item, dataGroup) => {
+                      dragToGroup(dataGroup.group_id, item);
                     }}
-                    title="Arrastra y suelta el item sobre un grupo de la izquierda para agregarlo."
+                    title="Arrastrá y soltá el item sobre un grupo de la izquierda para agregarlo."
                   >
                     <Item
                       IamInMathTrade={true}
@@ -148,11 +148,19 @@ const MyItemsView = ({
                 {loading ? null : (
                   <div className="item-list_empty">
                     <p className="lead mb-4 text-center">
-                      Agregá <b>los items</b> de{" "}
-                      <LinkInternal path="myCollection">
-                        Mi colección
-                      </LinkInternal>{" "}
-                      aquí, para sumarlos a la lista de intercambios.
+                      {groupIdSelected < 0 ? (
+                        <>
+                          Agregá <b>los items</b> de{" "}
+                          <LinkInternal path="myCollection">
+                            Mi colección
+                          </LinkInternal>{" "}
+                          aquí, para sumarlos a la lista de intercambios.
+                        </>
+                      ) : (
+                        <div className="pt-5">
+                          <b>Sin items en este grupo.</b>
+                        </div>
+                      )}
                     </p>
                   </div>
                 )}
@@ -175,27 +183,29 @@ const MyItemsView = ({
           {!loading ? (
             <>
               <ErrorAlert errors={errors} />
-              <div className="text-center pt-1">
-                <Button
-                  color="primary"
-                  className="mb-2"
-                  size="lg"
-                  onClick={() => {
-                    setModalAddOpen(true);
-                  }}
-                >
-                  Agregar al Math Trade
-                </Button>
-                <div className="small">
-                  <i>
-                    (de{" "}
-                    <LinkInternal path="myCollection">
-                      Mi colección
-                    </LinkInternal>
-                    )
-                  </i>
+              {groupIdSelected < 0 ? (
+                <div className="text-center pt-1">
+                  <Button
+                    color="primary"
+                    className="mb-2"
+                    size="lg"
+                    onClick={() => {
+                      setModalAddOpen(true);
+                    }}
+                  >
+                    Agregar al Math Trade
+                  </Button>
+                  <div className="small">
+                    <i>
+                      (de{" "}
+                      <LinkInternal path="myCollection">
+                        Mi colección
+                      </LinkInternal>
+                      )
+                    </i>
+                  </div>
                 </div>
-              </div>
+              ) : null}
             </>
           ) : null}
         </Col>
