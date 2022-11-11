@@ -65,9 +65,9 @@ const MathtradeTools_MyItems = ({
             <Col xs="auto" className="pe-2">
               {" "}
               <Button
-                color="white"
+                color="primary"
                 size="xs"
-                outline
+                style={{ boxShadow: "0 0 3px 1px #FFF" }}
                 onClick={() => {
                   if (!loadingUnpublishItem) {
                     setModalDeleteOpen(true);

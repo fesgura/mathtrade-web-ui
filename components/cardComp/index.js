@@ -3,6 +3,7 @@ import classNames from "classnames";
 
 const CardComp = ({
   className,
+  classNameBody,
   title,
   rightHeader,
   leftHeader,
@@ -28,7 +29,11 @@ const CardComp = ({
           {rightHeader && <Col xs="auto">{rightHeader}</Col>}
         </Row>
       </div>
-      <div className={classNames("card-comp_body", { "with-footer": footer })}>
+      <div
+        className={classNames("card-comp_body", classNameBody, {
+          "with-footer": footer,
+        })}
+      >
         {children}
       </div>
       {footer && <div className="card-comp_footer">{footer}</div>}

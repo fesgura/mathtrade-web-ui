@@ -1,0 +1,81 @@
+.dragger {
+  position: relative;
+  .dragger-handler {
+    $w: 36px;
+    $ws: 4px;
+    $m: 0.2 * ($w - ($ws * 4));
+    opacity: 0.6;
+    cursor: move;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $w;
+    height: $w;
+    //background-color: rgba(0, 0, 0, 0.158);
+    line-height: 0;
+    padding-top: $m;
+    padding-left: $m;
+
+    span {
+      display: inline-block;
+      width: $ws;
+      height: $ws;
+      background-color: #fff;
+      margin-right: $m;
+      margin-bottom: $m;
+      border-radius: 50%;
+    }
+    &.p-primary {
+      opacity: 0.4;
+      span {
+        background-color: $primary;
+      }
+    }
+    &.p-secondary {
+      opacity: 0.4;
+      span {
+        background-color: $secondary;
+      }
+    }
+    &.p-black {
+      opacity: 0.2;
+      span {
+        background-color: #000;
+      }
+    }
+  }
+
+  &.dragging {
+    opacity: 0.2;
+  }
+}
+
+.dragger-for-item-extense {
+  .dragger-handler {
+    top: 5px;
+    left: 5px;
+  }
+}
+
+.dropper {
+  border-radius: 2px;
+  &.available {
+    box-shadow: 0 0 0 6px rgba($primary, 0.3);
+  }
+  &.active {
+    box-shadow: 0 0 0 6px rgba($primary, 0.8);
+  }
+}
+//////
+.dropper-temp {
+  border: 2px solid #000;
+  background-color: rgb(238, 170, 170);
+  height: 400px;
+}
+
+.dragger-temp {
+  border: 2px solid #00f;
+  background-color: rgb(170, 216, 238);
+  height: 200px;
+}

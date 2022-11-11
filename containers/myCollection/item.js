@@ -8,6 +8,10 @@ const ItemContainer = ({
   afterAnyChange = () => {},
   editItem,
   notShowAddItem,
+  withDragger,
+  notHighlated,
+  showGroups,
+  groups,
 }) => {
   const [itemMathTradeData, setItemMathTradeData] = useState(null);
 
@@ -30,6 +34,10 @@ const ItemContainer = ({
       afterAnyChange={afterAnyChange}
       editItem={editItem}
       notShowAddItem={notShowAddItem}
+      withDragger={withDragger}
+      notHighlated={notHighlated}
+      showGroups={showGroups}
+      groups={groups}
     />
   );
 };

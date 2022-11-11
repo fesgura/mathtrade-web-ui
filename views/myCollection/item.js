@@ -9,11 +9,15 @@ const Item = ({
   afterAnyChange,
   editItem,
   notShowAddItem,
+  withDragger,
+  notHighlated,
+  showGroups,
+  groups,
 }) => {
   return (
     <ItemExtense
       item={item}
-      high={itemMathTradeData}
+      high={notHighlated ? false : itemMathTradeData}
       rightHeader={
         IamInMathTrade ? (
           <MT_Tools
@@ -28,6 +32,10 @@ const Item = ({
         !notShowAddItem ? <AddItem item={item} onClick={editItem} /> : null
       }
       showUser={false}
+      withDragger={withDragger}
+      showGroups={showGroups}
+      groups={groups}
+      afterAnyChange={afterAnyChange}
     />
   );
 };

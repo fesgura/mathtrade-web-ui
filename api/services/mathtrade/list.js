@@ -22,6 +22,12 @@ const services = {
       props.query
     );
   },
+  listItemGroups: () => {
+    setAuth();
+    const mathTradeId = getMathtradeId();
+
+    return api.get(endpoints.compose("GET_ITEM_GROUPS", [mathTradeId]));
+  },
 
   //
 };

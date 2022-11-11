@@ -245,3 +245,26 @@ export const getTitleFromItem = (item) => {
 
   return newTitle.substring(3);
 };
+
+const hexToRgb = (hex) => {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
+};
+
+export const getTextColorByBackgroundColor = (bg_color) => {
+  const rgb_bg = hexToRgb(bg_color);
+  if (rgb_bg) {
+    const brightness = Math.round(
+      (rgb_bg.r * 299 + rgb_bg.g * 587 + rgb_bg.b * 114) / 1000
+    );
+    return brightness > 160 ? "#000" : "#FFF";
+  } else {
+    return "#FFF";
+  }
+};

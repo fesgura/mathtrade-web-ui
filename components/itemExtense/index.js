@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { getTitleFromItem } from "utils";
 import CardComp from "components/cardComp";
 import UserBox from "components/userBox";
+import GroupHeader from "components/groupHeader";
 import Element from "./element";
 import EditBtn from "./editBtn";
+import classNames from "classnames";
 
 const ItemExtense = ({
   item,
@@ -14,6 +16,10 @@ const ItemExtense = ({
   showUser = true,
   onEdit,
   inModal,
+  withDragger,
+  showGroups,
+  groups = [],
+  afterAnyChange,
 }) => {
   const [title, setTitle] = useState("");
   const [isCombo, setIsCombo] = useState(false);
@@ -35,14 +41,14 @@ const ItemExtense = ({
     <div className="item-extense">
       <CardComp
         title={
-          <>
+          <div className={classNames({ "with-dragger": withDragger })}>
             {isCombo ? (
               <>
                 <u>Combo</u>:{" "}
               </>
             ) : null}
             {title}
-          </>
+          </div>
         }
         rightHeader={rightHeader}
         leftHeader={
@@ -59,8 +65,16 @@ const ItemExtense = ({
         footer={footer}
         high={high}
         inModal={inModal}
+        classNameBody={showGroups ? "pt-0" : null}
       >
-        {item?.elements.map((element, k) => {
+        {showGroups ? (
+          <GroupHeader
+            item={item}
+            groups={groups}
+            afterAnyChange={afterAnyChange}
+          />
+        ) : null}
+        {item?.elements?.map((element, k) => {
           return (
             <Element
               item={item}

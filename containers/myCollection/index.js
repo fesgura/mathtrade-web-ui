@@ -26,17 +26,23 @@ const MyCollectionContainer = () => {
   const [listItems, itemList, loadingItemsList, errorItemsList] = useApi({
     promise: myCollectionService.listItems,
     initialState: [],
-    afterLoad: () => {
-      const mathtradeStored = storeData?.mathtrade;
-      if (mathtradeStored && mathtradeStored.IamIn) {
-        getMyItemsInMathTrade();
-      }
-    },
+    // afterLoad: () => {
+
+    // },
   });
 
   useEffect(() => {
     listItems();
   }, []);
+
+  useEffect(() => {
+    if (storeData && storeData.mathtrade) {
+      const mathtradeStored = storeData.mathtrade;
+      if (mathtradeStored && mathtradeStored.IamIn) {
+        getMyItemsInMathTrade();
+      }
+    }
+  }, [storeData]);
 
   return (
     <PrivateEnv>

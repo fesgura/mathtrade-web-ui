@@ -59,7 +59,7 @@ This is a starter template for [Learn Next.js](https://nextjs.org/learn).
 <pre>
 {
     "name": "",
-    "thumbnail": "",
+    "color": null,
     "item_ids": []
 }
 </pre>

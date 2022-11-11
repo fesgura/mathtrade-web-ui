@@ -30,13 +30,17 @@ const endpoints = {
   // MATHTRADE: MYITEMS
   GET_MYITEMS: "api/mathtrades/$[0]/user-items/",
   GET_MYITEM_GROUPS: "api/mathtrades/$[0]/user-item-groups/",
+  POST_MYITEM_GROUPS: "api/mathtrades/$[0]/user-item-groups/",
+  PUT_MYITEM_GROUPS: "api/mathtrades/$[0]/user-item-groups/$[1]/",
+  DELETE_MYITEM_GROUPS: "api/mathtrades/$[0]/user-item-groups/$[1]/",
   PUBLISH_ITEM: "api/mathtrades/$[0]/items/",
   UNPUBLISH_ITEM: "api/mathtrades/$[0]/items/$[1]/",
 
   // MATHTRADE: LIST
   GET_GAMES_LIST: "api/mathtrades/$[0]/games/",
   GET_ITEMS_LIST: "api/mathtrades/$[0]/games/",
-  POST_VALUE_ITEMS: "api/items/item-values/",
+  POST_VALUE_ITEMS: "api/item-values/",
+  GET_ITEM_GROUPS: "api/mathtrades/$[0]/user-item-groups/",
 
   // MATHTRADE: MYDATA
   SINGIN_MATHTRADE: "api/mathtrades/$[0]/members/",
