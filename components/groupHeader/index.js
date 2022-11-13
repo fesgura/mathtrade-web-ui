@@ -46,22 +46,23 @@ const GroupHeader = ({ item, groups, afterAnyChange }) => {
                 const newTag = { ...tag };
                 const id = newTag.id;
 
-                const item_ids = newTag.items;
+                const item_ids = [...newTag.item_ids];
                 // .map((i) => {
                 //   return i.id;
                 // });
 
                 delete newTag.id;
-                delete newTag.items;
+                delete newTag.item_ids;
 
                 if (item_ids.includes(item?.id)) {
                   const index = item_ids.indexOf(item.id);
                   item_ids.splice(index, 1);
+                  console.log(item_ids);
                   putMyItemGroup({
                     id,
                     data: {
                       ...newTag,
-                      items: item_ids,
+                      item_ids,
                     },
                   });
                 }

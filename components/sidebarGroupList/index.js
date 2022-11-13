@@ -35,7 +35,7 @@ const SidebarGroupList = ({
                   group={group}
                   groupIdSelected={groupIdSelected}
                   setGroupIdSelected={setGroupIdSelected}
-                  count={group?.items?.length || 0}
+                  count={group?.item_ids?.length || 0}
                   afterAnyChange={afterAnyChange}
                 />
               );

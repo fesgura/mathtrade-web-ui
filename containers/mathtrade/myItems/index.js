@@ -59,20 +59,20 @@ const MyItems = () => {
               });
               if (arrGroup[0]) {
                 const group_to_exit = { ...arrGroup[0] };
-                const items = [...group_to_exit.items];
+                const item_ids = [...group_to_exit.item_ids];
 
                 delete group_to_exit.id;
-                delete group_to_exit.items;
+                delete group_to_exit.item_ids;
 
-                if (items.includes(item?.id)) {
-                  const index = items.indexOf(item.id);
-                  items.splice(index, 1);
+                if (item_ids.includes(item?.id)) {
+                  const index = item_ids.indexOf(item.id);
+                  item_ids.splice(index, 1);
 
                   removeFromMyItemGroup({
                     id: group_id_to_exit,
                     data: {
                       ...group_to_exit,
-                      items,
+                      item_ids,
                     },
                   });
                 }
@@ -87,16 +87,16 @@ const MyItems = () => {
               });
               if (arrGroupNew[0]) {
                 const newGroup = { ...arrGroupNew[0] };
-                const items = newGroup.items;
+                const item_ids = [...newGroup.item_ids];
                 delete newGroup.id;
-                delete newGroup.items;
-                if (!items.includes(item?.id)) {
-                  items.push(item?.id);
+                delete newGroup.item_ids;
+                if (!item_ids.includes(item?.id)) {
+                  item_ids.push(item?.id);
                   putMyItemGroup({
                     id: group_id,
                     data: {
                       ...newGroup,
-                      items,
+                      item_ids,
                     },
                   });
                 }

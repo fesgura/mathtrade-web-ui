@@ -59,9 +59,9 @@ const AddBtn = ({ item, listAlreadyAdded, groups, owner, afterAnyChange }) => {
                   onClick={() => {
                     const newTag = { ...tag };
                     const id = newTag.id;
-                    const item_ids = newTag.items;
+                    const item_ids = [...newTag.item_ids];
                     delete newTag.id;
-                    delete newTag.items;
+                    delete newTag.item_ids;
 
                     if (!item_ids.includes(item?.id)) {
                       item_ids.push(item?.id);
@@ -69,7 +69,7 @@ const AddBtn = ({ item, listAlreadyAdded, groups, owner, afterAnyChange }) => {
                         id,
                         data: {
                           ...newTag,
-                          items: item_ids,
+                          item_ids,
                         },
                       });
                     }

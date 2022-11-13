@@ -45,10 +45,10 @@ const FormAddGroup = ({
           </h4>
           <Form
             onSubmit={(formData) => {
-              const items = group ? group.items : item ? [item.id] : [];
+              const item_ids = group ? group.item_ids : item ? [item.id] : [];
 
               onSubmit({
-                data: { ...formData, items },
+                data: { ...formData, item_ids },
               });
             }}
             validations={validations}
