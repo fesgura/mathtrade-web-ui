@@ -57,7 +57,7 @@ const GroupHeader = ({ item, groups, afterAnyChange }) => {
                 if (item_ids.includes(item?.id)) {
                   const index = item_ids.indexOf(item.id);
                   item_ids.splice(index, 1);
-                  console.log(item_ids);
+
                   putMyItemGroup({
                     id,
                     data: {
