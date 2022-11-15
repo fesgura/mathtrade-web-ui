@@ -56,6 +56,8 @@ const MT_ItemListContainer = () => {
     listWants();
   }, []);
 
+  console.log(list);
+
   return (
     <ItemListView
       list={list}
@@ -86,6 +88,9 @@ const MT_ItemListContainer = () => {
       errors={errors || errorsItemWants}
       afterAnyChange={() => {
         listWants();
+        listItems({
+          query: filters.query,
+        });
         // setFilters((fil) => {
         //   return {
         //     ...fil,

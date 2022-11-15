@@ -10,6 +10,7 @@ import AddItem from "containers/mathtrade/myItems/addItem";
 import SidebarGroupList from "components/sidebarGroupList";
 import OrderBy from "components/orderBy";
 import { Dragger } from "components/dragNdrop";
+import SidebarSticky from "components/sidebarSticky";
 
 const MyItemsView = ({
   itemList = [],
@@ -73,13 +74,15 @@ const MyItemsView = ({
       <PageHeader title="Mis ítems" />
       <Row className="justify-content-center">
         <Col xl={3}>
-          <SidebarGroupList
-            groups={groups}
-            afterAnyChange={afterAnyChange}
-            groupIdSelected={groupIdSelected}
-            setGroupIdSelected={setGroupIdSelected}
-            itemListTotal={itemList.length}
-          />
+          <SidebarSticky>
+            <SidebarGroupList
+              groups={groups}
+              afterAnyChange={afterAnyChange}
+              groupIdSelected={groupIdSelected}
+              setGroupIdSelected={setGroupIdSelected}
+              itemListTotal={itemList.length}
+            />
+          </SidebarSticky>
         </Col>
         <Col xl={8}>
           {itemListOrdered.length ? (

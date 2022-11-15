@@ -7,6 +7,9 @@ import ErrorAlert from "components/errorAlert";
 import Pagination from "components/pagination";
 import OrderBy from "components/orderBy";
 import Filters_MT_Items from "./filters";
+import SidebarSticky from "components/sidebarSticky";
+import SidebarTabs from "components/sidebarTabs";
+import SidebarTagList from "components/sidebarTagList";
 
 const ItemListView = ({
   list,
@@ -58,17 +61,29 @@ const ItemListView = ({
       </Row>
       <Row>
         <Col xs={3}>
-          <Filters_MT_Items
-            filters={filters}
-            setFilters={setFilters}
-            locations={locations.map((loc, k) => {
-              return {
-                text: loc.name,
-                value: loc.name,
-                id: loc.id,
-              };
-            })}
-          />
+          <SidebarSticky>
+            <SidebarTabs
+              tabs={[
+                {
+                  title: "Filtros",
+                  content: (
+                    <Filters_MT_Items
+                      filters={filters}
+                      setFilters={setFilters}
+                      locations={locations.map((loc, k) => {
+                        return {
+                          text: loc.name,
+                          value: loc.name,
+                          id: loc.id,
+                        };
+                      })}
+                    />
+                  ),
+                },
+                { title: "Grupos", content: <SidebarTagList /> },
+              ]}
+            />
+          </SidebarSticky>
         </Col>
         <Col xs={9}>
           <div className="item-list pb-1">

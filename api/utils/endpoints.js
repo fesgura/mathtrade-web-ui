@@ -38,7 +38,7 @@ const endpoints = {
 
   // MATHTRADE: LIST
   GET_GAMES_LIST: "api/mathtrades/$[0]/games/",
-  GET_ITEMS_LIST: "api/mathtrades/$[0]/games/",
+  GET_ITEMS_LIST: "api/mathtrades/$[0]/items/",
   POST_VALUE_ITEMS: "api/item-values/",
   GET_ITEM_GROUPS: "api/mathtrades/$[0]/user-item-groups/",
 

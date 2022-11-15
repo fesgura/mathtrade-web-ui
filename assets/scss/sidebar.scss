@@ -1,0 +1,46 @@
+.sidebar-sticky {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
+}
+
+.sidebar-tabs {
+  .sidebar-tabs_header {
+    display: flex;
+    border-bottom: 1px solid #aaa;
+
+    .sidebar-tabs_header_tab {
+      padding: 0 1em;
+      line-height: 1.8em;
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: 5px 5px 0 0;
+      position: relative;
+      top: 1px;
+      cursor: pointer;
+      opacity: 0.6;
+      transition: all 0.1s;
+
+      &.current {
+        border-color: #aaa;
+        background-color: $bg-body;
+        cursor: default;
+        opacity: 1;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  .sidebar-tabs_body {
+    .sidebar-tabs_body_tab {
+      display: none;
+      &.current {
+        display: block;
+      }
+    }
+  }
+}

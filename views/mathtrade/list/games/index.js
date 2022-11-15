@@ -8,6 +8,7 @@ import ErrorAlert from "components/errorAlert";
 import Pagination from "components/pagination";
 import OrderBy from "components/orderBy";
 import Filters_MT_Games from "./filters";
+import SidebarSticky from "components/sidebarSticky";
 
 const GameListView = ({ list, filters, setFilters, loading, errors }) => {
   const [viewType, setViewType] = useState(0);
@@ -51,7 +52,9 @@ const GameListView = ({ list, filters, setFilters, loading, errors }) => {
       </Row>
       <Row>
         <Col xs={3}>
-          <Filters_MT_Games filters={filters} setFilters={setFilters} />
+          <SidebarSticky>
+            <Filters_MT_Games filters={filters} setFilters={setFilters} />
+          </SidebarSticky>
         </Col>
         <Col xs={9}>
           <div className="game-list">
