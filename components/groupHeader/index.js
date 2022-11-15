@@ -76,7 +76,6 @@ const GroupHeader = ({ item, groups, afterAnyChange }) => {
             item={item}
             listAlreadyAdded={itemGroups}
             groups={groups}
-            owner={item?.owner}
             afterAnyChange={afterAnyChange}
           />
         )}

@@ -20,6 +20,8 @@ const MainMenu = ({ storeData }) => {
     }
   }, [storeData]);
 
+  // console.log("storeData", storeData);
+
   return (
     <menu className="main-menu">
       <ul>

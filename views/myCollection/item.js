@@ -1,6 +1,7 @@
 import ItemExtense from "components/itemExtense";
 import MT_Tools from "components/MathtradeTools/my-items";
 import AddItem from "components/pages/myItems/addItem";
+import GroupHeader from "components/groupHeader";
 
 const Item = ({
   IamInMathTrade,
@@ -33,9 +34,15 @@ const Item = ({
       }
       showUser={false}
       withDragger={withDragger}
-      showGroups={showGroups}
-      groups={groups}
-      afterAnyChange={afterAnyChange}
+      groupHeader={
+        showGroups ? (
+          <GroupHeader
+            item={item}
+            groups={groups}
+            afterAnyChange={afterAnyChange}
+          />
+        ) : null
+      }
     />
   );
 };

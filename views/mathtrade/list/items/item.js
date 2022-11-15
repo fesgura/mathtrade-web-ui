@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import ItemExtense from "components/itemExtense";
 import MT_tools from "components/MathtradeTools/item-list";
+import GroupTagHeader from "components/groupTagHeader";
 
 const MT_ItemListViewItem = ({ item, afterAnyChange, itemWants }) => {
   const [wantInfo, setWantInfo] = useState(null);
@@ -28,6 +29,14 @@ const MT_ItemListViewItem = ({ item, afterAnyChange, itemWants }) => {
           item={item}
           afterAnyChange={afterAnyChange}
           wantInfo={wantInfo}
+        />
+      }
+      withDragger
+      groupHeader={
+        <GroupTagHeader
+          item={item}
+          groups={[]}
+          afterAnyChange={afterAnyChange}
         />
       }
     />

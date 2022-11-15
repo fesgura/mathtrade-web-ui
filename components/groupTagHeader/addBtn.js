@@ -97,6 +97,7 @@ const AddBtn = ({ item, listAlreadyAdded, groups, afterAnyChange }) => {
           onCancel={() => {
             setModalAddOpen(false);
           }}
+          forNotOwnItems
           afterAnyChange={afterAnyChange}
         />
       ) : null}

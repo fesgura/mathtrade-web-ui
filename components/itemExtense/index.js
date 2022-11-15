@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { getTitleFromItem } from "utils";
 import CardComp from "components/cardComp";
 import UserBox from "components/userBox";
-import GroupHeader from "components/groupHeader";
 import Element from "./element";
 import EditBtn from "./editBtn";
 import classNames from "classnames";
@@ -17,9 +16,7 @@ const ItemExtense = ({
   onEdit,
   inModal,
   withDragger,
-  showGroups,
-  groups = [],
-  afterAnyChange,
+  groupHeader,
 }) => {
   const [title, setTitle] = useState("");
   const [isCombo, setIsCombo] = useState(false);
@@ -65,15 +62,9 @@ const ItemExtense = ({
         footer={footer}
         high={high}
         inModal={inModal}
-        classNameBody={showGroups ? "pt-0" : null}
+        classNameBody={groupHeader ? "pt-0" : null}
       >
-        {showGroups ? (
-          <GroupHeader
-            item={item}
-            groups={groups}
-            afterAnyChange={afterAnyChange}
-          />
-        ) : null}
+        {groupHeader}
         {item?.elements?.map((element, k) => {
           return (
             <Element

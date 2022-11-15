@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import PrivateEnv from "environments/private";
 import { useRouter } from "next/router";
 import { useApi, MathTradeService, LocationService } from "api";
 import { getUniqueId } from "utils";
@@ -59,46 +60,48 @@ const MT_ItemListContainer = () => {
   console.log(list);
 
   return (
-    <ItemListView
-      list={list}
-      itemWants={itemWants}
-      filters={filters}
-      locations={dataLocations}
-      setFilters={(filterInput) => {
-        const newFilters = {
-          ...filters,
-          query: {
-            ...filters.query,
-            ...filterInput,
-          },
-          d: getUniqueId(),
-        };
-        for (let a in newFilters.query) {
-          if (typeof newFilters.query[a] === "undefined") {
-            delete newFilters.query[a];
+    <PrivateEnv>
+      <ItemListView
+        list={list}
+        itemWants={itemWants}
+        filters={filters}
+        locations={dataLocations}
+        setFilters={(filterInput) => {
+          const newFilters = {
+            ...filters,
+            query: {
+              ...filters.query,
+              ...filterInput,
+            },
+            d: getUniqueId(),
+          };
+          for (let a in newFilters.query) {
+            if (typeof newFilters.query[a] === "undefined") {
+              delete newFilters.query[a];
+            }
           }
-        }
-        setFilters(newFilters);
-        router.push({
-          path: newFilters.path,
-          query: newFilters.query,
-        });
-      }}
-      loading={loading || loadingItemWants}
-      errors={errors || errorsItemWants}
-      afterAnyChange={() => {
-        listWants();
-        listItems({
-          query: filters.query,
-        });
-        // setFilters((fil) => {
-        //   return {
-        //     ...fil,
-        //     d: getUniqueId(),
-        //   };
-        // });
-      }}
-    />
+          setFilters(newFilters);
+          router.push({
+            path: newFilters.path,
+            query: newFilters.query,
+          });
+        }}
+        loading={loading || loadingItemWants}
+        errors={errors || errorsItemWants}
+        afterAnyChange={() => {
+          listWants();
+          listItems({
+            query: filters.query,
+          });
+          // setFilters((fil) => {
+          //   return {
+          //     ...fil,
+          //     d: getUniqueId(),
+          //   };
+          // });
+        }}
+      />
+    </PrivateEnv>
   );
 };
 export default MT_ItemListContainer;

@@ -126,7 +126,7 @@ const MyItemsView = ({
                     onDrop={(item, dataGroup) => {
                       dragToGroup(dataGroup.group_id, item);
                     }}
-                    title="Arrastrá y soltá el item sobre un grupo de la izquierda para agregarlo."
+                    title="Arrastrá y soltá el item sobre un grupo de la izquierda para agregar a un grupo."
                   >
                     <Item
                       IamInMathTrade={true}

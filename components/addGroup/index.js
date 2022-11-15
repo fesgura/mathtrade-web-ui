@@ -2,7 +2,13 @@
 import FormAddGroup from "./form";
 import { useApi, MathTradeService } from "api";
 
-const AddGroup = ({ onCancel, item, group, afterAnyChange }) => {
+const AddGroup = ({
+  onCancel,
+  item,
+  group,
+  forNotOwnItems,
+  afterAnyChange,
+}) => {
   const [postMyItemGroup, , loadingMyItemGroup, errorMyItemGroup] = useApi({
     promise: MathTradeService.postMyItemGroups,
     afterLoad: () => {
