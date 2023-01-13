@@ -3,7 +3,7 @@ import Qs from "qs";
 import storage from "utils/storage";
 
 const apiHost =
-  process.env.NEXT_PUBLIC_API_HOST || "https://mathtrade-back.herokuapp.com/";
+  process.env.NEXT_PUBLIC_API_HOST || "https://api.mathtrade.com.ar/";
 
 export const api = create({
   timeout: 60000,
