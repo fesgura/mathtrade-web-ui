@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useApi, BggService } from "api";
+import { useApi, BggService } from "api_serv";
 import { Input } from "components/form";
 import { Badge } from "reactstrap";
 import { typeOfElements } from "config";

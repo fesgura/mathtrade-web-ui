@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import PrivateEnv from "environments/private";
 import { useRouter } from "next/router";
-import { useApi, MathTradeService } from "api";
+import { useApi, MathTradeService } from "api_serv";
 import { getUniqueId } from "utils";
 import GameListView from "views/mathtrade/list/games";
 

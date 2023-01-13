@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import PrivateEnv from "environments/private";
 import MyCollectionView from "views/myCollection";
-import { useApi, myCollectionService, MathTradeService } from "api";
+import { useApi, myCollectionService, MathTradeService } from "api_serv";
 import { useSelector } from "react-redux";
 import { selectStoreData } from "store/slices/storeData";
 

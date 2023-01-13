@@ -1,5 +1,5 @@
 import { Button } from "reactstrap";
-import { useApi, BggService } from "api";
+import { useApi, BggService } from "api_serv";
 import Icon from "components/icon";
 
 const TestBGGuser = ({ username, onValidateUser, onGetAvatar }) => {

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import RegisterView from "views/register";
 import PublicEnv from "environments/public";
-import { useApi, LocationService, UserService } from "api";
+import { useApi, LocationService, UserService } from "api_serv";
 
 const RegisterContainer = ({ verifingAuth, onGetCaptcha }) => {
   const [dataInitial, set_dataInitial] = useState(null);

@@ -1,5 +1,10 @@
 import ElementEditorView from "views/myCollection/editor";
-import { useApi, BggService, ElementService, myCollectionService } from "api";
+import {
+  useApi,
+  BggService,
+  ElementService,
+  myCollectionService,
+} from "api_serv";
 import { setItemTitle } from "./utils";
 
 const ElementEditor = ({ objToEdit, onClose, afterAnyChange }) => {

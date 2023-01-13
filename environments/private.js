@@ -4,7 +4,7 @@ import storage from "utils/storage";
 import Router from "next/router";
 import { useDispatch } from "react-redux";
 import { publicRoutes } from "config/routes";
-import { useApi, BggService, MathTradeService } from "api";
+import { useApi, BggService, MathTradeService } from "api_serv";
 import { setStoreData, setUserBGG, setMathtrade } from "store/slices/storeData";
 
 const PrivateEnv = ({ children }) => {

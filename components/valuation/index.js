@@ -8,7 +8,7 @@ import {
   DropdownItem,
 } from "reactstrap";
 import Question from "components/question";
-import { useApi, MathTradeService } from "api";
+import { useApi, MathTradeService } from "api_serv";
 
 const minValue = 0;
 const maxValue = 10;

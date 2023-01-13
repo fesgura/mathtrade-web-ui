@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Router from "next/router";
 import PrivateEnv from "environments/private";
 import MyDataView from "views/mathtrade/myData";
-import { useApi, LocationService, MathTradeService } from "api";
+import { useApi, LocationService, MathTradeService } from "api_serv";
 
 import storage from "utils/storage";
 import { useSelector } from "react-redux";

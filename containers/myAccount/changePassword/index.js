@@ -1,5 +1,5 @@
 import ChangePasswordView from "views/myAccount/changePassword";
-import { useApi, UserService } from "api";
+import { useApi, UserService } from "api_serv";
 import Router from "next/router";
 import { publicRoutes } from "config/routes";
 import storage from "utils/storage";

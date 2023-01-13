@@ -1,5 +1,5 @@
 import { api } from "../utils";
-import endpoints from "api/utils/endpoints";
+import endpoints from "api_serv/utils/endpoints";
 
 const LocationService = {
   getList: () => {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import AddItemView from "views/mathtrade/myItems/addItem";
-import { useApi, myCollectionService, MathTradeService } from "api";
+import { useApi, myCollectionService, MathTradeService } from "api_serv";
 
 const AddItem = ({ onClose, itemList, afterAnyChange }) => {
   const [items, seItems] = useState([]);
