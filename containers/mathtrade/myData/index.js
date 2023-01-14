@@ -27,38 +27,49 @@ const MT_MyDataContainer = () => {
     initialState: {},
   });
 
-  const [getMathTrade, , loadingGetMathTrade] = useApi({
-    promise: MathTradeService.listMathTrades,
-    afterLoad: (data) => {
-      if (data && data.length) {
-        const mathtradeActiveArray = data.filter((mt) => {
-          return mt.active;
-        });
-        const mathtrade = mathtradeActiveArray[0] || null;
-        if (mathtrade) {
-          storage.setToStorage({ "mathtrade.data": mathtrade });
-        } else {
-          storage.setToStorage({ "mathtrade.data": null });
-        }
-      } else {
-        storage.setToStorage({ "mathtrade.data": null });
-      }
-      setTimeout(() => {
-        const newMathtradeStored = storeData?.mathtrade;
+  // const [getMathTrade, , loadingGetMathTrade] = useApi({
+  //   promise: MathTradeService.listMathTrades,
+  //   afterLoad: (data) => {
+  //     if (data && data.length) {
+  //       const mathtradeActiveArray = data.filter((mt) => {
+  //         return mt.active;
+  //       });
+  //       const mathtrade = mathtradeActiveArray[0] || null;
+  //       if (mathtrade) {
+  //         storage.setToStorage({ "mathtrade.data": mathtrade });
+  //       } else {
+  //         storage.setToStorage({ "mathtrade.data": null });
+  //       }
+  //     } else {
+  //       storage.setToStorage({ "mathtrade.data": null });
+  //     }
+  //     setTimeout(() => {
+  //       const newMathtradeStored = storeData?.mathtrade;
 
-        if (newMathtradeStored.IamIn) {
-          fetchMathTradeUser({
-            userId: newMathtradeStored.memberId,
-          });
-        }
-        set_mathtradeData(newMathtradeStored);
-      }, 200);
-    },
-  });
+  //       if (newMathtradeStored.IamIn) {
+  //         fetchMathTradeUser({
+  //           userId: newMathtradeStored.memberId,
+  //         });
+  //       }
+  //       set_mathtradeData(newMathtradeStored);
+  //     }, 200);
+  //   },
+  // });
+  useEffect(() => {
+    if (storeData?.mathtrade) {
+      set_mathtradeData(storeData?.mathtrade);
+    }
+    if (storeData?.mathtrade?.IamIn && storeData?.mathtrade?.memberId) {
+      fetchMathTradeUser({
+        userId: storeData.mathtrade.memberId,
+      });
+    }
+  }, [storeData]);
 
   const [signMathTrade, , loadingSignMathTrade, errorSignMathTrade] = useApi({
     promise: MathTradeService.signInMathTrade,
     afterLoad: (data) => {
+      storage.setMathtradeIamIn(true);
       Router.reload(window.location.pathname);
     },
   });
@@ -81,6 +92,7 @@ const MT_MyDataContainer = () => {
   ] = useApi({
     promise: MathTradeService.cancelMemberMathTrade,
     afterLoad: (data) => {
+      storage.setMathtradeIamIn(false);
       Router.reload(window.location.pathname);
     },
   });
@@ -88,7 +100,7 @@ const MT_MyDataContainer = () => {
   //////////////////////
   useEffect(() => {
     fetchLocations();
-    getMathTrade();
+    //getMathTrade();
     //
   }, []);
 
@@ -102,7 +114,7 @@ const MT_MyDataContainer = () => {
         loading={
           loadingMathTradeUser ||
           loadingSignMathTrade ||
-          loadingGetMathTrade ||
+          // loadingGetMathTrade ||
           loadingEditMemberMathTrade ||
           loadingCancelMemberMathTrade
         }

@@ -133,6 +133,13 @@ storage.setToOptions = (opts) => {
   }
   storage.setOptions(optionStored);
 };
+storage.setMathtradeIamIn = (status) => {
+  const store = storage.get() || { ...defaultModel };
+  if (store.mathtrade) {
+    store.mathtrade.IamIn = status;
+    storage.set(store);
+  }
+};
 storage.getFromOptions = (itemName) => {
   const optionStored = storage.getOptions();
 
