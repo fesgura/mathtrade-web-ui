@@ -57,8 +57,6 @@ const MT_ItemListContainer = () => {
     listWants();
   }, []);
 
-  console.log(list);
-
   return (
     <PrivateEnv>
       <ItemListView

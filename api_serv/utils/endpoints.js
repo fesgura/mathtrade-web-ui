@@ -50,6 +50,19 @@ const endpoints = {
   // MATHTRADE: MYWANTS
   MYWANTS: "api/mathtrades/$[0]/user-wants/",
   POST_MYWANTS: "api/mathtrades/$[0]/user-wants/",
+
+  // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/
+  // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/1/
+  /*
+  {
+    "name": "",
+    "bgg_id": "",
+    "want_ids": [],
+    "item_ids": []
+}
+  
+  
+  */
 };
 
 endpoints.compose = (type, args) => {

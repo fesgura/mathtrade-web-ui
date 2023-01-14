@@ -38,9 +38,6 @@ const MyDataView = ({
   const [currentLocation, setCurrentLocation] = useState(null);
   const [modalExit, setModalExit] = useState(false);
 
-  console.log("mathtradeData", mathtradeData);
-  console.log("MathTradeUserInitial", MathTradeUserInitial);
-
   const onChangeLocation = useCallback(
     (locationId) => {
       const newLocation = getLocationById(locationId, dataLocations);
