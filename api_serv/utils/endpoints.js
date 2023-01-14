@@ -19,7 +19,7 @@ const endpoints = {
   DELETE_ELEMENT: "api/elements/$[0]/",
 
   // BGG
-  GET_USER: "user?name=$[0]",
+  GET_USER_BGG: "user?name=$[0]",
   GET_ELEMENT: "thing",
   SEARCH_ELEMENT: "search",
 

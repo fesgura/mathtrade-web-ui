@@ -7,7 +7,7 @@ const service = {
       return;
     }
     return apiBGG.get(
-      endpoints.compose("GET_USER", [encodeURIComponent(username)])
+      endpoints.compose("GET_USER_BGG", [encodeURIComponent(username)])
     );
   },
 };
