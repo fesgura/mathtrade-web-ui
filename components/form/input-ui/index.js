@@ -85,6 +85,7 @@ const InputComp = ({
   const [isFocus, setIsFocus] = useState(false);
   const [waitBlur, setWaitBlur] = useState(false);
   const inputDropRef = useRef(null);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     if (startFocus && inputDropRef && inputDropRef.current) {
@@ -92,6 +93,12 @@ const InputComp = ({
       setIsFocus(true);
     }
   }, [inputDropRef, startFocus]);
+
+  useEffect(() => {
+    if (startFocus && inputRef && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [inputRef, startFocus]);
 
   useEffect(() => {
     //let timer = null;
@@ -443,6 +450,7 @@ const InputComp = ({
             )}
             readOnly={readOnly}
             disabled={disabled}
+            ref={inputRef}
             {...rest}
           />
         </InputGroup>

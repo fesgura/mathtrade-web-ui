@@ -31,17 +31,18 @@ const MyCollectionContainer = () => {
     // },
   });
 
-  useEffect(() => {
+  const afterAnyChange = () => {
     listItems();
-  }, []);
-
-  useEffect(() => {
     if (storeData && storeData.mathtrade) {
       const mathtradeStored = storeData.mathtrade;
       if (mathtradeStored && mathtradeStored.IamIn) {
         getMyItemsInMathTrade();
       }
     }
+  };
+
+  useEffect(() => {
+    afterAnyChange();
   }, [storeData]);
 
   return (
@@ -52,7 +53,7 @@ const MyCollectionContainer = () => {
         itemsInMathTradeList={itemsInMathTradeList}
         loading={loadingItemsList || loadingItemsInMathTradeList}
         errors={errorItemsList || errorItemsInMathTradeList}
-        listItems={listItems}
+        afterAnyChange={afterAnyChange}
       />
     </PrivateEnv>
   );

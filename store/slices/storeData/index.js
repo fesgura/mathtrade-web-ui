@@ -32,11 +32,19 @@ export const storeData = createSlice({
     setMathtrade: (state, action) => {
       state.st.mathtrade = action.payload;
     },
+    clearStoreData: (state) => {
+      state.st = initialState.st;
+    },
   },
 });
 
-export const { setStoreData, setUserData, setUserBGG, setMathtrade } =
-  storeData.actions;
+export const {
+  setStoreData,
+  setUserData,
+  setUserBGG,
+  setMathtrade,
+  clearStoreData,
+} = storeData.actions;
 
 export const selectStoreData = (state) => state.storeData.st;
 

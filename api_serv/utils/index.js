@@ -27,6 +27,12 @@ export const setAuth = () => {
     }
   }
 };
+
+export const setLogoutAPI = () => {
+  api.setHeaders({
+    Authorization: null,
+  });
+};
 export const getMathtradeId = () => {
   const mathtrade = storage.getFromStore("mathtrade");
   return mathtrade ? mathtrade.data.id : "";

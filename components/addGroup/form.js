@@ -59,6 +59,7 @@ const FormAddGroup = ({
               <Col>
                 <Input
                   data={{ name }}
+                  startFocus={true}
                   validations={validations}
                   validationStatus={validationStatus}
                   setValidationStatus={setValidationStatus}

@@ -55,6 +55,8 @@ const ElementEdit = ({
   const [bgg_id, set_bgg_id] = useState(element.bgg_id);
   const [bgg_version_id, set_bgg_version_id] = useState(element.bgg_version_id);
 
+  console.log("bgg_version_id", bgg_version_id);
+
   const [dependency, set_dependency] = useState({
     value: "",
     votes: "",
@@ -210,78 +212,78 @@ const ElementEdit = ({
                       ) : null
                     }
                   />
-                  <Row>
-                    <Col>
+                  {bgg_version_id ? (
+                    <>
+                      <Row>
+                        <Col>
+                          <Input
+                            data={data}
+                            validations={validations}
+                            validationStatus={validationStatus}
+                            setValidationStatus={setValidationStatus}
+                            type="select-multiple"
+                            options={languageList}
+                            label="Idioma"
+                            name="language"
+                            readOnly={bgg_version_id !== "other"}
+                          />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col lg={8} xs={7}>
+                          <Input
+                            data={data}
+                            validations={validations}
+                            validationStatus={validationStatus}
+                            setValidationStatus={setValidationStatus}
+                            label="Editorial"
+                            name="publisher"
+                            readOnly={bgg_version_id !== "other"}
+                          />
+                        </Col>
+                        <Col lg={4} xs={5}>
+                          <Input
+                            data={data}
+                            validations={validations}
+                            validationStatus={validationStatus}
+                            setValidationStatus={setValidationStatus}
+                            label="Año"
+                            type="number"
+                            min="1"
+                            max={maxYear}
+                            name="year"
+                            readOnly={bgg_version_id !== "other"}
+                          />
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md={6}>
+                          <Input
+                            data={data}
+                            validations={validations}
+                            validationStatus={validationStatus}
+                            setValidationStatus={setValidationStatus}
+                            label="Estado"
+                            name="status"
+                            type="select"
+                            options={statusList}
+                          />
+                        </Col>
+                      </Row>
                       <Input
                         data={data}
                         validations={validations}
                         validationStatus={validationStatus}
                         setValidationStatus={setValidationStatus}
-                        type="select-multiple"
-                        options={languageList}
-                        label="Idioma"
-                        name="language"
-                        readOnly={
-                          bgg_version_id !== "other" && bgg_version_id !== ""
-                        }
+                        label="Comentario"
+                        textSize={500}
+                        name="comment"
+                        type="textarea"
                       />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col lg={8} xs={7}>
-                      <Input
-                        data={data}
-                        validations={validations}
-                        validationStatus={validationStatus}
-                        setValidationStatus={setValidationStatus}
-                        label="Editorial"
-                        name="publisher"
-                        readOnly={
-                          bgg_version_id !== "other" && bgg_version_id !== ""
-                        }
-                      />
-                    </Col>
-                    <Col lg={4} xs={5}>
-                      <Input
-                        data={data}
-                        validations={validations}
-                        validationStatus={validationStatus}
-                        setValidationStatus={setValidationStatus}
-                        label="Año"
-                        type="number"
-                        min="1"
-                        max={maxYear}
-                        name="year"
-                        readOnly={
-                          bgg_version_id !== "other" && bgg_version_id !== ""
-                        }
-                      />
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md={6}>
-                      <Input
-                        data={data}
-                        validations={validations}
-                        validationStatus={validationStatus}
-                        setValidationStatus={setValidationStatus}
-                        label="Estado"
-                        name="status"
-                        type="select"
-                        options={statusList}
-                      />
-                    </Col>
-                  </Row>
-                  <Input
-                    data={data}
-                    validations={validations}
-                    validationStatus={validationStatus}
-                    setValidationStatus={setValidationStatus}
-                    label="Comentario"
-                    textSize={500}
-                    name="comment"
-                    type="textarea"
-                  />
+                    </>
+                  ) : (
+                    <div className="bgg_version_id_null-spacer" />
+                  )}
                   {errorMessage ? (
                     <Alert color="danger" className="text-center">
                       {errorMessage}
@@ -300,7 +302,11 @@ const ElementEdit = ({
                     >
                       Cancelar
                     </Button>
-                    <Button color="primary" type="submit">
+                    <Button
+                      color="primary"
+                      type="submit"
+                      disabled={!bgg_version_id}
+                    >
                       {create ? "Agregar" : "Guardar cambios"}
                     </Button>
                   </div>

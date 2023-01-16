@@ -15,7 +15,7 @@ const MyCollectionView = ({
   itemsInMathTradeList,
   loading,
   errors,
-  listItems,
+  afterAnyChange,
 }) => {
   const [modalEditOpen, setModalEditOpen] = useState(false);
   const [objToEdit, setObjToEdit] = useState({ item: null, element: null });
@@ -52,7 +52,7 @@ const MyCollectionView = ({
   return (
     <PrivateLayout loading={loading}>
       <InviteRegisterMT />
-      <PageHeader title="Mi collección" />
+      <PageHeader title="Mi colección" />
       <Row className="justify-content-center">
         <Col xl={8}>
           {itemListOrdered.length ? (
@@ -89,7 +89,7 @@ const MyCollectionView = ({
                     item={itemToShow}
                     IamInMathTrade={IamInMathTrade}
                     itemsInMathTradeList={itemsInMathTradeList}
-                    afterAnyChange={listItems}
+                    afterAnyChange={afterAnyChange}
                     key={k}
                     editItem={(item, element) => {
                       setObjToEdit({ item, element });
@@ -142,7 +142,7 @@ const MyCollectionView = ({
             onClose={() => {
               setModalEditOpen(false);
             }}
-            afterAnyChange={listItems}
+            afterAnyChange={afterAnyChange}
           />
         </ModalBody>
       </Modal>
