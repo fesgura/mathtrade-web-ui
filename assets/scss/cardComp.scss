@@ -1,7 +1,7 @@
 .card-comp {
   background-color: #fff;
   margin-bottom: 20px;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.07);
 
   .card-comp_header {
     $border-radius-header: $border-radius - 2px;
@@ -49,6 +49,11 @@
       border-bottom-color: $mathtrade;
     }
   }
+
+  &.variant-1 {
+    border-radius: 15px;
+  }
+
   &.inModal {
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15);
     border-radius: $border-radius;

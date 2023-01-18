@@ -68,15 +68,15 @@ const MT_GameListContainer = () => {
         }}
         loading={loading}
         errors={errors}
-        // afterAnyChange={() => {
-        //   listWants();
-        //   setFilters((fil) => {
-        //     return {
-        //       ...fil,
-        //       d: getUniqueId(),
-        //     };
-        //   });
-        // }}
+        afterAnyChange={() => {
+          // listWants();
+          setFilters((fil) => {
+            return {
+              ...fil,
+              d: getUniqueId(),
+            };
+          });
+        }}
       />
     </PrivateEnv>
   );

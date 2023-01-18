@@ -3,3 +3,12 @@
     opacity: 0.5;
   }
 }
+.item-minimal_wrap {
+  padding: 4px;
+  border-bottom: 1px solid $border-color;
+  &.selected {
+    background-color: $mathtrade-bg-1;
+  }
+}
+.my-item-minimal {
+}

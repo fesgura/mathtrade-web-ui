@@ -1,11 +1,14 @@
 import classNames from "classnames";
 
-const Thumbnail = ({ src = "", className, width, noRadius }) => {
+const Thumbnail = ({ src = "", className, width, height, noRadius }) => {
   let style = null;
-  if (width || noRadius) {
+  if (width || noRadius || height) {
     style = {};
     if (width) {
       style.width = width;
+    }
+    if (height) {
+      style.height = height;
     }
     if (noRadius) {
       style.borderRadius = 0;
@@ -14,11 +17,7 @@ const Thumbnail = ({ src = "", className, width, noRadius }) => {
 
   return (
     <div className={classNames("thumbnail", className)} style={style}>
-      {src ? (
-        <img src={src} alt="" style={style} />
-      ) : (
-        <div className="img_placeholder" style={style} />
-      )}
+      {src ? <img src={src} alt="" /> : <div className="img_placeholder" />}
     </div>
   );
 };

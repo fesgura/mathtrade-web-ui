@@ -5,11 +5,7 @@ import Valuation from "components/valuation";
 import { Col, Row, Modal, ModalBody, Button } from "reactstrap";
 import { useApi, MathTradeService } from "api_serv";
 
-const MathtradeTools_MyItems = ({
-  item,
-  itemMathTradeData,
-  afterAnyChange,
-}) => {
+const PublishInMT = ({ item, itemMathTradeData, afterAnyChange }) => {
   if (!item) {
     return null;
   }
@@ -137,4 +133,4 @@ const MathtradeTools_MyItems = ({
   );
 };
 
-export default MathtradeTools_MyItems;
+export default PublishInMT;

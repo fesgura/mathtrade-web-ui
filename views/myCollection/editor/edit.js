@@ -55,8 +55,6 @@ const ElementEdit = ({
   const [bgg_id, set_bgg_id] = useState(element.bgg_id);
   const [bgg_version_id, set_bgg_version_id] = useState(element.bgg_version_id);
 
-  console.log("bgg_version_id", bgg_version_id);
-
   const [dependency, set_dependency] = useState({
     value: "",
     votes: "",

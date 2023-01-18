@@ -121,7 +121,7 @@ const MyItemsView = ({
                     key={`${itemToShow?.id}-${k}`}
                     type="item"
                     data={itemToShow}
-                    color="primary"
+                    color="white"
                     className={"dragger-for-item-extense"}
                     onDrop={(item, dataGroup) => {
                       dragToGroup(dataGroup.group_id, item);
@@ -139,7 +139,7 @@ const MyItemsView = ({
                       }}
                       notShowAddItem={true}
                       withDragger
-                      notHighlated
+                      // notHighlated
                       showGroups
                       groups={groups}
                     />

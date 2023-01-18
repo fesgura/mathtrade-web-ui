@@ -1,6 +1,5 @@
 import GameQuadCard from "components/gameQuadCard";
-import MT_tools from "components/MathtradeTools/game-list";
-import { Col, Row } from "reactstrap";
+import WantEditor from "components/wantEditor";
 
 const Game_in_list = ({ game, afterAnyChange }) => {
   /*
@@ -25,16 +24,15 @@ const Game_in_list = ({ game, afterAnyChange }) => {
       game={game}
       //wanted={wantInfo !== null}
       wanted={false}
-      footer={
-        <Row className="justify-content-center">
-          <Col xs="auto">
-            <MT_tools
-              game={game}
-              afterAnyChange={afterAnyChange}
-              // wantInfo={wantInfo}
-            />
-          </Col>
-        </Row>
+      rightHeader={
+        <div className="py-3">
+          <WantEditor
+            type="game"
+            objectToWant={game}
+            afterAnyChange={afterAnyChange}
+            // wantInfo={wantInfo}
+          />
+        </div>
       }
     />
   );

@@ -10,7 +10,14 @@ import OrderBy from "components/orderBy";
 import Filters_MT_Games from "./filters";
 import SidebarSticky from "components/sidebarSticky";
 
-const GameListView = ({ list, filters, setFilters, loading, errors }) => {
+const GameListView = ({
+  list,
+  filters,
+  setFilters,
+  loading,
+  errors,
+  afterAnyChange,
+}) => {
   const [viewType, setViewType] = useState(0);
 
   return (
@@ -67,7 +74,7 @@ const GameListView = ({ list, filters, setFilters, loading, errors }) => {
                       game={game}
                       //itemWants={itemWants}
                       key={k}
-                      //afterAnyChange={afterAnyChange}
+                      afterAnyChange={afterAnyChange}
                     />
                   );
                 })

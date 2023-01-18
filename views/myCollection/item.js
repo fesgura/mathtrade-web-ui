@@ -1,5 +1,5 @@
 import ItemExtense from "components/itemExtense";
-import MT_Tools from "components/MathtradeTools/my-items";
+import PublishInMT from "./publish_in_mt";
 import AddItem from "components/pages/myItems/addItem";
 import GroupHeader from "components/groupHeader";
 
@@ -21,7 +21,7 @@ const Item = ({
       high={notHighlated ? false : itemMathTradeData}
       rightHeader={
         IamInMathTrade ? (
-          <MT_Tools
+          <PublishInMT
             item={item}
             itemMathTradeData={itemMathTradeData}
             afterAnyChange={afterAnyChange}

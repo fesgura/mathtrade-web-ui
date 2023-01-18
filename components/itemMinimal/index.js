@@ -6,14 +6,16 @@ import Box from "components/box";
 import Thumbnail from "components/thumbnail";
 import Previewer from "components/previewer";
 import ItemExtense from "components/itemExtense";
+import StatusBadge from "components/statusBadge";
 
-const ItemMinimal = ({ item, disabled, showThumbnail, hideUser }) => {
+const ItemMinimal = ({ item, disabled, showThumbnail = true, hideUser }) => {
   const [data, setData] = useState({
     thumbnail: "",
     title: "",
     subtitle: "",
     username: "",
     location: "",
+    status: "",
   });
 
   useEffect(() => {
@@ -30,7 +32,10 @@ const ItemMinimal = ({ item, disabled, showThumbnail, hideUser }) => {
         ? "Item propio"
         : item.user.first_name + " " + item.user.last_name;
       const location = item.owner ? "" : item.user?.location.name;
-      setData({ thumbnail, title, subtitle, username, location });
+
+      const status = item.elements[0].status;
+
+      setData({ thumbnail, title, subtitle, username, location, status });
     }
   }, [item, showThumbnail]);
 
@@ -38,13 +43,16 @@ const ItemMinimal = ({ item, disabled, showThumbnail, hideUser }) => {
     <div className={classNames("item-minimal", { disabled })}>
       <Row className="align-items-center sjustify-content-between g-0">
         <Col xs="auto" className="pe-1">
-          <Thumbnail src={data.thumbnail} width={48} />
+          <Thumbnail src={data.thumbnail} width={40} height={40} />
         </Col>
         <Col className="pe-1">
           <Box minimal color="element">
             <div className="box_item">
               <div className="box_item-text">{data.title}</div>
-              <div className="box_item-label">{data.subtitle}</div>
+              <div className="box_item-label">
+                {data.subtitle}
+                <StatusBadge status={data.status} className="ms-2 border-min" />
+              </div>
             </div>
           </Box>
         </Col>
