@@ -4,7 +4,6 @@ import Valuation from "components/valuation";
 import { Col, Row, Button } from "reactstrap";
 
 const WantButton = ({
-  wantInfo,
   objectToWant,
   type,
   wantGroup,
@@ -19,6 +18,9 @@ const WantButton = ({
         case "game":
           set_itemListToWant(objectToWant?.items || []);
           break;
+        case "item":
+          set_itemListToWant([objectToWant] || []);
+          break;
         default:
         //
       }
@@ -30,21 +32,7 @@ const WantButton = ({
       <Row className="g-0 align-items-center">
         <Col xs="auto" className="pe-2">
           <Button color="primary" size="sm" onClick={onClick}>
-            {wantGroup ? (
-              <>
-                En mi Want List
-                {/* <br />
-                <span className="small">
-                  (
-                  {`ofrezco ${wantGroup.item_ids.length} item${
-                    wantGroup.item_ids.length > 1 ? "s" : ""
-                  }`}
-                  )
-                </span> */}
-              </>
-            ) : (
-              "¡Lo quiero!"
-            )}
+            {wantGroup ? "En mi Want List" : "¡Lo quiero!"}
           </Button>
         </Col>
         <Col xs="auto">

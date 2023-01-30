@@ -83,11 +83,17 @@ const EditorWants = ({
           set_name(cropWord(objectToWant?.name || "", 128));
           set_bgg_id(objectToWant?.bgg_id);
           break;
+        case "item":
+          console.log(objectToWant);
+          set_name(cropWord(objectToWant?.title || "", 128));
+          set_want_ids([objectToWant?.id]);
+          //set_bgg_id(null);
+          break;
         default:
         //
       }
     }
-  }, [objectToWant, type, want_ids]);
+  }, [objectToWant, type]);
 
   /* API *****************************/
 

@@ -1,7 +1,7 @@
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
-import MT_ItemListViewItem from "./item";
+import ItemView from "./item";
 import { Col, Row } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
 import Pagination from "components/pagination";
@@ -14,13 +14,15 @@ import SidebarTagList from "components/sidebarTagList";
 const ItemListView = ({
   list,
   locations,
-  itemWants,
+  wantList,
+  tagList,
   filters,
   setFilters,
   loading,
   errors,
   afterAnyChange,
 }) => {
+  console.log("tagList", tagList);
   return (
     <PrivateLayout loading={loading}>
       <PageHeaderTabs
@@ -80,7 +82,15 @@ const ItemListView = ({
                     />
                   ),
                 },
-                { title: "Grupos", content: <SidebarTagList /> },
+                {
+                  title: "Grupos",
+                  content: (
+                    <SidebarTagList
+                      tagList={tagList}
+                      afterAnyChange={afterAnyChange}
+                    />
+                  ),
+                },
               ]}
             />
           </SidebarSticky>
@@ -90,9 +100,9 @@ const ItemListView = ({
             {list && list.results && list.results.length ? (
               list.results.map((item, k) => {
                 return (
-                  <MT_ItemListViewItem
+                  <ItemView
                     item={item}
-                    itemWants={itemWants}
+                    wantList={wantList}
                     key={k}
                     afterAnyChange={afterAnyChange}
                   />

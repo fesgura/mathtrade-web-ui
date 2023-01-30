@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import PrivateEnv from "environments/private";
 import { useRouter } from "next/router";
 import { useApi, MathTradeService } from "api_serv";
-import { getUniqueId } from "utils";
+import { getUniqueId, formatUserWantGroup } from "utils";
 import GameListView from "views/mathtrade/list/games";
-import { formatUserWantGroup } from "../utils";
 
 const MT_GameListContainer = () => {
   const router = useRouter();

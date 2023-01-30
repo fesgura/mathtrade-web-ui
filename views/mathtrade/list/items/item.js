@@ -1,35 +1,40 @@
 import { useState, useEffect } from "react";
 import ItemExtense from "components/itemExtense";
-import MT_tools from "components/MathtradeTools/item-list";
+import WantEditor from "components/wantEditor";
 import GroupTagHeader from "components/groupTagHeader";
 
-const MT_ItemListViewItem = ({ item, afterAnyChange, itemWants }) => {
-  const [wantInfo, setWantInfo] = useState(null);
+const MT_ItemListViewItem = ({ item, afterAnyChange, wantList }) => {
+  const [wantGroup, set_wantGroup] = useState(null);
 
   useEffect(() => {
-    const newWantInfoArr = itemWants.filter((itm) => {
-      return itm.want.id === item.id;
-    });
-    if (newWantInfoArr.length) {
-      const newWantInfo = newWantInfoArr[0].items.map((itm) => {
-        return itm.id;
+    if (item && wantList.length) {
+      const wantListFiltered = wantList.filter((w) => {
+        const { bgg_id, want_ids } = w;
+        if (bgg_id.length) {
+          return false;
+        }
+        return want_ids.length === 1 && want_ids[0] === item.id;
       });
-      setWantInfo(newWantInfo);
-    } else {
-      setWantInfo(null);
+      if (wantListFiltered[0]) {
+        set_wantGroup(wantListFiltered[0]);
+      }
     }
-  }, [item, itemWants]);
+  }, [item, wantList]);
 
   return (
     <ItemExtense
       item={item}
-      high={wantInfo !== null}
+      high={wantGroup}
       rightHeader={
-        <MT_tools
-          item={item}
-          afterAnyChange={afterAnyChange}
-          wantInfo={wantInfo}
-        />
+        <div>
+          <WantEditor
+            type="item"
+            wantGroup={wantGroup}
+            objectToWant={item}
+            afterAnyChange={afterAnyChange}
+            wantList={wantList}
+          />
+        </div>
       }
       withDragger
       groupHeader={

@@ -4,6 +4,7 @@ import list from "./list";
 import myWants from "./myWants";
 import results from "./results";
 import myData from "./myData";
+import myTags from "./myTags";
 
 const MathTradeService = {
   ...mathtrade,
@@ -12,6 +13,7 @@ const MathTradeService = {
   ...myWants,
   ...results,
   ...myData,
+  ...myTags,
 };
 
 export default MathTradeService;

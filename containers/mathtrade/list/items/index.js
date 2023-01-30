@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import PrivateEnv from "environments/private";
 import { useRouter } from "next/router";
 import { useApi, MathTradeService, LocationService } from "api_serv";
-import { getUniqueId } from "utils";
+import { getUniqueId, formatUserWantGroup } from "utils";
 import ItemListView from "views/mathtrade/list/items";
 
 const MT_ItemListContainer = () => {
@@ -24,9 +24,19 @@ const MT_ItemListContainer = () => {
     startLoading: true,
   });
 
-  const [listWants, itemWants, loadingItemWants, errorsItemWants] = useApi({
-    promise: MathTradeService.wants,
+  const [getMyWants, myWantsList, loadingMyWants, errorsMyWants] = useApi({
+    promise: MathTradeService.getWants,
     initialState: [],
+    format: (mw) => {
+      return mw.map(formatUserWantGroup);
+    },
+  });
+  const [getTags, tagList, loadingTags, errorsTags] = useApi({
+    promise: MathTradeService.getTags,
+    initialState: [],
+    // format: (mw) => {
+    //   return mw.map(formatUserWantGroup);
+    // },
   });
 
   useEffect(() => {
@@ -54,14 +64,16 @@ const MT_ItemListContainer = () => {
 
   useEffect(() => {
     fetchLocations();
-    listWants();
+    getMyWants();
+    getTags();
   }, []);
 
   return (
     <PrivateEnv>
       <ItemListView
         list={list}
-        itemWants={itemWants}
+        wantList={myWantsList}
+        tagList={tagList}
         filters={filters}
         locations={dataLocations}
         setFilters={(filterInput) => {
@@ -84,10 +96,10 @@ const MT_ItemListContainer = () => {
             query: newFilters.query,
           });
         }}
-        loading={loading || loadingItemWants}
-        errors={errors || errorsItemWants}
+        loading={loading || loadingMyWants || loadingLocations || loadingTags}
+        errors={errors || errorsMyWants || errorsTags}
         afterAnyChange={() => {
-          listWants();
+          getMyWants();
           listItems({
             query: filters.query,
           });

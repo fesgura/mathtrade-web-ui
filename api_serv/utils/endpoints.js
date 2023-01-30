@@ -53,6 +53,12 @@ const endpoints = {
   PUT_MYWANTS: "api/mathtrades/$[0]/user-want-groups/$[1]/",
   DELETE_MYWANTS: "api/mathtrades/$[0]/user-want-groups/$[1]/",
 
+  // MATHTRADE: MYTAGS
+  MYTAGS: "api/mathtrades/$[0]/user-tags/",
+  POST_MYTAGS: "api/mathtrades/$[0]/user-tags/",
+  PUT_MYTAGS: "api/mathtrades/$[0]/user-tags/$[1]/",
+  DELETE_MYTAGS: "api/mathtrades/$[0]/user-tags/$[1]/",
+
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/1/
   /*
