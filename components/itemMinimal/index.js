@@ -8,7 +8,13 @@ import Previewer from "components/previewer";
 import ItemExtense from "components/itemExtense";
 import StatusBadge from "components/statusBadge";
 
-const ItemMinimal = ({ item, disabled, showThumbnail = true, hideUser }) => {
+const ItemMinimal = ({
+  item,
+  disabled,
+  disabledByOwner,
+  showThumbnail = true,
+  hideUser,
+}) => {
   const [data, setData] = useState({
     thumbnail: "",
     title: "",
@@ -40,7 +46,11 @@ const ItemMinimal = ({ item, disabled, showThumbnail = true, hideUser }) => {
   }, [item, showThumbnail]);
 
   return (
-    <div className={classNames("item-minimal", { disabled })}>
+    <div
+      className={classNames("item-minimal", {
+        disabled: disabled || disabledByOwner,
+      })}
+    >
       <Row className="align-items-center sjustify-content-between g-0">
         <Col xs="auto" className="pe-1">
           <Thumbnail src={data.thumbnail} width={40} height={40} />
@@ -59,10 +69,16 @@ const ItemMinimal = ({ item, disabled, showThumbnail = true, hideUser }) => {
         {!hideUser ? (
           <Col xs="auto" className="pe-1">
             <Box minimal color="user" className="px-2">
-              <div className="box_item">
-                <div className="box_item-text">{data.username}</div>
-                <div className="box_item-label">{data.location}</div>
-              </div>
+              {disabledByOwner ? (
+                <div className="box_item">
+                  <div className="box_item-text">Item propio</div>
+                </div>
+              ) : (
+                <div className="box_item">
+                  <div className="box_item-text">{data.username}</div>
+                  <div className="box_item-label">{data.location}</div>
+                </div>
+              )}
             </Box>
           </Col>
         ) : null}

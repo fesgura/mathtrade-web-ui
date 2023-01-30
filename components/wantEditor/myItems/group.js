@@ -7,6 +7,7 @@ import classNames from "classnames";
 import Item from "./item";
 
 const Group = ({ group, item_ids, setMyItemIds }) => {
+  const [isLoaded, setIsLoaded] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [groupSelected, setGroupSelected] = useState(false);
 
@@ -14,9 +15,6 @@ const Group = ({ group, item_ids, setMyItemIds }) => {
 
   useEffect(() => {
     let allSelected = true;
-    const list = group.items.map((item) => {
-      return item.id;
-    });
 
     group.items.forEach((item) => {
       const idExist = item_ids.filter((id) => {
@@ -29,6 +27,31 @@ const Group = ({ group, item_ids, setMyItemIds }) => {
     });
     setGroupSelected(allSelected);
   }, [item_ids, group]);
+
+  useEffect(() => {
+    if (!isLoaded) {
+      let allSelected = true;
+      let someSelected = false;
+
+      group.items.forEach((item) => {
+        const idExist = item_ids.filter((id) => {
+          return item.id === id;
+        }).length;
+
+        if (!idExist) {
+          allSelected = false;
+        }
+        if (idExist) {
+          someSelected = true;
+        }
+      });
+      setIsLoaded(true);
+
+      if (!allSelected && someSelected) {
+        setIsOpen(true);
+      }
+    }
+  }, [item_ids, group, isLoaded]);
 
   return (
     <div className="my-item-minimal-group-container">

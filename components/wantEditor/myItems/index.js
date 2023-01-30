@@ -1,25 +1,35 @@
 import { useState, useEffect } from "react";
-import PrivateEnv from "environments/private";
-import MyItemsView from "views/mathtrade/myItems";
+import { LoadingBox } from "components/loading";
+import { Alert } from "reactstrap";
 import { useApi, MathTradeService } from "api_serv";
-import { useSelector } from "react-redux";
-import { selectStoreData } from "store/slices/storeData";
+//import { useSelector } from "react-redux";
+//import { selectStoreData } from "store/slices/storeData";
 import Group from "./group";
 import Item from "./item";
 
 const MyItems = ({ item_ids, setMyItemIds }) => {
-  const storeData = useSelector(selectStoreData);
+  //const storeData = useSelector(selectStoreData);
 
-  const [listItems, itemList, loadingItemList, errorItemList] = useApi({
+  const [listItems, itemList, loading, errors] = useApi({
     promise: MathTradeService.listMyItems,
     initialState: null,
   });
 
   useEffect(() => {
     listItems();
-  }, [storeData]);
+  }, []);
 
-  //
+  /* ERROR MGE *******/
+  const [errorMessage, setErrorMessage] = useState(null);
+  useEffect(() => {
+    if (errors) {
+      let errorMge = "Ocurrió un error. Por favor, intenta nuevamente.";
+      setErrorMessage(errorMge);
+    } else {
+      setErrorMessage(null);
+    }
+  }, [errors]);
+  /******************************/
 
   const [collection, setCollection] = useState([]);
 
@@ -60,35 +70,47 @@ const MyItems = ({ item_ids, setMyItemIds }) => {
   }, [itemList]);
 
   return (
-    <>
-      <div className="pt-2 pb-2">
-        ... A cambio de <b>uno (1)</b> de mis items:
-      </div>
-      {collection.map((obj, k) => {
-        switch (obj.type) {
-          case "group":
-            return (
-              <Group
-                group={obj}
-                item_ids={item_ids}
-                setMyItemIds={setMyItemIds}
-                key={k}
-              />
-            );
-          case "item":
-            return (
-              <Item
-                item={obj.item}
-                item_ids={item_ids}
-                setMyItemIds={setMyItemIds}
-                key={k}
-              />
-            );
-          default:
-          //
-        }
-      })}
-    </>
+    <div className="relative">
+      {errorMessage ? (
+        <Alert color="danger" className="mt-3 text-center">
+          {errorMessage}
+        </Alert>
+      ) : (
+        <>
+          <div className="pt-2 pb-2">
+            ... A cambio de <b>uno (1)</b> de mis items:
+            <p className="muted small italic m-0">
+              (No necesitas elegir ninguno, por ahora.)
+            </p>
+          </div>
+          {collection.map((obj, k) => {
+            switch (obj.type) {
+              case "group":
+                return (
+                  <Group
+                    group={obj}
+                    item_ids={item_ids}
+                    setMyItemIds={setMyItemIds}
+                    key={k}
+                  />
+                );
+              case "item":
+                return (
+                  <Item
+                    item={obj.item}
+                    item_ids={item_ids}
+                    setMyItemIds={setMyItemIds}
+                    key={k}
+                  />
+                );
+              default:
+              //
+            }
+          })}
+        </>
+      )}
+      {loading ? <LoadingBox /> : null}
+    </div>
   );
 };
 export default MyItems;

@@ -48,8 +48,10 @@ const endpoints = {
   SIGNOUT_MYDATA_MATHTRADE: "api/mathtrades/$[0]/members/$[1]/",
 
   // MATHTRADE: MYWANTS
-  MYWANTS: "api/mathtrades/$[0]/user-wants/",
-  POST_MYWANTS: "api/mathtrades/$[0]/user-wants/",
+  MYWANTS: "api/mathtrades/$[0]/user-want-groups/",
+  POST_MYWANTS: "api/mathtrades/$[0]/user-want-groups/",
+  PUT_MYWANTS: "api/mathtrades/$[0]/user-want-groups/$[1]/",
+  DELETE_MYWANTS: "api/mathtrades/$[0]/user-want-groups/$[1]/",
 
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/1/

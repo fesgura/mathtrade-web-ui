@@ -7,6 +7,7 @@ const WantButton = ({
   wantInfo,
   objectToWant,
   type,
+  wantGroup,
   onClick,
   afterAnyChange,
 }) => {
@@ -29,17 +30,17 @@ const WantButton = ({
       <Row className="g-0 align-items-center">
         <Col xs="auto" className="pe-2">
           <Button color="primary" size="sm" onClick={onClick}>
-            {wantInfo ? (
+            {wantGroup ? (
               <>
                 En mi Want List
-                <br />
+                {/* <br />
                 <span className="small">
                   (
-                  {`por ${wantInfo.length} game${
-                    wantInfo.length > 1 ? "s" : ""
+                  {`ofrezco ${wantGroup.item_ids.length} item${
+                    wantGroup.item_ids.length > 1 ? "s" : ""
                   }`}
                   )
-                </span>
+                </span> */}
               </>
             ) : (
               "¡Lo quiero!"

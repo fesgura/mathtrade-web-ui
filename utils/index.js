@@ -1,5 +1,4 @@
 import { languageTranslations, listDependencyTexts } from "config";
-import storage from "./storage";
 
 export const locationsToOptions = (locations) => {
   if (!locations) {
@@ -193,29 +192,6 @@ export const processBGGdata = (BGGelement) => {
   return BGGdata;
 };
 
-// const listDependencyTexts = [
-//   {
-//     min: "Ninguna",
-//     max: "Ninguna: sin texto en juego",
-//   },
-//   {
-//     min: "Poco texto",
-//     max: "Pocos textos, fáciles de memorizar",
-//   },
-//   {
-//     min: "Moderada",
-//     max: "Moderada: es necesaria una hoja de referencia",
-//   },
-//   {
-//     min: "Uso extensivo de texto",
-//     max: "Uso extensivo de texto: se necesita conocer el idioma para poder jugar",
-//   },
-//   {
-//     min: "Injugable en otro idioma",
-//     max: "Injugable en otro idioma",
-//   },
-// ];
-
 export const dependencyToData = (dependency) => {
   if (!dependency || dependency.value.length === 0) {
     return {
@@ -267,4 +243,8 @@ export const getTextColorByBackgroundColor = (bg_color) => {
   } else {
     return "#FFF";
   }
+};
+
+export const cropWord = (str, lng) => {
+  return str.substring(0, lng);
 };

@@ -1,19 +1,37 @@
 import { useState, useEffect, useCallback } from "react";
-import classNames from "classnames";
-import Valuation from "components/valuation";
-import { Col, Row, Modal, ModalBody, Button } from "reactstrap";
+import { useApi, MathTradeService } from "api_serv";
+import { LoadingBox } from "components/loading";
+import { cropWord } from "utils";
+import DeleteButton from "components/deleteButton";
+import { Button, Alert, Row, Col } from "reactstrap";
 import ObjectToWantComp from "./objectToWant";
 import MyItems from "./myItems";
 
-const EditorWants = ({ objectToWant, type, afterAnyChange }) => {
+const EditorWants = ({
+  objectToWant,
+  type,
+  toggleModal,
+  wantGroup,
+  afterAnyChange,
+}) => {
   // USER WANT GROUP
+  const [id, set_id] = useState(null);
   const [name, set_name] = useState("");
   const [bgg_id, set_bgg_id] = useState("");
   const [want_ids, set_want_ids] = useState([]);
   const [item_ids, set_item_ids] = useState([]);
-  // END USER WANT GROUP
 
-  const [objectToWantContent, set_objectToWantContent] = useState(null);
+  useEffect(() => {
+    if (wantGroup) {
+      set_id(wantGroup?.id);
+      set_name(wantGroup?.name || "");
+      set_bgg_id(wantGroup?.bgg_id || "");
+      set_want_ids(wantGroup?.want_ids || []);
+      set_item_ids(wantGroup?.item_ids || []);
+    }
+  }, [wantGroup]);
+
+  // END USER WANT GROUP
 
   const setWantId = useCallback(
     (itemId) => {
@@ -62,7 +80,7 @@ const EditorWants = ({ objectToWant, type, afterAnyChange }) => {
     if (objectToWant) {
       switch (type) {
         case "game":
-          set_name(objectToWant?.name);
+          set_name(cropWord(objectToWant?.name || "", 128));
           set_bgg_id(objectToWant?.bgg_id);
           break;
         default:
@@ -71,12 +89,44 @@ const EditorWants = ({ objectToWant, type, afterAnyChange }) => {
     }
   }, [objectToWant, type, want_ids]);
 
-  console.log({
-    name,
-    bgg_id,
-    want_ids,
-    item_ids,
+  /* API *****************************/
+
+  const [postWant, , postLoading, postErrors] = useApi({
+    promise: MathTradeService.postWant,
+    afterLoad: () => {
+      toggleModal();
+      afterAnyChange(true);
+    },
   });
+
+  const [putWant, , putLoading, putErrors] = useApi({
+    promise: MathTradeService.postWant,
+    afterLoad: () => {
+      toggleModal();
+      afterAnyChange(true);
+    },
+  });
+
+  const [deleteWant, , deleteLoading, deleteErrors] = useApi({
+    promise: MathTradeService.deleteWant,
+    afterLoad: () => {
+      toggleModal();
+      afterAnyChange(true);
+    },
+  });
+  /******************************/
+
+  /* ERROR MGE *******/
+  const [errorMessage, setErrorMessage] = useState(null);
+  useEffect(() => {
+    if (postErrors || putErrors || deleteErrors) {
+      let errorMge = "Ocurrió un error. Por favor, intenta nuevamente.";
+      setErrorMessage(errorMge);
+    } else {
+      setErrorMessage(null);
+    }
+  }, [postErrors, putErrors, deleteErrors]);
+  /******************************/
 
   return (
     <>
@@ -87,6 +137,65 @@ const EditorWants = ({ objectToWant, type, afterAnyChange }) => {
         setWantId={setWantId}
       />
       <MyItems item_ids={item_ids} setMyItemIds={setMyItemIds} />
+      {errorMessage ? (
+        <Alert color="danger" className="mt-3 text-center">
+          {errorMessage}
+        </Alert>
+      ) : null}
+      <Row className="pt-4 pb-3 align-items-center justify-content-between">
+        {id ? (
+          <Col xs="auto">
+            <DeleteButton
+              size="xs"
+              itemName="want"
+              onDelete={() => {
+                deleteWant({ id });
+              }}
+            />
+          </Col>
+        ) : null}
+        <Col xs={id ? "auto" : 12} className="text-center">
+          <Button
+            color="link"
+            className="me-2 mb-sm-0 mb-2"
+            outline
+            onClick={(e) => {
+              toggleModal();
+            }}
+          >
+            Cancelar
+          </Button>
+          <Button
+            color="primary"
+            type="submit"
+            onClick={(e) => {
+              if (id) {
+                putWant({
+                  id,
+                  data: {
+                    name,
+                    bgg_id,
+                    want_ids,
+                    item_ids,
+                  },
+                });
+              } else {
+                postWant({
+                  data: {
+                    name,
+                    bgg_id,
+                    want_ids,
+                    item_ids,
+                  },
+                });
+              }
+            }}
+          >
+            {id ? "Actualizar want" : "Agregar a Mis Wants"}
+          </Button>
+        </Col>
+      </Row>
+      {postLoading || putLoading || deleteLoading ? <LoadingBox /> : null}
     </>
   );
 };

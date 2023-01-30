@@ -1,20 +1,23 @@
-import { useId, useState, useEffect } from "react";
-import { UncontrolledTooltip } from "reactstrap";
-import CardComp from "components/cardComp";
-import UserBox from "components/userBox";
-import Icon from "components/icon";
+import { useState, useEffect } from "react";
+import storage from "utils/storage";
 import { Col, Row } from "reactstrap";
 import classNames from "classnames";
-import Thumbnail from "components/thumbnail";
-import BggGameBox from "components/bggGameBox";
 import ItemMinimal from "components/itemMinimal";
 import Checkbox from "components/checkbox";
 
 const ItemListToWant = ({ itemListToWant, want_ids, setWantId }) => {
+  const [myUserId, set_myUserId] = useState("");
+
+  useEffect(() => {
+    const store = storage.get();
+    set_myUserId(store?.user?.data?.id);
+  }, []);
+
   return (
     <>
       {itemListToWant.map((item) => {
-        const { id, owner } = item;
+        const { id, user } = item;
+
         const selected = want_ids.indexOf(id) >= 0;
         return (
           <div
@@ -30,11 +33,14 @@ const ItemListToWant = ({ itemListToWant, want_ids, setWantId }) => {
                   onClick={() => {
                     setWantId(id);
                   }}
-                  disabled={owner}
+                  disabled={user.id === myUserId}
                 />
               </Col>
               <Col className="ps-3 pe-1">
-                <ItemMinimal item={item} disabled={owner} />
+                <ItemMinimal
+                  item={item}
+                  disabledByOwner={user.id === myUserId}
+                />
               </Col>
             </Row>
           </div>

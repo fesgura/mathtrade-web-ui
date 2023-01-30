@@ -1,20 +1,24 @@
 import { useState } from "react";
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
+import { Modal, ModalBody } from "reactstrap";
 import WantButton from "./wantButton";
 import EditorWants from "./editor";
 
 const WantEditor = ({
   objectToWant,
   type = "item",
-  wantInfo,
+  wantGroup,
   afterAnyChange,
 }) => {
   const [modalWantOpen, setModalWantOpen] = useState(false);
 
+  const toggleModal = () => {
+    setModalWantOpen((v) => !v);
+  };
+
   return (
     <>
       <WantButton
-        wantInfo={wantInfo}
+        wantGroup={wantGroup}
         objectToWant={objectToWant}
         afterAnyChange={afterAnyChange}
         type={type}
@@ -24,23 +28,20 @@ const WantEditor = ({
       />
 
       {modalWantOpen ? (
-        <Modal
-          isOpen={true}
-          toggle={() => {
-            setModalWantOpen((v) => !v);
-          }}
-          centered
-          size="lg"
-        >
-          <ModalHeader>
-            <h4 className="text-center bold p-0 m-0">Agregar a Mis Wants</h4>
-          </ModalHeader>
+        <Modal isOpen={true} toggle={toggleModal} centered size="lg">
+          <div className="text-center pt-4">
+            <h3 className="m-0">
+              {wantGroup ? "Editar Want" : "Agregar a Mis Wants"}
+            </h3>
+          </div>
 
           <ModalBody>
             <EditorWants
               objectToWant={objectToWant}
               type={type}
+              wantGroup={wantGroup}
               afterAnyChange={afterAnyChange}
+              toggleModal={toggleModal}
             />
           </ModalBody>
         </Modal>

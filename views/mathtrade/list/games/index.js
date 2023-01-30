@@ -12,14 +12,13 @@ import SidebarSticky from "components/sidebarSticky";
 
 const GameListView = ({
   list,
+  wantList,
   filters,
   setFilters,
   loading,
   errors,
   afterAnyChange,
 }) => {
-  const [viewType, setViewType] = useState(0);
-
   return (
     <PrivateLayout loading={loading}>
       <PageHeaderTabs
@@ -70,9 +69,8 @@ const GameListView = ({
                 list.results.map((game, k) => {
                   return (
                     <Game
-                      viewType={viewType}
                       game={game}
-                      //itemWants={itemWants}
+                      wantList={wantList}
                       key={k}
                       afterAnyChange={afterAnyChange}
                     />

@@ -51,7 +51,16 @@
   }
 
   &.variant-1 {
-    border-radius: 15px;
+    &,
+    .card-comp_body {
+      border-radius: 15px;
+    }
+    &.high {
+      .card-comp_body {
+        border-width: 2px;
+        border-style: solid;
+      }
+    }
   }
 
   &.inModal {
