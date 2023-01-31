@@ -265,3 +265,52 @@ export const formatUserWantGroup = (uwg) => {
 
   return { id, bgg_id, name, want_ids, item_ids };
 };
+
+export const wantsFromAPItoWantList = (wantListFromAPI) => {
+  const list = wantListFromAPI.map((w) => {
+    const wc = { ...w };
+    return {
+      id: w.id,
+      content: wc,
+      status: "NOT_CHANGED",
+    };
+  });
+  return list;
+};
+export const myItemListFromAPItoMyItemList = (itemList) => {
+  let list = [];
+
+  if (itemList) {
+    const newGroupsPool = {};
+    const newGroups = [];
+    const newItems = [];
+
+    itemList.forEach((item) => {
+      if (item.groups.length) {
+        const groupId = item.groups[0].id;
+        if (!newGroupsPool[groupId]) {
+          newGroupsPool[groupId] = {
+            type: "group",
+            name: item.groups[0].name,
+            color: item.groups[0].color,
+            items: [item],
+          };
+        } else {
+          newGroupsPool[groupId].items.push(item);
+        }
+      } else {
+        newItems.push({
+          type: "item",
+          item,
+        });
+      }
+    });
+
+    for (let grpId in newGroupsPool) {
+      newGroups.push(newGroupsPool[grpId]);
+    }
+    list = [...newGroups, ...newItems];
+  }
+
+  return list;
+};

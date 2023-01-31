@@ -42,6 +42,12 @@
       }
     }
   }
+  .page-header-tab-left-side {
+    border-bottom: 1px solid #999;
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
   .page-header-tab-right-side {
     border-bottom: 1px solid #999;
     display: flex;

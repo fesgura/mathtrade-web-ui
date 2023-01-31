@@ -6,6 +6,7 @@ import { Col, Row, Button } from "reactstrap";
 const WantButton = ({
   objectToWant,
   type,
+  isOwner,
   wantGroup,
   onClick,
   afterAnyChange,
@@ -31,9 +32,15 @@ const WantButton = ({
     <div className={classNames("mathtrade-tools")}>
       <Row className="g-0 align-items-center">
         <Col xs="auto" className="pe-2">
-          <Button color="primary" size="sm" onClick={onClick}>
-            {wantGroup ? "En mi Want List" : "¡Lo quiero!"}
-          </Button>
+          {isOwner ? (
+            <Button color="transparent" size="sm" disabled>
+              Item propio
+            </Button>
+          ) : (
+            <Button color="primary" size="sm" onClick={onClick}>
+              {wantGroup ? "En mi Want List" : "¡Lo quiero!"}
+            </Button>
+          )}
         </Col>
         <Col xs="auto">
           <Valuation

@@ -17,6 +17,7 @@ const ItemExtense = ({
   inModal,
   withDragger,
   groupHeader,
+  variant = "variant-0",
 }) => {
   const [title, setTitle] = useState("");
   const [isCombo, setIsCombo] = useState(false);
@@ -47,6 +48,7 @@ const ItemExtense = ({
             {title}
           </div>
         }
+        variant={variant}
         rightHeader={rightHeader}
         leftHeader={
           leftHeader ? (

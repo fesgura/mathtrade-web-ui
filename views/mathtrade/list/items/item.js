@@ -10,7 +10,7 @@ const MT_ItemListViewItem = ({ item, afterAnyChange, wantList }) => {
     if (item && wantList.length) {
       const wantListFiltered = wantList.filter((w) => {
         const { bgg_id, want_ids } = w;
-        if (bgg_id.length) {
+        if (bgg_id && bgg_id.length) {
           return false;
         }
         return want_ids.length === 1 && want_ids[0] === item.id;
@@ -36,14 +36,15 @@ const MT_ItemListViewItem = ({ item, afterAnyChange, wantList }) => {
           />
         </div>
       }
-      withDragger
-      groupHeader={
-        <GroupTagHeader
-          item={item}
-          groups={[]}
-          afterAnyChange={afterAnyChange}
-        />
-      }
+      variant="variant-0"
+      // withDragger
+      // groupHeader={
+      //   <GroupTagHeader
+      //     item={item}
+      //     groups={[]}
+      //     afterAnyChange={afterAnyChange}
+      //   />
+      // }
     />
   );
 };

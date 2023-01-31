@@ -22,7 +22,6 @@ const ItemListView = ({
   errors,
   afterAnyChange,
 }) => {
-  console.log("tagList", tagList);
   return (
     <PrivateLayout loading={loading}>
       <PageHeaderTabs
@@ -82,15 +81,15 @@ const ItemListView = ({
                     />
                   ),
                 },
-                {
-                  title: "Grupos",
-                  content: (
-                    <SidebarTagList
-                      tagList={tagList}
-                      afterAnyChange={afterAnyChange}
-                    />
-                  ),
-                },
+                // {
+                //   title: "Grupos",
+                //   content: (
+                //     <SidebarTagList
+                //       tagList={tagList}
+                //       afterAnyChange={afterAnyChange}
+                //     />
+                //   ),
+                // },
               ]}
             />
           </SidebarSticky>

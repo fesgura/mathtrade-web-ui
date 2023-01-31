@@ -50,6 +50,17 @@
     }
   }
 
+  &.variant-0 {
+    &.high {
+      .mathtrade-tools {
+        .btn-primary {
+          background-color: #fff;
+          color: $mathtrade;
+        }
+      }
+    }
+  }
+
   &.variant-1 {
     &,
     .card-comp_body {

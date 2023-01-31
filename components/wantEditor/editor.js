@@ -17,7 +17,7 @@ const EditorWants = ({
   // USER WANT GROUP
   const [id, set_id] = useState(null);
   const [name, set_name] = useState("");
-  const [bgg_id, set_bgg_id] = useState("");
+  const [bgg_id, set_bgg_id] = useState(null);
   const [want_ids, set_want_ids] = useState([]);
   const [item_ids, set_item_ids] = useState([]);
 
@@ -25,7 +25,7 @@ const EditorWants = ({
     if (wantGroup) {
       set_id(wantGroup?.id);
       set_name(wantGroup?.name || "");
-      set_bgg_id(wantGroup?.bgg_id || "");
+      set_bgg_id(wantGroup?.bgg_id || null);
       set_want_ids(wantGroup?.want_ids || []);
       set_item_ids(wantGroup?.item_ids || []);
     }

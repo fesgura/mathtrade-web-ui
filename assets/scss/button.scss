@@ -172,4 +172,10 @@
       border-color: #aaa;
     }
   }
+  &.btn-transparent {
+    &:disabled {
+      font-weight: bold;
+      border-color: transparent;
+    }
+  }
 }

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Modal, ModalBody } from "reactstrap";
+import storage from "utils/storage";
 import WantButton from "./wantButton";
 import EditorWants from "./editor";
 
@@ -10,10 +11,18 @@ const WantEditor = ({
   afterAnyChange,
 }) => {
   const [modalWantOpen, setModalWantOpen] = useState(false);
+  const [isOwner, setIsOwner] = useState(false);
 
   const toggleModal = () => {
     setModalWantOpen((v) => !v);
   };
+
+  useEffect(() => {
+    if (type === "item") {
+      const user = storage.getFromStore("user");
+      setIsOwner(user?.id === objectToWant?.user?.id);
+    }
+  }, [objectToWant, type]);
 
   return (
     <>
@@ -22,12 +31,13 @@ const WantEditor = ({
         objectToWant={objectToWant}
         afterAnyChange={afterAnyChange}
         type={type}
+        isOwner={isOwner}
         onClick={() => {
           setModalWantOpen(true);
         }}
       />
 
-      {modalWantOpen ? (
+      {modalWantOpen && !isOwner ? (
         <Modal isOpen={true} toggle={toggleModal} centered size="lg">
           <div className="text-center pt-4">
             <h3 className="m-0">
