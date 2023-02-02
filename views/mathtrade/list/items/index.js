@@ -20,6 +20,7 @@ const ItemListView = ({
   setFilters,
   loading,
   errors,
+  dragToGroup,
   afterAnyChange,
 }) => {
   return (
@@ -81,15 +82,17 @@ const ItemListView = ({
                     />
                   ),
                 },
-                // {
-                //   title: "Grupos",
-                //   content: (
-                //     <SidebarTagList
-                //       tagList={tagList}
-                //       afterAnyChange={afterAnyChange}
-                //     />
-                //   ),
-                // },
+                {
+                  title: "Grupos",
+                  content: (
+                    <SidebarTagList
+                      tagList={tagList}
+                      afterAnyChange={afterAnyChange}
+                      filters={filters}
+                      setFilters={setFilters}
+                    />
+                  ),
+                },
               ]}
             />
           </SidebarSticky>
@@ -104,6 +107,8 @@ const ItemListView = ({
                     wantList={wantList}
                     key={k}
                     afterAnyChange={afterAnyChange}
+                    tagList={tagList}
+                    dragToGroup={dragToGroup}
                   />
                 );
               })

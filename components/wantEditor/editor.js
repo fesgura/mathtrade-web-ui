@@ -84,7 +84,6 @@ const EditorWants = ({
           set_bgg_id(objectToWant?.bgg_id);
           break;
         case "item":
-          console.log(objectToWant);
           set_name(cropWord(objectToWant?.title || "", 128));
           set_want_ids([objectToWant?.id]);
           //set_bgg_id(null);

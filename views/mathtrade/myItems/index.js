@@ -169,19 +169,6 @@ const MyItemsView = ({
                 )}
               </>
             )}
-            {loading ? null : (
-              <></>
-              // <div className="card-comp">
-              //   <div className="card-comp_body py-3">
-              //     <AddItem
-              //       onClick={() => {
-              //         setObjToEdit({ item: null, element: null });
-              //         setModalEditOpen(true);
-              //       }}
-              //     />
-              //   </div>
-              // </div>
-            )}
           </div>
           {!loading ? (
             <>

@@ -31,13 +31,30 @@ const MT_ItemListContainer = () => {
       return mw.map(formatUserWantGroup);
     },
   });
+
+  // TAGS
   const [getTags, tagList, loadingTags, errorsTags] = useApi({
     promise: MathTradeService.getTags,
     initialState: [],
-    // format: (mw) => {
-    //   return mw.map(formatUserWantGroup);
-    // },
+    format: (tags) => {
+      return tags.sort((a, b) => {
+        return a.id < b.id ? -1 : 1;
+      });
+    },
   });
+
+  const [putTag, , loadingPutTag, errorsPutTag] = useApi({
+    promise: MathTradeService.putTag,
+    afterLoad: () => {
+      getMyWants();
+      getTags();
+      listItems({
+        query: filters.query,
+      });
+    },
+  });
+
+  // TAGS
 
   useEffect(() => {
     //
@@ -96,19 +113,30 @@ const MT_ItemListContainer = () => {
             query: newFilters.query,
           });
         }}
-        loading={loading || loadingMyWants || loadingLocations || loadingTags}
-        errors={errors || errorsMyWants || errorsTags}
+        loading={
+          loading ||
+          loadingMyWants ||
+          loadingLocations ||
+          loadingTags ||
+          loadingPutTag
+        }
+        errors={errors || errorsMyWants || errorsTags || errorsPutTag}
+        dragToGroup={(tag, item) => {
+          const newTag = { ...tag };
+          delete newTag.id;
+          newTag.items.push(item.id);
+
+          putTag({
+            id: tag.id,
+            data: newTag,
+          });
+        }}
         afterAnyChange={() => {
           getMyWants();
+          getTags();
           listItems({
             query: filters.query,
           });
-          // setFilters((fil) => {
-          //   return {
-          //     ...fil,
-          //     d: getUniqueId(),
-          //   };
-          // });
         }}
       />
     </PrivateEnv>

@@ -19,13 +19,17 @@
       position: relative;
       z-index: 2;
 
-      // &:hover {
-      //   opacity: 1;
-      // }
+      &.for-tag {
+        cursor: default;
+      }
+    }
+    .sidebar-group-list_tag_inner-lab {
+      display: inline-block;
+      cursor: pointer;
     }
     .sidebar-group-list_tag_edit {
       $w: 18px;
-
+      cursor: pointer;
       font-size: 10px;
       width: $w;
       height: $w;
@@ -93,6 +97,15 @@
     &:last-child {
       &:before {
         bottom: 50%;
+      }
+    }
+  }
+
+  &.for-tags {
+    .sidebar-group-list_tag {
+      &:before,
+      &:after {
+        display: none;
       }
     }
   }

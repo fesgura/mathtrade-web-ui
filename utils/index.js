@@ -245,8 +245,9 @@ export const getTextColorByBackgroundColor = (bg_color) => {
   }
 };
 
-export const cropWord = (str, lng) => {
-  return str.substring(0, lng);
+export const cropWord = (str, lng, suffix) => {
+  const sf = suffix && str.length > lng ? suffix : "";
+  return str.substring(0, lng) + sf;
 };
 
 export const formatUserWantGroup = (uwg) => {
@@ -268,14 +269,42 @@ export const formatUserWantGroup = (uwg) => {
 
 export const wantsFromAPItoWantList = (wantListFromAPI) => {
   const list = wantListFromAPI.map((w) => {
-    const wc = { ...w };
+    const { id, bgg_id, dup_protection, items, wants, availables, name } = w;
+
+    let type = "item";
+
+    if (!bgg_id) {
+      type = wants.length === 1 ? "item" : "group";
+    } else {
+      type = "game";
+    }
+
     return {
-      id: w.id,
-      content: wc,
+      id,
+      contentToEdit: {
+        bgg_id,
+        name,
+        dup_protection,
+        want_ids: wants.map((want) => {
+          return want.id;
+        }),
+        item_ids: items.map((item) => {
+          return item.id;
+        }),
+      },
+
       status: "NOT_CHANGED",
+      type, // item, group, game
+      //
+      availableWantItems: [...wants, ...availables],
+      extended: true,
     };
   });
-  return list;
+  return list.sort((a, b) => {
+    return a.contentToEdit.item_ids.length > b.contentToEdit.item_ids.length
+      ? -1
+      : 1;
+  });
 };
 export const myItemListFromAPItoMyItemList = (itemList) => {
   let list = [];
@@ -290,10 +319,12 @@ export const myItemListFromAPItoMyItemList = (itemList) => {
         const groupId = item.groups[0].id;
         if (!newGroupsPool[groupId]) {
           newGroupsPool[groupId] = {
+            groupId,
             type: "group",
             name: item.groups[0].name,
             color: item.groups[0].color,
             items: [item],
+            extended: true,
           };
         } else {
           newGroupsPool[groupId].items.push(item);

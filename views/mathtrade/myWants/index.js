@@ -14,22 +14,17 @@ const MyWantsView = ({
 }) => {
   const [current, setCurrent] = useState(2);
 
-  const [myItemList, setMyItemList] = useState([]);
   const [wantList, setWantList] = useState([]);
 
-  useEffect(() => {
-    if (myItemListFromAPI && myItemListFromAPI.length) {
-      const newMyItemList = myItemListFromAPItoMyItemList(myItemListFromAPI);
-      setMyItemList(newMyItemList);
-    }
-  }, [myItemListFromAPI]);
+  const [myItemList, setMyItemList] = useState([]);
 
   useEffect(() => {
-    if (wantListFromAPI && wantListFromAPI.length) {
-      const newWantList = wantsFromAPItoWantList(wantListFromAPI);
-      setWantList(newWantList);
-    }
+    setWantList(wantsFromAPItoWantList(wantListFromAPI));
   }, [wantListFromAPI]);
+
+  useEffect(() => {
+    setMyItemList(myItemListFromAPItoMyItemList(myItemListFromAPI));
+  }, [myItemListFromAPI]);
 
   let content = null;
   switch (current) {
@@ -40,7 +35,14 @@ const MyWantsView = ({
       content = <>Opt 2</>;
       break;
     case 2:
-      content = <Grid myItemList={myItemList} wantList={wantList} />;
+      content = (
+        <Grid
+          myItemList={myItemList}
+          wantList={wantList}
+          setWantList={setWantList}
+          setMyItemList={setMyItemList}
+        />
+      );
       break;
     default:
     //

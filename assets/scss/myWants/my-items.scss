@@ -1,0 +1,94 @@
+.mywants-grid_myItems-row {
+  display: flex;
+
+  .mywants-grid_myItems-left-spacer {
+    width: $mywants-grid-left-width;
+  }
+  .my-item-lab {
+    width: 0px;
+    overflow: hidden;
+    transition: width $mywants-grid-duration;
+
+    .my-item-lab_content {
+      margin-left: 0.5 * ($mywants-grid-h - $mywants-grid-inner-h);
+      width: $mywants-grid-inner-h + 2px;
+      border: 1px solid #ddd;
+      background-color: #e6e6e6;
+      border-radius: 4px;
+      height: 100%;
+
+      .my-item-lab_name {
+        width: $mywants-grid-inner-h;
+        height: calc(100% - $mywants-grid-inner-h);
+        padding: 5px 0;
+
+        .my-item-lab_name-text {
+          height: 100%;
+          transform: rotate(180deg);
+
+          .text {
+            writing-mode: vertical-lr;
+            //text-orientation: i;
+            white-space: nowrap;
+            line-height: $mywants-grid-inner-h;
+            font-size: 14px;
+          }
+        }
+
+        &.for-group {
+          .my-item-lab_name-text {
+            font-weight: bold;
+          }
+        }
+
+        &.for-item {
+          height: calc(100% - (2 * $mywants-grid-inner-h));
+        }
+      }
+
+      .my-item-lab_arrow {
+        width: $mywants-grid-inner-h;
+        height: $mywants-grid-inner-h;
+        padding-top: 0.5 * ($mywants-grid-inner-h - 25px);
+        padding-left: 0.5 * ($mywants-grid-inner-h - 25px);
+        cursor: pointer;
+        transition: transform $mywants-grid-duration;
+
+        .my-item-lab_arrow-inner {
+          width: 25px;
+          height: 25px;
+          line-height: 25px;
+          text-align: center;
+          border-radius: 50%;
+          transition: background-color 0.1s;
+        }
+
+        &:hover {
+          .my-item-lab_arrow-inner {
+            background-color: rgba(0, 0, 0, 0.1);
+          }
+        }
+
+        &.extended {
+          transform: rotate(90deg);
+        }
+      }
+
+      .my-item-lab_previewer,
+      .my-item-lab_thumbnail {
+        width: $mywants-grid-inner-h;
+        height: $mywants-grid-inner-h;
+        padding-top: 0.5 * ($mywants-grid-inner-h - 30px);
+        padding-left: 0.5 * ($mywants-grid-inner-h - 30px);
+      }
+
+      &.isInner {
+        height: calc(100% - (0.25 * $mywants-grid-inner-h));
+        background-color: #fff;
+      }
+    }
+    &.extended {
+      width: $mywants-grid-h;
+    }
+  }
+}

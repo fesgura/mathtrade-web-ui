@@ -1,0 +1,99 @@
+.mywants-grid_wantListGrid-row {
+  display: flex;
+  .mywants-grid_wantListGrid-col-left {
+    width: $mywants-grid-left-width;
+  }
+
+  .want-lab {
+    width: 100%;
+    // background-color: #eee;
+
+    height: 0px;
+    overflow: hidden;
+    transition: height $mywants-grid-duration;
+
+    .want-lab_content {
+      background-color: #efefef;
+      height: $mywants-grid-inner-h + 2px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+
+      .row {
+        height: $mywants-grid-inner-h;
+      }
+
+      .want-lab_name {
+        font-size: 14px;
+        text-align: right;
+        height: $mywants-grid-inner-h;
+        line-height: $mywants-grid-inner-h;
+        width: 100%;
+        overflow: hidden;
+
+        &.for-group {
+          font-weight: bold;
+        }
+      }
+
+      .want-lab_arrow {
+        width: $mywants-grid-inner-h;
+        height: $mywants-grid-inner-h;
+        padding-top: 0.5 * ($mywants-grid-inner-h - 25px);
+        padding-left: 0.5 * ($mywants-grid-inner-h - 25px);
+        cursor: pointer;
+        transition: transform $mywants-grid-duration;
+
+        .want-lab_arrow-inner {
+          width: 25px;
+          height: 25px;
+          line-height: 25px;
+          text-align: center;
+          border-radius: 50%;
+          transition: background-color 0.1s;
+        }
+
+        &:hover {
+          .want-lab_arrow-inner {
+            background-color: rgba(0, 0, 0, 0.1);
+          }
+        }
+
+        &.extended {
+          transform: rotate(90deg);
+        }
+      }
+
+      .want-lab_previewer {
+        width: $mywants-grid-inner-h;
+        height: $mywants-grid-inner-h;
+        padding-top: 0.5 * ($mywants-grid-inner-h - 30px);
+        padding-left: 0.5 * ($mywants-grid-inner-h - 30px);
+      }
+
+      .want-lab_thumbnail {
+        width: $mywants-grid-inner-h + 12px;
+        height: $mywants-grid-inner-h;
+        padding-top: 0.5 * ($mywants-grid-inner-h - 30px);
+        padding-left: 0.5 * ($mywants-grid-inner-h - 30px) + 10px;
+      }
+      .want-lab_checkbox {
+        width: 32px;
+        padding: 0 5px;
+      }
+
+      &.for-item {
+        &.isInner {
+          background-color: #fff;
+          margin-right: $mywants-grid-inner-h * 0.25;
+        }
+      }
+      &.for-group {
+        background-color: lighten($orange, 42);
+      }
+    }
+
+    &.extended {
+      height: $mywants-grid-h;
+    }
+  }
+}

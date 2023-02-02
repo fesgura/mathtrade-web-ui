@@ -2,7 +2,7 @@
 import FormAddTag from "./form";
 import { useApi, MathTradeService } from "api_serv";
 
-const AddTag = ({ onCancel, item, tag, afterAnyChange }) => {
+const AddTag = ({ onCancel, item, tag, afterAnyChange, filterByTag }) => {
   const [postTag, , loadingTag, errorTag] = useApi({
     promise: MathTradeService.postTag,
     afterLoad: () => {
@@ -11,7 +11,7 @@ const AddTag = ({ onCancel, item, tag, afterAnyChange }) => {
     },
   });
 
-  const [putTags, , loadingPutTag, errorPutTag] = useApi({
+  const [putTag, , loadingPutTag, errorPutTag] = useApi({
     promise: MathTradeService.putTag,
     afterLoad: () => {
       onCancel();
@@ -19,9 +19,10 @@ const AddTag = ({ onCancel, item, tag, afterAnyChange }) => {
     },
   });
 
-  const [deleteTags, , loadingDeleteTag, errorDeleteTag] = useApi({
+  const [deleteTag, , loadingDeleteTag, errorDeleteTag] = useApi({
     promise: MathTradeService.deleteTag,
     afterLoad: () => {
+      filterByTag(-1);
       onCancel();
       afterAnyChange();
     },
@@ -33,7 +34,7 @@ const AddTag = ({ onCancel, item, tag, afterAnyChange }) => {
       tag={tag}
       onSubmit={(d) => {
         if (tag) {
-          putTags({
+          putTag({
             ...d,
             id: tag.id,
           });
@@ -42,7 +43,7 @@ const AddTag = ({ onCancel, item, tag, afterAnyChange }) => {
         }
       }}
       onDelete={() => {
-        deleteTags({
+        deleteTag({
           id: tag?.id,
         });
       }}

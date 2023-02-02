@@ -41,18 +41,18 @@ const FormAddTag = ({
       <ModalBody>
         <div className="relative">
           <h4 className="text-center mb-4">
-            {tag ? "Editar" : "Agregar"} etiqueta
+            {tag ? "Editar" : "Agregar"} grupo
           </h4>
           <Form
             onSubmit={(formData) => {
-              //const item_ids = tag ? tag.item_ids : item ? [item.id] : [];
+              const items = item ? [item.id] : [];
 
               onSubmit({
                 data: {
                   ...formData,
                   bgg_id: "",
                   protected_dup: true,
-                  //item_ids
+                  items,
                 },
               });
             }}
@@ -68,7 +68,7 @@ const FormAddTag = ({
                   validations={validations}
                   validationStatus={validationStatus}
                   setValidationStatus={setValidationStatus}
-                  label="Nombre de la etiqueta"
+                  label="Nombre del grupo"
                   name="name"
                   placeholder="Ej: Euros, Simples, etc."
                   onChange={setName}
@@ -126,7 +126,7 @@ const FormAddTag = ({
                 // disabled={!modified}
                 //size="lg"
               >
-                {tag ? "Guardar" : "Agregar"} etiqueta
+                {tag ? "Guardar" : "Agregar"} grupo
               </Button>
             </div>
             {tag ? (

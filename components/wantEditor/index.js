@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Modal, ModalBody } from "reactstrap";
-import storage from "utils/storage";
 import WantButton from "./wantButton";
 import EditorWants from "./editor";
 
@@ -9,20 +8,13 @@ const WantEditor = ({
   type = "item",
   wantGroup,
   afterAnyChange,
+  isOwner,
 }) => {
   const [modalWantOpen, setModalWantOpen] = useState(false);
-  const [isOwner, setIsOwner] = useState(false);
 
   const toggleModal = () => {
     setModalWantOpen((v) => !v);
   };
-
-  useEffect(() => {
-    if (type === "item") {
-      const user = storage.getFromStore("user");
-      setIsOwner(user?.id === objectToWant?.user?.id);
-    }
-  }, [objectToWant, type]);
 
   return (
     <>

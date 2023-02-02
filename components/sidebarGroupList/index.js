@@ -16,7 +16,7 @@ const SidebarGroupList = ({
     <>
       <div className="sidebar-group-list">
         <div className="sidebar-group-list_wrap">
-          <h4 className="py-3">Grupos</h4>
+          <h4 className="py-3">Mis grupos</h4>
           <div className="sidebar-group-list_list">
             <GroupTag
               group={{

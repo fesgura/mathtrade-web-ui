@@ -9,10 +9,10 @@ const GroupTagHeader = ({ item, groups, afterAnyChange }) => {
   const [itemGroups, setItemGroups] = useState([]);
 
   useEffect(() => {
-    if (item && item.groups && groups) {
+    if (item && item.tags && groups) {
       const itemGroups = groups.filter((g) => {
         const arr = item.tags.filter((ig) => {
-          return g.id === ig.id;
+          return g.id === ig.tag;
         });
         return arr.length > 0;
       });
@@ -22,12 +22,12 @@ const GroupTagHeader = ({ item, groups, afterAnyChange }) => {
 
   //////////////////////////////////////////
 
-  // const [putMyItemGroup] = useApi({
-  //   promise: MathTradeService.putMyItemGroups,
-  //   afterLoad: () => {
-  //     afterAnyChange();
-  //   },
-  // });
+  const [putTag] = useApi({
+    promise: MathTradeService.putTag,
+    afterLoad: () => {
+      afterAnyChange();
+    },
+  });
 
   //////////////////////////////////////////
 
@@ -43,25 +43,15 @@ const GroupTagHeader = ({ item, groups, afterAnyChange }) => {
               key={k}
               tag={tag}
               onDelete={() => {
-                // const newTag = { ...tag };
-                // const id = newTag.id;
-                // const item_ids = [...newTag.item_ids];
-                // // .map((i) => {
-                // //   return i.id;
-                // // });
-                // delete newTag.id;
-                // delete newTag.item_ids;
-                // if (item_ids.includes(item?.id)) {
-                //   const index = item_ids.indexOf(item.id);
-                //   item_ids.splice(index, 1);
-                //   putMyItemGroup({
-                //     id,
-                //     data: {
-                //       ...newTag,
-                //       item_ids,
-                //     },
-                //   });
-                // }
+                const newTag = { ...tag };
+                const itemIdIndex = newTag.items.indexOf(item.id);
+
+                newTag.items.splice(itemIdIndex, 1);
+
+                putTag({
+                  id: newTag.id,
+                  data: newTag,
+                });
               }}
             />
           );

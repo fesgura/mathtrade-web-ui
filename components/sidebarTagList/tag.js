@@ -5,28 +5,35 @@ import Icon from "components/icon";
 import AddTag from "components/addTag";
 import { getTextColorByBackgroundColor } from "utils";
 
-const Tag = ({ tag, afterAnyChange }) => {
+const Tag = ({ tag, filterByTag, afterAnyChange, current }) => {
   const [modalEditOpen, setModalEditOpen] = useState(false);
+
   return (
     <>
       <div
         className={classNames("sidebar-group-list_tag", {
-          //current: groupIdSelected === group.id,
-          //child: group.id >= 0,
+          current,
         })}
-        onClick={() => {
-          // setGroupIdSelected(group.id);
-        }}
       >
-        <Dropper accept="item" data={{ tag_id: tag.id }}>
+        <Dropper accept={tag.id >= 0 ? "item_in_list" : "none"} data={{ tag }}>
           <div
-            className="sidebar-group-list_tag_inner"
+            className="sidebar-group-list_tag_inner for-tag"
             style={{
               backgroundColor: tag?.color || "#999999",
               color: getTextColorByBackgroundColor(tag?.color || "#999999"),
             }}
           >
-            {`${tag?.name || "Sin título"} (${tag?.count || 0})`}
+            <div
+              className={classNames("sidebar-group-list_tag_inner-lab", {
+                "d-block": tag.id < 0,
+              })}
+              onClick={() => {
+                filterByTag(tag.id);
+              }}
+            >
+              {`${tag?.name || "Sin título"}`}{" "}
+              {tag.items ? `(${tag.items.length || 0})` : null}
+            </div>
             {tag.id > 0 ? (
               <span
                 className="sidebar-group-list_tag_edit"
@@ -49,6 +56,7 @@ const Tag = ({ tag, afterAnyChange }) => {
             setModalEditOpen(false);
           }}
           afterAnyChange={afterAnyChange}
+          filterByTag={filterByTag}
         />
       ) : null}
     </>
