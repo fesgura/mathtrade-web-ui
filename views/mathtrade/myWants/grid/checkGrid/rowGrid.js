@@ -4,6 +4,7 @@ const RowGrid = ({
   myItem,
   wantElement,
   isInnerMyItemElement,
+  setWantList,
 }) => {
   return (
     <>
@@ -16,6 +17,7 @@ const RowGrid = ({
         }
         isInnerMyItemElement={isInnerMyItemElement}
         isInnerWantElement={false}
+        setWantList={setWantList}
       />
       {wantElement.type === "game" || wantElement.type === "group"
         ? wantElement.availableWantItems.map((wantItem, k) => {
@@ -28,6 +30,7 @@ const RowGrid = ({
                 wantItem={wantItem}
                 isInnerMyItemElement={isInnerMyItemElement}
                 isInnerWantElement={true}
+                setWantList={setWantList}
               />
             );
           })

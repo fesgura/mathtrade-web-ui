@@ -105,6 +105,7 @@ const Grid = ({ myItemList, wantList, setWantList, setMyItemList }) => {
                         key={k}
                         myItemElement={myItemElement}
                         wantList={wantList}
+                        setWantList={setWantList}
                       />
                     );
                   })}

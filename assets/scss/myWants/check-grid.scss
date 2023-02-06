@@ -9,6 +9,7 @@
   width: 0;
   height: 0;
   overflow: hidden;
+  transition: width $mywants-grid-duration, height $mywants-grid-duration;
   .mywants-grid_check-element-cont {
     $ch_w: 24px;
     margin-top: 0.5 * ($mywants-grid-h - $mywants-grid-inner-h);

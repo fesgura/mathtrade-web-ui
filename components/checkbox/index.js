@@ -1,9 +1,15 @@
 import classNames from "classnames";
 import Icon from "components/icon";
 
-const Checkbox = ({ value, className, onClick, disabled }) => {
+const Checkbox = ({
+  value,
+  className,
+  onClick,
+  disabled,
+  color = "primary",
+}) => {
   return (
-    <div className={classNames("checkbox-btn", className)}>
+    <div className={classNames("checkbox-btn", color, className)}>
       <div
         className={classNames("checkbox-btn-square", {
           checked: value,

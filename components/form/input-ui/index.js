@@ -191,7 +191,7 @@ const InputComp = ({
             name={name}
           />
           {type === "checkbox" ? (
-            <div className="checkbox-btn">
+            <div className="checkbox-btn primary">
               <div
                 className={classNames("checkbox-btn-square", {
                   checked: value,

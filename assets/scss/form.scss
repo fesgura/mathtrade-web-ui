@@ -245,7 +245,7 @@ select,
 .checkbox-btn {
   $w: 22px;
   .checkbox-btn-square {
-    border: 1px solid $mathtrade;
+    border: 1px solid #999;
     border-radius: 20%;
     font-size: 16px;
     width: $w;
@@ -256,12 +256,27 @@ select,
     background-color: #fff;
     cursor: pointer;
 
-    &.checked {
-      background-color: $mathtrade;
-    }
     &:hover {
       opacity: 0.7;
     }
+  }
+  &.primary {
+    .checkbox-btn-square {
+      border-color: $primary;
+      &.checked {
+        background-color: $primary;
+      }
+    }
+  }
+  &.secondary {
+    .checkbox-btn-square {
+      border-color: $secondary;
+      &.checked {
+        background-color: $secondary;
+      }
+    }
+  }
+  .checkbox-btn-square {
     &.disabled {
       border-color: #ccc;
       cursor: not-allowed;

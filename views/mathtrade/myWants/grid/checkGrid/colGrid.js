@@ -1,6 +1,6 @@
 import RowGrid from "./rowGrid";
 
-const ColGrid = ({ myItemElement, wantList }) => {
+const ColGrid = ({ myItemElement, wantList, setWantList }) => {
   return (
     <>
       <div className="mywants-grid_check-grid-col">
@@ -12,6 +12,7 @@ const ColGrid = ({ myItemElement, wantList }) => {
               wantElement={wantElement}
               myItem={myItemElement.type === "item" ? myItemElement.item : null}
               isInnerMyItemElement={false}
+              setWantList={setWantList}
             />
           );
         })}
@@ -29,6 +30,7 @@ const ColGrid = ({ myItemElement, wantList }) => {
                       myItem={item}
                       wantElement={wantElement}
                       isInnerMyItemElement={true}
+                      setWantList={setWantList}
                     />
                   );
                 })}

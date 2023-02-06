@@ -346,3 +346,8 @@ export const myItemListFromAPItoMyItemList = (itemList) => {
 
   return list;
 };
+
+export const getElementByFilter = (collection, method) => {
+  const arrayCollection = collection.filter(method);
+  return arrayCollection[0] || null;
+};
