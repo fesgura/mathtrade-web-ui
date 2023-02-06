@@ -168,7 +168,7 @@ const InputComp = ({
         <div
           className={classNames(
             "form-check",
-            type === "switch" ? "form-switch" : ""
+            type === "switch" ? "form-switch" : "for-checkbox"
           )}
         >
           <input
@@ -190,10 +190,28 @@ const InputComp = ({
             value={value === "" ? "false" : value}
             name={name}
           />
+          {type === "checkbox" ? (
+            <div className="checkbox-btn">
+              <div
+                className={classNames("checkbox-btn-square", {
+                  checked: value,
+                  disabled,
+                })}
+                // onClick={() => {
+                //   if (!disabled) onClick();
+                // }}
+              >
+                <Icon type="check" />
+              </div>
+            </div>
+          ) : null}
           {labelCheckbox ? (
-            <label className="form-check-label" htmlFor={`checkbox-${id}`}>
-              {labelCheckbox}
-            </label>
+            <>
+              <label className="form-check-label" htmlFor={`checkbox-${id}`}>
+                {labelCheckbox}
+              </label>
+              <Question question={question} />
+            </>
           ) : null}
         </div>
       );

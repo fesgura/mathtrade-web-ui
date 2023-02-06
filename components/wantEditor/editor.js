@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useApi, MathTradeService } from "api_serv";
 import { LoadingBox } from "components/loading";
 import { cropWord } from "utils";
+import storage from "utils/storage";
 import DeleteButton from "components/deleteButton";
 import { Button, Alert, Row, Col } from "reactstrap";
 import ObjectToWantComp from "./objectToWant";
@@ -20,16 +21,8 @@ const EditorWants = ({
   const [bgg_id, set_bgg_id] = useState(null);
   const [want_ids, set_want_ids] = useState([]);
   const [item_ids, set_item_ids] = useState([]);
-
-  useEffect(() => {
-    if (wantGroup) {
-      set_id(wantGroup?.id);
-      set_name(wantGroup?.name || "");
-      set_bgg_id(wantGroup?.bgg_id || null);
-      set_want_ids(wantGroup?.want_ids || []);
-      set_item_ids(wantGroup?.item_ids || []);
-    }
-  }, [wantGroup]);
+  const [tags, set_tags] = useState([]);
+  const [dup_protection, set_dup_protection] = useState(true);
 
   // END USER WANT GROUP
 
@@ -77,28 +70,56 @@ const EditorWants = ({
   );
 
   useEffect(() => {
-    if (objectToWant) {
-      switch (type) {
-        case "game":
-          set_name(cropWord(objectToWant?.name || "", 128));
-          set_bgg_id(objectToWant?.bgg_id);
-          break;
-        case "item":
-          set_name(cropWord(objectToWant?.title || "", 128));
-          set_want_ids([objectToWant?.id]);
-          //set_bgg_id(null);
-          break;
-        default:
-        //
+    if (wantGroup) {
+      set_id(wantGroup?.id);
+      set_name(wantGroup?.name || "");
+      set_bgg_id(wantGroup?.bgg_id || null);
+      set_want_ids(wantGroup?.want_ids || []);
+      set_item_ids(wantGroup?.item_ids || []);
+      set_tags(wantGroup?.tags?.length ? wantGroup.tags : []);
+      set_dup_protection(
+        typeof wantGroup.dup_protection !== "undefined"
+          ? wantGroup.dup_protection
+          : true
+      );
+    } else {
+      if (objectToWant) {
+        switch (type) {
+          case "game":
+            set_name(cropWord(objectToWant?.name || "", 128));
+            set_bgg_id(objectToWant?.bgg_id);
+
+            const user = storage.getFromStore("user");
+            const want_ids_for_game = [];
+
+            objectToWant?.items?.forEach((itm) => {
+              if (user?.id !== itm?.user?.id) {
+                want_ids_for_game.push(itm.id);
+              }
+            });
+            set_want_ids(want_ids_for_game);
+            break;
+          case "item":
+            set_name(cropWord(objectToWant?.title || "", 128));
+            set_want_ids([objectToWant?.id]);
+            break;
+          case "tag":
+            set_name(cropWord(objectToWant?.name || "", 128));
+            set_want_ids(objectToWant?.items || []);
+            set_tags([objectToWant.id]);
+            break;
+          default:
+          //
+        }
       }
     }
-  }, [objectToWant, type]);
+  }, [wantGroup, objectToWant, type]);
 
   /* API *****************************/
 
   const [postWant, , postLoading, postErrors] = useApi({
     promise: MathTradeService.postWant,
-    afterLoad: () => {
+    afterLoad: (wGroup) => {
       toggleModal();
       afterAnyChange(true);
     },
@@ -140,8 +161,14 @@ const EditorWants = ({
         type={type}
         want_ids={want_ids}
         setWantId={setWantId}
+        dup_protection={dup_protection}
+        set_dup_protection={set_dup_protection}
       />
-      <MyItems item_ids={item_ids} setMyItemIds={setMyItemIds} />
+      <MyItems
+        item_ids={item_ids}
+        setMyItemIds={setMyItemIds}
+        dup_protection={dup_protection}
+      />
       {errorMessage ? (
         <Alert color="danger" className="mt-3 text-center">
           {errorMessage}
@@ -182,6 +209,8 @@ const EditorWants = ({
                     bgg_id,
                     want_ids,
                     item_ids,
+                    dup_protection,
+                    tags,
                   },
                 });
               } else {
@@ -191,6 +220,8 @@ const EditorWants = ({
                     bgg_id,
                     want_ids,
                     item_ids,
+                    dup_protection,
+                    tags,
                   },
                 });
               }

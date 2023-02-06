@@ -16,3 +16,19 @@
     font-size: 12px;
   }
 }
+.tag-in-filter {
+  padding: 20px 15px 10px 0;
+  .tag-in-filter_content {
+    padding: 5px 10px;
+    background-color: #999;
+
+    border-radius: 5px;
+  }
+  .tag-in-filter_text {
+    font-size: 14px;
+    line-height: 1;
+  }
+  .tag-in-filter_close {
+    cursor: pointer;
+  }
+}

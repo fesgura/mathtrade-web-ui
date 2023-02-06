@@ -7,7 +7,7 @@ import { useApi, MathTradeService } from "api_serv";
 import Group from "./group";
 import Item from "./item";
 
-const MyItems = ({ item_ids, setMyItemIds }) => {
+const MyItems = ({ item_ids, setMyItemIds, dup_protection }) => {
   //const storeData = useSelector(selectStoreData);
 
   const [listItems, itemList, loading, errors] = useApi({
@@ -78,7 +78,15 @@ const MyItems = ({ item_ids, setMyItemIds }) => {
       ) : (
         <>
           <div className="pt-2 pb-2">
-            ... A cambio de <b>uno (1)</b> de mis items:
+            ... A cambio de{" "}
+            {dup_protection ? (
+              <>
+                <b>uno (1)</b>
+              </>
+            ) : (
+              <>algunos</>
+            )}{" "}
+            de mis items:
             <p className="muted small italic m-0">
               (No necesitas elegir ninguno, por ahora.)
             </p>

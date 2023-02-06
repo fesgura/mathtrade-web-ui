@@ -1,26 +1,26 @@
 import { useState, useEffect } from "react";
-import { Row, Col } from "reactstrap";
+import { Row, Col, UncontrolledTooltip } from "reactstrap";
 import { cropWord } from "utils";
 import Thumbnail from "components/thumbnail";
 import Previewer from "components/previewer";
 import ItemExtense from "components/itemExtense";
 import Checkbox from "components/checkbox";
 import classNames from "classnames";
+import DeleteButton from "components/deleteButton";
+import Icon from "components/icon";
 
-const WantItem = ({ item, isInner, isExtended, group, setWantList }) => {
+const WantItem = ({ item, isInnerOf, isExtended, group, setWantList }) => {
   const [isCheckedIndex, setIsCheckedIndex] = useState(false);
 
   useEffect(() => {
-    if (isInner) {
+    if (isInnerOf) {
       setIsCheckedIndex(group.contentToEdit.want_ids.indexOf(item.id));
     }
-  }, [isInner, group, item]);
-
-  //console.log("g", group);
+  }, [isInnerOf, group, item]);
 
   return (
     <div className={classNames("want-lab", { extended: isExtended })}>
-      <div className={classNames("want-lab_content for-item", { isInner })}>
+      <div className={classNames("want-lab_content for-item", { isInnerOf })}>
         <Row className="g-0 align-items-center">
           <Col xs="auto">
             <div className="want-lab_previewer">
@@ -43,7 +43,7 @@ const WantItem = ({ item, isInner, isExtended, group, setWantList }) => {
               />
             </div>
           </Col>
-          {isInner ? (
+          {isInnerOf === "game" ? (
             <Col xs="auto">
               <div className="want-lab_checkbox">
                 <Checkbox
@@ -67,6 +67,44 @@ const WantItem = ({ item, isInner, isExtended, group, setWantList }) => {
                   }}
                 />
               </div>
+            </Col>
+          ) : null}
+          {isInnerOf === "group" ? (
+            <Col xs="auto">
+              <DeleteButton
+                size="xs"
+                itemName="item"
+                customRender={
+                  <div
+                    className="want-lab_close"
+                    id={`tt-group-q${group && group.id ? group.id : "00"}-${
+                      item.id
+                    }`}
+                  >
+                    <Icon />
+                  </div>
+                }
+                onDelete={() => {
+                  setWantList((list) => {
+                    const newList = [...list];
+                    newList.forEach((g) => {
+                      if (g.id === group.id) {
+                        g.contentToEdit.want_ids.splice(isCheckedIndex, 1);
+                        g.status = "CHANGED";
+                      }
+                    });
+                    return newList;
+                  });
+                }}
+              />
+
+              <UncontrolledTooltip
+                target={`tt-group-q${group && group.id ? group.id : "00"}-${
+                  item.id
+                }`}
+              >
+                Eliminar del grupo
+              </UncontrolledTooltip>
             </Col>
           ) : null}
         </Row>

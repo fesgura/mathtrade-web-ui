@@ -72,6 +72,7 @@ const ItemListView = ({
                     <Filters_MT_Items
                       filters={filters}
                       setFilters={setFilters}
+                      tagList={tagList}
                       locations={locations.map((loc, k) => {
                         return {
                           text: loc.name,
@@ -87,6 +88,7 @@ const ItemListView = ({
                   content: (
                     <SidebarTagList
                       tagList={tagList}
+                      wantList={wantList}
                       afterAnyChange={afterAnyChange}
                       filters={filters}
                       setFilters={setFilters}

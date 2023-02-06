@@ -16,9 +16,14 @@ const MyWants = () => {
     //format: myItemListFromAPItoMyItemList,
   });
 
+  const [deleteWant, , deleteLoading, deleteErrors] = useApi({
+    promise: MathTradeService.deleteWant,
+  });
+
   useEffect(() => {
     getMyItems();
     getMyWants();
+    // deleteWant({ id: 28 });
   }, []);
 
   return (

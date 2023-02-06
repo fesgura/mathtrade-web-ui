@@ -5,7 +5,7 @@ import classNames from "classnames";
 import ItemMinimal from "components/itemMinimal";
 import Checkbox from "components/checkbox";
 
-const ItemListToWant = ({ itemListToWant, want_ids, setWantId }) => {
+const ItemListToWant = ({ itemListToWant, want_ids = [], setWantId }) => {
   const [myUserId, set_myUserId] = useState("");
 
   useEffect(() => {
@@ -27,16 +27,18 @@ const ItemListToWant = ({ itemListToWant, want_ids, setWantId }) => {
             key={id}
           >
             <Row className="align-items-center g-0">
-              <Col xs="auto">
-                <Checkbox
-                  value={selected}
-                  onClick={() => {
-                    setWantId(id);
-                  }}
-                  disabled={user.id === myUserId}
-                />
-              </Col>
-              <Col className="ps-3 pe-1">
+              {setWantId ? (
+                <Col xs="auto">
+                  <Checkbox
+                    value={selected}
+                    onClick={() => {
+                      setWantId(id);
+                    }}
+                    disabled={user.id === myUserId}
+                  />
+                </Col>
+              ) : null}
+              <Col className={classNames("pe-1", { "ps-3": setWantId })}>
                 <ItemMinimal
                   item={item}
                   disabledByOwner={user.id === myUserId}

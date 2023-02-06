@@ -54,12 +54,14 @@ const MT_ItemListViewItem = ({
       variant="variant-0"
       withDragger={!isOwner}
       groupHeader={
-        <GroupTagHeader
-          item={item}
-          groupOrTag="tag"
-          groups={tagList}
-          afterAnyChange={afterAnyChange}
-        />
+        !isOwner ? (
+          <GroupTagHeader
+            item={item}
+            groupOrTag="tag"
+            groups={tagList}
+            afterAnyChange={afterAnyChange}
+          />
+        ) : null
       }
     />
   );

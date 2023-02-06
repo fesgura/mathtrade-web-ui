@@ -16,9 +16,6 @@ const MyCollectionContainer = () => {
   ] = useApi({
     promise: MathTradeService.listMyItems,
     initialState: [],
-    // afterLoad: (data) => {
-    //   console.log("data", data);
-    // },
   });
 
   /* END Math Trade */

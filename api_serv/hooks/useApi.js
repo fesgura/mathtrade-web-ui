@@ -1,16 +1,9 @@
 import { useState, useCallback } from "react";
 import _ from "lodash";
 import xmlParser from "../utils/xmlParser";
+import callToAPI from "./callToAPI";
 
 const delayTime = (ms) => new Promise((r) => setTimeout(r, ms));
-
-const handlePromise = (promise) =>
-  promise
-    .then((response) => {
-      if (response.ok) return [null, response, response.data];
-      return [{ error: true, data: response.data }, response, response.data];
-    })
-    .catch((error) => Promise.resolve([error, { ok: false }, null]));
 
 const useApi = ({
   initialState = null,
@@ -35,7 +28,7 @@ const useApi = ({
 
         await delayTime(forBGG ? 600 : 1);
 
-        const [errors, response, responseData] = await handlePromise(
+        const [errors, response, responseData] = await callToAPI(
           promise(params)
         );
         setDataLoading(false);

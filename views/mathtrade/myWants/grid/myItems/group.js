@@ -1,9 +1,22 @@
+import { useEffect } from "react";
 import classNames from "classnames";
 import Icon from "components/icon";
 import { getTextColorByBackgroundColor } from "utils";
 import MyItem from "./item";
 
-const MyGroup = ({ group, setMyItemList }) => {
+const MyGroup = ({ group, setMyItemList, extendAll }) => {
+  useEffect(() => {
+    setMyItemList((list) => {
+      const newList = [...list];
+      newList.forEach((g) => {
+        if (g.groupId === group.groupId) {
+          g.extended = extendAll.extended;
+        }
+      });
+      return newList;
+    });
+  }, [extendAll]);
+
   return (
     <>
       <div className="my-item-lab extended">

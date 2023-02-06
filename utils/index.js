@@ -165,8 +165,6 @@ const getStats = (BGGelement) => {
   };
 };
 export const processBGGdata = (BGGelement) => {
-  //console.log("BGGelement", BGGelement);
-
   if (!BGGelement) {
     return null;
   }
@@ -251,7 +249,7 @@ export const cropWord = (str, lng, suffix) => {
 };
 
 export const formatUserWantGroup = (uwg) => {
-  const { id, bgg_id, name, wants, items } = uwg;
+  const { id, bgg_id, dup_protection, tags, name, wants, items } = uwg;
 
   const want_ids = [];
   const item_ids = [];
@@ -264,7 +262,7 @@ export const formatUserWantGroup = (uwg) => {
     item_ids.push(itm.id);
   });
 
-  return { id, bgg_id, name, want_ids, item_ids };
+  return { id, bgg_id, name, want_ids, item_ids, tags, dup_protection };
 };
 
 export const wantsFromAPItoWantList = (wantListFromAPI) => {
@@ -279,11 +277,14 @@ export const wantsFromAPItoWantList = (wantListFromAPI) => {
       type = "game";
     }
 
+    const availableWantItems =
+      type === "game" ? [...wants, ...availables] : [...wants];
+
     return {
       id,
       contentToEdit: {
         bgg_id,
-        name,
+        name: name + " (" + id + ")",
         dup_protection,
         want_ids: wants.map((want) => {
           return want.id;
@@ -296,7 +297,7 @@ export const wantsFromAPItoWantList = (wantListFromAPI) => {
       status: "NOT_CHANGED",
       type, // item, group, game
       //
-      availableWantItems: [...wants, ...availables],
+      availableWantItems,
       extended: true,
     };
   });

@@ -8,6 +8,7 @@ const DeleteButton = ({
   className,
   itemName,
   onDelete = () => {},
+  customRender,
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -17,17 +18,27 @@ const DeleteButton = ({
 
   return (
     <>
-      <Button
-        size={size}
-        className={className}
-        color="danger"
-        outline
-        onClick={() => {
-          setModalOpen(true);
-        }}
-      >
-        <Icon type="trash" className="me-1" /> {text}
-      </Button>
+      {customRender ? (
+        <div
+          onClick={() => {
+            setModalOpen(true);
+          }}
+        >
+          {customRender}
+        </div>
+      ) : (
+        <Button
+          size={size}
+          className={className}
+          color="danger"
+          outline
+          onClick={() => {
+            setModalOpen(true);
+          }}
+        >
+          <Icon type="trash" className="me-1" /> {text}
+        </Button>
+      )}
 
       {modalOpen ? (
         <Modal isOpen={true} toggle={toggleModal} centered size="md">

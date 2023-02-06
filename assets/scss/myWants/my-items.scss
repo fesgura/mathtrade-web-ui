@@ -3,6 +3,56 @@
 
   .mywants-grid_myItems-left-spacer {
     width: $mywants-grid-left-width;
+    padding: 0 0 1px;
+    .mywants-grid_myItems-left-spacer_cont {
+      background-color: #eee;
+      height: 100%;
+      border-radius: 4px 4px 0 4px;
+      border: 1px solid $border-color;
+      position: relative;
+
+      .mywants-grid_myItems-left-lab_my_items,
+      .mywants-grid_myItems-left-lab_my_wants {
+        position: absolute;
+        width: 260px;
+        height: $mywants-grid-inner-h;
+        line-height: $mywants-grid-inner-h;
+      }
+      .mywants-grid_myItems-left-lab_my_items {
+        padding-left: 40px;
+        bottom: -$mywants-grid-inner-h;
+        left: $mywants-grid-left-width - $mywants-grid-inner-h;
+        transform: rotate(-90deg);
+        transform-origin: top left;
+      }
+      .mywants-grid_myItems-left-lab_my_wants {
+        padding-left: 10px;
+        bottom: 0;
+        left: 0;
+      }
+      .mywants-grid_myItems-left-lab_cont-line {
+        position: absolute;
+        bottom: -2px;
+        right: -150px;
+        border-top: 2px solid $border-color;
+        width: 150px;
+        height: 2px;
+        transform: rotate(-135deg);
+        transform-origin: top left;
+      }
+      .mywants-grid_myItems-left-lab_cont {
+        position: absolute;
+        border-bottom: 1px solid $border-color;
+        border-right: 1px solid $border-color;
+        background-color: #fff;
+        top: 0;
+        left: 0;
+        right: $mywants-grid-inner-h;
+        bottom: $mywants-grid-inner-h;
+        border-radius: 4px 0 4px 0;
+        padding: 10px;
+      }
+    }
   }
   .my-item-lab {
     width: 0px;

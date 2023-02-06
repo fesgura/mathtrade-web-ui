@@ -17,6 +17,7 @@
       height: $mywants-grid-inner-h + 2px;
       border: 1px solid #ddd;
       border-radius: 4px;
+      margin-top: 2px;
 
       .row {
         height: $mywants-grid-inner-h;
@@ -80,15 +81,25 @@
         width: 32px;
         padding: 0 5px;
       }
+      .want-lab_close {
+        width: 32px;
+        // padding: 0 5px;
+        text-align: center;
+        cursor: pointer;
+        color: $danger;
+      }
 
       &.for-item {
-        &.isInner {
+        &.isInnerOf {
           background-color: #fff;
           margin-right: $mywants-grid-inner-h * 0.25;
         }
       }
-      &.for-group {
+      &.type-game {
         background-color: lighten($orange, 42);
+      }
+      &.type-group {
+        background-color: lighten($secondary, 42);
       }
     }
 

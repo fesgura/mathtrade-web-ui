@@ -40,8 +40,6 @@ const MyAccountContainer = () => {
         dataLocations={dataLocations}
         loadingLocations={loadingLocations}
         onSubmit={(id, data) => {
-          // console.log(id, data);
-          //const a = {};
           editUser({ id, data });
         }}
         errors={errorGetUser || errorEditUser}

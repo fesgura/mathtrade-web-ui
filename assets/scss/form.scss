@@ -382,3 +382,31 @@ select,
     }
   }
 }
+
+// form-switch
+.form-switch {
+  .form-check-input:checked {
+    background-color: $primary;
+    border-color: $primary;
+  }
+}
+.form-check.for-checkbox {
+  position: relative;
+  .form-check-input,
+  .checkbox-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+  }
+  .form-check-input {
+    z-index: 2;
+    width: 22px;
+    height: 22px;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .form-check-label {
+    margin-left: 5px;
+  }
+}

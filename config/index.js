@@ -150,11 +150,6 @@ export const languageTranslations = {
   Vietnamese: "Vietnamita",
   Welsh: "Galés",
 };
-// otros.forEach((lan) => {
-//   aaa[lan] = languageTranslations[lan] || lan;
-// });
-
-// console.log(JSON.stringify(aaa));
 
 export const languageList = (() => {
   const list = [];
@@ -167,14 +162,10 @@ export const languageList = (() => {
     });
   }
 
-  list
-    // .sort((a, b) => {
-    //   return a.text < b.text ? -1 : 1;
-    // })
-    .push({
-      value: "Otro (no listado)",
-      text: "Otro (no listado)",
-    });
+  list.push({
+    value: "Otro (no listado)",
+    text: "Otro (no listado)",
+  });
 
   return list;
 })();

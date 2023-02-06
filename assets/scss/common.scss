@@ -116,3 +116,7 @@ section {
 .cursor-pointer {
   cursor: pointer;
 }
+hr {
+  border-color: $border-color;
+  opacity: 1;
+}

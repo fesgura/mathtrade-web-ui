@@ -1,5 +1,9 @@
 import FiltersComp from "components/filters";
+import { useState, useEffect } from "react";
+import Icon from "components/icon";
+import { getTextColorByBackgroundColor } from "utils";
 import { languageList, statusList, dependencyList } from "config";
+import { Row, Col } from "reactstrap";
 
 const minValue = 0;
 const maxValue = 10;
@@ -10,251 +14,304 @@ const maxRate = 10;
 const minWeight = 1;
 const maxWeight = 5;
 
-const Filters_MT_Items = ({ filters, setFilters, locations }) => {
+const Filters_MT_Items = ({ filters, setFilters, locations, tagList }) => {
+  const [tagSelected, setTagSelected] = useState(null);
+
+  useEffect(() => {
+    if (filters.query.tag) {
+      const currentTagArray = tagList.filter((tg) => {
+        return tg.id === filters.query.tag;
+      });
+      if (currentTagArray[0]) {
+        setTagSelected(currentTagArray[0]);
+      }
+    } else {
+      setTagSelected(null);
+    }
+  }, [filters, tagList]);
+
   return (
-    <FiltersComp
-      filters={filters}
-      clearFilters={() => {
-        const newFilters = {};
-        [
-          "keyword",
-          "value-from",
-          "value-to",
-          "language[]",
-          "dependency[]",
-          "status[]",
-          "location[]",
-          "rate-from",
-          "rate-to",
-          "weight-from",
-          "weight-to",
-        ].forEach((filterName) => {
-          newFilters[filterName] = undefined;
-        });
-        setFilters(newFilters);
-      }}
-      setFilters={(formData) => {
-        const newFilters = {};
-        if (formData.keyword !== "") {
-          newFilters.keyword = formData.keyword;
-        } else {
-          newFilters.keyword = undefined;
-        }
-        if (formData.value) {
-          const valueValues = formData.value.split(",");
-          if (
-            valueValues[0] !== `${minValue}` ||
-            valueValues[1] !== `${maxValue}`
-          ) {
-            newFilters["value-from"] = valueValues[0];
-            newFilters["value-to"] = valueValues[1];
+    <>
+      {tagSelected ? (
+        <div className="tag-in-filter">
+          <div
+            className="tag-in-filter_content"
+            style={{
+              backgroundColor: tagSelected?.color || "#999999",
+              color: getTextColorByBackgroundColor(
+                tagSelected?.color || "#000"
+              ),
+            }}
+          >
+            <Row className="align-items-center">
+              <Col>
+                <div className="tag-in-filter_text">
+                  {`${tagSelected.name} (${tagSelected.items.length})`}
+                </div>
+              </Col>
+              <Col xs="auto">
+                <div
+                  className="tag-in-filter_close"
+                  onClick={() => {
+                    setFilters({ tag: undefined });
+                  }}
+                >
+                  <Icon />
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </div>
+      ) : null}
+      <FiltersComp
+        filters={filters}
+        clearFilters={() => {
+          const newFilters = {};
+          [
+            "keyword",
+            "value-from",
+            "value-to",
+            "language[]",
+            "dependency[]",
+            "status[]",
+            "location[]",
+            "rate-from",
+            "rate-to",
+            "weight-from",
+            "weight-to",
+            "tag",
+          ].forEach((filterName) => {
+            newFilters[filterName] = undefined;
+          });
+          setFilters(newFilters);
+        }}
+        setFilters={(formData) => {
+          const newFilters = {};
+          if (formData.keyword !== "") {
+            newFilters.keyword = formData.keyword;
           } else {
-            newFilters["value-from"] = undefined;
-            newFilters["value-to"] = undefined;
+            newFilters.keyword = undefined;
           }
-        }
-        if (formData.language !== "") {
-          newFilters["language[]"] = formData.language.split(",");
-        } else {
-          newFilters["language[]"] = undefined;
-        }
-        if (formData.dependency !== "") {
-          newFilters["dependency[]"] = formData.dependency
-            .split(",")
-            .map((text) => {
-              return dependencyList.labels.indexOf(text);
-            });
-        } else {
-          newFilters["dependency[]"] = undefined;
-        }
-        if (formData.status !== "") {
-          newFilters["status[]"] = formData.status.split(",");
-        } else {
-          newFilters["status[]"] = undefined;
-        }
-        if (formData.location !== "") {
-          newFilters["location[]"] = formData.location
-            .split(",")
-            .map((locName) => {
-              const locArr = locations.filter((loc) => {
-                return loc.text === locName;
+          if (formData.value) {
+            const valueValues = formData.value.split(",");
+            if (
+              valueValues[0] !== `${minValue}` ||
+              valueValues[1] !== `${maxValue}`
+            ) {
+              newFilters["value-from"] = valueValues[0];
+              newFilters["value-to"] = valueValues[1];
+            } else {
+              newFilters["value-from"] = undefined;
+              newFilters["value-to"] = undefined;
+            }
+          }
+          if (formData.language !== "") {
+            newFilters["language[]"] = formData.language.split(",");
+          } else {
+            newFilters["language[]"] = undefined;
+          }
+          if (formData.dependency !== "") {
+            newFilters["dependency[]"] = formData.dependency
+              .split(",")
+              .map((text) => {
+                return dependencyList.labels.indexOf(text);
               });
-              return locArr[0].id;
-            });
-        } else {
-          newFilters["location[]"] = undefined;
-        }
-        if (formData.rate) {
-          const rateValues = formData.rate.split(",");
-          if (
-            rateValues[0] !== `${minRate}` ||
-            rateValues[1] !== `${maxRate}`
-          ) {
-            newFilters["rate-from"] = rateValues[0];
-            newFilters["rate-to"] = rateValues[1];
           } else {
-            newFilters["rate-from"] = undefined;
-            newFilters["rate-to"] = undefined;
+            newFilters["dependency[]"] = undefined;
           }
-        }
-        if (formData.weight) {
-          const weightValues = formData.weight.split(",");
-          if (
-            weightValues[0] !== `${minWeight}` ||
-            weightValues[1] !== `${maxWeight}`
-          ) {
-            newFilters["weight-from"] = weightValues[0];
-            newFilters["weight-to"] = weightValues[1];
+          if (formData.status !== "") {
+            newFilters["status[]"] = formData.status.split(",");
           } else {
-            newFilters["weight-from"] = undefined;
-            newFilters["weight-to"] = undefined;
+            newFilters["status[]"] = undefined;
           }
-        }
-        setFilters(newFilters);
-      }}
-      model={[
-        {
-          name: "keyword",
-          label: "Buscar",
-          icon: "search",
-          size: "md",
-          placeholder: "Escribí alguna palabra...",
-          hr: true,
-          data: {
-            keyword: filters?.query?.keyword || "",
+          if (formData.location !== "") {
+            newFilters["location[]"] = formData.location
+              .split(",")
+              .map((locName) => {
+                const locArr = locations.filter((loc) => {
+                  return loc.text === locName;
+                });
+                return locArr[0].id;
+              });
+          } else {
+            newFilters["location[]"] = undefined;
+          }
+          if (formData.rate) {
+            const rateValues = formData.rate.split(",");
+            if (
+              rateValues[0] !== `${minRate}` ||
+              rateValues[1] !== `${maxRate}`
+            ) {
+              newFilters["rate-from"] = rateValues[0];
+              newFilters["rate-to"] = rateValues[1];
+            } else {
+              newFilters["rate-from"] = undefined;
+              newFilters["rate-to"] = undefined;
+            }
+          }
+          if (formData.weight) {
+            const weightValues = formData.weight.split(",");
+            if (
+              weightValues[0] !== `${minWeight}` ||
+              weightValues[1] !== `${maxWeight}`
+            ) {
+              newFilters["weight-from"] = weightValues[0];
+              newFilters["weight-to"] = weightValues[1];
+            } else {
+              newFilters["weight-from"] = undefined;
+              newFilters["weight-to"] = undefined;
+            }
+          }
+          setFilters(newFilters);
+        }}
+        model={[
+          {
+            name: "keyword",
+            label: "Buscar",
+            icon: "search",
+            size: "md",
+            placeholder: "Escribí alguna palabra...",
+            hr: true,
+            data: {
+              keyword: filters?.query?.keyword || "",
+            },
           },
-        },
-        {
-          type: "range-multiple",
-          name: "value",
-          label: "Valor",
-          min: minValue,
-          max: maxValue,
-          data: (() => {
-            const d = { value: `${minValue},${maxValue}` };
-            if (typeof filters?.query["value-from"] !== "undefined") {
-              d.value = `${filters.query["value-from"]},${filters.query["value-to"]}`;
-            }
-            return d;
-          })(),
-        },
-        {
-          type: "select-multiple",
-          name: "status",
-          label: "Estado",
-          options: statusList,
-          placeholder: "Seleccioná...",
-          data: (() => {
-            const d = { status: "" };
+          {
+            type: "range-multiple",
+            name: "value",
+            label: "Valor",
+            min: minValue,
+            max: maxValue,
+            data: (() => {
+              const d = { value: `${minValue},${maxValue}` };
+              if (typeof filters?.query["value-from"] !== "undefined") {
+                d.value = `${filters.query["value-from"]},${filters.query["value-to"]}`;
+              }
+              return d;
+            })(),
+          },
+          {
+            type: "select-multiple",
+            name: "status",
+            label: "Estado",
+            options: statusList,
+            placeholder: "Seleccioná...",
+            data: (() => {
+              const d = { status: "" };
 
-            if (typeof filters?.query["status[]"] !== "undefined") {
-              let list = filters.query["status[]"];
-              if (typeof filters.query["status[]"].forEach === "undefined") {
-                list = [filters.query["status[]"]];
+              if (typeof filters?.query["status[]"] !== "undefined") {
+                let list = filters.query["status[]"];
+                if (typeof filters.query["status[]"].forEach === "undefined") {
+                  list = [filters.query["status[]"]];
+                }
+                d.status = list.join(",");
               }
-              d.status = list.join(",");
-            }
-            return d;
-          })(),
-        },
-        {
-          type: "select-multiple",
-          name: "location",
-          label: "Ubicación",
-          placeholder: "Seleccioná...",
-          options: locations,
-          data: (() => {
-            const d = { location: "" };
+              return d;
+            })(),
+          },
+          {
+            type: "select-multiple",
+            name: "location",
+            label: "Ubicación",
+            placeholder: "Seleccioná...",
+            options: locations,
+            data: (() => {
+              const d = { location: "" };
 
-            if (typeof filters?.query["location[]"] !== "undefined") {
-              let list = filters.query["location[]"];
-              if (typeof filters.query["location[]"].forEach === "undefined") {
-                list = [filters.query["location[]"]];
+              if (typeof filters?.query["location[]"] !== "undefined") {
+                let list = filters.query["location[]"];
+                if (
+                  typeof filters.query["location[]"].forEach === "undefined"
+                ) {
+                  list = [filters.query["location[]"]];
+                }
+                d.location = list
+                  .map((id) => {
+                    const locArr = locations.filter((loc) => {
+                      return `${loc.id}` === `${id}`;
+                    });
+                    return locArr[0].value;
+                  })
+                  .join(",");
               }
-              d.location = list
-                .map((id) => {
-                  const locArr = locations.filter((loc) => {
-                    return `${loc.id}` === `${id}`;
-                  });
-                  return locArr[0].value;
-                })
-                .join(",");
-            }
-            return d;
-          })(),
-        },
-        {
-          type: "select-multiple",
-          name: "language",
-          label: "Idioma",
-          placeholder: "Seleccioná...",
-          options: languageList,
-          data: (() => {
-            const d = { language: "" };
-            if (typeof filters?.query["language[]"] !== "undefined") {
-              let list = filters.query["language[]"];
-              if (typeof filters.query["language[]"].forEach === "undefined") {
-                list = [filters.query["language[]"]];
+              return d;
+            })(),
+          },
+          {
+            type: "select-multiple",
+            name: "language",
+            label: "Idioma",
+            placeholder: "Seleccioná...",
+            options: languageList,
+            data: (() => {
+              const d = { language: "" };
+              if (typeof filters?.query["language[]"] !== "undefined") {
+                let list = filters.query["language[]"];
+                if (
+                  typeof filters.query["language[]"].forEach === "undefined"
+                ) {
+                  list = [filters.query["language[]"]];
+                }
+                d.language = list.join(",");
               }
-              d.language = list.join(",");
-            }
-            return d;
-          })(),
-        },
-        {
-          type: "select-multiple",
-          name: "dependency",
-          label: "Dependencia de idioma",
-          placeholder: "Seleccioná...",
-          options: dependencyList.options,
-          data: (() => {
-            const d = { dependency: "" };
-            if (typeof filters?.query["dependency[]"] !== "undefined") {
-              let list = filters.query["dependency[]"];
-              if (
-                typeof filters.query["dependency[]"].forEach === "undefined"
-              ) {
-                list = [filters.query["dependency[]"]];
+              return d;
+            })(),
+          },
+          {
+            type: "select-multiple",
+            name: "dependency",
+            label: "Dependencia de idioma",
+            placeholder: "Seleccioná...",
+            options: dependencyList.options,
+            data: (() => {
+              const d = { dependency: "" };
+              if (typeof filters?.query["dependency[]"] !== "undefined") {
+                let list = filters.query["dependency[]"];
+                if (
+                  typeof filters.query["dependency[]"].forEach === "undefined"
+                ) {
+                  list = [filters.query["dependency[]"]];
+                }
+                d.dependency = list
+                  .map((i) => {
+                    return dependencyList.options[i].value;
+                  })
+                  .join(",");
               }
-              d.dependency = list
-                .map((i) => {
-                  return dependencyList.options[i].value;
-                })
-                .join(",");
-            }
-            return d;
-          })(),
-        },
-        {
-          type: "range-multiple",
-          name: "rate",
-          label: "Rating BGG",
-          min: minRate,
-          max: maxRate,
-          data: (() => {
-            const d = { rate: `${minRate},${maxRate}` };
-            if (typeof filters?.query["rate-from"] !== "undefined") {
-              d.rate = `${filters.query["rate-from"]},${filters.query["rate-to"]}`;
-            }
-            return d;
-          })(),
-        },
-        {
-          type: "range-multiple",
-          name: "weight",
-          label: "Dificultad BGG",
-          min: minWeight,
-          max: maxWeight,
-          data: (() => {
-            const d = { weight: `${minWeight},${maxWeight}` };
-            if (typeof filters?.query["weight-from"] !== "undefined") {
-              d.weight = `${filters.query["weight-from"]},${filters.query["weight-to"]}`;
-            }
-            return d;
-          })(),
-        },
-      ]}
-    />
+              return d;
+            })(),
+          },
+          {
+            type: "range-multiple",
+            name: "rate",
+            label: "Rating BGG",
+            min: minRate,
+            max: maxRate,
+            data: (() => {
+              const d = { rate: `${minRate},${maxRate}` };
+              if (typeof filters?.query["rate-from"] !== "undefined") {
+                d.rate = `${filters.query["rate-from"]},${filters.query["rate-to"]}`;
+              }
+              return d;
+            })(),
+          },
+          {
+            type: "range-multiple",
+            name: "weight",
+            label: "Dificultad BGG",
+            min: minWeight,
+            max: maxWeight,
+            data: (() => {
+              const d = { weight: `${minWeight},${maxWeight}` };
+              if (typeof filters?.query["weight-from"] !== "undefined") {
+                d.weight = `${filters.query["weight-from"]},${filters.query["weight-to"]}`;
+              }
+              return d;
+            })(),
+          },
+        ]}
+      />
+    </>
   );
 };
 

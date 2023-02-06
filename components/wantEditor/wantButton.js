@@ -31,23 +31,29 @@ const WantButton = ({
   return (
     <div className={classNames("mathtrade-tools")}>
       <Row className="g-0 align-items-center">
-        <Col xs="auto" className="pe-2">
+        <Col xs="auto">
           {isOwner ? (
             <Button color="transparent" size="sm" disabled>
               Item propio
             </Button>
           ) : (
-            <Button color="primary" size="sm" onClick={onClick}>
+            <Button
+              color="primary"
+              size={type === "tag" ? "xs" : "sm"}
+              onClick={onClick}
+            >
               {wantGroup ? "En mi Want List" : "¡Lo quiero!"}
             </Button>
           )}
         </Col>
-        <Col xs="auto">
-          <Valuation
-            items={itemListToWant || []}
-            afterAnyChange={afterAnyChange}
-          />
-        </Col>
+        {type !== "tag" ? (
+          <Col xs="auto" className="ps-2">
+            <Valuation
+              items={itemListToWant || []}
+              afterAnyChange={afterAnyChange}
+            />
+          </Col>
+        ) : null}
       </Row>
     </div>
   );

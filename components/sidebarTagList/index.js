@@ -3,7 +3,13 @@ import Tag from "./tag";
 import Icon from "components/icon";
 import AddTag from "components/addTag";
 
-const SidebarTagList = ({ tagList, afterAnyChange, filters, setFilters }) => {
+const SidebarTagList = ({
+  tagList,
+  wantList,
+  afterAnyChange,
+  filters,
+  setFilters,
+}) => {
   const [modalAddOpen, setModalAddOpen] = useState(false);
   const [currentTag, setCurrentTag] = useState(null);
 
@@ -33,6 +39,7 @@ const SidebarTagList = ({ tagList, afterAnyChange, filters, setFilters }) => {
                 id: -1,
                 name: "Todos los items",
                 color: "#f0f0f0",
+                wanted: null,
               }}
               filterByTag={filterByTag}
               current={!currentTag}
@@ -42,6 +49,7 @@ const SidebarTagList = ({ tagList, afterAnyChange, filters, setFilters }) => {
                 <Tag
                   key={tag.id}
                   tag={tag}
+                  wantList={wantList}
                   filterByTag={filterByTag}
                   afterAnyChange={afterAnyChange}
                   current={currentTag === tag.id}

@@ -45,7 +45,7 @@ const FormAddTag = ({
           </h4>
           <Form
             onSubmit={(formData) => {
-              const items = item ? [item.id] : [];
+              const items = item ? [item.id] : tag ? tag.items : [];
 
               onSubmit({
                 data: {

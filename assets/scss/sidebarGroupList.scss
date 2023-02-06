@@ -21,6 +21,7 @@
 
       &.for-tag {
         cursor: default;
+        padding-right: 0;
       }
     }
     .sidebar-group-list_tag_inner-lab {
@@ -42,6 +43,12 @@
       vertical-align: middle;
       opacity: 0.5;
       display: none;
+    }
+    .sidebar-group-list_tag_want-editor {
+      padding: 0 0.4em;
+      .btn {
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+      }
     }
     &.current {
       background-color: rgba($primary, 0.1);

@@ -1,13 +1,30 @@
+import { useEffect } from "react";
 import classNames from "classnames";
 import Icon from "components/icon";
 import { Row, Col } from "reactstrap";
 import WantItem from "./item";
 
-const WantGroup = ({ group, setWantList }) => {
+const WantGroup = ({ group, setWantList, extendAll }) => {
+  useEffect(() => {
+    setWantList((list) => {
+      const newList = [...list];
+      newList.forEach((g) => {
+        if (g.id === group.id) {
+          g.extended = extendAll.extended;
+        }
+      });
+      return newList;
+    });
+  }, [extendAll]);
   return (
     <>
       <div className="want-lab extended">
-        <div className="want-lab_content for-group">
+        <div
+          className={classNames(
+            "want-lab_content for-group",
+            "type-" + group.type
+          )}
+        >
           <Row className="g-0 align-items-center">
             <Col>
               <div className="want-lab_name for-group">
@@ -44,7 +61,7 @@ const WantGroup = ({ group, setWantList }) => {
           <WantItem
             key={itm.id}
             item={itm}
-            isInner
+            isInnerOf={group.type}
             isExtended={group.extended}
             group={{ ...group }}
             setWantList={setWantList}
