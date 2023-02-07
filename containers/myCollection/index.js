@@ -1,12 +1,13 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import PrivateEnv from "environments/private";
 import MyCollectionView from "views/myCollection";
 import { useApi, myCollectionService, MathTradeService } from "api_serv";
-import { useSelector } from "react-redux";
-import { selectStoreData } from "store/slices/storeData";
+import storage from "utils/storage";
 
+// useSelector
 const MyCollectionContainer = () => {
-  const storeData = useSelector(selectStoreData);
+  const [storeData, set_storeData] = useState(null);
+
   /* Math Trade */
   const [
     getMyItemsInMathTrade,
@@ -30,6 +31,7 @@ const MyCollectionContainer = () => {
 
   const afterAnyChange = () => {
     listItems();
+
     if (storeData && storeData.mathtrade) {
       const mathtradeStored = storeData.mathtrade;
       if (mathtradeStored && mathtradeStored.IamIn) {
@@ -37,6 +39,10 @@ const MyCollectionContainer = () => {
       }
     }
   };
+  useEffect(() => {
+    const newStoreData = storage.get();
+    set_storeData(newStoreData);
+  }, []);
 
   useEffect(() => {
     afterAnyChange();

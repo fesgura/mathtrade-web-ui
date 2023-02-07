@@ -2,14 +2,10 @@ import { useState, useEffect } from "react";
 import { LoadingBox } from "components/loading";
 import { Alert } from "reactstrap";
 import { useApi, MathTradeService } from "api_serv";
-//import { useSelector } from "react-redux";
-//import { selectStoreData } from "store/slices/storeData";
 import Group from "./group";
 import Item from "./item";
 
 const MyItems = ({ item_ids, setMyItemIds, dup_protection }) => {
-  //const storeData = useSelector(selectStoreData);
-
   const [listItems, itemList, loading, errors] = useApi({
     promise: MathTradeService.listMyItems,
     initialState: null,

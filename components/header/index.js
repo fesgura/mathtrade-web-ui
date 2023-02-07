@@ -6,11 +6,10 @@ import MainMenu from "./menu";
 import Logo from "components/logo";
 import Icon from "components/icon";
 import classNames from "classnames";
-import { useSelector } from "react-redux";
-import { selectStoreData } from "store/slices/storeData";
+import storage from "utils/storage";
 
 const Header = () => {
-  const storeData = useSelector(selectStoreData);
+  const storeData = storage.get();
   const [menuMobileVisible, set_menuMobileVisible] = useState(false);
 
   return (
