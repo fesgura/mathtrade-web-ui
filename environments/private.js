@@ -2,88 +2,108 @@ import { useState, useEffect } from "react";
 import _ from "lodash";
 import storage from "utils/storage";
 import Router from "next/router";
-import { useDispatch } from "react-redux";
 import { publicRoutes } from "config/routes";
-import { useApi, BggService, MathTradeService } from "api_serv";
-import { setStoreData, setUserBGG, setMathtrade } from "store/slices/storeData";
+import { BggService, MathTradeService } from "api_serv";
+import { LoadingScreen } from "components/loading";
+import callToAPI from "api_serv/hooks/callToAPI";
+import xmlParser from "api_serv/utils/xmlParser";
+import { setLogoutAPI } from "api_serv/utils";
 
 const PrivateEnv = ({ children }) => {
-  const dispatch = useDispatch();
+  const [showEnvironment, setShowEnvironment] = useState(false);
+  const [errors, setErrors] = useState(null);
 
-  const [getBGGuser] = useApi({
-    promise: BggService.getUser,
-    forBGG: true,
-    afterLoad: (data) => {
-      if (data && data.user && data.user.id && data.user.id !== "") {
-        const bggData = { bggUser: data.user };
+  const gotoSignIn = () => {
+    storage.clear();
+    setLogoutAPI();
+    Router.push(`/${publicRoutes.signin.path}`);
+    return null;
+  };
 
-        storage.setToStorage(bggData);
-        dispatch(setUserBGG(data.user));
+  const loadSignExtraData = async () => {
+    const store = storage.get();
+    if (!(store && store.auth)) {
+      return gotoSignIn();
+    }
+    const { expires } = store.auth;
+    const d = new Date();
+    const currentTime = d.getTime();
+    if (currentTime >= expires) {
+      return gotoSignIn();
+    }
+    // IS LOGGED
+    if (!_.isEmpty(store.user.bgg) && store.mathtrade) {
+      //loaded Info
+      setShowEnvironment(true);
+      return;
+    }
+
+    // Load extra info ********************************
+    let isErrors = false;
+    if (_.isEmpty(store.user.bgg)) {
+      // Load BGG USER
+      const [errors_bgg_user, response_bgg_user, responseData_bgg_user] =
+        await callToAPI(BggService.getUser(store.user.data.bgg_user));
+
+      if (!response_bgg_user.ok) {
+        isErrors = true;
+        setErrors(errors_bgg_user);
+      } else {
+        const dataBGG = xmlParser(responseData_bgg_user);
+
+        storage.setToStorage({ bggUser: dataBGG.user });
       }
-    },
-  });
-  const [getMathTrade] = useApi({
-    promise: MathTradeService.listMathTrades,
-    afterLoad: (data) => {
-      if (data && data.length) {
-        const mathtradeActiveArray = data.filter((mt) => {
-          return mt.active;
-        });
-        const mathtrade = mathtradeActiveArray[0] || null;
-        if (mathtrade) {
-          const store = storage.get();
-          const memberId = store.user.data.id;
+    }
+    if (!store.mathtrade) {
+      // Load MATHTRADES
+      const [errors_mathtrade, response_mathtrade, responseData_mathtrade] =
+        await callToAPI(MathTradeService.listMathTrades());
 
-          const arrExistUserInMathtrade = mathtrade.users.filter((userMT) => {
-            return memberId == userMT;
+      if (!response_mathtrade.ok) {
+        isErrors = true;
+        setErrors(errors_mathtrade);
+      } else {
+        if (responseData_mathtrade && responseData_mathtrade.length) {
+          const mathtradeActiveArray = responseData_mathtrade.filter((mt) => {
+            return mt.active;
           });
+          const mathtrade = mathtradeActiveArray[0] || null;
+          if (mathtrade) {
+            const store = storage.get();
+            const memberId = store.user.data.id;
 
-          const mathtradeData = {
-            IamIn: arrExistUserInMathtrade.length > 0,
-            data: mathtrade,
-            memberId,
-          };
+            const arrExistUserInMathtrade = mathtrade.users.filter((userMT) => {
+              return memberId == userMT;
+            });
 
-          storage.setToStorage({
-            mathtrade: mathtradeData,
-          });
-          dispatch(setMathtrade(mathtradeData));
+            const mathtradeData = {
+              IamIn: arrExistUserInMathtrade.length > 0,
+              data: mathtrade,
+              memberId,
+            };
+            storage.setToStorage({
+              mathtrade: mathtradeData,
+            });
+          } else {
+            storage.setToStorage({ mathtrade: null });
+          }
         } else {
           storage.setToStorage({ mathtrade: null });
-          dispatch(setMathtrade(null));
         }
-      } else {
-        storage.setToStorage({ mathtrade: null });
-        dispatch(setMathtrade(null));
       }
-    },
-  });
-
-  useEffect(() => {
-    const store = storage.get();
-    if (store && store.auth) {
-      const { expires } = store.auth;
-      const d = new Date();
-      const currentTime = d.getTime();
-      if (currentTime < expires) {
-        dispatch(setStoreData(store));
-        if (_.isEmpty(store.user.bgg)) {
-          getBGGuser(store.user.data.bgg_user);
-        }
-        if (!store.mathtrade) {
-          getMathTrade();
-        }
-      } else {
-        storage.clear();
-        Router.push(`/${publicRoutes.signin.path}`);
-      }
-    } else {
-      storage.clear();
-      Router.push(`/${publicRoutes.signin.path}`);
     }
-  }, [dispatch]);
 
-  return <>{children}</>;
+    if (!isErrors) {
+      setShowEnvironment(true);
+    }
+    // END extra info ********************************
+    return;
+  };
+  useEffect(() => {
+    loadSignExtraData();
+  }, []);
+
+  return showEnvironment ? <>{children}</> : errors ? <div>ERRORS</div> : null;
 };
 
 export default PrivateEnv;

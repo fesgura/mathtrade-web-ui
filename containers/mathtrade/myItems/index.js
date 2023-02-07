@@ -2,12 +2,9 @@ import { useEffect } from "react";
 import PrivateEnv from "environments/private";
 import MyItemsView from "views/mathtrade/myItems";
 import { useApi, MathTradeService } from "api_serv";
-import { useSelector } from "react-redux";
-import { selectStoreData } from "store/slices/storeData";
+import storage from "utils/storage";
 
 const MyItems = () => {
-  const storeData = useSelector(selectStoreData);
-
   const [listItems, itemList, loadingItemList, errorItemList] = useApi({
     promise: MathTradeService.listMyItems,
     initialState: [],
@@ -32,12 +29,13 @@ const MyItems = () => {
   );
 
   useEffect(() => {
+    const storeData = storage.get();
     const mathtradeStored = storeData?.mathtrade;
     if (mathtradeStored && mathtradeStored.IamIn) {
       listItems();
       listGroups();
     }
-  }, [storeData]);
+  }, []);
 
   return (
     <PrivateEnv>

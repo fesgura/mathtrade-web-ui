@@ -95,7 +95,13 @@ const PrivateLayout = ({ title, children, loading }) => {
         />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      {auth ? (
+      <main className="wrap">
+        <Header />
+        <div className="main-container pt-lg-5 pt-3 py-3">{children}</div>
+        <Footer absolute />
+      </main>
+      {loading ? <LoadingScreen /> : null}
+      {/* {auth ? (
         <>
           <main className="wrap">
             <Header />
@@ -106,7 +112,7 @@ const PrivateLayout = ({ title, children, loading }) => {
         </>
       ) : (
         <LoadingPage loading={true} />
-      )}
+      )} */}
     </>
   );
 };

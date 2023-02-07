@@ -7,11 +7,8 @@ import { menuUser } from "config/routes";
 import Icon from "components/icon";
 import storage from "utils/storage";
 import { setLogoutAPI } from "api_serv/utils";
-import { useDispatch } from "react-redux";
-import { clearStoreData } from "store/slices/storeData";
 
 const UserHeader = ({ storeData }) => {
-  const dispatch = useDispatch();
   const [username, setUsername] = useState("");
 
   useEffect(() => {
@@ -46,7 +43,6 @@ const UserHeader = ({ storeData }) => {
             e.preventDefault();
             storage.clear();
             setLogoutAPI();
-            dispatch(clearStoreData());
             Router.push(`/${publicRoutes.signin.path}`);
           }}
         >

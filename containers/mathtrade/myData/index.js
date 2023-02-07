@@ -3,13 +3,9 @@ import Router from "next/router";
 import PrivateEnv from "environments/private";
 import MyDataView from "views/mathtrade/myData";
 import { useApi, LocationService, MathTradeService } from "api_serv";
-
 import storage from "utils/storage";
-import { useSelector } from "react-redux";
-import { selectStoreData } from "store/slices/storeData";
 
 const MT_MyDataContainer = () => {
-  const storeData = useSelector(selectStoreData);
   const [mathtradeData, set_mathtradeData] = useState(null);
 
   const [fetchLocations, dataLocations, loadingLocations] = useApi({
@@ -27,35 +23,8 @@ const MT_MyDataContainer = () => {
     initialState: {},
   });
 
-  // const [getMathTrade, , loadingGetMathTrade] = useApi({
-  //   promise: MathTradeService.listMathTrades,
-  //   afterLoad: (data) => {
-  //     if (data && data.length) {
-  //       const mathtradeActiveArray = data.filter((mt) => {
-  //         return mt.active;
-  //       });
-  //       const mathtrade = mathtradeActiveArray[0] || null;
-  //       if (mathtrade) {
-  //         storage.setToStorage({ "mathtrade.data": mathtrade });
-  //       } else {
-  //         storage.setToStorage({ "mathtrade.data": null });
-  //       }
-  //     } else {
-  //       storage.setToStorage({ "mathtrade.data": null });
-  //     }
-  //     setTimeout(() => {
-  //       const newMathtradeStored = storeData?.mathtrade;
-
-  //       if (newMathtradeStored.IamIn) {
-  //         fetchMathTradeUser({
-  //           userId: newMathtradeStored.memberId,
-  //         });
-  //       }
-  //       set_mathtradeData(newMathtradeStored);
-  //     }, 200);
-  //   },
-  // });
   useEffect(() => {
+    const storeData = storage.get();
     if (storeData?.mathtrade) {
       set_mathtradeData(storeData?.mathtrade);
     }
@@ -64,7 +33,7 @@ const MT_MyDataContainer = () => {
         userId: storeData.mathtrade.memberId,
       });
     }
-  }, [storeData]);
+  }, []);
 
   const [signMathTrade, , loadingSignMathTrade, errorSignMathTrade] = useApi({
     promise: MathTradeService.signInMathTrade,
