@@ -8,6 +8,7 @@ import { Form, Input, Hidden } from "components/form";
 import { locationsToOptions } from "utils";
 import Icon from "components/icon";
 import TestBGGuser from "components/testBGGuser";
+import I18N, { getI18Ntext } from "i18n";
 
 const RegisterView = ({
   errors,
@@ -29,7 +30,7 @@ const RegisterView = ({
 
   useEffect(() => {
     if (errors) {
-      let errorMge = "Ocurrió un error. Por favor, intenta nuevamente.";
+      let errorMge = getI18Ntext("error.General");
       setErrorMessage(errorMge);
     } else {
       setErrorMessage(null);
@@ -44,7 +45,7 @@ const RegisterView = ({
       function () {
         return passwordValue === password2Value
           ? null
-          : "Las contraseñas no coinciden";
+          : getI18Ntext("validation.passwordNotMatch");
       },
     ],
     first_name: ["required"],
@@ -58,9 +59,9 @@ const RegisterView = ({
       function () {
         validBGGuser;
         return !validBGGuser
-          ? "Tenés que comprobar tu usuario en BGG."
+          ? getI18Ntext("validation.BGGuser")
           : validBGGuser === "no"
-          ? "Este usuario no aparece en la BGG."
+          ? getI18Ntext("validation.BGGuserDoesNotExist")
           : null;
       },
     ],
@@ -80,16 +81,17 @@ const RegisterView = ({
                   {isSuccess ? (
                     <div className="fade-in">
                       <div className="text-center mb-4">
-                        <h1>¡Listo!</h1>
+                        <h1>
+                          <I18N id="register.ReadyTitle" />
+                        </h1>
                         <p className="muted">
-                          ¡Genial! Tu cuenta <b>ha sido creada</b>.<br></br>
-                          Ya podés ingresar:
+                          <I18N id="register.ReadySubtitle" forHtml />
                         </p>
                       </div>
                       <div className="text-center py-4">
                         <Link href={`/${publicRoutes.signin.path}`}>
                           <Button color="secondary" size="lg">
-                            Ingresar
+                            <I18N id="btn.Enter" />
                           </Button>
                         </Link>
                       </div>
@@ -98,14 +100,13 @@ const RegisterView = ({
                   ) : (
                     <>
                       <div className="text-center mb-4">
-                        <h1>Creá tu cuenta</h1>
+                        <h1>
+                          <I18N id="register.Title" />
+                        </h1>
                         <p className="muted">
-                          Completá los datos para crear tu cuenta
+                          <I18N id="register.Subtitle" />
                         </p>
                       </div>
-                      {/* <div className="text-danger text-center">
-                    No está abierta la registración por el momento.
-                  </div> */}
                       <Form
                         validations={validations}
                         validationStatus={validationStatus}
@@ -118,26 +119,27 @@ const RegisterView = ({
                       >
                         <hr />
                         <h5 className="text-center py-4 m-0">
-                          Datos de ingreso
+                          <I18N id="register.EnterData" />
                         </h5>
                         <Input
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Nombre de usuario"
+                          label="form.Username"
                           name="username"
-                          placeholder="Nombre"
+                          placeholder="form.Username"
                           size="lg"
                           icon="user"
-                          question="Tu nombre de usuario. Lo necesitarás para poder ingresar al sistema."
+                          question="form.Username.help"
                         />
                         <Input
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Contraseña"
+                          label="form.Password"
                           name="password"
                           placeholder="******"
+                          notTranslatePlaceholder
                           type="password"
                           size="lg"
                           icon="key"
@@ -147,9 +149,10 @@ const RegisterView = ({
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Repetí la contraseña"
+                          label="form.PasswordRepeat"
                           name="password2"
                           placeholder="******"
+                          notTranslatePlaceholder
                           type="password"
                           size="lg"
                           icon="key"
@@ -158,39 +161,37 @@ const RegisterView = ({
                         <hr />
 
                         <h5 className="text-center py-4 m-0">
-                          Datos de tu cuenta
+                          <I18N id="register.AccountData" />
                         </h5>
                         <Hidden name="avatar" value={avatar} />
                         <Input
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Nombre"
+                          label="form.FirstName"
                           name="first_name"
-                          placeholder="Nombre"
+                          placeholder="form.FirstName"
                           size="lg"
                           icon="user"
-                          //question="Ayudita"
                         />
                         <Input
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Apellido"
+                          label="form.LastName"
                           name="last_name"
-                          placeholder="Apellido"
+                          placeholder="form.LastName"
                           size="lg"
                           icon="user"
-                          //question="Ayudita"
                         />
                         <Input
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Email"
+                          label="form.Email"
                           name="email"
                           type="email"
-                          placeholder="email"
+                          placeholder="form.Email"
                           size="lg"
                           icon="envelope"
                         />
@@ -198,10 +199,10 @@ const RegisterView = ({
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Teléfono"
+                          label="form.Phone"
                           name="phone"
                           type="phone"
-                          placeholder="Teléfono"
+                          placeholder="form.Phone"
                           size="lg"
                           icon="phone"
                         />
@@ -210,15 +211,18 @@ const RegisterView = ({
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
                           label="WhatsApp"
+                          notTranslateLabels
                           name="whatsapp"
                           type="phone"
-                          placeholder="Teléfono"
+                          placeholder="form.Phone"
                           size="lg"
                           icon="whatsapp"
                         />
                         <Input
                           label="Telegram"
                           name="telegram"
+                          notTranslateLabels
+                          notTranslatePlaceholder
                           placeholder="Telegram"
                           size="lg"
                           icon="telegram"
@@ -227,29 +231,29 @@ const RegisterView = ({
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Ubicación"
+                          label="form.Location"
                           name="location"
                           type="select"
                           options={locationsToOptions(dataLocations)}
                           loading={loadingLocations}
                           size="lg"
                           icon="map-marker"
-                          question="Si no aparece tu ciudad, o no estás cerca de ninguna de las ciudades del listado, por favor contactate con la organización."
+                          question="form.Location.help"
                         />
                         <hr />
                         <h5 className="text-center py-4 m-0">
-                          Datos desde BGG
+                          <I18N id="register.BGGdata" />
                         </h5>
                         <Input
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Usuario en la BGG"
+                          label="form.BGGuser"
                           name="bgg_user"
-                          placeholder="Usuario BGG"
+                          placeholder="form.BGGuser"
                           size="lg"
                           icon="bgg"
-                          question="Podés poner tu alias en la BGG."
+                          question="form.BGGuser.help"
                           onChange={(v) => {
                             setBGGuser(v);
                             onValidateBGGuser(null);
@@ -295,11 +299,11 @@ const RegisterView = ({
                       <hr />
                       <div className="text-center">
                         <p className="muted small">
-                          ¿Ya tenés cuenta, ingresá aquí:
+                          <I18N id="register.AlreadyHaveAccount" />
                         </p>
                         <Link href={`/${publicRoutes.signin.path}`}>
                           <Button color="secondary" size="sm" outline>
-                            Ingresar
+                            <I18N id="btn.Enter" />
                           </Button>
                         </Link>
                       </div>

@@ -5,6 +5,7 @@ import PublicLayout from "layouts/public";
 import { Card, CardBody, Button, Col, Row, Alert } from "reactstrap";
 import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
+import I18N from "i18n";
 
 const dataInitial = null; //{ username: "math", password: "MeepleLand" };
 
@@ -28,9 +29,11 @@ const LoginView = ({ loading, errors, onSubmit }) => {
               <Col lg={6}>
                 <CardBody className="p-5">
                   <div className="text-center mb-4">
-                    <h1>¡Hola!</h1>
+                    <h1>
+                      <I18N id="sign.Title" />
+                    </h1>
                     <p className="muted">
-                      Ingresá con tu nombre email y contraseña
+                      <I18N id="sign.instruction" />
                     </p>
                   </div>
                   <Form
@@ -44,9 +47,9 @@ const LoginView = ({ loading, errors, onSubmit }) => {
                       validations={validations}
                       validationStatus={validationStatus}
                       setValidationStatus={setValidationStatus}
-                      label="Nombre de usuario"
+                      label="form.Username"
                       name="username"
-                      placeholder="Nombre de usuario"
+                      placeholder="form.Username"
                       size="lg"
                       icon="user"
                     />
@@ -55,32 +58,33 @@ const LoginView = ({ loading, errors, onSubmit }) => {
                       validations={validations}
                       validationStatus={validationStatus}
                       setValidationStatus={setValidationStatus}
-                      label="Contraseña"
+                      label="form.Password"
                       name="password"
                       type="password"
                       placeholder="*****"
+                      notTranslatePlaceholder
                       size="lg"
                       icon="key"
                     />
                     {errors ? (
                       <Alert color="danger" className="text-center">
-                        Error, usuario y/o contraseña incorrectos.
+                        <I18N id="error.Signin" />
                       </Alert>
                     ) : null}
                     <div className="text-center py-4">
                       <Button color="primary" size="lg" type="submit">
-                        Ingresar
+                        <I18N id="btn.Enter" />
                       </Button>
                     </div>
                   </Form>
                   <hr />
                   <div className="text-center">
                     <p className="muted small">
-                      Si todavía no creaste tu cuenta, podés hacerlo aquí:
+                      <I18N id="sign.IfDontCreateAccount" />
                     </p>
                     <Link href={`/${publicRoutes.signup.path}`}>
                       <Button color="secondary" size="sm" outline>
-                        Registrate
+                        <I18N id="btn.Register" />
                       </Button>
                     </Link>
                   </div>

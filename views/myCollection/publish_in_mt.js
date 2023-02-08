@@ -4,6 +4,7 @@ import Icon from "components/icon";
 import Valuation from "components/valuation";
 import { Col, Row, Modal, ModalBody, Button } from "reactstrap";
 import { useApi, MathTradeService } from "api_serv";
+import I18N from "i18n";
 
 const PublishInMT = ({ item, itemMathTradeData, afterAnyChange }) => {
   if (!item) {
@@ -50,9 +51,11 @@ const PublishInMT = ({ item, itemMathTradeData, afterAnyChange }) => {
                 />
               </Col>
               <Col>
-                {loadingPublishItem
-                  ? "Publicando..."
-                  : "PUBLICAR en el Math Trade"}
+                {loadingPublishItem ? (
+                  <I18N id="myCollection.publishing" />
+                ) : (
+                  <I18N id="myCollection.publishInMathTrade" />
+                )}
               </Col>
             </Row>
           </Button>
@@ -78,9 +81,11 @@ const PublishInMT = ({ item, itemMathTradeData, afterAnyChange }) => {
                     />
                   </Col>
                   <Col xs="auto">
-                    {loadingPublishItem
-                      ? "Quitando..."
-                      : "Quitar del Math Trade"}
+                    {loadingPublishItem ? (
+                      <I18N id="myCollection.quittingFromMathtrade" />
+                    ) : (
+                      <I18N id="myCollection.quitFromMathTrade" />
+                    )}
                   </Col>
                 </Row>
               </Button>
@@ -102,7 +107,9 @@ const PublishInMT = ({ item, itemMathTradeData, afterAnyChange }) => {
         centered
       >
         <ModalBody className="text-center">
-          <h5 className="mb-4">¿Quitar este item del Math Trade?</h5>
+          <h5 className="mb-4">
+            <I18N id="myCollection.modal.quitFromMathTrade" />
+          </h5>
           <div>
             <Button
               color="link"
@@ -113,7 +120,7 @@ const PublishInMT = ({ item, itemMathTradeData, afterAnyChange }) => {
                 setModalDeleteOpen(false);
               }}
             >
-              Cancelar
+              <I18N id="btn.Cancel" />
             </Button>
             <Button
               color="danger"
@@ -124,7 +131,7 @@ const PublishInMT = ({ item, itemMathTradeData, afterAnyChange }) => {
                 });
               }}
             >
-              Sí, quitar
+              <I18N id="btn.YesQuit" />
             </Button>
           </div>
         </ModalBody>

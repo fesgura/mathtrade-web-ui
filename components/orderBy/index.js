@@ -1,3 +1,4 @@
+import I18N from "i18n";
 import { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
 
@@ -18,7 +19,9 @@ const OrderBy = ({ valueInitial, options = [], onChange = () => {} }) => {
     <div className="order-by">
       <Row className="align-items-center g-0">
         <Col xs="auto">
-          <div className="order-by_label">Ordernar por: </div>
+          <div className="order-by_label">
+            <I18N id="orderBy.Title" />:
+          </div>
         </Col>
         <Col xs="auto">
           <div className="order-by_select">
@@ -59,7 +62,7 @@ const OrderBy = ({ valueInitial, options = [], onChange = () => {} }) => {
             className="order-by_label cursor-pointer"
             htmlFor="order-by-desc"
           >
-            Descendente
+            <I18N id="orderBy.Descent" />
           </label>
         </Col>
       </Row>

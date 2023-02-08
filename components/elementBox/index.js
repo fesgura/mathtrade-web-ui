@@ -4,6 +4,7 @@ import Box from "components/box";
 import Icon from "components/icon";
 import StatusBadge from "components/statusBadge";
 import { Col, Row, Badge, UncontrolledTooltip } from "reactstrap";
+import I18N from "i18n";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -26,11 +27,13 @@ const ElementBox = ({ element, className }) => {
               </a>
               <UncontrolledTooltip target={`bgg-link-${id}`}>
                 <div className="bgg-game-info_tooltip">
-                  Ver edición en la BGG
+                  <I18N id="element.BGG.ViewEditionBGG" />
                 </div>
               </UncontrolledTooltip>
             </div>
-            <div className="box_item-label">Edición</div>
+            <div className="box_item-label">
+              <I18N id="element.Edition" />
+            </div>
           </div>
         </Col>
         <Col xs="auto" className="element-box_col">
@@ -38,7 +41,9 @@ const ElementBox = ({ element, className }) => {
             <div className="box_item-text">
               {element.language.replace(/,/g, ", ")}
             </div>
-            <div className="box_item-label">Idioma</div>
+            <div className="box_item-label">
+              <I18N id="element.Language" />
+            </div>
           </div>
         </Col>
         <Col xs="auto" className="element-box_col">
@@ -46,14 +51,18 @@ const ElementBox = ({ element, className }) => {
             <div className="box_item-text">
               <StatusBadge status={element.status} />
             </div>
-            <div className="box_item-label">Estado</div>
+            <div className="box_item-label">
+              <I18N id="element.Status" />
+            </div>
           </div>
         </Col>
         {element.comment !== "" ? (
           <Col xs={12} className="element-box_col">
             <div className="box_item">
               <div className="box_item-text">{element.comment}</div>
-              <div className="box_item-label">Comentario</div>
+              <div className="box_item-label">
+                <I18N id="element.Comment" />
+              </div>
             </div>
           </Col>
         ) : null}

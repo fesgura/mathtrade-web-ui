@@ -9,6 +9,7 @@ import {
 } from "reactstrap";
 import Question from "components/question";
 import { useApi, MathTradeService } from "api_serv";
+import I18N from "i18n";
 
 const minValue = 0;
 const maxValue = 10;
@@ -77,12 +78,8 @@ const Valuation = ({ className, items, afterAnyChange }) => {
         <DropdownMenu end>
           <DropdownItem tag="div">
             <div className="valuation-label">
-              Valor
-              <Question
-                question="Podés asignarle un valor a este item, según tu propio criterio. Esto te va a ayudar luego a filtrar items, asociarlos, tec."
-                min
-              />{" "}
-              :
+              <I18N id="Valuation.Value" />
+              <Question question="Valuation.Help" min /> :
             </div>
             <div
               className="valuation-liner"

@@ -28,8 +28,8 @@ const ElementEditorView = ({
       {!objToEdit.element ? (
         <div className="element-create_bgg-search">
           <BGGsearch
-            label="Buscar en la BGG"
-            question="Escribí parte del nombre del juego o expansión, y luego seleccioná una de las opciones que aparecen."
+            label="BGGsearch.Label"
+            question="BGGsearch.help"
             onResult={(ops) => {
               setElementToEdit(null);
               setTimeout(() => {

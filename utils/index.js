@@ -1,4 +1,5 @@
-import { languageTranslations, listDependencyTexts } from "config";
+import { listDependencyTexts, languagePool } from "config";
+import { getI18Ntext } from "i18n";
 
 export const locationsToOptions = (locations) => {
   if (!locations) {
@@ -13,11 +14,10 @@ export const locationsToOptions = (locations) => {
   });
 };
 export const translateText = (str) => {
-  const dicc = {
-    ...languageTranslations,
-  };
-
-  return dicc[str] || "Otro (no listado)";
+  if (languagePool.indexOf(str) >= 0) {
+    return getI18Ntext(`language.${str}`);
+  }
+  return str;
 };
 
 // ELEMENTS

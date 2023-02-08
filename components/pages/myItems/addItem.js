@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import classNames from "classnames";
 import { Button } from "reactstrap";
 import Icon from "components/icon";
+import I18N from "i18n";
 
 const AddItem = ({ item, className, onClick }) => {
   const [elementNum, setElementNum] = useState(0);
@@ -16,21 +17,13 @@ const AddItem = ({ item, className, onClick }) => {
 
   switch (elementNum) {
     case 0:
-      btnTitle = <b>Agregar nuevo Item</b>;
+      btnTitle = <I18N id="btn.MyCollection.addNewItem" forHtml />;
       break;
     case 1:
-      btnTitle = (
-        <>
-          <b>Agregar</b> (para crear un <b>combo</b>)
-        </>
-      );
+      btnTitle = <I18N id="btn.MyCollection.addNewItemForCombo" forHtml />;
       break;
     default:
-      btnTitle = (
-        <>
-          <b>Agregar</b> al <b>combo</b>
-        </>
-      );
+      btnTitle = <I18N id="btn.MyCollection.addNewItemToCombo" forHtml />;
   }
 
   return (

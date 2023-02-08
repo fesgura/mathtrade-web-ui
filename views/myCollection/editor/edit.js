@@ -9,6 +9,7 @@ import { LoadingBox } from "components/loading";
 import { getVersionNameFromId, processBGGdata } from "utils";
 import Thumbnail from "components/thumbnail";
 import BggGameBox from "components/bggGameBox";
+import I18N, { getI18Ntext } from "i18n";
 
 const validations = {
   version_name: ["required"],
@@ -16,16 +17,6 @@ const validations = {
   publisher: ["required"],
   year: ["required"],
   status: ["required"],
-  //comment NO REQUIRED
-  //dependency  NO REQUIRED ,
-
-  //item_title = name
-
-  //item_id
-  //type
-  //bgg_id
-  //thumbnail
-  //bgg_version_id
 };
 
 const maxYear = (function () {
@@ -99,7 +90,7 @@ const ElementEdit = ({
 
   useEffect(() => {
     if (errors) {
-      let errorMge = "Ocurrió un error. Por favor, intenta nuevamente.";
+      let errorMge = getI18Ntext("error.General");
       setErrorMessage(errorMge);
     } else {
       setErrorMessage(null);
@@ -129,7 +120,7 @@ const ElementEdit = ({
                     }}
                   >
                     <Icon type="trash" className="me-1" />
-                    Eliminar
+                    <I18N id="btn.Delete" />
                   </Button>
                 </div>
               )}
@@ -141,7 +132,7 @@ const ElementEdit = ({
                 {element.name}{" "}
                 {element.type === typeOfElements["expansion"] ? (
                   <Badge color="expansion" className="element-title-badge">
-                    Expansión
+                    <I18N id="element.Expansion" />
                   </Badge>
                 ) : null}
               </div>
@@ -189,7 +180,7 @@ const ElementEdit = ({
                     validationStatus={validationStatus}
                     setValidationStatus={setValidationStatus}
                     type="input-drop"
-                    label="Edición"
+                    label="element.Edition"
                     name="version_name"
                     nowrite
                     icon={"book"}
@@ -221,7 +212,7 @@ const ElementEdit = ({
                             setValidationStatus={setValidationStatus}
                             type="select-multiple"
                             options={languageList}
-                            label="Idioma"
+                            label="element.Language"
                             name="language"
                             readOnly={bgg_version_id !== "other"}
                           />
@@ -234,7 +225,7 @@ const ElementEdit = ({
                             validations={validations}
                             validationStatus={validationStatus}
                             setValidationStatus={setValidationStatus}
-                            label="Editorial"
+                            label="element.Publisher"
                             name="publisher"
                             readOnly={bgg_version_id !== "other"}
                           />
@@ -245,7 +236,7 @@ const ElementEdit = ({
                             validations={validations}
                             validationStatus={validationStatus}
                             setValidationStatus={setValidationStatus}
-                            label="Año"
+                            label="element.Year"
                             type="number"
                             min="1"
                             max={maxYear}
@@ -261,7 +252,7 @@ const ElementEdit = ({
                             validations={validations}
                             validationStatus={validationStatus}
                             setValidationStatus={setValidationStatus}
-                            label="Estado"
+                            label="element.Status"
                             name="status"
                             type="select"
                             options={statusList}
@@ -273,7 +264,7 @@ const ElementEdit = ({
                         validations={validations}
                         validationStatus={validationStatus}
                         setValidationStatus={setValidationStatus}
-                        label="Comentario"
+                        label="element.Comment"
                         textSize={500}
                         name="comment"
                         type="textarea"
@@ -298,14 +289,18 @@ const ElementEdit = ({
                         onClose();
                       }}
                     >
-                      Cancelar
+                      <I18N id="btn.Cancel" />
                     </Button>
                     <Button
                       color="primary"
                       type="submit"
                       disabled={!bgg_version_id}
                     >
-                      {create ? "Agregar" : "Guardar cambios"}
+                      {create ? (
+                        <I18N id="btn.Add" />
+                      ) : (
+                        <I18N id="btn.SaveChanges" />
+                      )}
                     </Button>
                   </div>
                 </Form>
@@ -318,7 +313,9 @@ const ElementEdit = ({
       {showDelete ? (
         <div className="element-delete fade-in">
           <div className="element-delete-cont">
-            <h5 className="mb-4">¿Eliminar "{element.name}"?</h5>
+            <h5 className="mb-4">
+              <I18N id="Delete" /> "{element.name}"?
+            </h5>
 
             <Button
               color="link"
@@ -330,7 +327,7 @@ const ElementEdit = ({
                 setShowDelete(false);
               }}
             >
-              Cancelar
+              <I18N id="btn.Cancel" />
             </Button>
             <Button
               color="danger"
@@ -339,7 +336,7 @@ const ElementEdit = ({
                 deleteElement(element.id);
               }}
             >
-              Eliminar
+              <I18N id="btn.Delete" />
             </Button>
           </div>
         </div>
