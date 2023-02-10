@@ -4,6 +4,8 @@ import PageHeaderTabs from "components/pageHeaderTabs";
 import { Button, Alert, Row, Col } from "reactstrap";
 import { wantsFromAPItoWantList, myItemListFromAPItoMyItemList } from "utils";
 import Grid from "./grid";
+import I18N from "i18n";
+import ErrorAlert from "components/errorAlert";
 
 const MyWantsView = ({
   wantListFromAPI,
@@ -49,33 +51,38 @@ const MyWantsView = ({
   }
 
   return (
-    <PrivateLayout loading={loading}>
+    <PrivateLayout loading={loading} doctitle="title.MyWants">
       <PageHeaderTabs
         className="mt-4"
-        leftSide={<h1 className="pb-3 pe-5">Mis wants</h1>}
+        leftSide={
+          <h1 className="pb-3 pe-5">
+            <I18N id="title.MyWants" />
+          </h1>
+        }
         onChange={setCurrent}
         tabs={[
           {
-            text: "Opt 1",
+            text: "MyWants.tabTitle1",
             current: current === 0,
           },
           {
-            text: "Opt 2",
+            text: "MyWants.tabTitle2",
             current: current === 1,
           },
           {
-            text: "Grilla",
+            text: "MyWants.tabTitle3",
             current: current === 2,
           },
         ]}
       />
       {content}
+      <ErrorAlert errors={errors} />
       <div className="text-center py-5">
         <Button color="link" className="me-2" outline onClick={afterAnyChange}>
-          Cancelar
+          <I18N id="btn.Cancel" />
         </Button>
         <Button color="primary" type="submit" onClick={(e) => {}}>
-          Guardar cambios
+          <I18N id="MyWants.btn.CommitChanges" />
         </Button>
       </div>
     </PrivateLayout>

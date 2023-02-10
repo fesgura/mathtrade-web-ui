@@ -7,6 +7,7 @@ import { menuUser } from "config/routes";
 import Icon from "components/icon";
 import storage from "utils/storage";
 import { setLogoutAPI } from "api_serv/utils";
+import I18N from "i18n";
 
 const UserHeader = ({ storeData }) => {
   const [username, setUsername] = useState("");
@@ -31,7 +32,7 @@ const UserHeader = ({ storeData }) => {
             <Link href={`/${path}`} key={k}>
               <a className="a-item">
                 <Icon type={icon} />
-                {title}
+                <I18N id={title} />
               </a>
             </Link>
           );
@@ -47,7 +48,7 @@ const UserHeader = ({ storeData }) => {
           }}
         >
           <Icon type="sign-out" />
-          Salir
+          <I18N id="sign.SignOut" />
         </a>
       </div>
     </div>

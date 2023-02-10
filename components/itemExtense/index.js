@@ -5,6 +5,7 @@ import UserBox from "components/userBox";
 import Element from "./element";
 import EditBtn from "./editBtn";
 import classNames from "classnames";
+import I18N from "i18n";
 
 const ItemExtense = ({
   item,
@@ -42,7 +43,10 @@ const ItemExtense = ({
           <div className={classNames({ "with-dragger": withDragger })}>
             {isCombo ? (
               <>
-                <u>Combo</u>:{" "}
+                <u>
+                  <I18N id="Combo" />
+                </u>
+                :{" "}
               </>
             ) : null}
             {title}

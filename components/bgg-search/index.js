@@ -3,6 +3,7 @@ import { useApi, BggService } from "api_serv";
 import { Input } from "components/form";
 import { Badge } from "reactstrap";
 import { typeOfElements } from "config";
+import I18N from "i18n";
 
 const formatText = (text, str) => {
   const ind = text.toLowerCase().indexOf(str.toLowerCase());
@@ -118,7 +119,7 @@ const BGGsearch = ({ label, question, onResult = () => {} }) => {
           list ? (
             list.length === 0 ? (
               <div className="drop-search_empty">
-                No se encuentra ningún juego o expansión
+                <I18N id="BGGsearch.notFound" />
               </div>
             ) : (
               <div className="drop-search_list">

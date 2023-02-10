@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import { useApi, MathTradeService, LocationService } from "api_serv";
+import { useApi, MathTradeService } from "api_serv";
 import { LoadingBox } from "components/loading";
 import ItemListToWant from "./comps/itemListToWant";
 import { Col, Row } from "reactstrap";
-import { Form, Input } from "components/form";
+import { Input } from "components/form";
+import I18N from "i18n";
+import ErrorAlert from "components/errorAlert";
 
 const Tag = ({ tag, dup_protection, set_dup_protection }) => {
   const [listItems, list, loading, errors] = useApi({
@@ -25,15 +27,11 @@ const Tag = ({ tag, dup_protection, set_dup_protection }) => {
       <div className="pt-3 pb-2">
         <Row>
           <Col>
-            Quiero{" "}
             {dup_protection ? (
-              <>
-                <b>uno (1)</b> de
-              </>
+              <I18N id="wantEditor.Group.wants.dup_protection_enabled.lead" />
             ) : (
-              <b>todos</b>
-            )}{" "}
-            estos items:
+              <I18N id="wantEditor.Group.wants.dup_protection_disabled.lead" />
+            )}
           </Col>
           <Col xs="auto">
             <div className="want-editor_dup_protection-container">
@@ -44,9 +42,8 @@ const Tag = ({ tag, dup_protection, set_dup_protection }) => {
                 classNameContainer="m-0"
                 type="switch"
                 name="dup_protection"
-                //label="Protección de duplicados"
-                labelCheckbox="Protección de duplicados"
-                question='¡CUIDADO! Si DESACTIVÁS la "Protección de duplicados" corrés el riesgo de recibir dos ó más copias de un mismo juego!!Desactivalo SOLO SI SABÉS LO QUE ESTÁS HACIENDO!!'
+                labelCheckbox="wantEditor.dup_protection"
+                question="wantEditor.dup_protection.help"
                 onChange={set_dup_protection}
               />
             </div>
@@ -55,7 +52,7 @@ const Tag = ({ tag, dup_protection, set_dup_protection }) => {
       </div>
       <hr className="m-0" />
       <ItemListToWant itemListToWant={list?.results || []} />
-
+      <ErrorAlert errors={errors} />
       {loading ? <LoadingBox /> : null}
     </div>
   );

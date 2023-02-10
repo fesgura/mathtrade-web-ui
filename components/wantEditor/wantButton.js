@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import classNames from "classnames";
 import Valuation from "components/valuation";
 import { Col, Row, Button } from "reactstrap";
+import I18N from "i18n";
 
 const WantButton = ({
   objectToWant,
@@ -34,7 +35,7 @@ const WantButton = ({
         <Col xs="auto">
           {isOwner ? (
             <Button color="transparent" size="sm" disabled>
-              Item propio
+              <I18N id="wantEditor.btn.OwnItem" />
             </Button>
           ) : (
             <Button
@@ -42,7 +43,11 @@ const WantButton = ({
               size={type === "tag" ? "xs" : "sm"}
               onClick={onClick}
             >
-              {wantGroup ? "En mi Want List" : "¡Lo quiero!"}
+              {wantGroup ? (
+                <I18N id="wantEditor.btn.InMyWantList" />
+              ) : (
+                <I18N id="wantEditor.btn.IwantIt" />
+              )}
             </Button>
           )}
         </Col>

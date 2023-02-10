@@ -1,3 +1,5 @@
+import { getI18Ntext } from "i18n";
+
 export const google_recaptcha_v3_client_key =
   "6LeWcz8gAAAAAGgpOiINIJZSwsmKH-eMjtbQbFbF";
 
@@ -5,16 +7,13 @@ export const storageName = "MathTradeArgentina";
 export const storageOptionsName = storageName + "Options";
 export const daysExpireToken = 1;
 
-export const statusTypes = {
-  CE: "Cerrado en el envoltorio original",
-  NU: "Nuevo, perfecto",
-  CN: "Casi nuevo",
-  EX: "Excelente",
-  MB: "Muy bueno",
-  BU: "Bastante usado",
-  MU: "Muy usado",
-  IN: "Incompleto",
-};
+export const statusTypes = (function () {
+  const o = {};
+  ["CE", "NU", "CN", "EX", "MB", "BU", "MU", "CC", "IN"].forEach((st) => {
+    o[st] = getI18Ntext(`statusType.${st}`);
+  });
+  return o;
+})();
 
 export const statusList = (() => {
   const list = [];
@@ -27,33 +26,19 @@ export const statusList = (() => {
   return list;
 })();
 
-export const listDependencyTexts = [
-  {
-    min: "Ninguna",
-    max: "Ninguna: sin texto en juego",
-    value: 0,
-  },
-  {
-    min: "Poco texto",
-    max: "Pocos textos, fáciles de memorizar",
-    value: 1,
-  },
-  {
-    min: "Moderada",
-    max: "Moderada: es necesaria una hoja de referencia",
-    value: 2,
-  },
-  {
-    min: "Uso extensivo de texto",
-    max: "Uso extensivo de texto: se necesita conocer el idioma para poder jugar",
-    value: 3,
-  },
-  {
-    min: "Injugable en otro idioma",
-    max: "Injugable en otro idioma",
-    value: 4,
-  },
-];
+export const listDependencyTexts = (function () {
+  const o = [];
+  let value = 0;
+  while (value < 5) {
+    o.push({
+      min: getI18Ntext(`dependencyType.min.${value}`),
+      max: getI18Ntext(`dependencyType.max.${value}`),
+      value,
+    });
+    value++;
+  }
+  return o;
+})();
 
 export const dependencyList = (() => {
   const dl = {
@@ -77,94 +62,91 @@ export const typeOfElements = {
   otro: 3,
 };
 
-export const languageTranslations = {
-  Spanish: "Español",
-  English: "Inglés",
-  Portuguese: "Portugués",
-  German: "Alemán",
-  French: "Francés",
-  Chinese: "Chino",
-  Catalan: "Catalán",
-  Afrikaans: "Afrikaans",
-  Albanian: "Albanés",
-  Arabic: "Arábigo",
-  Armenian: "Armenio",
-  Azerbaijani: "Azerbaiyano",
-  Basque: "Vasco",
-  Belarusian: "Bielorruso",
-  Bengali: "Bengalí",
-  Bosnian: "Bosnio",
-  Breton: "Bretón",
-  Bulgarian: "Búlgaro",
-  Burmese: "Birmano",
-  Croatian: "Croata",
-  Czech: "Checo",
-  Danish: "Danés",
-  Dutch: "Holandés",
-  Esperanto: "Esperanto",
-  Estonian: "Estonio",
-  Faroese: "Feroés",
-  Filipino: "Filipino",
-  Finnish: "Finés",
-  Galician: "Gallego",
-  Georgian: "Georgiano",
-  Greek: "Griego",
-  Hebrew: "Hebreo",
-  Hindi: "Hindi",
-  Hungarian: "Húngaro",
-  Icelandic: "Islandés",
-  Indonesian: "Indonesio",
-  Inuktitut: "Inuktitut",
-  Iranian: "Iraní",
-  Irish: "Irlandés",
-  Italian: "Italiano",
-  Japanese: "Japonés",
-  Korean: "Coreano",
-  Latin: "Latin",
-  Latvian: "Letón",
-  Lithuanian: "Lituano",
-  Luxembourgish: "Luxemburgués",
-  Macedonian: "Macedonio",
-  Malay: "Malayo",
-  Maltese: "Maltés",
-  Mapudungun: "Mapudungún",
-  Norwegian: "Noruego",
-  Persian: "Persa",
-  Polish: "Polaco",
-  Romanian: "Rumano",
-  Romansh: "Románico",
-  Russian: "Ruso",
-  "Salishan languages": "Salishan",
-  Sardinian: "Sardinian",
-  "Scottish Gaelic": "Gaélico escocés",
-  Serbian: "Serbio",
-  Slovak: "Eslovaco",
-  Slovenian: "Esloveno",
-  Swahili: "Swahili",
-  Swedish: "Sueco",
-  Tamil: "Tamil",
-  Thai: "Thai",
-  Turkish: "Turco",
-  Ukrainian: "Ucraniano",
-  Uyghur: "Uyghur",
-  Vietnamese: "Vietnamita",
-  Welsh: "Galés",
-};
+const languagePool = [
+  "Spanish",
+  "English",
+  "Portuguese",
+  "German",
+  "French",
+  "Chinese",
+  "Catalan",
+  "Afrikaans",
+  "Albanian",
+  "Arabic",
+  "Armenian",
+  "Azerbaijani",
+  "Basque",
+  "Belarusian",
+  "Bengali",
+  "Bosnian",
+  "Breton",
+  "Bulgarian",
+  "Burmese",
+  "Croatian",
+  "Czech",
+  "Danish",
+  "Dutch",
+  "Esperanto",
+  "Estonian",
+  "Faroese",
+  "Filipino",
+  "Finnish",
+  "Galician",
+  "Georgian",
+  "Greek",
+  "Hebrew",
+  "Hindi",
+  "Hungarian",
+  "Icelandic",
+  "Indonesian",
+  "Inuktitut",
+  "Iranian",
+  "Irish",
+  "Italian",
+  "Japanese",
+  "Korean",
+  "Latin",
+  "Latvian",
+  "Lithuanian",
+  "Luxembourgish",
+  "Macedonian",
+  "Malay",
+  "Maltese",
+  "Mapudungun",
+  "Norwegian",
+  "Persian",
+  "Polish",
+  "Romanian",
+  "Romansh",
+  "Russian",
+  "Salishan languages",
+  "Sardinian",
+  "Scottish Gaelic",
+  "Serbian",
+  "Slovak",
+  "Slovenian",
+  "Swahili",
+  "Swedish",
+  "Tamil",
+  "Thai",
+  "Turkish",
+  "Ukrainian",
+  "Uyghur",
+  "Vietnamese",
+  "Welsh",
+  "OtherNotListed",
+];
 
 export const languageList = (() => {
   const list = [];
 
-  for (let lang in languageTranslations) {
-    const text = languageTranslations[lang];
+  languagePool.forEach((lan) => {
+    // const text = getI18Ntext(`language.${lan}`);
+
     list.push({
-      value: text,
-      text,
+      value: lan,
+      text: `language.${lan}`,
     });
-  }
-  //
-  list.push({
-    value: "Otro (no listado)",
-    text: "Otro (no listado)",
   });
 
   return list;

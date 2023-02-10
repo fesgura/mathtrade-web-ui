@@ -19,6 +19,7 @@ import Icon from "components/icon";
 import UserAvatar from "components/avatar";
 import ChangePassword from "containers/myAccount/changePassword";
 import ErrorAlert from "components/errorAlert";
+import I18N, { getI18Ntext } from "i18n";
 
 const MyAccountView = ({
   data,
@@ -53,19 +54,19 @@ const MyAccountView = ({
       function () {
         validBGGuser;
         return !validBGGuser
-          ? "Tenés que comprobar tu usuario en BGG."
+          ? getI18Ntext("validation.BGGuser")
           : validBGGuser === "no"
-          ? "Este usuario no aparece en la BGG."
+          ? getI18Ntext("validation.BGGuserDoesNotExist")
           : null;
       },
     ],
   };
 
   return (
-    <PrivateLayout loading={loading}>
+    <PrivateLayout loading={loading} doctitle="title.MyAccount">
       <Row className="justify-content-center">
         <Col xl={12}>
-          <PageHeader title="Mi cuenta" />
+          <PageHeader title="title.MyAccount" />
           <Card>
             <CardBody className="pe-lg-5">
               <Row>
@@ -99,7 +100,9 @@ const MyAccountView = ({
                     validationStatus={validationStatus}
                     setValidationStatus={setValidationStatus}
                   >
-                    <h5 className="py-4 m-0">Datos de ingreso</h5>
+                    <h5 className="py-4 m-0">
+                      <I18N id="register.EnterData" />
+                    </h5>
                     <Row className="align-items-end">
                       <Col md={6}>
                         <Input
@@ -107,11 +110,11 @@ const MyAccountView = ({
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Nombre de usuario"
+                          label="form.Username"
                           name="username"
-                          placeholder="Nombre"
+                          placeholder="form.Username"
                           icon="user"
-                          question="Tu nombre de usuario lo necesitarás para poder ingresar al sistema."
+                          question="form.Username.help"
                           onChange={() => {
                             setModified(true);
                           }}
@@ -127,13 +130,15 @@ const MyAccountView = ({
                               setIsOpenModalPassword(true);
                             }}
                           >
-                            Cambiar contraseña
+                            <I18N id="btn.ChangePassword" />
                           </Button>
                         </div>
                       </Col>
                     </Row>
                     <hr />
-                    <h5 className="py-4 m-0">Datos de tu cuenta</h5>
+                    <h5 className="py-4 m-0">
+                      <I18N id="register.AccountData" />
+                    </h5>
                     <Hidden name="avatar" value={avatar} />
                     <Row>
                       <Col md={6}>
@@ -142,9 +147,9 @@ const MyAccountView = ({
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Nombre"
+                          label="form.FirstName"
                           name="first_name"
-                          placeholder="Nombre"
+                          placeholder="form.FirstName"
                           icon="user"
                           onChange={() => {
                             setModified(true);
@@ -157,9 +162,9 @@ const MyAccountView = ({
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Apellido"
+                          label="form.LastName"
                           name="last_name"
-                          placeholder="Apellido"
+                          placeholder="form.LastName"
                           icon="user"
                           onChange={() => {
                             setModified(true);
@@ -174,10 +179,10 @@ const MyAccountView = ({
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Email"
+                          label="form.Email"
                           name="email"
                           type="email"
-                          placeholder="email"
+                          placeholder="form.Email"
                           icon="envelope"
                           onChange={() => {
                             setModified(true);
@@ -190,13 +195,13 @@ const MyAccountView = ({
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Ubicación"
+                          label="form.Location"
                           name="location"
                           type="select"
                           options={locationsToOptions(dataLocations)}
                           loading={loadingLocations}
                           icon="map-marker"
-                          question="Si no aparece tu ciudad, o no estás cerca de ninguna de las ciudades del listado, por favor contactate con la organización."
+                          question="form.Location.help"
                           onChange={() => {
                             setModified(true);
                           }}
@@ -210,10 +215,10 @@ const MyAccountView = ({
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Teléfono"
+                          label="form.Phone"
                           name="phone"
                           type="phone"
-                          placeholder="Teléfono"
+                          placeholder="form.Phone"
                           icon="phone"
                           onChange={(v) => {
                             setModified(true);
@@ -227,9 +232,10 @@ const MyAccountView = ({
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
                           label="WhatsApp"
+                          notTranslateLabels
                           name="whatsapp"
                           type="phone"
-                          placeholder="Teléfono"
+                          placeholder="form.Phone"
                           icon="whatsapp"
                           onChange={() => {
                             setModified(true);
@@ -242,6 +248,8 @@ const MyAccountView = ({
                           label="Telegram"
                           name="telegram"
                           placeholder="Telegram"
+                          notTranslateLabels
+                          notTranslatePlaceholder
                           icon="telegram"
                           onChange={() => {
                             setModified(true);
@@ -250,7 +258,9 @@ const MyAccountView = ({
                       </Col>
                     </Row>
                     <hr />
-                    <h5 className="py-4 m-0">Datos desde BGG</h5>
+                    <h5 className="py-4 m-0">
+                      <I18N id="register.BGGdata" />
+                    </h5>
                     <Row className="align-items-end">
                       <Col>
                         <Input
@@ -258,11 +268,11 @@ const MyAccountView = ({
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Usuario en la BGG"
+                          label="form.BGGuser"
                           name="bgg_user"
-                          placeholder="Usuario BGG"
+                          placeholder="form.BGGuser"
                           icon="bgg"
-                          question="Podés poner tu alias en la BGG."
+                          question="form.BGGuser.help"
                           onChange={(v) => {
                             setModified(true);
                             setBGGuser(v);
@@ -311,7 +321,7 @@ const MyAccountView = ({
                           Router.push("/");
                         }}
                       >
-                        Cancelar
+                        <I18N id="btn.Cancel" />
                       </Button>
                       <Button
                         color="primary"
@@ -319,7 +329,7 @@ const MyAccountView = ({
                         disabled={!modified}
                         size="lg"
                       >
-                        Guardar cambios
+                        <I18N id="btn.SaveChanges" />
                       </Button>
                     </div>
                   </Form>

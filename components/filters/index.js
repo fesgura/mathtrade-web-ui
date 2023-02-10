@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import { Form, Input } from "components/form";
+import I18N from "i18n";
 import { Button } from "reactstrap";
 
 const FiltersComp = ({
@@ -24,6 +25,8 @@ const FiltersComp = ({
               icon,
               question,
               placeholder,
+              notTranslateOptions,
+              translateType,
               min,
               max,
               options,
@@ -42,6 +45,8 @@ const FiltersComp = ({
                   size={size || "sm"}
                   options={options}
                   question={question}
+                  notTranslateOptions={notTranslateOptions}
+                  translateType={translateType}
                 />
                 {hr ? <hr /> : null}
               </div>
@@ -49,7 +54,7 @@ const FiltersComp = ({
           })}
           <hr />
           <Button type="submit" block size="lg">
-            Filtrar
+            <I18N id="btn.filter.Filter" />
           </Button>
           <div className="clear-filter-box">
             <a
@@ -59,7 +64,7 @@ const FiltersComp = ({
                 clearFilters();
               }}
             >
-              Limpiar filtros
+              <I18N id="btn.filter.Clear" />
             </a>
           </div>
         </Form>

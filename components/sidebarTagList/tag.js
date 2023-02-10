@@ -6,6 +6,7 @@ import AddTag from "components/addTag";
 import { getTextColorByBackgroundColor } from "utils";
 import WantEditor from "components/wantEditor";
 import { Col, Row } from "reactstrap";
+import { getI18Ntext } from "i18n";
 
 const Tag = ({ tag, wantList, filterByTag, afterAnyChange, current }) => {
   const [modalEditOpen, setModalEditOpen] = useState(false);
@@ -55,7 +56,7 @@ const Tag = ({ tag, wantList, filterByTag, afterAnyChange, current }) => {
                 {tag.id > 0 ? (
                   <span
                     className="sidebar-group-list_tag_edit"
-                    title="Editar"
+                    title={getI18Ntext("itemList.Tags.Edit")}
                     onClick={(e) => {
                       e.stopPropagation();
                       setModalEditOpen(true);

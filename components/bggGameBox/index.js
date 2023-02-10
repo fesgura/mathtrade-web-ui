@@ -12,6 +12,7 @@ import Box from "components/box";
 import Icon from "components/icon";
 import classNames from "classnames";
 import { dependencyToData } from "utils";
+import I18N, { getI18Ntext } from "i18n";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -26,7 +27,7 @@ const BggGameBox = ({ element, className }) => {
     weightVotes: 1,
   });
   const [dataDependency, setDataDependency] = useState({
-    most: "Sin datos",
+    most: getI18Ntext("NoData"),
     list: [],
   });
 
@@ -62,7 +63,9 @@ const BggGameBox = ({ element, className }) => {
               </div>
               <UncontrolledTooltip target={`bgg-rank-${id}`}>
                 <div className="bgg-game-box_tooltip">
-                  <b>Rating BGG</b>
+                  <b>
+                    <I18N id="element.BGG.rating" />
+                  </b>
                   <br />
                   {stats.rateVotes} ratings
                 </div>
@@ -76,13 +79,17 @@ const BggGameBox = ({ element, className }) => {
               <div className="box_item-text text-normal">
                 <b>{stats.weight}</b>/5
               </div>
-              <div className="box_item-label">Dificultad</div>
+              <div className="box_item-label">
+                <I18N id="element.BGG.weight" />
+              </div>
             </div>
             <UncontrolledTooltip target={`bgg-dificultad-${id}`}>
               <div className="bgg-game-box_tooltip">
-                <b>Dificultad</b>
+                <b>
+                  <I18N id="element.BGG.weight" />
+                </b>
                 <br />
-                {stats.weightVotes} votos
+                {stats.weightVotes} <I18N id="element.BGG.votes" />
               </div>
             </UncontrolledTooltip>
           </div>
@@ -99,7 +106,7 @@ const BggGameBox = ({ element, className }) => {
                         enabled: dataDependency.list.length > 0,
                       })}
                       tag="div"
-                      title="Votos en la BGG"
+                      title={getI18Ntext("element.BGG.VotesInBGG")}
                     >
                       {dataDependency.most}{" "}
                     </DropdownToggle>
@@ -112,9 +119,9 @@ const BggGameBox = ({ element, className }) => {
                                 <Row className="align-items-center">
                                   <Col>{dep.text}</Col>
                                   <Col xs="auto">
-                                    <b>{`(${dep.value} voto${
-                                      dep.value === 1 ? "" : "s"
-                                    })`}</b>
+                                    <b>{`(${dep.value} ${getI18Ntext(
+                                      "element.BGG.vote"
+                                    )}${dep.value === 1 ? "" : "s"})`}</b>
                                   </Col>
                                 </Row>
                               </div>
@@ -126,7 +133,9 @@ const BggGameBox = ({ element, className }) => {
                   </UncontrolledButtonDropdown>
                 </b>
               </div>
-              <div className="box_item-label">Dependencia de idioma</div>
+              <div className="box_item-label">
+                <I18N id="element.BGG.dependency" />
+              </div>
             </div>
           </div>
         </Col>
@@ -144,7 +153,7 @@ const BggGameBox = ({ element, className }) => {
                 </a>
                 <UncontrolledTooltip target={`bgg-link-${id}`}>
                   <div className="bgg-game-info_tooltip">
-                    Abrir página en la BGG
+                    <I18N id="element.BGG.OpenInBGG" />
                   </div>
                 </UncontrolledTooltip>
               </div>

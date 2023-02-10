@@ -8,6 +8,7 @@ import OrderBy from "components/orderBy";
 import Item from "containers/myCollection/item";
 import AddItem from "components/pages/myItems/addItem";
 import ElementEditor from "containers/myCollection/editor";
+import I18N, { getI18Ntext } from "i18n";
 
 const MyCollectionView = ({
   IamInMathTrade,
@@ -50,9 +51,9 @@ const MyCollectionView = ({
   }, [itemList, orderByOption]);
 
   return (
-    <PrivateLayout loading={loading}>
+    <PrivateLayout loading={loading} doctitle="title.MyCollection">
       <InviteRegisterMT />
-      <PageHeader title="Mi colección" />
+      <PageHeader title="title.MyCollection" />
       <Row className="justify-content-center">
         <Col xl={8}>
           {itemListOrdered.length ? (
@@ -61,14 +62,23 @@ const MyCollectionView = ({
                 <OrderBy
                   // valueInitial={filters?.query?.order}
                   options={[
-                    { text: "Fecha", value: "id" },
-                    { text: "Nombre", value: "title" },
-                    { text: "Idioma", value: "language" },
-                    { text: "Dependencia de idioma", value: "dependency" },
-                    { text: "Estado", value: "status" },
-                    { text: "Dificultad (BGG)", value: "weight" },
-                    { text: "Rating (BGG)", value: "rate" },
-                    { text: "id (BGG)", value: "bgg_id" },
+                    { text: getI18Ntext("element.Date"), value: "id" },
+                    { text: getI18Ntext("element.Name"), value: "title" },
+                    {
+                      text: getI18Ntext("element.Language"),
+                      value: "language",
+                    },
+                    {
+                      text: getI18Ntext("element.BGG.dependency"),
+                      value: "dependency",
+                    },
+                    { text: getI18Ntext("element.Status"), value: "status" },
+                    {
+                      text: getI18Ntext("element.BGG.weight"),
+                      value: "weight",
+                    },
+                    { text: getI18Ntext("element.BGG.rating"), value: "rate" },
+                    { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
                   ]}
                   onChange={(order, desc) => {
                     if (order === "") {
@@ -103,10 +113,7 @@ const MyCollectionView = ({
                 {loading ? null : (
                   <div className="item-list_empty">
                     <p className="lead mb-4">
-                      Crea <b>tu primer item</b>: juego, expansión, combo, etc.
-                      <br />
-                      Luego, podrás agregarlo al <b>Math Trade</b> en curso (y/o
-                      guardarlo para futuros Math Trades.)
+                      <I18N id="myCollection.notItemsMessage" />
                     </p>
                   </div>
                 )}

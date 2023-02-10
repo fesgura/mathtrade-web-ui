@@ -4,6 +4,7 @@ import Icon from "components/icon";
 import { UncontrolledTooltip, UncontrolledPopover, Button } from "reactstrap";
 import GroupTag from "./tag";
 import AddTag from "components/addTag";
+import I18N from "i18n";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -39,7 +40,7 @@ const AddBtn = ({ item, listAlreadyAdded, groups, afterAnyChange }) => {
         <Icon type="plus" />
       </button>
       <UncontrolledTooltip target={id}>
-        Agregar item a grupo
+        <I18N id="itemList.Tags.AddItemToTag" />
       </UncontrolledTooltip>
       <UncontrolledPopover
         className="group-header-popover"
@@ -80,7 +81,7 @@ const AddBtn = ({ item, listAlreadyAdded, groups, afterAnyChange }) => {
               setModalAddOpen(true);
             }}
           >
-            Nuevo grupo
+            <I18N id="itemList.Tags.NewTag" />
           </Button>
         </div>
       </UncontrolledPopover>

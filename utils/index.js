@@ -1,4 +1,4 @@
-import { languageTranslations, listDependencyTexts } from "config";
+import { listDependencyTexts } from "config";
 
 export const locationsToOptions = (locations) => {
   if (!locations) {
@@ -11,13 +11,6 @@ export const locationsToOptions = (locations) => {
       value: location.id,
     };
   });
-};
-export const translateText = (str) => {
-  const dicc = {
-    ...languageTranslations,
-  };
-
-  return dicc[str] || "Otro (no listado)";
 };
 
 // ELEMENTS
@@ -41,7 +34,7 @@ const createVersionList = (versions, defaultThumbnail) => {
           publisher = li.value;
         }
         if (li.type.indexOf("language") >= 0) {
-          languageList.push(translateText(li.value));
+          languageList.push(li.value);
         }
       });
     }

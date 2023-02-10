@@ -1,6 +1,7 @@
 import { Row, Col } from "reactstrap";
 import Link from "next/link";
 import classNames from "classnames";
+import I18N from "i18n";
 
 const PageHeader = ({
   tabs = [],
@@ -40,11 +41,13 @@ const PageHeader = ({
                         onChange(k);
                       }}
                     >
-                      {text}
+                      <I18N id={text} />
                     </a>
                   ) : (
                     <Link href={path}>
-                      <a>{text}</a>
+                      <a>
+                        <I18N id={text} />
+                      </a>
                     </Link>
                   )}
                 </div>

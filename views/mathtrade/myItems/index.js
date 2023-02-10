@@ -11,6 +11,7 @@ import SidebarGroupList from "components/sidebarGroupList";
 import OrderBy from "components/orderBy";
 import { Dragger } from "components/dragNdrop";
 import SidebarSticky from "components/sidebarSticky";
+import I18N, { getI18Ntext } from "i18n";
 
 const MyItemsView = ({
   itemList = [],
@@ -70,8 +71,8 @@ const MyItemsView = ({
   }, [itemList, groupIdSelected, orderByOption]);
 
   return (
-    <PrivateLayout loading={loading}>
-      <PageHeader title="Mis ítems" />
+    <PrivateLayout loading={loading} doctitle="title.MyItems">
+      <PageHeader title="title.MyItems" />
       <Row className="justify-content-center">
         <Col xl={3}>
           <SidebarSticky>
@@ -91,15 +92,24 @@ const MyItemsView = ({
                 <OrderBy
                   // valueInitial={filters?.query?.order}
                   options={[
-                    { text: "Fecha", value: "id" },
-                    { text: "Nombre", value: "title" },
-                    { text: "Valor", value: "value" },
-                    { text: "Idioma", value: "language" },
-                    { text: "Dependencia de idioma", value: "dependency" },
-                    { text: "Estado", value: "status" },
-                    { text: "Dificultad (BGG)", value: "weight" },
-                    { text: "Rating (BGG)", value: "rate" },
-                    { text: "id (BGG)", value: "bgg_id" },
+                    { text: getI18Ntext("element.Date"), value: "id" },
+                    { text: getI18Ntext("element.Name"), value: "title" },
+                    { text: getI18Ntext("element.Value"), value: "value" },
+                    {
+                      text: getI18Ntext("element.Language"),
+                      value: "language",
+                    },
+                    {
+                      text: getI18Ntext("element.BGG.dependency"),
+                      value: "dependency",
+                    },
+                    { text: getI18Ntext("element.Status"), value: "status" },
+                    {
+                      text: getI18Ntext("element.BGG.weight"),
+                      value: "weight",
+                    },
+                    { text: getI18Ntext("element.BGG.rating"), value: "rate" },
+                    { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
                   ]}
                   onChange={(order, desc) => {
                     if (order === "") {
@@ -126,7 +136,7 @@ const MyItemsView = ({
                     onDrop={(item, dataGroup) => {
                       dragToGroup(dataGroup.group_id, item);
                     }}
-                    title="Arrastrá y soltá el item sobre un grupo de la izquierda para agregar a un grupo."
+                    title={getI18Ntext("group.dragger.help")}
                   >
                     <Item
                       IamInMathTrade={true}
@@ -153,15 +163,17 @@ const MyItemsView = ({
                     <p className="lead mb-4 text-center">
                       {groupIdSelected < 0 ? (
                         <>
-                          Agregá <b>los items</b> de{" "}
+                          <I18N id="myItems.notItems.lead1" />{" "}
                           <LinkInternal path="myCollection">
-                            Mi colección
+                            <I18N id="title.MyCollection" />
                           </LinkInternal>{" "}
-                          aquí, para sumarlos a la lista de intercambios.
+                          <I18N id="myItems.notItems.lead2" />
                         </>
                       ) : (
                         <div className="pt-5">
-                          <b>Sin items en este grupo.</b>
+                          <b>
+                            <I18N id="myItems.notItemsInGroup" />
+                          </b>
                         </div>
                       )}
                     </p>
@@ -183,13 +195,13 @@ const MyItemsView = ({
                       setModalAddOpen(true);
                     }}
                   >
-                    Agregar al Math Trade
+                    <I18N id="btn.AddToMathTrade" />
                   </Button>
                   <div className="small">
                     <i>
-                      (de{" "}
+                      (
                       <LinkInternal path="myCollection">
-                        Mi colección
+                        <I18N id="title.MyCollection" />
                       </LinkInternal>
                       )
                     </i>

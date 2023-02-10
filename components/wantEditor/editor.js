@@ -7,6 +7,8 @@ import DeleteButton from "components/deleteButton";
 import { Button, Alert, Row, Col } from "reactstrap";
 import ObjectToWantComp from "./objectToWant";
 import MyItems from "./myItems";
+import I18N, { getI18Ntext } from "i18n";
+import ErrorAlert from "components/errorAlert";
 
 const EditorWants = ({
   objectToWant,
@@ -142,18 +144,6 @@ const EditorWants = ({
   });
   /******************************/
 
-  /* ERROR MGE *******/
-  const [errorMessage, setErrorMessage] = useState(null);
-  useEffect(() => {
-    if (postErrors || putErrors || deleteErrors) {
-      let errorMge = "Ocurrió un error. Por favor, intenta nuevamente.";
-      setErrorMessage(errorMge);
-    } else {
-      setErrorMessage(null);
-    }
-  }, [postErrors, putErrors, deleteErrors]);
-  /******************************/
-
   return (
     <>
       <ObjectToWantComp
@@ -169,11 +159,7 @@ const EditorWants = ({
         setMyItemIds={setMyItemIds}
         dup_protection={dup_protection}
       />
-      {errorMessage ? (
-        <Alert color="danger" className="mt-3 text-center">
-          {errorMessage}
-        </Alert>
-      ) : null}
+      <ErrorAlert errors={postErrors || putErrors || deleteErrors} />
       <Row className="pt-4 pb-3 align-items-center justify-content-between">
         {id ? (
           <Col xs="auto">
@@ -195,7 +181,7 @@ const EditorWants = ({
               toggleModal();
             }}
           >
-            Cancelar
+            <I18N id="btn.Cancel" />
           </Button>
           <Button
             color="primary"
@@ -227,7 +213,11 @@ const EditorWants = ({
               }
             }}
           >
-            {id ? "Actualizar want" : "Agregar a Mis Wants"}
+            {id ? (
+              <I18N id="wantEditor.btn.UpdateWant" />
+            ) : (
+              <I18N id="wantEditor.btn.AddWant" />
+            )}
           </Button>
         </Col>
       </Row>

@@ -4,8 +4,9 @@ import Header from "components/header";
 import Footer from "components/footer";
 import { LoadingPage, LoadingScreen } from "components/loading";
 import storage from "utils/storage";
+import { getI18Ntext } from "i18n";
 
-const PrivateLayout = ({ title, children, loading }) => {
+const PrivateLayout = ({ doctitle, children, loading }) => {
   const [auth, setAuth] = useState(null);
 
   useEffect(() => {
@@ -16,7 +17,9 @@ const PrivateLayout = ({ title, children, loading }) => {
   return (
     <>
       <Head>
-        <title>{title ? `${title} | ` : ""}Math Trade Argentina</title>
+        <title>
+          {doctitle ? `${getI18Ntext(doctitle)} | ` : ""}Math Trade Argentina
+        </title>
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="apple-touch-icon"

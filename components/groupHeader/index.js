@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useApi, MathTradeService } from "api_serv";
 import GroupTag from "./tag";
 import AddBtn from "./addBtn";
+import I18N from "i18n";
 
 //const itemGroups = ["Euros", "Fáciles", "Ameritrashes"];
 
@@ -35,7 +36,9 @@ const GroupHeader = ({ item, groups, afterAnyChange }) => {
     <div className="group-header">
       <div className="group-header-row">
         {!itemGroups.length ? (
-          <div className="group-header-label">Grupos</div>
+          <div className="group-header-label">
+            <I18N id="myGroups.groupHeader" />
+          </div>
         ) : null}
         {itemGroups.map((tag, k) => {
           return (

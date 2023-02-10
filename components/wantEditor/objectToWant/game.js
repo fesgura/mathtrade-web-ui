@@ -1,4 +1,5 @@
 import GameQuadCard from "components/gameQuadCard";
+import I18N from "i18n";
 import ItemListToWant from "./comps/itemListToWant";
 
 const Game = ({ game, want_ids, setWantId }) => {
@@ -10,9 +11,9 @@ const Game = ({ game, want_ids, setWantId }) => {
       footer={
         <>
           <div className="pt-3 pb-2">
-            Quiero <b>uno (1)</b> de estos ejemplares:
+            <I18N id="wantEditor.Game.wants.lead" />
             <p className="muted small italic m-0">
-              (Luego podrás cambiar esto todas las veces que quieras.)
+              <I18N id="wantEditor.Game.wants.lead2" />
             </p>
           </div>
           <ItemListToWant

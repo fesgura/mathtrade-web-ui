@@ -5,6 +5,7 @@ import ErrorAlert from "components/errorAlert";
 import Icon from "components/icon";
 import { LoadingBox } from "components/loading";
 import { getTextColorByBackgroundColor } from "utils";
+import I18N, { getI18Ntext } from "i18n";
 
 const validations = {
   name: ["required"],
@@ -41,7 +42,11 @@ const FormAddTag = ({
       <ModalBody>
         <div className="relative">
           <h4 className="text-center mb-4">
-            {tag ? "Editar" : "Agregar"} grupo
+            {tag ? (
+              <I18N id="itemList.Tags.EditTag" />
+            ) : (
+              <I18N id="itemList.Tags.AddTag" />
+            )}
           </h4>
           <Form
             onSubmit={(formData) => {
@@ -68,9 +73,9 @@ const FormAddTag = ({
                   validations={validations}
                   validationStatus={validationStatus}
                   setValidationStatus={setValidationStatus}
-                  label="Nombre del grupo"
+                  label="itemList.Tags.form.TagName"
                   name="name"
-                  placeholder="Ej: Euros, Simples, etc."
+                  placeholder="itemList.Tags.form.TagNamePlaceholder"
                   onChange={setName}
                 />
               </Col>
@@ -80,7 +85,7 @@ const FormAddTag = ({
                   validations={validations}
                   validationStatus={validationStatus}
                   setValidationStatus={setValidationStatus}
-                  label="Color"
+                  label="itemList.Tags.form.Color"
                   name="color"
                   type="color"
                   onChange={(v) => {
@@ -92,7 +97,9 @@ const FormAddTag = ({
             </Row>
             <Row className="g-0 align-items-center justify-content-center mb-4">
               <Col xs="auto">
-                <p className="small m-0 pe-2">Preview:</p>
+                <p className="small m-0 pe-2">
+                  <I18N id="itemList.Tags.form.Preview" />:
+                </p>
               </Col>
               <Col xs="auto">
                 <div
@@ -118,7 +125,7 @@ const FormAddTag = ({
                 outline
                 onClick={onCancel}
               >
-                Cancelar
+                <I18N id="btn.Cancel" />
               </Button>
               <Button
                 color="primary"
@@ -126,7 +133,11 @@ const FormAddTag = ({
                 // disabled={!modified}
                 //size="lg"
               >
-                {tag ? "Guardar" : "Agregar"} grupo
+                {tag ? (
+                  <I18N id="itemList.Tags.form.SaveTag" />
+                ) : (
+                  <I18N id="itemList.Tags.form.AddTag" />
+                )}
               </Button>
             </div>
             {tag ? (
@@ -134,7 +145,9 @@ const FormAddTag = ({
                 <hr />
                 {showDelete ? (
                   <>
-                    <div className="mb-1">¿Eliminar grupo?</div>
+                    <div className="mb-1">
+                      <I18N id="itemList.Tags.form.DeleteTag.warning" />
+                    </div>
                     <Button
                       color="link"
                       tag="a"
@@ -146,7 +159,7 @@ const FormAddTag = ({
                         setShowDelete(false);
                       }}
                     >
-                      No
+                      <I18N id="No" />
                     </Button>
                     <Button
                       color="danger"
@@ -158,7 +171,7 @@ const FormAddTag = ({
                         setShowDelete(false);
                       }}
                     >
-                      Sí
+                      <I18N id="Yes" />
                     </Button>
                   </>
                 ) : (
@@ -172,7 +185,7 @@ const FormAddTag = ({
                       }}
                     >
                       <Icon type="trash" className="me-1" />
-                      Eliminar grupo
+                      <I18N id="itemList.Tags.form.DeleteTag" />
                     </a>
                   </>
                 )}

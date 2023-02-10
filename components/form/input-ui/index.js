@@ -4,6 +4,7 @@ import Icon from "components/icon";
 import { selectMultipleToArray } from "./utils";
 import Question from "components/question";
 import RangeMultiple from "./range-multiple";
+import { getI18Ntext } from "i18n";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -49,6 +50,11 @@ const InputComp = ({
   label,
   labelCheckbox,
   placeholder,
+  notTranslateLabels,
+  notTranslatePlaceholder,
+  notTranslateOptions,
+  notTranslateError,
+  translateType,
   //
   size,
   className,
@@ -80,6 +86,10 @@ const InputComp = ({
   const id = useId("a").replace(twoPointsReg, "");
   let inputContent = null;
   const beforeContent = icon ? <Icon type={icon} /> : null;
+
+  const placeholderString = notTranslatePlaceholder
+    ? placeholder
+    : getI18Ntext(placeholder);
 
   /* DROP */
   const [isFocus, setIsFocus] = useState(false);
@@ -141,7 +151,9 @@ const InputComp = ({
             {...rest}
           >
             {loading ? null : (
-              <option value="">{placeholder || "Seleccioná..."}</option>
+              <option value="">
+                {placeholderString || getI18Ntext("form.SelectOptInstruction")}
+              </option>
             )}
             {options.map((opt) => {
               if (loading) {
@@ -208,7 +220,9 @@ const InputComp = ({
           {labelCheckbox ? (
             <>
               <label className="form-check-label" htmlFor={`checkbox-${id}`}>
-                {labelCheckbox}
+                {notTranslateLabels
+                  ? labelCheckbox
+                  : getI18Ntext(labelCheckbox)}
               </label>
               <Question question={question} />
             </>
@@ -241,7 +255,7 @@ const InputComp = ({
                   className="form-check-label"
                   htmlFor={`radio-${id}-${k}-${opt.value}`}
                 >
-                  {opt.text}
+                  {notTranslateOptions ? opt.text : getI18Ntext(opt.text)}
                 </label>
               </div>
             );
@@ -292,7 +306,7 @@ const InputComp = ({
           <textarea
             name={name}
             value={value}
-            placeholder={placeholder}
+            placeholder={placeholderString}
             onChange={(e) => {
               onChange(e.target.value);
             }}
@@ -317,6 +331,7 @@ const InputComp = ({
         </div>
       );
       break;
+
     case "select-multiple":
       inputContent = (
         <div
@@ -328,9 +343,15 @@ const InputComp = ({
           )}
         >
           {selectMultipleToArray(value).map((lab, k) => {
+            const tagText = notTranslateOptions
+              ? lab
+              : getI18Ntext(
+                  `${translateType ? translateType + "." : ""}${lab}`
+                );
+
             return (
               <div className="form-select-multiple_badge" key={k}>
-                <span className="form-select-multiple_label">{lab}</span>
+                <span className="form-select-multiple_label">{tagText}</span>
                 <span
                   className={classNames("form-select-multiple_icon", {
                     disabled: disabled || readOnly,
@@ -360,7 +381,9 @@ const InputComp = ({
             disabled={disabled}
           >
             {loading ? null : (
-              <option value="">{placeholder || "Seleccioná..."}</option>
+              <option value="">
+                {placeholderString || getI18Ntext("form.SelectOptInstruction")}
+              </option>
             )}
             {options.map((opt) => {
               if (value.indexOf(opt.value) >= 0) {
@@ -371,13 +394,13 @@ const InputComp = ({
               }
               return (
                 <option value={opt.value} key={opt.value}>
-                  {opt.text}
+                  {notTranslateOptions ? opt.text : getI18Ntext(opt.text)}
                 </option>
               );
             })}
           </select>
-          {value === "" && placeholder !== "" ? (
-            <div className="form-placeholder-float">{placeholder}</div>
+          {value === "" && placeholderString !== "" ? (
+            <div className="form-placeholder-float">{placeholderString}</div>
           ) : null}
         </div>
       );
@@ -451,7 +474,7 @@ const InputComp = ({
           <input
             name={name}
             value={value}
-            placeholder={placeholder}
+            placeholder={placeholderString}
             onChange={(e) => {
               let val = e.target.value;
               if (type === "phone") {
@@ -479,10 +502,12 @@ const InputComp = ({
     <div className={classNames("input-container", classNameContainer)}>
       {label ? (
         <label className="form-label">
-          {label}
+          {notTranslateLabels ? label : getI18Ntext(label)}
           {required && !readOnly ? <span className="req">*</span> : null}
           {textSize ? (
-            <span className="form-label-resume">{`(Máx. ${textSize} caracteres)`}</span>
+            <span className="form-label-resume">{`(${getI18Ntext(
+              "form.MaxTextSize"
+            )} ${textSize} ${getI18Ntext("form.MaxTextCharaters")})`}</span>
           ) : null}
           <Question question={question} />
         </label>
@@ -490,7 +515,7 @@ const InputComp = ({
       {inputContent}
       {error ? (
         <div className="invalid-feedback" style={{ display: "block" }}>
-          {error}
+          {notTranslateError ? error : getI18Ntext(error)}
         </div>
       ) : null}
     </div>

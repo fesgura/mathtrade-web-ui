@@ -5,6 +5,7 @@ import ErrorAlert from "components/errorAlert";
 import Icon from "components/icon";
 import { LoadingBox } from "components/loading";
 import { getTextColorByBackgroundColor } from "utils";
+import I18N from "i18n";
 
 const validations = {
   name: ["required"],
@@ -41,7 +42,11 @@ const FormAddGroup = ({
       <ModalBody>
         <div className="relative">
           <h4 className="text-center mb-4">
-            {group ? "Editar" : "Agregar"} grupo
+            {group ? (
+              <I18N id="myItems.sidebar.EditGroup" />
+            ) : (
+              <I18N id="myItems.sidebar.AddGroup" />
+            )}
           </h4>
           <Form
             onSubmit={(formData) => {
@@ -63,9 +68,9 @@ const FormAddGroup = ({
                   validations={validations}
                   validationStatus={validationStatus}
                   setValidationStatus={setValidationStatus}
-                  label="Nombre del grupo"
+                  label="myItems.sidebar.form.GroupName"
                   name="name"
-                  placeholder="Ej: Euros, Simples, etc."
+                  placeholder="myItems.sidebar.form.GroupPlaceholder"
                   onChange={setName}
                 />
               </Col>
@@ -75,7 +80,7 @@ const FormAddGroup = ({
                   validations={validations}
                   validationStatus={validationStatus}
                   setValidationStatus={setValidationStatus}
-                  label="Color"
+                  label="myItems.sidebar.form.Color"
                   name="color"
                   type="color"
                   onChange={(v) => {
@@ -87,7 +92,9 @@ const FormAddGroup = ({
             </Row>
             <Row className="g-0 align-items-center justify-content-center mb-4">
               <Col xs="auto">
-                <p className="small m-0 pe-2">Preview:</p>
+                <p className="small m-0 pe-2">
+                  <I18N id="myItems.sidebar.form.Preview" />:
+                </p>
               </Col>
               <Col xs="auto">
                 <div
@@ -113,7 +120,7 @@ const FormAddGroup = ({
                 outline
                 onClick={onCancel}
               >
-                Cancelar
+                <I18N id="btn.Cancel" />
               </Button>
               <Button
                 color="primary"
@@ -121,7 +128,11 @@ const FormAddGroup = ({
                 // disabled={!modified}
                 //size="lg"
               >
-                {group ? "Guardar" : "Agregar"} grupo
+                {group ? (
+                  <I18N id="myItems.sidebar.SaveGroup" />
+                ) : (
+                  <I18N id="myItems.sidebar.AddGroup" />
+                )}
               </Button>
             </div>
             {group ? (
@@ -129,7 +140,9 @@ const FormAddGroup = ({
                 <hr />
                 {showDelete ? (
                   <>
-                    <div className="mb-1">¿Eliminar grupo?</div>
+                    <div className="mb-1">
+                      <I18N id="myItems.sidebar.form.DeleteGroup.warning" />
+                    </div>
                     <Button
                       color="link"
                       tag="a"
@@ -141,7 +154,7 @@ const FormAddGroup = ({
                         setShowDelete(false);
                       }}
                     >
-                      No
+                      <I18N id="No" />
                     </Button>
                     <Button
                       color="danger"
@@ -153,7 +166,7 @@ const FormAddGroup = ({
                         setShowDelete(false);
                       }}
                     >
-                      Sí
+                      <I18N id="Yes" />
                     </Button>
                   </>
                 ) : (
@@ -167,7 +180,7 @@ const FormAddGroup = ({
                       }}
                     >
                       <Icon type="trash" className="me-1" />
-                      Eliminar grupo
+                      <I18N id="myItems.sidebar.DeleteGroup" />
                     </a>
                   </>
                 )}

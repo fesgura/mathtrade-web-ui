@@ -4,6 +4,7 @@ import classNames from "classnames";
 import Icon from "components/icon";
 import AddGroup from "components/addGroup";
 import { getTextColorByBackgroundColor } from "utils";
+import { getI18Ntext } from "i18n";
 
 const GroupTag = ({
   group,
@@ -37,7 +38,7 @@ const GroupTag = ({
             {group.id > 0 ? (
               <span
                 className="sidebar-group-list_tag_edit"
-                title="Editar"
+                title={getI18Ntext("myItems.sidebar.Edit")}
                 onClick={(e) => {
                   e.stopPropagation();
                   setModalEditOpen(true);

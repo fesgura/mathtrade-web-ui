@@ -8,6 +8,7 @@ import MyItem from "./myItems/item";
 import WantGroup from "./myWants/group";
 import WantItem from "./myWants/item";
 import ColGrid from "./checkGrid/colGrid";
+import I18N from "i18n";
 
 const Grid = ({ myItemList, wantList, setWantList, setMyItemList }) => {
   const [extendAll, setExtendAll] = useState({
@@ -24,17 +25,19 @@ const Grid = ({ myItemList, wantList, setWantList, setMyItemList }) => {
               <div className="mywants-grid_myItems-left-spacer">
                 <div className="mywants-grid_myItems-left-spacer_cont">
                   <div className="mywants-grid_myItems-left-lab_my_items">
-                    <Icon type="arrow-down" /> Mis propios items
+                    <Icon type="arrow-down" />
+                    <I18N id="MyWants.Grid.MyItems" />
                   </div>
                   <div className="mywants-grid_myItems-left-lab_my_wants">
-                    <Icon type="arrow-down" /> Mis wants
+                    <Icon type="arrow-down" />{" "}
+                    <I18N id="MyWants.Grid.MyWants" />
                   </div>
                   <div className="mywants-grid_myItems-left-lab_cont-line" />
                   <div className="mywants-grid_myItems-left-lab_cont">
                     <Input
                       data={extendAll}
                       type="checkbox"
-                      labelCheckbox={<div className="small">Extender todo</div>}
+                      labelCheckbox="MyWants.Grid.ExtendAll"
                       name="extended"
                       onChange={() => {
                         setExtendAll((v) => {

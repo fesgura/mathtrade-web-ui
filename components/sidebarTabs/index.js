@@ -1,5 +1,6 @@
 import { useState } from "react";
 import classNames from "classnames";
+import I18N from "i18n";
 
 const SidebarTabs = ({ tabs = [] }) => {
   const [current, setCurrent] = useState(0);
@@ -17,7 +18,7 @@ const SidebarTabs = ({ tabs = [] }) => {
                 setCurrent(k);
               }}
             >
-              {t.title}
+              <I18N id={t.title} />
             </div>
           );
         })}

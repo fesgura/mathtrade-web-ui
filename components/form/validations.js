@@ -1,13 +1,13 @@
 const validationTypes = {
   required: (value) => {
     if (!value || value === "") {
-      return "Este campo es requerido";
+      return "validation.required";
     }
     return null;
   },
   email: (value) => {
     if (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-      return "Completa el email correctamente";
+      return "validation.email";
     }
     return null;
   },
@@ -18,13 +18,13 @@ const validationTypes = {
         value
       )
     ) {
-      return "Completa el teléfono correctamente";
+      return "validation.phone";
     }
     return null;
   },
   password: (value) => {
     if (value && value.length < 8) {
-      return "La contraseña debe tener al menos 8 caracteres.";
+      return "validation.password";
     }
     return null;
   },

@@ -8,6 +8,7 @@ import Checkbox from "components/checkbox";
 import classNames from "classnames";
 import DeleteButton from "components/deleteButton";
 import Icon from "components/icon";
+import I18N from "i18n";
 
 const WantItem = ({ item, isInnerOf, isExtended, group, setWantList }) => {
   const [isCheckedIndex, setIsCheckedIndex] = useState(false);
@@ -103,7 +104,7 @@ const WantItem = ({ item, isInnerOf, isExtended, group, setWantList }) => {
                   item.id
                 }`}
               >
-                Eliminar del grupo
+                <I18N id="MyWants.Grid.WantGroup.QuitItem" />
               </UncontrolledTooltip>
             </Col>
           ) : null}

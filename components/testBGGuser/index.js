@@ -1,6 +1,7 @@
 import { Button } from "reactstrap";
 import { useApi, BggService } from "api_serv";
 import Icon from "components/icon";
+import I18N from "i18n";
 
 const TestBGGuser = ({ username, onValidateUser, onGetAvatar }) => {
   const [getBGGuser, , loading] = useApi({
@@ -33,7 +34,8 @@ const TestBGGuser = ({ username, onValidateUser, onGetAvatar }) => {
       }}
     >
       {loading ? <Icon type="loading" className="me-1" /> : null}
-      Comprobar usuario en BGG
+
+      <I18N id="btn.TestBGGuser" />
     </Button>
   );
 };

@@ -42,13 +42,13 @@ export const privateRoutes = {
 };
 
 export const menuUser = [
-  { path: "my-account", title: "Mi cuenta", icon: "user" },
-  { path: "my-collection", title: "Mi colección", icon: "th-list" },
+  { path: "my-account", title: "title.MyAccount", icon: "user" },
+  { path: "my-collection", title: "title.MyCollection", icon: "th-list" },
 ];
 
 export const menu_no_mathTrade = [
   {
-    title: "MT_NAME",
+    title: "header.SignToMathTrade",
     path: "mathtrade/my-data",
     icon: "star",
   },
@@ -56,24 +56,24 @@ export const menu_no_mathTrade = [
 
 export const menu_yes_mathTrade = [
   {
-    title: "Mis Items",
+    title: "menu.MyItems",
     path: "mathtrade/my-items",
   },
   {
-    title: "Listado",
+    title: "menu.List",
     path: "mathtrade/list",
   },
   {
-    title: "Mis Wants",
+    title: "menu.MyWants",
     path: "mathtrade/my-wants",
   },
   {
-    title: "Resultados",
+    title: "menu.Results",
     path: "mathtrade/results",
     disabled: true,
   },
   {
-    title: "Mis datos",
+    title: "menu.MyData",
     path: "mathtrade/my-data",
     bordered: true,
   },

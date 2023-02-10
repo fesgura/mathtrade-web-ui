@@ -1,11 +1,12 @@
 import Icon from "components/icon";
+import I18N from "i18n";
 
 const ElementCreateStep0 = ({ setStep }) => {
   return (
     <div className="element-create_step-1">
       <div className="element-create-options_title">
         <Icon type="plus" className="me-1" />
-        Agregar:
+        <I18N id="element.editor.add" />:
       </div>
       <div className="element-create-options_row_cont">
         <div className="element-create-options_row">
@@ -17,12 +18,14 @@ const ElementCreateStep0 = ({ setStep }) => {
           >
             <Icon type="bgg" />{" "}
             <div className="element-create-options_text">
-              Juego <span>o</span> expansión
+              <I18N id="element.editor.add.gameOrExpansion" />
             </div>
           </div>
           <div className="element-create-options_col disabled">
             <Icon type="book" />{" "}
-            <div className="element-create-options_text">Otro</div>
+            <div className="element-create-options_text">
+              <I18N id="element.editor.add.Another" />
+            </div>
           </div>
         </div>
       </div>
