@@ -3,8 +3,8 @@ import PageHeader from "components/pageHeader";
 
 const ResultsView = ({ loading }) => {
   return (
-    <PrivateLayout loading={loading}>
-      <PageHeader title="Resultados del Math Trade" />
+    <PrivateLayout loading={loading} doctitle="title.Results">
+      <PageHeader title="title.Results" />
       TO DO
     </PrivateLayout>
   );

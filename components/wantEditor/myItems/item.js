@@ -10,6 +10,7 @@ import classNames from "classnames";
 import Previewer from "components/previewer";
 import ItemExtense from "components/itemExtense";
 import { LoadingBox } from "components/loading";
+import I18N from "i18n";
 
 const Item = ({ item, item_ids, setMyItemIds }) => {
   const { title, elements, value, id } = item;
@@ -35,7 +36,11 @@ const Item = ({ item, item_ids, setMyItemIds }) => {
             <Thumbnail src={elements[0].thumbnail} width={30} height={30} />
           </Col>
           <Col>
-            {elements.length > 1 ? <b>Combo:</b> : null}
+            {elements.length > 1 ? (
+              <b>
+                <I18N id="Combo" />:
+              </b>
+            ) : null}
             {title}
           </Col>
           <Col xs="auto">

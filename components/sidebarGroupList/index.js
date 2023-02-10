@@ -2,6 +2,7 @@ import { useId, useState, useEffect } from "react";
 import GroupTag from "./groupTag";
 import AddGroup from "components/addGroup";
 import Icon from "components/icon";
+import I18N, { getI18Ntext } from "i18n";
 
 const SidebarGroupList = ({
   groups = [],
@@ -16,12 +17,14 @@ const SidebarGroupList = ({
     <>
       <div className="sidebar-group-list">
         <div className="sidebar-group-list_wrap">
-          <h4 className="py-3">Mis grupos</h4>
+          <h4 className="py-3">
+            <I18N id="myItems.sidebar.myGroups" />
+          </h4>
           <div className="sidebar-group-list_list">
             <GroupTag
               group={{
                 id: -1,
-                name: "Todos",
+                name: getI18Ntext("myItems.sidebar.All"),
                 color: "#FFFFFF",
               }}
               groupIdSelected={groupIdSelected}
@@ -49,7 +52,7 @@ const SidebarGroupList = ({
                 setModalAddOpen(true);
               }}
             >
-              <Icon type="plus" /> Agregar grupo
+              <Icon type="plus" /> <I18N id="myItems.sidebar.AddGroup" />
             </a>
           </div>
         </div>

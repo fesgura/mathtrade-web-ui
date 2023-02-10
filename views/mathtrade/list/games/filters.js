@@ -84,10 +84,10 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
       model={[
         {
           name: "keyword",
-          label: "Buscar",
+          label: "filter.Search",
           icon: "search",
           size: "md",
-          placeholder: "Escribí alguna palabra...",
+          placeholder: "filter.Search.placeholder",
           hr: true,
           data: {
             keyword: filters?.query?.keyword || "",
@@ -96,9 +96,10 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
         {
           type: "select-multiple",
           name: "status",
-          label: "Estado",
+          label: "filter.Status",
           options: statusList,
-          placeholder: "Seleccioná...",
+          placeholder: "form.SelectOptInstruction",
+          notTranslateOptions: true,
           data: (() => {
             const d = { status: "" };
 
@@ -115,9 +116,10 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
         {
           type: "select-multiple",
           name: "language",
-          label: "Idioma",
-          placeholder: "Seleccioná...",
+          label: "filter.Language",
+          placeholder: "form.SelectOptInstruction",
           options: languageList,
+          translateType: "language",
           data: (() => {
             const d = { language: "" };
             if (typeof filters?.query["language[]"] !== "undefined") {
@@ -133,9 +135,10 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
         {
           type: "select-multiple",
           name: "dependency",
-          label: "Dependencia de idioma",
-          placeholder: "Seleccioná...",
+          label: "filter.Dependency",
+          placeholder: "form.SelectOptInstruction",
           options: dependencyList.options,
+          notTranslateOptions: true,
           data: (() => {
             const d = { dependency: "" };
             if (typeof filters?.query["dependency[]"] !== "undefined") {
@@ -157,7 +160,7 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
         {
           type: "range-multiple",
           name: "rate",
-          label: "Rating BGG",
+          label: "filter.Rating",
           min: minRate,
           max: maxRate,
           data: (() => {
@@ -171,7 +174,7 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
         {
           type: "range-multiple",
           name: "weight",
-          label: "Dificultad BGG",
+          label: "filter.Weight",
           min: minWeight,
           max: maxWeight,
           data: (() => {

@@ -4,6 +4,7 @@ import { menu_no_mathTrade, menu_yes_mathTrade } from "config/routes";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Icon from "components/icon";
+import I18N, { getI18Ntext } from "i18n";
 
 const MainMenu = ({ storeData }) => {
   const router = useRouter();
@@ -25,10 +26,7 @@ const MainMenu = ({ storeData }) => {
       <ul>
         {menuList.map((item, k) => {
           const { path, icon, title, children, disabled, bordered } = item;
-          const titleComp =
-            title === "MT_NAME"
-              ? `Inscribite al Math Trade ${mathTradeName}`
-              : title;
+
           return (
             <li key={k}>
               {typeof path !== "undefined" && !disabled ? (
@@ -41,7 +39,7 @@ const MainMenu = ({ storeData }) => {
                     })}
                   >
                     {icon ? <Icon type={icon} className="me-1" /> : null}
-                    {titleComp}
+                    <I18N id={title} />
                   </a>
                 </Link>
               ) : (
@@ -54,7 +52,7 @@ const MainMenu = ({ storeData }) => {
                   })}
                 >
                   {icon ? <Icon type={icon} className="me-1" /> : null}
-                  {titleComp}
+                  <I18N id={title} />
                 </span>
               )}
               {children && children.length ? (
@@ -72,10 +70,14 @@ const MainMenu = ({ storeData }) => {
                       <li key={j}>
                         {path ? (
                           <Link href={`/${path}`}>
-                            <a className="a-item">{title}</a>
+                            <a className="a-item">
+                              <I18N id={title} />
+                            </a>
                           </Link>
                         ) : (
-                          <span className="a-item">{title}</span>
+                          <span className="a-item">
+                            <I18N id={title} />
+                          </span>
                         )}
                       </li>
                     );

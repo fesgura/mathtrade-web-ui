@@ -18,7 +18,7 @@ const ElementCreateStep0 = ({ setStep }) => {
           >
             <Icon type="bgg" />{" "}
             <div className="element-create-options_text">
-              <I18N id="element.editor.add.gameOrExpansion" forHtml />
+              <I18N id="element.editor.add.gameOrExpansion" />
             </div>
           </div>
           <div className="element-create-options_col disabled">

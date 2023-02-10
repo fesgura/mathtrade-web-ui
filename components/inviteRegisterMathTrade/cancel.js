@@ -1,8 +1,9 @@
 import { useCallback } from "react";
 import Link from "next/link";
 import storage from "utils/storage";
+import I18N from "i18n";
 
-const textLink = "Por ahora no, gracias.";
+const textLink = <I18N id="inviteToMathTrade.btn.NoThanks" />;
 
 const CancelInviteMT = ({ path, onClick = () => {} }) => {
   const onCancelInviteMT = useCallback(() => {

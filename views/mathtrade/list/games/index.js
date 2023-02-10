@@ -9,6 +9,7 @@ import Pagination from "components/pagination";
 import OrderBy from "components/orderBy";
 import Filters_MT_Games from "./filters";
 import SidebarSticky from "components/sidebarSticky";
+import { getI18Ntext } from "i18n";
 
 const GameListView = ({
   list,
@@ -20,16 +21,16 @@ const GameListView = ({
   afterAnyChange,
 }) => {
   return (
-    <PrivateLayout loading={loading}>
+    <PrivateLayout loading={loading} doctitle="title.GameList">
       <PageHeaderTabs
         tabs={[
           {
-            text: "Listado de Juegos",
+            text: "title.GameList",
             path: `/${privateRoutes.mathtrade.gameList.path}`,
             current: true,
           },
           {
-            text: "Listado de Items",
+            text: "title.ItemList",
             path: `/${privateRoutes.mathtrade.itemList.path}`,
           },
         ]}
@@ -39,14 +40,22 @@ const GameListView = ({
           <OrderBy
             valueInitial={filters?.query?.order}
             options={[
-              { text: "Nombre", value: "name" },
-              // { text: "Valor", value: "value" },
-              { text: "Idioma", value: "language" },
-              { text: "Dependencia de idioma", value: "dependency" },
-              { text: "Estado", value: "status" },
-              { text: "Dificultad (BGG)", value: "weight" },
-              { text: "Rating (BGG)", value: "rate" },
-              { text: "id (BGG)", value: "bgg_id" },
+              { text: getI18Ntext("element.Name"), value: "title" },
+              {
+                text: getI18Ntext("element.Language"),
+                value: "language",
+              },
+              {
+                text: getI18Ntext("element.BGG.dependency"),
+                value: "dependency",
+              },
+              { text: getI18Ntext("element.Status"), value: "status" },
+              {
+                text: getI18Ntext("element.BGG.weight"),
+                value: "weight",
+              },
+              { text: getI18Ntext("element.BGG.rating"), value: "rate" },
+              { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
             ]}
             onChange={(order, desc) => {
               setFilters({

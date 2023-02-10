@@ -50,12 +50,6 @@ const ItemListToWant = ({ itemListToWant, want_ids = [], setWantId }) => {
       })}
     </>
   );
-
-  /*
-  (
-
-  );
-  */
 };
 
 export default ItemListToWant;

@@ -18,11 +18,12 @@ export const getI18Ntext = (id) => {
   return text;
 };
 
-const I18N = ({ id = "", forHtml }) => {
-  return forHtml ? (
-    <span dangerouslySetInnerHTML={{ __html: getI18Ntext(id) }} />
+const I18N = ({ id = "" }) => {
+  const text = getI18Ntext(id);
+  return text && text.indexOf("<") >= 0 ? (
+    <span dangerouslySetInnerHTML={{ __html: text }} />
   ) : (
-    <>{getI18Ntext(id)}</>
+    <>{text}</>
   );
 };
 

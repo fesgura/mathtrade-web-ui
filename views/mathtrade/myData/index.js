@@ -9,6 +9,7 @@ import Icon from "components/icon";
 import CancelInviteMT from "components/inviteRegisterMathTrade/cancel";
 import storage from "utils/storage";
 import ErrorAlert from "components/errorAlert";
+import I18N from "i18n";
 
 const validations = {
   location: ["required"],
@@ -56,7 +57,14 @@ const MyDataView = ({
   }, [MathTradeUserInitial, mathtradeData, dataLocations]);
 
   return (
-    <PrivateLayout loading={loading}>
+    <PrivateLayout
+      loading={loading}
+      doctitle={
+        mathtradeData && mathtradeData.IamIn
+          ? "title.MyData"
+          : "title.SignToMathTrade"
+      }
+    >
       {mathtradeData && mathtradeData.mathtrade ? (
         <>
           <div className="invite visible">
@@ -80,10 +88,10 @@ const MyDataView = ({
           <div className="text-center mb-4">
             <h1>
               {mathtradeData.IamIn ? (
-                "Mis datos en el Math Trade"
+                <I18N id="title.MyData" />
               ) : (
                 <>
-                  <Icon type="star" /> Inscribite!
+                  <Icon type="star" /> <I18N id="title.SignToMathTrade" />
                 </>
               )}
             </h1>
@@ -97,9 +105,7 @@ const MyDataView = ({
             {mathtradeData.IamIn ? null : (
               <div className="text-center">
                 <p>
-                  Antes de inscribirte, asegurate de que la <b>ciudad</b> desde
-                  la que participás es la correcta, y/o{" "}
-                  <b>si vas a ir o no al encuentro presencial</b>:
+                  <I18N id="MyData.SignToMathTrade.lead" />
                 </p>
               </div>
             )}
@@ -126,19 +132,19 @@ const MyDataView = ({
                 validations={validations}
                 validationStatus={validationStatus}
                 setValidationStatus={setValidationStatus}
-                label="Ubicación"
+                label="form.Location"
                 name="location"
                 type="select"
                 size="lg"
                 options={locationsToOptions(dataLocations)}
                 loading={loadingLocations}
                 icon="map-marker"
-                question="Si no aparece tu ciudad, o no estás cerca de ninguna de las ciudades del listado, por favor contactate con la organización."
+                question="form.Location.help"
                 onChange={onChangeLocation}
               />
               {currentLocation && currentLocation.referral ? (
                 <Alert color="warning small text-center mb-4">
-                  {currentLocation.mandatory_attendance ? (
+                  {/* {currentLocation.mandatory_attendance ? (
                     <>
                       Si vivis en el ambito de la Ciudad Autónoma de Buenos
                       Aires (CABA),
@@ -163,7 +169,7 @@ const MyDataView = ({
                       (responsable para la ciudad de{" "}
                       <b>{currentLocation?.name}</b>) para coordinar los envios:
                     </>
-                  )}
+                  )} */}
 
                   <div className="referal">
                     <Row className="justify-content-center align-items-center">
@@ -199,9 +205,9 @@ const MyDataView = ({
                 classNameContainer="m-0"
                 type="switch"
                 name="event_attendance"
-                label="Juntada presencial (en CABA)"
-                labelCheckbox="¿Vas a ir a la juntada presencial?"
-                question="Es importante que te comprometas, si podés acercarte a la juntada presencial y así colaborar con la organización."
+                label="MyData.InPerson"
+                labelCheckbox="MyData.InPerson.labelSwitch"
+                question="MyData.InPerson.help"
                 disabled={
                   currentLocation && currentLocation.mandatory_attendance
                 }
@@ -210,13 +216,12 @@ const MyDataView = ({
               <div className="text-center py-4">
                 {mathtradeData.IamIn ? (
                   <Button color="primary" type="submit">
-                    Actualizar mis datos
+                    <I18N id="MyData.btn.UpdateData" />
                   </Button>
                 ) : (
                   <Button color="primary" type="submit" size="lg">
-                    ¡Inscribirme al
-                    <br />
-                    Math Trade Argentina {mathtradeData.data?.name}
+                    <I18N id="MyData.btn.SignToMathTrade" />{" "}
+                    {mathtradeData.data?.name}
                   </Button>
                 )}
               </div>
@@ -231,7 +236,7 @@ const MyDataView = ({
                     setModalExit(true);
                   }}
                 >
-                  Salir del Math Trade
+                  <I18N id="MyData.btn.SignOutToMathTrade" />
                 </a>
               ) : (
                 <CancelInviteMT path="/" />
@@ -247,8 +252,12 @@ const MyDataView = ({
           >
             <ModalBody>
               <div className="text-center">
-                <h3>¿Salir del Math Trade?</h3>
-                <p className="mb-5">Luego podrás volver a inscribirte.</p>
+                <h3>
+                  <I18N id="MyData.title.SignOutToMathTrade" />
+                </h3>
+                <p className="mb-5">
+                  <I18N id="MyData.title.SignOutToMathTrade.lead" />
+                </p>
                 <div>
                   <Button
                     color="link"
@@ -260,7 +269,7 @@ const MyDataView = ({
                       setModalExit(false);
                     }}
                   >
-                    Cancelar
+                    <I18N id="btn.Cancel" />
                   </Button>
                   <Button
                     color="danger"
@@ -272,7 +281,7 @@ const MyDataView = ({
                       });
                     }}
                   >
-                    Sí, salir
+                    <I18N id="MyData.btn.SignOutToMathTrade.Confirm" />
                   </Button>
                 </div>
               </div>

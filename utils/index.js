@@ -1,5 +1,4 @@
-import { listDependencyTexts, languagePool } from "config";
-import { getI18Ntext } from "i18n";
+import { listDependencyTexts } from "config";
 
 export const locationsToOptions = (locations) => {
   if (!locations) {
@@ -12,12 +11,6 @@ export const locationsToOptions = (locations) => {
       value: location.id,
     };
   });
-};
-export const translateText = (str) => {
-  if (languagePool.indexOf(str) >= 0) {
-    return getI18Ntext(`language.${str}`);
-  }
-  return str;
 };
 
 // ELEMENTS
@@ -41,7 +34,7 @@ const createVersionList = (versions, defaultThumbnail) => {
           publisher = li.value;
         }
         if (li.type.indexOf("language") >= 0) {
-          languageList.push(translateText(li.value));
+          languageList.push(li.value);
         }
       });
     }

@@ -54,6 +54,7 @@ const InputComp = ({
   notTranslatePlaceholder,
   notTranslateOptions,
   notTranslateError,
+  translateType,
   //
   size,
   className,
@@ -330,6 +331,7 @@ const InputComp = ({
         </div>
       );
       break;
+
     case "select-multiple":
       inputContent = (
         <div
@@ -341,9 +343,15 @@ const InputComp = ({
           )}
         >
           {selectMultipleToArray(value).map((lab, k) => {
+            const tagText = notTranslateOptions
+              ? lab
+              : getI18Ntext(
+                  `${translateType ? translateType + "." : ""}${lab}`
+                );
+
             return (
               <div className="form-select-multiple_badge" key={k}>
-                <span className="form-select-multiple_label">{lab}</span>
+                <span className="form-select-multiple_label">{tagText}</span>
                 <span
                   className={classNames("form-select-multiple_icon", {
                     disabled: disabled || readOnly,
@@ -386,7 +394,7 @@ const InputComp = ({
               }
               return (
                 <option value={opt.value} key={opt.value}>
-                  {opt.text}
+                  {notTranslateOptions ? opt.text : getI18Ntext(opt.text)}
                 </option>
               );
             })}

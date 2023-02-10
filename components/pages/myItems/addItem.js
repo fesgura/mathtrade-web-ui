@@ -17,13 +17,13 @@ const AddItem = ({ item, className, onClick }) => {
 
   switch (elementNum) {
     case 0:
-      btnTitle = <I18N id="btn.MyCollection.addNewItem" forHtml />;
+      btnTitle = <I18N id="btn.MyCollection.addNewItem" />;
       break;
     case 1:
-      btnTitle = <I18N id="btn.MyCollection.addNewItemForCombo" forHtml />;
+      btnTitle = <I18N id="btn.MyCollection.addNewItemForCombo" />;
       break;
     default:
-      btnTitle = <I18N id="btn.MyCollection.addNewItemToCombo" forHtml />;
+      btnTitle = <I18N id="btn.MyCollection.addNewItemToCombo" />;
   }
 
   return (

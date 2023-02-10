@@ -32,7 +32,9 @@ const OrderBy = ({ valueInitial, options = [], onChange = () => {} }) => {
                 onChange(e.target.value, desc);
               }}
             >
-              <option value="">Seleccioná...</option>
+              <option value="">
+                <I18N id="form.SelectOptInstruction" />
+              </option>
               {options.map((op, k) => {
                 return (
                   <option value={op.value} key={k}>

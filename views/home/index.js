@@ -3,6 +3,7 @@ import PrivateLayout from "layouts/private";
 import InviteRegisterMT from "components/inviteRegisterMathTrade";
 import LinkInternal from "components/link-internal";
 import Crecimiento from "./crecimiento";
+import I18N from "i18n";
 
 const HomeView = ({ loading }) => {
   return (
@@ -11,14 +12,18 @@ const HomeView = ({ loading }) => {
       {/* <PageHeader title="Math Trade Argentina" /> */}
       <InviteRegisterMT />
       <section className="text-center">
-        <h1 className="mb-4">Math Trade Argentina</h1>
+        <h1 className="mb-4">
+          <I18N id="title.Home" />
+        </h1>
         <p className="lead">
-          Aquí podrás participar del mayor intercambio de juegos de mesa de todo
-          el país.
+          <I18N id="home.lead" />
         </p>
         <p>
-          Podés empezar <i>cargando tus ítems</i> para intercambiar en{" "}
-          <LinkInternal path="myCollection">Mi collección</LinkInternal>.
+          <I18N id="home.help" />{" "}
+          <LinkInternal path="myCollection">
+            <I18N id="title.MyCollection" />
+          </LinkInternal>
+          .
         </p>
       </section>
       <Crecimiento />

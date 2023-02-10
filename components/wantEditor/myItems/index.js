@@ -4,6 +4,7 @@ import { Alert } from "reactstrap";
 import { useApi, MathTradeService } from "api_serv";
 import Group from "./group";
 import Item from "./item";
+import I18N, { getI18Ntext } from "i18n";
 
 const MyItems = ({ item_ids, setMyItemIds, dup_protection }) => {
   const [listItems, itemList, loading, errors] = useApi({
@@ -19,7 +20,7 @@ const MyItems = ({ item_ids, setMyItemIds, dup_protection }) => {
   const [errorMessage, setErrorMessage] = useState(null);
   useEffect(() => {
     if (errors) {
-      let errorMge = "Ocurrió un error. Por favor, intenta nuevamente.";
+      let errorMge = getI18Ntext("error.General");
       setErrorMessage(errorMge);
     } else {
       setErrorMessage(null);
@@ -74,17 +75,13 @@ const MyItems = ({ item_ids, setMyItemIds, dup_protection }) => {
       ) : (
         <>
           <div className="pt-2 pb-2">
-            ... A cambio de{" "}
             {dup_protection ? (
-              <>
-                <b>uno (1)</b>
-              </>
+              <I18N id="wantEditor.MyItems.dup_protection_enabled.lead" />
             ) : (
-              <>algunos</>
-            )}{" "}
-            de mis items:
+              <I18N id="wantEditor.MyItems.dup_protection_disabled.lead" />
+            )}
             <p className="muted small italic m-0">
-              (No necesitas elegir ninguno, por ahora.)
+              <I18N id="wantEditor.MyItems.lead2" />
             </p>
           </div>
           {collection.map((obj, k) => {

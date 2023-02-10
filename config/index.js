@@ -62,7 +62,7 @@ export const typeOfElements = {
   otro: 3,
 };
 
-export const languagePool = [
+const languagePool = [
   "Spanish",
   "English",
   "Portuguese",
@@ -141,11 +141,11 @@ export const languageList = (() => {
   const list = [];
 
   languagePool.forEach((lan) => {
-    const text = getI18Ntext(`language.${lan}`);
+    // const text = getI18Ntext(`language.${lan}`);
 
     list.push({
-      value: text,
-      text,
+      value: lan,
+      text: `language.${lan}`,
     });
   });
 

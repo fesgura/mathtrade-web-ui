@@ -10,6 +10,7 @@ import Filters_MT_Items from "./filters";
 import SidebarSticky from "components/sidebarSticky";
 import SidebarTabs from "components/sidebarTabs";
 import SidebarTagList from "components/sidebarTagList";
+import I18N, { getI18Ntext } from "i18n";
 
 const ItemListView = ({
   list,
@@ -24,15 +25,15 @@ const ItemListView = ({
   afterAnyChange,
 }) => {
   return (
-    <PrivateLayout loading={loading}>
+    <PrivateLayout loading={loading} doctitle="title.ItemList">
       <PageHeaderTabs
         tabs={[
           {
-            text: "Listado de Juegos",
+            text: "title.GameList",
             path: `/${privateRoutes.mathtrade.gameList.path}`,
           },
           {
-            text: "Listado de Items",
+            text: "title.ItemList",
             path: `/${privateRoutes.mathtrade.itemList.path}`,
             current: true,
           },
@@ -43,15 +44,24 @@ const ItemListView = ({
           <OrderBy
             valueInitial={filters?.query?.order}
             options={[
-              { text: "Fecha", value: "id" },
-              { text: "Nombre", value: "name" },
-              { text: "Valor", value: "value" },
-              { text: "Idioma", value: "language" },
-              { text: "Dependencia de idioma", value: "dependency" },
-              { text: "Estado", value: "status" },
-              { text: "Dificultad (BGG)", value: "weight" },
-              { text: "Rating (BGG)", value: "rate" },
-              { text: "id (BGG)", value: "bgg_id" },
+              { text: getI18Ntext("element.Date"), value: "id" },
+              { text: getI18Ntext("element.Name"), value: "name" },
+              { text: getI18Ntext("element.Value"), value: "value" },
+              {
+                text: getI18Ntext("element.Language"),
+                value: "language",
+              },
+              {
+                text: getI18Ntext("element.BGG.dependency"),
+                value: "dependency",
+              },
+              { text: getI18Ntext("element.Status"), value: "status" },
+              {
+                text: getI18Ntext("element.BGG.weight"),
+                value: "weight",
+              },
+              { text: getI18Ntext("element.BGG.rating"), value: "rate" },
+              { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
             ]}
             onChange={(order, desc) => {
               setFilters({
@@ -67,7 +77,7 @@ const ItemListView = ({
             <SidebarTabs
               tabs={[
                 {
-                  title: "Filtros",
+                  title: "filter.Title",
                   content: (
                     <Filters_MT_Items
                       filters={filters}
@@ -84,7 +94,7 @@ const ItemListView = ({
                   ),
                 },
                 {
-                  title: "Grupos",
+                  title: "itemList.Tags.title",
                   content: (
                     <SidebarTagList
                       tagList={tagList}

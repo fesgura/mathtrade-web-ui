@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import Tag from "./tag";
 import Icon from "components/icon";
 import AddTag from "components/addTag";
+import I18N, { getI18Ntext } from "i18n";
 
 const SidebarTagList = ({
   tagList,
@@ -37,7 +38,7 @@ const SidebarTagList = ({
             <Tag
               tag={{
                 id: -1,
-                name: "Todos los items",
+                name: getI18Ntext("itemList.Tags.AllItems"),
                 color: "#f0f0f0",
                 wanted: null,
               }}
@@ -65,7 +66,7 @@ const SidebarTagList = ({
                 setModalAddOpen(true);
               }}
             >
-              <Icon type="plus" /> Agregar etiqueta
+              <Icon type="plus" /> <I18N id="itemList.Tags.AddTag" />
             </a>
           </div>
         </div>

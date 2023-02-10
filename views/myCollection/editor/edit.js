@@ -212,6 +212,8 @@ const ElementEdit = ({
                             setValidationStatus={setValidationStatus}
                             type="select-multiple"
                             options={languageList}
+                            translateType="language"
+                            //notTranslateOptions
                             label="element.Language"
                             name="language"
                             readOnly={bgg_version_id !== "other"}

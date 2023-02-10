@@ -85,7 +85,7 @@ const RegisterView = ({
                           <I18N id="register.ReadyTitle" />
                         </h1>
                         <p className="muted">
-                          <I18N id="register.ReadySubtitle" forHtml />
+                          <I18N id="register.ReadySubtitle" />
                         </p>
                       </div>
                       <div className="text-center py-4">
