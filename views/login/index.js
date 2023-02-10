@@ -6,6 +6,7 @@ import { Card, CardBody, Button, Col, Row, Alert } from "reactstrap";
 import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
 import I18N from "i18n";
+import ErrorAlert from "components/errorAlert";
 
 const dataInitial = null; //{ username: "math", password: "MeepleLand" };
 
@@ -66,11 +67,7 @@ const LoginView = ({ loading, errors, onSubmit }) => {
                       size="lg"
                       icon="key"
                     />
-                    {errors ? (
-                      <Alert color="danger" className="text-center">
-                        <I18N id="error.Signin" />
-                      </Alert>
-                    ) : null}
+                    <ErrorAlert errors={errors} />
                     <div className="text-center py-4">
                       <Button color="primary" size="lg" type="submit">
                         <I18N id="btn.Enter" />

@@ -5,6 +5,7 @@ import { Button, Alert, Row, Col } from "reactstrap";
 import { wantsFromAPItoWantList, myItemListFromAPItoMyItemList } from "utils";
 import Grid from "./grid";
 import I18N from "i18n";
+import ErrorAlert from "components/errorAlert";
 
 const MyWantsView = ({
   wantListFromAPI,
@@ -75,6 +76,7 @@ const MyWantsView = ({
         ]}
       />
       {content}
+      <ErrorAlert errors={errors} />
       <div className="text-center py-5">
         <Button color="link" className="me-2" outline onClick={afterAnyChange}>
           <I18N id="btn.Cancel" />

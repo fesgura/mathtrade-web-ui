@@ -13,13 +13,13 @@ const PublishInMT = ({ item, itemMathTradeData, afterAnyChange }) => {
 
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
 
-  const [publishItem, , loadingPublishItem, errorPublishItem] = useApi({
+  const [publishItem, , loadingPublishItem] = useApi({
     promise: MathTradeService.publishItem,
     afterLoad: () => {
       afterAnyChange();
     },
   });
-  const [unpublishItem, , loadingUnpublishItem, errorUnpublishItem] = useApi({
+  const [unpublishItem, , loadingUnpublishItem] = useApi({
     promise: MathTradeService.unpublishItem,
     afterLoad: () => {
       afterAnyChange();

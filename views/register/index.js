@@ -9,6 +9,7 @@ import { locationsToOptions } from "utils";
 import Icon from "components/icon";
 import TestBGGuser from "components/testBGGuser";
 import I18N, { getI18Ntext } from "i18n";
+import ErrorAlert from "components/errorAlert";
 
 const RegisterView = ({
   errors,
@@ -19,7 +20,6 @@ const RegisterView = ({
   isSuccess,
 }) => {
   const [validationStatus, setValidationStatus] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
 
   const [passwordValue, setPasswordValue] = useState("");
   const [password2Value, setPassword2Value] = useState("");
@@ -27,15 +27,6 @@ const RegisterView = ({
   const [BGGuser, setBGGuser] = useState("");
 
   const [validBGGuser, onValidateBGGuser] = useState(null);
-
-  useEffect(() => {
-    if (errors) {
-      let errorMge = getI18Ntext("error.General");
-      setErrorMessage(errorMge);
-    } else {
-      setErrorMessage(null);
-    }
-  }, [errors]);
 
   const validations = {
     username: ["required"],
@@ -285,11 +276,7 @@ const RegisterView = ({
                         </div>
                         <Hidden name="referred" value="Luis Olcese" />
                         <hr />
-                        {errorMessage ? (
-                          <Alert color="danger" className="text-center">
-                            {errorMessage}
-                          </Alert>
-                        ) : null}
+                        <ErrorAlert errors={errors} />
                         <div className="text-center py-4">
                           <Button color="primary" size="lg" type="submit">
                             Crear cuenta

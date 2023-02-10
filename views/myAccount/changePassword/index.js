@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Form, Input } from "components/form";
 import { Button, Alert } from "reactstrap";
 import { LoadingBox } from "components/loading";
+import ErrorAlert from "components/errorAlert";
 
 const ChangePasswordView = ({
   setIsOpenModalPassword,
@@ -88,11 +89,7 @@ const ChangePasswordView = ({
           onChange={setPassword2Value}
         />
 
-        {errorMessage ? (
-          <Alert color="danger" className="text-center">
-            {errorMessage}
-          </Alert>
-        ) : null}
+        <ErrorAlert errors={errors} />
         <Alert color="warning" className="text-center">
           Recuerda que luego <b>deberás volver a ingresar</b> con{" "}
           <b>tu nueva contraseña</b>.

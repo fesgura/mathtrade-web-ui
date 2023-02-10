@@ -5,6 +5,7 @@ import ItemListToWant from "./comps/itemListToWant";
 import { Col, Row } from "reactstrap";
 import { Input } from "components/form";
 import I18N from "i18n";
+import ErrorAlert from "components/errorAlert";
 
 const Tag = ({ tag, dup_protection, set_dup_protection }) => {
   const [listItems, list, loading, errors] = useApi({
@@ -51,7 +52,7 @@ const Tag = ({ tag, dup_protection, set_dup_protection }) => {
       </div>
       <hr className="m-0" />
       <ItemListToWant itemListToWant={list?.results || []} />
-
+      <ErrorAlert errors={errors} />
       {loading ? <LoadingBox /> : null}
     </div>
   );

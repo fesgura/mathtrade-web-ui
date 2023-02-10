@@ -8,6 +8,7 @@ import { Button, Alert, Row, Col } from "reactstrap";
 import ObjectToWantComp from "./objectToWant";
 import MyItems from "./myItems";
 import I18N, { getI18Ntext } from "i18n";
+import ErrorAlert from "components/errorAlert";
 
 const EditorWants = ({
   objectToWant,
@@ -143,18 +144,6 @@ const EditorWants = ({
   });
   /******************************/
 
-  /* ERROR MGE *******/
-  const [errorMessage, setErrorMessage] = useState(null);
-  useEffect(() => {
-    if (postErrors || putErrors || deleteErrors) {
-      let errorMge = getI18Ntext("error.General");
-      setErrorMessage(errorMge);
-    } else {
-      setErrorMessage(null);
-    }
-  }, [postErrors, putErrors, deleteErrors]);
-  /******************************/
-
   return (
     <>
       <ObjectToWantComp
@@ -170,11 +159,7 @@ const EditorWants = ({
         setMyItemIds={setMyItemIds}
         dup_protection={dup_protection}
       />
-      {errorMessage ? (
-        <Alert color="danger" className="mt-3 text-center">
-          {errorMessage}
-        </Alert>
-      ) : null}
+      <ErrorAlert errors={postErrors || putErrors || deleteErrors} />
       <Row className="pt-4 pb-3 align-items-center justify-content-between">
         {id ? (
           <Col xs="auto">

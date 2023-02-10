@@ -10,6 +10,7 @@ import { getVersionNameFromId, processBGGdata } from "utils";
 import Thumbnail from "components/thumbnail";
 import BggGameBox from "components/bggGameBox";
 import I18N, { getI18Ntext } from "i18n";
+import ErrorAlert from "components/errorAlert";
 
 const validations = {
   version_name: ["required"],
@@ -58,7 +59,6 @@ const ElementEdit = ({
   });
 
   const [versionList, setVersionList] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(null);
 
   const [data, setData] = useState(element);
   const changeData = (newData) => {
@@ -87,15 +87,6 @@ const ElementEdit = ({
       }
     }
   }, [BGGelement, create]);
-
-  useEffect(() => {
-    if (errors) {
-      let errorMge = getI18Ntext("error.General");
-      setErrorMessage(errorMge);
-    } else {
-      setErrorMessage(null);
-    }
-  }, [errors]);
 
   return (
     <div
@@ -275,11 +266,7 @@ const ElementEdit = ({
                   ) : (
                     <div className="bgg_version_id_null-spacer" />
                   )}
-                  {errorMessage ? (
-                    <Alert color="danger" className="text-center">
-                      {errorMessage}
-                    </Alert>
-                  ) : null}
+                  <ErrorAlert errors={errors} />
                   <div className="text-center py-3">
                     <Button
                       color="link"

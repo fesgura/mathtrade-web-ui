@@ -5,6 +5,7 @@ import { useApi, MathTradeService } from "api_serv";
 import Group from "./group";
 import Item from "./item";
 import I18N, { getI18Ntext } from "i18n";
+import Error from "next/error";
 
 const MyItems = ({ item_ids, setMyItemIds, dup_protection }) => {
   const [listItems, itemList, loading, errors] = useApi({
@@ -15,18 +16,6 @@ const MyItems = ({ item_ids, setMyItemIds, dup_protection }) => {
   useEffect(() => {
     listItems();
   }, []);
-
-  /* ERROR MGE *******/
-  const [errorMessage, setErrorMessage] = useState(null);
-  useEffect(() => {
-    if (errors) {
-      let errorMge = getI18Ntext("error.General");
-      setErrorMessage(errorMge);
-    } else {
-      setErrorMessage(null);
-    }
-  }, [errors]);
-  /******************************/
 
   const [collection, setCollection] = useState([]);
 
@@ -68,10 +57,8 @@ const MyItems = ({ item_ids, setMyItemIds, dup_protection }) => {
 
   return (
     <div className="relative">
-      {errorMessage ? (
-        <Alert color="danger" className="mt-3 text-center">
-          {errorMessage}
-        </Alert>
+      {errors ? (
+        <ErrorAlert errors={errors} />
       ) : (
         <>
           <div className="pt-2 pb-2">
