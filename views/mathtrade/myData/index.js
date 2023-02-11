@@ -4,7 +4,6 @@ import { Form, Input } from "components/form";
 import Logo from "components/logo";
 import { locationsToOptions } from "utils";
 import { Button, Alert, Modal, ModalBody, Row, Col } from "reactstrap";
-import Section from "components/section";
 import Icon from "components/icon";
 import CancelInviteMT from "components/inviteRegisterMathTrade/cancel";
 import storage from "utils/storage";
@@ -84,7 +83,7 @@ const MyDataView = ({
       ) : null}
 
       {mathtradeData ? (
-        <Section className="pt-3">
+        <section className="py-3">
           <div className="text-center mb-4">
             <h1>
               {mathtradeData.IamIn ? (
@@ -287,7 +286,7 @@ const MyDataView = ({
               </div>
             </ModalBody>
           </Modal>
-        </Section>
+        </section>
       ) : null}
     </PrivateLayout>
   );

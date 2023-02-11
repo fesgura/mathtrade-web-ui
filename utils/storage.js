@@ -127,9 +127,8 @@ storage.setToOptions = (opts) => {
 
   for (let a in opts) {
     const value = opts[a];
-    if (value) {
-      optionStored[a] = value;
-    }
+
+    optionStored[a] = value;
   }
   storage.setOptions(optionStored);
 };

@@ -1,0 +1,16 @@
+.main-header {
+  position: fixed;
+  z-index: $main-header-z;
+  height: 0;
+  top: 0;
+  left: $main-sidebar-closed-w;
+  right: 0;
+
+  &.sidebar-open {
+    left: $main-sidebar-open-w;
+  }
+
+  &.sidebar-animation-enabled {
+    transition: left $main-sidebar-transition $main-sidebar-delay;
+  }
+}

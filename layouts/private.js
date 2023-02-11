@@ -4,15 +4,36 @@ import Header from "components/header";
 import Footer from "components/footer";
 import { LoadingPage, LoadingScreen } from "components/loading";
 import storage from "utils/storage";
+import classNames from "classnames";
 import { getI18Ntext } from "i18n";
+import MainSidebar from "components/mainSidebar";
 
 const PrivateLayout = ({ doctitle, children, loading }) => {
   const [auth, setAuth] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarAnimationEnabled, setSidebarAnimationEnabled] = useState(false);
 
   useEffect(() => {
     const auth = storage.getFromStore("token");
     setAuth(auth);
+
+    setSidebarOpen(storage.getFromOptions("sidebarOpen"));
+
+    let timer = setTimeout(() => {
+      setSidebarAnimationEnabled(true);
+    }, 120);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
+
+  const toggleSidebar = () => {
+    storage.setToOptions({
+      sidebarOpen: !sidebarOpen,
+    });
+    setSidebarOpen(!sidebarOpen);
+  };
 
   return (
     <>
@@ -98,24 +119,30 @@ const PrivateLayout = ({ doctitle, children, loading }) => {
         />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <main className="wrap">
-        <Header />
-        <div className="main-container pt-lg-5 pt-3 py-3">{children}</div>
-        <Footer absolute />
+
+      <MainSidebar
+        sidebarOpen={sidebarOpen}
+        sidebarAnimationEnabled={sidebarAnimationEnabled}
+        toggleSidebar={toggleSidebar}
+      />
+      <main
+        className={classNames("main-wrap", {
+          "sidebar-open": sidebarOpen,
+          "sidebar-animation-enabled": sidebarAnimationEnabled,
+        })}
+      >
+        <Header
+          sidebarOpen={sidebarOpen}
+          sidebarAnimationEnabled={sidebarAnimationEnabled}
+        />
+        <div className="main-container">{children}</div>
+        <Footer
+          absolute
+          sidebarOpen={sidebarOpen}
+          sidebarAnimationEnabled={sidebarAnimationEnabled}
+        />
       </main>
       {loading ? <LoadingScreen /> : null}
-      {/* {auth ? (
-        <>
-          <main className="wrap">
-            <Header />
-            <div className="main-container pt-lg-5 pt-3 py-3">{children}</div>
-            <Footer absolute />
-          </main>
-          {loading ? <LoadingScreen /> : null}
-        </>
-      ) : (
-        <LoadingPage loading={true} />
-      )} */}
     </>
   );
 };

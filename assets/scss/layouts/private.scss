@@ -1,15 +1,36 @@
-.wrap{
-  min-height: 100%;
+.main-wrap {
   position: relative;
+  z-index: $main-wrap-z;
+  display: block;
+  min-height: 100%;
+  animation: show-wrap 0.7s;
+  padding-top: $main-header-height;
   padding-bottom: $main-footer-height;
-  animation: show-wrap .7s;
+  padding-left: $main-sidebar-closed-w;
+
+  &.sidebar-open {
+    padding-left: $main-sidebar-open-w;
+  }
+  &.sidebar-animation-enabled {
+    transition: padding-left $main-sidebar-transition $main-sidebar-delay;
+  }
+}
+
+.main-container {
+  max-width: $main-container-width;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.main-container-wide {
+  margin: 0 50px;
 }
 
 @keyframes show-wrap {
   0% {
-    opacity:0;
+    opacity: 0;
   }
   100% {
-    opacity:1;
+    opacity: 1;
   }
 }

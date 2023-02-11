@@ -67,10 +67,34 @@ $starsColor: (
   "10": #0aa516,
 );
 
-// SIZES
+// PRIVATE LAYOUT
 $main-header-height: 60px;
 $main-footer-height: 40px;
 $main-container-width: 1560px;
+$main-sidebar-icon-w: 40px;
+$main-sidebar-closed-w: 60px;
+$main-sidebar-open-w: 280px;
+$main-sidebar-transition: 0.2s;
+$main-sidebar-delay: 0.2s;
+$main-wrap-z: 999;
+$main-header-z: 1000;
+$main-sidebar-z: 1002;
+$main-sidebar-toggler-z: 1001;
+$main-sidebar-toggler-w: 22px;
+$main-sidebar-toggler-color: $secondary;
+$main-sidebar-padding-extended: 30px;
+$main-sidebar-top-p: 20px;
+$main-sidebar-top-h: $main-sidebar-closed-w + $main-sidebar-top-p + 15px;
+$main-sidebar-bottom-pt: 20px;
+$main-sidebar-bottom-pb: 0;
+$main-sidebar-bottom-h: $main-sidebar-closed-w + $main-sidebar-bottom-pt +
+  $main-sidebar-bottom-pb;
+$main-sidebar-color: #aaa;
+$main-sidebar-color-hover: $primary;
+$main-sidebar-signOut-color: lighten($danger, 20);
+$main-sidebar-current-bg: rgba($primary, 0.06);
+
+// SIZES
 $item-owner-min-h: 82px;
 
 $mywants-grid-h: 42px;
