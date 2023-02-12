@@ -13,4 +13,52 @@
   &.sidebar-animation-enabled {
     transition: left $main-sidebar-transition $main-sidebar-delay;
   }
+
+  .main-header-container {
+    height: 0;
+    width: 100%;
+    position: relative;
+  }
+}
+
+.main-user,
+.main-notifications-btn {
+  position: absolute;
+  top: $main-control-py;
+  box-shadow: $main-box-shadow;
+  width: $main-control-w;
+  height: $main-control-w;
+  background-color: #fff;
+  border-radius: 50%;
+  color: $main-header-color;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.main-user {
+  right: 0;
+
+  padding: 4px;
+}
+.main-notifications-btn {
+  right: $main-control-w + $main-header-control-p;
+  text-align: center;
+  line-height: $main-control-w;
+
+  .main-notifications-btn_count {
+    position: absolute;
+    top: 0;
+    right: 0;
+    $w: 18px;
+    background-color: $primary;
+    color: #fff;
+    min-width: $w;
+    height: $w;
+    line-height: $w;
+    text-align: center;
+    border-radius: 0.5 * $w;
+    font-size: 0.6 * $w;
+    padding: 0 3px;
+    font-weight: bold;
+  }
 }

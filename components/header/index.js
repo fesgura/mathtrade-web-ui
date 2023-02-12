@@ -1,10 +1,6 @@
 import { useState } from "react";
-import { Col, Row } from "reactstrap";
-import Link from "next/link";
-import UserHeader from "./user";
-import MainMenu from "./menu";
-import Logo from "components/logo";
-import Icon from "components/icon";
+import User from "./user";
+import Notifications from "./notifications";
 import classNames from "classnames";
 import storage from "utils/storage";
 
@@ -19,7 +15,12 @@ const Header = ({ sidebarOpen, sidebarAnimationEnabled }) => {
         "sidebar-animation-enabled": sidebarAnimationEnabled,
       })}
     >
-      <div className="main-container"></div>
+      <div className="main-container">
+        <div className="main-header-container">
+          <User />
+          <Notifications />
+        </div>
+      </div>
     </div>
   );
 };

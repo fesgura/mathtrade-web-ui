@@ -47,10 +47,7 @@ export const privateRoutes = {
   },
 };
 
-// export const menuUser = [
-//   { path: "my-account", title: "title.MyAccount", icon: "user" },
-//   { path: "my-collection", title: "title.MyCollection", icon: "th-list" },
-// ];
+export const linkUserAccount = { path: "my-account", title: "title.MyAccount" };
 export const menuBasic = [
   {
     path: privateRoutes.myCollection.path,

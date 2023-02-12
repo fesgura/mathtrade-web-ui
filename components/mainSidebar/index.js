@@ -34,8 +34,6 @@ const MainSidebar = ({
                       <Image
                         src={logoSrc}
                         alt="Math Trade Argentina"
-                        // width={logoWidth}
-                        // height={logoWidth}
                         priority
                       />
                     </div>
