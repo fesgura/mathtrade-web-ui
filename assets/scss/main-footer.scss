@@ -1,0 +1,23 @@
+.main-footer {
+  height: $main-footer-height;
+  line-height: $main-footer-height;
+  text-align: center;
+  font-size: 11px;
+
+  &.absolute {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    .main-footer_container {
+      border-top: 1px solid #ccc;
+    }
+    &.sidebar-open {
+      left: $main-sidebar-open-w;
+    }
+
+    &.sidebar-animation-enabled {
+      transition: left $main-sidebar-transition $main-sidebar-delay;
+    }
+  }
+}

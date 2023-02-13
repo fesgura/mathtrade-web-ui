@@ -12,17 +12,14 @@
 @import "dropdown";
 @import "pagination";
 @import "loading/index.scss";
-@import "header";
-@import "footer";
-@import "section";
+@import "main-header";
+@import "main-footer";
+@import "main-sidebar";
 @import "slider";
 @import "modal";
 @import "badge";
 @import "page-header";
-@import "menu-horizontal";
-@import "min-menu";
 @import "bgg-search";
-// @import "item/index.scss";
 @import "element/index.scss";
 @import "order-by";
 @import "invite";
@@ -30,25 +27,18 @@
 @import "list-tab-header";
 @import "picture";
 @import "filters";
-@import "switch-view";
 @import "dragNdrop";
 @import "groupHeader";
-
 @import "layouts/public";
 @import "layouts/private";
-
 @import "pages/login";
-
 @import "mt/register";
-
-/// NEW
 @import "box";
 @import "bggGameBox";
 @import "elementBox";
 @import "userBox";
 @import "cardComp";
 @import "itemExtense";
-@import "itemMinimal";
 @import "gameExtense";
 @import "gameQuadCard";
 @import "thumbnail";
@@ -56,4 +46,8 @@
 @import "sidebarGroupList";
 @import "sidebar";
 @import "want-editor";
+@import "pillData";
 @import "myWants/index.scss";
+@import "btnCircle";
+//
+@import "item/index.scss";

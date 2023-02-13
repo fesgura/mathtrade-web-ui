@@ -1,57 +1,26 @@
-import { useState, useEffect } from "react";
-import Router from "next/router";
-import { publicRoutes } from "config/routes";
+import { useId } from "react";
 import UserAvatar from "components/avatar";
 import Link from "next/link";
-import { menuUser } from "config/routes";
-import Icon from "components/icon";
-import storage from "utils/storage";
-import { setLogoutAPI } from "api_serv/utils";
+import { linkUserAccount } from "config/routes";
 import I18N from "i18n";
+import { UncontrolledTooltip } from "reactstrap";
 
-const UserHeader = ({ storeData }) => {
-  const [username, setUsername] = useState("");
+const twoPointsReg = new RegExp(":", "g");
 
-  useEffect(() => {
-    setUsername(storeData?.user?.data?.username);
-  }, [storeData]);
+const UserHeader = () => {
+  const id = useId("user").replace(twoPointsReg, "");
 
   return (
-    <div className="main-user">
-      <div className="main-user-avatar">
-        <UserAvatar className="pointer" />
-      </div>
-
-      <div className="main-user-menu">
-        {username ? (
-          <div className="main-user-menu-name">{username}</div>
-        ) : null}
-        {menuUser.map((item, k) => {
-          const { path, title, icon } = item;
-          return (
-            <Link href={`/${path}`} key={k}>
-              <a className="a-item">
-                <Icon type={icon} />
-                <I18N id={title} />
-              </a>
-            </Link>
-          );
-        })}
-        <a
-          className="a-item a-sign-out"
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            storage.clear();
-            setLogoutAPI();
-            Router.push(`/${publicRoutes.signin.path}`);
-          }}
-        >
-          <Icon type="sign-out" />
-          <I18N id="sign.SignOut" />
+    <>
+      <Link href={`/${linkUserAccount.path}`}>
+        <a className="main-user" id={`tt-user-${id}`}>
+          <UserAvatar className="pointer" size="auto" />
         </a>
-      </div>
-    </div>
+      </Link>
+      <UncontrolledTooltip target={`tt-user-${id}`}>
+        <I18N id={linkUserAccount.title} />
+      </UncontrolledTooltip>
+    </>
   );
 };
 export default UserHeader;

@@ -1,6 +1,4 @@
-.valuation-btn-cont {
-}
-
+.valuation-title,
 .valuation-btn {
   position: relative;
   $h: 36px;
@@ -11,6 +9,9 @@
     line-height: $h;
     height: $h;
     //color: $mathtrade;
+    &.ic-loading {
+      font-size: 22px;
+    }
   }
   .valuation-btn_num {
     position: absolute;
@@ -25,11 +26,17 @@
     font-size: 14px;
   }
 }
+.valuation-title {
+  .valuation-btn_star {
+    height: $btn_circle-w - 2px;
+    line-height: $btn_circle-w - 2px;
+  }
+}
 
-.valuation {
+.valuation-container {
   $h: 36px;
   background-color: #fff;
-  width: $h;
+  //width: $h;
   border-radius: $h;
   text-align: center;
 
@@ -47,6 +54,7 @@
     text-transform: uppercase;
     font-size: 11px;
     font-weight: bold;
+    text-align: left;
   }
   .valuation-liner {
     $h3: 26px;

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
@@ -24,6 +25,7 @@ const ItemListView = ({
   dragToGroup,
   afterAnyChange,
 }) => {
+  const [currentSidebar, setCurrentSidebar] = useState(0);
   return (
     <PrivateLayout loading={loading} doctitle="title.ItemList">
       <PageHeaderTabs
@@ -106,6 +108,7 @@ const ItemListView = ({
                   ),
                 },
               ]}
+              onChange={setCurrentSidebar}
             />
           </SidebarSticky>
         </Col>
@@ -121,6 +124,7 @@ const ItemListView = ({
                     afterAnyChange={afterAnyChange}
                     tagList={tagList}
                     dragToGroup={dragToGroup}
+                    withDragger={currentSidebar === 1}
                   />
                 );
               })

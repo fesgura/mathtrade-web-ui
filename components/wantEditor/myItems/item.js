@@ -3,12 +3,12 @@ import { useApi, MathTradeService } from "api_serv";
 import ErrorAlert from "components/errorAlert";
 import { Col, Row } from "reactstrap";
 import Thumbnail from "components/thumbnail";
-import { ValuationLabel } from "components/valuation";
+import { ValuationTitle } from "components/valuation";
 import Checkbox from "components/checkbox";
 import OrderBy from "components/orderBy";
 import classNames from "classnames";
 import Previewer from "components/previewer";
-import ItemExtense from "components/itemExtense";
+import ItemFull from "components/item/full";
 import { LoadingBox } from "components/loading";
 import I18N from "i18n";
 
@@ -22,7 +22,7 @@ const Item = ({ item, item_ids, setMyItemIds }) => {
       })}
       key={id}
     >
-      <div className="my-item-minimal">
+      <div className="item-minimal">
         <Row className="align-items-center g-0">
           <Col xs="auto">
             <Checkbox
@@ -33,7 +33,9 @@ const Item = ({ item, item_ids, setMyItemIds }) => {
             />
           </Col>
           <Col xs="auto" className="px-3">
-            <Thumbnail src={elements[0].thumbnail} width={30} height={30} />
+            <div className="item-minimal_thumbnail">
+              <Thumbnail src={elements[0].thumbnail} />
+            </div>
           </Col>
           <Col>
             {elements.length > 1 ? (
@@ -45,11 +47,13 @@ const Item = ({ item, item_ids, setMyItemIds }) => {
           </Col>
           <Col xs="auto">
             <Previewer>
-              <ItemExtense item={item} inModal showUser={false} />
+              <ItemFull item={item} inModal showUser={false} />
             </Previewer>
           </Col>
           <Col xs="auto" className="ps-2">
-            <ValuationLabel value={value} />
+            <div className="valuation-title">
+              <ValuationTitle value={value} />
+            </div>
           </Col>
         </Row>
       </div>

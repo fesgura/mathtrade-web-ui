@@ -1,8 +1,23 @@
 import classNames from "classnames";
 
-const Footer = ({ absolute, className }) => {
+const Footer = ({
+  absolute,
+  className,
+  sidebarOpen,
+  sidebarAnimationEnabled,
+}) => {
   return (
-    <footer className={classNames("main-footer", { absolute }, className)}>
+    <footer
+      className={classNames(
+        "main-footer",
+        {
+          absolute,
+          "sidebar-open": sidebarOpen,
+          "sidebar-animation-enabled": sidebarAnimationEnabled,
+        },
+        className
+      )}
+    >
       <div className="main-container">
         <div className="main-footer_container">
           Copyright {new Date().getFullYear()} - Math Trade Argentina

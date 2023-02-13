@@ -26,11 +26,17 @@ export const privateRoutes = {
     myItems: {
       path: "mathtrade/my-items",
     },
+    list: {
+      path: "mathtrade/list",
+    },
     gameList: {
       path: "mathtrade/list/games",
     },
     itemList: {
       path: "mathtrade/list/items",
+    },
+    myWants: {
+      path: "mathtrade/my-wants",
     },
     results: {
       path: "mathtrade/results",
@@ -41,15 +47,19 @@ export const privateRoutes = {
   },
 };
 
-export const menuUser = [
-  { path: "my-account", title: "title.MyAccount", icon: "user" },
-  { path: "my-collection", title: "title.MyCollection", icon: "th-list" },
+export const linkUserAccount = { path: "my-account", title: "title.MyAccount" };
+export const menuBasic = [
+  {
+    path: privateRoutes.myCollection.path,
+    title: "title.MyCollection",
+    icon: "folder-o",
+  },
 ];
 
 export const menu_no_mathTrade = [
   {
     title: "header.SignToMathTrade",
-    path: "mathtrade/my-data",
+    path: privateRoutes.mathtrade.myData.path,
     icon: "star",
   },
 ];
@@ -57,24 +67,28 @@ export const menu_no_mathTrade = [
 export const menu_yes_mathTrade = [
   {
     title: "menu.MyItems",
-    path: "mathtrade/my-items",
+    path: privateRoutes.mathtrade.myItems.path,
+    icon: "th-large",
   },
   {
     title: "menu.List",
-    path: "mathtrade/list",
+    path: privateRoutes.mathtrade.list.path,
+    icon: "list",
   },
   {
     title: "menu.MyWants",
-    path: "mathtrade/my-wants",
+    path: privateRoutes.mathtrade.myWants.path,
+    icon: "heart-o",
   },
   {
     title: "menu.Results",
-    path: "mathtrade/results",
+    path: privateRoutes.mathtrade.results.path,
     disabled: true,
+    icon: "sitemap",
   },
   {
     title: "menu.MyData",
-    path: "mathtrade/my-data",
-    bordered: true,
+    path: privateRoutes.mathtrade.myData.path,
+    icon: "user-o",
   },
 ];

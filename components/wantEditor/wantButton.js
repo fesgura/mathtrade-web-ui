@@ -1,66 +1,17 @@
-import { useState, useEffect } from "react";
-import classNames from "classnames";
-import Valuation from "components/valuation";
-import { Col, Row, Button } from "reactstrap";
-import I18N from "i18n";
+import BtnCircle from "components/btnCircle";
+import Icon from "components/icon";
 
-const WantButton = ({
-  objectToWant,
-  type,
-  isOwner,
-  wantGroup,
-  onClick,
-  afterAnyChange,
-}) => {
-  const [itemListToWant, set_itemListToWant] = useState([]);
-
-  useEffect(() => {
-    if (objectToWant) {
-      switch (type) {
-        case "game":
-          set_itemListToWant(objectToWant?.items || []);
-          break;
-        case "item":
-          set_itemListToWant([objectToWant] || []);
-          break;
-        default:
-        //
+const WantButton = ({ objectToWant, type, isOwner, wantGroup, onClick }) => {
+  return isOwner ? null : (
+    <BtnCircle
+      className={wantGroup ? "btn-in-want-list" : "btn-i-want-it"}
+      onClick={onClick}
+      label={
+        wantGroup ? "wantEditor.btn.InMyWantList" : "wantEditor.btn.IwantIt"
       }
-    }
-  }, [objectToWant, type]);
-
-  return (
-    <div className={classNames("mathtrade-tools")}>
-      <Row className="g-0 align-items-center">
-        <Col xs="auto">
-          {isOwner ? (
-            <Button color="transparent" size="sm" disabled>
-              <I18N id="wantEditor.btn.OwnItem" />
-            </Button>
-          ) : (
-            <Button
-              color="primary"
-              size={type === "tag" ? "xs" : "sm"}
-              onClick={onClick}
-            >
-              {wantGroup ? (
-                <I18N id="wantEditor.btn.InMyWantList" />
-              ) : (
-                <I18N id="wantEditor.btn.IwantIt" />
-              )}
-            </Button>
-          )}
-        </Col>
-        {type !== "tag" ? (
-          <Col xs="auto" className="ps-2">
-            <Valuation
-              items={itemListToWant || []}
-              afterAnyChange={afterAnyChange}
-            />
-          </Col>
-        ) : null}
-      </Row>
-    </div>
+    >
+      <Icon type={wantGroup ? "inmywantlist" : "iwantit"} />
+    </BtnCircle>
   );
 };
 export default WantButton;
