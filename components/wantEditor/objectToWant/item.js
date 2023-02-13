@@ -1,4 +1,4 @@
-import ItemExtense from "components/itemExtense";
+import ItemFull from "components/item/full";
 import I18N from "i18n";
 
 const Item = ({ item }) => {
@@ -7,7 +7,7 @@ const Item = ({ item }) => {
       <div className="pt-3 pb-2">
         <I18N id="wantEditor.Item.wants.lead" />
       </div>
-      <ItemExtense item={item} />
+      <ItemFull item={item} />
     </>
   );
 };

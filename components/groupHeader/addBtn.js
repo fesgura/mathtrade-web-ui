@@ -1,7 +1,7 @@
 import { useId, useState, useEffect } from "react";
 import { useApi, MathTradeService } from "api_serv";
 import Icon from "components/icon";
-import { UncontrolledTooltip, UncontrolledPopover, Button } from "reactstrap";
+import { UncontrolledTooltip, Popover, Button } from "reactstrap";
 import GroupTag from "./tag";
 import AddGroup from "components/addGroup";
 import I18N from "i18n";
@@ -13,6 +13,13 @@ const AddBtn = ({ item, listAlreadyAdded, groups, afterAnyChange }) => {
   const [modalAddOpen, setModalAddOpen] = useState(false);
 
   const [groupsLeft, setGroupsLeft] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleOpen = () => {
+    setIsOpen((v) => {
+      return !v;
+    });
+  };
 
   useEffect(() => {
     const newGroupsLeft = groups.filter((g) => {
@@ -36,18 +43,18 @@ const AddBtn = ({ item, listAlreadyAdded, groups, afterAnyChange }) => {
 
   return (
     <>
-      <button className="group-add-btn" id={id}>
+      <button className="group-add-btn" id={id} onClick={toggleOpen}>
         <Icon type="plus" />
       </button>
       <UncontrolledTooltip target={id}>
         <I18N id="myGroups.AddItemToGroup" />
       </UncontrolledTooltip>
-      <UncontrolledPopover
+      <Popover
         className="group-header-popover"
         placement="bottom"
-        target={id}
-        trigger="focus"
         flip
+        isOpen={isOpen}
+        target={id}
       >
         <div className="group-header-pad">
           <div className="group-header-row centered">
@@ -58,6 +65,7 @@ const AddBtn = ({ item, listAlreadyAdded, groups, afterAnyChange }) => {
                   tag={tag}
                   forAdd
                   onClick={() => {
+                    toggleOpen();
                     const newTag = { ...tag };
                     const id = newTag.id;
                     const item_ids = [...newTag.item_ids];
@@ -85,13 +93,14 @@ const AddBtn = ({ item, listAlreadyAdded, groups, afterAnyChange }) => {
           <Button
             size="xs"
             onClick={() => {
+              toggleOpen();
               setModalAddOpen(true);
             }}
           >
             <I18N id="myGroups.NewGroup" />
           </Button>
         </div>
-      </UncontrolledPopover>
+      </Popover>
       {modalAddOpen ? (
         <AddGroup
           item={item}

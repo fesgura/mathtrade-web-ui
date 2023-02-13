@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import ItemExtense from "components/itemExtense";
+import Item from "components/item/full";
 import WantEditor from "components/wantEditor";
 import GroupTagHeader from "components/groupTagHeader";
 import { Dragger } from "components/dragNdrop";
 import storage from "utils/storage";
+import Valuation from "components/valuation";
 
 const MT_ItemListViewItem = ({
   item,
@@ -11,6 +12,7 @@ const MT_ItemListViewItem = ({
   wantList,
   tagList,
   dragToGroup,
+  withDragger,
 }) => {
   const [wantGroup, set_wantGroup] = useState(null);
   const [isOwner, setIsOwner] = useState(false);
@@ -36,23 +38,38 @@ const MT_ItemListViewItem = ({
   }, [item]);
 
   const itemComp = (
-    <ItemExtense
+    <Item
       item={item}
       high={wantGroup}
-      rightHeader={
-        <div>
-          <WantEditor
-            type="item"
-            wantGroup={wantGroup}
-            objectToWant={item}
-            afterAnyChange={afterAnyChange}
-            wantList={wantList}
-            isOwner={isOwner}
-          />
-        </div>
-      }
-      variant="variant-0"
-      withDragger={!isOwner}
+      highClassName={wantGroup ? "high-wanted" : null}
+      btnRowListItem={[
+        (k) => {
+          return isOwner ? (
+            <div key={k} className="item-full_own-item">
+              Item propio
+            </div>
+          ) : null;
+        },
+        (k) => {
+          return (
+            <Valuation key={k} items={[item]} afterAnyChange={afterAnyChange} />
+          );
+        },
+        (k) => {
+          return (
+            <WantEditor
+              key={k}
+              type="item"
+              wantGroup={wantGroup}
+              objectToWant={item}
+              afterAnyChange={afterAnyChange}
+              wantList={wantList}
+              isOwner={isOwner}
+            />
+          );
+        },
+      ]}
+      withDragger={!isOwner && withDragger}
       groupHeader={
         !isOwner ? (
           <GroupTagHeader
@@ -66,9 +83,7 @@ const MT_ItemListViewItem = ({
     />
   );
 
-  return isOwner ? (
-    itemComp
-  ) : (
+  return (
     <Dragger
       key={`${item?.id}-${"item"}`}
       type="item_in_list"
@@ -81,6 +96,7 @@ const MT_ItemListViewItem = ({
         }
       }}
       title="Arrastrá y soltá el item sobre un grupo de la izquierda para agregar a un grupo."
+      hidden={isOwner || !withDragger}
     >
       {itemComp}
     </Dragger>

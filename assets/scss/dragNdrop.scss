@@ -1,47 +1,39 @@
 .dragger {
+  $w: $btn_circle-w - 2px;
+  $w_cont: 32px;
+  $ws: 3px;
+  $m: 0.2 * ($w_cont - ($ws * 4));
+  $wp: 0.5 * ($w - $w_cont) + $m;
+
   position: relative;
   .dragger-handler {
-    $w: 36px;
-    $ws: 4px;
-    $m: 0.2 * ($w - ($ws * 4));
-    opacity: 0.6;
     cursor: move;
+    background-color: #fff;
 
     position: absolute;
+    z-index: 15;
     top: 0;
     left: 0;
     width: $w;
     height: $w;
+    border-radius: $card-border-radius;
     //background-color: rgba(0, 0, 0, 0.158);
     line-height: 0;
-    padding-top: $m;
-    padding-left: $m;
+    padding-top: $wp;
+    padding-left: $wp;
 
-    span {
-      display: inline-block;
-      width: $ws;
-      height: $ws;
-      background-color: #fff;
-      margin-right: $m;
-      margin-bottom: $m;
-      border-radius: 50%;
-    }
-    &.p-primary {
-      opacity: 0.4;
+    .dragger-handler-cont {
+      width: $w_cont;
+      height: $w_cont;
+
       span {
-        background-color: $primary;
-      }
-    }
-    &.p-secondary {
-      opacity: 0.4;
-      span {
-        background-color: $secondary;
-      }
-    }
-    &.p-black {
-      opacity: 0.2;
-      span {
-        background-color: #000;
+        display: inline-block;
+        width: $ws;
+        height: $ws;
+        background-color: $text-muted;
+        margin-right: $m;
+        margin-bottom: $m;
+        border-radius: 50%;
       }
     }
   }
@@ -49,12 +41,12 @@
   &.dragging {
     opacity: 0.2;
   }
-}
 
-.dragger-for-item-extense {
-  .dragger-handler {
-    top: 5px;
-    left: 5px;
+  &.dragger-for-item-extense {
+    .dragger-handler {
+      top: $item-pt + ($element-full-p - $wp) + 3px;
+      left: 2px;
+    }
   }
 }
 

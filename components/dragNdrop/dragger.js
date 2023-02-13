@@ -19,6 +19,7 @@ const Dragger = ({
   type = "",
   data = {},
   onDrop,
+  hidden,
 }) => {
   const id = useId("q").replace(twoPointsReg, "");
   const [{ isDragging }, drag, preview] = useDrag(
@@ -50,26 +51,31 @@ const Dragger = ({
       )}
       ref={preview}
     >
-      <div
-        className={classNames(
-          "dragger-handler",
-          `p-${color}`,
-          {
-            dragging: isDragging,
-          },
-          classNameHandler
-        )}
-        style={styleHandler}
-        ref={drag}
-        id={`tt-dragger-q-${id}`}
-      >
-        {points.map((p) => {
-          return <span key={p}></span>;
-        })}
-      </div>
-      <UncontrolledTooltip target={`tt-dragger-q-${id}`}>
-        {title}
-      </UncontrolledTooltip>
+      {hidden ? null : (
+        <>
+          <div
+            className={classNames(
+              "dragger-handler fade-in",
+              {
+                dragging: isDragging,
+              },
+              classNameHandler
+            )}
+            style={styleHandler}
+            ref={drag}
+            id={`tt-dragger-q-${id}`}
+          >
+            <div className="dragger-handler-cont">
+              {points.map((p) => {
+                return <span key={p}></span>;
+              })}
+            </div>
+          </div>
+          <UncontrolledTooltip target={`tt-dragger-q-${id}`}>
+            {title}
+          </UncontrolledTooltip>
+        </>
+      )}
       {children}
     </div>
   );

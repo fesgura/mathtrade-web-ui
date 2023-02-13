@@ -100,6 +100,8 @@
   "element.BGG.VotesInBGG": "Votos en la BGG",
   "element.BGG.dependency": "Dependencia del idioma (BGG)",
   "element.BGG.OpenInBGG": "Abrir página en la BGG",
+  "element.BGG.OpenGameInBGG": "Abrir juego en la BGG",
+  "element.BGG.OpenEditionInBGG": "Abrir edición en la BGG",
   "element.BGG.ViewEditionBGG": "Ver edición en la BGG",
   "orderBy.Title": "Ordenar por",
   "orderBy.Descent": "Descendente",
@@ -110,7 +112,7 @@
   "statusType.MB": "Muy bueno",
   "statusType.BU": "Bastante usado",
   "statusType.MU": "Muy usado",
-  "statusType.CC": "Campaña iniciada",
+  "statusType.CC": "Campaña completa",
   "statusType.IN": "Incompleto",
   "dependencyType.min.0": "Ninguna",
   "dependencyType.max.0": "Ninguna: sin texto en juego",
@@ -291,5 +293,8 @@
   "MyData.title.SignOutToMathTrade": "¿Salir del Math Trade?",
   "MyData.title.SignOutToMathTrade.lead": "Luego podrás volver a inscribirte.",
   "MyData.btn.SignOutToMathTrade.Confirm": "Sí, salir",
-  "MyData.SignToMathTrade.lead": "Antes de inscribirte, asegurate de que la <b>ciudad</b> desde la que participás es la correcta, y/o <b>si vas a ir o no al encuentro presencial</b>:"
+  "MyData.SignToMathTrade.lead": "Antes de inscribirte, asegurate de que la <b>ciudad</b> desde la que participás es la correcta, y/o <b>si vas a ir o no al encuentro presencial</b>:",
+  "title.Notifications": "Notificaciones",
+  "title.oneNotification": "1 notificación",
+  "title.notifications": "notificaciones"
 }

@@ -22,13 +22,14 @@ const NotificationsHeader = () => {
         <Icon type="bell-o" />
       </div>
       <UncontrolledTooltip target={`tt-notifications-${id}`} placement="left">
+        {count > 1 ? `${count} ` : ""}
         <I18N
           id={
-            count
+            !count
               ? "title.Notifications"
               : count === 1
-              ? "title.Notifications"
-              : "title.Notifications"
+              ? "title.oneNotification"
+              : "title.notifications"
           }
         />
       </UncontrolledTooltip>

@@ -1,9 +1,12 @@
-import ItemExtense from "components/itemExtense";
+import Item from "components/item/full";
 import PublishInMT from "./publish_in_mt";
 import AddItem from "components/pages/myItems/addItem";
 import GroupHeader from "components/groupHeader";
+import BtnCircle from "components/btnCircle";
+import Icon from "components/icon";
+import Valuation from "components/valuation";
 
-const Item = ({
+const ItemOfCollection = ({
   IamInMathTrade,
   item,
   itemMathTradeData,
@@ -16,21 +19,58 @@ const Item = ({
   groups,
 }) => {
   return (
-    <ItemExtense
+    <Item
       item={item}
-      high={notHighlated ? false : itemMathTradeData}
-      rightHeader={
-        IamInMathTrade ? (
-          <PublishInMT
-            item={item}
-            itemMathTradeData={itemMathTradeData}
-            afterAnyChange={afterAnyChange}
-          />
-        ) : null
+      highClassName={
+        notHighlated ? null : itemMathTradeData ? "high-offered" : null
       }
-      onEdit={editItem}
+      btnRowListElement={[
+        (k, itemRes, elementRes) => {
+          return (
+            <BtnCircle
+              key={k}
+              className="btn-edit-item"
+              label="element.Edit"
+              onClick={() => {
+                editItem(itemRes, elementRes);
+              }}
+            >
+              <Icon type="pencil" />
+            </BtnCircle>
+          );
+        },
+      ]}
+      btnRowListItem={
+        IamInMathTrade
+          ? [
+              (k) => {
+                return (
+                  <Valuation
+                    key={k}
+                    items={[item]}
+                    afterAnyChange={afterAnyChange}
+                  />
+                );
+              },
+              (k) => {
+                return (
+                  <PublishInMT
+                    key={k}
+                    item={item}
+                    itemMathTradeData={itemMathTradeData}
+                    afterAnyChange={afterAnyChange}
+                  />
+                );
+              },
+            ]
+          : []
+      }
       footer={
-        !notShowAddItem ? <AddItem item={item} onClick={editItem} /> : null
+        !notShowAddItem ? (
+          <div className="py-2">
+            <AddItem item={item} onClick={editItem} />
+          </div>
+        ) : null
       }
       showUser={false}
       withDragger={withDragger}
@@ -47,4 +87,4 @@ const Item = ({
   );
 };
 
-export default Item;
+export default ItemOfCollection;

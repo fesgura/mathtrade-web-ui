@@ -1,10 +1,9 @@
 import { useState } from "react";
-import classNames from "classnames";
 import Icon from "components/icon";
-import Valuation from "components/valuation";
-import { Col, Row, Modal, ModalBody, Button } from "reactstrap";
+import { Modal, ModalBody, Button } from "reactstrap";
 import { useApi, MathTradeService } from "api_serv";
 import I18N from "i18n";
+import BtnCircle from "components/btnCircle";
 
 const PublishInMT = ({ item, itemMathTradeData, afterAnyChange }) => {
   if (!item) {
@@ -28,77 +27,35 @@ const PublishInMT = ({ item, itemMathTradeData, afterAnyChange }) => {
 
   return (
     <>
-      <div className={classNames("mathtrade-tools")}>
+      <BtnCircle
+        className={!itemMathTradeData ? "btn-publish-mt" : "btn-unpublish-mt"}
+        label={
+          !itemMathTradeData
+            ? "myCollection.publishInMathTrade"
+            : "myCollection.quitFromMathTrade"
+        }
+        onClick={() => {
+          if (!itemMathTradeData) {
+            if (!loadingPublishItem) {
+              publishItem({
+                data: {
+                  item_id: item.id,
+                },
+              });
+            }
+          } else {
+            if (!loadingUnpublishItem) {
+              setModalDeleteOpen(true);
+            }
+          }
+        }}
+      >
         {!itemMathTradeData ? (
-          <Button
-            color="primary"
-            size="xs"
-            onClick={() => {
-              if (!loadingPublishItem) {
-                publishItem({
-                  data: {
-                    item_id: item.id,
-                  },
-                });
-              }
-            }}
-          >
-            <Row className="align-items-center g-0 text-start">
-              <Col xs="auto">
-                <Icon
-                  type={loadingPublishItem ? "loading" : "plus"}
-                  className="me-2"
-                />
-              </Col>
-              <Col>
-                {loadingPublishItem ? (
-                  <I18N id="myCollection.publishing" />
-                ) : (
-                  <I18N id="myCollection.publishInMathTrade" />
-                )}
-              </Col>
-            </Row>
-          </Button>
+          <Icon type={loadingPublishItem ? "loading" : "addToMT"} />
         ) : (
-          <Row className="g-0 align-items-center">
-            <Col xs="auto" className="pe-2">
-              {" "}
-              <Button
-                color="primary"
-                size="xs"
-                style={{ boxShadow: "0 0 3px 1px #FFF" }}
-                onClick={() => {
-                  if (!loadingUnpublishItem) {
-                    setModalDeleteOpen(true);
-                  }
-                }}
-              >
-                <Row className="align-items-center g-0 text-start">
-                  <Col xs="auto">
-                    <Icon
-                      type={loadingPublishItem ? "loading" : "minus"}
-                      className="me-2"
-                    />
-                  </Col>
-                  <Col xs="auto">
-                    {loadingPublishItem ? (
-                      <I18N id="myCollection.quittingFromMathtrade" />
-                    ) : (
-                      <I18N id="myCollection.quitFromMathTrade" />
-                    )}
-                  </Col>
-                </Row>
-              </Button>
-            </Col>
-            <Col xs="auto">
-              <Valuation
-                items={[itemMathTradeData]}
-                afterAnyChange={afterAnyChange}
-              />
-            </Col>
-          </Row>
+          <Icon type={loadingPublishItem ? "loading" : "quitFromMT"} />
         )}
-      </div>
+      </BtnCircle>
       <Modal
         isOpen={modalDeleteOpen}
         toggle={() => {

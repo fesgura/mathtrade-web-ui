@@ -2,7 +2,7 @@ import { useState } from "react";
 import classNames from "classnames";
 import I18N from "i18n";
 
-const SidebarTabs = ({ tabs = [] }) => {
+const SidebarTabs = ({ tabs = [], onChange }) => {
   const [current, setCurrent] = useState(0);
   return (
     <div className="sidebar-tabs">
@@ -16,6 +16,7 @@ const SidebarTabs = ({ tabs = [] }) => {
               key={k}
               onClick={() => {
                 setCurrent(k);
+                if (onChange) onChange(k);
               }}
             >
               <I18N id={t.title} />

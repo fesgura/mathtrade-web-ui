@@ -1,9 +1,8 @@
-@each $num, $color in $ratingsBGG {
-  .bgg-rating-#{$num} {
-    background-color: $color;
-    color: #fff;
-  }
-}
+// @each $num, $color in $ratingsBGG {
+//   .bgg-rating-#{$num} {
+//     color: $color;
+//   }
+// }
 .bgg-game-box_rating-num {
   $w: 34px;
   width: $w;
@@ -20,18 +19,7 @@
   padding: 0 10px;
   cursor: default;
 }
-.bgg-link {
-  font-size: 14px;
-  display: block;
-  font-weight: bold;
-  color: darken($bgg, 10);
-  .icon {
-    margin-left: 0.3em;
-  }
-  &:hover {
-    color: darken($bgg, 25);
-  }
-}
+
 .bgg-game-box_tooltip {
   font-size: 12px;
 }
