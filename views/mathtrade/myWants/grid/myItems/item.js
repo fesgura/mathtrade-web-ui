@@ -1,6 +1,6 @@
 import Thumbnail from "components/thumbnail";
 import Previewer from "components/previewer";
-import ItemExtense from "components/itemExtense";
+import ItemFull from "components/item/full";
 import classNames from "classnames";
 
 const MyItem = ({ item, isInner, isExtended }) => {
@@ -11,7 +11,7 @@ const MyItem = ({ item, isInner, isExtended }) => {
       <div className={classNames("my-item-lab_content", { isInner })}>
         <div className="my-item-lab_previewer">
           <Previewer>
-            <ItemExtense item={item} inModal showUser={false} />
+            <ItemFull item={item} inModal showUser={false} />
           </Previewer>
         </div>
         <div className="my-item-lab_name for-item">

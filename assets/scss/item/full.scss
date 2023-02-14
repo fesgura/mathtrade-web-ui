@@ -35,6 +35,14 @@
     width: $btn_circle-w - $element-full-p;
   }
 }
+.bgg-game-box_dependency_list-item {
+  font-size: 11px;
+  line-height: 1.2;
+  width: 300px;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 3px;
+  margin-bottom: 0;
+}
 .item-full_own-item {
   display: inline-block;
   font-size: 12px;
@@ -54,6 +62,11 @@
     border: 1px solid transparent;
     box-shadow: $main-box-shadow;
     min-height: 120px;
+
+    &.in-modal {
+      border: 2px solid $border-color;
+      box-shadow: none;
+    }
   }
   .item-full-title {
     font-size: $item-title-fz;

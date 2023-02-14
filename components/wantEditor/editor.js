@@ -7,7 +7,7 @@ import DeleteButton from "components/deleteButton";
 import { Button, Alert, Row, Col } from "reactstrap";
 import ObjectToWantComp from "./objectToWant";
 import MyItems from "./myItems";
-import I18N, { getI18Ntext } from "i18n";
+import I18N from "i18n";
 import ErrorAlert from "components/errorAlert";
 
 const EditorWants = ({
@@ -186,6 +186,7 @@ const EditorWants = ({
           <Button
             color="primary"
             type="submit"
+            disabled={want_ids.length === 0}
             onClick={(e) => {
               if (id) {
                 putWant({

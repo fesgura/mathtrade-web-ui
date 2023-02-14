@@ -178,4 +178,8 @@
       border-color: transparent;
     }
   }
+  &.disabled,
+  &:disabled {
+    cursor: not-allowed !important;
+  }
 }

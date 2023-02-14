@@ -1,21 +1,63 @@
 .item-minimal {
+  $p: 10px;
+  //border-top: 1px solid $border-color;
+  padding: 2px 0;
+  border-bottom: 1px dotted $border-color;
+
+  .item-minimal_cont {
+    // background-color: #eee;
+    padding: 2px 0 2px $p;
+    border-radius: 6px;
+    //border-top: 1px solid $border-color;
+  }
+
+  .item-minimal_checkbox {
+    padding-right: $p;
+  }
+  .item-minimal_thumbnail {
+    width: 26px + $p;
+    padding-right: $p;
+
+    .thumbnail {
+      &,
+      img {
+        border-radius: 4px;
+      }
+    }
+  }
+  .item-minimal_title {
+    padding-right: $p;
+    font-size: 12px;
+    line-height: 1.1;
+  }
+  .item-minimal_user {
+    padding-right: $p;
+    .item-minimal_own_user {
+      font-size: 12px;
+      line-height: 1.1;
+      font-style: italic;
+    }
+  }
+  .item-minimal_previewer {
+    padding-right: $p;
+  }
+  .item-minimal_valuation {
+    padding-right: $p;
+  }
+
   &.disabled {
     opacity: 0.5;
   }
-}
-.item-minimal_wrap {
-  padding: 4px;
-  border-bottom: 1px solid $border-color;
   &.selected {
-    background-color: $mathtrade-bg-1;
-  }
-}
-.item-minimal_thumbnail {
-  width: 30px;
-  .thumbnail {
-    &,
-    img {
-      border-radius: 4px;
+    .item-minimal_cont {
+      background-color: rgba($primary, 0.2);
     }
   }
 }
+// .item-minimal_wrap {
+//   padding: 4px;
+//   border-bottom: 1px solid $border-color;
+//   &.selected {
+//     background-color: $mathtrade-bg-1;
+//   }
+// }

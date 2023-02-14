@@ -7,7 +7,7 @@ const Item = ({ item }) => {
       <div className="pt-3 pb-2">
         <I18N id="wantEditor.Item.wants.lead" />
       </div>
-      <ItemFull item={item} />
+      <ItemFull item={item} inModal />
     </>
   );
 };

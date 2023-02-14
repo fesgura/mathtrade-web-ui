@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import storage from "utils/storage";
-import { Col, Row } from "reactstrap";
-import classNames from "classnames";
-import ItemMinimal from "components/itemMinimal";
-import Checkbox from "components/checkbox";
+import ItemMinimal from "components/item/minimal";
 
 const ItemListToWant = ({ itemListToWant, want_ids = [], setWantId }) => {
   const [myUserId, set_myUserId] = useState("");
@@ -18,34 +15,17 @@ const ItemListToWant = ({ itemListToWant, want_ids = [], setWantId }) => {
       {itemListToWant.map((item) => {
         const { id, user } = item;
 
-        const selected = want_ids.indexOf(id) >= 0;
         return (
-          <div
-            className={classNames("item-minimal_wrap", {
-              selected,
-            })}
-            key={id}
-          >
-            <Row className="align-items-center g-0">
-              {setWantId ? (
-                <Col xs="auto">
-                  <Checkbox
-                    value={selected}
-                    onClick={() => {
-                      setWantId(id);
-                    }}
-                    disabled={user.id === myUserId}
-                  />
-                </Col>
-              ) : null}
-              <Col className={classNames("pe-1", { "ps-3": setWantId })}>
-                <ItemMinimal
-                  item={item}
-                  disabledByOwner={user.id === myUserId}
-                />
-              </Col>
-            </Row>
-          </div>
+          <ItemMinimal
+            item={item}
+            selected={want_ids.indexOf(id) >= 0}
+            onClickCheckbox={() => {
+              setWantId(id);
+            }}
+            hideCheckbox={!setWantId}
+            disabled={user.id === myUserId}
+            ownUser={user.id === myUserId}
+          />
         );
       })}
     </>

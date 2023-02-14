@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames";
-import BtnCircle from "components/btnCircle";
 import Icon from "components/icon";
 import {
   UncontrolledDropdown,
@@ -23,6 +22,15 @@ const valuesPossibles = (() => {
   }
   return list;
 })();
+
+export const ValuationMin = ({ value }) => {
+  return (
+    <div className="valuation-min">
+      <Icon type="star" className={`valuation-btn_star star-color-${value}`} />
+      <div className="valuation-btn_num">{value}</div>
+    </div>
+  );
+};
 
 export const ValuationTitle = ({ loading, value }) => {
   return (
