@@ -25,7 +25,11 @@ const ItemMinimal = ({
           {hideCheckbox ? null : (
             <Col xs="auto">
               <div className="item-minimal_checkbox">
-                <Checkbox value={selected} onClick={onClickCheckbox} />
+                <Checkbox
+                  value={selected}
+                  onClick={onClickCheckbox}
+                  disabled={disabled}
+                />
               </div>
             </Col>
           )}

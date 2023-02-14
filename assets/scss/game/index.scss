@@ -1,0 +1,99 @@
+.game-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -$game-col-p;
+  margin-right: -$game-col-p;
+  justify-content: center;
+}
+
+.game-container {
+  padding-left: $game-col-p;
+  padding-right: $game-col-p;
+  padding-bottom: 2 * $game-col-p;
+
+  .game {
+    width: $game-w;
+    background-color: $game-bg;
+    border-radius: ($game-border-radius + 1px) ($game-border-radius + 1px)
+      $game-border-radius $game-border-radius;
+    box-shadow: $main-box-shadow;
+  }
+  .game_thumbnail {
+    position: relative;
+
+    &,
+    .thumbnail,
+    .thumbnail img {
+      border-radius: $game-border-radius $game-border-radius 0 0;
+    }
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      left: 0;
+      width: 100%;
+      bottom: 0;
+      height: 40px;
+
+      background: -moz-linear-gradient(
+        0deg,
+        rgba($game-bg, 1) 0%,
+        rgba($game-bg, 0) 100%
+      );
+      background: -webkit-linear-gradient(
+        0deg,
+        rgba($game-bg, 1) 0%,
+        rgba($game-bg, 0) 100%
+      );
+      background: linear-gradient(
+        0deg,
+        rgba($game-bg, 1) 0%,
+        rgba($game-bg, 0) 100%
+      );
+    }
+  }
+  .game_data {
+    color: $game-color;
+    //
+  }
+  .game_title {
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 1px solid rgba($game-color, 0.18);
+    padding: 6px 0;
+
+    a {
+      display: inline-block;
+      color: $game-color;
+      text-decoration: none;
+      &:hover {
+        color: $bgg;
+        text-decoration: underline;
+      }
+    }
+  }
+  .game_pills {
+    padding: 0 10px 15px;
+    .pill-data {
+      padding-right: 0;
+      padding-top: 15px;
+      color: $game-color;
+      .pill-data_label {
+        font-weight: normal;
+      }
+    }
+  }
+  .game_btn-list {
+    height: 0.5 * $btn_circle-w;
+    text-align: center;
+    .btn.btn_circle:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &.wanted {
+    .game {
+      box-shadow: $main-box-shadow, 0 0 0 4px rgba($mathtrade-want-color, 0.8);
+    }
+  }
+}

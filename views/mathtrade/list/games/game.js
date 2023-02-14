@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import GameQuadCard from "components/gameQuadCard";
+import Game from "components/game";
 import WantEditor from "components/wantEditor";
 
 const Game_in_list = ({ game, wantList, afterAnyChange }) => {
@@ -17,20 +17,23 @@ const Game_in_list = ({ game, wantList, afterAnyChange }) => {
   }, [game, wantList]);
 
   return (
-    <GameQuadCard
+    <Game
       game={game}
       wanted={wantGroup}
-      rightHeader={
-        <div className="py-3">
-          <WantEditor
-            type="game"
-            wantGroup={wantGroup}
-            objectToWant={game}
-            afterAnyChange={afterAnyChange}
-            wantList={wantList}
-          />
-        </div>
-      }
+      btnRowListGame={[
+        (k) => {
+          return (
+            <WantEditor
+              key={k}
+              type="game"
+              wantGroup={wantGroup}
+              objectToWant={game}
+              afterAnyChange={afterAnyChange}
+              wantList={wantList}
+            />
+          );
+        },
+      ]}
     />
   );
 };

@@ -73,28 +73,24 @@ const GameListView = ({
         </Col>
         <Col xs={9}>
           <div className="game-list">
-            <Row>
-              {list && list.results && list.results.length ? (
-                list.results.map((game, k) => {
-                  return (
-                    <Game
-                      game={game}
-                      wantList={wantList}
-                      key={k}
-                      afterAnyChange={afterAnyChange}
-                    />
-                  );
-                })
-              ) : loading ? null : (
-                <Col xs={12}>
-                  <div className="item-list_empty">
-                    <p className="lead py-4">
-                      Sin <b>juegos</b> encontrados.
-                    </p>
-                  </div>
-                </Col>
-              )}
-            </Row>
+            {list && list.results && list.results.length ? (
+              list.results.map((game, k) => {
+                return (
+                  <Game
+                    game={game}
+                    wantList={wantList}
+                    key={k}
+                    afterAnyChange={afterAnyChange}
+                  />
+                );
+              })
+            ) : loading ? null : (
+              <div className="item-list_empty">
+                <p className="lead py-4">
+                  Sin <b>juegos</b> encontrados.
+                </p>
+              </div>
+            )}
           </div>
         </Col>
       </Row>
