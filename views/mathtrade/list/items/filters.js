@@ -66,7 +66,7 @@ const Filters_MT_Items = ({ filters, setFilters, locations, tagList }) => {
       <FiltersComp
         filters={filters}
         clearFilters={() => {
-          const newFilters = {};
+          const newFilters = { page: undefined };
           [
             "keyword",
             "value-from",

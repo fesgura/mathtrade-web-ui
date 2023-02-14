@@ -1,6 +1,7 @@
 import I18N from "i18n";
 import { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
+import Checkbox from "components/checkbox";
 
 const OrderBy = ({ valueInitial, options = [], onChange = () => {} }) => {
   const [optionValue, setOptionValue] = useState("");
@@ -46,7 +47,7 @@ const OrderBy = ({ valueInitial, options = [], onChange = () => {} }) => {
           </div>
         </Col>
         <Col xs="auto" className="px-1">
-          <input
+          {/* <input
             type="checkbox"
             className="order-by_checkbox cursor-pointer"
             checked={desc}
@@ -57,12 +58,26 @@ const OrderBy = ({ valueInitial, options = [], onChange = () => {} }) => {
               }
             }}
             id="order-by-desc"
+          /> */}
+          <Checkbox
+            value={desc}
+            onClick={(e) => {
+              setDesc(!desc);
+              if (optionValue !== "") {
+                onChange(optionValue, !desc);
+              }
+            }}
           />
         </Col>
         <Col xs="auto">
           <label
             className="order-by_label cursor-pointer"
-            htmlFor="order-by-desc"
+            onClick={(e) => {
+              setDesc(!desc);
+              if (optionValue !== "") {
+                onChange(optionValue, !desc);
+              }
+            }}
           >
             <I18N id="orderBy.Descent" />
           </label>

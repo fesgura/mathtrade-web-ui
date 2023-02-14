@@ -18,6 +18,9 @@ h6 {
 
 a {
   color: $primary;
+  &:hover {
+    color: darken($primary, 18);
+  }
 }
 .muted {
   color: #999;

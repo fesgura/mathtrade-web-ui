@@ -323,7 +323,7 @@ select,
       .range-multiple-btn {
         width: 2 * $r;
         height: 2 * $r;
-        background-color: $secondary;
+        background-color: $primary;
         position: absolute;
         top: 0;
         left: 0;
@@ -337,7 +337,7 @@ select,
         left: $r;
         right: -$r;
         height: $h-stroke;
-        background-color: $secondary;
+        background-color: $primary;
         border-radius: 0.5 * $h-stroke;
         .range-multiple-line_stroke-str {
           position: absolute;

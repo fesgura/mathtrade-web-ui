@@ -1,29 +1,35 @@
 .paginator {
+  $w: 36px;
+  $m: 4px;
+  padding-right: $item-pr - $m;
+
   .paginator-row {
-    padding: 10px 0;
     text-align: center;
 
     .paginator-item {
-      width: 26px;
+      min-width: $w;
       text-align: center;
       font-size: 16px;
       font-weight: bold;
-      line-height: 26px;
-      height: 26px;
-      margin: 0 2px;
+      line-height: $w;
+      height: $w;
+      margin: 0 $m;
       display: inline-block;
       cursor: pointer;
       color: #444;
       transition: color 0.1s;
       text-decoration: none;
+      background-color: #fff;
+      border-radius: 0.5 * $w;
+      box-shadow: $main-box-shadow;
 
       &:not(.paginator-item_points):not(.paginator-item_current):hover {
         color: #aaa;
       }
 
       &.paginator-item_current {
-        color: $primary;
-        text-decoration: underline;
+        background-color: $primary;
+        color: #fff;
         cursor: default;
       }
       &.paginator-item_points {
@@ -34,5 +40,12 @@
         font-size: 12px;
       }
     }
+  }
+  &.onTop {
+    padding-bottom: 25px;
+  }
+  &.onBottom {
+    padding-top: 25px;
+    padding-bottom: 15px;
   }
 }

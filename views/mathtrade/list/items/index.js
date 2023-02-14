@@ -40,9 +40,7 @@ const ItemListView = ({
             current: true,
           },
         ]}
-      />
-      <Row className="align-items-center mb-4 justify-content-end">
-        <Col xs="auto">
+        rightSide={
           <OrderBy
             valueInitial={filters?.query?.order}
             options={[
@@ -70,6 +68,16 @@ const ItemListView = ({
                 order: `${desc ? "-" : ""}${order}`,
               });
             }}
+          />
+        }
+      />
+      <Row className="justify-content-end">
+        <Col xs="auto">
+          <Pagination
+            filters={filters}
+            setFilters={setFilters}
+            elementsTotal={list?.count || 0}
+            onTop
           />
         </Col>
       </Row>
@@ -139,11 +147,16 @@ const ItemListView = ({
         </Col>
       </Row>
       <ErrorAlert errors={errors} />
-      <Pagination
-        filters={filters}
-        setFilters={setFilters}
-        elementsTotal={list?.count || 0}
-      />
+      <Row className="justify-content-end">
+        <Col xs="auto">
+          <Pagination
+            filters={filters}
+            setFilters={setFilters}
+            elementsTotal={list?.count || 0}
+            onBottom
+          />
+        </Col>
+      </Row>
     </PrivateLayout>
   );
 };
