@@ -33,14 +33,7 @@
 @import "layouts/private";
 @import "pages/login";
 @import "mt/register";
-@import "box";
-@import "bggGameBox";
-@import "elementBox";
-@import "userBox";
 @import "cardComp";
-@import "itemExtense";
-@import "gameExtense";
-@import "gameQuadCard";
 @import "thumbnail";
 @import "previewer";
 @import "sidebarGroupList";
@@ -49,5 +42,5 @@
 @import "pillData";
 @import "myWants/index.scss";
 @import "btnCircle";
-//
 @import "item/index.scss";
+@import "game/index.scss";

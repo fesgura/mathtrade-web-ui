@@ -3,7 +3,7 @@ import { Row, Col, UncontrolledTooltip } from "reactstrap";
 import { cropWord } from "utils";
 import Thumbnail from "components/thumbnail";
 import Previewer from "components/previewer";
-import ItemExtense from "components/itemExtense";
+import ItemFull from "components/item/full";
 import Checkbox from "components/checkbox";
 import classNames from "classnames";
 import DeleteButton from "components/deleteButton";
@@ -26,7 +26,7 @@ const WantItem = ({ item, isInnerOf, isExtended, group, setWantList }) => {
           <Col xs="auto">
             <div className="want-lab_previewer">
               <Previewer>
-                <ItemExtense item={item} inModal showUser={false} />
+                <ItemFull item={item} inModal showUser={false} />
               </Previewer>
             </div>
           </Col>

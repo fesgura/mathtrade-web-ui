@@ -5,6 +5,7 @@ import Element from "./element";
 
 import classNames from "classnames";
 import { Col, Row } from "reactstrap";
+import UserBox from "components/userBox";
 
 // const btnRow = (
 
@@ -18,6 +19,9 @@ const ItemFull = ({
   highClassName,
   groupHeader,
   withDragger,
+  showUser = true,
+  forGame,
+  inModal,
 }) => {
   const [title, setTitle] = useState("");
   const [isCombo, setIsCombo] = useState(false);
@@ -59,8 +63,8 @@ const ItemFull = ({
           btnRowListforItem.length || btnRowListforElement.length,
       })}
     >
-      <div className="item-full-card">
-        {isCombo ? (
+      <div className={classNames("item-full-card", { "in-modal": inModal })}>
+        {!forGame && isCombo ? (
           <div
             className={classNames("item-full-title", {
               "with-btns": btnRowListforItem.length,
@@ -86,19 +90,31 @@ const ItemFull = ({
         ) : null}
 
         {item?.elements?.map((element, k) => {
+          if (forGame) {
+            if (element.bgg_id !== forGame) {
+              return null;
+            }
+          }
           return (
             <Element
               item={item}
               element={element}
               // titleTools={leftHeader}
-              isCombo={isCombo}
+              isCombo={!forGame && isCombo}
               key={k}
               btnRowListElement={btnRowListforElement}
               groupHeader={groupHeader}
               withDragger={withDragger}
+              showUser={showUser}
+              forGame={forGame}
             />
           );
         })}
+        {!forGame && isCombo && showUser ? (
+          <div className="item-full-user">
+            <UserBox item={item} />
+          </div>
+        ) : null}
         {footer ? <div className="item-full-footer">{footer}</div> : null}
         {btnRowListforItem.length ? (
           <div className="item-full-btn-row">

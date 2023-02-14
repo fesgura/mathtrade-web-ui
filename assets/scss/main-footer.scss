@@ -6,14 +6,14 @@
 
   &.absolute {
     position: absolute;
-    left: 0;
+    left: $main-sidebar-closed-w + $main-control-px;
     right: 0;
     bottom: 0;
     .main-footer_container {
       border-top: 1px solid #ccc;
     }
     &.sidebar-open {
-      left: $main-sidebar-open-w;
+      left: $main-sidebar-open-w + $main-control-px;
     }
 
     &.sidebar-animation-enabled {

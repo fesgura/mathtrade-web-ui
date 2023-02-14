@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Icon from "components/icon";
-import ItemMinimal from "components/itemMinimal";
+import ItemMinimal from "components/item/minimal";
 import { Button, Col, Row } from "reactstrap";
 import { LoadingBox } from "components/loading";
 import LinkInternal from "components/link-internal";
@@ -36,7 +36,7 @@ const AddItemView = ({
             <div key={`${item.id}-${k}`} className="pt-1">
               <Row className="align-items-center mb-1 g-0">
                 <Col>
-                  <ItemMinimal item={item} showThumbnail hideUser />
+                  <ItemMinimal item={item} hideUser hideCheckbox />
                 </Col>
                 <Col xs="auto" className="ps-2">
                   <Button

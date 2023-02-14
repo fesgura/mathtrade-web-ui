@@ -3,11 +3,11 @@
   z-index: $main-header-z;
   height: 0;
   top: 0;
-  left: $main-sidebar-closed-w;
+  left: $main-sidebar-closed-w + $main-control-px;
   right: 0;
 
   &.sidebar-open {
-    left: $main-sidebar-open-w;
+    left: $main-sidebar-open-w + $main-control-px;
   }
 
   &.sidebar-animation-enabled {

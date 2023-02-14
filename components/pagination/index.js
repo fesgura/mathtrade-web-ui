@@ -1,8 +1,17 @@
 import classNames from "classnames";
 import { useState, useEffect } from "react";
+import { getI18Ntext } from "i18n";
+import { defaultPageSize } from "config";
 
-const Pagination = ({ filters, setFilters, elementsTotal }) => {
-  const [page, set_page] = useState(1);
+const Pagination = ({
+  filters,
+  setFilters,
+  elementsTotal,
+  className,
+  onTop,
+  onBottom,
+}) => {
+  const [page, set_page] = useState(0);
   const [pagesTotal, set_pagesTotal] = useState(1);
   const [listPages, set_listPages] = useState([1]);
 
@@ -13,7 +22,7 @@ const Pagination = ({ filters, setFilters, elementsTotal }) => {
       set_page(1);
     }
 
-    let newElementsPerPage = 25;
+    let newElementsPerPage = defaultPageSize;
     if (filters.query.page_size) {
       newElementsPerPage = parseInt(filters.query.page_size, 10);
     }
@@ -47,12 +56,12 @@ const Pagination = ({ filters, setFilters, elementsTotal }) => {
   }, [page, pagesTotal]);
 
   return pagesTotal > 1 ? (
-    <div className="paginator">
+    <div className={classNames("paginator", className, { onTop, onBottom })}>
       <div className="paginator-row">
         {page > 1 ? (
           <a
             className="paginator-item paginator-item_first"
-            title={`Página anterior (${page - 1})`}
+            title={`${getI18Ntext("pagination.PrevPage")} (${page - 1})`}
             href="/"
             onClick={(e) => {
               e.preventDefault();
@@ -95,7 +104,7 @@ const Pagination = ({ filters, setFilters, elementsTotal }) => {
         {page < pagesTotal ? (
           <a
             className="paginator-item paginator-item_last"
-            title={`Página siguiente (${page + 1})`}
+            title={`${getI18Ntext("pagination.NextPage")} (${page + 1})`}
             href="/"
             onClick={(e) => {
               e.preventDefault();

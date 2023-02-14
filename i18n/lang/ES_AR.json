@@ -88,6 +88,7 @@
   "element.Value": "Valor que le asigné",
   "element.Status": "Estado",
   "element.Comment": "Comentario",
+  "element.PublishedBy": "Publicado por",
   "Delete": "Eliminar",
   "NoData": "Sin datos",
   "Combo": "Combo",
@@ -296,5 +297,7 @@
   "MyData.SignToMathTrade.lead": "Antes de inscribirte, asegurate de que la <b>ciudad</b> desde la que participás es la correcta, y/o <b>si vas a ir o no al encuentro presencial</b>:",
   "title.Notifications": "Notificaciones",
   "title.oneNotification": "1 notificación",
-  "title.notifications": "notificaciones"
+  "title.notifications": "notificaciones",
+  "pagination.NextPage": "Página siguiente",
+  "pagination.PrevPage": "Página anterior"
 }

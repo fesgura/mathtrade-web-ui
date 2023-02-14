@@ -28,6 +28,10 @@ $bgg: rgb(255, 81, 0);
 $text-color: #666;
 $text-muted: #aaa;
 
+///////////////////////
+/// // MAIN SHADOW
+$main-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.06);
+
 $border-color: #ddd;
 $border: 1px solid $border-color;
 
@@ -57,12 +61,16 @@ $element-title-fz: 21px;
 $element-title-color: #333;
 $element-full-p: 11px;
 
+// GAME
+$game-col-p: 45px;
+$game-w: 280px;
+$game-border-radius: 20px;
+$game-bg: #111;
+$game-color: #fff;
+
 // BTN CIRCLE
 $btn_circle-w: 45px;
 $btn_circle-ml: 8px;
-
-// MAIN SHADOW
-$main-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.06);
 
 // Ratings BGG
 $ratingsBGG: (
@@ -100,7 +108,7 @@ $main-control-px: 16px;
 $main-control-w: 50px;
 $main-header-control-p: 10px;
 $main-header-color: $text-muted;
-$main-header-height: $main-control-w + 2 * $main-control-py;
+$main-header-height: $main-control-w + 4 * $main-control-py;
 $main-footer-height: 40px;
 $main-container-width: 1560px;
 $main-sidebar-icon-w: 40px;

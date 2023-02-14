@@ -33,6 +33,33 @@
   }
 }
 
+.valuation-min {
+  position: relative;
+  $h: 30px;
+
+  .valuation-btn_star {
+    font-size: 26px;
+    line-height: $h;
+    height: $h;
+    //color: $mathtrade;
+    &.ic-loading {
+      font-size: 22px;
+    }
+  }
+  .valuation-btn_num {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    line-height: 1;
+    transform: translateY(-50%);
+    font-weight: bold;
+    font-size: 12px;
+  }
+}
+
 .valuation-container {
   $h: 36px;
   background-color: #fff;

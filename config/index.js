@@ -3,6 +3,8 @@ import { getI18Ntext } from "i18n";
 export const google_recaptcha_v3_client_key =
   "6LeWcz8gAAAAAGgpOiINIJZSwsmKH-eMjtbQbFbF";
 
+export const defaultPageSize = 50;
+
 export const storageName = "MathTradeArgentina";
 export const storageOptionsName = storageName + "Options";
 export const daysExpireToken = 1;

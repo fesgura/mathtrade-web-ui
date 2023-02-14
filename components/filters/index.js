@@ -53,7 +53,7 @@ const FiltersComp = ({
             );
           })}
           <hr />
-          <Button type="submit" block size="lg">
+          <Button type="submit" block size="lg" color="primary">
             <I18N id="btn.filter.Filter" />
           </Button>
           <div className="clear-filter-box">

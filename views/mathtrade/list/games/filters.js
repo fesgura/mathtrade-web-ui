@@ -14,31 +14,26 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
       clearFilters={() => {
         const newFilters = {};
         [
+          "page",
           "keyword",
-          "language[]",
-          "dependency[]",
-          "status[]",
           "rate-from",
           "rate-to",
           "weight-from",
           "weight-to",
+          "dependency[]",
         ].forEach((filterName) => {
           newFilters[filterName] = undefined;
         });
         setFilters(newFilters);
       }}
       setFilters={(formData) => {
-        const newFilters = {};
+        const newFilters = { page: undefined };
         if (formData.keyword !== "") {
           newFilters.keyword = formData.keyword;
         } else {
           newFilters.keyword = undefined;
         }
-        if (formData.language !== "") {
-          newFilters["language[]"] = formData.language.split(",");
-        } else {
-          newFilters["language[]"] = undefined;
-        }
+
         if (formData.dependency !== "") {
           newFilters["dependency[]"] = formData.dependency
             .split(",")
@@ -48,11 +43,7 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
         } else {
           newFilters["dependency[]"] = undefined;
         }
-        if (formData.status !== "") {
-          newFilters["status[]"] = formData.status.split(",");
-        } else {
-          newFilters["status[]"] = undefined;
-        }
+
         if (formData.rate) {
           const rateValues = formData.rate.split(",");
           if (
@@ -94,40 +85,29 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
           },
         },
         {
-          type: "select-multiple",
-          name: "status",
-          label: "filter.Status",
-          options: statusList,
-          placeholder: "form.SelectOptInstruction",
-          notTranslateOptions: true,
+          type: "range-multiple",
+          name: "rate",
+          label: "filter.Rating",
+          min: minRate,
+          max: maxRate,
           data: (() => {
-            const d = { status: "" };
-
-            if (typeof filters?.query["status[]"] !== "undefined") {
-              let list = filters.query["status[]"];
-              if (typeof filters.query["status[]"].forEach === "undefined") {
-                list = [filters.query["status[]"]];
-              }
-              d.status = list.join(",");
+            const d = { rate: `${minRate},${maxRate}` };
+            if (typeof filters?.query["rate-from"] !== "undefined") {
+              d.rate = `${filters.query["rate-from"]},${filters.query["rate-to"]}`;
             }
             return d;
           })(),
         },
         {
-          type: "select-multiple",
-          name: "language",
-          label: "filter.Language",
-          placeholder: "form.SelectOptInstruction",
-          options: languageList,
-          translateType: "language",
+          type: "range-multiple",
+          name: "weight",
+          label: "filter.Weight",
+          min: minWeight,
+          max: maxWeight,
           data: (() => {
-            const d = { language: "" };
-            if (typeof filters?.query["language[]"] !== "undefined") {
-              let list = filters.query["language[]"];
-              if (typeof filters.query["language[]"].forEach === "undefined") {
-                list = [filters.query["language[]"]];
-              }
-              d.language = list.join(",");
+            const d = { weight: `${minWeight},${maxWeight}` };
+            if (typeof filters?.query["weight-from"] !== "undefined") {
+              d.weight = `${filters.query["weight-from"]},${filters.query["weight-to"]}`;
             }
             return d;
           })(),
@@ -153,34 +133,6 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
                   return dependencyList.options[i].value;
                 })
                 .join(",");
-            }
-            return d;
-          })(),
-        },
-        {
-          type: "range-multiple",
-          name: "rate",
-          label: "filter.Rating",
-          min: minRate,
-          max: maxRate,
-          data: (() => {
-            const d = { rate: `${minRate},${maxRate}` };
-            if (typeof filters?.query["rate-from"] !== "undefined") {
-              d.rate = `${filters.query["rate-from"]},${filters.query["rate-to"]}`;
-            }
-            return d;
-          })(),
-        },
-        {
-          type: "range-multiple",
-          name: "weight",
-          label: "filter.Weight",
-          min: minWeight,
-          max: maxWeight,
-          data: (() => {
-            const d = { weight: `${minWeight},${maxWeight}` };
-            if (typeof filters?.query["weight-from"] !== "undefined") {
-              d.weight = `${filters.query["weight-from"]},${filters.query["weight-to"]}`;
             }
             return d;
           })(),

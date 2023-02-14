@@ -34,34 +34,36 @@ const GameListView = ({
             path: `/${privateRoutes.mathtrade.itemList.path}`,
           },
         ]}
-      />
-      <Row className="align-items-center mb-4 justify-content-end g-3">
-        <Col xs="auto">
+        rightSide={
           <OrderBy
             valueInitial={filters?.query?.order}
             options={[
               { text: getI18Ntext("element.Name"), value: "title" },
+              { text: getI18Ntext("element.BGG.rating"), value: "rate" },
               {
-                text: getI18Ntext("element.Language"),
-                value: "language",
+                text: getI18Ntext("element.BGG.weight"),
+                value: "weight",
               },
               {
                 text: getI18Ntext("element.BGG.dependency"),
                 value: "dependency",
               },
-              { text: getI18Ntext("element.Status"), value: "status" },
-              {
-                text: getI18Ntext("element.BGG.weight"),
-                value: "weight",
-              },
-              { text: getI18Ntext("element.BGG.rating"), value: "rate" },
-              { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
             ]}
             onChange={(order, desc) => {
               setFilters({
                 order: `${desc ? "-" : ""}${order}`,
               });
             }}
+          />
+        }
+      />
+      <Row className="justify-content-end">
+        <Col xs="auto">
+          <Pagination
+            filters={filters}
+            setFilters={setFilters}
+            elementsTotal={list?.count || 0}
+            onTop
           />
         </Col>
       </Row>
@@ -73,37 +75,38 @@ const GameListView = ({
         </Col>
         <Col xs={9}>
           <div className="game-list">
-            <Row>
-              {list && list.results && list.results.length ? (
-                list.results.map((game, k) => {
-                  return (
-                    <Game
-                      game={game}
-                      wantList={wantList}
-                      key={k}
-                      afterAnyChange={afterAnyChange}
-                    />
-                  );
-                })
-              ) : loading ? null : (
-                <Col xs={12}>
-                  <div className="item-list_empty">
-                    <p className="lead py-4">
-                      Sin <b>juegos</b> encontrados.
-                    </p>
-                  </div>
-                </Col>
-              )}
-            </Row>
+            {list && list.results && list.results.length ? (
+              list.results.map((game, k) => {
+                return (
+                  <Game
+                    game={game}
+                    wantList={wantList}
+                    key={k}
+                    afterAnyChange={afterAnyChange}
+                  />
+                );
+              })
+            ) : loading ? null : (
+              <div className="item-list_empty">
+                <p className="lead py-4">
+                  Sin <b>juegos</b> encontrados.
+                </p>
+              </div>
+            )}
           </div>
         </Col>
       </Row>
       <ErrorAlert errors={errors} />
-      <Pagination
-        filters={filters}
-        setFilters={setFilters}
-        elementsTotal={list?.count || 0}
-      />
+      <Row className="justify-content-end">
+        <Col xs="auto">
+          <Pagination
+            filters={filters}
+            setFilters={setFilters}
+            elementsTotal={list?.count || 0}
+            onBottom
+          />
+        </Col>
+      </Row>
     </PrivateLayout>
   );
 };
