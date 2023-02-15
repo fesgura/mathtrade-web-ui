@@ -112,6 +112,11 @@ const PrivateLayout = ({ doctitle, children, loading }) => {
           href="/favicon/favicon-16x16.png"
         />
         <link rel="manifest" href="/favicon/manifest.json" />
+
+        <style>
+          @import
+          url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Montserrat:wght@500;600&display=swap');
+        </style>
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta
           name="msapplication-TileImage"
