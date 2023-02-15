@@ -59,6 +59,10 @@ const endpoints = {
   PUT_MYTAGS: "api/mathtrades/$[0]/user-tags/$[1]/",
   DELETE_MYTAGS: "api/mathtrades/$[0]/user-tags/$[1]/",
 
+  // NOTIFICATIONS
+  GET_NOTIFICATIONS: "api/notifications/",
+  PUT_NOTIFICATIONS: "api/notifications/$[0]/",
+
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/1/
   /*

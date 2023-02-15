@@ -39,7 +39,7 @@ b {
   font-weight: bold;
 }
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 10px;
 }
 body::-webkit-scrollbar {
   width: 12px;
@@ -47,11 +47,11 @@ body::-webkit-scrollbar {
 
 ::-webkit-scrollbar-track {
   box-shadow: none;
-  background-color: #ccc;
+  background-color: #eee;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: $secondary;
+  background-color: $primary;
   outline: none;
 }
 .bt {
