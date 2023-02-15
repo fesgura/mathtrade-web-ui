@@ -12,11 +12,12 @@ const ItemListToWant = ({ itemListToWant, want_ids = [], setWantId }) => {
 
   return (
     <>
-      {itemListToWant.map((item) => {
+      {itemListToWant.map((item, k) => {
         const { id, user } = item;
 
         return (
           <ItemMinimal
+            key={k}
             item={item}
             selected={want_ids.indexOf(id) >= 0}
             onClickCheckbox={() => {

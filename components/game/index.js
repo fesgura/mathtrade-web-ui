@@ -1,14 +1,9 @@
 import { useId, useState, useEffect } from "react";
-import CardComp from "components/cardComp";
-import UserBox from "components/userBox";
-import Icon from "components/icon";
 import { Col, Row, DropdownItem, UncontrolledTooltip } from "reactstrap";
 import classNames from "classnames";
 import Thumbnail from "components/thumbnail";
-import BggGameBox from "components/bggGameBox";
-import ElementBox from "components/elementBox";
 import Pill from "components/pillData";
-import { dependencyToData } from "utils";
+import { getStatsOfElement } from "utils";
 import I18N, { getI18Ntext } from "i18n";
 
 const twoPointsReg = new RegExp(":", "g");
@@ -16,33 +11,16 @@ const twoPointsReg = new RegExp(":", "g");
 const Game = ({ game, wanted, btnRowListGame }) => {
   const id = useId("a").replace(twoPointsReg, "");
 
-  const [stats, setStats] = useState({
-    rate: 1,
-    rateClass: 1,
-    rateVotes: 1,
-    weight: 1,
-    weightVotes: 1,
-  });
-  const [dataDependency, setDataDependency] = useState({
-    most: getI18Ntext("NoData"),
-    list: [],
-  });
+  const [stats, setStats] = useState(getStatsOfElement(null).stats);
+  const [dataDependency, setDataDependency] = useState(
+    getStatsOfElement(null).dataDependency
+  );
 
   useEffect(() => {
     if (game) {
-      setStats({
-        rate: Math.round(game.rate * 10) / 10,
-        rateClass: Math.floor(game.rate),
-        rateVotes: parseInt(game.rate_votes, 10),
-        weight: Math.round(game.weight * 100) / 100,
-        weightVotes: parseInt(game.weight_votes, 10),
-      });
-      setDataDependency(
-        dependencyToData({
-          value: game.dependency,
-          votes: game.dependency_votes,
-        })
-      );
+      const o = getStatsOfElement(game);
+      setStats(o.stats);
+      setDataDependency(o.dataDependency);
     }
   }, [game]);
 

@@ -8,9 +8,10 @@ import Icon from "components/icon";
 import { LoadingBox } from "components/loading";
 import { getVersionNameFromId, processBGGdata } from "utils";
 import Thumbnail from "components/thumbnail";
-import BggGameBox from "components/bggGameBox";
-import I18N, { getI18Ntext } from "i18n";
+import I18N from "i18n";
 import ErrorAlert from "components/errorAlert";
+import Pill from "components/pillData";
+import PillsBGG from "components/item/full/element/pillsBGG";
 
 const validations = {
   version_name: ["required"],
@@ -128,15 +129,20 @@ const ElementEdit = ({
                 ) : null}
               </div>
               {BGGelement ? (
-                <BggGameBox
-                  element={{
-                    ...element,
-                    ...bgg_stats,
-                    dependency: dependency?.value || 0,
-                    dependency_votes: dependency?.votes || "",
-                  }}
-                  className="mb-4"
-                />
+                // <BggGameBox
+
+                //   className="mb-4"
+                // />
+                <div className="element-edit-bgg">
+                  <PillsBGG
+                    element={{
+                      ...element,
+                      ...bgg_stats,
+                      dependency: dependency?.value || 0,
+                      dependency_votes: dependency?.votes || "",
+                    }}
+                  />
+                </div>
               ) : null}
               <div className="element-form-container">
                 <Form

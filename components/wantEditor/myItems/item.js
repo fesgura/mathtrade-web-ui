@@ -11,6 +11,7 @@ const Item = ({ item, item_ids, setMyItemIds }) => {
         setMyItemIds([id]);
       }}
       hideUser
+      hideExtraData
     />
   );
 };

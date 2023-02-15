@@ -27,8 +27,23 @@
   }
   .item-minimal_title {
     padding-right: $p;
-    font-size: 12px;
-    line-height: 1.1;
+
+    .item-minimal_title-text {
+      font-size: 12px;
+      line-height: 1.1;
+      font-weight: bold;
+    }
+    .item-minimal_title-subtitle {
+      font-size: 10px;
+      line-height: 1;
+      padding-top: 2px;
+
+      span {
+        display: inline-block;
+        margin-right: 10px;
+        vertical-align: middle;
+      }
+    }
   }
   .item-minimal_user {
     padding-right: $p;
