@@ -422,7 +422,7 @@ const InputComp = ({
               onChange(e.target.value);
             }}
             onBlur={() => {
-              setWaitBlur(true);
+              // setWaitBlur(true);
             }}
             onFocus={(e) => {
               setIsFocus(true);
@@ -443,18 +443,25 @@ const InputComp = ({
           {nowrite ? (
             <div className="no-write">
               <input
-                onBlur={() => {
-                  setWaitBlur(true);
+                onClick={() => {
+                  if (!isFocus) {
+                    setIsFocus(true);
+                  } else {
+                    setWaitBlur(true);
+                  }
                 }}
-                onFocus={() => {
-                  setIsFocus(true);
-                }}
+                onFocus={() => {}}
                 disabled={disabled}
               />
             </div>
           ) : null}
           {drop && isFocus ? (
-            <div className="input-drop-pad_cont">
+            <div
+              className="input-drop-pad_cont"
+              onClick={() => {
+                setWaitBlur(true);
+              }}
+            >
               <div className="input-drop-pad">{drop}</div>
             </div>
           ) : null}

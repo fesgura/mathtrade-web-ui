@@ -21,7 +21,7 @@ const ItemMinimal = ({
   ownUser,
 }) => {
   const { title, elements, value } = item;
-  console.log(elements);
+
   return (
     <div className={classNames("item-minimal", { selected, disabled })}>
       <div className="item-minimal_cont">
