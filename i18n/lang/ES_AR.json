@@ -264,7 +264,7 @@
   "wantEditor.Game.wants.lead2": "(Luego podrás cambiar esto todas las veces que quieras.)",
   "wantEditor.MyItems.dup_protection_enabled.lead": "... A cambio de <b>uno (1)</b> de mis items:",
   "wantEditor.MyItems.dup_protection_disabled.lead": "...A cambio de algunos de mis items:",
-  "wantEditor.MyItems.lead2": "(No necesitas elegir ninguno, por ahora.)",
+  "wantEditor.MyItems.lead2": "(Podés elegirlo más tarde)",
   "wantEditor.Item.wants.lead": "Quiero <b>este item</b>:",
   "wantEditor.Group.wants.dup_protection_enabled.lead": "Quiero <b>uno (1)</b> de estos items:",
   "wantEditor.Group.wants.dup_protection_disabled.lead": "Quiero <b>todos</b> estos items:",
