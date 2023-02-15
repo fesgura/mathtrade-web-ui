@@ -1,13 +1,14 @@
-import { useId, useState, useEffect } from "react";
+import { useId } from "react";
 import classNames from "classnames";
-import { Col, Row, DropdownItem, UncontrolledTooltip } from "reactstrap";
+import { Col, Row, UncontrolledTooltip } from "reactstrap";
 import Thumbnail from "components/thumbnail";
 import Icon from "components/icon";
 import Pill from "components/pillData";
 import StatusBadge from "components/statusBadge";
-import { dependencyToData } from "utils";
-import I18N, { getI18Ntext } from "i18n";
+import { getLanguageListText } from "utils";
+import I18N from "i18n";
 import UserBox from "components/userBox";
+import PillsBGG from "./pillsBGG";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -22,44 +23,6 @@ const Element = ({
   forGame,
 }) => {
   const id = useId("a").replace(twoPointsReg, "");
-
-  const [stats, setStats] = useState({
-    rate: 1,
-    rateClass: 1,
-    rateVotes: 1,
-    weight: 1,
-    weightVotes: 1,
-  });
-  const [dataDependency, setDataDependency] = useState({
-    most: getI18Ntext("NoData"),
-    list: [],
-  });
-  const [langListText, setLangListText] = useState("");
-
-  useEffect(() => {
-    if (element) {
-      setStats({
-        rate: Math.round(element.rate * 10) / 10,
-        rateClass: Math.floor(element.rate),
-        rateVotes: parseInt(element.rate_votes, 10),
-        weight: Math.round(element.weight * 100) / 100,
-        weightVotes: parseInt(element.weight_votes, 10),
-      });
-      setDataDependency(
-        dependencyToData({
-          value: element.dependency,
-          votes: element.dependency_votes,
-        })
-      );
-      const newLangListText = element.language
-        .split(",")
-        .map((lang) => {
-          return getI18Ntext(`language.${lang.trim()}`);
-        })
-        .join(", ");
-      setLangListText(newLangListText);
-    }
-  }, [element]);
 
   return (
     <div className={classNames("element-full", { isCombo })}>
@@ -78,8 +41,6 @@ const Element = ({
         </Col>
         <Col>
           <div className="element-full-data">
-            {/* <BggGameBox element={element} />*/}
-            {/* <ElementBox element={element} /> */}
             <div className="element-full-title">
               <a
                 href={`https://boardgamegeek.com/boardgame/${element?.bgg_id}/`}
@@ -98,38 +59,10 @@ const Element = ({
               </UncontrolledTooltip>
             </div>
             <div className="element-full-pills">
-              <Row className="g-0">
-                <Col xs="auto">
-                  <Pill
-                    label="element.BGG.rating"
-                    text={
-                      <b
-                        className={`bgg-rating-num bgg-rating-num-${stats.rateClass}`}
-                      >
-                        {stats.rate}
-                      </b>
-                    }
-                    question={`${stats.rateVotes} ${getI18Ntext(
-                      "element.BGG.votes"
-                    )}`}
-                    noTranslateQuestion
-                  />
-                </Col>
-                <Col xs="auto">
-                  <Pill
-                    label="element.BGG.weight"
-                    text={
-                      <>
-                        <b>{stats.weight}</b>/5
-                      </>
-                    }
-                    question={`${stats.weightVotes} ${getI18Ntext(
-                      "element.BGG.votes"
-                    )}`}
-                    noTranslateQuestion
-                  />
-                </Col>
-                {forGame ? null : (
+              <PillsBGG element={element} />
+
+              {forGame ? null : (
+                <Row>
                   <Col xs="auto">
                     {" "}
                     <Pill
@@ -158,61 +91,32 @@ const Element = ({
                       }
                     />
                   </Col>
-                )}
-              </Row>
 
-              <Row>
-                {forGame ? null : (
                   <Col xs="auto">
-                    <Pill label="element.Language" text={langListText} />
+                    <Pill
+                      label="element.Language"
+                      text={getLanguageListText(element.language)}
+                    />
                   </Col>
-                )}
-                <Col xs="auto">
-                  <Pill
-                    label="element.BGG.dependency"
-                    text={dataDependency.most}
-                    question={
-                      <>
-                        {dataDependency.list.map((dep, k) => {
-                          return (
-                            <DropdownItem text key={k}>
-                              <div className="bgg-game-box_dependency_list-item">
-                                <Row className="align-items-center">
-                                  <Col>{dep.text}</Col>
-                                  <Col xs="auto">
-                                    <b>{`(${dep.value} ${getI18Ntext(
-                                      "element.BGG.vote"
-                                    )}${dep.value === 1 ? "" : "s"})`}</b>
-                                  </Col>
-                                </Row>
-                              </div>
-                            </DropdownItem>
-                          );
-                        })}
-                      </>
-                    }
-                    noTranslateQuestion
-                    dropdown
-                  />
-                </Col>
-                {forGame ? null : (
+
                   <Col xs="auto">
                     <Pill
                       label="element.Status"
                       text={<StatusBadge status={element.status} />}
                     />
                   </Col>
-                )}
-                {!forGame && element.comment !== "" ? (
-                  <Col xs="12">
-                    <Pill
-                      label="element.Comment"
-                      text={element.comment}
-                      fullWidth
-                    />
-                  </Col>
-                ) : null}
-              </Row>
+
+                  {element.comment !== "" ? (
+                    <Col xs="12">
+                      <Pill
+                        label="element.Comment"
+                        text={element.comment}
+                        fullWidth
+                      />
+                    </Col>
+                  ) : null}
+                </Row>
+              )}
             </div>
             {!forGame && !isCombo && showUser ? (
               <div className="element-full-user">

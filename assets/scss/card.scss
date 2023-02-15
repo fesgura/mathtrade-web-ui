@@ -1,9 +1,9 @@
-.card{
-  box-shadow: 0 3px 20px rgba(0,0,0,.2);
+.card {
+  box-shadow: $main-box-shadow;
   border: none;
-  
 }
 
-.card,.card-header{
-  border-radius: 0px !important;
+.card,
+.card-header {
+  border-radius: $card-border-radius !important;
 }

@@ -1,4 +1,5 @@
 import { listDependencyTexts } from "config";
+import { getI18Ntext } from "i18n";
 
 export const locationsToOptions = (locations) => {
   if (!locations) {
@@ -343,4 +344,48 @@ export const myItemListFromAPItoMyItemList = (itemList) => {
 export const getElementByFilter = (collection, method) => {
   const arrayCollection = collection.filter(method);
   return arrayCollection[0] || null;
+};
+
+export const getLanguageListText = (lang) => {
+  if (!lang) {
+    return "";
+  }
+  return lang
+    .split(",")
+    .map((lang) => {
+      return getI18Ntext(`language.${lang.trim()}`);
+    })
+    .join(", ");
+};
+export const getStatsOfElement = (element) => {
+  const o = {
+    stats: {
+      rate: 1,
+      rateClass: 1,
+      rateVotes: 1,
+      weight: 1,
+      weightVotes: 1,
+    },
+    dataDependency: {
+      most: getI18Ntext("NoData"),
+      list: [],
+    },
+  };
+
+  if (!element) {
+    return o;
+  }
+
+  o.stats = {
+    rate: Math.round(element.rate * 10) / 10,
+    rateClass: Math.floor(element.rate),
+    rateVotes: parseInt(element.rate_votes, 10),
+    weight: Math.round(element.weight * 100) / 100,
+    weightVotes: parseInt(element.weight_votes, 10),
+  };
+  o.dataDependency = dependencyToData({
+    value: element.dependency,
+    votes: element.dependency_votes,
+  });
+  return o;
 };

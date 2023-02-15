@@ -2,6 +2,8 @@ import ES_AR from "./lang/ES_AR.json";
 
 const languages = { ES_AR };
 
+const defaultText = "Inglés";
+
 // HARDCODED NOW:
 const currentLanguage = "ES_AR";
 
@@ -9,7 +11,7 @@ export const getI18Ntext = (id) => {
   let text = languages[currentLanguage][id];
 
   if (id.length && typeof languages[currentLanguage][id] === "undefined") {
-    text = "NOT TRANSLATED";
+    text = defaultText;
     console.warn(
       `I18N: "${id}" does not found in ${currentLanguage} language.`
     );

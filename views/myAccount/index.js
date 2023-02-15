@@ -81,10 +81,8 @@ const MyAccountView = ({
                       <UserAvatar size="full" />
                     </div>
                     <div className="text-center pt-3">
-                      <h4 className="m-0">{data?.username}</h4>
-                      <p className="m-0">
-                        ({`${data?.first_name} ${data?.last_name}`})
-                      </p>
+                      <h4 className="m-0">{`${data?.first_name} ${data?.last_name}`}</h4>
+                      <p className="m-0">({data?.username})</p>
                       <p>
                         <b>BGG:</b> <em>{data?.bgg_user}</em>
                       </p>

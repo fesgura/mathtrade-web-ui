@@ -1,11 +1,15 @@
 .modal-content {
   border-radius: 0;
   border: none;
-  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: $modal-box-shadow; //0 3px 20px rgba(0, 0, 0, 0.4);
+  border-radius: $modal-border-radius;
 }
 
 .modal-backdrop {
-  background-color: rgb(197, 197, 197);
+  background-color: rgb(236, 236, 236);
+  &.show {
+    opacity: $modal-backdrop-op;
+  }
 }
 
 .modal-body {
