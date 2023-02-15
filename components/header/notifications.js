@@ -1,26 +1,38 @@
-import { useId } from "react";
-import UserAvatar from "components/avatar";
-import Link from "next/link";
-import { linkUserAccount } from "config/routes";
+import { useId, useState } from "react";
 import I18N from "i18n";
-import { UncontrolledTooltip } from "reactstrap";
+import {
+  UncontrolledTooltip,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+} from "reactstrap";
 import Icon from "components/icon";
+import NotificationsComp from "components/notifications";
 
 const twoPointsReg = new RegExp(":", "g");
 
 const NotificationsHeader = () => {
   const id = useId("notifications").replace(twoPointsReg, "");
 
-  const count = 2;
+  const [count, setCountUnread] = useState(0);
 
   return (
     <>
-      <div className="main-notifications-btn" id={`tt-notifications-${id}`}>
-        {count ? (
-          <div className="main-notifications-btn_count">{count}</div>
-        ) : null}
-        <Icon type="bell-o" />
-      </div>
+      <UncontrolledDropdown direction="down">
+        <DropdownToggle
+          tag="div"
+          className="main-notifications-btn"
+          id={`tt-notifications-${id}`}
+        >
+          {count ? (
+            <div className="main-notifications-btn_count">{count}</div>
+          ) : null}
+          <Icon type="bell-o" />
+        </DropdownToggle>
+        <DropdownMenu end className="main-notifications-pad">
+          <NotificationsComp setCountUnread={setCountUnread} unread={count} />
+        </DropdownMenu>
+      </UncontrolledDropdown>
       <UncontrolledTooltip target={`tt-notifications-${id}`} placement="left">
         {count > 1 ? `${count} ` : ""}
         <I18N
@@ -28,8 +40,8 @@ const NotificationsHeader = () => {
             !count
               ? "title.Notifications"
               : count === 1
-              ? "title.oneNotification"
-              : "title.notifications"
+              ? "title.oneNotificationNotRead"
+              : "title.notificationsNotRead"
           }
         />
       </UncontrolledTooltip>

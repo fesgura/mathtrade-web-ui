@@ -1,0 +1,86 @@
+.main-notifications-pad {
+  $main-notifications-header-h: 40px;
+  $main-notifications-footer-border-radius: 10px;
+  $main-notifications-footer-h: $main-notifications-footer-border-radius;
+  $main-notifications-border: 1px solid $border-color;
+  $main-notifications-fz: 12px;
+  $ht: $main-control-py + $main-control-w + $main-notifications-header-h + 30px;
+  //
+
+  padding: 0;
+  border-radius: $main-notifications-footer-border-radius;
+
+  .main-notifications-container {
+    position: relative;
+
+    width: 400px;
+  }
+
+  .main-notifications-header {
+    height: $main-notifications-header-h;
+    line-height: $main-notifications-header-h;
+    text-align: center;
+    font-weight: bold;
+  }
+  .main-notifications-body {
+    margin-bottom: $main-notifications-footer-h;
+
+    max-height: calc(100vh - $ht);
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .main-notifications-list {
+    &.loading {
+      opacity: 0.5;
+    }
+  }
+  .main-notifications-without_notifications,
+  .main-notifications-list_NoMore {
+    border-top: $main-notifications-border;
+    text-align: center;
+    padding: 15px 15px 0;
+    font-style: italic;
+    font-size: $main-notifications-fz;
+    opacity: 0.6;
+  }
+  .main-notifications-list_loadMore {
+    border-top: $main-notifications-border;
+    text-align: center;
+    padding: 15px;
+  }
+  .notification-ob {
+    border-top: $main-notifications-border;
+    padding: 9px 15px 12px 4px;
+    .notification-ob_date {
+      font-size: 9px;
+      text-align: right;
+      color: $text-muted;
+      padding-bottom: 3px;
+    }
+    .notification-ob_mark {
+      font-size: 12px;
+      padding: 0 12px;
+      color: $text-muted;
+      cursor: pointer;
+    }
+    .notification-ob_message {
+      font-size: 12px;
+      color: $text-muted;
+    }
+    &.unread {
+      .notification-ob_mark {
+        color: $primary;
+      }
+      .notification-ob_message {
+        font-size: 12px;
+        color: $text-color;
+        font-weight: bold;
+      }
+    }
+    &.loading {
+      opacity: 0.5;
+    }
+  }
+}

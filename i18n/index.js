@@ -2,7 +2,7 @@ import ES_AR from "./lang/ES_AR.json";
 
 const languages = { ES_AR };
 
-const defaultText = "Inglés";
+const defaultText = "NOT TRANSLATED";
 
 // HARDCODED NOW:
 const currentLanguage = "ES_AR";
@@ -20,8 +20,20 @@ export const getI18Ntext = (id) => {
   return text;
 };
 
-const I18N = ({ id = "" }) => {
-  const text = getI18Ntext(id);
+const I18N = ({ id = "", values = [] }) => {
+  let text = getI18Ntext(id);
+
+  if (values.length) {
+    const textArray = text.split("$$$");
+    if (textArray.length === values.length + 1) {
+      text = "";
+      values.forEach((v, i) => {
+        text += textArray[i] + v;
+      });
+      text += textArray[textArray.length - 1];
+    }
+  }
+
   return text && text.indexOf("<") >= 0 ? (
     <span dangerouslySetInnerHTML={{ __html: text }} />
   ) : (

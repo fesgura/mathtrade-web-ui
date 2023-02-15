@@ -5,3 +5,4 @@ export { default as UserService } from "./services/user";
 export { default as myCollectionService } from "./services/myCollection";
 export { default as ElementService } from "./services/element";
 export { default as MathTradeService } from "./services/mathtrade";
+export { default as NotificationService } from "./services/notification";

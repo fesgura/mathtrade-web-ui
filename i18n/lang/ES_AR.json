@@ -296,8 +296,16 @@
   "MyData.btn.SignOutToMathTrade.Confirm": "Sí, salir",
   "MyData.SignToMathTrade.lead": "Antes de inscribirte, asegurate de que la <b>ciudad</b> desde la que participás es la correcta, y/o <b>si vas a ir o no al encuentro presencial</b>:",
   "title.Notifications": "Notificaciones",
-  "title.oneNotification": "1 notificación",
-  "title.notifications": "notificaciones",
+  "title.oneNotificationNotRead": "1 notificación sin leer",
+  "title.notificationsNotRead": "notificaciones sin leer",
   "pagination.NextPage": "Página siguiente",
-  "pagination.PrevPage": "Página anterior"
+  "pagination.PrevPage": "Página anterior",
+  "notifications.LoadMore": "Cargar más",
+  "notifications.Loading": "Cargando...",
+  "notifications.WithoutNotifications": "Sin notificaciones por ahora.",
+  "notifications.NoMoreNotifications": "No hay más notificaciones.",
+  "notifications.message.WGR": "El item \"$$$\" ha sido eliminado de tus juegos deseados.",
+  "notifications.message.WGC": "El item que deseaste: \"$$$\", ha sido editado por la persona que lo ofrece.",
+  "notifications.MarkAsRead": "Marcar como leída",
+  "notifications.MarkAsNotRead": "Marcar como no leída"
 }
