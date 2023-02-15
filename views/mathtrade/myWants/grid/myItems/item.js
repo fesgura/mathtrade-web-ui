@@ -2,6 +2,7 @@ import Thumbnail from "components/thumbnail";
 import Previewer from "components/previewer";
 import ItemFull from "components/item/full";
 import classNames from "classnames";
+import { cropWord } from "utils";
 
 const MyItem = ({ item, isInner, isExtended }) => {
   const { title, elements, value, id } = item;
@@ -16,7 +17,7 @@ const MyItem = ({ item, isInner, isExtended }) => {
         </div>
         <div className="my-item-lab_name for-item">
           <div className="my-item-lab_name-text">
-            <div className="text">{item.title}</div>
+            <div className="text">{cropWord(item.title, 50, "...")}</div>
           </div>
         </div>
         <div className="my-item-lab_thumbnail">

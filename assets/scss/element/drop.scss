@@ -51,6 +51,9 @@
         border-top-left-radius: 20px;
       }
     }
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
   }
 }
 @media screen and (max-width: 768px) {

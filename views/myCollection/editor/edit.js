@@ -255,6 +255,9 @@ const ElementEdit = ({
                             name="status"
                             type="select"
                             options={statusList}
+                            onChange={(v) => {
+                              changeData({ status: v });
+                            }}
                           />
                         </Col>
                       </Row>
@@ -267,6 +270,9 @@ const ElementEdit = ({
                         textSize={500}
                         name="comment"
                         type="textarea"
+                        onChange={(v) => {
+                          changeData({ comment: v });
+                        }}
                       />
                     </>
                   ) : (
