@@ -5,22 +5,24 @@
   }
 
   .want-lab {
-    width: 100%;
+    width: $mywants-my-Wants-lab-width;
     // background-color: #eee;
 
     height: 0px;
     overflow: hidden;
     transition: height $mywants-grid-duration;
 
+    .want-lab_wrap {
+      padding: 2px 0;
+    }
     .want-lab_content {
       background-color: #efefef;
       height: $mywants-grid-inner-h + 2px;
       border: 1px solid #ddd;
       border-radius: 4px;
-      margin-top: 2px;
 
-      .row {
-        height: $mywants-grid-inner-h;
+      .item-minimal {
+        padding: 0;
       }
 
       .want-lab_name {
@@ -64,35 +66,22 @@
         }
       }
 
-      .want-lab_previewer {
-        width: $mywants-grid-inner-h;
-        height: $mywants-grid-inner-h;
-        padding-top: 0.5 * ($mywants-grid-inner-h - 30px);
-        padding-left: 0.5 * ($mywants-grid-inner-h - 30px);
-      }
+      // .want-lab_close {
+      //   width: 32px;
+      //   // padding: 0 5px;
+      //   text-align: center;
+      //   cursor: pointer;
+      //   color: $danger;
+      // }
 
-      .want-lab_thumbnail {
-        width: $mywants-grid-inner-h + 12px;
-        height: $mywants-grid-inner-h;
-        padding-top: 0.5 * ($mywants-grid-inner-h - 30px);
-        padding-left: 0.5 * ($mywants-grid-inner-h - 30px) + 10px;
-      }
-      .want-lab_checkbox {
-        width: 32px;
-        padding: 0 5px;
-      }
-      .want-lab_close {
-        width: 32px;
-        // padding: 0 5px;
-        text-align: center;
-        cursor: pointer;
-        color: $danger;
+      &.for-group {
+        height: $mywants-grid-inner-h + 2px;
       }
 
       &.for-item {
         &.isInnerOf {
           background-color: #fff;
-          margin-right: $mywants-grid-inner-h * 0.25;
+          padding-right: 10px;
         }
       }
       &.type-game {

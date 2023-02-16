@@ -16,7 +16,7 @@ const Thumbnail = ({ src = "", className, width, height, noRadius }) => {
   }
 
   return (
-    <div className={classNames("thumbnail", className)}>
+    <div className={classNames("thumbnail", className)} style={style}>
       {src ? <img src={src} alt="" /> : <div className="img_placeholder" />}
     </div>
   );

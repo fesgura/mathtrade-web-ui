@@ -16,6 +16,8 @@ const Grid = ({ myItemList, wantList, setWantList, setMyItemList }) => {
     d: getUniqueId(),
   });
 
+  console.log(myItemList);
+
   return (
     <Card>
       <CardBody>
@@ -71,6 +73,7 @@ const Grid = ({ myItemList, wantList, setWantList, setMyItemList }) => {
               })}
             </div>
           </div>
+
           <div className="mywants-grid_wantListGrid-container">
             <div className="mywants-grid_wantListGrid-row">
               <div className="mywants-grid_wantListGrid-col-left">
@@ -123,3 +126,10 @@ const Grid = ({ myItemList, wantList, setWantList, setMyItemList }) => {
 };
 
 export default Grid;
+/*
+
+ 
+
+
+
+*/

@@ -153,7 +153,11 @@ $item-owner-min-h: 82px;
 $mywants-grid-h: 42px;
 $mywants-grid-inner-h: 36px;
 $mywants-grid-duration: 0.2s;
-$mywants-grid-left-width: 450px;
+
+$mywants-my-Items-lab-height: 520px;
+$mywants-my-Wants-lab-width: 620px;
+
+$mywants-grid-left-width: $mywants-my-Wants-lab-width;
 
 // mobile limit
 $mobile_limit: 992px;

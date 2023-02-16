@@ -27,10 +27,8 @@ const MyGroup = ({ group, setMyItemList, extendAll }) => {
             color: getTextColorByBackgroundColor(group?.color || "#000"),
           }}
         >
-          <div className="my-item-lab_name for-group">
-            <div className="my-item-lab_name-text">
-              <div className="text">{group.name}</div>
-            </div>
+          <div className="my-item-rotated-container for-group">
+            <div className="my-item-lab_name">{group.name}</div>
           </div>
           <div
             className={classNames("my-item-lab_arrow", {

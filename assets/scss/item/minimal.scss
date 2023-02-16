@@ -52,6 +52,9 @@
       line-height: 1.1;
       font-style: italic;
     }
+    .user_item-text {
+      font-size: 12px;
+    }
   }
   .item-minimal_previewer {
     padding-right: $p;
@@ -67,6 +70,13 @@
   &.selected {
     .item-minimal_cont {
       background-color: rgba($primary, 0.2);
+    }
+  }
+  &.rotated {
+    .thumbnail,
+    .previewer,
+    .valuation-min {
+      transform: rotate(90deg);
     }
   }
 }

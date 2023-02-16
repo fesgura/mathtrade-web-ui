@@ -4,13 +4,20 @@ import { cropWord } from "utils";
 import Thumbnail from "components/thumbnail";
 import Previewer from "components/previewer";
 import ItemFull from "components/item/full";
+import ItemMinimal from "components/item/minimal";
 import Checkbox from "components/checkbox";
 import classNames from "classnames";
 import DeleteButton from "components/deleteButton";
 import Icon from "components/icon";
 import I18N from "i18n";
 
-const WantItem = ({ item, isInnerOf, isExtended, group, setWantList }) => {
+const WantItem = ({
+  item,
+  isInnerOf,
+  isExtended,
+  group,
+  setWantList = () => {},
+}) => {
   const [isCheckedIndex, setIsCheckedIndex] = useState(false);
 
   useEffect(() => {
@@ -21,8 +28,31 @@ const WantItem = ({ item, isInnerOf, isExtended, group, setWantList }) => {
 
   return (
     <div className={classNames("want-lab", { extended: isExtended })}>
-      <div className={classNames("want-lab_content for-item", { isInnerOf })}>
-        <Row className="g-0 align-items-center">
+      <div className="want-lab_wrap">
+        <div className={classNames("want-lab_content for-item", { isInnerOf })}>
+          <ItemMinimal
+            item={item}
+            inverted
+            cropTitle={36}
+            selected={isCheckedIndex >= 0}
+            onClickCheckbox={() => {
+              setWantList((list) => {
+                const newList = [...list];
+                newList.forEach((g) => {
+                  if (g.id === group.id) {
+                    if (isCheckedIndex >= 0) {
+                      g.contentToEdit.want_ids.splice(isCheckedIndex, 1);
+                    } else {
+                      g.contentToEdit.want_ids.push(item.id);
+                    }
+                    g.status = "CHANGED";
+                  }
+                });
+                return newList;
+              });
+            }}
+          />
+          {/* <Row className="g-0 align-items-center">
           <Col xs="auto">
             <div className="want-lab_previewer">
               <Previewer>
@@ -108,7 +138,8 @@ const WantItem = ({ item, isInnerOf, isExtended, group, setWantList }) => {
               </UncontrolledTooltip>
             </Col>
           ) : null}
-        </Row>
+        </Row> */}
+        </div>
       </div>
     </div>
   );

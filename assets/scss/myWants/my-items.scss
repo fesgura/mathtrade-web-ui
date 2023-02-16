@@ -56,10 +56,12 @@
   }
   .my-item-lab {
     width: 0px;
-    overflow: hidden;
+    height: $mywants-my-Items-lab-height;
+    //overflow: hidden;
     transition: width $mywants-grid-duration;
 
     .my-item-lab_content {
+      position: relative;
       margin-left: 0.5 * ($mywants-grid-h - $mywants-grid-inner-h);
       width: $mywants-grid-inner-h + 2px;
       border: 1px solid #ddd;
@@ -67,36 +69,32 @@
       border-radius: 4px;
       height: 100%;
 
-      .my-item-lab_name {
-        width: $mywants-grid-inner-h;
-        height: calc(100% - $mywants-grid-inner-h);
-        padding: 5px 0;
-
-        .my-item-lab_name-text {
-          height: 100%;
-          transform: rotate(180deg);
-
-          .text {
-            writing-mode: vertical-lr;
-            //text-orientation: i;
-            white-space: nowrap;
-            line-height: $mywants-grid-inner-h;
-            font-size: 14px;
-          }
-        }
+      .my-item-rotated-container {
+        width: $mywants-my-Items-lab-height;
+        height: $mywants-grid-inner-h;
+        position: absolute;
+        bottom: -$mywants-grid-inner-h;
+        left: 0;
+        transform-origin: 0px 0px;
+        transform: rotate(-90deg);
+        //background-color: rgba(255, 0, 0, 0.479);
 
         &.for-group {
-          .my-item-lab_name-text {
-            font-weight: bold;
-          }
-        }
-
-        &.for-item {
-          height: calc(100% - (2 * $mywants-grid-inner-h));
+          bottom: 0;
+          width: $mywants-my-Items-lab-height - $mywants-grid-inner-h;
         }
       }
 
+      .my-item-lab_name {
+        white-space: nowrap;
+        line-height: $mywants-grid-inner-h;
+        font-weight: bold;
+      }
+
       .my-item-lab_arrow {
+        position: absolute;
+        bottom: 0;
+        left: 0;
         width: $mywants-grid-inner-h;
         height: $mywants-grid-inner-h;
         padding-top: 0.5 * ($mywants-grid-inner-h - 25px);
@@ -124,17 +122,15 @@
         }
       }
 
-      .my-item-lab_previewer,
-      .my-item-lab_thumbnail {
-        width: $mywants-grid-inner-h;
-        height: $mywants-grid-inner-h;
-        padding-top: 0.5 * ($mywants-grid-inner-h - 30px);
-        padding-left: 0.5 * ($mywants-grid-inner-h - 30px);
+      .item-minimal {
+        padding: 0;
       }
 
       &.isInner {
-        height: calc(100% - (0.25 * $mywants-grid-inner-h));
         background-color: #fff;
+        .my-item-rotated-container {
+          padding-left: 15px;
+        }
       }
     }
     &.extended {

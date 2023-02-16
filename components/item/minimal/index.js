@@ -19,15 +19,29 @@ const ItemMinimal = ({
   hideUser,
   hideExtraData,
   ownUser,
+  rotated,
+  inverted,
+  cropTitle = 50,
 }) => {
   const { title, elements, value } = item;
 
+  let orderNum = inverted ? 6 : 1;
+
   return (
-    <div className={classNames("item-minimal", { selected, disabled })}>
+    <div
+      className={classNames("item-minimal", { selected, disabled, rotated })}
+    >
       <div className="item-minimal_cont">
         <Row className="align-items-center g-0 flex-nowrap">
           {hideCheckbox ? null : (
-            <Col xs="auto">
+            <Col
+              xs={{
+                order: (() => {
+                  return inverted ? orderNum-- : orderNum++;
+                })(),
+                size: "auto",
+              }}
+            >
               <div className="item-minimal_checkbox">
                 <Checkbox
                   value={selected}
@@ -37,12 +51,23 @@ const ItemMinimal = ({
               </div>
             </Col>
           )}
-          <Col xs="auto">
+          <Col
+            xs={{
+              order: (() => {
+                return inverted ? orderNum-- : orderNum++;
+              })(),
+              size: "auto",
+            }}
+          >
             <div className="item-minimal_thumbnail">
-              <Thumbnail src={elements[0].thumbnail} />
+              <Thumbnail src={elements[0].thumbnail} height={26} />
             </div>
           </Col>
-          <Col>
+          <Col
+            className={`order-${(() => {
+              return inverted ? orderNum-- : orderNum++;
+            })()} text-${inverted ? "end" : "start"}`}
+          >
             <div className="item-minimal_title">
               <div className="item-minimal_title-text">
                 {elements.length > 1 ? (
@@ -50,7 +75,11 @@ const ItemMinimal = ({
                     <I18N id="Combo" />:{" "}
                   </b>
                 ) : null}
-                {cropWord(title, 50, "...")}
+                {cropWord(
+                  title + title + title + title + title + title,
+                  cropTitle,
+                  "..."
+                )}
               </div>
               {hideExtraData ? null : (
                 <div className="item-minimal_title-subtitle">
@@ -62,7 +91,14 @@ const ItemMinimal = ({
             </div>
           </Col>
           {hideUser ? null : (
-            <Col xs="auto">
+            <Col
+              xs={{
+                order: (() => {
+                  return inverted ? orderNum-- : orderNum++;
+                })(),
+                size: "auto",
+              }}
+            >
               <div className="item-minimal_user">
                 {ownUser ? (
                   <div className="item-minimal_own_user">
@@ -74,14 +110,28 @@ const ItemMinimal = ({
               </div>
             </Col>
           )}
-          <Col xs="auto">
+          <Col
+            xs={{
+              order: (() => {
+                return inverted ? orderNum-- : orderNum++;
+              })(),
+              size: "auto",
+            }}
+          >
             <div className="item-minimal_previewer">
               <Previewer>
                 <ItemFull item={item} inModal />
               </Previewer>
             </div>
           </Col>
-          <Col xs="auto">
+          <Col
+            xs={{
+              order: (() => {
+                return inverted ? orderNum-- : orderNum++;
+              })(),
+              size: "auto",
+            }}
+          >
             <div className="item-minimal_valuation">
               <ValuationMin value={value} />
             </div>

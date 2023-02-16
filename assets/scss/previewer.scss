@@ -1,18 +1,18 @@
 .previewer {
   $w: 30px;
-  border: 1px solid $secondary;
+  border: 1px solid $primary;
   width: $w;
   height: $w;
   line-height: 1;
   border-radius: 5px;
   background-color: #fff;
-  color: $secondary;
+  color: $primary;
   font-size: 16px;
   transition: all 0.1s;
 
   &:hover,
   &:focus {
-    background-color: $secondary;
+    background-color: $primary;
     color: #fff;
   }
 }
