@@ -1,7 +1,7 @@
 import { useId, useState, useEffect } from "react";
 import { useApi, MathTradeService } from "api_serv";
 import Icon from "components/icon";
-import { UncontrolledTooltip, UncontrolledPopover, Button } from "reactstrap";
+import { UncontrolledTooltip, Popover, Button } from "reactstrap";
 import GroupTag from "./tag";
 import AddTag from "components/addTag";
 import I18N from "i18n";
@@ -13,6 +13,13 @@ const AddBtn = ({ item, listAlreadyAdded, groups, afterAnyChange }) => {
   const [modalAddOpen, setModalAddOpen] = useState(false);
 
   const [groupsLeft, setGroupsLeft] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleOpen = () => {
+    setIsOpen((v) => {
+      return !v;
+    });
+  };
 
   useEffect(() => {
     const newGroupsLeft = groups.filter((g) => {
@@ -36,18 +43,18 @@ const AddBtn = ({ item, listAlreadyAdded, groups, afterAnyChange }) => {
 
   return (
     <>
-      <button className="group-add-btn" id={id}>
+      <button className="group-add-btn" id={id} onClick={toggleOpen}>
         <Icon type="plus" />
       </button>
       <UncontrolledTooltip target={id}>
         <I18N id="itemList.Tags.AddItemToTag" />
       </UncontrolledTooltip>
-      <UncontrolledPopover
+      <Popover
         className="group-header-popover"
         placement="bottom"
-        target={id}
-        trigger="focus"
         flip
+        isOpen={isOpen}
+        target={id}
       >
         {groupsLeft.length ? (
           <div className="group-header-pad">
@@ -59,6 +66,7 @@ const AddBtn = ({ item, listAlreadyAdded, groups, afterAnyChange }) => {
                     tag={tag}
                     forAdd
                     onClick={() => {
+                      toggleOpen();
                       const newTag = { ...tag };
 
                       newTag.items.push(item.id);
@@ -78,13 +86,14 @@ const AddBtn = ({ item, listAlreadyAdded, groups, afterAnyChange }) => {
           <Button
             size="xs"
             onClick={() => {
+              toggleOpen();
               setModalAddOpen(true);
             }}
           >
             <I18N id="itemList.Tags.NewTag" />
           </Button>
         </div>
-      </UncontrolledPopover>
+      </Popover>
       {modalAddOpen ? (
         <AddTag
           item={item}
