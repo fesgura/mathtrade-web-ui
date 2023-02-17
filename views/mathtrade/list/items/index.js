@@ -11,7 +11,7 @@ import Filters_MT_Items from "./filters";
 import SidebarSticky from "components/sidebarSticky";
 import SidebarTabs from "components/sidebarTabs";
 import SidebarTagList from "components/sidebarTagList";
-import I18N, { getI18Ntext } from "i18n";
+import { getI18Ntext } from "i18n";
 
 const ItemListView = ({
   list,

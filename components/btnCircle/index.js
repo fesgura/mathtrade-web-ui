@@ -16,12 +16,15 @@ const BtnCircle = ({
   onClick = () => {},
   label = "",
   noTranslateLabel,
+  min,
 }) => {
   const id = useId("b").replace(twoPointsReg, "");
   return (
     <>
       <button
-        className={classNames("btn btn_circle", className)}
+        className={classNames("btn btn_circle", className, {
+          btn_circle_min: min,
+        })}
         id={`tt-btn-circle-q-${id}`}
         onClick={onClick}
       >

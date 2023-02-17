@@ -16,8 +16,6 @@ const Grid = ({ myItemList, wantList, setWantList, setMyItemList }) => {
     d: getUniqueId(),
   });
 
-  console.log(myItemList);
-
   return (
     <Card>
       <CardBody>

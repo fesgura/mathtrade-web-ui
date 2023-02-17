@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Game from "components/game";
 import WantEditor from "components/wantEditor";
+import Valuation from "components/valuation";
 
 const Game_in_list = ({ game, wantList, afterAnyChange }) => {
   const [wantGroup, set_wantGroup] = useState(null);
@@ -21,6 +22,9 @@ const Game_in_list = ({ game, wantList, afterAnyChange }) => {
       game={game}
       wanted={wantGroup}
       btnRowListGame={[
+        (k) => {
+          return <Valuation key={k} items={game.items} />;
+        },
         (k) => {
           return (
             <WantEditor

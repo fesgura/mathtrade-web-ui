@@ -5,12 +5,21 @@ import Icon from "components/icon";
 import AddTag from "components/addTag";
 import { getTextColorByBackgroundColor } from "utils";
 import WantEditor from "components/wantEditor";
+import Valuation from "components/valuation";
 import { Col, Row } from "reactstrap";
 import { getI18Ntext } from "i18n";
 
-const Tag = ({ tag, wantList, filterByTag, afterAnyChange, current }) => {
+const Tag = ({
+  tag,
+  zIndex,
+  wantList,
+  filterByTag,
+  afterAnyChange,
+  current,
+}) => {
   const [modalEditOpen, setModalEditOpen] = useState(false);
   const [wantGroup, setWantGroup] = useState(null);
+  const [itemsForValuation, setItemsForValuation] = useState([]);
 
   useEffect(() => {
     if (tag.wanted) {
@@ -23,12 +32,25 @@ const Tag = ({ tag, wantList, filterByTag, afterAnyChange, current }) => {
     }
   }, [tag, wantList]);
 
+  useEffect(() => {
+    if (tag && tag.items) {
+      const valueTag = tag?.value || 0;
+      const newitemsForValuation = tag.items.map((itmId) => {
+        return { id: itmId, value: valueTag };
+      });
+      setItemsForValuation(newitemsForValuation);
+    }
+  }, [tag]);
+
   return (
     <>
       <div
         className={classNames("sidebar-group-list_tag", {
           current,
         })}
+        style={{
+          zIndex: zIndex,
+        }}
       >
         <Dropper accept={tag.id >= 0 ? "item_in_list" : "none"} data={{ tag }}>
           <div
@@ -41,9 +63,9 @@ const Tag = ({ tag, wantList, filterByTag, afterAnyChange, current }) => {
             }}
           >
             <Row className="align-items-center g-0">
-              <Col>
+              <Col xs="auto">
                 <div
-                  className={classNames("sidebar-group-list_tag_inner-lab", {
+                  className={classNames("sidebar-group-list_tag_inner_text", {
                     "d-block": tag.id < 0,
                   })}
                   onClick={() => {
@@ -53,6 +75,8 @@ const Tag = ({ tag, wantList, filterByTag, afterAnyChange, current }) => {
                   {`${tag?.name || "Sin título"}`}{" "}
                   {tag.items ? `(${tag.items.length || 0})` : null}
                 </div>
+              </Col>
+              <Col xs="auto">
                 {tag.id > 0 ? (
                   <span
                     className="sidebar-group-list_tag_edit"
@@ -67,13 +91,19 @@ const Tag = ({ tag, wantList, filterByTag, afterAnyChange, current }) => {
                 ) : null}
               </Col>
               {tag.id > 0 && tag.items.length ? (
-                <Col xs="auto">
-                  <div className="sidebar-group-list_tag_want-editor">
+                <Col>
+                  <div className="sidebar-group-list_tag_tools">
+                    <Valuation
+                      items={itemsForValuation}
+                      min
+                      afterAnyChange={afterAnyChange}
+                    />
                     <WantEditor
                       objectToWant={tag}
                       type="tag"
                       wantGroup={wantGroup}
                       afterAnyChange={afterAnyChange}
+                      min
                     />
                   </div>
                 </Col>

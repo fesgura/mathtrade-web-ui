@@ -45,10 +45,11 @@ const SidebarTagList = ({
               filterByTag={filterByTag}
               current={!currentTag}
             />
-            {tagList.map((tag) => {
+            {tagList.map((tag, k) => {
               return (
                 <Tag
                   key={tag.id}
+                  zIndex={999 - k}
                   tag={tag}
                   wantList={wantList}
                   filterByTag={filterByTag}

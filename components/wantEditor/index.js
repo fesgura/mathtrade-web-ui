@@ -10,6 +10,7 @@ const WantEditor = ({
   wantGroup,
   afterAnyChange,
   isOwner,
+  min,
 }) => {
   const [modalWantOpen, setModalWantOpen] = useState(false);
 
@@ -25,6 +26,7 @@ const WantEditor = ({
         afterAnyChange={afterAnyChange}
         type={type}
         isOwner={isOwner}
+        min={min}
         onClick={() => {
           setModalWantOpen(true);
         }}
