@@ -13,62 +13,21 @@ import I18N from "i18n";
 
 const minValue = 0;
 const maxValue = 10;
-const valuesPossibles = (() => {
-  const list = [];
-  let d = minValue;
-  while (d <= maxValue) {
-    list.push(d);
-    d++;
-  }
-  return list;
-})();
+const step = 0.1;
 
-export const ValuationMin = ({ value }) => {
-  return (
-    <div className="valuation-min">
-      <Icon type="star" className={`valuation-btn_star star-color-${value}`} />
-      <div className="valuation-btn_num">{value}</div>
-    </div>
-  );
-};
-
-export const ValuationTitle = ({ loading, value }) => {
-  return (
-    <>
-      <Icon
-        type={loading ? "loading" : "star"}
-        className={classNames(`valuation-btn_star star-color-${value}`, {
-          "ic-loading": loading,
-        })}
-      />
-      <div className="valuation-btn_num">{value}</div>
-    </>
-  );
-};
-
-const Valuation = ({ className, items, afterAnyChange }) => {
+const Valuation = ({ className, items, afterAnyChange = () => {}, min }) => {
   const [valueInternal, setValueInternal] = useState(minValue);
 
-  const [valueHover, setValueHover] = useState(minValue);
-
-  const resetValueHover = (val) => {
-    if (typeof val === "number" && val >= minValue && val <= maxValue) {
-      setValueHover(val);
-    }
-  };
-
   useEffect(() => {
-    if (
-      items &&
-      items[0] &&
-      typeof items[0].value === "number" &&
-      items[0].value >= minValue &&
-      items[0].value <= maxValue
-    ) {
-      setValueInternal(items[0].value);
-    }
-    if (items && items[0]) {
-      resetValueHover(items[0]?.value || 0);
+    if (items && items.length) {
+      let minValue = 12;
+      items.forEach((itm) => {
+        const valueItem = itm.value ? parseFloat(itm.value) : 0;
+        if (valueItem < minValue) {
+          minValue = valueItem;
+        }
+      });
+      setValueInternal(minValue);
     }
   }, [items]);
 
@@ -82,11 +41,66 @@ const Valuation = ({ className, items, afterAnyChange }) => {
 
   return (
     <UncontrolledDropdown direction="down" className="d-inline-block">
-      <DropdownToggle className="valuation-title btn btn_circle btn-valuate-item">
-        <ValuationTitle loading={loadingPutItem} value={valueInternal} />
+      <DropdownToggle
+        className={classNames("valuation-btn btn btn_circle btn-valuate-item", {
+          "btn_circle_min valuation-btn_min": min,
+        })}
+      >
+        <Icon
+          type={loadingPutItem ? "loading" : "star"}
+          className={classNames(
+            `valuation-btn_star star-color-${valueInternal.toFixed(0)}`,
+            {
+              "ic-loading": loadingPutItem,
+            }
+          )}
+        />
+        {loadingPutItem ? null : (
+          <div className="valuation-btn_num">{valueInternal}</div>
+        )}
       </DropdownToggle>
       <DropdownMenu end>
-        <DropdownItem tag="div" className="valuation-container">
+        <div className="valuation-container">
+          <div className="valuation-label">
+            <I18N id="Valuation.Value" />
+            <Question question="Valuation.Help" min /> :
+            <div className="valuation-output">{valueInternal}</div>
+          </div>
+          <div className="valuation-range">
+            <div className="valuation-range-input-container">
+              <div className="valuation-range-input-container_line">
+                <div
+                  className="valuation-range-input-container_line_btn"
+                  style={{ left: `${10 * valueInternal}%` }}
+                />
+              </div>
+              <input
+                type="range"
+                min={minValue}
+                max={maxValue}
+                step={step}
+                value={valueInternal}
+                onChange={(e) => {
+                  const v = parseFloat(e.target.value);
+                  if (v !== items[0].value) {
+                    setValueInternal(v);
+                  }
+                }}
+                onBlur={(e) => {
+                  valuatePostItem({
+                    data: {
+                      value: `${e.target.value}`,
+                      item_ids: items.map((itm) => {
+                        return itm.id;
+                      }),
+                    },
+                  });
+                }}
+              />
+            </div>
+          </div>
+        </div>
+        {/* <DropdownItem tag="div" >
           <div className="valuation-label">
             <I18N id="Valuation.Value" />
             <Question question="Valuation.Help" min /> :
@@ -136,7 +150,7 @@ const Valuation = ({ className, items, afterAnyChange }) => {
               );
             })}
           </div>
-        </DropdownItem>
+        </DropdownItem> */}
       </DropdownMenu>
     </UncontrolledDropdown>
   );

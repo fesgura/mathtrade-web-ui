@@ -44,13 +44,7 @@ const ItemOfCollection = ({
         IamInMathTrade
           ? [
               (k) => {
-                return (
-                  <Valuation
-                    key={k}
-                    items={[item]}
-                    afterAnyChange={afterAnyChange}
-                  />
-                );
+                return <Valuation key={k} items={[item]} />;
               },
               (k) => {
                 return (

@@ -13,15 +13,17 @@
     // opacity: 0.8;
 
     .sidebar-group-list_tag_inner {
-      padding: 0.8em 1em;
+      padding: 0 1em;
       border-radius: 0.4em;
-      cursor: pointer;
+
       position: relative;
       z-index: 2;
-
-      &.for-tag {
-        cursor: default;
-        padding-right: 0;
+      .sidebar-group-list_tag_inner_text {
+        padding: 0.8em 0;
+        cursor: pointer;
+      }
+      .sidebar-group-list_tag_tools {
+        text-align: right;
       }
     }
     .sidebar-group-list_tag_inner-lab {

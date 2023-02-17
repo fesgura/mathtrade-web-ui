@@ -71,6 +71,7 @@ $game-color: #fff;
 // BTN CIRCLE
 $btn_circle-w: 45px;
 $btn_circle-ml: 8px;
+$btn_circle_min-w: 30px;
 
 // MODAL
 $modal-border-radius: $card-border-radius;
@@ -95,7 +96,7 @@ $ratingsBGG: (
 
 // STARS
 $starsColor: (
-  "0": #aaa,
+  "0": #ccc,
   "1": #fb0900,
   "2": #e04b00,
   "3": #cf7100,

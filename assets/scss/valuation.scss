@@ -1,11 +1,11 @@
-.valuation-title,
+@use "sass:map";
 .valuation-btn {
   position: relative;
-  $h: 36px;
+  $h: $btn_circle-w - 2px;
   cursor: pointer;
 
   .valuation-btn_star {
-    font-size: 32px;
+    font-size: 36px;
     line-height: $h;
     height: $h;
     //color: $mathtrade;
@@ -20,126 +20,205 @@
     width: 100%;
     color: #fff;
     text-align: center;
-    line-height: 1;
-    transform: translateY(-50%);
-    font-weight: bold;
-    font-size: 14px;
-  }
-}
-.valuation-title {
-  .valuation-btn_star {
-    height: $btn_circle-w - 2px;
-    line-height: $btn_circle-w - 2px;
-  }
-}
 
-.valuation-min {
-  position: relative;
-  $h: 30px;
-
-  .valuation-btn_star {
-    font-size: 26px;
-    line-height: $h;
-    height: $h;
-    //color: $mathtrade;
-    &.ic-loading {
-      font-size: 22px;
-    }
-  }
-  .valuation-btn_num {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    color: #fff;
-    text-align: center;
-    line-height: 1;
     transform: translateY(-50%);
     font-weight: bold;
     font-size: 12px;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+  }
+
+  &.valuation-btn_min {
+    $h: $btn_circle_min-w - 2px;
+    width: $h;
+    height: $h;
+    overflow: hidden;
+    border-radius: 50%;
+
+    .valuation-btn_star {
+      position: relative;
+      top: -1px;
+      font-size: 26px;
+      line-height: $h;
+      height: $h;
+      //color: $mathtrade;
+      &.ic-loading {
+        font-size: 22px;
+      }
+    }
+    .valuation-btn_num {
+      font-size: 10px;
+    }
   }
 }
 
-.valuation-container {
-  $h: 36px;
-  background-color: #fff;
-  //width: $h;
-  border-radius: $h;
-  text-align: center;
+// .valuation-min {
+//   position: relative;
+//   $h: 30px;
 
-  .dropdown-menu {
-    padding: 0;
-    .dropdown-item {
-      padding: 0;
-      &:hover {
-        background-color: #fff;
-      }
-    }
-  }
+//   .valuation-btn_star {
+//     font-size: 26px;
+//     line-height: $h;
+//     height: $h;
+//     //color: $mathtrade;
+//     &.ic-loading {
+//       font-size: 22px;
+//     }
+//   }
+//   .valuation-btn_num {
+//     position: absolute;
+//     top: 50%;
+//     left: 0;
+//     width: 100%;
+//     color: #fff;
+//     text-align: center;
+//     line-height: 1;
+//     transform: translateY(-50%);
+//     font-weight: bold;
+//     font-size: 12px;
+//   }
+// }
+
+.valuation-container {
+  width: 360px;
+  padding: 0 15px;
   .valuation-label {
-    padding: 5px 20px;
     text-transform: uppercase;
     font-size: 11px;
     font-weight: bold;
     text-align: left;
-  }
-  .valuation-liner {
-    $h3: 26px;
-    display: flex;
-    align-items: center;
-    padding: 0 20px 15px;
-    .valuation-line-star {
-      .valuation-line-btn {
-        position: relative;
-        padding: 0 4px;
-        cursor: pointer;
-        .valuation-line-btn_star {
-          font-size: 26px;
-          line-height: $h3;
-          height: $h3;
-          // color: #000; //$mathtrade;
-          position: relative;
-          top: 1px;
-          opacity: 0.2;
-          transition: opacity 0.1s;
-        }
-        .valuation-line-btn_num {
-          position: absolute;
-          top: 50%;
-          left: 0;
-          width: 100%;
-          color: #999;
-          text-align: center;
-          line-height: 1;
-          transform: translateY(-50%);
-          font-weight: bold;
-          font-size: 11px;
-        }
-        &.prev,
-        &.current {
-          .valuation-line-btn_star {
-            opacity: 1;
-          }
-          .valuation-line-btn_num {
-            color: #fff;
-          }
-        }
-      }
+    margin-bottom: 15px;
+    padding: 0 8px;
+    .valuation-output {
+      display: inline-block;
+      padding: 1px 0;
+      border: $border;
+      text-align: center;
+      width: 50px;
+      margin-left: 10px;
+      font-weight: bold;
+      font-size: 12px;
     }
   }
-  &:hover {
-    .valuation-line-star {
-      .valuation-line-btn {
-        &.current {
-          .valuation-line-btn_star {
-            color: $mathtrade-hover;
-            opacity: 1;
-          }
-        }
+
+  .valuation-range-input-container {
+    position: relative;
+    margin: 0 8px;
+    cursor: ew-resize;
+    input {
+      position: relative;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 100%;
+      opacity: 0;
+      cursor: ew-resize;
+    }
+
+    .valuation-range-input-container_line {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      border-radius: 4px;
+
+      $list: map.get($starsColor, "0") 0%, map.get($starsColor, "1") 10%,
+        map.get($starsColor, "2") 20%, map.get($starsColor, "3") 30%,
+        map.get($starsColor, "4") 40%, map.get($starsColor, "5") 50%,
+        map.get($starsColor, "6") 60%, map.get($starsColor, "7") 70%,
+        map.get($starsColor, "8") 80%, map.get($starsColor, "9") 90%,
+        map.get($starsColor, "10") 100%;
+
+      @include gradient(to right, $list);
+
+      .valuation-range-input-container_line_btn {
+        position: absolute;
+        top: -4px;
+        left: 30%;
+        width: 16px;
+        height: 16px;
+        margin-left: -8px;
+        background-color: #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.2);
       }
     }
   }
 }
+// $h: 36px;
+// background-color: #fff;
+// //width: $h;
+// border-radius: $h;
+// text-align: center;
+
+// .dropdown-menu {
+//   padding: 0;
+//   .dropdown-item {
+//     padding: 0;
+//     &:hover {
+//       background-color: #fff;
+//     }
+//   }
+// }
+
+// .valuation-liner {
+//   $h3: 26px;
+//   display: flex;
+//   align-items: center;
+//   padding: 0 20px 15px;
+//   .valuation-line-star {
+//     .valuation-line-btn {
+//       position: relative;
+//       padding: 0 4px;
+//       cursor: pointer;
+//       .valuation-line-btn_star {
+//         font-size: 26px;
+//         line-height: $h3;
+//         height: $h3;
+//         // color: #000; //$mathtrade;
+//         position: relative;
+//         top: 1px;
+//         opacity: 0.2;
+//         transition: opacity 0.1s;
+//       }
+//       .valuation-line-btn_num {
+//         position: absolute;
+//         top: 50%;
+//         left: 0;
+//         width: 100%;
+//         color: #999;
+//         text-align: center;
+//         line-height: 1;
+//         transform: translateY(-50%);
+//         font-weight: bold;
+//         font-size: 11px;
+//       }
+//       &.prev,
+//       &.current {
+//         .valuation-line-btn_star {
+//           opacity: 1;
+//         }
+//         .valuation-line-btn_num {
+//           color: #fff;
+//         }
+//       }
+//     }
+//   }
+// }
+// &:hover {
+//   .valuation-line-star {
+//     .valuation-line-btn {
+//       &.current {
+//         .valuation-line-btn_star {
+//           color: $mathtrade-hover;
+//           opacity: 1;
+//         }
+//       }
+//     }
+//   }
+// }
 
 @each $num, $color in $starsColor {
   .star-color-#{$num} {

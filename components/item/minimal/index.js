@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { Row, Col } from "reactstrap";
-import { ValuationMin } from "components/valuation";
+import Valuation from "components/valuation";
 import Checkbox from "components/checkbox";
 import Thumbnail from "components/thumbnail";
 import Previewer from "components/previewer";
@@ -133,7 +133,7 @@ const ItemMinimal = ({
             }}
           >
             <div className="item-minimal_valuation">
-              <ValuationMin value={value} />
+              <Valuation items={[item]} min />
             </div>
           </Col>
         </Row>

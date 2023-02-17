@@ -5,8 +5,11 @@ import Icon from "components/icon";
 import AddGroup from "components/addGroup";
 import { getTextColorByBackgroundColor } from "utils";
 import { getI18Ntext } from "i18n";
+import { Col, Row } from "reactstrap";
+import Valuation from "components/valuation";
 
 const GroupTag = ({
+  zIndex,
   group,
   groupIdSelected,
   setGroupIdSelected,
@@ -22,8 +25,8 @@ const GroupTag = ({
           current: groupIdSelected === group.id,
           child: group.id >= 0,
         })}
-        onClick={() => {
-          setGroupIdSelected(group.id);
+        style={{
+          zIndex: zIndex,
         }}
       >
         <Dropper accept="item" data={{ group_id: group.id }}>
@@ -34,19 +37,41 @@ const GroupTag = ({
               color: getTextColorByBackgroundColor(group?.color || "#999999"),
             }}
           >
-            {`${group?.name || "Sin título"} (${count || 0})`}
-            {group.id > 0 ? (
-              <span
-                className="sidebar-group-list_tag_edit"
-                title={getI18Ntext("myItems.sidebar.Edit")}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setModalEditOpen(true);
-                }}
-              >
-                <Icon type="pencil" />
-              </span>
-            ) : null}
+            <Row className="g-0 align-items-center">
+              <Col xs="auto">
+                <div
+                  className="sidebar-group-list_tag_inner_text"
+                  onClick={() => {
+                    setGroupIdSelected(group.id);
+                  }}
+                >{`${group?.name || "Sin título"} (${count || 0})`}</div>
+              </Col>
+              <Col xs="auto">
+                {group.id > 0 ? (
+                  <span
+                    className="sidebar-group-list_tag_edit"
+                    title={getI18Ntext("myItems.sidebar.Edit")}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setModalEditOpen(true);
+                    }}
+                  >
+                    <Icon type="pencil" />
+                  </span>
+                ) : null}
+              </Col>
+              {group.id > 0 ? (
+                <Col>
+                  <div className="sidebar-group-list_tag_tools">
+                    <Valuation
+                      items={group.items}
+                      min
+                      afterAnyChange={afterAnyChange}
+                    />
+                  </div>
+                </Col>
+              ) : null}
+            </Row>
           </div>
         </Dropper>
       </div>

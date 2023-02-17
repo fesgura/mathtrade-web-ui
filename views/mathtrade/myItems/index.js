@@ -82,6 +82,7 @@ const MyItemsView = ({
               groupIdSelected={groupIdSelected}
               setGroupIdSelected={setGroupIdSelected}
               itemListTotal={itemList.length}
+              itemList={itemList}
             />
           </SidebarSticky>
         </Col>

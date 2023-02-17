@@ -1,4 +1,4 @@
-import { useId, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import GroupTag from "./groupTag";
 import AddGroup from "components/addGroup";
 import Icon from "components/icon";
@@ -9,9 +9,25 @@ const SidebarGroupList = ({
   groupIdSelected,
   setGroupIdSelected,
   afterAnyChange,
-  itemListTotal = 0,
+  itemList = [],
 }) => {
+  const [groupComplete, setGroupComplete] = useState([]);
   const [modalAddOpen, setModalAddOpen] = useState(false);
+
+  useEffect(() => {
+    const newgroupComplete = [];
+    groups.forEach((group) => {
+      const { item_ids } = group;
+      const items = itemList.filter((itm) => {
+        return item_ids.indexOf(itm.id) >= 0;
+      });
+      newgroupComplete.push({
+        ...group,
+        items,
+      });
+    });
+    setGroupComplete(newgroupComplete);
+  }, [groups, itemList]);
 
   return (
     <>
@@ -29,12 +45,13 @@ const SidebarGroupList = ({
               }}
               groupIdSelected={groupIdSelected}
               setGroupIdSelected={setGroupIdSelected}
-              count={itemListTotal}
+              count={itemList.length}
             />
-            {groups.map((group) => {
+            {groupComplete.map((group, k) => {
               return (
                 <GroupTag
                   key={group.id}
+                  zIndex={999 - k}
                   group={group}
                   groupIdSelected={groupIdSelected}
                   setGroupIdSelected={setGroupIdSelected}

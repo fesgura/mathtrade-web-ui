@@ -35,7 +35,7 @@
     }
   }
   &.btn-valuate-item {
-    background-color: #fff;
+    background-color: #f6f6f6;
     border-color: $border-color;
   }
 
@@ -92,6 +92,16 @@
     &:hover {
       background-color: $mathtrade-want-color;
       color: #fff;
+    }
+  }
+
+  &.btn_circle_min {
+    width: $btn_circle_min-w - 2px;
+    height: $btn_circle_min-w - 2px;
+    line-height: $btn_circle_min-w - 2px;
+    &.btn-i-want-it,
+    &.btn-in-want-list {
+      font-size: 18px;
     }
   }
 }
