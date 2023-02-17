@@ -129,8 +129,8 @@ const Element = ({
 
       {btnRowListElement.length ? (
         <div className="element-full-btn-row">
-          {btnRowListElement.map((btn) => {
-            return btn(item, element);
+          {btnRowListElement.map((btn, k) => {
+            return btn(k, item, element);
           })}
         </div>
       ) : null}
