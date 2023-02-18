@@ -1,9 +1,12 @@
 import FiltersComp from "components/filters";
 import { useState, useEffect } from "react";
+import storage from "utils/storage";
 import Icon from "components/icon";
 import { getTextColorByBackgroundColor } from "utils";
 import { languageList, statusList, dependencyList } from "config";
 import { Row, Col } from "reactstrap";
+import { Input } from "components/form";
+import I18N from "i18n";
 
 const minValue = 0;
 const maxValue = 10;
@@ -16,11 +19,13 @@ const maxWeight = 5;
 
 const Filters_MT_Items = ({ filters, setFilters, locations, tagList }) => {
   const [tagSelected, setTagSelected] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [IshideOwnUser, setIshideOwnUser] = useState(false);
 
   useEffect(() => {
     if (filters.query.tag) {
       const currentTagArray = tagList.filter((tg) => {
-        return tg.id === filters.query.tag;
+        return `${tg.id}` === `${filters.query.tag}`;
       });
       if (currentTagArray[0]) {
         setTagSelected(currentTagArray[0]);
@@ -28,7 +33,13 @@ const Filters_MT_Items = ({ filters, setFilters, locations, tagList }) => {
     } else {
       setTagSelected(null);
     }
+    setIshideOwnUser(filters.query.user ? true : false);
   }, [filters, tagList]);
+
+  useEffect(() => {
+    const storeData = storage.get();
+    setUserId(storeData?.user?.data?.id);
+  }, []);
 
   return (
     <>
@@ -63,7 +74,32 @@ const Filters_MT_Items = ({ filters, setFilters, locations, tagList }) => {
           </div>
         </div>
       ) : null}
+      {userId ? (
+        <div className="hide-own-user-in-filter">
+          <Input
+            value={IshideOwnUser}
+            classNameLabelCheckbox="hide-own-user-in-filter_label"
+            classNameContainer="m-0"
+            type="switch"
+            labelCheckbox="hideOwnItems.label"
+            name="hideOwnUser"
+            //questionMin
+            onChange={(v) => {
+              setIshideOwnUser(v);
+              if (v) {
+                setFilters({ user: `-${userId}` });
+              } else {
+                setFilters({ user: undefined });
+              }
+            }}
+          />
+          <div className="hide-own-user-in-filter_help">
+            <I18N id="hideOwnItems.help" />
+          </div>
+        </div>
+      ) : null}
       <FiltersComp
+        className="pt-0"
         filters={filters}
         clearFilters={() => {
           const newFilters = { page: undefined };

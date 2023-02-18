@@ -34,7 +34,7 @@ const MT_GameListContainer = () => {
         setIsFetched(true);
         setFilters({ pathname, query, d: getUniqueId() });
       }
-    }, 300);
+    }, 800);
 
     return () => {
       clearTimeout(timer);

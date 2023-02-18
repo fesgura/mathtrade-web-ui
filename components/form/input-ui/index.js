@@ -59,6 +59,9 @@ const InputComp = ({
   size,
   className,
   classNameContainer,
+  classNameLabel,
+  classNameLabelCheckbox,
+  classNameLabelRadio,
   readOnly,
   //
   after,
@@ -68,6 +71,7 @@ const InputComp = ({
   beforeButton,
   //
   question,
+  questionMin,
   loading,
   //
   options,
@@ -219,12 +223,18 @@ const InputComp = ({
           ) : null}
           {labelCheckbox ? (
             <>
-              <label className="form-check-label" htmlFor={`checkbox-${id}`}>
+              <label
+                className={classNames(
+                  "form-check-label",
+                  classNameLabelCheckbox
+                )}
+                htmlFor={`checkbox-${id}`}
+              >
                 {notTranslateLabels
                   ? labelCheckbox
                   : getI18Ntext(labelCheckbox)}
               </label>
-              <Question question={question} />
+              <Question question={question} min={questionMin} />
             </>
           ) : null}
         </div>
@@ -252,7 +262,10 @@ const InputComp = ({
                   {...rest}
                 />
                 <label
-                  className="form-check-label"
+                  className={classNames(
+                    "form-check-label",
+                    classNameLabelRadio
+                  )}
                   htmlFor={`radio-${id}-${k}-${opt.value}`}
                 >
                   {notTranslateOptions ? opt.text : getI18Ntext(opt.text)}
@@ -508,7 +521,7 @@ const InputComp = ({
   return (
     <div className={classNames("input-container", classNameContainer)}>
       {label ? (
-        <label className="form-label">
+        <label className={classNames("form-label", classNameLabel)}>
           {notTranslateLabels ? label : getI18Ntext(label)}
           {required && !readOnly ? <span className="req">*</span> : null}
           {textSize ? (
@@ -516,7 +529,7 @@ const InputComp = ({
               "form.MaxTextSize"
             )} ${textSize} ${getI18Ntext("form.MaxTextCharaters")})`}</span>
           ) : null}
-          <Question question={question} />
+          <Question question={question} min={questionMin} />
         </label>
       ) : null}
       {inputContent}

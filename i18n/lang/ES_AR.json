@@ -307,5 +307,9 @@
   "notifications.message.WGR": "El item \"$$$\" ha sido eliminado de tus juegos deseados.",
   "notifications.message.WGC": "El item que deseaste: \"$$$\", ha sido editado por la persona que lo ofrece.",
   "notifications.MarkAsRead": "Marcar como leída",
-  "notifications.MarkAsNotRead": "Marcar como no leída"
+  "notifications.MarkAsNotRead": "Marcar como no leída",
+  "hideOwnItems.label": "Ocultar (de mí) mis propios items",
+  "hideOwnItems.help": "Se ocultarán <u>sólo para vos</u> (para que puedas ver solamente los items que podrían interesarte).<br/>Los demás usuarios <b>sí seguirán viendo tus items</b>.",
+  "hideOwnGames.label": "Ocultar (de mí) mis propios juegos",
+  "hideOwnGames.help": "Se ocultarán <u>sólo para vos</u> (para que puedas ver solamente los juegos que podrían interesarte).<br/>Los demás usuarios <b>sí seguirán viendo tus juegos</b>."
 }

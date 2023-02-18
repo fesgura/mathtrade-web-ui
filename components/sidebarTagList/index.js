@@ -54,7 +54,7 @@ const SidebarTagList = ({
                   wantList={wantList}
                   filterByTag={filterByTag}
                   afterAnyChange={afterAnyChange}
-                  current={currentTag === tag.id}
+                  current={`${currentTag}` === `${tag.id}`}
                 />
               );
             })}

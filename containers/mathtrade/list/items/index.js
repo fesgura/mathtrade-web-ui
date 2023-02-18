@@ -62,9 +62,10 @@ const MT_ItemListContainer = () => {
       if (!isFetched) {
         const { pathname, query } = router;
         setIsFetched(true);
+
         setFilters({ pathname, query, d: getUniqueId() });
       }
-    }, 300);
+    }, 800);
 
     return () => {
       clearTimeout(timer);
