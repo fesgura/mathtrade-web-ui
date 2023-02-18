@@ -26,6 +26,7 @@ const ItemListView = ({
   afterAnyChange,
 }) => {
   const [currentSidebar, setCurrentSidebar] = useState(0);
+
   return (
     <PrivateLayout loading={loading} doctitle="title.ItemList">
       <PageHeaderTabs
@@ -43,6 +44,7 @@ const ItemListView = ({
         rightSide={
           <OrderBy
             valueInitial={filters?.query?.order}
+            defaultValue="id"
             options={[
               { text: getI18Ntext("element.Date"), value: "id" },
               { text: getI18Ntext("element.Name"), value: "name" },

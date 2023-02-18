@@ -3,8 +3,13 @@ import { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
 import Checkbox from "components/checkbox";
 
-const OrderBy = ({ valueInitial, options = [], onChange = () => {} }) => {
-  const [optionValue, setOptionValue] = useState("");
+const OrderBy = ({
+  valueInitial,
+  options = [],
+  onChange = () => {},
+  defaultValue = "",
+}) => {
+  const [optionValue, setOptionValue] = useState(defaultValue);
   const [desc, setDesc] = useState(false);
 
   useEffect(() => {
@@ -13,8 +18,15 @@ const OrderBy = ({ valueInitial, options = [], onChange = () => {} }) => {
         setDesc(true);
       }
       setOptionValue(valueInitial.replace("-", ""));
+    } else {
+      if (defaultValue !== "") {
+        if (defaultValue.indexOf("-") === 0) {
+          setDesc(true);
+        }
+        setOptionValue(defaultValue.replace("-", ""));
+      }
     }
-  }, [valueInitial]);
+  }, [valueInitial, defaultValue]);
 
   return (
     <div className="order-by">
@@ -33,9 +45,11 @@ const OrderBy = ({ valueInitial, options = [], onChange = () => {} }) => {
                 onChange(e.target.value, desc);
               }}
             >
-              <option value="">
-                <I18N id="form.SelectOptInstruction" />
-              </option>
+              {defaultValue === "" ? (
+                <option value="">
+                  <I18N id="form.SelectOptInstruction" />
+                </option>
+              ) : null}
               {options.map((op, k) => {
                 return (
                   <option value={op.value} key={k}>

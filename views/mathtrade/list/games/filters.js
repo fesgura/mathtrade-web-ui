@@ -1,5 +1,8 @@
 import FiltersComp from "components/filters";
-import { languageList, statusList, dependencyList } from "config";
+import { dependencyList } from "config";
+
+const minValue = 0;
+const maxValue = 10;
 
 const minRate = 1;
 const maxRate = 10;
@@ -16,6 +19,8 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
         [
           "page",
           "keyword",
+          "value-from",
+          "value-to",
           "rate-from",
           "rate-to",
           "weight-from",
@@ -42,6 +47,19 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
             });
         } else {
           newFilters["dependency[]"] = undefined;
+        }
+        if (formData.value) {
+          const valueValues = formData.value.split(",");
+          if (
+            valueValues[0] !== `${minValue}` ||
+            valueValues[1] !== `${maxValue}`
+          ) {
+            newFilters["value-from"] = valueValues[0];
+            newFilters["value-to"] = valueValues[1];
+          } else {
+            newFilters["value-from"] = undefined;
+            newFilters["value-to"] = undefined;
+          }
         }
 
         if (formData.rate) {
@@ -83,6 +101,20 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
           data: {
             keyword: filters?.query?.keyword || "",
           },
+        },
+        {
+          type: "range-multiple",
+          name: "value",
+          label: "filter.Value",
+          min: minValue,
+          max: maxValue,
+          data: (() => {
+            const d = { value: `${minValue},${maxValue}` };
+            if (typeof filters?.query["value-from"] !== "undefined") {
+              d.value = `${filters.query["value-from"]},${filters.query["value-to"]}`;
+            }
+            return d;
+          })(),
         },
         {
           type: "range-multiple",

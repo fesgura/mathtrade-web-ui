@@ -37,8 +37,11 @@ const GameListView = ({
         rightSide={
           <OrderBy
             valueInitial={filters?.query?.order}
+            defaultValue="title"
             options={[
               { text: getI18Ntext("element.Name"), value: "title" },
+              { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
+              { text: getI18Ntext("element.Value"), value: "value" },
               { text: getI18Ntext("element.BGG.rating"), value: "rate" },
               {
                 text: getI18Ntext("element.BGG.weight"),
