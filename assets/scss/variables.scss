@@ -79,6 +79,10 @@ $modal-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
 $modal-backdrop-bg: rgb(255, 255, 255);
 $modal-backdrop-op: 0.85;
 
+// loading-pad
+$loading-pad-w: 60px;
+$loading-pad-bg: lighten($mathtrade-want-color, 5);
+
 // Ratings BGG
 $ratingsBGG: (
   "0": #666e75,
@@ -155,10 +159,16 @@ $mywants-grid-h: 42px;
 $mywants-grid-inner-h: 36px;
 $mywants-grid-duration: 0.2s;
 
+$mywants-grid-spacer-lab-h: 60px;
+
 $mywants-my-Items-lab-height: 520px;
 $mywants-my-Wants-lab-width: 620px;
 
 $mywants-grid-left-width: $mywants-my-Wants-lab-width;
+$mywants-item-bg: #eee;
+$mywants-game-bg: $orange;
+$mywants-group-bg: $primary;
+$mywants-checkbox-color: $mathtrade;
 
 // mobile limit
 $mobile_limit: 992px;

@@ -1,4 +1,9 @@
 @use "sass:map";
+.valuation-popover {
+  .popover {
+    max-width: 900px;
+  }
+}
 .valuation-btn {
   position: relative;
   $h: $btn_circle-w - 2px;
@@ -82,7 +87,7 @@
 
 .valuation-container {
   width: 360px;
-  padding: 0 15px;
+  padding: 10px 15px;
   .valuation-label {
     text-transform: uppercase;
     font-size: 11px;

@@ -1,22 +1,10 @@
-import { useEffect } from "react";
 import classNames from "classnames";
 import Icon from "components/icon";
 import { getTextColorByBackgroundColor } from "utils";
 import MyItem from "./item";
+import Valuation from "components/valuation";
 
-const MyGroup = ({ group, setMyItemList, extendAll }) => {
-  useEffect(() => {
-    setMyItemList((list) => {
-      const newList = [...list];
-      newList.forEach((g) => {
-        if (g.groupId === group.groupId) {
-          g.extended = extendAll.extended;
-        }
-      });
-      return newList;
-    });
-  }, [extendAll]);
-
+const MyGroup = ({ group, set_myItemListGrid, reloadMyItems }) => {
   return (
     <>
       <div className="my-item-lab extended">
@@ -28,14 +16,14 @@ const MyGroup = ({ group, setMyItemList, extendAll }) => {
           }}
         >
           <div className="my-item-rotated-container for-group">
-            <div className="my-item-lab_name">{group.name}</div>
+            <div className="my-item-lab_name">{group.title}</div>
           </div>
           <div
             className={classNames("my-item-lab_arrow", {
               extended: group.extended,
             })}
             onClick={() => {
-              setMyItemList((list) => {
+              set_myItemListGrid((list) => {
                 const newList = [...list];
                 newList.forEach((g) => {
                   if (g.groupId === group.groupId) {
@@ -50,11 +38,20 @@ const MyGroup = ({ group, setMyItemList, extendAll }) => {
               <Icon type="chevron-up" />
             </div>
           </div>
+          <div className="my-item-lab_valuation">
+            <Valuation min items={group.items} afterAnyChange={reloadMyItems} />
+          </div>
         </div>
       </div>
       {group.items.map((itm, k) => {
         return (
-          <MyItem key={k} item={itm} isInner isExtended={group.extended} />
+          <MyItem
+            key={k}
+            item={itm}
+            isInner
+            isExtended={group.extended}
+            reloadMyItems={reloadMyItems}
+          />
         );
       })}
     </>

@@ -8,7 +8,7 @@ import classNames from "classnames";
 import { getI18Ntext } from "i18n";
 import MainSidebar from "components/mainSidebar";
 
-const PrivateLayout = ({ doctitle, children, loading }) => {
+const PrivateLayout = ({ doctitle, children, loading, noMainContainer }) => {
   const [auth, setAuth] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarAnimationEnabled, setSidebarAnimationEnabled] = useState(false);
@@ -140,7 +140,9 @@ const PrivateLayout = ({ doctitle, children, loading }) => {
           sidebarOpen={sidebarOpen}
           sidebarAnimationEnabled={sidebarAnimationEnabled}
         />
-        <div className="main-container">{children}</div>
+        <div className={classNames({ "main-container": !noMainContainer })}>
+          {children}
+        </div>
         <Footer
           absolute
           sidebarOpen={sidebarOpen}

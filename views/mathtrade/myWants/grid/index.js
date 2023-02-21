@@ -1,125 +1,135 @@
-import Icon from "components/icon";
-import { useState } from "react";
-import { Card, CardBody } from "reactstrap";
-import { Input } from "components/form";
+import { useState, useEffect } from "react";
+import { create_myItemListGrid, create_wantListGrid } from "./utils";
 import { getUniqueId } from "utils";
-import MyGroup from "./myItems/group";
-import MyItem from "./myItems/item";
-import WantGroup from "./myWants/group";
-import WantItem from "./myWants/item";
-import ColGrid from "./checkGrid/colGrid";
-import I18N from "i18n";
+import { Card, CardBody } from "reactstrap";
 
-const Grid = ({ myItemList, wantList, setWantList, setMyItemList }) => {
-  const [extendAll, setExtendAll] = useState({
-    extended: true,
+import GridSpacer from "./spacer";
+import MyItems from "./myItems";
+import MyWants from "./myWants";
+import GridComp from "./checkGrid";
+
+const default_orderBy = "value";
+const default_ob_direction = -1;
+
+const Grid = ({
+  myItemList,
+  wantList,
+  putWant,
+  reloadMyItems,
+  reloadWants,
+}) => {
+  const [extendAll, setExtendAll] = useState(false);
+
+  const [myItemList_orderBy, set_myItemList_orderBy] = useState({
+    order: default_orderBy,
+    direction: default_ob_direction,
+    d: getUniqueId(),
+  });
+  const [wantList_orderBy, set_wantList_orderBy] = useState({
+    order: default_orderBy,
+    direction: default_ob_direction,
     d: getUniqueId(),
   });
 
+  const [myItemListGrid, set_myItemListGrid] = useState([]);
+  const [wantListGrid, set_wantListGrid] = useState([]);
+
+  useEffect(() => {
+    const newList = create_myItemListGrid(
+      myItemList,
+      wantList,
+      myItemList_orderBy.order,
+      myItemList_orderBy.direction
+    );
+    set_myItemListGrid(newList);
+  }, [myItemList, wantList, myItemList_orderBy]);
+
+  useEffect(() => {
+    const newList = create_wantListGrid(
+      wantList,
+      wantList_orderBy.order,
+      wantList_orderBy.direction
+    );
+    set_wantListGrid(newList);
+  }, [wantList, wantList_orderBy]);
+
   return (
-    <Card>
-      <CardBody>
-        <div className="mywants-grid_container">
-          <div className="mywants-grid_myItems-container">
-            <div className="mywants-grid_myItems-row">
-              <div className="mywants-grid_myItems-left-spacer">
-                <div className="mywants-grid_myItems-left-spacer_cont">
-                  <div className="mywants-grid_myItems-left-lab_my_items">
-                    <Icon type="arrow-down" />
-                    <I18N id="MyWants.Grid.MyItems" />
-                  </div>
-                  <div className="mywants-grid_myItems-left-lab_my_wants">
-                    <Icon type="arrow-down" />{" "}
-                    <I18N id="MyWants.Grid.MyWants" />
-                  </div>
-                  <div className="mywants-grid_myItems-left-lab_cont-line" />
-                  <div className="mywants-grid_myItems-left-lab_cont">
-                    <Input
-                      data={extendAll}
-                      type="checkbox"
-                      labelCheckbox="MyWants.Grid.ExtendAll"
-                      name="extended"
-                      onChange={() => {
-                        setExtendAll((v) => {
-                          const newExtendAll = {
-                            extended: !v.extended,
-                            d: getUniqueId(),
-                          };
-                          return newExtendAll;
-                        });
-                      }}
+    <div className="main-container full">
+      <Card>
+        <CardBody>
+          <div className="mywants-grid_container">
+            <div className="mywants-grid_myItems-container">
+              <div className="mywants-grid_myItems-row">
+                <GridSpacer
+                  extendAll={extendAll}
+                  setExtendAll={() => {
+                    const newExtendAll = !extendAll;
+
+                    set_myItemListGrid((list) => {
+                      const newList = [...list];
+                      newList.forEach((g) => {
+                        if (g.type === "group") {
+                          g.extended = newExtendAll;
+                        }
+                      });
+                      return newList;
+                    });
+                    set_wantListGrid((list) => {
+                      const newList = [...list];
+                      newList.forEach((g) => {
+                        if (g.type === "game" || g.type === "group") {
+                          g.extended = newExtendAll;
+                        }
+                      });
+                      return newList;
+                    });
+                    //
+                    setExtendAll(newExtendAll);
+                  }}
+                  set_myItemList_orderBy={(order, desc) => {
+                    set_myItemList_orderBy({
+                      order,
+                      direction: desc ? -1 : 1,
+                    });
+                  }}
+                  set_wantList_orderBy={(order, desc) => {
+                    set_wantList_orderBy({ order, direction: desc ? -1 : 1 });
+                  }}
+                />
+                <MyItems
+                  myItemList={myItemListGrid}
+                  set_myItemListGrid={set_myItemListGrid}
+                  reloadMyItems={reloadMyItems}
+                />
+                <div className="mywants-grid_myItems-row_padding" />
+              </div>
+            </div>
+            <div className="mywants-grid_wantListGrid-container">
+              <div className="mywants-grid_wantListGrid-row">
+                <div className="mywants-grid_wantListGrid-col-left">
+                  <MyWants
+                    wantList={wantListGrid}
+                    putWant={putWant}
+                    set_wantListGrid={set_wantListGrid}
+                    reloadWants={reloadWants}
+                  />
+                </div>
+                <div className="mywants-grid_wantListGrid-col-right">
+                  <div className="mywants-grid_check-grid-row">
+                    <GridComp
+                      myItemList={myItemListGrid}
+                      wantList={wantListGrid}
+                      putWant={putWant}
                     />
                   </div>
                 </div>
               </div>
-              {myItemList.map((obj, k) => {
-                switch (obj.type) {
-                  case "group":
-                    return (
-                      <MyGroup
-                        key={k}
-                        group={obj}
-                        setMyItemList={setMyItemList}
-                        extendAll={extendAll}
-                      />
-                    );
-                  case "item":
-                    return <MyItem key={k} item={obj.item} isExtended={true} />;
-                  default:
-                  //
-                }
-              })}
+              <div className="mywants-grid_wantListGrid-row_padding" />
             </div>
           </div>
-
-          <div className="mywants-grid_wantListGrid-container">
-            <div className="mywants-grid_wantListGrid-row">
-              <div className="mywants-grid_wantListGrid-col-left">
-                {wantList.map((obj) => {
-                  switch (obj.type) {
-                    case "group":
-                    case "game":
-                      return (
-                        <WantGroup
-                          key={obj.id + "-group"}
-                          group={obj}
-                          isGame={obj.type === "game"}
-                          setWantList={setWantList}
-                          extendAll={extendAll}
-                        />
-                      );
-                    case "item":
-                      return (
-                        <WantItem
-                          key={obj.id + "-group"}
-                          item={obj.availableWantItems[0]}
-                          isExtended={true}
-                        />
-                      );
-                    default:
-                    //
-                  }
-                })}
-              </div>
-              <div className="mywants-grid_wantListGrid-col-right">
-                <div className="mywants-grid_check-grid-row">
-                  {myItemList.map((myItemElement, k) => {
-                    return (
-                      <ColGrid
-                        key={k}
-                        myItemElement={myItemElement}
-                        wantList={wantList}
-                        setWantList={setWantList}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </CardBody>
-    </Card>
+        </CardBody>
+      </Card>
+    </div>
   );
 };
 

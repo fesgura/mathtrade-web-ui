@@ -16,7 +16,6 @@
       padding: 2px 0;
     }
     .want-lab_content {
-      background-color: #efefef;
       height: $mywants-grid-inner-h + 2px;
       border: 1px solid #ddd;
       border-radius: 4px;
@@ -79,16 +78,17 @@
       }
 
       &.for-item {
+        background-color: $mywants-item-bg;
         &.isInnerOf {
           background-color: #fff;
           padding-right: 10px;
         }
       }
       &.type-game {
-        background-color: lighten($orange, 42);
+        background-color: lighten($mywants-game-bg, 42);
       }
       &.type-group {
-        background-color: lighten($secondary, 42);
+        background-color: lighten($mywants-group-bg, 42);
       }
     }
 
@@ -96,4 +96,30 @@
       height: $mywants-grid-h;
     }
   }
+  .want-lab_custom-delete-btn {
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    border-radius: 20%;
+    text-align: center;
+    background-color: $danger;
+    color: #fff;
+    opacity: 0.4;
+    cursor: pointer;
+    transition: opacity 0.1s;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+.want-lab_custom-delete-popover {
+  .popover {
+    padding: 15px;
+    text-align: center;
+  }
+}
+.mywants-grid_wantListGrid-row_padding {
+  height: 30px;
+  width: 30px;
 }

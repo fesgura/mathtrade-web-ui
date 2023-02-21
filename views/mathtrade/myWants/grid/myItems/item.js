@@ -1,7 +1,7 @@
 import ItemMinimal from "components/item/minimal";
 import classNames from "classnames";
 
-const MyItem = ({ item, isInner, isExtended }) => {
+const MyItem = ({ item, isInner, isExtended, reloadMyItems }) => {
   return (
     <div className={classNames("my-item-lab", { extended: isExtended })}>
       <div className={classNames("my-item-lab_content", { isInner })}>
@@ -13,6 +13,7 @@ const MyItem = ({ item, isInner, isExtended }) => {
             hideExtraData
             min
             rotated
+            afterAnyChange={reloadMyItems}
           />
         </div>
       </div>

@@ -1,68 +1,16 @@
 .mywants-grid_myItems-row {
   display: flex;
 
-  .mywants-grid_myItems-left-spacer {
-    width: $mywants-grid-left-width;
-    padding: 0 0 1px;
-    .mywants-grid_myItems-left-spacer_cont {
-      background-color: #eee;
-      height: 100%;
-      border-radius: 4px 4px 0 4px;
-      border: 1px solid $border-color;
-      position: relative;
-
-      .mywants-grid_myItems-left-lab_my_items,
-      .mywants-grid_myItems-left-lab_my_wants {
-        position: absolute;
-        width: 260px;
-        height: $mywants-grid-inner-h;
-        line-height: $mywants-grid-inner-h;
-      }
-      .mywants-grid_myItems-left-lab_my_items {
-        padding-left: 40px;
-        bottom: -$mywants-grid-inner-h;
-        left: $mywants-grid-left-width - $mywants-grid-inner-h;
-        transform: rotate(-90deg);
-        transform-origin: top left;
-      }
-      .mywants-grid_myItems-left-lab_my_wants {
-        padding-left: 10px;
-        bottom: 0;
-        left: 0;
-      }
-      .mywants-grid_myItems-left-lab_cont-line {
-        position: absolute;
-        bottom: -2px;
-        right: -150px;
-        border-top: 2px solid $border-color;
-        width: 150px;
-        height: 2px;
-        transform: rotate(-135deg);
-        transform-origin: top left;
-      }
-      .mywants-grid_myItems-left-lab_cont {
-        position: absolute;
-        border-bottom: 1px solid $border-color;
-        border-right: 1px solid $border-color;
-        background-color: #fff;
-        top: 0;
-        left: 0;
-        right: $mywants-grid-inner-h;
-        bottom: $mywants-grid-inner-h;
-        border-radius: 4px 0 4px 0;
-        padding: 10px;
-      }
-    }
-  }
   .my-item-lab {
     width: 0px;
     height: $mywants-my-Items-lab-height;
-    //overflow: hidden;
-    transition: width $mywants-grid-duration;
+    overflow: hidden;
+    transition: width $mywants-grid-duration, flex $mywants-grid-duration;
+    flex: 0 0 0;
 
     .my-item-lab_content {
       position: relative;
-      margin-left: 0.5 * ($mywants-grid-h - $mywants-grid-inner-h);
+      margin-left: 0.5 * ($mywants-grid-h - $mywants-grid-inner-h) - 1px;
       width: $mywants-grid-inner-h + 2px;
       border: 1px solid #ddd;
       background-color: #e6e6e6;
@@ -81,7 +29,7 @@
 
         &.for-group {
           bottom: 0;
-          width: $mywants-my-Items-lab-height - $mywants-grid-inner-h;
+          width: $mywants-my-Items-lab-height - (2 * $mywants-grid-inner-h);
         }
       }
 
@@ -121,6 +69,18 @@
           transform: rotate(90deg);
         }
       }
+      .my-item-lab_valuation {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: $mywants-grid-inner-h;
+        height: $mywants-grid-inner-h;
+        padding-top: 0.5 * ($mywants-grid-inner-h - 28px);
+        padding-left: 0.5 * ($mywants-grid-inner-h - 28px);
+        .btn.btn_circle {
+          margin-left: 0;
+        }
+      }
 
       .item-minimal {
         padding: 0;
@@ -135,6 +95,12 @@
     }
     &.extended {
       width: $mywants-grid-h;
+      flex: 0 0 $mywants-grid-h;
     }
+  }
+  .mywants-grid_myItems-row_padding {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
   }
 }

@@ -2,12 +2,14 @@ import I18N from "i18n";
 import { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
 import Checkbox from "components/checkbox";
+import classNames from "classnames";
 
 const OrderBy = ({
   valueInitial,
   options = [],
   onChange = () => {},
   defaultValue = "",
+  twoRows,
 }) => {
   const [optionValue, setOptionValue] = useState(defaultValue);
   const [desc, setDesc] = useState(false);
@@ -29,9 +31,9 @@ const OrderBy = ({
   }, [valueInitial, defaultValue]);
 
   return (
-    <div className="order-by">
-      <Row className="align-items-center g-0">
-        <Col xs="auto">
+    <div className={classNames("order-by", { "two-rows": twoRows })}>
+      <Row className={classNames("g-0", { "align-items-center": !twoRows })}>
+        <Col xs={twoRows ? 12 : "auto"}>
           <div className="order-by_label">
             <I18N id="orderBy.Title" />:
           </div>

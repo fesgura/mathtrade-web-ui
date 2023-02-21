@@ -301,45 +301,6 @@ export const wantsFromAPItoWantList = (wantListFromAPI) => {
       : 1;
   });
 };
-export const myItemListFromAPItoMyItemList = (itemList) => {
-  let list = [];
-
-  if (itemList) {
-    const newGroupsPool = {};
-    const newGroups = [];
-    const newItems = [];
-
-    itemList.forEach((item) => {
-      if (item.groups.length) {
-        const groupId = item.groups[0].id;
-        if (!newGroupsPool[groupId]) {
-          newGroupsPool[groupId] = {
-            groupId,
-            type: "group",
-            name: item.groups[0].name,
-            color: item.groups[0].color,
-            items: [item],
-            extended: true,
-          };
-        } else {
-          newGroupsPool[groupId].items.push(item);
-        }
-      } else {
-        newItems.push({
-          type: "item",
-          item,
-        });
-      }
-    });
-
-    for (let grpId in newGroupsPool) {
-      newGroups.push(newGroupsPool[grpId]);
-    }
-    list = [...newGroups, ...newItems];
-  }
-
-  return list;
-};
 
 export const getElementByFilter = (collection, method) => {
   const arrayCollection = collection.filter(method);

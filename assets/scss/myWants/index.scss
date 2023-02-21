@@ -1,9 +1,17 @@
 .mywants-grid_container {
-  min-height: 100px;
   width: 100%;
-  overflow-x: auto;
+  overflow: auto;
+
+  height: calc(100vh - 80px);
+  .mywants-grid_container-wrap {
+    width: 100%;
+    padding-right: 25px;
+    padding-bottom: 25px;
+  }
 }
 
-@import "my-items";
-@import "my-wants";
-@import "check-grid";
+@import "grid/my-items";
+@import "grid/my-wants";
+@import "grid/checks";
+@import "grid/spacer";
+@import "grid/tools";

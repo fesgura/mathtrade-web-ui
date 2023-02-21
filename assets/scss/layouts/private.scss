@@ -20,6 +20,9 @@
   max-width: $main-container-width;
   padding: 0 20px;
   margin: 0 auto;
+  &.full {
+    max-width: 100%;
+  }
 }
 
 .main-container-wide {

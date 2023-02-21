@@ -1,21 +1,10 @@
-import { useEffect } from "react";
 import classNames from "classnames";
 import Icon from "components/icon";
 import { Row, Col } from "reactstrap";
 import WantItem from "./item";
+import Valuation from "components/valuation";
 
-const WantGroup = ({ group, setWantList, extendAll }) => {
-  useEffect(() => {
-    setWantList((list) => {
-      const newList = [...list];
-      newList.forEach((g) => {
-        if (g.id === group.id) {
-          g.extended = extendAll.extended;
-        }
-      });
-      return newList;
-    });
-  }, [extendAll]);
+const WantGroup = ({ group, putWant, set_wantListGrid, reloadWants }) => {
   return (
     <>
       <div className="want-lab extended">
@@ -27,10 +16,15 @@ const WantGroup = ({ group, setWantList, extendAll }) => {
             )}
           >
             <Row className="g-0 align-items-center">
+              <Col xs="auto">
+                <Valuation
+                  items={group.items}
+                  min
+                  afterAnyChange={reloadWants}
+                />
+              </Col>
               <Col>
-                <div className="want-lab_name for-group">
-                  {group.contentToEdit.name}
-                </div>
+                <div className="want-lab_name for-group">{group.title}</div>
               </Col>
               <Col xs="auto">
                 <div
@@ -38,10 +32,10 @@ const WantGroup = ({ group, setWantList, extendAll }) => {
                     extended: group.extended,
                   })}
                   onClick={() => {
-                    setWantList((list) => {
+                    set_wantListGrid((list) => {
                       const newList = [...list];
                       newList.forEach((g) => {
-                        if (g.id === group.id) {
+                        if (g.idkey === group.idkey) {
                           g.extended = !group.extended;
                         }
                       });
@@ -58,15 +52,16 @@ const WantGroup = ({ group, setWantList, extendAll }) => {
           </div>
         </div>
       </div>
-      {group.availableWantItems.map((itm, k) => {
+      {group.items.map((itm, k) => {
         return (
           <WantItem
             key={itm.id}
             item={itm}
+            group={{ ...group }}
+            putWant={putWant}
+            reloadWants={reloadWants}
             isInnerOf={group.type}
             isExtended={group.extended}
-            group={{ ...group }}
-            setWantList={setWantList}
           />
         );
       })}

@@ -15,13 +15,16 @@ const ItemMinimal = ({
   selected,
   disabled,
   onClickCheckbox = () => {},
+  customCheckbox,
   hideCheckbox,
   hideUser,
   hideExtraData,
+  notHighOnSelected,
   ownUser,
   rotated,
   inverted,
   cropTitle = 50,
+  afterAnyChange = () => {},
 }) => {
   const { title, elements, value } = item;
 
@@ -29,7 +32,11 @@ const ItemMinimal = ({
 
   return (
     <div
-      className={classNames("item-minimal", { selected, disabled, rotated })}
+      className={classNames("item-minimal", {
+        selected: notHighOnSelected ? false : selected,
+        disabled,
+        rotated,
+      })}
     >
       <div className="item-minimal_cont">
         <Row className="align-items-center g-0 flex-nowrap">
@@ -43,11 +50,13 @@ const ItemMinimal = ({
               }}
             >
               <div className="item-minimal_checkbox">
-                <Checkbox
-                  value={selected}
-                  onClick={onClickCheckbox}
-                  disabled={disabled}
-                />
+                {customCheckbox || (
+                  <Checkbox
+                    value={selected}
+                    onClick={onClickCheckbox}
+                    disabled={disabled}
+                  />
+                )}
               </div>
             </Col>
           )}
@@ -75,11 +84,7 @@ const ItemMinimal = ({
                     <I18N id="Combo" />:{" "}
                   </b>
                 ) : null}
-                {cropWord(
-                  title + title + title + title + title + title,
-                  cropTitle,
-                  "..."
-                )}
+                {cropWord(title, cropTitle, "...")}
               </div>
               {hideExtraData ? null : (
                 <div className="item-minimal_title-subtitle">
@@ -133,7 +138,7 @@ const ItemMinimal = ({
             }}
           >
             <div className="item-minimal_valuation">
-              <Valuation items={[item]} min />
+              <Valuation items={[item]} min afterAnyChange={afterAnyChange} />
             </div>
           </Col>
         </Row>

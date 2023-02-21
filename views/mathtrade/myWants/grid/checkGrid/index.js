@@ -1,19 +1,21 @@
-import CheckElement from "./CheckElement";
+import CheckGroup from "./group";
 
-const CheckGrid = ({ myItemElement }) => {
-  return (
-    <>
-      <CheckElement />
-      {myItemElement.type === "group" ? (
-        <div className="mywants-grid_check-group-element">
-          {myItemElement.items.map((myElement) => {
-            return <CheckElement key={`check-element-${myElement.id}`} />;
-          })}
-        </div>
-      ) : (
-        <CheckElement />
-      )}
-    </>
-  );
+const Grid = ({ myItemList, wantList, putWant }) => {
+  return wantList.map((wantGroup) => {
+    return (
+      <div className="mw_grid-row" key={wantGroup.idkey}>
+        {myItemList.map((myItemGroup) => {
+          return (
+            <CheckGroup
+              key={myItemGroup.idkey}
+              wantGroup={wantGroup}
+              myItemGroup={myItemGroup}
+              putWant={putWant}
+            />
+          );
+        })}
+      </div>
+    );
+  });
 };
-export default CheckGrid;
+export default Grid;
