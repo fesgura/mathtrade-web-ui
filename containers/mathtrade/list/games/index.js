@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import PrivateEnv from "environments/private";
+import storage from "utils/storage";
 import { useRouter } from "next/router";
 import { useApi, MathTradeService } from "api_serv";
 import { getUniqueId, formatUserWantGroup } from "utils";
@@ -32,7 +33,16 @@ const MT_GameListContainer = () => {
       if (!isFetched) {
         const { pathname, query } = router;
         setIsFetched(true);
-        setFilters({ pathname, query, d: getUniqueId() });
+        const storeOptions = storage.getOptions();
+
+        let queryUser = { ...query };
+
+        if (storeOptions?.hideOwnUser) {
+          const storeData = storage.get();
+          queryUser = { ...query, user: `-${storeData?.user?.data?.id}` };
+        }
+
+        setFilters({ pathname, query: queryUser, d: getUniqueId() });
       }
     }, 800);
 

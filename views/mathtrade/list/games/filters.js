@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import storage from "utils/storage";
 import { dependencyList } from "config";
 import { Input } from "components/form";
+import { Row, Col, Alert } from "reactstrap";
 import I18N from "i18n";
 
 const minValue = 0;
@@ -17,6 +18,7 @@ const maxWeight = 5;
 const Filters_MT_Games = ({ filters, setFilters }) => {
   const [userId, setUserId] = useState(null);
   const [IshideOwnUser, setIshideOwnUser] = useState(false);
+  const [IshideOwnUserAlert, setIshideOwnUserAlert] = useState(false);
 
   useEffect(() => {
     setIshideOwnUser(filters.query.user ? true : false);
@@ -25,6 +27,11 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
   useEffect(() => {
     const storeData = storage.get();
     setUserId(storeData?.user?.data?.id);
+
+    const storeOptions = storage.getOptions();
+    if (!storeOptions?.hideOwnUserAlert) {
+      setIshideOwnUserAlert(true);
+    }
   }, []);
 
   return (
@@ -42,15 +49,33 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
             onChange={(v) => {
               setIshideOwnUser(v);
               if (v) {
+                storage.setToOptions({
+                  hideOwnUser: true,
+                });
                 setFilters({ user: `-${userId}` });
               } else {
+                storage.setToOptions({
+                  hideOwnUser: false,
+                });
                 setFilters({ user: undefined });
               }
             }}
           />
-          <div className="hide-own-user-in-filter_help">
-            <I18N id="hideOwnGames.help" />
-          </div>
+
+          <Alert
+            color="info"
+            isOpen={IshideOwnUserAlert}
+            toggle={() => {
+              storage.setToOptions({
+                hideOwnUserAlert: true,
+              });
+              setIshideOwnUserAlert(false);
+            }}
+          >
+            <div className="hide-own-user-in-filter_help">
+              <I18N id="hideOwnGames.help" />
+            </div>
+          </Alert>
         </div>
       ) : null}
       <FiltersComp

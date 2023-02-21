@@ -4,7 +4,7 @@ import storage from "utils/storage";
 import Icon from "components/icon";
 import { getTextColorByBackgroundColor } from "utils";
 import { languageList, statusList, dependencyList } from "config";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Alert } from "reactstrap";
 import { Input } from "components/form";
 import I18N from "i18n";
 
@@ -21,6 +21,7 @@ const Filters_MT_Items = ({ filters, setFilters, locations, tagList }) => {
   const [tagSelected, setTagSelected] = useState(null);
   const [userId, setUserId] = useState(null);
   const [IshideOwnUser, setIshideOwnUser] = useState(false);
+  const [IshideOwnUserAlert, setIshideOwnUserAlert] = useState(false);
 
   useEffect(() => {
     if (filters.query.tag) {
@@ -39,6 +40,11 @@ const Filters_MT_Items = ({ filters, setFilters, locations, tagList }) => {
   useEffect(() => {
     const storeData = storage.get();
     setUserId(storeData?.user?.data?.id);
+
+    const storeOptions = storage.getOptions();
+    if (!storeOptions?.hideOwnUserAlert) {
+      setIshideOwnUserAlert(true);
+    }
   }, []);
 
   return (
@@ -83,19 +89,35 @@ const Filters_MT_Items = ({ filters, setFilters, locations, tagList }) => {
             type="switch"
             labelCheckbox="hideOwnItems.label"
             name="hideOwnUser"
-            //questionMin
             onChange={(v) => {
               setIshideOwnUser(v);
               if (v) {
+                storage.setToOptions({
+                  hideOwnUser: true,
+                });
                 setFilters({ user: `-${userId}` });
               } else {
+                storage.setToOptions({
+                  hideOwnUser: false,
+                });
                 setFilters({ user: undefined });
               }
             }}
           />
-          <div className="hide-own-user-in-filter_help">
-            <I18N id="hideOwnItems.help" />
-          </div>
+          <Alert
+            color="info"
+            isOpen={IshideOwnUserAlert}
+            toggle={() => {
+              storage.setToOptions({
+                hideOwnUserAlert: true,
+              });
+              setIshideOwnUserAlert(false);
+            }}
+          >
+            <div className="hide-own-user-in-filter_help">
+              <I18N id="hideOwnItems.help" />
+            </div>
+          </Alert>
         </div>
       ) : null}
       <FiltersComp
