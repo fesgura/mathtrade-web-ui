@@ -179,7 +179,7 @@ export const create_wantListGrid = (
         }),
         //tags,
       },
-      title: name + "(" + id + ")",
+      title: name,
       value,
       type, // item, group, game
       items: itemsListFilteredByUser,

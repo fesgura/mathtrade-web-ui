@@ -5,6 +5,7 @@ import WantItem from "./item";
 import BtnDelete from "./btnDelete";
 import Valuation from "components/valuation";
 import BtnDuplicates from "./btnDuplicates";
+import { cropWord } from "utils";
 
 const WantGroup = ({
   group,
@@ -48,7 +49,9 @@ const WantGroup = ({
                 />
               </Col>
               <Col>
-                <div className="want-lab_name for-group">{group.title}</div>
+                <div className="want-lab_name for-group">
+                  {cropWord(group.title, 50, "...")}
+                </div>
               </Col>
               <Col xs="auto">
                 <div
