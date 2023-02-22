@@ -9,6 +9,7 @@
   flex: 0 0 0;
   height: $mywants-grid-h;
   overflow: hidden;
+  user-select: none;
 
   transition: width $mywants-grid-duration, flex $mywants-grid-duration,
     height $mywants-grid-duration;
@@ -26,7 +27,8 @@
     border-radius: 4px;
     padding-top: 0.5 * (($mywants-grid-inner-h - 2px) - $w_check);
     padding-left: 0.5 * (($mywants-grid-inner-h - 2px) - $w_check);
-    cursor: pointer;
+    // cursor: pointer;
+    cursor: default;
   }
   .mw_grid-box-checkbox {
     width: $w_check;

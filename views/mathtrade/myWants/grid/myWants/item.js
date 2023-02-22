@@ -23,22 +23,28 @@ const WantItem = ({
   const [showDeleteButton, setShowDeleteButton] = useState(false);
 
   const removeFromGroup = useCallback(() => {
-    const newObj = { ...group.obj };
-    const newWant_ids = [...newObj.want_ids];
+    // const newObj = { ...group.obj };
+    //const newWant_ids = [...newObj.want_ids];
+    let haveToChange = true;
     if (isCheckedIndex >= 0) {
-      newWant_ids.splice(isCheckedIndex, 1);
-      setIsCheckedIndex(-1);
+      if (group.obj.want_ids.length > 1) {
+        group.obj.want_ids.splice(isCheckedIndex, 1);
+      } else {
+        console.log("ultimo item???");
+        haveToChange = false;
+      }
     } else {
-      newWant_ids.push(item.id);
-      setIsCheckedIndex(0);
+      group.obj.want_ids.push(item.id);
     }
 
-    newObj.want_ids = newWant_ids;
+    // newObj.want_ids = newWant_ids;
 
-    putWant({
-      id: group.id,
-      data: newObj,
-    });
+    if (haveToChange && group.obj.want_ids.length) {
+      putWant({
+        id: group.id,
+        data: group.obj,
+      });
+    }
   }, [isCheckedIndex, group, putWant]);
 
   useEffect(() => {
@@ -49,7 +55,12 @@ const WantItem = ({
 
   return (
     <>
-      <div className={classNames("want-lab", { extended: isExtended })}>
+      <div
+        className={classNames("want-lab", {
+          extended: isExtended,
+          isInnerOfGame: isInnerOf && group.type === "game",
+        })}
+      >
         <div className="want-lab_wrap">
           <div
             className={classNames("want-lab_content for-item", { isInnerOf })}

@@ -4,7 +4,7 @@ import MyItem from "./item";
 const MyItems = ({ myItemList, set_myItemListGrid, reloadMyItems }) => {
   return (
     <>
-      {myItemList.map((obj) => {
+      {myItemList.list.map((obj) => {
         switch (obj.type) {
           case "group":
             return (

@@ -1,3 +1,5 @@
+import storage from "utils/storage";
+
 export const order_list = (listToOrder, orderBy, orderByDirection) => {
   if (!orderBy) {
     return listToOrder;
@@ -5,19 +7,22 @@ export const order_list = (listToOrder, orderBy, orderByDirection) => {
 
   switch (orderBy) {
     case "value":
-      return listToOrder.sort((a, b) => {
+      listToOrder.list.sort((a, b) => {
         return a.value < b.value ? -1 * orderByDirection : orderByDirection;
       });
+      return listToOrder;
     case "title":
-      return listToOrder.sort((a, b) => {
+      listToOrder.list.sort((a, b) => {
         return a.title < b.title ? -1 * orderByDirection : orderByDirection;
       });
+      return listToOrder;
     case "count_want":
-      return listToOrder.sort((a, b) => {
+      listToOrder.list.sort((a, b) => {
         return a.count_want < b.count_want
           ? -1 * orderByDirection
           : orderByDirection;
       });
+      return listToOrder;
 
     default:
       return listToOrder;
@@ -26,6 +31,7 @@ export const order_list = (listToOrder, orderBy, orderByDirection) => {
 
 export const create_myItemListGrid = (
   myItemList,
+  oldMyItemListGrid,
   wantList,
   orderBy,
   orderByDirection
@@ -34,16 +40,13 @@ export const create_myItemListGrid = (
     return [];
   }
 
-  const list = [];
-
   const newGroupsPool = {};
-
   const newItems = [];
 
-  myItemList.forEach((item) => {
+  myItemList.list.forEach((item) => {
     let item_count_want = 0;
 
-    wantList.forEach((uwg) => {
+    wantList.list.forEach((uwg) => {
       const itm_count_arr = uwg.items.filter((uwg_itm) => {
         return uwg_itm.id === item.id;
       });
@@ -95,16 +98,43 @@ export const create_myItemListGrid = (
 
     newGroups.push(newGroupsPool[grpId]);
   }
-  list = [...newGroups, ...newItems];
+  const list = [...newGroups, ...newItems];
 
-  return order_list(list, orderBy, orderByDirection);
+  //get Keep variables from OLD MyItemListGrid
+  list.forEach((elem) => {
+    if (elem.type === "group") {
+      const oldElem = oldMyItemListGrid.list.find((el) => {
+        return el.idkey === elem.idkey;
+      });
+
+      if (oldElem) {
+        // Keep variables
+        elem.extended = oldElem.extended;
+      }
+    }
+  });
+
+  return order_list(
+    { list, version: myItemList.version },
+    orderBy,
+    orderByDirection
+  );
 };
 
-export const create_wantListGrid = (wantList, orderBy, orderByDirection) => {
+export const create_wantListGrid = (
+  wantList,
+  oldWantListGrid,
+  orderBy,
+  orderByDirection
+) => {
   if (!wantList) {
     return [];
   }
-  const list = wantList.map((uwg) => {
+  const store = storage.get();
+
+  const myUserId = store?.user?.data?.id;
+
+  const list = wantList.list.map((uwg) => {
     const { availables, bgg_id, dup_protection, id, items, name, tags, wants } =
       uwg;
 
@@ -128,6 +158,10 @@ export const create_wantListGrid = (wantList, orderBy, orderByDirection) => {
       return valMax;
     })();
 
+    const itemsListFilteredByUser = itemsList.filter((itm) => {
+      return itm.user.id !== myUserId;
+    });
+
     return {
       id,
       idkey: `${id}-want`,
@@ -143,14 +177,32 @@ export const create_wantListGrid = (wantList, orderBy, orderByDirection) => {
         }),
         //tags,
       },
-      title: name,
+      title: name + "(" + id + ")",
       value,
       type, // item, group, game
-      items: itemsList,
+      items: itemsListFilteredByUser,
       extended: false,
       count_want: items.length,
     };
   });
 
-  return order_list(list, orderBy, orderByDirection);
+  //get Keep variables from OLD MyItemListGrid
+  list.forEach((elem) => {
+    if (elem.type === "game" || elem.type === "group") {
+      const oldElem = oldWantListGrid.list.find((el) => {
+        return el.idkey === elem.idkey;
+      });
+
+      if (oldElem) {
+        // Keep variables
+        elem.extended = oldElem.extended;
+      }
+    }
+  });
+
+  return order_list(
+    { list, version: wantList.version },
+    orderBy,
+    orderByDirection
+  );
 };

@@ -8,7 +8,7 @@ export const locationsToOptions = (locations) => {
 
   return locations.map((location) => {
     return {
-      text: location.name,
+      text: `${location.name} (${location.province})`,
       value: location.id,
     };
   });

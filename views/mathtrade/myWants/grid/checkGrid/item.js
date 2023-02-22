@@ -1,7 +1,16 @@
 import { useState, useEffect } from "react";
 import Graph from "./graph";
 
-const CheckItem = ({ wantGroup, myItemGroup, putWant, itemMy, isInner }) => {
+const CheckItem = ({
+  wantGroup,
+  myItemGroup,
+  putWant,
+  itemMy,
+  isInner,
+  isMouseDown,
+  setList,
+  onMouseDown,
+}) => {
   const [selected, setSelected] = useState(false);
 
   useEffect(() => {
@@ -30,6 +39,19 @@ const CheckItem = ({ wantGroup, myItemGroup, putWant, itemMy, isInner }) => {
       extendedV={wantGroup.extended}
       extendedH={isInner ? myItemGroup.extended : true}
       selected={selected}
+      onMouseDown={() => {
+        setList([wantGroup]);
+        onMouseDown();
+      }}
+      onMouseEnter={() => {
+        if (isMouseDown) {
+          setList((list) => {
+            const newList = [...list];
+            newList.push(wantGroup.idkey);
+            return newList;
+          });
+        }
+      }}
     />
   );
 };

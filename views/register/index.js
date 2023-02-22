@@ -10,6 +10,7 @@ import Icon from "components/icon";
 import TestBGGuser from "components/testBGGuser";
 import I18N, { getI18Ntext } from "i18n";
 import ErrorAlert from "components/errorAlert";
+import { claveAppUItemporal } from "config";
 
 const RegisterView = ({
   errors,
@@ -21,6 +22,8 @@ const RegisterView = ({
 }) => {
   const [validationStatus, setValidationStatus] = useState({});
 
+  const [appkeyui, set_appkeyui] = useState("");
+
   const [passwordValue, setPasswordValue] = useState("");
   const [password2Value, setPassword2Value] = useState("");
   const [avatar, setAvatar] = useState("");
@@ -30,13 +33,19 @@ const RegisterView = ({
 
   const validations = {
     username: ["required"],
+    appkeyui: [
+      "required",
+      function () {
+        return appkeyui === claveAppUItemporal ? null : "error.General";
+      },
+    ],
     password: ["required"],
     password2: [
       "required",
       function () {
         return passwordValue === password2Value
           ? null
-          : getI18Ntext("validation.passwordNotMatch");
+          : "validation.passwordNotMatch"; //getI18Ntext("validation.passwordNotMatch");
       },
     ],
     first_name: ["required"],
@@ -50,9 +59,9 @@ const RegisterView = ({
       function () {
         validBGGuser;
         return !validBGGuser
-          ? getI18Ntext("validation.BGGuser")
+          ? "validation.BGGuser" //getI18Ntext("validation.BGGuser")
           : validBGGuser === "no"
-          ? getI18Ntext("validation.BGGuserDoesNotExist")
+          ? "validation.BGGuserDoesNotExist" // getI18Ntext("validation.BGGuserDoesNotExist")
           : null;
       },
     ],
@@ -104,6 +113,7 @@ const RegisterView = ({
                         setValidationStatus={setValidationStatus}
                         onSubmit={onSubmit}
                         format={(dataToSend) => {
+                          delete dataToSend.appkeyui;
                           delete dataToSend.password2;
                           return dataToSend;
                         }}
@@ -148,6 +158,21 @@ const RegisterView = ({
                           size="lg"
                           icon="key"
                           onChange={setPassword2Value}
+                        />
+                        <Input
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
+                          label="Clave temporal de la app"
+                          notTranslateLabels
+                          name="appkeyui"
+                          placeholder="******"
+                          notTranslatePlaceholder
+                          notTranslateQuestion
+                          question="Si no tenés esta clave, no podrás registrarte. Contacta a los administradores para que te la proporcionen."
+                          size="lg"
+                          icon="puzzle-piece"
+                          onChange={set_appkeyui}
                         />
                         <hr />
 

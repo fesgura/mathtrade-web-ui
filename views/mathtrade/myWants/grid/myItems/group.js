@@ -23,14 +23,14 @@ const MyGroup = ({ group, set_myItemListGrid, reloadMyItems }) => {
               extended: group.extended,
             })}
             onClick={() => {
-              set_myItemListGrid((list) => {
-                const newList = [...list];
+              set_myItemListGrid((obj) => {
+                const newList = [...obj.list];
                 newList.forEach((g) => {
                   if (g.groupId === group.groupId) {
                     g.extended = !group.extended;
                   }
                 });
-                return newList;
+                return { ...obj, list: newList };
               });
             }}
           >

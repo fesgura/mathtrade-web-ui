@@ -32,14 +32,14 @@ const WantGroup = ({ group, putWant, set_wantListGrid, reloadWants }) => {
                     extended: group.extended,
                   })}
                   onClick={() => {
-                    set_wantListGrid((list) => {
-                      const newList = [...list];
+                    set_wantListGrid((obj) => {
+                      const newList = [...obj.list];
                       newList.forEach((g) => {
                         if (g.idkey === group.idkey) {
                           g.extended = !group.extended;
                         }
                       });
-                      return newList;
+                      return { ...obj, list: newList };
                     });
                   }}
                 >

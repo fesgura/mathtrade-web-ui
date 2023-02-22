@@ -153,3 +153,5 @@ export const languageList = (() => {
 
   return list;
 })();
+
+export const claveAppUItemporal = "marvel8647";

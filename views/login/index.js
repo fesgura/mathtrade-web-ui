@@ -7,16 +7,24 @@ import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
 import I18N from "i18n";
 import ErrorAlert from "components/errorAlert";
+import { claveAppUItemporal } from "config";
 
 const dataInitial = null; //{ username: "math", password: "MeepleLand" };
 
-const validations = {
-  username: ["required"],
-  password: ["required"],
-};
-
 const LoginView = ({ loading, errors, onSubmit }) => {
   const [validationStatus, setValidationStatus] = useState({});
+  const [appkeyui, set_appkeyui] = useState("");
+
+  const validations = {
+    username: ["required"],
+    password: ["required"],
+    appkeyui: [
+      "required",
+      function () {
+        return appkeyui === claveAppUItemporal ? null : "error.General";
+      },
+    ],
+  };
 
   return (
     <PublicLayout loading={loading}>
@@ -42,6 +50,10 @@ const LoginView = ({ loading, errors, onSubmit }) => {
                     validationStatus={validationStatus}
                     setValidationStatus={setValidationStatus}
                     onSubmit={onSubmit}
+                    format={(dataToSend) => {
+                      delete dataToSend.appkeyui;
+                      return dataToSend;
+                    }}
                   >
                     <Input
                       data={dataInitial}
@@ -66,6 +78,21 @@ const LoginView = ({ loading, errors, onSubmit }) => {
                       notTranslatePlaceholder
                       size="lg"
                       icon="key"
+                    />
+                    <Input
+                      validations={validations}
+                      validationStatus={validationStatus}
+                      setValidationStatus={setValidationStatus}
+                      label="Clave temporal de la app"
+                      notTranslateLabels
+                      name="appkeyui"
+                      placeholder="******"
+                      notTranslatePlaceholder
+                      notTranslateQuestion
+                      question="Si no tenés esta clave, no podrás registrarte. Contacta a los administradores para que te la proporcionen."
+                      size="lg"
+                      icon="puzzle-piece"
+                      onChange={set_appkeyui}
                     />
                     <ErrorAlert errors={errors} />
                     <div className="text-center py-4">

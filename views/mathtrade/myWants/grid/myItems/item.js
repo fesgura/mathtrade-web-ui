@@ -3,7 +3,9 @@ import classNames from "classnames";
 
 const MyItem = ({ item, isInner, isExtended, reloadMyItems }) => {
   return (
-    <div className={classNames("my-item-lab", { extended: isExtended })}>
+    <div
+      className={classNames("my-item-lab", { extended: isExtended, isInner })}
+    >
       <div className={classNames("my-item-lab_content", { isInner })}>
         <div className="my-item-rotated-container for-item">
           <ItemMinimal

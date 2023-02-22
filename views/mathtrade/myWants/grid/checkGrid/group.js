@@ -1,6 +1,14 @@
 import CheckItem from "./item";
 
-const CheckGroup = ({ wantGroup, myItemGroup, putWant }) => {
+const CheckGroup = ({
+  wantGroup,
+  myItemGroup,
+  putWant,
+  //
+  setList,
+  isMouseDown,
+  onMouseDown,
+}) => {
   return (
     <>
       <CheckItem
@@ -8,6 +16,10 @@ const CheckGroup = ({ wantGroup, myItemGroup, putWant }) => {
         myItemGroup={myItemGroup}
         putWant={putWant}
         itemMy={myItemGroup.item || null}
+        //
+        setList={setList}
+        isMouseDown={isMouseDown}
+        onMouseDown={onMouseDown}
       />
       {myItemGroup.type === "group"
         ? myItemGroup.items.map((itm) => {
@@ -19,6 +31,10 @@ const CheckGroup = ({ wantGroup, myItemGroup, putWant }) => {
                 putWant={putWant}
                 itemMy={itm}
                 isInner
+                //
+                setList={setList}
+                isMouseDown={isMouseDown}
+                onMouseDown={onMouseDown}
               />
             );
           })

@@ -4,7 +4,7 @@ import WantItem from "./item";
 const MyWants = ({ wantList, set_wantListGrid, putWant, reloadWants }) => {
   return (
     <>
-      {wantList.map((obj) => {
+      {wantList.list.map((obj) => {
         switch (obj.type) {
           case "group":
           case "game":

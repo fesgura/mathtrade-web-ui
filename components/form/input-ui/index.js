@@ -53,6 +53,7 @@ const InputComp = ({
   notTranslateLabels,
   notTranslatePlaceholder,
   notTranslateOptions,
+  notTranslateQuestion,
   notTranslateError,
   translateType,
   //
@@ -234,7 +235,11 @@ const InputComp = ({
                   ? labelCheckbox
                   : getI18Ntext(labelCheckbox)}
               </label>
-              <Question question={question} min={questionMin} />
+              <Question
+                question={question}
+                min={questionMin}
+                noTranslateQuestion={notTranslateQuestion}
+              />
             </>
           ) : null}
         </div>
@@ -529,7 +534,11 @@ const InputComp = ({
               "form.MaxTextSize"
             )} ${textSize} ${getI18Ntext("form.MaxTextCharaters")})`}</span>
           ) : null}
-          <Question question={question} min={questionMin} />
+          <Question
+            question={question}
+            min={questionMin}
+            noTranslateQuestion={notTranslateQuestion}
+          />
         </label>
       ) : null}
       {inputContent}

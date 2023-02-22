@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { create_myItemListGrid, create_wantListGrid } from "./utils";
+import {
+  create_myItemListGrid,
+  create_wantListGrid,
+  order_list,
+} from "./utils";
 import { getUniqueId } from "utils";
 import { Card, CardBody } from "reactstrap";
 
@@ -31,27 +35,39 @@ const Grid = ({
     d: getUniqueId(),
   });
 
-  const [myItemListGrid, set_myItemListGrid] = useState([]);
-  const [wantListGrid, set_wantListGrid] = useState([]);
+  const [myItemListGrid, set_myItemListGrid] = useState({
+    list: [],
+    version: -1,
+  });
+  const [wantListGrid, set_wantListGrid] = useState({
+    list: [],
+    version: -1,
+  });
 
   useEffect(() => {
-    const newList = create_myItemListGrid(
-      myItemList,
-      wantList,
-      myItemList_orderBy.order,
-      myItemList_orderBy.direction
-    );
-    set_myItemListGrid(newList);
-  }, [myItemList, wantList, myItemList_orderBy]);
+    if (myItemList.version !== myItemListGrid.version) {
+      const newList = create_myItemListGrid(
+        myItemList,
+        myItemListGrid,
+        wantList,
+        myItemList_orderBy.order,
+        myItemList_orderBy.direction
+      );
+      set_myItemListGrid(newList);
+    }
+  }, [myItemList, myItemListGrid, wantList, myItemList_orderBy]);
 
   useEffect(() => {
-    const newList = create_wantListGrid(
-      wantList,
-      wantList_orderBy.order,
-      wantList_orderBy.direction
-    );
-    set_wantListGrid(newList);
-  }, [wantList, wantList_orderBy]);
+    if (wantList.version !== wantListGrid.version) {
+      const newList = create_wantListGrid(
+        wantList,
+        wantListGrid,
+        wantList_orderBy.order,
+        wantList_orderBy.direction
+      );
+      set_wantListGrid(newList);
+    }
+  }, [wantList, wantListGrid, wantList_orderBy]);
 
   return (
     <div className="main-container full">
@@ -65,35 +81,43 @@ const Grid = ({
                   setExtendAll={() => {
                     const newExtendAll = !extendAll;
 
-                    set_myItemListGrid((list) => {
-                      const newList = [...list];
+                    set_myItemListGrid((obj) => {
+                      const newList = [...obj.list];
                       newList.forEach((g) => {
                         if (g.type === "group") {
                           g.extended = newExtendAll;
                         }
                       });
-                      return newList;
+                      return { ...obj, list: newList };
                     });
-                    set_wantListGrid((list) => {
-                      const newList = [...list];
+                    set_wantListGrid((obj) => {
+                      const newList = [...obj.list];
                       newList.forEach((g) => {
                         if (g.type === "game" || g.type === "group") {
                           g.extended = newExtendAll;
                         }
                       });
-                      return newList;
+                      return { ...obj, list: newList };
                     });
                     //
                     setExtendAll(newExtendAll);
                   }}
                   set_myItemList_orderBy={(order, desc) => {
+                    const direction = desc ? -1 : 1;
+                    set_myItemListGrid((obj) => {
+                      return order_list(obj, order, direction);
+                    });
                     set_myItemList_orderBy({
                       order,
-                      direction: desc ? -1 : 1,
+                      direction,
                     });
                   }}
                   set_wantList_orderBy={(order, desc) => {
-                    set_wantList_orderBy({ order, direction: desc ? -1 : 1 });
+                    const direction = desc ? -1 : 1;
+                    set_wantListGrid((obj) => {
+                      return order_list(obj, order, direction);
+                    });
+                    set_wantList_orderBy({ order, direction });
                   }}
                 />
                 <MyItems
@@ -117,8 +141,8 @@ const Grid = ({
                 <div className="mywants-grid_wantListGrid-col-right">
                   <div className="mywants-grid_check-grid-row">
                     <GridComp
-                      myItemList={myItemListGrid}
-                      wantList={wantListGrid}
+                      myItemList={myItemListGrid.list}
+                      wantList={wantListGrid.list}
                       putWant={putWant}
                     />
                   </div>
