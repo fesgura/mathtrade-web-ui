@@ -10,6 +10,16 @@
   }
 }
 
+.mywants-grid_card {
+  border: 3px solid transparent; //
+  .card-body {
+    padding: 14px;
+  }
+  &.not-commitment {
+    border-color: rgba($danger, 0.4);
+  }
+}
+
 @import "grid/my-items";
 @import "grid/my-wants";
 @import "grid/checks";

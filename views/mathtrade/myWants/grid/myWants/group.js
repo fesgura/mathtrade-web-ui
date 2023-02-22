@@ -2,9 +2,17 @@ import classNames from "classnames";
 import Icon from "components/icon";
 import { Row, Col } from "reactstrap";
 import WantItem from "./item";
+import BtnDelete from "./btnDelete";
 import Valuation from "components/valuation";
+import BtnDuplicates from "./btnDuplicates";
 
-const WantGroup = ({ group, putWant, set_wantListGrid, reloadWants }) => {
+const WantGroup = ({
+  group,
+  putWant,
+  deleteWant,
+  set_wantListGrid,
+  reloadWants,
+}) => {
   return (
     <>
       <div className="want-lab extended">
@@ -16,6 +24,22 @@ const WantGroup = ({ group, putWant, set_wantListGrid, reloadWants }) => {
             )}
           >
             <Row className="g-0 align-items-center">
+              <Col xs="auto">
+                <BtnDelete
+                  onDelete={() => {
+                    deleteWant({ id: group.id });
+                  }}
+                />
+              </Col>
+              {group.type === "group" ? (
+                <Col xs="auto">
+                  <BtnDuplicates
+                    group={group}
+                    set_wantListGrid={set_wantListGrid}
+                    putWant={putWant}
+                  />
+                </Col>
+              ) : null}
               <Col xs="auto">
                 <Valuation
                   items={group.items}

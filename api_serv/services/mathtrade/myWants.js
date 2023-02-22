@@ -23,6 +23,19 @@ const services = {
       props.data
     );
   },
+  postWantBatch: (props) => {
+    setAuth();
+    const mathTradeId = getMathtradeId();
+    return api.post(
+      endpoints.compose("PUT_MYWANTS_BATCH", [mathTradeId]),
+      props.data
+    );
+  },
+  commitChanges: () => {
+    setAuth();
+    const mathTradeId = getMathtradeId();
+    return api.post(endpoints.compose("COMMIT_CHANGES", [mathTradeId]));
+  },
   deleteWant: (props) => {
     setAuth();
     const mathTradeId = getMathtradeId();

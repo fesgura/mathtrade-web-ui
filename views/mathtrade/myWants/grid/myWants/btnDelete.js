@@ -1,52 +1,43 @@
-import { useState } from "react";
-import { Button, Modal, ModalBody } from "reactstrap";
+import { useId, useState } from "react";
+import BtnCircle from "components/btnCircle";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  UncontrolledPopover,
+  UncontrolledTooltip,
+} from "reactstrap";
 import Icon from "components/icon";
 import I18N from "i18n";
 
-const DeleteButton = ({
-  text = "Eliminar",
-  size = "sm",
-  className,
-  itemName,
-  onDelete = () => {},
-  customRender,
-}) => {
+const twoPointsReg = new RegExp(":", "g");
+
+const BtnDelete = ({ onDelete }) => {
+  const id = useId("grid-btn-menu").replace(twoPointsReg, "");
+
   const [modalOpen, setModalOpen] = useState(false);
 
   const toggleModal = () => {
     setModalOpen((v) => !v);
   };
-
   return (
     <>
-      {customRender ? (
-        <div
-          onClick={() => {
-            setModalOpen(true);
-          }}
-        >
-          {customRender}
-        </div>
-      ) : (
-        <Button
-          size={size}
-          className={className}
-          color="danger"
-          outline
-          onClick={() => {
-            setModalOpen(true);
-          }}
-        >
-          <Icon type="trash" className="me-1" /> {text}
-        </Button>
-      )}
+      <BtnCircle
+        className="btn btn_circle mywants-grid_btn-menu-group for-delete"
+        onClick={() => {
+          setModalOpen(true);
+        }}
+        label="btn.Delete"
+      >
+        <Icon />
+      </BtnCircle>
 
       {modalOpen ? (
         <Modal isOpen={true} toggle={toggleModal} centered size="md">
           <ModalBody className="text-center p-4">
-            <h3 className="mb-4 bold">{`¿Eliminar${
-              itemName ? " " + itemName : ""
-            }?`}</h3>
+            <h3 className="mb-4 bold">
+              <I18N id="MyWants.Grid.DeleteGroupQuestion" />
+            </h3>
             <div>
               <Button
                 color="link"
@@ -76,5 +67,4 @@ const DeleteButton = ({
     </>
   );
 };
-
-export default DeleteButton;
+export default BtnDelete;

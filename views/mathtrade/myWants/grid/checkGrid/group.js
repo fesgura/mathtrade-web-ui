@@ -3,7 +3,7 @@ import CheckItem from "./item";
 const CheckGroup = ({
   wantGroup,
   myItemGroup,
-  putWant,
+  set_wantListGrid,
   //
   setList,
   isMouseDown,
@@ -14,7 +14,7 @@ const CheckGroup = ({
       <CheckItem
         wantGroup={wantGroup}
         myItemGroup={myItemGroup}
-        putWant={putWant}
+        set_wantListGrid={set_wantListGrid}
         itemMy={myItemGroup.item || null}
         //
         setList={setList}
@@ -28,7 +28,7 @@ const CheckGroup = ({
                 key={itm.id}
                 wantGroup={wantGroup}
                 myItemGroup={myItemGroup}
-                putWant={putWant}
+                set_wantListGrid={set_wantListGrid}
                 itemMy={itm}
                 isInner
                 //

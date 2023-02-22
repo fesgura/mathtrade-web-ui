@@ -11,6 +11,11 @@ const MyWantsView = ({
   wantList,
   myItemList,
   putWant,
+  putWantBatch,
+  deleteWant,
+  commitChanges,
+  commitChangesLoading,
+  mustCommitChanges,
   firstLoaded,
   loading,
   reloadMyItems,
@@ -30,6 +35,11 @@ const MyWantsView = ({
           myItemList={myItemList}
           wantList={wantList}
           putWant={putWant}
+          putWantBatch={putWantBatch}
+          deleteWant={deleteWant}
+          commitChanges={commitChanges}
+          commitChangesLoading={commitChangesLoading}
+          mustCommitChanges={mustCommitChanges}
           reloadMyItems={reloadMyItems}
           reloadWants={reloadWants}
         />

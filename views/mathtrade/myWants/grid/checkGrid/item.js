@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
+import { getUniqueId } from "utils";
 import Graph from "./graph";
 
 const CheckItem = ({
   wantGroup,
   myItemGroup,
-  putWant,
+  set_wantListGrid,
   itemMy,
   isInner,
   isMouseDown,
@@ -14,24 +15,77 @@ const CheckItem = ({
   const [selected, setSelected] = useState(false);
 
   useEffect(() => {
-    if (isInner) {
+    if (itemMy) {
+      // item individual OR inner
       setSelected(wantGroup.obj.item_ids.indexOf(itemMy.id) >= 0);
     } else {
-      if (itemMy) {
-        // item individual
-        setSelected(wantGroup.obj.item_ids.indexOf(itemMy.id) >= 0);
-      } else {
-        // group
-        let isSelectedGroup = true;
-        myItemGroup.items.forEach((itm) => {
-          if (wantGroup.obj.item_ids.indexOf(itm.id) < 0) {
-            isSelectedGroup = false;
-          }
-        });
-        setSelected(isSelectedGroup);
-      }
+      // group
+      let isSelectedGroup = true;
+      myItemGroup.items.forEach((itm) => {
+        if (wantGroup.obj.item_ids.indexOf(itm.id) < 0) {
+          isSelectedGroup = false;
+        }
+      });
+      setSelected(isSelectedGroup);
     }
-  }, [wantGroup, myItemGroup, itemMy, isInner]);
+  }, [wantGroup, wantGroup.version, myItemGroup, itemMy]);
+
+  const onChange = useCallback(() => {
+    if (itemMy) {
+      const indexMyItem = wantGroup.obj.item_ids.indexOf(itemMy.id);
+      // myitem individual OR myitem inside mygroup
+      if (indexMyItem < 0) {
+        // have to add this item to wantgroup
+        wantGroup.obj.item_ids.push(itemMy.id);
+      } else {
+        // have to remove this item from wantgroup
+        wantGroup.obj.item_ids.splice(indexMyItem, 1);
+      }
+    } else {
+      // mygroup
+      let isSelectedGroup = true;
+      myItemGroup.items.filter((myItm) => {
+        if (wantGroup.obj.item_ids.indexOf(myItm.id) < 0) {
+          isSelectedGroup = false;
+        }
+      });
+
+      myItemGroup.items.forEach((myItm) => {
+        const indexMyItm = wantGroup.obj.item_ids.indexOf(myItm.id);
+        if (isSelectedGroup && indexMyItm >= 0) {
+          // quit item
+          wantGroup.obj.item_ids.splice(indexMyItm, 1);
+        }
+        if (!isSelectedGroup && indexMyItm < 0) {
+          // add item
+          wantGroup.obj.item_ids.push(myItm.id);
+        }
+      });
+    }
+    set_wantListGrid((obj) => {
+      const newList = [...obj.list];
+      newList.forEach((wg) => {
+        if (wg.idkey === wantGroup.idkey) {
+          wg.obj.item_ids = wantGroup.obj.item_ids;
+          wg.version = getUniqueId();
+        }
+      });
+      return { ...obj, list: newList };
+    });
+
+    setList((obj) => {
+      const newObj = { ...obj };
+      newObj[wantGroup.idkey] = true;
+      return newObj;
+    });
+  }, [
+    wantGroup,
+    wantGroup.version,
+    myItemGroup,
+    set_wantListGrid,
+    itemMy,
+    isInner,
+  ]);
 
   return (
     <Graph
@@ -39,17 +93,21 @@ const CheckItem = ({
       extendedV={wantGroup.extended}
       extendedH={isInner ? myItemGroup.extended : true}
       selected={selected}
+      color={myItemGroup.type === "group" ? myItemGroup.color : null}
+      isInner={isInner}
       onMouseDown={() => {
-        setList([wantGroup]);
+        //
+        onChange();
         onMouseDown();
       }}
       onMouseEnter={() => {
         if (isMouseDown) {
-          setList((list) => {
-            const newList = [...list];
-            newList.push(wantGroup.idkey);
-            return newList;
-          });
+          onChange();
+          // setList((list) => {
+          //   const newList = [...list];
+          //   newList.push(wantGroup.idkey);
+          //   return newList;
+          // });
         }
       }}
     />

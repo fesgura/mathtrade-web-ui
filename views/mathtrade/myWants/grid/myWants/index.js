@@ -1,7 +1,13 @@
 import WantGroup from "./group";
 import WantItem from "./item";
 
-const MyWants = ({ wantList, set_wantListGrid, putWant, reloadWants }) => {
+const MyWants = ({
+  wantList,
+  set_wantListGrid,
+  putWant,
+  deleteWant,
+  reloadWants,
+}) => {
   return (
     <>
       {wantList.list.map((obj) => {
@@ -14,6 +20,7 @@ const MyWants = ({ wantList, set_wantListGrid, putWant, reloadWants }) => {
                 group={obj}
                 set_wantListGrid={set_wantListGrid}
                 putWant={putWant}
+                deleteWant={deleteWant}
                 reloadWants={reloadWants}
               />
             );
@@ -23,6 +30,7 @@ const MyWants = ({ wantList, set_wantListGrid, putWant, reloadWants }) => {
                 key={obj.idkey}
                 item={obj.items[0]}
                 group={obj}
+                deleteWant={deleteWant}
                 isExtended={true}
                 reloadWants={reloadWants}
               />

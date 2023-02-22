@@ -1,4 +1,5 @@
 import storage from "utils/storage";
+import { getUniqueId } from "utils";
 
 export const order_list = (listToOrder, orderBy, orderByDirection) => {
   if (!orderBy) {
@@ -141,7 +142,7 @@ export const create_wantListGrid = (
     let type = "item";
 
     if (!bgg_id) {
-      type = wants.length === 1 ? "item" : "group";
+      type = wants.length === 1 && tags.length === 0 ? "item" : "group";
     } else {
       type = "game";
     }
@@ -165,6 +166,7 @@ export const create_wantListGrid = (
     return {
       id,
       idkey: `${id}-want`,
+      version: getUniqueId(),
       obj: {
         bgg_id,
         name: name,

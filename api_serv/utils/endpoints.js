@@ -25,6 +25,7 @@ const endpoints = {
 
   // MATHTRADE
   GET_MATHTRADES: "api/mathtrades/",
+  GET_MATHTRADE: "api/mathtrades/$[0]/",
   GET_MATHTRADE_USERS: "api/mathtrades/$[0]/users/$[1]/",
 
   // MATHTRADE: MYITEMS
@@ -51,6 +52,7 @@ const endpoints = {
   MYWANTS: "api/mathtrades/$[0]/user-want-groups/",
   POST_MYWANTS: "api/mathtrades/$[0]/user-want-groups/",
   PUT_MYWANTS: "api/mathtrades/$[0]/user-want-groups/$[1]/",
+  PUT_MYWANTS_BATCH: "api/mathtrades/$[0]/user-want-groups-list/",
   DELETE_MYWANTS: "api/mathtrades/$[0]/user-want-groups/$[1]/",
 
   // MATHTRADE: MYTAGS
@@ -58,6 +60,7 @@ const endpoints = {
   POST_MYTAGS: "api/mathtrades/$[0]/user-tags/",
   PUT_MYTAGS: "api/mathtrades/$[0]/user-tags/$[1]/",
   DELETE_MYTAGS: "api/mathtrades/$[0]/user-tags/$[1]/",
+  COMMIT_CHANGES: "api/mathtrades/$[0]/user-commit/",
 
   // NOTIFICATIONS
   GET_NOTIFICATIONS: "api/notifications/",

@@ -123,3 +123,40 @@
   height: 30px;
   width: 30px;
 }
+.btn.btn_circle.mywants-grid_btn-menu-group {
+  background-color: transparent;
+  border-color: transparent;
+  color: $text-color;
+  font-size: 14px;
+  line-height: 1;
+  box-shadow: none;
+  margin-left: 0;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  opacity: 0.5;
+
+  &.for-delete {
+    color: $danger;
+    .icon {
+      position: relative;
+      // top: -2px;
+    }
+  }
+  &.for-duplicates {
+    font-size: 16px;
+
+    .icon {
+      position: relative;
+      //top: 1px;
+    }
+    &.dup_protection {
+      background-color: $mathtrade;
+      color: #fff;
+    }
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}

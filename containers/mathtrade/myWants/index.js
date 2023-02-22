@@ -1,10 +1,19 @@
 import { useState, useEffect } from "react";
 import { useApi, MathTradeService } from "api_serv";
+import storage from "utils/storage";
 import PrivateEnv from "environments/private";
 import MyWantsView from "views/mathtrade/myWants";
 import { getUniqueId } from "utils";
+import { useLeavePageConfirmation } from "hooks/useLeavePageConfirmation";
+import { getI18Ntext } from "i18n";
+
+const customizedDialog = async (msg) => {
+  const confirmationValue = window.confirm(msg);
+  return confirmationValue;
+};
 
 const MyWants = () => {
+  const [mustCommitChanges, set_mustCommitChanges] = useState(false);
   const [firstLoadedWants, set_firstLoadedWants] = useState(false);
   const [firstLoadedMyItems, set_firstLoadedMyItems] = useState(false);
 
@@ -30,19 +39,56 @@ const MyWants = () => {
   const [putWant, , putLoading, putErrors] = useApi({
     promise: MathTradeService.putWant,
     afterLoad: () => {
+      set_mustCommitChanges(true);
       getWants();
     },
   });
 
-  // const [deleteWant, , deleteLoading, deleteErrors] = useApi({
-  //   promise: MathTradeService.deleteWant,
-  // });
+  const [putWantBatch, , putBatchLoading, putBatchErrors] = useApi({
+    promise: MathTradeService.postWantBatch,
+    afterLoad: () => {
+      set_mustCommitChanges(true);
+      getWants();
+    },
+  });
+
+  const [commitChanges, , commitChangesLoading, commitChangesErrors] = useApi({
+    promise: MathTradeService.commitChanges,
+    afterLoad: (data) => {
+      set_mustCommitChanges(false);
+    },
+  });
+
+  const [deleteWant, , deleteLoading, deleteErrors] = useApi({
+    promise: MathTradeService.deleteWant,
+    afterLoad: () => {
+      set_mustCommitChanges(true);
+      getWants();
+    },
+  });
+  const [getUser, , loadingGetUser, errorsGetUser] = useApi({
+    promise: MathTradeService.getMathTradeUser,
+    // initialState: [],
+    afterLoad: (data) => {
+      if (typeof data.commitment !== "undefined") {
+        set_mustCommitChanges(!data.commitment);
+      }
+    },
+  });
 
   useEffect(() => {
     getMyItems();
     getWants();
-    // deleteWant({ id: 28 });
+
+    const storeData = storage.get();
+    getUser({ userId: storeData?.user?.data?.id });
   }, []);
+
+  useLeavePageConfirmation(
+    mustCommitChanges,
+    getI18Ntext("MyWants.NotCommitChangesBeforeLeavePage"),
+    customizedDialog
+  );
 
   return (
     <PrivateEnv>
@@ -50,15 +96,35 @@ const MyWants = () => {
         wantList={wantList}
         myItemList={myItemList}
         putWant={putWant}
+        putWantBatch={putWantBatch}
+        deleteWant={deleteWant}
+        commitChanges={commitChanges}
+        commitChangesLoading={commitChangesLoading}
+        mustCommitChanges={mustCommitChanges}
         firstLoaded={firstLoadedWants && firstLoadedMyItems}
-        loading={loadingWantList || loadingMyItems || putLoading}
+        loading={
+          loadingWantList ||
+          loadingMyItems ||
+          loadingGetUser ||
+          putLoading ||
+          putBatchLoading ||
+          deleteLoading
+        }
         reloadMyItems={() => {
           getMyItems();
         }}
         reloadWants={() => {
           getWants();
         }}
-        errors={errorsWantList || errorsMyItems || putErrors}
+        errors={
+          errorsWantList ||
+          errorsMyItems ||
+          errorsGetUser ||
+          putErrors ||
+          putBatchErrors ||
+          commitChangesErrors ||
+          deleteErrors
+        }
       />
     </PrivateEnv>
   );

@@ -49,8 +49,16 @@
       left: 0;
       right: $mywants-grid-spacer-lab-h;
       bottom: $mywants-grid-spacer-lab-h;
-      padding: 10px;
+
       border-radius: 6px 0 0 0;
+    }
+    .mywants-grid-spacer_lab-cont_row-1 {
+      text-align: center;
+      padding: 15px;
+      border-bottom: 1px solid $border-color;
+    }
+    .mywants-grid-spacer_lab-cont_row-2 {
+      padding: 15px;
     }
   }
 }

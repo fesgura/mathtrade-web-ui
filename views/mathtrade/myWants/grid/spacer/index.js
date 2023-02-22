@@ -3,13 +3,17 @@ import Icon from "components/icon";
 import { getUniqueId } from "utils";
 import I18N, { getI18Ntext } from "i18n";
 import OrderBy from "components/orderBy";
-import { Col, Row } from "reactstrap";
+import { Button, Col, Row } from "reactstrap";
+import Question from "components/question";
 
 const GridSpacer = ({
   extendAll,
   setExtendAll,
   set_myItemList_orderBy,
   set_wantList_orderBy,
+  commitChanges,
+  commitChangesLoading,
+  mustCommitChanges,
 }) => {
   return (
     <div className="mywants-grid-spacer">
@@ -67,15 +71,34 @@ const GridSpacer = ({
         </div>
 
         <div className="mywants-grid-spacer_lab-cont">
-          <Input
-            data={{ extended: extendAll }}
-            type="checkbox"
-            labelCheckbox="MyWants.Grid.ExtendAll"
-            name="extended"
-            onChange={() => {
-              setExtendAll((v) => !v);
-            }}
-          />
+          <div className="mywants-grid-spacer_lab-cont_row-1">
+            <Button
+              color="danger"
+              disabled={!mustCommitChanges || commitChangesLoading}
+              onClick={commitChanges}
+            >
+              <Icon
+                type={commitChangesLoading ? "refresh fa-spin" : "check"}
+                className="me-2"
+              />
+              <I18N id="MyWants.btn.Commit" />
+            </Button>
+            <p className="muted small italic m-0 pt-2 px-4">
+              <I18N id="MyWants.btn.Commit.help" />
+            </p>
+          </div>
+          <div className="mywants-grid-spacer_lab-cont_row-2">
+            <Input
+              data={{ extended: extendAll }}
+              type="checkbox"
+              labelCheckbox="MyWants.Grid.ExtendAll"
+              classNameLabelCheckbox="small"
+              name="extended"
+              onChange={() => {
+                setExtendAll((v) => !v);
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

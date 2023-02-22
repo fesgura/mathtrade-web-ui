@@ -11,6 +11,7 @@ import GridSpacer from "./spacer";
 import MyItems from "./myItems";
 import MyWants from "./myWants";
 import GridComp from "./checkGrid";
+import classNames from "classnames";
 
 const default_orderBy = "value";
 const default_ob_direction = -1;
@@ -19,6 +20,11 @@ const Grid = ({
   myItemList,
   wantList,
   putWant,
+  putWantBatch,
+  deleteWant,
+  commitChanges,
+  commitChangesLoading,
+  mustCommitChanges,
   reloadMyItems,
   reloadWants,
 }) => {
@@ -71,7 +77,11 @@ const Grid = ({
 
   return (
     <div className="main-container full">
-      <Card>
+      <Card
+        className={classNames("mywants-grid_card", {
+          "not-commitment": mustCommitChanges,
+        })}
+      >
         <CardBody>
           <div className="mywants-grid_container">
             <div className="mywants-grid_myItems-container">
@@ -119,6 +129,9 @@ const Grid = ({
                     });
                     set_wantList_orderBy({ order, direction });
                   }}
+                  commitChanges={commitChanges}
+                  commitChangesLoading={commitChangesLoading}
+                  mustCommitChanges={mustCommitChanges}
                 />
                 <MyItems
                   myItemList={myItemListGrid}
@@ -134,6 +147,7 @@ const Grid = ({
                   <MyWants
                     wantList={wantListGrid}
                     putWant={putWant}
+                    deleteWant={deleteWant}
                     set_wantListGrid={set_wantListGrid}
                     reloadWants={reloadWants}
                   />
@@ -143,7 +157,9 @@ const Grid = ({
                     <GridComp
                       myItemList={myItemListGrid.list}
                       wantList={wantListGrid.list}
+                      set_wantListGrid={set_wantListGrid}
                       putWant={putWant}
+                      putWantBatch={putWantBatch}
                     />
                   </div>
                 </div>
