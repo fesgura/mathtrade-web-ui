@@ -9,6 +9,7 @@ import { getLanguageListText } from "utils";
 import I18N from "i18n";
 import UserBox from "components/userBox";
 import PillsBGG from "./pillsBGG";
+import BanButton from "components/ban/banButton";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -21,6 +22,8 @@ const Element = ({
   withDragger,
   showUser,
   forGame,
+  afterAnyChange,
+  notBan,
 }) => {
   const id = useId("a").replace(twoPointsReg, "");
 
@@ -51,6 +54,15 @@ const Element = ({
                 {element?.name}
                 <Icon type="external-link" />
               </a>
+              {!isCombo && !notBan ? (
+                <BanButton
+                  label="ban.Item"
+                  element={item}
+                  type="item"
+                  afterAnyChange={afterAnyChange}
+                  className="ms-2"
+                />
+              ) : null}
               {!isCombo && groupHeader}
               <UncontrolledTooltip target={`bgg-game-link-${id}`}>
                 <div className="bgg-game-info_tooltip">
@@ -120,7 +132,7 @@ const Element = ({
             </div>
             {!forGame && !isCombo && showUser ? (
               <div className="element-full-user">
-                <UserBox item={item} />
+                <UserBox item={item} afterAnyChange={afterAnyChange} />
               </div>
             ) : null}
           </div>

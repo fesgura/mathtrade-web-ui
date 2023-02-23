@@ -5,6 +5,7 @@ import { dependencyList } from "config";
 import { Input } from "components/form";
 import { Row, Col, Alert } from "reactstrap";
 import I18N from "i18n";
+import BannedElements from "components/ban/bannedElements";
 
 const minValue = 0;
 const maxValue = 10;
@@ -15,7 +16,7 @@ const maxRate = 10;
 const minWeight = 1;
 const maxWeight = 5;
 
-const Filters_MT_Games = ({ filters, setFilters }) => {
+const Filters_MT_Games = ({ filters, setFilters, afterAnyChange }) => {
   const [userId, setUserId] = useState(null);
   const [IshideOwnUser, setIshideOwnUser] = useState(false);
   const [IshideOwnUserAlert, setIshideOwnUserAlert] = useState(false);
@@ -78,6 +79,7 @@ const Filters_MT_Games = ({ filters, setFilters }) => {
           </Alert>
         </div>
       ) : null}
+      <BannedElements afterAnyChange={afterAnyChange} />
       <FiltersComp
         filters={filters}
         clearFilters={() => {

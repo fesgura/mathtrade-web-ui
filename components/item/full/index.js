@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getTitleFromItem } from "utils";
 import I18N from "i18n";
 import Element from "./element";
-
+import BanButton from "components/ban/banButton";
 import classNames from "classnames";
 import { Col, Row } from "reactstrap";
 import UserBox from "components/userBox";
@@ -22,6 +22,8 @@ const ItemFull = ({
   showUser = true,
   forGame,
   inModal,
+  afterAnyChange,
+  notBan,
 }) => {
   const [title, setTitle] = useState("");
   const [isCombo, setIsCombo] = useState(false);
@@ -83,6 +85,14 @@ const ItemFull = ({
                   <I18N id="Combo" />:
                 </b>{" "}
                 <span className="item-full-title_name">{title}</span>
+                {notBan ? null : (
+                  <BanButton
+                    label="ban.Item"
+                    element={item}
+                    type="item"
+                    afterAnyChange={afterAnyChange}
+                  />
+                )}
                 {groupHeader}
               </Col>
             </Row>
@@ -107,12 +117,14 @@ const ItemFull = ({
               withDragger={withDragger}
               showUser={showUser}
               forGame={forGame}
+              afterAnyChange={afterAnyChange}
+              notBan={notBan}
             />
           );
         })}
         {!forGame && isCombo && showUser ? (
           <div className="item-full-user">
-            <UserBox item={item} />
+            <UserBox item={item} afterAnyChange={afterAnyChange} />
           </div>
         ) : null}
         {footer ? <div className="item-full-footer">{footer}</div> : null}

@@ -1,0 +1,109 @@
+.ban-button {
+  display: inline-block;
+  $w: 26px;
+  width: $w;
+  height: $w;
+  line-height: $w;
+  text-align: center;
+  color: darken($danger, 20);
+  cursor: pointer;
+
+  &.for-game {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    color: lighten($danger, 20);
+  }
+}
+.banned-elements-btn {
+  display: inline-block;
+  color: darken($danger, 20);
+  font-size: 11px;
+  opacity: 0.8;
+  cursor: pointer;
+
+  .ic-ban {
+    margin-right: 5px;
+  }
+  .ic-link {
+    font-size: 9px;
+    margin-left: 5px;
+  }
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.banned-list_container {
+  position: relative;
+  min-height: 300px;
+}
+.banned-list_nocontent {
+  padding: 60px 0;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  .ic-ban {
+    color: darken($danger, 20);
+  }
+}
+.banned-list_content {
+  .banned-list_block {
+    border-bottom: $border;
+    margin-bottom: 50px;
+  }
+}
+
+.btn.unban-btn {
+  background-color: darken($danger, 20);
+  border: none;
+
+  .unban-btn-icon {
+    display: inline-block;
+    position: relative;
+    margin-right: 8px;
+
+    .unban-btn-icon_bar {
+      width: 3px;
+      height: 16px;
+      background-color: #fff;
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      margin-left: -1px;
+      border: 1px solid darken($danger, 20);
+      transform: rotate(45deg);
+    }
+  }
+
+  &.for-game {
+    position: relative;
+    top: 10px;
+  }
+}
+
+.banned-list_item {
+  max-width: 720px;
+  margin: 0 auto 40px;
+  border: $border;
+  border-radius: 8px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  .banned-list_item-btn-cont {
+    text-align: center;
+    padding: 6px 0;
+  }
+}
+
+.banned-list_user-cont {
+  border: $border;
+  border-radius: 8px;
+  padding: 0 15px;
+  min-width: 200px;
+  margin-bottom: 40px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  .banned-list_user-btn {
+    text-align: center;
+    padding: 6px 0;
+  }
+}

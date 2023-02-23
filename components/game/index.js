@@ -5,10 +5,18 @@ import Thumbnail from "components/thumbnail";
 import Pill from "components/pillData";
 import { getStatsOfElement } from "utils";
 import I18N, { getI18Ntext } from "i18n";
+import BanButton from "components/ban/banButton";
 
 const twoPointsReg = new RegExp(":", "g");
 
-const Game = ({ game, wanted, btnRowListGame }) => {
+const Game = ({
+  game,
+  wanted,
+  inModal,
+  noBan,
+  btnRowListGame,
+  afterAnyChange,
+}) => {
   const id = useId("a").replace(twoPointsReg, "");
 
   const [stats, setStats] = useState(getStatsOfElement(null).stats);
@@ -25,7 +33,7 @@ const Game = ({ game, wanted, btnRowListGame }) => {
   }, [game]);
 
   return (
-    <div className={classNames("game-container", { wanted })}>
+    <div className={classNames("game-container", { wanted, inModal })}>
       <div className="game">
         <div className="game_thumbnail">
           <Thumbnail src={game?.thumbnail || ""} />
@@ -117,6 +125,15 @@ const Game = ({ game, wanted, btnRowListGame }) => {
               })}
             </div>
           ) : null}
+          {noBan ? null : (
+            <BanButton
+              label="ban.Game"
+              element={game}
+              type="game"
+              afterAnyChange={afterAnyChange}
+              className="for-game"
+            />
+          )}
         </div>
       </div>
     </div>

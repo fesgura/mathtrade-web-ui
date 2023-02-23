@@ -7,6 +7,7 @@ import { languageList, statusList, dependencyList } from "config";
 import { Row, Col, Alert } from "reactstrap";
 import { Input } from "components/form";
 import I18N from "i18n";
+import BannedElements from "components/ban/bannedElements";
 
 const minValue = 0;
 const maxValue = 10;
@@ -17,7 +18,13 @@ const maxRate = 10;
 const minWeight = 1;
 const maxWeight = 5;
 
-const Filters_MT_Items = ({ filters, setFilters, locations, tagList }) => {
+const Filters_MT_Items = ({
+  filters,
+  setFilters,
+  locations,
+  tagList,
+  afterAnyChange,
+}) => {
   const [tagSelected, setTagSelected] = useState(null);
   const [userId, setUserId] = useState(null);
   const [IshideOwnUser, setIshideOwnUser] = useState(false);
@@ -120,6 +127,7 @@ const Filters_MT_Items = ({ filters, setFilters, locations, tagList }) => {
           </Alert>
         </div>
       ) : null}
+      <BannedElements afterAnyChange={afterAnyChange} />
       <FiltersComp
         className="pt-0"
         filters={filters}

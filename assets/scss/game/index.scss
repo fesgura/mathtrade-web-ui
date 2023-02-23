@@ -12,7 +12,9 @@
   padding-bottom: 2 * $game-col-p;
 
   .game {
+    position: relative;
     width: $game-w;
+    margin: 0 auto;
     background-color: $game-bg;
     border-radius: ($game-border-radius + 1px) ($game-border-radius + 1px)
       $game-border-radius $game-border-radius;
@@ -94,6 +96,11 @@
   &.wanted {
     .game {
       box-shadow: $main-box-shadow, 0 0 0 4px rgba($mathtrade-want-color, 0.8);
+    }
+  }
+  &.inModal {
+    .game {
+      box-shadow: 0 1px 5px rgba(#000000, 0.5);
     }
   }
 }

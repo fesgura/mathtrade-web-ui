@@ -66,6 +66,11 @@ const endpoints = {
   GET_NOTIFICATIONS: "api/notifications/",
   PUT_NOTIFICATIONS: "api/notifications/$[0]/",
 
+  // BAN
+  GET_BANS: "api/mathtrades/$[0]/user-bans/",
+  POST_BAN: "api/mathtrades/$[0]/user-bans/",
+  DELETE_BAN: "api/mathtrades/$[0]/user-bans/$[1]/",
+
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/1/
   /*

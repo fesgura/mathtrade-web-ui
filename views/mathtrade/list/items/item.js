@@ -42,6 +42,7 @@ const MT_ItemListViewItem = ({
       item={item}
       high={wantGroup}
       highClassName={wantGroup ? "high-wanted" : null}
+      afterAnyChange={afterAnyChange}
       btnRowListItem={[
         (k) => {
           return isOwner ? (

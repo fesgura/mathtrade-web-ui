@@ -73,7 +73,11 @@ const GameListView = ({
       <Row>
         <Col xs={3}>
           <SidebarSticky>
-            <Filters_MT_Games filters={filters} setFilters={setFilters} />
+            <Filters_MT_Games
+              filters={filters}
+              setFilters={setFilters}
+              afterAnyChange={afterAnyChange}
+            />
           </SidebarSticky>
         </Col>
         <Col xs={9}>

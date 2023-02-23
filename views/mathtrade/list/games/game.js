@@ -21,6 +21,7 @@ const Game_in_list = ({ game, wantList, afterAnyChange }) => {
     <Game
       game={game}
       wanted={wantGroup}
+      afterAnyChange={afterAnyChange}
       btnRowListGame={[
         (k) => {
           return <Valuation key={k} items={game.items} />;

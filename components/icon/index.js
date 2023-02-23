@@ -11,6 +11,7 @@ const diccFa = {
   loading: "refresh fa-spin fa-fw",
   iwantit: "heart",
   inmywantlist: "heart",
+  ban: "trash",
 };
 
 const diccSVG = {

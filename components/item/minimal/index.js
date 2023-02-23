@@ -110,7 +110,7 @@ const ItemMinimal = ({
                     <I18N id="wantEditor.btn.OwnItem" />
                   </div>
                 ) : (
-                  <UserBox item={item} />
+                  <UserBox item={item} notBan />
                 )}
               </div>
             </Col>

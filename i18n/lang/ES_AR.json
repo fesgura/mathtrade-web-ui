@@ -259,10 +259,8 @@
   "itemList.Tags.form.TagNamePlaceholder": "Ej: Euros, Simples, etc.",
   "itemList.Tags.form.Color": "Color",
   "itemList.Tags.form.Preview": "Previsualización",
-
   "wantEditor.IsItemInOther.game": "Ya deseaste este juego anteriormente, como parte del <u>juego</u> <b>\"$$$\"</b>.<br />¿Estas seguro/a que querés hacerlo otra vez desde aquí?",
   "wantEditor.IsItemInOther.group": "Ya deseaste este juego anteriormente, como parte del <u>grupo</u> <b>\"$$$\"</b>.<br />¿Estas seguro/a que querés hacerlo otra vez desde aquí?",
-
   "wantEditor.btn.OwnItem": "Item propio",
   "wantEditor.btn.IwantIt": "¡Lo quiero!",
   "wantEditor.btn.InMyWantList": "En mi Want List",
@@ -330,5 +328,13 @@
   "hideOwnItems.label": "Ocultar (de mí) mis propios items",
   "hideOwnItems.help": "Se ocultarán <u>sólo para vos</u> (para que puedas ver solamente los items que podrían interesarte).<br/>Los demás usuarios <b>sí seguirán viendo tus items</b>.",
   "hideOwnGames.label": "Ocultar (de mí) mis propios juegos",
-  "hideOwnGames.help": "Se ocultarán <u>sólo para vos</u> (para que puedas ver solamente los juegos que podrían interesarte).<br/>Los demás usuarios <b>sí seguirán viendo tus juegos</b>."
+  "hideOwnGames.help": "Se ocultarán <u>sólo para vos</u> (para que puedas ver solamente los juegos que podrían interesarte).<br/>Los demás usuarios <b>sí seguirán viendo tus juegos</b>.",
+  "ban.UserItems": "Ocultar todos los juegos de este usuario",
+  "ban.Item": "Ocultar este juego",
+  "ban.Game": "Ocultar este juego",
+  "ban.linkToOpen": "Ver juegos ocultados",
+  "ban.Title": "Juegos ocultados",
+  "ban.NoContent.Title": "No tienes juegos ocultados todavía",
+  "ban.NoContent.p": "Puedes ocultar juegos, no mostrar juegos de ciertos usuario, etc. haciendo clic en este icono (que verás en el listado):",
+  "ban.btn.showAgain": "Volver a mostrar"
 }

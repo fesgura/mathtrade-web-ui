@@ -1,9 +1,6 @@
 export const getItemInWantList = (item, wantList) => {
   const { id, title } = item;
 
-  // console.log("item", item);
-  // console.log("wantList", wantList);
-
   const o = {
     itemName: title,
     inGroup: null,

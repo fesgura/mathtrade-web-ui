@@ -5,6 +5,7 @@ import myWants from "./myWants";
 import results from "./results";
 import myData from "./myData";
 import myTags from "./myTags";
+import bans from "./ban";
 
 const MathTradeService = {
   ...mathtrade,
@@ -14,6 +15,7 @@ const MathTradeService = {
   ...results,
   ...myData,
   ...myTags,
+  ...bans,
 };
 
 export default MathTradeService;

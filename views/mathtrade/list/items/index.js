@@ -95,6 +95,7 @@ const ItemListView = ({
                       filters={filters}
                       setFilters={setFilters}
                       tagList={tagList}
+                      afterAnyChange={afterAnyChange}
                       locations={locations.map((loc, k) => {
                         return {
                           text: loc.name,
