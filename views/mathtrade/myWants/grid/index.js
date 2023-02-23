@@ -27,6 +27,7 @@ const Grid = ({
   mustCommitChanges,
   reloadMyItems,
   reloadWants,
+  loading,
 }) => {
   const [extendAll, setExtendAll] = useState(false);
 
@@ -55,25 +56,18 @@ const Grid = ({
       const newList = create_myItemListGrid(
         myItemList,
         myItemListGrid,
-        wantList,
-        myItemList_orderBy.order,
-        myItemList_orderBy.direction
+        wantList
       );
       set_myItemListGrid(newList);
     }
-  }, [myItemList, myItemListGrid, wantList, myItemList_orderBy]);
+  }, [myItemList, myItemListGrid, wantList]);
 
   useEffect(() => {
     if (wantList.version !== wantListGrid.version) {
-      const newList = create_wantListGrid(
-        wantList,
-        wantListGrid,
-        wantList_orderBy.order,
-        wantList_orderBy.direction
-      );
+      const newList = create_wantListGrid(wantList, wantListGrid);
       set_wantListGrid(newList);
     }
-  }, [wantList, wantListGrid, wantList_orderBy]);
+  }, [wantList, wantListGrid]);
 
   return (
     <div className="main-container full">
@@ -82,6 +76,7 @@ const Grid = ({
           "not-commitment": mustCommitChanges,
         })}
       >
+        {loading ? <div className="mywants-grid_card-dimmer" /> : null}
         <CardBody>
           <div className="mywants-grid_container">
             <div className="mywants-grid_myItems-container">

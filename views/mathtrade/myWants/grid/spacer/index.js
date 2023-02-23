@@ -29,15 +29,13 @@ const GridSpacer = ({
             <Col xs="auto">
               <div className="mywants-grid-spacer_lab-orderby">
                 <OrderBy
-                  twoRows
-                  valueInitial={"-value"}
-                  // defaultValue="id"
                   options={[
                     { text: getI18Ntext("element.Value"), value: "value" },
                     { text: getI18Ntext("element.Name"), value: "title" },
                     { text: "Más ofrecido", value: "count_want" },
                   ]}
                   onChange={set_myItemList_orderBy}
+                  notAuto
                 />
               </div>
             </Col>
@@ -55,15 +53,13 @@ const GridSpacer = ({
             <Col xs="auto">
               <div className="mywants-grid-spacer_lab-orderby">
                 <OrderBy
-                  twoRows
-                  valueInitial={"-value"}
-                  // defaultValue="id"
                   options={[
                     { text: getI18Ntext("element.Value"), value: "value" },
                     { text: getI18Ntext("element.Name"), value: "title" },
                     { text: "Más deseado", value: "count_want" },
                   ]}
                   onChange={set_wantList_orderBy}
+                  notAuto
                 />
               </div>
             </Col>

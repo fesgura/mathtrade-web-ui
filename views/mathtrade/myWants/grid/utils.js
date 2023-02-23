@@ -6,23 +6,42 @@ export const order_list = (listToOrder, orderBy, orderByDirection) => {
     return listToOrder;
   }
 
+  if (orderBy === "order") {
+    listToOrder.list.sort((a, b) => {
+      return a.order < b.order ? -1 : 1;
+    });
+    return listToOrder;
+  }
+
   switch (orderBy) {
     case "value":
-      listToOrder.list.sort((a, b) => {
-        return a.value < b.value ? -1 * orderByDirection : orderByDirection;
-      });
+      listToOrder.list
+        .sort((a, b) => {
+          return a.value < b.value ? -1 * orderByDirection : orderByDirection;
+        })
+        .forEach((elem, k) => {
+          elem.order = k;
+        });
       return listToOrder;
     case "title":
-      listToOrder.list.sort((a, b) => {
-        return a.title < b.title ? -1 * orderByDirection : orderByDirection;
-      });
+      listToOrder.list
+        .sort((a, b) => {
+          return a.title < b.title ? -1 * orderByDirection : orderByDirection;
+        })
+        .forEach((elem, k) => {
+          elem.order = k;
+        });
       return listToOrder;
     case "count_want":
-      listToOrder.list.sort((a, b) => {
-        return a.count_want < b.count_want
-          ? -1 * orderByDirection
-          : orderByDirection;
-      });
+      listToOrder.list
+        .sort((a, b) => {
+          return a.count_want < b.count_want
+            ? -1 * orderByDirection
+            : orderByDirection;
+        })
+        .forEach((elem, k) => {
+          elem.order = k;
+        });
       return listToOrder;
 
     default:
@@ -33,9 +52,7 @@ export const order_list = (listToOrder, orderBy, orderByDirection) => {
 export const create_myItemListGrid = (
   myItemList,
   oldMyItemListGrid,
-  wantList,
-  orderBy,
-  orderByDirection
+  wantList
 ) => {
   if (!myItemList) {
     return [];
@@ -69,6 +86,7 @@ export const create_myItemListGrid = (
           value: 0,
           extended: false,
           count_want: item_count_want,
+          order: 0,
         };
       } else {
         newGroupsPool[groupId].count_want += item_count_want;
@@ -82,6 +100,7 @@ export const create_myItemListGrid = (
         item,
         value: item.value || 0,
         count_want: item_count_want,
+        order: 0,
       });
     }
   });
@@ -103,31 +122,23 @@ export const create_myItemListGrid = (
 
   //get Keep variables from OLD MyItemListGrid
   list.forEach((elem) => {
-    if (elem.type === "group") {
-      const oldElem = oldMyItemListGrid.list.find((el) => {
-        return el.idkey === elem.idkey;
-      });
+    const oldElem = oldMyItemListGrid.list.find((el) => {
+      return el.idkey === elem.idkey;
+    });
 
-      if (oldElem) {
-        // Keep variables
+    if (oldElem) {
+      // Keep variables
+      if (elem.type === "group") {
         elem.extended = oldElem.extended;
       }
+      elem.order = oldElem.order;
     }
   });
 
-  return order_list(
-    { list, version: myItemList.version },
-    orderBy,
-    orderByDirection
-  );
+  return order_list({ list, version: myItemList.version }, "order");
 };
 
-export const create_wantListGrid = (
-  wantList,
-  oldWantListGrid,
-  orderBy,
-  orderByDirection
-) => {
+export const create_wantListGrid = (wantList, oldWantListGrid) => {
   if (!wantList) {
     return [];
   }
@@ -185,26 +196,24 @@ export const create_wantListGrid = (
       items: itemsListFilteredByUser,
       extended: false,
       count_want: items.length,
+      order: 0,
     };
   });
 
   //get Keep variables from OLD MyItemListGrid
   list.forEach((elem) => {
-    if (elem.type === "game" || elem.type === "group") {
-      const oldElem = oldWantListGrid.list.find((el) => {
-        return el.idkey === elem.idkey;
-      });
+    const oldElem = oldWantListGrid.list.find((el) => {
+      return el.idkey === elem.idkey;
+    });
 
-      if (oldElem) {
-        // Keep variables
+    if (oldElem) {
+      // Keep variables
+      if (elem.type === "game" || elem.type === "group") {
         elem.extended = oldElem.extended;
       }
+      elem.order = oldElem.order;
     }
   });
 
-  return order_list(
-    { list, version: wantList.version },
-    orderBy,
-    orderByDirection
-  );
+  return order_list({ list, version: wantList.version }, "order");
 };

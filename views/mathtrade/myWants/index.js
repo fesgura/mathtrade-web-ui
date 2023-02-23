@@ -42,6 +42,7 @@ const MyWantsView = ({
           mustCommitChanges={mustCommitChanges}
           reloadMyItems={reloadMyItems}
           reloadWants={reloadWants}
+          loading={loading}
         />
       );
       break;

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Row, Col } from "reactstrap";
 import Checkbox from "components/checkbox";
 import classNames from "classnames";
+import Icon from "components/icon";
 
 const OrderBy = ({
   valueInitial,
@@ -10,6 +11,7 @@ const OrderBy = ({
   onChange = () => {},
   defaultValue = "",
   twoRows,
+  notAuto,
 }) => {
   const [optionValue, setOptionValue] = useState(defaultValue);
   const [desc, setDesc] = useState(false);
@@ -31,20 +33,29 @@ const OrderBy = ({
   }, [valueInitial, defaultValue]);
 
   return (
-    <div className={classNames("order-by", { "two-rows": twoRows })}>
+    <div
+      className={classNames("order-by", {
+        "two-rows": twoRows,
+        "not-auto": notAuto,
+      })}
+    >
       <Row className={classNames("g-0", { "align-items-center": !twoRows })}>
-        <Col xs={twoRows ? 12 : "auto"}>
-          <div className="order-by_label">
-            <I18N id="orderBy.Title" />:
-          </div>
-        </Col>
+        {notAuto ? null : (
+          <Col xs={twoRows ? 12 : "auto"}>
+            <div className="order-by_label">
+              <I18N id="orderBy.Title" />:
+            </div>
+          </Col>
+        )}
         <Col xs="auto">
           <div className="order-by_select">
             <select
               value={optionValue}
               onChange={(e) => {
                 setOptionValue(e.target.value);
-                onChange(e.target.value, desc);
+                if (!notAuto) {
+                  onChange(e.target.value, desc);
+                }
               }}
             >
               {defaultValue === "" ? (
@@ -62,42 +73,49 @@ const OrderBy = ({
             </select>
           </div>
         </Col>
-        <Col xs="auto" className="px-1">
-          {/* <input
-            type="checkbox"
-            className="order-by_checkbox cursor-pointer"
-            checked={desc}
-            onChange={(e) => {
-              setDesc(e.target.checked);
-              if (optionValue !== "") {
-                onChange(optionValue, e.target.checked);
-              }
-            }}
-            id="order-by-desc"
-          /> */}
-          <Checkbox
-            value={desc}
-            onClick={(e) => {
-              setDesc(!desc);
-              if (optionValue !== "") {
-                onChange(optionValue, !desc);
-              }
-            }}
-          />
-        </Col>
-        <Col xs="auto">
-          <label
-            className="order-by_label cursor-pointer"
-            onClick={(e) => {
-              setDesc(!desc);
-              if (optionValue !== "") {
-                onChange(optionValue, !desc);
-              }
-            }}
-          >
-            <I18N id="orderBy.Descent" />
-          </label>
-        </Col>
+
+        {notAuto ? (
+          <Col xs="auto">
+            <div
+              className="order-by_btn"
+              onClick={() => {
+                const newDesc = !desc;
+                setDesc(newDesc);
+                onChange(optionValue, newDesc);
+              }}
+            >
+              <Icon type={desc ? "caret-down" : "caret-up"} />
+              <I18N id="orderBy.Order" />
+            </div>
+          </Col>
+        ) : (
+          <>
+            <Col xs="auto" className="px-1">
+              <Checkbox
+                value={desc}
+                onClick={(e) => {
+                  setDesc(!desc);
+                  if (optionValue !== "") {
+                    onChange(optionValue, !desc);
+                  }
+                }}
+              />
+            </Col>
+            <Col xs="auto">
+              <label
+                className="order-by_label cursor-pointer"
+                onClick={(e) => {
+                  setDesc(!desc);
+                  if (optionValue !== "") {
+                    onChange(optionValue, !desc);
+                  }
+                }}
+              >
+                <I18N id="orderBy.Descent" />
+              </label>
+            </Col>
+          </>
+        )}
       </Row>
     </div>
   );
