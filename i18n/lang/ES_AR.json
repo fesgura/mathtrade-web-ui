@@ -259,6 +259,10 @@
   "itemList.Tags.form.TagNamePlaceholder": "Ej: Euros, Simples, etc.",
   "itemList.Tags.form.Color": "Color",
   "itemList.Tags.form.Preview": "Previsualización",
+
+  "wantEditor.IsItemInOther.game": "Ya deseaste este juego anteriormente, como parte del <u>juego</u> <b>\"$$$\"</b>.<br />¿Estas seguro/a que querés hacerlo otra vez desde aquí?",
+  "wantEditor.IsItemInOther.group": "Ya deseaste este juego anteriormente, como parte del <u>grupo</u> <b>\"$$$\"</b>.<br />¿Estas seguro/a que querés hacerlo otra vez desde aquí?",
+
   "wantEditor.btn.OwnItem": "Item propio",
   "wantEditor.btn.IwantIt": "¡Lo quiero!",
   "wantEditor.btn.InMyWantList": "En mi Want List",

@@ -2,7 +2,12 @@ import { useState, useEffect } from "react";
 import storage from "utils/storage";
 import ItemMinimal from "components/item/minimal";
 
-const ItemListToWant = ({ itemListToWant, want_ids = [], setWantId }) => {
+const ItemListToWant = ({
+  itemListToWant,
+  want_ids = [],
+  setWantId,
+  afterAnyChange,
+}) => {
   const [myUserId, set_myUserId] = useState("");
 
   useEffect(() => {
@@ -26,6 +31,7 @@ const ItemListToWant = ({ itemListToWant, want_ids = [], setWantId }) => {
             hideCheckbox={!setWantId}
             disabled={user.id === myUserId}
             ownUser={user.id === myUserId}
+            afterAnyChange={afterAnyChange}
           />
         );
       })}

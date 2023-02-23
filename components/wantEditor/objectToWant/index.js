@@ -9,20 +9,27 @@ const ObjectToWant = ({
   setWantId,
   dup_protection,
   set_dup_protection,
+  afterAnyChange,
 }) => {
   switch (type) {
     case "game":
       return (
-        <Game game={objectToWant} want_ids={want_ids} setWantId={setWantId} />
+        <Game
+          game={objectToWant}
+          want_ids={want_ids}
+          setWantId={setWantId}
+          afterAnyChange={afterAnyChange}
+        />
       );
     case "item":
-      return <Item item={objectToWant} />;
+      return <Item item={objectToWant} afterAnyChange={afterAnyChange} />;
     case "tag":
       return (
         <Tag
           tag={objectToWant}
           dup_protection={dup_protection}
           set_dup_protection={set_dup_protection}
+          afterAnyChange={afterAnyChange}
         />
       );
 

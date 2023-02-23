@@ -7,7 +7,7 @@ import { Input } from "components/form";
 import I18N from "i18n";
 import ErrorAlert from "components/errorAlert";
 
-const Tag = ({ tag, dup_protection, set_dup_protection }) => {
+const Tag = ({ tag, dup_protection, set_dup_protection, afterAnyChange }) => {
   const [listItems, list, loading, errors] = useApi({
     promise: MathTradeService.listItems,
     startLoading: true,
@@ -51,7 +51,10 @@ const Tag = ({ tag, dup_protection, set_dup_protection }) => {
         </Row>
       </div>
       <hr className="m-0" />
-      <ItemListToWant itemListToWant={list?.results || []} />
+      <ItemListToWant
+        itemListToWant={list?.results || []}
+        afterAnyChange={afterAnyChange}
+      />
       <ErrorAlert errors={errors} />
       {loading ? <LoadingBox /> : null}
     </div>

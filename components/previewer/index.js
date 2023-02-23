@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { useId, useState } from "react";
 import Icon from "components/icon";
 import classNames from "classnames";
 import { UncontrolledTooltip, UncontrolledPopover } from "reactstrap";
@@ -8,10 +8,17 @@ const twoPointsReg = new RegExp(":", "g");
 
 const Previewer = ({ className, classNameContainer, children }) => {
   const id = useId("previewer").replace(twoPointsReg, "");
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
-      <button className={classNames("previewer", className)} id={id}>
+      <button
+        className={classNames("previewer", className)}
+        id={id}
+        onClick={() => {
+          setIsOpen((v) => !v);
+        }}
+      >
         <Icon type="eye" />
       </button>
       <UncontrolledTooltip target={id}>
@@ -21,11 +28,21 @@ const Previewer = ({ className, classNameContainer, children }) => {
         className="previewer-popover"
         placement="right"
         target={id}
-        trigger="focus"
         flip
+        isOpen={isOpen}
       >
         <div className={classNames("previewer-container", classNameContainer)}>
-          {children}
+          <div className="previewer-container_header">
+            <div
+              className="previewer-container_close"
+              onClick={() => {
+                setIsOpen(false);
+              }}
+            >
+              <Icon />
+            </div>
+          </div>
+          <div className="previewer-container_body">{children}</div>
         </div>
       </UncontrolledPopover>
     </>

@@ -17,10 +17,29 @@
   }
 }
 .previewer-container {
-  padding: 15px;
   min-width: 800px;
   max-height: 90vh;
   overflow: auto;
+}
+.previewer-container_header {
+  .previewer-container_close {
+    $w: 36px;
+    width: $w;
+    height: $w;
+    line-height: $w;
+    text-align: center;
+    margin-left: auto;
+    opacity: 0.4;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+.previewer-container_body {
+  padding: 0 15px 15px;
 }
 .previewer-popover {
   .popover {

@@ -153,6 +153,7 @@ const EditorWants = ({
         setWantId={setWantId}
         dup_protection={dup_protection}
         set_dup_protection={set_dup_protection}
+        afterAnyChange={afterAnyChange}
       />
       <MyItems
         item_ids={item_ids}

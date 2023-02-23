@@ -2,7 +2,7 @@ import I18N from "i18n";
 import ItemListToWant from "./comps/itemListToWant";
 import ItemFull from "components/item/full";
 
-const Game = ({ game, want_ids, setWantId }) => {
+const Game = ({ game, want_ids, setWantId, afterAnyChange }) => {
   return (
     <ItemFull
       item={game.items[0]}
@@ -19,6 +19,7 @@ const Game = ({ game, want_ids, setWantId }) => {
               itemListToWant={game?.items || []}
               want_ids={want_ids}
               setWantId={setWantId}
+              afterAnyChange={afterAnyChange}
             />
           </div>
         </>
