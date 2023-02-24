@@ -127,14 +127,16 @@
     padding-right: 15px;
   }
   .element-full-title {
-    .bgg-link {
+    .element-full-title_in {
       display: inline-block;
-      text-decoration: none;
       font-size: $element-title-fz;
       font-weight: bold;
-
       color: $element-title-color;
-      padding-bottom: 5px;
+      vertical-align: middle;
+    }
+    .bgg-link {
+      text-decoration: none;
+
       .icon {
         font-size: 14px;
         margin-left: 0.4em;
@@ -144,6 +146,7 @@
         color: $bgg;
       }
     }
+
     &.with-btns {
       margin-right: $element-full-title-mr;
     }
@@ -155,5 +158,34 @@
 
   &.isCombo {
     border-top: $border;
+  }
+}
+
+.element-type-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: bold;
+  background-color: #ddd;
+  padding: 0 1em;
+  margin-left: 1em;
+  vertical-align: middle;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  text-transform: uppercase;
+  cursor: default;
+  &.b-1 {
+    background-color: rgba($element-type-badge-bg-1, 0.15);
+    color: $element-type-badge-bg-1;
+    border-color: $element-type-badge-bg-1;
+  }
+  &.b-2 {
+    background-color: rgba($element-type-badge-bg-2, 0.15);
+    color: $element-type-badge-bg-2;
+    border-color: $element-type-badge-bg-2;
+  }
+  &.b-3 {
+    background-color: rgba($element-type-badge-bg-3, 0.15);
+    color: $element-type-badge-bg-3;
+    border-color: $element-type-badge-bg-3;
   }
 }

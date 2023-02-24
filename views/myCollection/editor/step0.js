@@ -1,7 +1,7 @@
 import Icon from "components/icon";
 import I18N from "i18n";
 
-const ElementCreateStep0 = ({ setStep }) => {
+const ElementCreateStep0 = ({ setStep, setType, setElementToEdit }) => {
   return (
     <div className="element-create_step-1">
       <div className="element-create-options_title">
@@ -13,6 +13,7 @@ const ElementCreateStep0 = ({ setStep }) => {
           <div
             className="element-create-options_col"
             onClick={() => {
+              setType(0);
               setStep(1);
             }}
           >
@@ -21,8 +22,15 @@ const ElementCreateStep0 = ({ setStep }) => {
               <I18N id="element.editor.add.gameOrExpansion" />
             </div>
           </div>
-          <div className="element-create-options_col disabled">
-            <Icon type="book" />{" "}
+          <div
+            className="element-create-options_col"
+            onClick={() => {
+              setType(1);
+              setStep(1);
+              setElementToEdit();
+            }}
+          >
+            <Icon type="puzzle-piece" />{" "}
             <div className="element-create-options_text">
               <I18N id="element.editor.add.Another" />
             </div>

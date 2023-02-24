@@ -250,6 +250,7 @@ const RegisterView = ({
                           label="form.Location"
                           name="location"
                           type="select"
+                          optgroups
                           options={locationsToOptions(dataLocations)}
                           loading={loadingLocations}
                           size="lg"

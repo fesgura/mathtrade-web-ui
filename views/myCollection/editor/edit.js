@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Col, Row, Button, Alert, Badge } from "reactstrap";
 import classNames from "classnames";
 import { languageList, statusList, typeOfElements } from "config";
@@ -10,7 +10,7 @@ import { getVersionNameFromId, processBGGdata } from "utils";
 import Thumbnail from "components/thumbnail";
 import I18N from "i18n";
 import ErrorAlert from "components/errorAlert";
-import Pill from "components/pillData";
+import { NOGAMEresult } from "config";
 import PillsBGG from "components/item/full/element/pillsBGG";
 
 const validations = {
@@ -42,6 +42,8 @@ const ElementEdit = ({
 }) => {
   const [showDelete, setShowDelete] = useState(false);
 
+  const [isNOGAME, setIsNOGAME] = useState(false);
+
   const [validationStatus, setValidationStatus] = useState({});
 
   const [thumbnail, set_thumbnail] = useState(element.thumbnail);
@@ -62,12 +64,15 @@ const ElementEdit = ({
   const [versionList, setVersionList] = useState([]);
 
   const [data, setData] = useState(element);
-  const changeData = (newData) => {
-    setData({
-      ...data,
-      ...newData,
-    });
-  };
+  const changeData = useCallback(
+    (newData) => {
+      setData({
+        ...data,
+        ...newData,
+      });
+    },
+    [data]
+  );
 
   useEffect(() => {
     if (bgg_id !== "") {
@@ -78,13 +83,18 @@ const ElementEdit = ({
   useEffect(() => {
     if (BGGelement) {
       const BGGdata = processBGGdata(BGGelement);
+
       if (BGGdata) {
         setVersionList(BGGdata.versionList);
         set_dependency(BGGdata.dependency);
         set_bgg_stats(BGGdata.stats);
-        if (create) {
+
+        const isBGGgame = BGGdata.bgg_id !== NOGAMEresult.bgg_id;
+
+        if (create && isBGGgame) {
           set_thumbnail(BGGdata.thumbnail);
         }
+        setIsNOGAME(!isBGGgame);
       }
     }
   }, [BGGelement, create]);
@@ -122,17 +132,16 @@ const ElementEdit = ({
             <div className="element-edit-data-container">
               <div className="element-title mb-2">
                 {element.name}{" "}
-                {element.type === typeOfElements["expansion"] ? (
-                  <Badge color="expansion" className="element-title-badge">
-                    <I18N id="element.Expansion" />
-                  </Badge>
-                ) : null}
+                <div
+                  className={classNames(
+                    "element-type-badge",
+                    `b-${element.type}`
+                  )}
+                >
+                  <I18N id={`element-type-badge-${element.type}`} />
+                </div>
               </div>
-              {BGGelement ? (
-                // <BggGameBox
-
-                //   className="mb-4"
-                // />
+              {BGGelement && !isNOGAME ? (
                 <div className="element-edit-bgg">
                   <PillsBGG
                     element={{
@@ -157,7 +166,6 @@ const ElementEdit = ({
                   validationStatus={validationStatus}
                   setValidationStatus={setValidationStatus}
                 >
-                  <Hidden name="name" value={element.name} />
                   <Hidden name="bgg_id" value={bgg_id} />
                   <Hidden name="type" value={element.type} />
                   <Hidden name="bgg_version_id" value={bgg_version_id} />
@@ -171,34 +179,53 @@ const ElementEdit = ({
                   <Hidden name="weight" value={bgg_stats.weight} />
                   <Hidden name="weight_votes" value={bgg_stats.weight_votes} />
 
-                  <Input
-                    data={getVersionNameFromId(bgg_version_id, versionList)}
-                    validations={validations}
-                    validationStatus={validationStatus}
-                    setValidationStatus={setValidationStatus}
-                    type="input-drop"
-                    label="element.Edition"
-                    name="version_name"
-                    nowrite
-                    icon={"book"}
-                    autoComplete="off"
-                    loading={loadingBGGelement}
-                    drop={
-                      !loadingBGGelement ? (
-                        <ElementDropVersions
-                          versionList={versionList}
-                          onChange={(v) => {
-                            set_bgg_version_id(v.versionData.bgg_version_id);
-                            if (v.versionData.thumbnail) {
-                              set_thumbnail(v.versionData.thumbnail);
-                            }
-                            changeData(v.formData);
-                          }}
-                        />
-                      ) : null
-                    }
-                  />
-                  {bgg_version_id ? (
+                  {isNOGAME ? (
+                    <Input
+                      data={data}
+                      validations={validations}
+                      validationStatus={validationStatus}
+                      setValidationStatus={setValidationStatus}
+                      label="element.Name"
+                      name="name"
+                      icon="puzzle-piece"
+                      onChange={(v) => {
+                        changeData({ name: v });
+                      }}
+                    />
+                  ) : (
+                    <Hidden name="name" value={element.name} />
+                  )}
+
+                  {isNOGAME ? null : (
+                    <Input
+                      data={getVersionNameFromId(bgg_version_id, versionList)}
+                      validations={validations}
+                      validationStatus={validationStatus}
+                      setValidationStatus={setValidationStatus}
+                      type="input-drop"
+                      label="element.Edition"
+                      name="version_name"
+                      nowrite
+                      icon={"book"}
+                      autoComplete="off"
+                      loading={loadingBGGelement}
+                      drop={
+                        !loadingBGGelement ? (
+                          <ElementDropVersions
+                            versionList={versionList}
+                            onChange={(v) => {
+                              set_bgg_version_id(v.versionData.bgg_version_id);
+                              if (v.versionData.thumbnail) {
+                                set_thumbnail(v.versionData.thumbnail);
+                              }
+                              changeData(v.formData);
+                            }}
+                          />
+                        ) : null
+                      }
+                    />
+                  )}
+                  {bgg_version_id || isNOGAME ? (
                     <>
                       <Row>
                         <Col>
@@ -214,6 +241,9 @@ const ElementEdit = ({
                             label="element.Language"
                             name="language"
                             readOnly={bgg_version_id !== "other"}
+                            onChange={(v) => {
+                              changeData({ language: v });
+                            }}
                           />
                         </Col>
                       </Row>
@@ -227,6 +257,9 @@ const ElementEdit = ({
                             label="element.Publisher"
                             name="publisher"
                             readOnly={bgg_version_id !== "other"}
+                            onChange={(v) => {
+                              changeData({ publisher: v });
+                            }}
                           />
                         </Col>
                         <Col lg={4} xs={5}>
@@ -241,6 +274,9 @@ const ElementEdit = ({
                             max={maxYear}
                             name="year"
                             readOnly={bgg_version_id !== "other"}
+                            onChange={(v) => {
+                              changeData({ year: v });
+                            }}
                           />
                         </Col>
                       </Row>

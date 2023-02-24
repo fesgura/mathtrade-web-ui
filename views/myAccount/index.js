@@ -196,6 +196,7 @@ const MyAccountView = ({
                           label="form.Location"
                           name="location"
                           type="select"
+                          optgroups
                           options={locationsToOptions(dataLocations)}
                           loading={loadingLocations}
                           icon="map-marker"

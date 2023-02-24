@@ -135,6 +135,7 @@ const MyDataView = ({
                 name="location"
                 type="select"
                 size="lg"
+                optgroups
                 options={locationsToOptions(dataLocations)}
                 loading={loadingLocations}
                 icon="map-marker"

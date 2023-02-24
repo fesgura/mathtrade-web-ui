@@ -6,12 +6,28 @@ export const locationsToOptions = (locations) => {
     return [];
   }
 
-  return locations.map((location) => {
-    return {
-      text: `${location.name} (${location.province})`,
+  const pool = {};
+
+  locations.forEach((location) => {
+    if (!pool[location.province]) {
+      pool[location.province] = [];
+    }
+    pool[location.province].push({
+      text: `${location.name}`,
       value: location.id,
-    };
+    });
   });
+
+  const locs = [];
+
+  for (var a in pool) {
+    locs.push({
+      text: a,
+      value: pool[a],
+    });
+  }
+
+  return locs;
 };
 
 // ELEMENTS
@@ -163,7 +179,7 @@ export const processBGGdata = (BGGelement) => {
     return null;
   }
 
-  const BGGdata = { versionList: [] };
+  const BGGdata = { versionList: [], bgg_id: BGGelement.id };
   if (BGGelement.versions && BGGelement.versions.item) {
     const versions =
       typeof BGGelement.versions.item.forEach === "undefined"

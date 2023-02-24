@@ -1,9 +1,22 @@
 import { useState } from "react";
 import BGGsearch from "components/bgg-search";
+import { NOGAMEresult } from "config";
 import ElementEdit from "./edit";
 import ElementCreateStep0 from "./step0";
 
 //////////////////////////////////////////////
+
+const defaultElementToEdit = {
+  id: null,
+  bgg_version_id: "",
+  thumbnail: "",
+  language: "",
+  publisher: "",
+  year: "",
+  dependency: "",
+  status: "",
+  comment: "",
+};
 
 const ElementEditorView = ({
   onClose,
@@ -18,14 +31,24 @@ const ElementEditorView = ({
   loadingBGGelement,
 }) => {
   const [step, setStep] = useState(objToEdit.element ? 1 : 0);
+  const [type, setType] = useState(0);
 
   const [ElementToEdit, setElementToEdit] = useState(objToEdit.element);
 
   return step === 0 ? (
-    <ElementCreateStep0 setStep={setStep} />
+    <ElementCreateStep0
+      setStep={setStep}
+      setType={setType}
+      setElementToEdit={() => {
+        setElementToEdit({
+          ...defaultElementToEdit,
+          ...NOGAMEresult,
+        });
+      }}
+    />
   ) : (
     <div className="element-create-step-2 fade-in">
-      {!objToEdit.element ? (
+      {type === 0 && !objToEdit.element ? (
         <div className="element-create_bgg-search">
           <BGGsearch
             label="BGGsearch.Label"
@@ -35,15 +58,7 @@ const ElementEditorView = ({
               setTimeout(() => {
                 setElementToEdit({
                   ...ops,
-                  id: null,
-                  bgg_version_id: "",
-                  thumbnail: "",
-                  language: "",
-                  publisher: "",
-                  year: "",
-                  dependency: "",
-                  status: "",
-                  comment: "",
+                  ...defaultElementToEdit,
                 });
               }, 200);
             }}

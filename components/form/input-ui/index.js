@@ -56,6 +56,7 @@ const InputComp = ({
   notTranslateQuestion,
   notTranslateError,
   translateType,
+
   //
   size,
   className,
@@ -76,6 +77,7 @@ const InputComp = ({
   loading,
   //
   options,
+  optgroups,
   drop,
   nowrite,
   startFocus,
@@ -160,16 +162,33 @@ const InputComp = ({
                 {placeholderString || getI18Ntext("form.SelectOptInstruction")}
               </option>
             )}
-            {options.map((opt) => {
-              if (loading) {
-                return null;
-              }
-              return (
-                <option value={opt.value} key={opt.value}>
-                  {opt.text}
-                </option>
-              );
-            })}
+            {optgroups
+              ? options.map((optGroup, k) => {
+                  if (loading) {
+                    return null;
+                  }
+                  return (
+                    <optgroup label={optGroup.text} key={k}>
+                      {optGroup.value.map((opt) => {
+                        return (
+                          <option value={opt.value} key={opt.value}>
+                            {opt.text}
+                          </option>
+                        );
+                      })}
+                    </optgroup>
+                  );
+                })
+              : options.map((opt) => {
+                  if (loading) {
+                    return null;
+                  }
+                  return (
+                    <option value={opt.value} key={opt.value}>
+                      {opt.text}
+                    </option>
+                  );
+                })}
           </select>
           {loading ? (
             <div className="input-loading">

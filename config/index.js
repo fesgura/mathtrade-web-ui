@@ -9,6 +9,16 @@ export const storageName = "MathTradeArgentina";
 export const storageOptionsName = storageName + "Options";
 export const daysExpireToken = 1;
 
+export const NOGAMEresult = {
+  bgg_id: "23953",
+  name: "",
+  type: 3,
+  bgg_version_id: "other",
+  dependency: 0,
+  thumbnail:
+    "https://cf.geekdo-images.com/mWd3fATtGyOieHNJH8oOfQ__itemrep/img/u8fWnRUd079d_RvkhMbJRlE5xWo=/fit-in/246x300/filters:strip_icc()/pic193671.jpg",
+};
+
 export const statusTypes = (function () {
   const o = {};
   ["CE", "NU", "CN", "EX", "MB", "BU", "MU", "CC", "IN"].forEach((st) => {

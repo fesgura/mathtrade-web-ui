@@ -1,6 +1,6 @@
 import { useId } from "react";
 import classNames from "classnames";
-import { Col, Row, UncontrolledTooltip } from "reactstrap";
+import { Col, Row, UncontrolledTooltip, Badge } from "reactstrap";
 import Thumbnail from "components/thumbnail";
 import Icon from "components/icon";
 import Pill from "components/pillData";
@@ -45,15 +45,34 @@ const Element = ({
         <Col>
           <div className="element-full-data">
             <div className="element-full-title">
-              <a
-                href={`https://boardgamegeek.com/boardgame/${element?.bgg_id}/`}
-                target="_blank"
-                className="element-full-title bgg-link"
-                id={`bgg-game-link-${id}`}
+              {element.type === 3 ? (
+                <span className="element-full-title_in">{element?.name}</span>
+              ) : (
+                <>
+                  <a
+                    href={`https://boardgamegeek.com/boardgame/${element?.bgg_id}/`}
+                    target="_blank"
+                    className="element-full-title_in bgg-link"
+                    id={`bgg-game-link-${id}`}
+                  >
+                    {element?.name}
+                    <Icon type="external-link" />
+                  </a>
+                  <UncontrolledTooltip target={`bgg-game-link-${id}`}>
+                    <div className="bgg-game-info_tooltip">
+                      <I18N id="element.BGG.OpenGameInBGG" />
+                    </div>
+                  </UncontrolledTooltip>
+                </>
+              )}
+              <div
+                className={classNames(
+                  "element-type-badge",
+                  `b-${element.type}`
+                )}
               >
-                {element?.name}
-                <Icon type="external-link" />
-              </a>
+                <I18N id={`element-type-badge-${element.type}`} />
+              </div>
               {!isCombo && !notBan ? (
                 <BanButton
                   label="ban.Item"
@@ -64,14 +83,9 @@ const Element = ({
                 />
               ) : null}
               {!isCombo && groupHeader}
-              <UncontrolledTooltip target={`bgg-game-link-${id}`}>
-                <div className="bgg-game-info_tooltip">
-                  <I18N id="element.BGG.OpenGameInBGG" />
-                </div>
-              </UncontrolledTooltip>
             </div>
             <div className="element-full-pills">
-              <PillsBGG element={element} />
+              {element.type === 3 ? null : <PillsBGG element={element} />}
 
               {forGame ? null : (
                 <Row>
