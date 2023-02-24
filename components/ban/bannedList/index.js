@@ -88,7 +88,9 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
             <>
               {bans.games.length ? (
                 <div className="banned-list_block">
-                  <h4 className="text-center mb-5">Juegos</h4>
+                  <h4 className="text-center mb-5">
+                    <I18N id="ban.Title.Games" />
+                  </h4>
                   <Row className="justify-content-center">
                     {bans.games.map((elem, k) => {
                       return (
@@ -118,7 +120,9 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
               ) : null}
               {bans.items.length ? (
                 <div className="banned-list_block">
-                  <h4 className="text-center mb-5">Juegos (Items y Combos)</h4>
+                  <h4 className="text-center mb-5">
+                    <I18N id="ban.Title.Items" />
+                  </h4>
                   {bans.items.map((elem, k) => {
                     return (
                       <div className="banned-list_item" key={k}>
@@ -140,7 +144,9 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
 
               {bans.users.length ? (
                 <div className="banned-list_block">
-                  <h4 className="text-center mb-5">Juegos por usuario</h4>
+                  <h4 className="text-center mb-5">
+                    <I18N id="ban.Title.Users" />
+                  </h4>
                   <Row className="justify-content-center">
                     {bans.users.map((elem, k) => {
                       return (

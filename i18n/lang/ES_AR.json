@@ -334,6 +334,9 @@
   "ban.Game": "Ocultar este juego",
   "ban.linkToOpen": "Ver juegos ocultados",
   "ban.Title": "Juegos ocultados",
+  "ban.Title.Games": "Juegos",
+  "ban.Title.Items": "Juegos (Items y Combos)",
+  "ban.Title.Users": "Juegos por usuario",
   "ban.NoContent.Title": "No tienes juegos ocultados todavía",
   "ban.NoContent.p": "Puedes ocultar juegos, no mostrar juegos de ciertos usuario, etc. haciendo clic en este icono (que verás en el listado):",
   "ban.btn.showAgain": "Volver a mostrar"
