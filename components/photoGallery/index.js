@@ -2,6 +2,7 @@ import { useId, useState } from "react";
 import Icon from "components/icon";
 import PhotoItem from "./photo";
 import { UncontrolledTooltip, Modal } from "reactstrap";
+import { photoUploaderConfig } from "config";
 import I18N from "i18n";
 import PhotoUploader from "components/photoUploader";
 
@@ -76,7 +77,10 @@ const PhotoGallery = ({
         >
           <div className="photo-gallery_view">
             <div className="photo-gallery_view-cont">
-              <img src={list[indexImage] || ""} alt="" />
+              <img
+                src={photoUploaderConfig.urlBase + (list[indexImage] || "")}
+                alt=""
+              />
             </div>
             <div
               className="photo-gallery_view-close"

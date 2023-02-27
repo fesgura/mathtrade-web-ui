@@ -1,7 +1,9 @@
+import { useId, useEffect, useRef } from "react";
 import Icon from "components/icon";
 import I18N from "i18n";
-import { useId, useEffect, useRef } from "react";
+import ErrorAlert from "components/errorAlert";
 import { Button, UncontrolledTooltip } from "reactstrap";
+import { useApi, ImageService } from "api_serv";
 import { photoUploaderConfig } from "config";
 import { LoadingBox } from "components/loading";
 
@@ -27,6 +29,13 @@ canvasSize.crop.style = {
 };
 
 const Editor = ({ srcBlob, onBack, onCancel, widthSend, onLoaded }) => {
+  const [postBase64Image, , loading, errors] = useApi({
+    promise: ImageService.postBase64Image,
+    afterLoad: (dataUrl) => {
+      if (onLoaded) onLoaded(dataUrl?.url || "");
+    },
+  });
+
   const id = useId("img_loader").replace(twoPointsReg, "");
 
   const canvasRef = useRef(null);
@@ -43,10 +52,6 @@ const Editor = ({ srcBlob, onBack, onCancel, widthSend, onLoaded }) => {
   const yPosInitial = useRef(0);
   const xMouseInitial = useRef(0);
   const yMouseInitial = useRef(0);
-
-  /////////////////
-  const loading = false;
-  /////////////
 
   const draw = (ctx, centerImage) => {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -107,11 +112,8 @@ const Editor = ({ srcBlob, onBack, onCancel, widthSend, onLoaded }) => {
       photoUploaderConfig.saveData.format,
       photoUploaderConfig.saveData.quality
     );
-    // TEMP //////////////////////////////////
-    if (onLoaded) {
-      onLoaded(urlData);
-    }
-    ////////////////////////////////////
+    const d = urlData.split("base64,")[1];
+    postBase64Image(d);
   };
 
   useEffect(() => {
@@ -272,6 +274,7 @@ const Editor = ({ srcBlob, onBack, onCancel, widthSend, onLoaded }) => {
         </div>
       </div>
       <div className="photoUploader_editor-footer">
+        <ErrorAlert errors={errors} className="mb-3" />
         <Button color="link" outline className="me-2" onClick={onCancel}>
           <I18N id="btn.Cancel" />
         </Button>

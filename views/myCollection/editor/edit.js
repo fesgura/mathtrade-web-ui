@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback } from "react";
-import { Col, Row, Button, Alert, Badge } from "reactstrap";
+import { useId, useState, useEffect, useCallback } from "react";
+import { Col, Row, Button, UncontrolledTooltip, Collapse } from "reactstrap";
 import classNames from "classnames";
-import { languageList, statusList, typeOfElements } from "config";
+import { languageList, statusList, photoUploaderConfig } from "config";
+import PhotoGallery from "components/photoGallery";
 import ElementDropVersions from "components/elementDropVersions";
 import { Form, Input, Hidden } from "components/form";
 import Icon from "components/icon";
@@ -12,6 +13,10 @@ import I18N from "i18n";
 import ErrorAlert from "components/errorAlert";
 import { NOGAMEresult } from "config";
 import PillsBGG from "components/item/full/element/pillsBGG";
+import PhotoUploader from "components/photoUploader";
+import Question from "components/question";
+
+const twoPointsReg = new RegExp(":", "g");
 
 const validations = {
   version_name: ["required"],
@@ -40,7 +45,10 @@ const ElementEdit = ({
   errors,
   deleteElement,
 }) => {
+  const id = useId("elem-editor-").replace(twoPointsReg, "");
   const [showDelete, setShowDelete] = useState(false);
+
+  const [modalUploadOpen, setModalUploadOpen] = useState(false);
 
   const [isNOGAME, setIsNOGAME] = useState(false);
 
@@ -49,6 +57,17 @@ const ElementEdit = ({
   const [thumbnail, set_thumbnail] = useState(element.thumbnail);
   const [bgg_id, set_bgg_id] = useState(element.bgg_id);
   const [bgg_version_id, set_bgg_version_id] = useState(element.bgg_version_id);
+
+  const [images, set_images] = useState([]);
+  const [imagesCollapseOpen, set_imagesCollapseOpen] = useState(false);
+
+  useEffect(() => {
+    if (element && element.images && element.images !== "") {
+      const newImages = element.images.split(",");
+      set_images(newImages);
+      set_imagesCollapseOpen(newImages.length > 0);
+    }
+  }, [element]);
 
   const [dependency, set_dependency] = useState({
     value: "",
@@ -100,285 +119,372 @@ const ElementEdit = ({
   }, [BGGelement, create]);
 
   return (
-    <div
-      className={classNames("element-edit  fade-in", {
-        create,
-        //  "for-combo": item?.elements?.length > 1,
-      })}
-    >
-      <div className="element-edit-container">
-        <Row className="g-0 align-items-stretch">
-          <Col md={"auto"}>
-            <div className="element-thumbnail-container">
-              <Thumbnail src={thumbnail} />
-              {create ? null : (
-                <div className="text-center py-3">
-                  <Button
-                    color="danger"
-                    outline
-                    size="xs"
-                    onClick={() => {
-                      setShowDelete(true);
-                    }}
-                  >
-                    <Icon type="trash" className="me-1" />
-                    <I18N id="btn.Delete" />
-                  </Button>
-                </div>
-              )}
-            </div>
-          </Col>
-          <Col>
-            <div className="element-edit-data-container">
-              <div className="element-title mb-2">
-                {element.name}{" "}
-                <div
-                  className={classNames(
-                    "element-type-badge",
-                    `b-${element.type}`
-                  )}
-                >
-                  <I18N id={`element-type-badge-${element.type}`} />
-                </div>
-              </div>
-              {BGGelement && !isNOGAME ? (
-                <div className="element-edit-bgg">
-                  <PillsBGG
-                    element={{
-                      ...element,
-                      ...bgg_stats,
-                      dependency: dependency?.value || 0,
-                      dependency_votes: dependency?.votes || "",
-                    }}
-                  />
-                </div>
-              ) : null}
-              <div className="element-form-container">
-                <Form
-                  onSubmit={(formData) => {
-                    onSaveElement({
-                      ...formData,
-                      id: element.id,
-                      create,
-                    });
-                  }}
-                  validations={validations}
-                  validationStatus={validationStatus}
-                  setValidationStatus={setValidationStatus}
-                >
-                  <Hidden name="bgg_id" value={bgg_id} />
-                  <Hidden name="type" value={element.type} />
-                  <Hidden name="bgg_version_id" value={bgg_version_id} />
-                  <Hidden name="thumbnail" value={thumbnail} />
-                  <Hidden name="complete" value={false} />
-
-                  <Hidden name="dependency" value={dependency.value} />
-                  <Hidden name="dependency_votes" value={dependency.votes} />
-                  <Hidden name="rate" value={bgg_stats.rate} />
-                  <Hidden name="rate_votes" value={bgg_stats.rate_votes} />
-                  <Hidden name="weight" value={bgg_stats.weight} />
-                  <Hidden name="weight_votes" value={bgg_stats.weight_votes} />
+    <>
+      <div
+        className={classNames("element-edit  fade-in", {
+          create,
+          //  "for-combo": item?.elements?.length > 1,
+        })}
+      >
+        <div className="element-edit-container">
+          <Row className="g-0 align-items-stretch">
+            <Col md={"auto"}>
+              <div className="element-thumbnail-container">
+                <div className="element-thumbnail-container-wrap">
+                  <Thumbnail src={thumbnail} />
 
                   {isNOGAME ? (
-                    <Input
-                      data={data}
-                      validations={validations}
-                      validationStatus={validationStatus}
-                      setValidationStatus={setValidationStatus}
-                      label="element.Name"
-                      name="name"
-                      icon="puzzle-piece"
-                      onChange={(v) => {
-                        changeData({ name: v });
+                    <>
+                      <div
+                        className="element-thumbnail-container-edit-thumbnail"
+                        id={`tt-elem-editor-ph-${id}`}
+                        onClick={() => {
+                          setModalUploadOpen(true);
+                        }}
+                      >
+                        <Icon type="camera" />
+                      </div>
+                      <UncontrolledTooltip target={`tt-elem-editor-ph-${id}`}>
+                        <I18N id="photoUploader.edit.thumbnail.btn" />
+                      </UncontrolledTooltip>
+                    </>
+                  ) : null}
+                </div>
+                {create ? null : (
+                  <div className="text-center py-3">
+                    <Button
+                      color="danger"
+                      outline
+                      size="xs"
+                      onClick={() => {
+                        setShowDelete(true);
+                      }}
+                    >
+                      <Icon type="trash" className="me-1" />
+                      <I18N id="btn.Delete" />
+                    </Button>
+                  </div>
+                )}
+              </div>
+            </Col>
+            <Col>
+              <div className="element-edit-data-container">
+                <div className="element-title mb-2">
+                  {element.name}{" "}
+                  {element.type === 3 ? null : (
+                    <div
+                      className={classNames(
+                        "element-type-badge",
+                        `b-${element.type}`
+                      )}
+                    >
+                      <I18N id={`element-type-badge-${element.type}`} />
+                    </div>
+                  )}
+                </div>
+                {BGGelement && !isNOGAME ? (
+                  <div className="element-edit-bgg">
+                    <PillsBGG
+                      element={{
+                        ...element,
+                        ...bgg_stats,
+                        dependency: dependency?.value || 0,
+                        dependency_votes: dependency?.votes || "",
                       }}
                     />
-                  ) : (
-                    <Hidden name="name" value={element.name} />
-                  )}
+                  </div>
+                ) : null}
+                <div className="element-form-container">
+                  <Form
+                    onSubmit={(formData) => {
+                      onSaveElement({
+                        ...formData,
+                        images: images.join(","),
+                        id: element.id,
+                        create,
+                      });
+                    }}
+                    validations={validations}
+                    validationStatus={validationStatus}
+                    setValidationStatus={setValidationStatus}
+                  >
+                    <Hidden name="bgg_id" value={bgg_id} />
+                    <Hidden name="type" value={element.type} />
+                    <Hidden name="bgg_version_id" value={bgg_version_id} />
+                    <Hidden name="thumbnail" value={thumbnail} />
+                    <Hidden name="complete" value={false} />
 
-                  {isNOGAME ? null : (
-                    <Input
-                      data={getVersionNameFromId(bgg_version_id, versionList)}
-                      validations={validations}
-                      validationStatus={validationStatus}
-                      setValidationStatus={setValidationStatus}
-                      type="input-drop"
-                      label="element.Edition"
-                      name="version_name"
-                      nowrite
-                      icon={"book"}
-                      autoComplete="off"
-                      loading={loadingBGGelement}
-                      drop={
-                        !loadingBGGelement ? (
-                          <ElementDropVersions
-                            versionList={versionList}
-                            onChange={(v) => {
-                              set_bgg_version_id(v.versionData.bgg_version_id);
-                              if (v.versionData.thumbnail) {
-                                set_thumbnail(v.versionData.thumbnail);
-                              }
-                              changeData(v.formData);
-                            }}
-                          />
-                        ) : null
-                      }
+                    <Hidden name="dependency" value={dependency.value} />
+                    <Hidden name="dependency_votes" value={dependency.votes} />
+                    <Hidden name="rate" value={bgg_stats.rate} />
+                    <Hidden name="rate_votes" value={bgg_stats.rate_votes} />
+                    <Hidden name="weight" value={bgg_stats.weight} />
+                    <Hidden
+                      name="weight_votes"
+                      value={bgg_stats.weight_votes}
                     />
-                  )}
-                  {bgg_version_id || isNOGAME ? (
-                    <>
-                      <Row>
-                        <Col>
-                          <Input
-                            data={data}
-                            validations={validations}
-                            validationStatus={validationStatus}
-                            setValidationStatus={setValidationStatus}
-                            type="select-multiple"
-                            options={languageList}
-                            translateType="language"
-                            //notTranslateOptions
-                            label="element.Language"
-                            name="language"
-                            readOnly={bgg_version_id !== "other"}
-                            onChange={(v) => {
-                              changeData({ language: v });
-                            }}
-                          />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col lg={8} xs={7}>
-                          <Input
-                            data={data}
-                            validations={validations}
-                            validationStatus={validationStatus}
-                            setValidationStatus={setValidationStatus}
-                            label="element.Publisher"
-                            name="publisher"
-                            readOnly={bgg_version_id !== "other"}
-                            onChange={(v) => {
-                              changeData({ publisher: v });
-                            }}
-                          />
-                        </Col>
-                        <Col lg={4} xs={5}>
-                          <Input
-                            data={data}
-                            validations={validations}
-                            validationStatus={validationStatus}
-                            setValidationStatus={setValidationStatus}
-                            label="element.Year"
-                            type="number"
-                            min="1"
-                            max={maxYear}
-                            name="year"
-                            readOnly={bgg_version_id !== "other"}
-                            onChange={(v) => {
-                              changeData({ year: v });
-                            }}
-                          />
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md={6}>
-                          <Input
-                            data={data}
-                            validations={validations}
-                            validationStatus={validationStatus}
-                            setValidationStatus={setValidationStatus}
-                            label="element.Status"
-                            name="status"
-                            type="select"
-                            options={statusList}
-                            onChange={(v) => {
-                              changeData({ status: v });
-                            }}
-                          />
-                        </Col>
-                      </Row>
+
+                    {isNOGAME ? (
                       <Input
                         data={data}
                         validations={validations}
                         validationStatus={validationStatus}
                         setValidationStatus={setValidationStatus}
-                        label="element.Comment"
-                        textSize={500}
-                        name="comment"
-                        type="textarea"
+                        label="element.Name"
+                        name="name"
+                        icon="puzzle-piece"
                         onChange={(v) => {
-                          changeData({ comment: v });
+                          changeData({ name: v });
                         }}
                       />
-                    </>
-                  ) : (
-                    <div className="bgg_version_id_null-spacer" />
-                  )}
-                  <ErrorAlert errors={errors} />
-                  <div className="text-center py-3">
-                    <Button
-                      color="link"
-                      tag="a"
-                      className="me-2 mb-sm-0 mb-2"
-                      outline
-                      onClick={(e) => {
-                        e.preventDefault();
-                        onClose();
-                      }}
-                    >
-                      <I18N id="btn.Cancel" />
-                    </Button>
-                    <Button
-                      color="primary"
-                      type="submit"
-                      disabled={!bgg_version_id}
-                    >
-                      {create ? (
-                        <I18N id="btn.Add" />
-                      ) : (
-                        <I18N id="btn.SaveChanges" />
-                      )}
-                    </Button>
-                  </div>
-                </Form>
-              </div>
-            </div>
-          </Col>
-        </Row>
-        {loading ? <LoadingBox /> : null}
-      </div>
-      {showDelete ? (
-        <div className="element-delete fade-in">
-          <div className="element-delete-cont">
-            <h5 className="mb-4">
-              <I18N id="Delete" /> "{element.name}"?
-            </h5>
+                    ) : (
+                      <Hidden name="name" value={element.name} />
+                    )}
 
-            <Button
-              color="link"
-              tag="a"
-              className="me-2 mb-sm-0 mb-2"
-              outline
-              onClick={(e) => {
-                e.preventDefault();
-                setShowDelete(false);
-              }}
-            >
-              <I18N id="btn.Cancel" />
-            </Button>
-            <Button
-              color="danger"
-              onClick={() => {
-                setShowDelete(false);
-                deleteElement(element.id);
-              }}
-            >
-              <I18N id="btn.Delete" />
-            </Button>
-          </div>
+                    {isNOGAME ? null : (
+                      <Input
+                        data={getVersionNameFromId(bgg_version_id, versionList)}
+                        validations={validations}
+                        validationStatus={validationStatus}
+                        setValidationStatus={setValidationStatus}
+                        type="input-drop"
+                        label="element.Edition"
+                        name="version_name"
+                        nowrite
+                        icon={"book"}
+                        autoComplete="off"
+                        loading={loadingBGGelement}
+                        drop={
+                          !loadingBGGelement ? (
+                            <ElementDropVersions
+                              versionList={versionList}
+                              onChange={(v) => {
+                                set_bgg_version_id(
+                                  v.versionData.bgg_version_id
+                                );
+                                if (v.versionData.thumbnail) {
+                                  set_thumbnail(v.versionData.thumbnail);
+                                }
+                                changeData(v.formData);
+                              }}
+                            />
+                          ) : null
+                        }
+                      />
+                    )}
+                    {bgg_version_id || isNOGAME ? (
+                      <>
+                        <Row>
+                          <Col>
+                            <Input
+                              data={data}
+                              validations={validations}
+                              validationStatus={validationStatus}
+                              setValidationStatus={setValidationStatus}
+                              type="select-multiple"
+                              options={languageList}
+                              translateType="language"
+                              //notTranslateOptions
+                              label="element.Language"
+                              name="language"
+                              readOnly={bgg_version_id !== "other"}
+                              onChange={(v) => {
+                                changeData({ language: v });
+                              }}
+                            />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col lg={8} xs={7}>
+                            <Input
+                              data={data}
+                              validations={validations}
+                              validationStatus={validationStatus}
+                              setValidationStatus={setValidationStatus}
+                              label="element.Publisher"
+                              name="publisher"
+                              readOnly={bgg_version_id !== "other"}
+                              onChange={(v) => {
+                                changeData({ publisher: v });
+                              }}
+                            />
+                          </Col>
+                          <Col lg={4} xs={5}>
+                            <Input
+                              data={data}
+                              validations={validations}
+                              validationStatus={validationStatus}
+                              setValidationStatus={setValidationStatus}
+                              label="element.Year"
+                              type="number"
+                              min="1"
+                              max={maxYear}
+                              name="year"
+                              readOnly={bgg_version_id !== "other"}
+                              onChange={(v) => {
+                                changeData({ year: v });
+                              }}
+                            />
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col md={6}>
+                            <Input
+                              data={data}
+                              validations={validations}
+                              validationStatus={validationStatus}
+                              setValidationStatus={setValidationStatus}
+                              label="element.Status"
+                              name="status"
+                              type="select"
+                              options={statusList}
+                              onChange={(v) => {
+                                changeData({ status: v });
+                              }}
+                            />
+                          </Col>
+                        </Row>
+                        <div className="element-edit-photoGallery">
+                          <div
+                            className="element-edit-photoGallery-title"
+                            onClick={() => {
+                              set_imagesCollapseOpen((v) => !v);
+                            }}
+                          >
+                            <div
+                              className={classNames(
+                                "element-edit-photoGallery-title-acc",
+                                { "is-open": imagesCollapseOpen }
+                              )}
+                            >
+                              <Icon type="chevron-right" className="me-2" />
+                              <I18N id="photoGallery.editElement.title" />
+                            </div>
+                            {!imagesCollapseOpen ? (
+                              <div className="element-edit-photoGallery-help">
+                                <I18N id="photoGallery.editElement.help" />
+                              </div>
+                            ) : null}
+                          </div>
+                          <Collapse isOpen={imagesCollapseOpen}>
+                            <div className="element-edit-photoGallery-container">
+                              <PhotoGallery
+                                list={images}
+                                editable
+                                limit={4}
+                                onDelete={(index) => {
+                                  set_images((a) => {
+                                    const b = [...a];
+                                    b.splice(index, 1);
+                                    return b;
+                                  });
+                                }}
+                                onAdd={(srcOut) => {
+                                  set_images((a) => {
+                                    const b = [...a];
+                                    b.push(srcOut);
+                                    return b;
+                                  });
+                                }}
+                              />
+                            </div>
+                          </Collapse>
+                        </div>
+                        <Input
+                          data={data}
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
+                          label="element.Comment"
+                          textSize={500}
+                          name="comment"
+                          type="textarea"
+                          onChange={(v) => {
+                            changeData({ comment: v });
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <div className="bgg_version_id_null-spacer" />
+                    )}
+                    <ErrorAlert errors={errors} />
+                    <div className="text-center py-3">
+                      <Button
+                        color="link"
+                        tag="a"
+                        className="me-2 mb-sm-0 mb-2"
+                        outline
+                        onClick={(e) => {
+                          e.preventDefault();
+                          onClose();
+                        }}
+                      >
+                        <I18N id="btn.Cancel" />
+                      </Button>
+                      <Button
+                        color="primary"
+                        type="submit"
+                        disabled={!bgg_version_id}
+                      >
+                        {create ? (
+                          <I18N id="btn.Add" />
+                        ) : (
+                          <I18N id="btn.SaveChanges" />
+                        )}
+                      </Button>
+                    </div>
+                  </Form>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          {loading ? <LoadingBox /> : null}
         </div>
+        {showDelete ? (
+          <div className="element-delete fade-in">
+            <div className="element-delete-cont">
+              <h5 className="mb-4">
+                <I18N id="Delete" /> "{element.name}"?
+              </h5>
+
+              <Button
+                color="link"
+                tag="a"
+                className="me-2 mb-sm-0 mb-2"
+                outline
+                onClick={(e) => {
+                  e.preventDefault();
+                  setShowDelete(false);
+                }}
+              >
+                <I18N id="btn.Cancel" />
+              </Button>
+              <Button
+                color="danger"
+                onClick={() => {
+                  setShowDelete(false);
+                  deleteElement(element.id);
+                }}
+              >
+                <I18N id="btn.Delete" />
+              </Button>
+            </div>
+          </div>
+        ) : null}
+      </div>
+      {modalUploadOpen ? (
+        <PhotoUploader
+          onClose={() => {
+            setModalUploadOpen(false);
+          }}
+          widthImage={250}
+          onLoaded={(srcOut) => {
+            set_thumbnail(photoUploaderConfig.urlBase + srcOut);
+            setModalUploadOpen(false);
+          }}
+        />
       ) : null}
-    </div>
+    </>
   );
 };
 export default ElementEdit;

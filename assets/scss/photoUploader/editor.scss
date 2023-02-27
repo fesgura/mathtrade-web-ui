@@ -15,6 +15,7 @@
       position: relative;
       overflow: hidden;
       border-top-left-radius: $brad;
+      cursor: move;
 
       canvas {
         display: block;

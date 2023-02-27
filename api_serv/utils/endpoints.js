@@ -71,6 +71,9 @@ const endpoints = {
   POST_BAN: "api/mathtrades/$[0]/user-bans/",
   DELETE_BAN: "api/mathtrades/$[0]/user-bans/$[1]/",
 
+  // IMAGES
+  POST_IMAGE: "api/images/",
+
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/1/
   /*

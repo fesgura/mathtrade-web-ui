@@ -354,6 +354,10 @@
   "photoUploader.edit.btn.Zoom.Out": "Achicar",
   "photoUploader.edit.btn.Rotate": "Rotar",
   "photoUploader.edit.btn.LoadImage": "Cargar imagen",
+  "photoUploader.edit.thumbnail.btn": "Agregar/cambiar foto",
   "photoGallery.deleteItem": "Eliminar imagen",
-  "photoGallery.addItem": "Agregar imagen"
+  "photoGallery.addItem": "Agregar imagen",
+  "photoGallery.editElement.title": "<b>Fotos</b> <em>(opcional)</em>",
+  "photoGallery.editElement.help": "Por favor, considerá subir fotos <u><b>sólo si es realmente necesario</b></u> aclarar el estado del ítem, o necesitás mostrar algo en particular, etc.",
+  "photoGallery.full.title": "Ver fotos"
 }
