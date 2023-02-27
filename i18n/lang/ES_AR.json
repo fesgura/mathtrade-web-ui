@@ -357,7 +357,7 @@
   "photoUploader.edit.thumbnail.btn": "Agregar/cambiar foto",
   "photoGallery.deleteItem": "Eliminar imagen",
   "photoGallery.addItem": "Agregar imagen",
-  "photoGallery.editElement.title": "<b>Fotos</b> <em>(opcional)</em>",
+  "photoGallery.editElement.title": "<b>Fotos</b> <em>(opcional, máx. 4 fotos)</em>",
   "photoGallery.editElement.help": "Por favor, considerá subir fotos <u><b>sólo si es realmente necesario</b></u> aclarar el estado del ítem, o necesitás mostrar algo en particular, etc.",
   "photoGallery.full.title": "Ver fotos"
 }
