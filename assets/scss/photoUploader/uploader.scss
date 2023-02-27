@@ -1,0 +1,55 @@
+.photoUploader_uploader-box {
+  padding: 120px 15px;
+  border: 5px dashed #bbb;
+  border-radius: 15px;
+  position: relative;
+  -webkit-user-select: none; /* Chrome all / Safari all */
+  -moz-user-select: none; /* Firefox all */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none; /* Likely future */
+
+  &.is-enter {
+    border-color: $primary;
+    background-color: rgba($primary, 0.1);
+  }
+
+  .photoUploader_uploader-box_inner {
+    text-align: center;
+  }
+  .photoUploader_uploader-box_inner-help {
+    border: $border;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 6px;
+    border-radius: 6px;
+  }
+  .photoUploader_uploader-box_inner-alter {
+    font-size: 13px;
+    font-style: italic;
+    padding-top: 30px;
+    padding-bottom: 10px;
+  }
+  .photoUploader_uploader-input {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    vertical-align: bottom;
+
+    input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+    span {
+      display: inline-block;
+      color: $primary;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+  .photoUploader_uploader-box_error {
+    height: 0;
+  }
+}

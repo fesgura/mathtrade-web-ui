@@ -1,0 +1,146 @@
+.photo-gallery {
+  $w: 122px;
+  $p: 12px;
+  $wi: $w - $p;
+  $m: 15px;
+
+  .photo-gallery_cont {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -1 * $m;
+    margin-bottom: -1 * $m;
+  }
+  .photo-gallery_item {
+    padding: 0 $m $m 0;
+
+    .photo-gallery_item-cont {
+      width: $w;
+      height: $w;
+      border: $border;
+      padding: 0.5 * ($w - $wi - 1px);
+      border-radius: 5px;
+      position: relative;
+
+      .photo-gallery_item-cont-plus,
+      .photo-gallery_item-cont-img {
+        width: $wi;
+        height: $wi;
+      }
+      .photo-gallery_item-cont-img {
+        background-color: #ddd;
+        overflow: hidden;
+        cursor: pointer;
+
+        img {
+          display: block;
+          width: 100%;
+          height: auto;
+          transition: opacity 0.1s;
+        }
+        &:hover {
+          img {
+            opacity: 0.65;
+          }
+        }
+      }
+      .photo-gallery_item-cont-plus {
+        border: $border;
+        text-align: center;
+        line-height: $wi - 2px;
+        font-size: 40px;
+        color: #ddd;
+        cursor: pointer;
+        transition: color 0.1s;
+
+        &:hover {
+          color: #999;
+        }
+      }
+
+      .photo-gallery_item-close {
+        $wb: 16px;
+        position: absolute;
+        top: -7px;
+        right: -7px;
+        font-size: 12px;
+        width: $wb;
+        height: $wb;
+        line-height: $wb;
+        background-color: $danger;
+        color: #fff;
+        text-align: center;
+        border-radius: 50%;
+        cursor: pointer;
+
+        &:hover {
+          background-color: darken($danger, 15);
+        }
+      }
+    }
+  }
+}
+.photo-gallery_view {
+  position: relative;
+  .photo-gallery_view-cont {
+    max-width: 600px;
+    margin: 0 auto;
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+  .photo-gallery_view-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    $wclo: 26px;
+    width: $wclo;
+    height: $wclo;
+    line-height: $wclo;
+    text-align: center;
+    color: #fff;
+    opacity: 0.4;
+    cursor: pointer;
+    transition: opacity 0.1s;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .photo-gallery_view-arrow {
+    $warr: 38px;
+    position: absolute;
+    top: 50%;
+
+    margin-top: -0.5 * $warr;
+    width: $warr;
+    height: $warr;
+    line-height: $warr;
+    text-align: center;
+    color: #fff;
+    opacity: 0.6;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transition: opacity 0.1s;
+
+    &.to-left {
+      left: 20px;
+    }
+    &.to-right {
+      right: 20px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+.modal-photo-gallery-backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.modal-photo-gallery {
+  .modal-content {
+    background-color: #000;
+  }
+}
