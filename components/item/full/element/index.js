@@ -1,6 +1,7 @@
-import { useId } from "react";
+import { useEffect, useId, useState } from "react";
 import classNames from "classnames";
-import { Col, Row, UncontrolledTooltip, Badge } from "reactstrap";
+import PhotoGallery from "components/photoGallery";
+import { Col, Row, UncontrolledTooltip, Collapse } from "reactstrap";
 import Thumbnail from "components/thumbnail";
 import Icon from "components/icon";
 import Pill from "components/pillData";
@@ -26,6 +27,16 @@ const Element = ({
   notBan,
 }) => {
   const id = useId("a").replace(twoPointsReg, "");
+
+  const [imagesCollapseOpen, set_imagesCollapseOpen] = useState(false);
+  const [images, set_images] = useState([]);
+
+  useEffect(() => {
+    if (element && element.images && element.images !== "") {
+      const newImages = element.images.split(",");
+      set_images(newImages);
+    }
+  }, [element]);
 
   return (
     <div className={classNames("element-full", { isCombo })}>
@@ -131,7 +142,6 @@ const Element = ({
                       text={<StatusBadge status={element.status} />}
                     />
                   </Col>
-
                   {element.comment !== "" ? (
                     <Col xs="12">
                       <Pill
@@ -139,6 +149,31 @@ const Element = ({
                         text={element.comment}
                         fullWidth
                       />
+                    </Col>
+                  ) : null}
+                  {images.length ? (
+                    <Col xs="12">
+                      <div className="element-full-photoGallery">
+                        <div
+                          className={classNames(
+                            "element-full-photoGallery-title",
+                            { "is-open": imagesCollapseOpen }
+                          )}
+                          onClick={() => {
+                            set_imagesCollapseOpen((v) => !v);
+                          }}
+                        >
+                          <Icon type="chevron-right" className="me-1" />
+                          <I18N id="photoGallery.full.title" />
+                        </div>
+                        <Collapse isOpen={imagesCollapseOpen}>
+                          {imagesCollapseOpen ? (
+                            <div className="element-full-photoGallery-container">
+                              <PhotoGallery list={images} />
+                            </div>
+                          ) : null}
+                        </Collapse>
+                      </div>
                     </Col>
                   ) : null}
                 </Row>

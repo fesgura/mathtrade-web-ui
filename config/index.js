@@ -15,8 +15,7 @@ export const NOGAMEresult = {
   type: 3,
   bgg_version_id: "other",
   dependency: 0,
-  thumbnail:
-    "https://cf.geekdo-images.com/mWd3fATtGyOieHNJH8oOfQ__itemrep/img/u8fWnRUd079d_RvkhMbJRlE5xWo=/fit-in/246x300/filters:strip_icc()/pic193671.jpg",
+  thumbnail: "none",
 };
 
 export const statusTypes = (function () {
@@ -172,6 +171,7 @@ export const photoUploaderConfig = (() => {
       format: "image/jpeg",
       quality: 0.8,
     },
+    urlBase: "https://api.mathtrade.com.ar/media/",
   };
 
   o.formatString = o.formats.join(", ");

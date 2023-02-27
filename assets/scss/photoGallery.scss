@@ -30,6 +30,7 @@
         background-color: #ddd;
         overflow: hidden;
         cursor: pointer;
+        position: relative;
 
         img {
           display: block;
@@ -37,7 +38,21 @@
           height: auto;
           transition: opacity 0.1s;
         }
+        .photo-gallery_item_eye {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          color: #fff;
+          font-size: 40px;
+          text-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+          opacity: 0;
+          transition: opacity 0.1s;
+        }
         &:hover {
+          .photo-gallery_item_eye {
+            opacity: 1;
+          }
           img {
             opacity: 0.65;
           }

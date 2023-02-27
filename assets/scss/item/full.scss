@@ -159,6 +159,32 @@
   &.isCombo {
     border-top: $border;
   }
+
+  .element-full-photoGallery {
+    padding-top: 30px;
+    padding-bottom: 10px;
+    .element-full-photoGallery-title {
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      .icon {
+        transition: transform 0.2s;
+      }
+
+      &.is-open {
+        .icon {
+          transform: rotate(90deg);
+        }
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .element-full-photoGallery-container {
+      padding-top: 10px;
+    }
+  }
 }
 
 .element-type-badge {

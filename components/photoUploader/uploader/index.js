@@ -40,11 +40,11 @@ const Uploader = ({ onLoadImage, onCancel }) => {
     e.preventDefault();
     e.stopPropagation();
   }, []);
-  const onDragLeave = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setBoxCSSclass("");
-  }, []);
+  // const onDragLeave = useCallback((e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   setBoxCSSclass("");
+  // }, []);
   const onDrop = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -58,7 +58,7 @@ const Uploader = ({ onLoadImage, onCancel }) => {
         className={classNames("photoUploader_uploader-box", boxCSSclass)}
         onDragEnter={onDragEnter}
         onDragOver={onDragOver}
-        onDragLeave={onDragLeave}
+        // onDragLeave={onDragLeave}
         onDrop={onDrop}
       >
         <div className="photoUploader_uploader-box_inner">

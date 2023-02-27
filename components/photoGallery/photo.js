@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { UncontrolledTooltip } from "reactstrap";
+import { photoUploaderConfig } from "config";
 import Icon from "components/icon";
 import I18N from "i18n";
 
@@ -17,7 +18,8 @@ const PhotoItem = ({ src, index, editable, onDelete, onView }) => {
             onView(index);
           }}
         >
-          <img src={src} />
+          <img src={photoUploaderConfig.urlBase + src} />
+          <Icon type="eye" className="photo-gallery_item_eye" />
         </div>
         {editable ? (
           <>

@@ -6,3 +6,4 @@ export { default as myCollectionService } from "./services/myCollection";
 export { default as ElementService } from "./services/element";
 export { default as MathTradeService } from "./services/mathtrade";
 export { default as NotificationService } from "./services/notification";
+export { default as ImageService } from "./services/image";
