@@ -342,5 +342,18 @@
   "ban.btn.showAgain": "Volver a mostrar",
   "element-type-badge-1": "Juego",
   "element-type-badge-2": "Expansión",
-  "element-type-badge-3": "Fuera de la BGG"
+  "element-type-badge-3": "Fuera de la BGG",
+  "photoUploader.upload.Title": "Arrastrá una foto aquí",
+  "photoUploader.upload.help": "Formato JPG ó PNG, $$$mb de tamaño máximo.",
+  "photoUploader.upload.alternative": "También podés buscar la foto en tus archivos,<br />haciendo click",
+  "photoUploader.upload.alternative.btn": "aquí",
+  "photoUploader.upload.error.format": "El archivo no tiene el formato adecuado",
+  "photoUploader.upload.error.size": "La imagen excede el tamaño máximo",
+  "photoUploader.edit.btn.chooseAnotherImage": "Elegir otra imagen",
+  "photoUploader.edit.btn.Zoom.In": "Agrandar",
+  "photoUploader.edit.btn.Zoom.Out": "Achicar",
+  "photoUploader.edit.btn.Rotate": "Rotar",
+  "photoUploader.edit.btn.LoadImage": "Cargar imagen",
+  "photoGallery.deleteItem": "Eliminar imagen",
+  "photoGallery.addItem": "Agregar imagen"
 }

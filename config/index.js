@@ -164,4 +164,18 @@ export const languageList = (() => {
   return list;
 })();
 
+export const photoUploaderConfig = (() => {
+  const o = {
+    formats: ["image/jpeg", "image/png", "image/jpg"],
+    maxFileSizeMB: 4,
+    saveData: {
+      format: "image/jpeg",
+      quality: 0.8,
+    },
+  };
+
+  o.formatString = o.formats.join(", ");
+  return o;
+})();
+
 export const claveAppUItemporal = "marvel8647";
