@@ -5,6 +5,9 @@ const CheckGroup = ({
   myItemGroup,
   set_wantListGrid,
   //
+  groupHits,
+  setGroupHits,
+  //
   setList,
   isMouseDown,
   onMouseDown,
@@ -17,6 +20,13 @@ const CheckGroup = ({
         set_wantListGrid={set_wantListGrid}
         itemMy={myItemGroup.item || null}
         //
+        onHit={() => {
+          setGroupHits((a) => {
+            const b = [...a];
+            b.push(`${wantGroup.idkey}-${myItemGroup.idkey}`);
+            return b;
+          });
+        }}
         setList={setList}
         isMouseDown={isMouseDown}
         onMouseDown={onMouseDown}
@@ -31,6 +41,7 @@ const CheckGroup = ({
                 set_wantListGrid={set_wantListGrid}
                 itemMy={itm}
                 isInner
+                groupHits={groupHits}
                 //
                 setList={setList}
                 isMouseDown={isMouseDown}

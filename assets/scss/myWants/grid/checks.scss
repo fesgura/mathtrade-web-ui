@@ -37,15 +37,16 @@
     text-align: center;
     border: 1px solid #aaa;
     border-radius: 20%;
+    transition: all 0.2s;
 
     .icon {
       display: none;
     }
   }
   &.selected {
-    .mw_grid-box-check_content {
-      //background-color: rgba($mywants-checkbox-color, 0.1);
-    }
+    // .mw_grid-box-check_content {
+    //   //background-color: rgba($mywants-checkbox-color, 0.1);
+    // }
     .mw_grid-box-checkbox {
       border-color: $mywants-checkbox-color;
       background-color: $mywants-checkbox-color;

@@ -11,6 +11,9 @@ const CheckItem = ({
   isMouseDown,
   setList,
   onMouseDown,
+  //
+  onHit,
+  groupHits,
 }) => {
   const [selected, setSelected] = useState(false);
 
@@ -97,17 +100,20 @@ const CheckItem = ({
       isInner={isInner}
       onMouseDown={() => {
         //
+        if (onHit) onHit();
         onChange();
         onMouseDown();
       }}
       onMouseEnter={() => {
         if (isMouseDown) {
-          onChange();
-          // setList((list) => {
-          //   const newList = [...list];
-          //   newList.push(wantGroup.idkey);
-          //   return newList;
-          // });
+          const isGroupHit = isInner
+            ? groupHits.indexOf(`${wantGroup.idkey}-${myItemGroup.idkey}`) >= 0
+            : false;
+
+          if (!isGroupHit) {
+            if (onHit) onHit();
+            onChange();
+          }
         }
       }}
     />

@@ -12,8 +12,11 @@ const Grid = ({
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [list, setList] = useState({});
 
+  const [groupHits, setGroupHits] = useState([]);
+
   useEffect(() => {
     const onMouseUp = function () {
+      setGroupHits([]);
       setIsMouseDown(false);
     };
     window.addEventListener("mouseup", onMouseUp);
@@ -63,6 +66,9 @@ const Grid = ({
               wantGroup={wantGroup}
               set_wantListGrid={set_wantListGrid}
               myItemGroup={myItemGroup}
+              //
+              groupHits={groupHits}
+              setGroupHits={setGroupHits}
               //
               setList={setList}
               isMouseDown={isMouseDown}
