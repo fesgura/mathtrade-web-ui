@@ -1,5 +1,12 @@
 import { useId, useState, useEffect, useCallback } from "react";
-import { Col, Row, Button, UncontrolledTooltip, Collapse } from "reactstrap";
+import {
+  Col,
+  Row,
+  Button,
+  UncontrolledTooltip,
+  Collapse,
+  Alert,
+} from "reactstrap";
 import classNames from "classnames";
 import { languageList, statusList, photoUploaderConfig } from "config";
 import PhotoGallery from "components/photoGallery";
@@ -34,6 +41,8 @@ const maxYear = (function () {
 const ElementEdit = ({
   element,
   create,
+  repeatedGame,
+  setRepeatedGame,
   onClose,
   // BGG ELEMENT
   fetchBGGelement,
@@ -169,6 +178,31 @@ const ElementEdit = ({
             </Col>
             <Col>
               <div className="element-edit-data-container">
+                <Alert color="info" isOpen={repeatedGame}>
+                  <div className="text-center">
+                    <I18N id="element.editor.repeated.alert" />
+                  </div>
+                  <div className="text-center pt-2">
+                    <Button
+                      color="link"
+                      size="xs"
+                      className="me-2 mb-sm-0 mb-2"
+                      outline
+                      onClick={onClose}
+                    >
+                      <I18N id="element.editor.repeated.btn.cancel" />
+                    </Button>
+                    <Button
+                      color="primary"
+                      size="xs"
+                      onClick={() => {
+                        setRepeatedGame(false);
+                      }}
+                    >
+                      <I18N id="element.editor.repeated.btn.yes" />
+                    </Button>
+                  </div>
+                </Alert>
                 <div className="element-title mb-2">
                   {element.name}{" "}
                   {element.type === 3 ? null : (

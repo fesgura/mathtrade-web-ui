@@ -145,6 +145,7 @@ const MyCollectionView = ({
       >
         <ModalBody>
           <ElementEditor
+            itemList={itemListOrdered}
             objToEdit={objToEdit}
             onClose={() => {
               setModalEditOpen(false);

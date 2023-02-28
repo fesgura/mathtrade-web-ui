@@ -7,7 +7,7 @@ import {
 } from "api_serv";
 import { setItemTitle } from "./utils";
 
-const ElementEditor = ({ objToEdit, onClose, afterAnyChange }) => {
+const ElementEditor = ({ objToEdit, itemList, onClose, afterAnyChange }) => {
   // BGG ELEMENT
   const [fetchBGGelement, BGGelement, loadingBGGelement, errorMessage] = useApi(
     {
@@ -67,6 +67,7 @@ const ElementEditor = ({ objToEdit, onClose, afterAnyChange }) => {
   return (
     <ElementEditorView
       objToEdit={objToEdit}
+      itemList={itemList}
       onClose={onClose}
       onSaveElement={(data) => {
         let dataToSend = JSON.parse(JSON.stringify(data));
