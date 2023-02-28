@@ -21,6 +21,7 @@ const defaultElementToEdit = {
 const ElementEditorView = ({
   onClose,
   objToEdit,
+  itemList,
   onSaveElement,
   loading,
   errors,
@@ -32,6 +33,7 @@ const ElementEditorView = ({
 }) => {
   const [step, setStep] = useState(objToEdit.element ? 1 : 0);
   const [type, setType] = useState(0);
+  const [repeatedGame, setRepeatedGame] = useState(false);
 
   const [ElementToEdit, setElementToEdit] = useState(objToEdit.element);
 
@@ -54,6 +56,16 @@ const ElementEditorView = ({
             label="BGGsearch.Label"
             question="BGGsearch.help"
             onResult={(ops) => {
+              let isInItem = false;
+              itemList.forEach((itm) => {
+                itm.elements.forEach((elem) => {
+                  if (elem.bgg_id === ops.bgg_id) {
+                    isInItem = true;
+                  }
+                });
+              });
+              setRepeatedGame(isInItem);
+
               setElementToEdit(null);
               setTimeout(() => {
                 setElementToEdit({
@@ -70,6 +82,8 @@ const ElementEditorView = ({
           <ElementEdit
             element={ElementToEdit}
             create={!objToEdit.element}
+            repeatedGame={repeatedGame}
+            setRepeatedGame={setRepeatedGame}
             item={objToEdit.item}
             onClose={onClose}
             onSaveElement={onSaveElement}
