@@ -152,10 +152,12 @@ export const create_wantListGrid = (wantList, oldWantListGrid) => {
 
     let type = "item";
 
-    if (!bgg_id) {
-      type = wants.length === 1 && tags.length === 0 ? "item" : "group";
-    } else {
-      type = "game";
+    if (wants.length > 1) {
+      if (bgg_id) {
+        type = "game";
+      } else {
+        type = "group";
+      }
     }
 
     const itemsList = type === "game" ? [...wants, ...availables] : [...wants];
