@@ -4,6 +4,7 @@ import storage from "utils/storage";
 import { useRouter } from "next/router";
 import { useApi, MathTradeService, LocationService } from "api_serv";
 import { getUniqueId, formatUserWantGroup } from "utils";
+import { page_size } from "config";
 import ItemListView from "views/mathtrade/list/items";
 
 const MT_ItemListContainer = () => {
@@ -66,11 +67,15 @@ const MT_ItemListContainer = () => {
 
         const storeOptions = storage.getOptions();
 
-        let queryUser = { ...query };
+        let queryUser = { ...query, page_size: page_size.items };
 
         if (storeOptions?.hideOwnUser) {
           const storeData = storage.get();
-          queryUser = { ...query, user: `-${storeData?.user?.data?.id}` };
+          queryUser = {
+            ...query,
+            user: `-${storeData?.user?.data?.id}`,
+            page_size: page_size.items,
+          };
         }
 
         setFilters({ pathname, query: queryUser, d: getUniqueId() });

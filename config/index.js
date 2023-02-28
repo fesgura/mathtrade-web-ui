@@ -179,3 +179,8 @@ export const photoUploaderConfig = (() => {
 })();
 
 export const claveAppUItemporal = "marvel8647";
+
+export const page_size = {
+  items: 30,
+  games: 30,
+};
