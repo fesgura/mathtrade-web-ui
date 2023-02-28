@@ -150,17 +150,18 @@ export const create_wantListGrid = (wantList, oldWantListGrid) => {
     const { availables, bgg_id, dup_protection, id, items, name, tags, wants } =
       uwg;
 
+    const itemsList = [...wants, ...availables];
+    // const itemsList = type === "game" ? [...wants, ...availables] : [...wants];
+
     let type = "item";
 
-    if (wants.length > 1) {
+    if (itemsList.length > 1) {
       if (bgg_id) {
         type = "game";
       } else {
         type = "group";
       }
     }
-
-    const itemsList = type === "game" ? [...wants, ...availables] : [...wants];
 
     const value = (() => {
       let valMax = 10;
