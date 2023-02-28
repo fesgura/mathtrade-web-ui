@@ -2,6 +2,7 @@ import { useState } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
+import { page_size } from "config";
 import ItemView from "./item";
 import { Col, Row } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
@@ -80,6 +81,7 @@ const ItemListView = ({
             setFilters={setFilters}
             elementsTotal={list?.count || 0}
             onTop
+            pageSize={page_size.items}
           />
         </Col>
       </Row>
@@ -156,6 +158,7 @@ const ItemListView = ({
             filters={filters}
             setFilters={setFilters}
             elementsTotal={list?.count || 0}
+            pageSize={page_size.items}
             onBottom
           />
         </Col>

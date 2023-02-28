@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { useApi, MathTradeService } from "api_serv";
 import { getUniqueId, formatUserWantGroup } from "utils";
 import GameListView from "views/mathtrade/list/games";
+import { page_size } from "config";
 
 const MT_GameListContainer = () => {
   const router = useRouter();
@@ -35,11 +36,15 @@ const MT_GameListContainer = () => {
         setIsFetched(true);
         const storeOptions = storage.getOptions();
 
-        let queryUser = { ...query };
+        let queryUser = { ...query, page_size: page_size.games };
 
         if (storeOptions?.hideOwnUser) {
           const storeData = storage.get();
-          queryUser = { ...query, user: `-${storeData?.user?.data?.id}` };
+          queryUser = {
+            ...query,
+            user: `-${storeData?.user?.data?.id}`,
+            page_size: page_size.games,
+          };
         }
 
         setFilters({ pathname, query: queryUser, d: getUniqueId() });

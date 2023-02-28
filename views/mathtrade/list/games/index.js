@@ -1,7 +1,7 @@
-import { useState } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
+import { page_size } from "config";
 import Game from "./game";
 import { Col, Row } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
@@ -66,6 +66,7 @@ const GameListView = ({
             filters={filters}
             setFilters={setFilters}
             elementsTotal={list?.count || 0}
+            pageSize={page_size.games}
             onTop
           />
         </Col>
@@ -110,6 +111,7 @@ const GameListView = ({
             filters={filters}
             setFilters={setFilters}
             elementsTotal={list?.count || 0}
+            pageSize={page_size.games}
             onBottom
           />
         </Col>
