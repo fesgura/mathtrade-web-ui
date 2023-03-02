@@ -326,6 +326,7 @@
   "notifications.NoMoreNotifications": "No hay más notificaciones.",
   "notifications.message.WGR": "El ítem \"$$$\" ha sido eliminado de tus juegos deseados.",
   "notifications.message.WGC": "El ítem que deseaste: \"$$$\", ha sido editado por la persona que lo ofrece.",
+  "notifications.message.WG.btn": "Ver deseo",
   "notifications.MarkAsRead": "Marcar como leída",
   "notifications.MarkAsNotRead": "Marcar como no leída",
   "hideOwnItems.label": "Ocultar (de mí) mis propios ítems",

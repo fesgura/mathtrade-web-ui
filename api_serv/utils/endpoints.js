@@ -50,6 +50,7 @@ const endpoints = {
 
   // MATHTRADE: MYWANTS
   MYWANTS: "api/mathtrades/$[0]/user-want-groups/",
+  GET_WANT: "api/mathtrades/$[0]/user-want-groups/$[1]/",
   POST_MYWANTS: "api/mathtrades/$[0]/user-want-groups/",
   PUT_MYWANTS: "api/mathtrades/$[0]/user-want-groups/$[1]/",
   PUT_MYWANTS_BATCH: "api/mathtrades/$[0]/user-want-groups-list/",

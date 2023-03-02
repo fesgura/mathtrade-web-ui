@@ -6,6 +6,7 @@ import { Row, Col, UncontrolledTooltip } from "reactstrap";
 import { useApi, NotificationService } from "api_serv";
 import moment from "moment/moment";
 import "moment/locale/es";
+import WantView from "../wantView";
 
 moment.locale("es");
 
@@ -64,7 +65,7 @@ const Notification = ({ dataNotification, idNode, setCountUnread, unread }) => {
         </Col>
         <Col>
           <div className="notification-ob_message">
-            {data?.type === "ADM" ? (
+            {data?.type === "ADM" || data?.type === "MTC" ? (
               data?.message
             ) : (
               <I18N
@@ -72,6 +73,7 @@ const Notification = ({ dataNotification, idNode, setCountUnread, unread }) => {
                 values={[data?.message]}
               />
             )}
+            {/* <WantView /> */}
           </div>
         </Col>
       </Row>
