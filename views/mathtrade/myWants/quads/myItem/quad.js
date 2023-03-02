@@ -1,10 +1,11 @@
 import { useId, useEffect, useState } from "react";
-import { UncontrolledTooltip } from "reactstrap";
+import { UncontrolledTooltip, Button, Modal, ModalBody } from "reactstrap";
 import Thumbnail from "components/thumbnail";
 import Previewer from "components/previewer";
 import ItemFull from "components/item/full";
 import classNames from "classnames";
 import Icon from "components/icon";
+import I18N from "i18n";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -14,8 +15,11 @@ const Quad = ({
   setModalWantOpen,
   setCurrentWantGroup,
   setCurrentType,
+  onDelete,
 }) => {
   const id = useId("quad-want").replace(twoPointsReg, "");
+
+  const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
 
   const [src, setSrc] = useState(null);
   const [title, setTitle] = useState("");
@@ -54,34 +58,95 @@ const Quad = ({
   }, [isGroup, data]);
 
   return (
-    <div className="quad-want_myItemGroup-quad-wrap">
-      <div
-        className={classNames("quad-want_myItemGroup-quad-cont", `for-${type}`)}
-      >
+    <>
+      <div className="quad-want_myItemGroup-quad-wrap">
         <div
-          className={classNames("quad-want_myItemGroup-quad", { isGroup })}
-          id={`quad-want-${id}`}
-          onClick={() => {
-            if (isGroup) {
-              setCurrentWantGroup(data);
-              setCurrentType(type);
-              setModalWantOpen(true);
-            }
-          }}
+          className={classNames(
+            "quad-want_myItemGroup-quad-cont",
+            `for-${type}`
+          )}
         >
-          <Thumbnail src={src} quad isMultiple={type === "tag"} />
-          {!isGroup ? (
-            <Previewer colorInverted>
-              <ItemFull item={data} inModal />
-            </Previewer>
+          <div
+            className={classNames("quad-want_myItemGroup-quad", { isGroup })}
+            id={`quad-want-${id}`}
+            onClick={() => {
+              if (isGroup) {
+                setCurrentWantGroup(data);
+                setCurrentType(type);
+                setModalWantOpen(true);
+              }
+            }}
+          >
+            <Thumbnail src={src} quad isMultiple={type === "tag"} />
+            {!isGroup ? (
+              <Previewer colorInverted>
+                <ItemFull item={data} inModal />
+              </Previewer>
+            ) : null}
+            {isGroup ? <Icon type="eye" className="quad-want_icon" /> : null}
+          </div>
+          <UncontrolledTooltip target={`quad-want-${id}`}>
+            {title}
+          </UncontrolledTooltip>
+
+          {isGroup ? (
+            <>
+              <div
+                className="quad-want_myItemGroup-delete"
+                id={`quad-want-delete-${id}`}
+                onClick={() => {
+                  setModalDeleteOpen(true);
+                }}
+              >
+                <Icon />
+              </div>
+              <UncontrolledTooltip target={`quad-want-delete-${id}`}>
+                <I18N id="btn.Delete" />
+              </UncontrolledTooltip>
+            </>
           ) : null}
-          {isGroup ? <Icon type="eye" className="quad-want_icon" /> : null}
         </div>
-        <UncontrolledTooltip target={`quad-want-${id}`}>
-          {title}
-        </UncontrolledTooltip>
       </div>
-    </div>
+      {modalDeleteOpen ? (
+        <Modal
+          isOpen={true}
+          toggle={() => {
+            setModalDeleteOpen(false);
+          }}
+          centered
+          size="md"
+        >
+          <ModalBody className="text-center p-4">
+            <h3 className="mb-4 bold">
+              <I18N id="MyWants.Grid.DeleteGroupQuestion" />
+            </h3>
+            <div>
+              <Button
+                color="link"
+                // tag="a"
+                className="me-2 mb-sm-0 mb-2"
+                outline
+                onClick={(e) => {
+                  setModalDeleteOpen(false);
+                }}
+              >
+                <I18N id="btn.Cancel" />
+              </Button>
+              <Button
+                color="danger"
+                type="submit"
+                onClick={() => {
+                  setModalDeleteOpen(false);
+                  onDelete(data);
+                }}
+              >
+                <I18N id="btn.Delete" />
+              </Button>
+            </div>
+          </ModalBody>
+        </Modal>
+      ) : null}
+    </>
   );
 };
 export default Quad;

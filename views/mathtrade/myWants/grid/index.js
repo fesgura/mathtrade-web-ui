@@ -76,7 +76,7 @@ const Grid = ({
           "not-commitment": mustCommitChanges,
         })}
       >
-        {loading ? <div className="mywants-grid_card-dimmer" /> : null}
+        {loading ? <div className="mywants-card-dimmer" /> : null}
         <CardBody>
           <div className="mywants-grid_container">
             <div className="mywants-grid_myItems-container">

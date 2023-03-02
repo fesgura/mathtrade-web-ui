@@ -1,12 +1,6 @@
 import { useId, useState } from "react";
 import BtnCircle from "components/btnCircle";
-import {
-  Button,
-  Modal,
-  ModalBody,
-  UncontrolledPopover,
-  UncontrolledTooltip,
-} from "reactstrap";
+import { Button, Modal, ModalBody } from "reactstrap";
 import Icon from "components/icon";
 import I18N from "i18n";
 

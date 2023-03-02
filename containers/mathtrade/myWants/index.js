@@ -101,6 +101,7 @@ const MyWants = () => {
         commitChanges={commitChanges}
         commitChangesLoading={commitChangesLoading}
         mustCommitChanges={mustCommitChanges}
+        set_mustCommitChanges={set_mustCommitChanges}
         firstLoaded={firstLoadedWants && firstLoadedMyItems}
         loading={
           loadingWantList ||

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Card, CardBody, Modal, ModalBody } from "reactstrap";
-import I18N from "i18n";
+import { Card, CardBody, Row, Col } from "reactstrap";
 import MyItemView from "./myItem";
 import { getMyItemGroups } from "./utils";
-import EditorWants from "components/wantEditor/editor";
+import classNames from "classnames";
 import ModalEditor from "components/wantEditor/modalEditor";
+import CommitBtn from "../common/commit-btn";
 
 const QuadsView = ({
   myItemList,
@@ -14,7 +14,7 @@ const QuadsView = ({
   commitChanges,
   commitChangesLoading,
   mustCommitChanges,
-  reloadMyItems,
+  set_mustCommitChanges,
   reloadWants,
   loading,
 }) => {
@@ -32,8 +32,24 @@ const QuadsView = ({
   return (
     <>
       <div className="main-container">
-        <Card>
+        <Card
+          className={classNames("quad-want_card", {
+            "not-commitment": mustCommitChanges,
+          })}
+        >
+          {loading ? <div className="mywants-card-dimmer" /> : null}
           <CardBody>
+            <div className="quad-want_myItemGroup-header">
+              <Row>
+                <Col className="text-center">
+                  <CommitBtn
+                    commitChanges={commitChanges}
+                    commitChangesLoading={commitChangesLoading}
+                    mustCommitChanges={mustCommitChanges}
+                  />
+                </Col>
+              </Row>
+            </div>
             <div className="quad-want_myItemGroup-list">
               {myItemGroups.map((myItemGroup) => {
                 return (
@@ -43,6 +59,7 @@ const QuadsView = ({
                     setModalWantOpen={setModalWantOpen}
                     setCurrentWantGroup={setCurrentWantGroup}
                     setCurrentType={setCurrentType}
+                    putWant={putWant}
                   />
                 );
               })}
@@ -59,6 +76,7 @@ const QuadsView = ({
         type={currentType}
         afterAnyChange={() => {
           setModalWantOpen(false);
+          set_mustCommitChanges(true);
           reloadWants();
         }}
       />
