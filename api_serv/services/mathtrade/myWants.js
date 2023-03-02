@@ -7,6 +7,11 @@ const services = {
     const mathTradeId = getMathtradeId();
     return api.get(endpoints.compose("MYWANTS", [mathTradeId]));
   },
+  getWant: (props) => {
+    setAuth();
+    const mathTradeId = getMathtradeId();
+    return api.get(endpoints.compose("GET_WANT", [mathTradeId, props.id]));
+  },
   postWant: (props) => {
     setAuth();
     const mathTradeId = getMathtradeId();

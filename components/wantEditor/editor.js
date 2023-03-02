@@ -142,7 +142,6 @@ const EditorWants = ({
       afterAnyChange(true);
     },
   });
-  /******************************/
 
   return (
     <>

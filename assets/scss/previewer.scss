@@ -15,6 +15,16 @@
     background-color: $primary;
     color: #fff;
   }
+
+  &.colorInverted {
+    background-color: $primary;
+    color: #fff;
+
+    &:hover,
+    &:focus {
+      background-color: darken($primary, 12);
+    }
+  }
 }
 .previewer-container {
   min-width: 800px;

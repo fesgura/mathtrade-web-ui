@@ -4,8 +4,8 @@ import PageHeaderTabs from "components/pageHeaderTabs";
 import { Button } from "reactstrap";
 import LoadingPad from "components/loading/loadingPad";
 import Grid from "./grid";
+import QuadsView from "./quads";
 import I18N from "i18n";
-import ErrorAlert from "components/errorAlert";
 
 const MyWantsView = ({
   wantList,
@@ -27,7 +27,21 @@ const MyWantsView = ({
   let content = null;
   switch (current) {
     case 0:
-      content = <div className="main-container">Opt 1</div>;
+      content = (
+        <>To Do</>
+        // <QuadsView
+        //   myItemList={myItemList}
+        //   wantList={wantList}
+        //   putWant={putWant}
+        //   putWantBatch={putWantBatch}
+        //   commitChanges={commitChanges}
+        //   commitChangesLoading={commitChangesLoading}
+        //   mustCommitChanges={mustCommitChanges}
+        //   reloadMyItems={reloadMyItems}
+        //   reloadWants={reloadWants}
+        //   loading={loading}
+        // />
+      );
       break;
     case 1:
       content = (
