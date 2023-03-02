@@ -6,14 +6,19 @@ import I18N from "i18n";
 
 const twoPointsReg = new RegExp(":", "g");
 
-const Previewer = ({ className, classNameContainer, children }) => {
+const Previewer = ({
+  className,
+  classNameContainer,
+  colorInverted,
+  children,
+}) => {
   const id = useId("previewer").replace(twoPointsReg, "");
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <button
-        className={classNames("previewer", className)}
+        className={classNames("previewer", className, { colorInverted })}
         id={id}
         onClick={() => {
           setIsOpen((v) => !v);

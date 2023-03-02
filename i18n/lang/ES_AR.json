@@ -286,7 +286,7 @@
   "MyWants.dup_protection.yes": "Protección de duplicados activada",
   "MyWants.dup_protection.no": "Protección de duplicados desactivada",
   "title.MyWants": "Mis Deseos",
-  "MyWants.tabTitle1": "Opt 1",
+  "MyWants.tabTitle1": "Por juego",
   "MyWants.tabTitle2": "Grilla",
   "MyWants.btn.CommitChanges": "Comprometer cambios",
   "MyWants.Grid.ExtendAll": "Extender/contraer todos los grupos en la grilla.",

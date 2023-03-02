@@ -1,0 +1,118 @@
+.quad-want_myItemGroup-list {
+  $quad-w: 180px;
+  $quad-p: 8px;
+  $quad-inner-w: $quad-w - (2 * $quad-p);
+
+  .quad-want_text {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    width: $quad-w;
+    text-align: center;
+    color: lighten($text-color, 20);
+  }
+
+  .quad-want_myItemGroup {
+    border-bottom: 3px solid $border-color;
+
+    .quad-want_myItemGroup-item {
+      padding: 60px 0 15px;
+      position: relative;
+
+      border-bottom: 1px solid $border-color;
+
+      .quad-want_myItemGroup-item-title {
+        padding-bottom: 10px;
+      }
+      $arrow-w: 10px;
+      &:before,
+      &:after {
+        position: absolute;
+        bottom: -2 * $arrow-w;
+        left: 0.5 * $quad-w - $arrow-w;
+        content: "";
+        display: block;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: $arrow-w;
+        border-color: $border-color transparent transparent;
+      }
+      &:after {
+        border-color: #fff transparent transparent;
+        bottom: -2 * $arrow-w + 2px;
+      }
+    }
+    .quad-want_myItemGroup-group {
+      padding: 15px 0 30px;
+      .quad-want_myItemGroup-group-title {
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  .quad-want_myItemGroup-quad-wrap {
+    .quad-want_myItemGroup-quad-cont {
+      width: $quad-w;
+      border: $border;
+      padding: $quad-p - 1px;
+      border-radius: 12px;
+
+      .quad-want_myItemGroup-quad {
+        width: $quad-inner-w;
+        height: $quad-inner-w;
+        overflow: hidden;
+        position: relative;
+        .previewer {
+          position: absolute;
+          bottom: 3px;
+          right: 3px;
+        }
+
+        &.isGroup {
+          cursor: pointer;
+          transition: opacity 0.2s;
+
+          .quad-want_icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            color: #fff;
+            font-size: 40px;
+            opacity: 0;
+            transition: opacity 0.2s;
+          }
+
+          &:hover {
+            opacity: 0.7;
+            .quad-want_icon {
+              opacity: 1;
+            }
+          }
+        }
+      }
+
+      &.for-game {
+        background-color: rgba($mywants-game-bg, 0.1);
+      }
+      &.for-tag {
+        background-color: rgba($mywants-group-bg, 0.2);
+      }
+    }
+  }
+
+  .quad-want_myItemGroup-group-container {
+    $p: 15px;
+
+    display: flex;
+    flex-wrap: wrap;
+
+    margin-right: -1 * $p;
+    margin-bottom: -1 * $p;
+
+    .quad-want_myItemGroup-quad-wrap {
+      padding: 0 $p $p 0;
+    }
+  }
+}
