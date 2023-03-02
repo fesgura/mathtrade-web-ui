@@ -20,7 +20,6 @@ const NotificationsComp = ({ setCountUnread, unread }) => {
   ] = useApi({
     promise: NotificationService.listNotifications,
     afterLoad: (notificationsToAdd) => {
-      console.log("notificationsToAdd", notificationsToAdd);
       setTotal(notificationsToAdd.count || 0);
       setCountUnread(notificationsToAdd.unread || 0);
 

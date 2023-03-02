@@ -73,7 +73,7 @@ const Notification = ({ dataNotification, idNode, setCountUnread, unread }) => {
                 values={[data?.message]}
               />
             )}
-            {/* <WantView /> */}
+            {data.uwg_id ? <WantView wantGroupId={data.uwg_id} /> : null}
           </div>
         </Col>
       </Row>

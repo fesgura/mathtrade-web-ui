@@ -2,6 +2,7 @@ import I18N from "i18n";
 import { useApi, MathTradeService } from "api_serv";
 import { Button, Modal, ModalBody } from "reactstrap";
 import EditorWants from "components/wantEditor/editor";
+import ModalEditor from "components/wantEditor/modalEditor";
 import Icon from "components/icon";
 import { useState } from "react";
 
@@ -27,11 +28,11 @@ const WantView = ({ wantGroupId }) => {
 
       setType(newType);
 
-      setWantGroup(true);
+      setModalOpen(true);
     },
   });
 
-  return !wantGroupId ? (
+  return wantGroupId ? (
     <>
       <div className="pt-2">
         <Button
@@ -39,7 +40,7 @@ const WantView = ({ wantGroupId }) => {
           color="primary"
           disabled={loading}
           onClick={() => {
-            getWant(wantGroupId);
+            getWant({ id: wantGroupId });
           }}
         >
           {loading ? <Icon type="loading" className="me-1" /> : null}
@@ -47,36 +48,17 @@ const WantView = ({ wantGroupId }) => {
         </Button>
       </div>
 
-      {modalOpen ? (
-        <Modal
-          isOpen={true}
-          toggle={() => {
-            setModalOpen(false);
-          }}
-          centered
-          size="lg"
-        >
-          <div className="text-center pt-4">
-            <h3 className="m-0">
-              <I18N id="wantEditor.title.EditWant" />
-            </h3>
-          </div>
-
-          <ModalBody>
-            <EditorWants
-              objectToWant={null}
-              type={type}
-              wantGroup={wantGroup}
-              afterAnyChange={() => {
-                setModalOpen(false);
-              }}
-              toggleModal={() => {
-                setModalOpen(false);
-              }}
-            />
-          </ModalBody>
-        </Modal>
-      ) : null}
+      <ModalEditor
+        isOpen={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+        }}
+        wantGroup={wantGroup}
+        type={type}
+        afterAnyChange={() => {
+          setModalOpen(false);
+        }}
+      />
     </>
   ) : null;
 };

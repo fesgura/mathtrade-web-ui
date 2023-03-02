@@ -16,7 +16,6 @@ const EditorWants = ({
   toggleModal,
   wantGroup,
   afterAnyChange,
-  forceLoadObjectToWant,
 }) => {
   // USER WANT GROUP
   const [id, set_id] = useState(null);
@@ -143,11 +142,7 @@ const EditorWants = ({
       afterAnyChange(true);
     },
   });
-  /******************************/
-  // FORCE OBJECT TO WANT
-  // item, game or tag
 
-  /******************************/
   return (
     <>
       <ObjectToWantComp
