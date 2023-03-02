@@ -10,9 +10,11 @@
   }
 }
 
+.quad-want_card,
 .mywants-grid_card {
   position: relative;
-  border: 3px solid transparent; //
+  border: 3px solid transparent;
+  min-height: 200px;
   .card-body {
     padding: 14px;
   }
@@ -20,7 +22,7 @@
     border-color: rgba($danger, 0.4);
   }
 
-  .mywants-grid_card-dimmer {
+  .mywants-card-dimmer {
     position: absolute;
     z-index: 10;
     top: 0;

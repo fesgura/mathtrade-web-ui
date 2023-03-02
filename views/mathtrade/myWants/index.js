@@ -15,6 +15,7 @@ const MyWantsView = ({
   deleteWant,
   commitChanges,
   commitChangesLoading,
+  set_mustCommitChanges,
   mustCommitChanges,
   firstLoaded,
   loading,
@@ -22,25 +23,24 @@ const MyWantsView = ({
   reloadWants,
   errors,
 }) => {
-  const [current, setCurrent] = useState(1);
+  const [current, setCurrent] = useState(0);
 
   let content = null;
   switch (current) {
     case 0:
       content = (
-        <>To Do</>
-        // <QuadsView
-        //   myItemList={myItemList}
-        //   wantList={wantList}
-        //   putWant={putWant}
-        //   putWantBatch={putWantBatch}
-        //   commitChanges={commitChanges}
-        //   commitChangesLoading={commitChangesLoading}
-        //   mustCommitChanges={mustCommitChanges}
-        //   reloadMyItems={reloadMyItems}
-        //   reloadWants={reloadWants}
-        //   loading={loading}
-        // />
+        <QuadsView
+          myItemList={myItemList}
+          wantList={wantList}
+          putWant={putWant}
+          putWantBatch={putWantBatch}
+          commitChanges={commitChanges}
+          commitChangesLoading={commitChangesLoading}
+          mustCommitChanges={mustCommitChanges}
+          set_mustCommitChanges={set_mustCommitChanges}
+          reloadWants={reloadWants}
+          loading={loading}
+        />
       );
       break;
     case 1:

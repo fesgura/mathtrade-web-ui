@@ -1,10 +1,9 @@
 import { Input } from "components/form";
 import Icon from "components/icon";
-import { getUniqueId } from "utils";
+import CommitBtn from "../../common/commit-btn";
 import I18N, { getI18Ntext } from "i18n";
 import OrderBy from "components/orderBy";
 import { Button, Col, Row } from "reactstrap";
-import Question from "components/question";
 
 const GridSpacer = ({
   extendAll,
@@ -68,20 +67,11 @@ const GridSpacer = ({
 
         <div className="mywants-grid-spacer_lab-cont">
           <div className="mywants-grid-spacer_lab-cont_row-1">
-            <Button
-              color="danger"
-              disabled={!mustCommitChanges || commitChangesLoading}
-              onClick={commitChanges}
-            >
-              <Icon
-                type={commitChangesLoading ? "refresh fa-spin" : "check"}
-                className="me-2"
-              />
-              <I18N id="MyWants.btn.Commit" />
-            </Button>
-            <p className="muted small italic m-0 pt-2 px-4">
-              <I18N id="MyWants.btn.Commit.help" />
-            </p>
+            <CommitBtn
+              commitChanges={commitChanges}
+              commitChangesLoading={commitChangesLoading}
+              mustCommitChanges={mustCommitChanges}
+            />
           </div>
           <div className="mywants-grid-spacer_lab-cont_row-2">
             <Input

@@ -1,3 +1,9 @@
+.quad-want_myItemGroup-header {
+  padding: 10px 0 20px;
+  border-bottom: $mywants-group-border-bottom;
+  margin-bottom: 30px;
+}
+
 .quad-want_myItemGroup-list {
   $quad-w: 180px;
   $quad-p: 8px;
@@ -13,10 +19,12 @@
   }
 
   .quad-want_myItemGroup {
-    border-bottom: 3px solid $border-color;
+    border-bottom: $mywants-group-border-bottom;
+    margin-bottom: 60px;
 
     .quad-want_myItemGroup-item {
-      padding: 60px 0 15px;
+      padding: 0px 0 15px;
+
       position: relative;
 
       border-bottom: 1px solid $border-color;
@@ -53,6 +61,7 @@
 
   .quad-want_myItemGroup-quad-wrap {
     .quad-want_myItemGroup-quad-cont {
+      position: relative;
       width: $quad-w;
       border: $border;
       padding: $quad-p - 1px;
@@ -98,6 +107,42 @@
       }
       &.for-tag {
         background-color: rgba($mywants-group-bg, 0.2);
+      }
+      &.for-add {
+        .quad-want_myItemGroup-quad {
+          border: $border;
+          cursor: pointer;
+          .icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            font-size: 50px;
+            opacity: 0.2;
+          }
+        }
+      }
+    }
+    .quad-want_myItemGroup-delete {
+      $w: 22px;
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      width: $w;
+      height: $w;
+      line-height: $w;
+      text-align: center;
+      background-color: $danger;
+      color: #fff;
+      font-size: 12px;
+      border-radius: 50%;
+      cursor: pointer;
+      opacity: 0;
+    }
+
+    &:hover {
+      .quad-want_myItemGroup-delete {
+        opacity: 1;
       }
     }
   }
