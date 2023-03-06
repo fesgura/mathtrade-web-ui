@@ -1,5 +1,6 @@
 import { listDependencyTexts } from "config";
 import { getI18Ntext } from "i18n";
+import moment from "moment";
 
 export const locationsToOptions = (locations) => {
   if (!locations) {
@@ -369,4 +370,12 @@ export const getStatsOfElement = (element) => {
     votes: element.dependency_votes,
   });
   return o;
+};
+
+export const formatDateString = (dateString) => {
+  const m = moment(dateString);
+  return {
+    day: m.format("DD MMMM YYYY"),
+    hour: m.format("h:mm"),
+  };
 };

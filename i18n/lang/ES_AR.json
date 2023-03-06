@@ -125,6 +125,15 @@
   "statusType.MU": "Muy usado",
   "statusType.CC": "Campaña completa",
   "statusType.IN": "Incompleto",
+  "statusType.desc.CE": "Si a través del envoltorio se ve algún defecto, especificarlo.",
+  "statusType.desc.NU": "Exactamente como uno nuevo, sin destroquelar ni abrir nada.",
+  "statusType.desc.CN": "Normalmente no se puede distinguir de uno nuevo, no muestra marcas de uso. Puede estar destroquelado y con algunos pocos partidos.",
+  "statusType.desc.EX": "Ligeramenente usado, puede tener marcas menores en las esquinas o pliegues en la tapa. No puede tener ningún tipo de marcas en los componentes.",
+  "statusType.desc.MB": "Puede tener pequeñas rajaduras, golpes en las esquinas de la tapa, y algunas marcas pequeñas o manchitas en los componentes.",
+  "statusType.desc.BU": "Puede tener marcas, rayones de lapicera, rajaduras grandes, mapas desprendidos, etc. En caso de componentes secretos, no se los debe poder identificar (cartas o fichas marcadas, por ejemplo).",
+  "statusType.desc.MU": "Con muchos signos de uso.",
+  "statusType.desc.CC": "Se aplica a juegos de campaña en los que se modifican permanentemente algunos elementos y no puede ser jugado nuevamente como si fuera nuevo.",
+  "statusType.desc.IN": "Con faltantes que no permiten el normal desarrollo del juego. No se aplica cuando falta una moneda, ficha o algo reemplazable.",
   "dependencyType.min.0": "Ninguna",
   "dependencyType.max.0": "Ninguna: sin texto en juego",
   "dependencyType.min.1": "Poco texto",
@@ -372,5 +381,7 @@
   "photoGallery.full.title": "Ver fotos",
   "cantEditList.Games": "Ya no se puede agregar más juegos a la lista.",
   "cantEditList.Items": "Ya no se puede agregar más juegos a la lista.",
-  "cantEditWants": "Ya no podés editar tus wants."
+  "cantEditWants": "Ya no podés editar tus wants.",
+  "myData.help.AMBA": "Si vivis en el ambito de la Ciudad Autónoma de Buenos Aires (AMBA), <b>debés ir y colaborar la juntada presencial</b>, que se llevará a cabo el día <b>$$$</b> a las <b>$$$hs</b>, en espacio a confirmar.<br /><br />Podés contactar al referente de CABA, <b>$$$</b>, por cualquier consulta:",
+  "myData.help.noAMBA": "Si no vas a la juntada presencial, deberás enviar/recibir tus paquetes en coordinación con los participantes de tu ciudad (<b>$$$</b>).<br />Para ello deberás contactar a <b>$$$</b> (responsable para la ciudad de <b>$$$</b>) para coordinar los envios:"
 }

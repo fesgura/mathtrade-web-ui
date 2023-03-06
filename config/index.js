@@ -18,9 +18,21 @@ export const NOGAMEresult = {
   thumbnail: "none",
 };
 
+export const statusKeys = [
+  "CE",
+  "NU",
+  "CN",
+  "EX",
+  "MB",
+  "BU",
+  "MU",
+  "CC",
+  "IN",
+];
+
 export const statusTypes = (function () {
   const o = {};
-  ["CE", "NU", "CN", "EX", "MB", "BU", "MU", "CC", "IN"].forEach((st) => {
+  statusKeys.forEach((st) => {
     o[st] = getI18Ntext(`statusType.${st}`);
   });
   return o;
