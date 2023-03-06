@@ -17,6 +17,7 @@ const Game = ({
   btnRowListGame,
   afterAnyChange,
 }) => {
+  console.log("game", game);
   const id = useId("a").replace(twoPointsReg, "");
 
   const [stats, setStats] = useState(getStatsOfElement(null).stats);
@@ -24,11 +25,23 @@ const Game = ({
     getStatsOfElement(null).dataDependency
   );
 
+  const [type, setType] = useState(1);
+
   useEffect(() => {
     if (game) {
       const o = getStatsOfElement(game);
       setStats(o.stats);
       setDataDependency(o.dataDependency);
+
+      let newType = 1;
+
+      game.items[0].elements.forEach((elem) => {
+        if (game.bgg_id === elem.bgg_id) {
+          newType = elem.type;
+        }
+      });
+
+      setType(newType);
     }
   }, [game]);
 
@@ -52,6 +65,11 @@ const Game = ({
                 <I18N id="element.BGG.OpenGameInBGG" />
               </div>
             </UncontrolledTooltip>
+            <div>
+              <div className={classNames("element-type-badge", `b-${type}`)}>
+                <I18N id={`element-type-badge-${type}`} />
+              </div>
+            </div>
           </div>
           <div className="game_pills">
             <Row className="justify-content-center">

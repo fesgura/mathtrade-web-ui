@@ -2,115 +2,116 @@
   display: flex;
   .mywants-grid_wantListGrid-col-left {
     width: $mywants-grid-left-width;
+    flex: 0 0 $mywants-grid-left-width;
+    height: 25px;
   }
+}
+.want-lab {
+  width: $mywants-my-Wants-lab-width;
+  // background-color: #eee;
 
-  .want-lab {
-    width: $mywants-my-Wants-lab-width;
-    // background-color: #eee;
+  height: 0px;
+  overflow: hidden;
+  transition: height $mywants-grid-duration;
 
-    height: 0px;
-    overflow: hidden;
-    transition: height $mywants-grid-duration;
+  .want-lab_wrap {
+    padding: 2px 0;
+  }
+  .want-lab_content {
+    height: $mywants-grid-inner-h + 2px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 
-    .want-lab_wrap {
-      padding: 2px 0;
+    .item-minimal {
+      padding: 0;
     }
-    .want-lab_content {
-      height: $mywants-grid-inner-h + 2px;
-      border: 1px solid #ddd;
-      border-radius: 4px;
 
-      .item-minimal {
-        padding: 0;
-      }
-
-      .want-lab_name {
-        font-size: 14px;
-        text-align: right;
-        height: $mywants-grid-inner-h;
-        line-height: $mywants-grid-inner-h;
-        width: 100%;
-        overflow: hidden;
-
-        &.for-group {
-          font-weight: bold;
-        }
-      }
-
-      .want-lab_arrow {
-        width: $mywants-grid-inner-h;
-        height: $mywants-grid-inner-h;
-        padding-top: 0.5 * ($mywants-grid-inner-h - 25px);
-        padding-left: 0.5 * ($mywants-grid-inner-h - 25px);
-        cursor: pointer;
-        transition: transform $mywants-grid-duration;
-
-        .want-lab_arrow-inner {
-          width: 25px;
-          height: 25px;
-          line-height: 25px;
-          text-align: center;
-          border-radius: 50%;
-          transition: background-color 0.1s;
-        }
-
-        &:hover {
-          .want-lab_arrow-inner {
-            background-color: rgba(0, 0, 0, 0.1);
-          }
-        }
-
-        &.extended {
-          transform: rotate(90deg);
-        }
-      }
-
-      // .want-lab_close {
-      //   width: 32px;
-      //   // padding: 0 5px;
-      //   text-align: center;
-      //   cursor: pointer;
-      //   color: $danger;
-      // }
+    .want-lab_name {
+      font-size: 14px;
+      text-align: right;
+      height: $mywants-grid-inner-h;
+      line-height: $mywants-grid-inner-h;
+      width: 100%;
+      overflow: hidden;
 
       &.for-group {
-        height: $mywants-grid-inner-h + 2px;
+        font-weight: bold;
+      }
+    }
+
+    .want-lab_arrow {
+      width: $mywants-grid-inner-h;
+      height: $mywants-grid-inner-h;
+      padding-top: 0.5 * ($mywants-grid-inner-h - 25px);
+      padding-left: 0.5 * ($mywants-grid-inner-h - 25px);
+      cursor: pointer;
+      transition: transform $mywants-grid-duration;
+
+      .want-lab_arrow-inner {
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        text-align: center;
+        border-radius: 50%;
+        transition: background-color 0.1s;
       }
 
-      &.for-item {
-        background-color: $mywants-item-bg;
-        &.isInnerOf {
-          background-color: #fff;
-          margin-right: 20px;
+      &:hover {
+        .want-lab_arrow-inner {
+          background-color: rgba(0, 0, 0, 0.1);
         }
       }
-      &.type-game {
-        background-color: lighten($mywants-game-bg, 42);
-      }
-      &.type-group {
-        background-color: lighten($mywants-group-bg, 42);
+
+      &.extended {
+        transform: rotate(90deg);
       }
     }
 
-    &.extended {
-      height: $mywants-grid-h;
+    // .want-lab_close {
+    //   width: 32px;
+    //   // padding: 0 5px;
+    //   text-align: center;
+    //   cursor: pointer;
+    //   color: $danger;
+    // }
+
+    &.for-group {
+      height: $mywants-grid-inner-h + 2px;
+    }
+
+    &.for-item {
+      background-color: $mywants-item-bg;
+      &.isInnerOf {
+        background-color: #fff;
+        margin-right: 20px;
+      }
+    }
+    &.type-game {
+      background-color: lighten($mywants-game-bg, 42);
+    }
+    &.type-group {
+      background-color: lighten($mywants-group-bg, 42);
     }
   }
-  .want-lab_custom-delete-btn {
-    width: 22px;
-    height: 22px;
-    line-height: 22px;
-    border-radius: 20%;
-    text-align: center;
-    background-color: $danger;
-    color: #fff;
-    opacity: 0.4;
-    cursor: pointer;
-    transition: opacity 0.1s;
 
-    &:hover {
-      opacity: 1;
-    }
+  &.extended {
+    height: $mywants-grid-h;
+  }
+}
+.want-lab_custom-delete-btn {
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  border-radius: 20%;
+  text-align: center;
+  background-color: $danger;
+  color: #fff;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: opacity 0.1s;
+
+  &:hover {
+    opacity: 1;
   }
 }
 .want-lab_custom-delete-popover {
