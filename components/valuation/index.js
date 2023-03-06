@@ -75,7 +75,31 @@ const Valuation = ({ className, items, afterAnyChange = () => {}, min }) => {
           <div className="valuation-label">
             <I18N id="Valuation.Value" />
             <Question question="Valuation.Help" min /> :
-            <div className="valuation-output">{valueInternal}</div>
+            <input
+              className="valuation-output"
+              type="number"
+              step={step}
+              value={valueInternal}
+              min={minValue}
+              max={maxValue}
+              onChange={(e) => {
+                const v = parseFloat(e.target.value);
+                if (v !== items[0].value) {
+                  setValueInternal(v);
+                }
+              }}
+              onBlur={(e) => {
+                setIsOpen(false);
+                valuatePostItem({
+                  data: {
+                    value: `${e.target.value}`,
+                    item_ids: items.map((itm) => {
+                      return itm.id;
+                    }),
+                  },
+                });
+              }}
+            />
           </div>
           <div className="valuation-range">
             <div className="valuation-range-input-container">

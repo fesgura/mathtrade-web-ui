@@ -22,6 +22,7 @@ import { NOGAMEresult } from "config";
 import PillsBGG from "components/item/full/element/pillsBGG";
 import PhotoUploader from "components/photoUploader";
 import Question from "components/question";
+import StatusHelp from "components/pages/myItems/statusHelp";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -372,6 +373,9 @@ const ElementEdit = ({
                               name="status"
                               type="select"
                               options={statusList}
+                              question={<StatusHelp />}
+                              questionDropdown
+                              notTranslateQuestion
                               onChange={(v) => {
                                 changeData({ status: v });
                               }}

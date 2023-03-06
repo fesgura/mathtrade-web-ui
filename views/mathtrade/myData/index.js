@@ -2,8 +2,17 @@ import { useState, useEffect, useCallback } from "react";
 import PrivateLayout from "layouts/private";
 import { Form, Input } from "components/form";
 import Logo from "components/logo";
-import { locationsToOptions } from "utils";
-import { Button, Alert, Modal, ModalBody, Row, Col } from "reactstrap";
+import { locationsToOptions, formatDateString } from "utils";
+import {
+  Button,
+  Alert,
+  Modal,
+  ModalBody,
+  Row,
+  Col,
+  Card,
+  CardBody,
+} from "reactstrap";
 import Icon from "components/icon";
 import CancelInviteMT from "components/inviteRegisterMathTrade/cancel";
 import storage from "utils/storage";
@@ -38,6 +47,7 @@ const MyDataView = ({
   const [validationStatus, setValidationStatus] = useState({});
   const [currentLocation, setCurrentLocation] = useState(null);
   const [modalExit, setModalExit] = useState(false);
+  const [meetingDay, setMeetingDay] = useState({ day: "", hour: "" });
 
   const onChangeLocation = useCallback(
     (locationId) => {
@@ -46,6 +56,20 @@ const MyDataView = ({
     },
     [dataLocations]
   );
+
+  useEffect(() => {
+    const mathtrade = storage.getFromStore("mathtrade");
+
+    if (
+      mathtrade &&
+      mathtrade.data &&
+      mathtrade.data.active &&
+      mathtrade.data.meeting_date
+    ) {
+      const newMeetingDay = formatDateString(mathtrade.data.meeting_date);
+      setMeetingDay(newMeetingDay);
+    }
+  }, []);
 
   useEffect(() => {
     const user = storage.getFromStore("user");
@@ -98,7 +122,7 @@ const MyDataView = ({
           </div>
           <div
             style={{
-              maxWidth: 550,
+              maxWidth: 650,
               margin: "0 auto",
             }}
           >
@@ -144,76 +168,78 @@ const MyDataView = ({
                 onChange={onChangeLocation}
               />
               {currentLocation && currentLocation.referral ? (
-                <Alert color="warning small text-center mb-4">
+                <div className="text-center mb-4">
                   {currentLocation.mandatory_attendance ? (
-                    <>
-                      Si vivis en el ambito de la Ciudad Autónoma de Buenos
-                      Aires (CABA),
-                      <br />
-                      <b>debés ir y colaborar la juntada presencial</b>, que se
-                      llevará a cabo el día{" "}
-                      <span className="d-inline-block">XX-XX-XXXX</span> a las
-                      16hs., en espacio a confirmar.
-                      <br />
-                      Podés contactar al referente de CABA,{" "}
-                      <b>{`${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`}</b>
-                      , por cualquier consulta:
-                    </>
+                    <p>
+                      <I18N
+                        id="myData.help.AMBA"
+                        values={[
+                          meetingDay.day,
+                          meetingDay.hour,
+                          `${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`,
+                        ]}
+                      />
+                    </p>
                   ) : (
-                    <>
-                      Si no vas a la juntada presencial, deberás enviar/recibir
-                      tus paquetes en coordinación con los participantes de tu
-                      ciudad (<b>{currentLocation?.name}</b>).
-                      <br />
-                      Para ello deberás contactar a{" "}
-                      <b>{`${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`}</b>{" "}
-                      (responsable para la ciudad de{" "}
-                      <b>{currentLocation?.name}</b>) para coordinar los envios:
-                    </>
+                    <p>
+                      <I18N
+                        id="myData.help.noAMBA"
+                        values={[
+                          currentLocation?.name,
+                          `${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`,
+                          currentLocation?.name,
+                        ]}
+                      />
+                    </p>
                   )}
 
                   {currentLocation?.referral ? (
-                    <div className="referal">
-                      <Row className="justify-content-center align-items-center">
-                        <Col xs="auto">
-                          <div className="referal-title">{`${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`}</div>
-                        </Col>
-                        <Col xs="auto">
-                          <div className="referal-items">
-                            {currentLocation?.referral?.telegram ? (
-                              <div className="referal-item pt-0">
-                                <Icon type="telegram" className="me-2" />
-                                <b>Telegram:</b>{" "}
-                                {currentLocation?.referral?.telegram}
+                    <Card>
+                      <CardBody>
+                        <div className="referal">
+                          <Row className="justify-content-center align-items-center">
+                            <Col xs="auto">
+                              <div className="referal-title">{`${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`}</div>
+                            </Col>
+                            <Col xs="auto">
+                              <div className="referal-items">
+                                {currentLocation?.referral?.telegram ? (
+                                  <div className="referal-item pt-0">
+                                    <Icon type="telegram" className="me-2" />
+                                    <b>Telegram:</b>{" "}
+                                    {currentLocation?.referral?.telegram}
+                                  </div>
+                                ) : null}
+                                {currentLocation?.referral?.whatsapp ? (
+                                  <div className="referal-item pb-0">
+                                    <Icon type="whatsapp" className="me-2" />
+                                    <b>Whatsapp:</b>{" "}
+                                    {currentLocation?.referral?.whatsapp}
+                                  </div>
+                                ) : null}
+                                {currentLocation?.referral?.email ? (
+                                  <div className="referal-item pb-0">
+                                    <Icon type="envelope" className="me-2" />
+                                    <b>Email:</b>{" "}
+                                    <a
+                                      href={
+                                        "mailto:" +
+                                        currentLocation?.referral?.email
+                                      }
+                                      target="_blank"
+                                    >
+                                      {currentLocation?.referral?.email}
+                                    </a>
+                                  </div>
+                                ) : null}
                               </div>
-                            ) : null}
-                            {currentLocation?.referral?.whatsapp ? (
-                              <div className="referal-item pb-0">
-                                <Icon type="whatsapp" className="me-2" />
-                                <b>Whatsapp:</b>{" "}
-                                {currentLocation?.referral?.whatsapp}
-                              </div>
-                            ) : null}
-                            {currentLocation?.referral?.email ? (
-                              <div className="referal-item pb-0">
-                                <Icon type="envelope" className="me-2" />
-                                <b>Email:</b>{" "}
-                                <a
-                                  href={
-                                    "mailto:" + currentLocation?.referral?.email
-                                  }
-                                  target="_blank"
-                                >
-                                  {currentLocation?.referral?.email}
-                                </a>
-                              </div>
-                            ) : null}
-                          </div>
-                        </Col>
-                      </Row>
-                    </div>
+                            </Col>
+                          </Row>
+                        </div>
+                      </CardBody>
+                    </Card>
                   ) : null}
-                </Alert>
+                </div>
               ) : null}
 
               <Input

@@ -74,6 +74,7 @@ const InputComp = ({
   //
   question,
   questionMin,
+  questionDropdown,
   loading,
   //
   options,
@@ -256,6 +257,7 @@ const InputComp = ({
               </label>
               <Question
                 question={question}
+                dropdown={questionDropdown}
                 min={questionMin}
                 noTranslateQuestion={notTranslateQuestion}
               />
@@ -555,6 +557,7 @@ const InputComp = ({
           ) : null}
           <Question
             question={question}
+            dropdown={questionDropdown}
             min={questionMin}
             noTranslateQuestion={notTranslateQuestion}
           />
