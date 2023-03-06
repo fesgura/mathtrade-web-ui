@@ -24,7 +24,7 @@ const MyWantsView = ({
   errors,
   canEditWants,
 }) => {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(1);
 
   let content = null;
   switch (current) {

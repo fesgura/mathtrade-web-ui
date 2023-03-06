@@ -1,13 +1,26 @@
 .mywants-grid_container {
   width: 100%;
   overflow: auto;
-
   height: calc(100vh - 80px);
   .mywants-grid_container-wrap {
-    width: 100%;
-    padding-right: 25px;
-    padding-bottom: 25px;
+    position: relative;
   }
+}
+
+.mywants-grid_myItems-float {
+  position: absolute;
+  z-index: 12;
+  top: 0;
+  left: 0;
+  transition: top 0.1s;
+  background-color: #fff;
+}
+.mywants-grid_float {
+  position: absolute;
+  top: $mywants-my-Items-lab-height;
+  left: 0;
+  transition: left 0.1s;
+  background-color: #fff;
 }
 
 .quad-want_card,

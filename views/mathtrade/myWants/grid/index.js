@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   create_myItemListGrid,
   create_wantListGrid,
@@ -16,6 +16,13 @@ import classNames from "classnames";
 const default_orderBy = "value";
 const default_ob_direction = -1;
 
+const def_grid_height = 520;
+const def_grid_width = 680;
+const scrollDiff = 110;
+
+const scrollH = def_grid_height - scrollDiff;
+const scrollW = def_grid_width - scrollDiff;
+
 const Grid = ({
   myItemList,
   wantList,
@@ -30,6 +37,9 @@ const Grid = ({
   loading,
   canEditWants,
 }) => {
+  const containerRef = useRef(null);
+  const [topScroll, set_topScroll] = useState(0);
+  const [leftScroll, set_leftScroll] = useState(0);
   const [extendAll, setExtendAll] = useState(false);
 
   const [myItemList_orderBy, set_myItemList_orderBy] = useState({
@@ -70,6 +80,28 @@ const Grid = ({
     }
   }, [wantList, wantListGrid]);
 
+  useEffect(() => {
+    const getScroll = () => {
+      console.log("scrollTop", containerRef.current.scrollTop);
+      if (containerRef.current.scrollTop > scrollH) {
+        set_topScroll(containerRef.current.scrollTop - scrollH);
+      } else {
+        set_topScroll(0);
+      }
+      if (containerRef.current.scrollLeft > scrollW) {
+        set_leftScroll(containerRef.current.scrollLeft - scrollW);
+      } else {
+        set_leftScroll(0);
+      }
+    };
+
+    containerRef.current.addEventListener("scroll", getScroll);
+
+    return () => {
+      containerRef.current.removeEventListener("scroll", getScroll);
+    };
+  }, []);
+
   return (
     <div className="main-container full">
       <Card
@@ -79,91 +111,103 @@ const Grid = ({
       >
         {loading ? <div className="mywants-card-dimmer" /> : null}
         <CardBody>
-          <div className="mywants-grid_container">
-            <div className="mywants-grid_myItems-container">
-              <div className="mywants-grid_myItems-row">
-                <GridSpacer
-                  canEditWants={canEditWants}
-                  extendAll={extendAll}
-                  setExtendAll={() => {
-                    const newExtendAll = !extendAll;
-
-                    set_myItemListGrid((obj) => {
-                      const newList = [...obj.list];
-                      newList.forEach((g) => {
-                        if (g.type === "group") {
-                          g.extended = newExtendAll;
-                        }
-                      });
-                      return { ...obj, list: newList };
-                    });
-                    set_wantListGrid((obj) => {
-                      const newList = [...obj.list];
-                      newList.forEach((g) => {
-                        if (g.type === "game" || g.type === "group") {
-                          g.extended = newExtendAll;
-                        }
-                      });
-                      return { ...obj, list: newList };
-                    });
-                    //
-                    setExtendAll(newExtendAll);
-                  }}
-                  set_myItemList_orderBy={(order, desc) => {
-                    const direction = desc ? -1 : 1;
-                    set_myItemListGrid((obj) => {
-                      return order_list(obj, order, direction);
-                    });
-                    set_myItemList_orderBy({
-                      order,
-                      direction,
-                    });
-                  }}
-                  set_wantList_orderBy={(order, desc) => {
-                    const direction = desc ? -1 : 1;
-                    set_wantListGrid((obj) => {
-                      return order_list(obj, order, direction);
-                    });
-                    set_wantList_orderBy({ order, direction });
-                  }}
-                  commitChanges={commitChanges}
-                  commitChangesLoading={commitChangesLoading}
-                  mustCommitChanges={mustCommitChanges}
-                />
-                <MyItems
-                  myItemList={myItemListGrid}
-                  set_myItemListGrid={set_myItemListGrid}
-                  reloadMyItems={reloadMyItems}
-                />
-                <div className="mywants-grid_myItems-row_padding" />
-              </div>
-            </div>
-            <div className="mywants-grid_wantListGrid-container">
-              <div className="mywants-grid_wantListGrid-row">
-                <div className="mywants-grid_wantListGrid-col-left">
-                  <MyWants
-                    wantList={wantListGrid}
-                    putWant={putWant}
-                    deleteWant={deleteWant}
-                    set_wantListGrid={set_wantListGrid}
-                    reloadWants={reloadWants}
-                    canEditWants={canEditWants}
-                  />
-                </div>
-                <div className="mywants-grid_wantListGrid-col-right">
-                  <div className="mywants-grid_check-grid-row">
-                    <GridComp
-                      myItemList={myItemListGrid.list}
-                      wantList={wantListGrid.list}
-                      set_wantListGrid={set_wantListGrid}
-                      putWant={putWant}
-                      putWantBatch={putWantBatch}
-                      canEditWants={canEditWants}
-                    />
+          <div className="mywants-grid_container" ref={containerRef}>
+            <div className="mywants-grid_container-wrap">
+              <div className="mywants-grid_myItems-container" />
+              <div className="mywants-grid_wantListGrid-container">
+                <div className="mywants-grid_wantListGrid-row">
+                  <div className="mywants-grid_wantListGrid-col-left" />
+                  <div className="mywants-grid_wantListGrid-col-right">
+                    <div className="mywants-grid_check-grid-row">
+                      <GridComp
+                        myItemList={myItemListGrid.list}
+                        wantList={wantListGrid.list}
+                        set_wantListGrid={set_wantListGrid}
+                        putWant={putWant}
+                        putWantBatch={putWantBatch}
+                        canEditWants={canEditWants}
+                      />
+                    </div>
                   </div>
                 </div>
+                <div className="mywants-grid_wantListGrid-row_padding" />
               </div>
-              <div className="mywants-grid_wantListGrid-row_padding" />
+
+              <div
+                className="mywants-grid_myItems-float"
+                style={{ top: `${topScroll}px` }}
+              >
+                <div className="mywants-grid_myItems-row">
+                  <GridSpacer
+                    canEditWants={canEditWants}
+                    extendAll={extendAll}
+                    setExtendAll={() => {
+                      const newExtendAll = !extendAll;
+
+                      set_myItemListGrid((obj) => {
+                        const newList = [...obj.list];
+                        newList.forEach((g) => {
+                          if (g.type === "group") {
+                            g.extended = newExtendAll;
+                          }
+                        });
+                        return { ...obj, list: newList };
+                      });
+                      set_wantListGrid((obj) => {
+                        const newList = [...obj.list];
+                        newList.forEach((g) => {
+                          if (g.type === "game" || g.type === "group") {
+                            g.extended = newExtendAll;
+                          }
+                        });
+                        return { ...obj, list: newList };
+                      });
+                      //
+                      setExtendAll(newExtendAll);
+                    }}
+                    set_myItemList_orderBy={(order, desc) => {
+                      const direction = desc ? -1 : 1;
+                      set_myItemListGrid((obj) => {
+                        return order_list(obj, order, direction);
+                      });
+                      set_myItemList_orderBy({
+                        order,
+                        direction,
+                      });
+                    }}
+                    set_wantList_orderBy={(order, desc) => {
+                      const direction = desc ? -1 : 1;
+                      set_wantListGrid((obj) => {
+                        return order_list(obj, order, direction);
+                      });
+                      set_wantList_orderBy({ order, direction });
+                    }}
+                    commitChanges={commitChanges}
+                    commitChangesLoading={commitChangesLoading}
+                    mustCommitChanges={mustCommitChanges}
+                  />
+                  <MyItems
+                    myItemList={myItemListGrid}
+                    set_myItemListGrid={set_myItemListGrid}
+                    reloadMyItems={reloadMyItems}
+                  />
+                  <div className="mywants-grid_myItems-row_padding" />
+                </div>
+              </div>
+
+              <div
+                className="mywants-grid_float"
+                style={{ left: `${leftScroll}px` }}
+              >
+                <MyWants
+                  wantList={wantListGrid}
+                  putWant={putWant}
+                  deleteWant={deleteWant}
+                  set_wantListGrid={set_wantListGrid}
+                  reloadWants={reloadWants}
+                  canEditWants={canEditWants}
+                />
+              </div>
             </div>
           </div>
         </CardBody>
