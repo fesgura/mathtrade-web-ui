@@ -10,7 +10,6 @@ const QuadsView = ({
   myItemList,
   wantList,
   putWant,
-  putWantBatch,
   commitChanges,
   commitChangesLoading,
   mustCommitChanges,
@@ -63,6 +62,7 @@ const QuadsView = ({
                     setCurrentType={setCurrentType}
                     putWant={putWant}
                     canEditWants={canEditWants}
+                    wantList={wantList}
                   />
                 );
               })}
