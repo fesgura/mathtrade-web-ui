@@ -15,6 +15,7 @@ const GroupTag = ({
   setGroupIdSelected,
   count,
   afterAnyChange,
+  canEditWants,
 }) => {
   const [modalEditOpen, setModalEditOpen] = useState(false);
 
@@ -47,7 +48,7 @@ const GroupTag = ({
                 >{`${group?.name || "Sin título"} (${count || 0})`}</div>
               </Col>
               <Col xs="auto">
-                {group.id > 0 ? (
+                {group.id && canEditWants > 0 ? (
                   <span
                     className="sidebar-group-list_tag_edit"
                     title={getI18Ntext("myItems.sidebar.Edit")}

@@ -12,6 +12,8 @@ const ItemContainer = ({
   notHighlated,
   showGroups,
   groups,
+  canEditList,
+  canEditWants,
 }) => {
   const [itemMathTradeData, setItemMathTradeData] = useState(null);
 
@@ -38,6 +40,8 @@ const ItemContainer = ({
       notHighlated={notHighlated}
       showGroups={showGroups}
       groups={groups}
+      canEditList={canEditList}
+      canEditWants={canEditWants}
     />
   );
 };

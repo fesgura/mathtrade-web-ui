@@ -13,6 +13,7 @@ const WantEditor = ({
   isOwner,
   min,
   wantList,
+  canEditWants,
 }) => {
   const [modalWantOpen, setModalWantOpen] = useState(false);
   const [modalIsItemInOtherGroup, setModalIsItemInOtherGroup] = useState(false);
@@ -34,6 +35,7 @@ const WantEditor = ({
         type={type}
         isOwner={isOwner}
         min={min}
+        canEditWants={canEditWants}
         onClick={() => {
           if (!wantGroup && type === "item" && objectToWant) {
             // Test if item is already wanted in a group or game
@@ -111,6 +113,7 @@ const WantEditor = ({
               wantGroup={wantGroup}
               afterAnyChange={afterAnyChange}
               toggleModal={toggleModal}
+              canEditWants={true}
             />
           </ModalBody>
         </Modal>

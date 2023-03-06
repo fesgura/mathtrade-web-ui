@@ -10,6 +10,7 @@ const ObjectToWant = ({
   dup_protection,
   set_dup_protection,
   afterAnyChange,
+  canEditWants,
 }) => {
   switch (type) {
     case "game":
@@ -19,10 +20,17 @@ const ObjectToWant = ({
           want_ids={want_ids}
           setWantId={setWantId}
           afterAnyChange={afterAnyChange}
+          canEditWants={canEditWants}
         />
       );
     case "item":
-      return <Item item={objectToWant} afterAnyChange={afterAnyChange} />;
+      return (
+        <Item
+          item={objectToWant}
+          afterAnyChange={afterAnyChange}
+          canEditWants={canEditWants}
+        />
+      );
     case "tag":
       return (
         <Tag
@@ -30,6 +38,7 @@ const ObjectToWant = ({
           dup_protection={dup_protection}
           set_dup_protection={set_dup_protection}
           afterAnyChange={afterAnyChange}
+          canEditWants={canEditWants}
         />
       );
 

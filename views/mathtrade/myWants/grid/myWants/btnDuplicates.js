@@ -6,7 +6,7 @@ import { Input } from "components/form";
 import I18N from "i18n";
 import classNames from "classnames";
 
-const BtnDuplicates = ({ group, set_wantListGrid, putWant }) => {
+const BtnDuplicates = ({ group, set_wantListGrid, putWant, canEditWants }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const toggleModal = () => {
@@ -17,10 +17,10 @@ const BtnDuplicates = ({ group, set_wantListGrid, putWant }) => {
       <BtnCircle
         className={classNames(
           "btn btn_circle mywants-grid_btn-menu-group for-duplicates",
-          { dup_protection: group.obj.dup_protection }
+          { dup_protection: group.obj.dup_protection, disab: !canEditWants }
         )}
         onClick={() => {
-          setModalOpen(true);
+          if (canEditWants) setModalOpen(true);
         }}
         label={
           group.obj.dup_protection

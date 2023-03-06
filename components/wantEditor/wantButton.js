@@ -8,8 +8,9 @@ const WantButton = ({
   wantGroup,
   onClick,
   min,
+  canEditWants,
 }) => {
-  return isOwner ? null : (
+  return isOwner || (!canEditWants && !wantGroup) ? null : canEditWants ? (
     <BtnCircle
       className={wantGroup ? "btn-in-want-list" : "btn-i-want-it"}
       onClick={onClick}
@@ -19,6 +20,14 @@ const WantButton = ({
       min={min}
     >
       <Icon type={wantGroup ? "inmywantlist" : "iwantit"} />
+    </BtnCircle>
+  ) : (
+    <BtnCircle
+      className="btn-in-want-list cant-edit"
+      label="wantEditor.btn.InMyWantList.canEditWants"
+      min={min}
+    >
+      <Icon type="inmywantlist" />
     </BtnCircle>
   );
 };

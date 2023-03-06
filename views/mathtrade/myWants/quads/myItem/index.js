@@ -11,6 +11,7 @@ const MyItemView = ({
   setCurrentWantGroup,
   setCurrentType,
   putWant,
+  canEditWants,
 }) => {
   const id = useId("quad-want-add").replace(twoPointsReg, "");
   return (
@@ -34,6 +35,7 @@ const MyItemView = ({
                 setModalWantOpen={setModalWantOpen}
                 setCurrentWantGroup={setCurrentWantGroup}
                 setCurrentType={setCurrentType}
+                canEditWants={canEditWants}
                 onDelete={() => {
                   const {
                     bgg_id,
@@ -67,20 +69,22 @@ const MyItemView = ({
               />
             );
           })}
-          <div className="quad-want_myItemGroup-quad-wrap">
-            <div className="quad-want_myItemGroup-quad-cont for-add">
-              <div
-                className="quad-want_myItemGroup-quad"
-                id={`quad-want-add-${id}`}
-                onClick={() => {}}
-              >
-                <Icon type="plus" />
+          {canEditWants ? (
+            <div className="quad-want_myItemGroup-quad-wrap">
+              <div className="quad-want_myItemGroup-quad-cont for-add">
+                <div
+                  className="quad-want_myItemGroup-quad"
+                  id={`quad-want-add-${id}`}
+                  onClick={() => {}}
+                >
+                  <Icon type="plus" />
+                </div>
+                <UncontrolledTooltip target={`quad-want-add-${id}`}>
+                  <I18N id="btn.Add" />
+                </UncontrolledTooltip>
               </div>
-              <UncontrolledTooltip target={`quad-want-add-${id}`}>
-                <I18N id="btn.Add" />
-              </UncontrolledTooltip>
             </div>
-          </div>
+          ) : null}
         </div>
       </div>
     </div>

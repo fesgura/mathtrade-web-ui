@@ -7,6 +7,7 @@ const MyWants = ({
   putWant,
   deleteWant,
   reloadWants,
+  canEditWants,
 }) => {
   return (
     <>
@@ -22,6 +23,7 @@ const MyWants = ({
                 putWant={putWant}
                 deleteWant={deleteWant}
                 reloadWants={reloadWants}
+                canEditWants={canEditWants}
               />
             );
           case "item":
@@ -33,6 +35,7 @@ const MyWants = ({
                 deleteWant={deleteWant}
                 isExtended={true}
                 reloadWants={reloadWants}
+                canEditWants={canEditWants}
               />
             );
           default:

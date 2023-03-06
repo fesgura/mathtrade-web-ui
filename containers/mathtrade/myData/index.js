@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import Router from "next/router";
 import PrivateEnv from "environments/private";
 import MyDataView from "views/mathtrade/myData";
+import useCanEdit from "hooks/useCanEdit";
 import { useApi, LocationService, MathTradeService } from "api_serv";
 import storage from "utils/storage";
 
 const MT_MyDataContainer = () => {
+  const canEditList = useCanEdit("list");
   const [mathtradeData, set_mathtradeData] = useState(null);
 
   const [fetchLocations, dataLocations, loadingLocations] = useApi({
@@ -101,6 +103,7 @@ const MT_MyDataContainer = () => {
           }
         }}
         cancelMemberMathTrade={cancelMemberMathTrade}
+        canEditList={canEditList}
       />
     </PrivateEnv>
   );

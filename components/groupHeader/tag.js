@@ -2,7 +2,7 @@ import classNames from "classnames";
 import Icon from "components/icon";
 import { getTextColorByBackgroundColor } from "utils";
 
-const GroupTag = ({ tag, forAdd, onClick, onDelete }) => {
+const GroupTag = ({ tag, forAdd, onClick, onDelete, canEditWants }) => {
   return (
     <div
       className={classNames("group-tag", { "for-add": forAdd })}
@@ -13,9 +13,11 @@ const GroupTag = ({ tag, forAdd, onClick, onDelete }) => {
       }}
     >
       {tag?.name}
-      <div className="group-tag-x" onClick={onDelete}>
-        <Icon type="times" />
-      </div>
+      {canEditWants ? (
+        <div className="group-tag-x" onClick={onDelete}>
+          <Icon type="times" />
+        </div>
+      ) : null}
     </div>
   );
 };

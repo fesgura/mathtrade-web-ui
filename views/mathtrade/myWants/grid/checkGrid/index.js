@@ -8,6 +8,7 @@ const Grid = ({
   set_wantListGrid,
   putWant,
   putWantBatch,
+  canEditWants,
 }) => {
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [list, setList] = useState({});
@@ -72,6 +73,7 @@ const Grid = ({
               //
               setList={setList}
               isMouseDown={isMouseDown}
+              canEditWants={canEditWants}
               onMouseDown={() => {
                 if (!isMouseDown) setIsMouseDown(true);
               }}

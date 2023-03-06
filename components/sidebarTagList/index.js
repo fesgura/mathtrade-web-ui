@@ -10,6 +10,7 @@ const SidebarTagList = ({
   afterAnyChange,
   filters,
   setFilters,
+  canEditWants,
 }) => {
   const [modalAddOpen, setModalAddOpen] = useState(false);
   const [currentTag, setCurrentTag] = useState(null);
@@ -55,21 +56,24 @@ const SidebarTagList = ({
                   filterByTag={filterByTag}
                   afterAnyChange={afterAnyChange}
                   current={`${currentTag}` === `${tag.id}`}
+                  canEditWants={canEditWants}
                 />
               );
             })}
           </div>
-          <div className="text-center py-3">
-            <a
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                setModalAddOpen(true);
-              }}
-            >
-              <Icon type="plus" /> <I18N id="itemList.Tags.AddTag" />
-            </a>
-          </div>
+          {canEditWants ? (
+            <div className="text-center py-3">
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setModalAddOpen(true);
+                }}
+              >
+                <Icon type="plus" /> <I18N id="itemList.Tags.AddTag" />
+              </a>
+            </div>
+          ) : null}
         </div>
       </div>
 

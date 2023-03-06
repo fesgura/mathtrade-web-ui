@@ -3,6 +3,7 @@ import { useApi, MathTradeService } from "api_serv";
 import storage from "utils/storage";
 import PrivateEnv from "environments/private";
 import MyWantsView from "views/mathtrade/myWants";
+import useCanEdit from "hooks/useCanEdit";
 import { getUniqueId } from "utils";
 import { useLeavePageConfirmation } from "hooks/useLeavePageConfirmation";
 import { getI18Ntext } from "i18n";
@@ -13,6 +14,8 @@ const customizedDialog = async (msg) => {
 };
 
 const MyWants = () => {
+  const canEditWants = useCanEdit("wants");
+
   const [mustCommitChanges, set_mustCommitChanges] = useState(false);
   const [firstLoadedWants, set_firstLoadedWants] = useState(false);
   const [firstLoadedMyItems, set_firstLoadedMyItems] = useState(false);
@@ -93,6 +96,7 @@ const MyWants = () => {
   return (
     <PrivateEnv>
       <MyWantsView
+        canEditWants={canEditWants}
         wantList={wantList}
         myItemList={myItemList}
         putWant={putWant}

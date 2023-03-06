@@ -10,6 +10,7 @@ const SidebarGroupList = ({
   setGroupIdSelected,
   afterAnyChange,
   itemList = [],
+  canEditWants,
 }) => {
   const [groupComplete, setGroupComplete] = useState([]);
   const [modalAddOpen, setModalAddOpen] = useState(false);
@@ -57,21 +58,24 @@ const SidebarGroupList = ({
                   setGroupIdSelected={setGroupIdSelected}
                   count={group?.item_ids?.length || 0}
                   afterAnyChange={afterAnyChange}
+                  canEditWants={canEditWants}
                 />
               );
             })}
           </div>
-          <div className="text-center py-3">
-            <a
-              href="/"
-              onClick={(e) => {
-                e.preventDefault();
-                setModalAddOpen(true);
-              }}
-            >
-              <Icon type="plus" /> <I18N id="myItems.sidebar.AddGroup" />
-            </a>
-          </div>
+          {canEditWants ? (
+            <div className="text-center py-3">
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setModalAddOpen(true);
+                }}
+              >
+                <Icon type="plus" /> <I18N id="myItems.sidebar.AddGroup" />
+              </a>
+            </div>
+          ) : null}
         </div>
       </div>
 

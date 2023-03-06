@@ -6,12 +6,13 @@ const CommitBtn = ({
   commitChanges,
   commitChangesLoading,
   mustCommitChanges,
+  canEditWants,
 }) => {
   return (
     <>
       <Button
         color="danger"
-        disabled={!mustCommitChanges || commitChangesLoading}
+        disabled={!mustCommitChanges || commitChangesLoading || !canEditWants}
         onClick={commitChanges}
       >
         <Icon

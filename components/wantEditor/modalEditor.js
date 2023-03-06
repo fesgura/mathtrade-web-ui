@@ -3,7 +3,14 @@ import { Modal, ModalBody } from "reactstrap";
 import { formatUserWantGroup } from "utils";
 import EditorWants from "./editor";
 
-const ModalEditor = ({ isOpen, onClose, wantGroup, type, afterAnyChange }) => {
+const ModalEditor = ({
+  isOpen,
+  onClose,
+  wantGroup,
+  type,
+  afterAnyChange,
+  canEditWants,
+}) => {
   const [objectToWant, setObjectToWant] = useState(null);
   const [wantGroupFormmated, setWantGroupFormmated] = useState(null);
 
@@ -53,6 +60,7 @@ const ModalEditor = ({ isOpen, onClose, wantGroup, type, afterAnyChange }) => {
           wantGroup={wantGroupFormmated}
           afterAnyChange={afterAnyChange}
           toggleModal={onClose}
+          canEditWants={canEditWants}
         />
       </ModalBody>
     </Modal>

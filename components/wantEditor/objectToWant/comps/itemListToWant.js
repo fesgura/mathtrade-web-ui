@@ -7,6 +7,7 @@ const ItemListToWant = ({
   want_ids = [],
   setWantId,
   afterAnyChange,
+  canEditWants,
 }) => {
   const [myUserId, set_myUserId] = useState("");
 
@@ -28,6 +29,7 @@ const ItemListToWant = ({
             onClickCheckbox={() => {
               setWantId(id);
             }}
+            disabledCheck={!canEditWants}
             hideCheckbox={!setWantId}
             disabled={user.id === myUserId}
             ownUser={user.id === myUserId}

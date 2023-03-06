@@ -5,7 +5,12 @@ import { useApi, MathTradeService } from "api_serv";
 import I18N from "i18n";
 import BtnCircle from "components/btnCircle";
 
-const PublishInMT = ({ item, itemMathTradeData, afterAnyChange }) => {
+const PublishInMT = ({
+  canEditList,
+  item,
+  itemMathTradeData,
+  afterAnyChange,
+}) => {
   if (!item) {
     return null;
   }
@@ -25,37 +30,46 @@ const PublishInMT = ({ item, itemMathTradeData, afterAnyChange }) => {
     },
   });
 
-  return (
+  return !canEditList && !itemMathTradeData ? null : (
     <>
-      <BtnCircle
-        className={!itemMathTradeData ? "btn-publish-mt" : "btn-unpublish-mt"}
-        label={
-          !itemMathTradeData
-            ? "myCollection.publishInMathTrade"
-            : "myCollection.quitFromMathTrade"
-        }
-        onClick={() => {
-          if (!itemMathTradeData) {
-            if (!loadingPublishItem) {
-              publishItem({
-                data: {
-                  item_id: item.id,
-                },
-              });
-            }
-          } else {
-            if (!loadingUnpublishItem) {
-              setModalDeleteOpen(true);
-            }
+      {!canEditList ? (
+        <BtnCircle
+          className="btn-unpublish-mt can-edit-list"
+          label="myCollection.cantquitFromMathTrade"
+        >
+          <Icon type="quitFromMT" />
+        </BtnCircle>
+      ) : (
+        <BtnCircle
+          className={!itemMathTradeData ? "btn-publish-mt" : "btn-unpublish-mt"}
+          label={
+            !itemMathTradeData
+              ? "myCollection.publishInMathTrade"
+              : "myCollection.quitFromMathTrade"
           }
-        }}
-      >
-        {!itemMathTradeData ? (
-          <Icon type={loadingPublishItem ? "loading" : "addToMT"} />
-        ) : (
-          <Icon type={loadingPublishItem ? "loading" : "quitFromMT"} />
-        )}
-      </BtnCircle>
+          onClick={() => {
+            if (!itemMathTradeData) {
+              if (!loadingPublishItem) {
+                publishItem({
+                  data: {
+                    item_id: item.id,
+                  },
+                });
+              }
+            } else {
+              if (!loadingUnpublishItem) {
+                setModalDeleteOpen(true);
+              }
+            }
+          }}
+        >
+          {!itemMathTradeData ? (
+            <Icon type={loadingPublishItem ? "loading" : "addToMT"} />
+          ) : (
+            <Icon type={loadingPublishItem ? "loading" : "quitFromMT"} />
+          )}
+        </BtnCircle>
+      )}
       <Modal
         isOpen={modalDeleteOpen}
         toggle={() => {

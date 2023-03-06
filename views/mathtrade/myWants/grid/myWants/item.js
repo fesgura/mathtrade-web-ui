@@ -24,6 +24,7 @@ const WantItem = ({
   reloadWants,
   isInnerOf,
   isExtended,
+  canEditWants,
 }) => {
   const id = useId("mw-g").replace(twoPointsReg, "");
 
@@ -80,7 +81,7 @@ const WantItem = ({
             className={classNames("want-lab_content for-item", { isInnerOf })}
           >
             <Row className="g-0 align-items-center flex-nowrap">
-              {isInnerOf ? null : (
+              {isInnerOf || !canEditWants ? null : (
                 <Col xs="auto">
                   <BtnDelete
                     onDelete={() => {
@@ -96,59 +97,64 @@ const WantItem = ({
                   cropTitle={36}
                   selected={isCheckedIndex >= 0}
                   notHighOnSelected
+                  disabledCheck={!canEditWants}
                   hideCheckbox={!isInnerOf}
                   onClickCheckbox={removeFromGroup}
                   customCheckbox={
                     group.type === "group" ? (
-                      <>
-                        <div
-                          className="want-lab_custom-delete-btn"
-                          id={`mw-grid-btn-del-${id}`}
-                          onClick={() => {
-                            setShowDeleteButton((v) => !v);
-                          }}
-                        >
-                          <Icon />
-                        </div>
-
-                        <UncontrolledTooltip target={`mw-grid-btn-del-${id}`}>
-                          <I18N id="MyWants.Grid.DeleteItemFromGroup" />
-                        </UncontrolledTooltip>
-                        <UncontrolledPopover
-                          className="want-lab_custom-delete-popover"
-                          placement="right"
-                          target={`mw-grid-btn-del-${id}`}
-                          //trigger="click"
-                          flip
-                          isOpen={showDeleteButton}
-                        >
-                          <p>
-                            <I18N id="MyWants.Grid.DeleteItemFromGroupQuestion" />
-                          </p>
-
-                          <Button
-                            size="sm"
-                            color="link"
-                            outline
-                            className="me-2"
+                      canEditWants ? (
+                        <>
+                          <div
+                            className="want-lab_custom-delete-btn"
+                            id={`mw-grid-btn-del-${id}`}
                             onClick={() => {
-                              setShowDeleteButton(false);
+                              setShowDeleteButton((v) => !v);
                             }}
                           >
-                            <I18N id="btn.Cancel" />
-                          </Button>
-                          <Button
-                            size="sm"
-                            color="danger"
-                            onClick={() => {
-                              setShowDeleteButton(false);
-                              removeFromGroup();
-                            }}
+                            <Icon />
+                          </div>
+
+                          <UncontrolledTooltip target={`mw-grid-btn-del-${id}`}>
+                            <I18N id="MyWants.Grid.DeleteItemFromGroup" />
+                          </UncontrolledTooltip>
+                          <UncontrolledPopover
+                            className="want-lab_custom-delete-popover"
+                            placement="right"
+                            target={`mw-grid-btn-del-${id}`}
+                            //trigger="click"
+                            flip
+                            isOpen={showDeleteButton}
                           >
-                            <I18N id="btn.Delete" />
-                          </Button>
-                        </UncontrolledPopover>
-                      </>
+                            <p>
+                              <I18N id="MyWants.Grid.DeleteItemFromGroupQuestion" />
+                            </p>
+
+                            <Button
+                              size="sm"
+                              color="link"
+                              outline
+                              className="me-2"
+                              onClick={() => {
+                                setShowDeleteButton(false);
+                              }}
+                            >
+                              <I18N id="btn.Cancel" />
+                            </Button>
+                            <Button
+                              size="sm"
+                              color="danger"
+                              onClick={() => {
+                                setShowDeleteButton(false);
+                                removeFromGroup();
+                              }}
+                            >
+                              <I18N id="btn.Delete" />
+                            </Button>
+                          </UncontrolledPopover>
+                        </>
+                      ) : (
+                        <div />
+                      )
                     ) : null
                   }
                   afterAnyChange={reloadWants}

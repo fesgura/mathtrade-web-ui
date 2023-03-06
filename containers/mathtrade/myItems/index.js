@@ -2,9 +2,13 @@ import { useEffect } from "react";
 import PrivateEnv from "environments/private";
 import MyItemsView from "views/mathtrade/myItems";
 import { useApi, MathTradeService } from "api_serv";
+import useCanEdit from "hooks/useCanEdit";
 import storage from "utils/storage";
 
 const MyItems = () => {
+  const canEditList = useCanEdit("list");
+  const canEditWants = useCanEdit("wants");
+
   const [listItems, itemList, loadingItemList, errorItemList] = useApi({
     promise: MathTradeService.listMyItems,
     initialState: [],
@@ -40,6 +44,8 @@ const MyItems = () => {
   return (
     <PrivateEnv>
       <MyItemsView
+        canEditList={canEditList}
+        canEditWants={canEditWants}
         itemList={itemList}
         groups={groups}
         errorGroups={errorGroups}

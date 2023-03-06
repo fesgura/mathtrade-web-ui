@@ -6,7 +6,7 @@ import I18N from "i18n";
 
 //const itemGroups = ["Euros", "Fáciles", "Ameritrashes"];
 
-const GroupTagHeader = ({ item, groups, afterAnyChange }) => {
+const GroupTagHeader = ({ item, groups, afterAnyChange, canEditWants }) => {
   const [itemGroups, setItemGroups] = useState([]);
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const GroupTagHeader = ({ item, groups, afterAnyChange }) => {
 
   //////////////////////////////////////////
 
-  return (
+  return !itemGroups.length && !canEditWants ? null : (
     <div className="group-header">
       <div className="group-header-row">
         {!itemGroups.length ? (
@@ -45,6 +45,7 @@ const GroupTagHeader = ({ item, groups, afterAnyChange }) => {
             <GroupTag
               key={k}
               tag={tag}
+              canEditWants={canEditWants}
               onDelete={() => {
                 const newTag = { ...tag };
                 const itemIdIndex = newTag.items.indexOf(item.id);
@@ -59,12 +60,14 @@ const GroupTagHeader = ({ item, groups, afterAnyChange }) => {
             />
           );
         })}
-        <AddBtn
-          item={item}
-          listAlreadyAdded={itemGroups}
-          groups={groups}
-          afterAnyChange={afterAnyChange}
-        />
+        {canEditWants ? (
+          <AddBtn
+            item={item}
+            listAlreadyAdded={itemGroups}
+            groups={groups}
+            afterAnyChange={afterAnyChange}
+          />
+        ) : null}
       </div>
     </div>
   );

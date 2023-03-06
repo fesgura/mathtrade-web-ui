@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
-import { Button } from "reactstrap";
+import { Alert, Button } from "reactstrap";
 import LoadingPad from "components/loading/loadingPad";
 import Grid from "./grid";
 import QuadsView from "./quads";
@@ -22,6 +22,7 @@ const MyWantsView = ({
   reloadMyItems,
   reloadWants,
   errors,
+  canEditWants,
 }) => {
   const [current, setCurrent] = useState(0);
 
@@ -40,6 +41,7 @@ const MyWantsView = ({
           set_mustCommitChanges={set_mustCommitChanges}
           reloadWants={reloadWants}
           loading={loading}
+          canEditWants={canEditWants}
         />
       );
       break;
@@ -57,6 +59,7 @@ const MyWantsView = ({
           reloadMyItems={reloadMyItems}
           reloadWants={reloadWants}
           loading={loading}
+          canEditWants={canEditWants}
         />
       );
       break;
@@ -91,6 +94,13 @@ const MyWantsView = ({
           ]}
         />
       </div>
+      {canEditWants ? null : (
+        <div className="main-container">
+          <Alert color="info" className="text-center">
+            <I18N id="cantEditWants" />
+          </Alert>
+        </div>
+      )}
 
       {content}
       {/* <div className="main-container">

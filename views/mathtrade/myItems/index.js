@@ -6,6 +6,7 @@ import LinkInternal from "components/link-internal";
 import ErrorAlert from "components/errorAlert";
 import Item from "containers/myCollection/item";
 import ElementEditor from "containers/myCollection/editor";
+import BtnAddItems from "./btnAddItem";
 import AddItem from "containers/mathtrade/myItems/addItem";
 import SidebarGroupList from "components/sidebarGroupList";
 import OrderBy from "components/orderBy";
@@ -14,6 +15,8 @@ import SidebarSticky from "components/sidebarSticky";
 import I18N, { getI18Ntext } from "i18n";
 
 const MyItemsView = ({
+  canEditList,
+  canEditWants,
   itemList = [],
   groups = [],
   loading,
@@ -83,6 +86,7 @@ const MyItemsView = ({
               setGroupIdSelected={setGroupIdSelected}
               itemListTotal={itemList.length}
               itemList={itemList}
+              canEditWants={canEditWants}
             />
           </SidebarSticky>
         </Col>
@@ -125,6 +129,13 @@ const MyItemsView = ({
           ) : null}
 
           <div className="item-list">
+            {!loading ? (
+              <BtnAddItems
+                groupIdSelected={groupIdSelected}
+                setModalAddOpen={setModalAddOpen}
+                canEditList={canEditList}
+              />
+            ) : null}
             {itemListOrdered.length ? (
               itemListOrdered.map((itemToShow, k) => {
                 return (
@@ -138,8 +149,11 @@ const MyItemsView = ({
                       dragToGroup(dataGroup.group_id, item);
                     }}
                     title={getI18Ntext("group.dragger.help")}
+                    hidden={!canEditWants}
                   >
                     <Item
+                      canEditList={canEditList}
+                      canEditWants={canEditWants}
                       IamInMathTrade={true}
                       itemsInMathTradeList={itemList}
                       item={itemToShow}
@@ -186,29 +200,11 @@ const MyItemsView = ({
           {!loading ? (
             <>
               <ErrorAlert errors={errors} />
-              {groupIdSelected < 0 ? (
-                <div className="text-center pt-1">
-                  <Button
-                    color="primary"
-                    className="mb-2"
-                    size="lg"
-                    onClick={() => {
-                      setModalAddOpen(true);
-                    }}
-                  >
-                    <I18N id="btn.AddToMathTrade" />
-                  </Button>
-                  <div className="small">
-                    <i>
-                      (
-                      <LinkInternal path="myCollection">
-                        <I18N id="title.MyCollection" />
-                      </LinkInternal>
-                      )
-                    </i>
-                  </div>
-                </div>
-              ) : null}
+              <BtnAddItems
+                groupIdSelected={groupIdSelected}
+                setModalAddOpen={setModalAddOpen}
+                canEditList={canEditList}
+              />
             </>
           ) : null}
         </Col>

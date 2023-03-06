@@ -3,7 +3,7 @@ import Game from "components/game";
 import WantEditor from "components/wantEditor";
 import Valuation from "components/valuation";
 
-const Game_in_list = ({ game, wantList, afterAnyChange }) => {
+const Game_in_list = ({ game, wantList, afterAnyChange, canEditWants }) => {
   const [wantGroup, set_wantGroup] = useState(null);
 
   useEffect(() => {
@@ -35,6 +35,7 @@ const Game_in_list = ({ game, wantList, afterAnyChange }) => {
               objectToWant={game}
               afterAnyChange={afterAnyChange}
               wantList={wantList}
+              canEditWants={canEditWants}
             />
           );
         },

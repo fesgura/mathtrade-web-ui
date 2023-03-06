@@ -16,6 +16,7 @@ const Tag = ({
   filterByTag,
   afterAnyChange,
   current,
+  canEditWants,
 }) => {
   const [modalEditOpen, setModalEditOpen] = useState(false);
   const [wantGroup, setWantGroup] = useState(null);
@@ -77,7 +78,7 @@ const Tag = ({
                 </div>
               </Col>
               <Col xs="auto">
-                {tag.id > 0 ? (
+                {tag.id > 0 && canEditWants ? (
                   <span
                     className="sidebar-group-list_tag_edit"
                     title={getI18Ntext("itemList.Tags.Edit")}

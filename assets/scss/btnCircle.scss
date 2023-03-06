@@ -76,6 +76,21 @@
         }
       }
     }
+    &.can-edit-list {
+      &,
+      &:hover {
+        color: $text-muted;
+        background-color: #fff;
+        cursor: not-allowed;
+        svg {
+          left: 53%;
+          rect,
+          path {
+            fill: $text-muted;
+          }
+        }
+      }
+    }
   }
   &.btn-i-want-it {
     background-color: $mathtrade-want-color;
@@ -86,12 +101,21 @@
     }
   }
   &.btn-in-want-list {
-    border-color: $mathtrade-want-color;
-    color: $mathtrade-want-color;
-    background-color: #fff;
+    border-color: $mathtrade-wanted-color;
+    background-color: $mathtrade-wanted-color;
+    color: lighten($mathtrade-wanted-color, 50);
+
     &:hover {
-      background-color: $mathtrade-want-color;
-      color: #fff;
+      background-color: #fff;
+      color: $mathtrade-wanted-color;
+    }
+    &.cant-edit {
+      &,
+      &:hover {
+        background-color: $mathtrade-wanted-color;
+        color: lighten($mathtrade-wanted-color, 50);
+        cursor: not-allowed;
+      }
     }
   }
 

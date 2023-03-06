@@ -7,6 +7,7 @@ import storage from "utils/storage";
 import Valuation from "components/valuation";
 
 const MT_ItemListViewItem = ({
+  canEditWants,
   item,
   afterAnyChange,
   wantList,
@@ -66,11 +67,12 @@ const MT_ItemListViewItem = ({
               afterAnyChange={afterAnyChange}
               wantList={wantList}
               isOwner={isOwner}
+              canEditWants={canEditWants}
             />
           );
         },
       ]}
-      withDragger={!isOwner && withDragger}
+      withDragger={!isOwner && withDragger && canEditWants}
       groupHeader={
         !isOwner ? (
           <GroupTagHeader
@@ -78,6 +80,7 @@ const MT_ItemListViewItem = ({
             groupOrTag="tag"
             groups={tagList}
             afterAnyChange={afterAnyChange}
+            canEditWants={canEditWants}
           />
         ) : null
       }
@@ -86,7 +89,7 @@ const MT_ItemListViewItem = ({
 
   return (
     <Dragger
-      key={`${item?.id}-${"item"}`}
+      // key={`${item?.id}-${"item"}`}
       type="item_in_list"
       data={item}
       color={wantGroup ? "white" : "primary"}
@@ -97,7 +100,7 @@ const MT_ItemListViewItem = ({
         }
       }}
       title="Arrastrá y soltá el item sobre un grupo de la izquierda para agregar a un grupo."
-      hidden={isOwner || !withDragger}
+      hidden={isOwner || !withDragger || !canEditWants}
     >
       {itemComp}
     </Dragger>
