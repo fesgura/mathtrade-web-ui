@@ -7,7 +7,13 @@ import { Input } from "components/form";
 import I18N from "i18n";
 import ErrorAlert from "components/errorAlert";
 
-const Tag = ({ tag, dup_protection, set_dup_protection, afterAnyChange }) => {
+const Tag = ({
+  tag,
+  dup_protection,
+  set_dup_protection,
+  afterAnyChange,
+  canEditWants,
+}) => {
   const [listItems, list, loading, errors] = useApi({
     promise: MathTradeService.listItems,
     startLoading: true,
@@ -39,6 +45,7 @@ const Tag = ({ tag, dup_protection, set_dup_protection, afterAnyChange }) => {
                 data={{
                   dup_protection,
                 }}
+                disabled={!canEditWants}
                 classNameContainer="m-0"
                 type="switch"
                 name="dup_protection"

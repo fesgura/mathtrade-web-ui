@@ -45,7 +45,10 @@ $border-radius: 8px;
 $mathtrade-offer-color: rgb(212, 69, 69);
 $mathtrade-offer-border-color: $mathtrade-offer-color;
 $mathtrade-want-color: rgb(33, 163, 0);
-$mathtrade-want-border-color: $mathtrade-want-color;
+
+$mathtrade-wanted-color: $mathtrade;
+$mathtrade-want-border-color: $mathtrade-wanted-color;
+
 $mathtrade-edit-color: $primary;
 
 // ITEMS, ELEMENTS

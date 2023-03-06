@@ -4,7 +4,7 @@ import { Button, Col, Row, Modal, ModalBody } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
 import Icon from "components/icon";
 import { LoadingBox } from "components/loading";
-import { getTextColorByBackgroundColor } from "utils";
+import { getTextColorByBackgroundColor, getRandomColor } from "utils";
 import I18N, { getI18Ntext } from "i18n";
 
 const validations = {
@@ -22,7 +22,7 @@ const FormAddTag = ({
 }) => {
   const [validationStatus, setValidationStatus] = useState({});
   const [name, setName] = useState("");
-  const [color, setColor] = useState("#22c1c3");
+  const [color, setColor] = useState(getRandomColor());
   const [showDelete, setShowDelete] = useState(false);
 
   useEffect(() => {

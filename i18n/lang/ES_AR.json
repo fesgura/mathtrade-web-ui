@@ -61,6 +61,9 @@
   "btn.MyCollection.addNewItem": "<b>Agregar nuevo ítem</b>",
   "btn.MyCollection.addNewItemForCombo": "<b>Agregar otro ítem</b> (para crear un <b>combo</b>)",
   "btn.MyCollection.addNewItemToCombo": "<b>Agregar</b> al <b>combo</b>",
+  "btn.MyCollection.addNewItemCantEdit": "<b>Agregar nuevo ítem</b> (para futuros Mathtrades)",
+  "btn.MyCollection.addNewItemForComboCantEdit": "<b>Agregar otro ítem</b> (para crear un <b>combo</b>, en futuros Mathtrades)",
+  "btn.MyCollection.addNewItemToComboCantEdit": "<b>Agregar</b> al <b>combo</b> (para futuros Mathtrades)",
   "btn.YesQuit": "Sí, quitar",
   "btn.AddToMathTrade": "Agregar al Math Trade desde mi colección",
   "btn.filter.Filter": "Filtrar",
@@ -73,6 +76,7 @@
   "myCollection.publishInMathTrade": "PUBLICAR en el Math Trade",
   "myCollection.quittingFromMathtrade": "Quitando...",
   "myCollection.quitFromMathTrade": "Quitar del Math Trade",
+  "myCollection.cantquitFromMathTrade": "Este ítem ya no puede quitarse del Math Trade. Ya lo has ofrecido.",
   "myCollection.modal.quitFromMathTrade": "¿Quitar este ítem del Math Trade?",
   "element.editor.repeated.alert": "<b>Ya cargaste este juego a tu colección.</b><br />¿Estas seguro/a de volver a cargar el mismo juego?",
   "element.editor.repeated.btn.cancel": "No, cancelar",
@@ -232,6 +236,7 @@
   "myItems.sidebar.form.Preview": "Previsualización",
   "myItems.sidebar.DeleteGroup": "Eliminar grupo",
   "myItems.sidebar.form.DeleteGroup.warning": "¿Eliminar grupo?",
+  "myItems.cantEditList": "Ya no podés agregar más ítems al Mathtrade.",
   "myGroups.groupHeader": "Grupos",
   "myGroups.AddItemToGroup": "Agregar ítem a grupo",
   "myGroups.NewGroup": "Nuevo grupo",
@@ -267,6 +272,7 @@
   "wantEditor.btn.OwnItem": "ítem propio",
   "wantEditor.btn.IwantIt": "¡Lo quiero!",
   "wantEditor.btn.InMyWantList": "En mi lista de deseos",
+  "wantEditor.btn.InMyWantList.canEditWants": "Ya no podés quitar este juego ó grupo de tus deseos.",
   "wantEditor.title.EditWant": "Editar Mis Deseos",
   "wantEditor.title.AddWant": "Agregar a Mis Deseos",
   "wantEditor.btn.UpdateWant": "Actualizar Deseo",
@@ -363,5 +369,8 @@
   "photoGallery.addItem": "Agregar imagen",
   "photoGallery.editElement.title": "<b>Fotos</b> <em>(opcional, máx. 4 fotos)</em>",
   "photoGallery.editElement.help": "Por favor, considerá subir fotos <u><b>sólo si es realmente necesario</b></u> aclarar el estado del ítem, o necesitás mostrar algo en particular, etc.",
-  "photoGallery.full.title": "Ver fotos"
+  "photoGallery.full.title": "Ver fotos",
+  "cantEditList.Games": "Ya no se puede agregar más juegos a la lista.",
+  "cantEditList.Items": "Ya no se puede agregar más juegos a la lista.",
+  "cantEditWants": "Ya no podés editar tus wants."
 }

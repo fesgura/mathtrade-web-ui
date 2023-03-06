@@ -14,6 +14,7 @@ const ItemMinimal = ({
   item,
   selected,
   disabled,
+  disabledCheck,
   onClickCheckbox = () => {},
   customCheckbox,
   hideCheckbox,
@@ -54,7 +55,7 @@ const ItemMinimal = ({
                   <Checkbox
                     value={selected}
                     onClick={onClickCheckbox}
-                    disabled={disabled}
+                    disabled={disabled || disabledCheck}
                   />
                 )}
               </div>

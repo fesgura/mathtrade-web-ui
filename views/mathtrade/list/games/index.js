@@ -3,15 +3,18 @@ import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
 import { page_size } from "config";
 import Game from "./game";
-import { Col, Row } from "reactstrap";
+import { Col, Row, Alert } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
 import Pagination from "components/pagination";
 import OrderBy from "components/orderBy";
 import Filters_MT_Games from "./filters";
 import SidebarSticky from "components/sidebarSticky";
 import { getI18Ntext } from "i18n";
+import I18N from "i18n";
 
 const GameListView = ({
+  canEditList,
+  canEditWants,
   list,
   wantList,
   filters,
@@ -82,6 +85,11 @@ const GameListView = ({
           </SidebarSticky>
         </Col>
         <Col xs={9}>
+          {canEditList ? null : (
+            <Alert color="info" className="text-center mb-4">
+              <I18N id="cantEditList.Items" />
+            </Alert>
+          )}
           <div className="game-list">
             {list && list.results && list.results.length ? (
               list.results.map((game, k) => {
@@ -91,6 +99,7 @@ const GameListView = ({
                     wantList={wantList}
                     key={k}
                     afterAnyChange={afterAnyChange}
+                    canEditWants={canEditWants}
                   />
                 );
               })

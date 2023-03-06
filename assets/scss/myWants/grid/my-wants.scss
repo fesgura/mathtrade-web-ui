@@ -159,4 +159,12 @@
   &:hover {
     opacity: 1;
   }
+
+  &.disab {
+    cursor: not-allowed;
+    margin-left: 5px;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
 }

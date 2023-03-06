@@ -28,6 +28,7 @@ const Grid = ({
   reloadMyItems,
   reloadWants,
   loading,
+  canEditWants,
 }) => {
   const [extendAll, setExtendAll] = useState(false);
 
@@ -82,6 +83,7 @@ const Grid = ({
             <div className="mywants-grid_myItems-container">
               <div className="mywants-grid_myItems-row">
                 <GridSpacer
+                  canEditWants={canEditWants}
                   extendAll={extendAll}
                   setExtendAll={() => {
                     const newExtendAll = !extendAll;
@@ -145,6 +147,7 @@ const Grid = ({
                     deleteWant={deleteWant}
                     set_wantListGrid={set_wantListGrid}
                     reloadWants={reloadWants}
+                    canEditWants={canEditWants}
                   />
                 </div>
                 <div className="mywants-grid_wantListGrid-col-right">
@@ -155,6 +158,7 @@ const Grid = ({
                       set_wantListGrid={set_wantListGrid}
                       putWant={putWant}
                       putWantBatch={putWantBatch}
+                      canEditWants={canEditWants}
                     />
                   </div>
                 </div>

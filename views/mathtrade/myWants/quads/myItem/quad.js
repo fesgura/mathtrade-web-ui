@@ -16,6 +16,7 @@ const Quad = ({
   setCurrentWantGroup,
   setCurrentType,
   onDelete,
+  canEditWants,
 }) => {
   const id = useId("quad-want").replace(twoPointsReg, "");
 
@@ -89,7 +90,7 @@ const Quad = ({
             {title}
           </UncontrolledTooltip>
 
-          {isGroup ? (
+          {isGroup && canEditWants ? (
             <>
               <div
                 className="quad-want_myItemGroup-delete"

@@ -4,7 +4,7 @@ import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
 import { page_size } from "config";
 import ItemView from "./item";
-import { Col, Row } from "reactstrap";
+import { Alert, Col, Row } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
 import Pagination from "components/pagination";
 import OrderBy from "components/orderBy";
@@ -12,9 +12,10 @@ import Filters_MT_Items from "./filters";
 import SidebarSticky from "components/sidebarSticky";
 import SidebarTabs from "components/sidebarTabs";
 import SidebarTagList from "components/sidebarTagList";
-import { getI18Ntext } from "i18n";
+import I18N, { getI18Ntext } from "i18n";
 
 const ItemListView = ({
+  canEditWants,
   list,
   locations,
   wantList,
@@ -25,6 +26,7 @@ const ItemListView = ({
   errors,
   dragToGroup,
   afterAnyChange,
+  canEditList,
 }) => {
   const [currentSidebar, setCurrentSidebar] = useState(0);
 
@@ -117,6 +119,7 @@ const ItemListView = ({
                       afterAnyChange={afterAnyChange}
                       filters={filters}
                       setFilters={setFilters}
+                      canEditWants={canEditWants}
                     />
                   ),
                 },
@@ -126,6 +129,11 @@ const ItemListView = ({
           </SidebarSticky>
         </Col>
         <Col xs={9}>
+          {canEditList ? null : (
+            <Alert color="info" className="text-center mb-3">
+              <I18N id="cantEditList.Items" />
+            </Alert>
+          )}
           <div className="item-list pb-1">
             {list && list.results && list.results.length ? (
               list.results.map((item, k) => {
@@ -138,6 +146,7 @@ const ItemListView = ({
                     tagList={tagList}
                     dragToGroup={dragToGroup}
                     withDragger={currentSidebar === 1}
+                    canEditWants={canEditWants}
                   />
                 );
               })

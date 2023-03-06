@@ -17,6 +17,7 @@ const QuadsView = ({
   set_mustCommitChanges,
   reloadWants,
   loading,
+  canEditWants,
 }) => {
   const [myItemGroups, setMyItemGroups] = useState([]);
   //
@@ -46,6 +47,7 @@ const QuadsView = ({
                     commitChanges={commitChanges}
                     commitChangesLoading={commitChangesLoading}
                     mustCommitChanges={mustCommitChanges}
+                    canEditWants={canEditWants}
                   />
                 </Col>
               </Row>
@@ -60,6 +62,7 @@ const QuadsView = ({
                     setCurrentWantGroup={setCurrentWantGroup}
                     setCurrentType={setCurrentType}
                     putWant={putWant}
+                    canEditWants={canEditWants}
                   />
                 );
               })}
@@ -69,6 +72,7 @@ const QuadsView = ({
       </div>
       <ModalEditor
         isOpen={modalWantOpen}
+        canEditWants={canEditWants}
         onClose={() => {
           setModalWantOpen(false);
         }}

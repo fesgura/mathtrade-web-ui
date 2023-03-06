@@ -11,6 +11,7 @@ import ElementEditor from "containers/myCollection/editor";
 import I18N, { getI18Ntext } from "i18n";
 
 const MyCollectionView = ({
+  canEditList,
   IamInMathTrade,
   itemList = [],
   itemsInMathTradeList,
@@ -101,6 +102,7 @@ const MyCollectionView = ({
                     itemsInMathTradeList={itemsInMathTradeList}
                     afterAnyChange={afterAnyChange}
                     key={k}
+                    canEditList={canEditList}
                     editItem={(item, element) => {
                       setObjToEdit({ item, element });
                       setModalEditOpen(true);
@@ -127,6 +129,7 @@ const MyCollectionView = ({
                       setObjToEdit({ item: null, element: null });
                       setModalEditOpen(true);
                     }}
+                    canEditList={canEditList}
                   />
                 </div>
               </div>

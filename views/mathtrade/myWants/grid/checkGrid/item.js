@@ -14,6 +14,7 @@ const CheckItem = ({
   //
   onHit,
   groupHits,
+  canEditWants,
 }) => {
   const [selected, setSelected] = useState(false);
 
@@ -100,12 +101,14 @@ const CheckItem = ({
       isInner={isInner}
       onMouseDown={() => {
         //
-        if (onHit) onHit();
-        onChange();
-        onMouseDown();
+        if (canEditWants) {
+          if (onHit) onHit();
+          onChange();
+          onMouseDown();
+        }
       }}
       onMouseEnter={() => {
-        if (isMouseDown) {
+        if (isMouseDown && canEditWants) {
           const isGroupHit = isInner
             ? groupHits.indexOf(`${wantGroup.idkey}-${myItemGroup.idkey}`) >= 0
             : false;

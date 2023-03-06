@@ -13,6 +13,7 @@ const GridSpacer = ({
   commitChanges,
   commitChangesLoading,
   mustCommitChanges,
+  canEditWants,
 }) => {
   return (
     <div className="mywants-grid-spacer">
@@ -71,6 +72,7 @@ const GridSpacer = ({
               commitChanges={commitChanges}
               commitChangesLoading={commitChangesLoading}
               mustCommitChanges={mustCommitChanges}
+              canEditWants={canEditWants}
             />
           </div>
           <div className="mywants-grid-spacer_lab-cont_row-2">

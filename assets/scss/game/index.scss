@@ -95,7 +95,8 @@
 
   &.wanted {
     .game {
-      box-shadow: $main-box-shadow, 0 0 0 4px rgba($mathtrade-want-color, 0.8);
+      box-shadow: $main-box-shadow,
+        0 0 0 4px rgba($mathtrade-want-border-color, 0.8);
     }
   }
   &.inModal {

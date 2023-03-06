@@ -2,11 +2,14 @@ import { useState, useEffect } from "react";
 import PrivateEnv from "environments/private";
 import MyCollectionView from "views/myCollection";
 import { useApi, myCollectionService, MathTradeService } from "api_serv";
+import useCanEdit from "hooks/useCanEdit";
 import storage from "utils/storage";
 
 // useSelector
 const MyCollectionContainer = () => {
   const [storeData, set_storeData] = useState(null);
+
+  const canEditList = useCanEdit("list");
 
   /* Math Trade */
   const [
@@ -51,6 +54,7 @@ const MyCollectionContainer = () => {
   return (
     <PrivateEnv>
       <MyCollectionView
+        canEditList={canEditList}
         IamInMathTrade={storeData?.mathtrade?.IamIn}
         itemList={loadingItemsList ? [] : itemList}
         itemsInMathTradeList={itemsInMathTradeList}

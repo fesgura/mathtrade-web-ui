@@ -33,6 +33,7 @@ const MyDataView = ({
   loading,
   errors,
   cancelMemberMathTrade,
+  canEditList,
 }) => {
   const [validationStatus, setValidationStatus] = useState({});
   const [currentLocation, setCurrentLocation] = useState(null);
@@ -144,7 +145,7 @@ const MyDataView = ({
               />
               {currentLocation && currentLocation.referral ? (
                 <Alert color="warning small text-center mb-4">
-                  {/* {currentLocation.mandatory_attendance ? (
+                  {currentLocation.mandatory_attendance ? (
                     <>
                       Si vivis en el ambito de la Ciudad Autónoma de Buenos
                       Aires (CABA),
@@ -169,29 +170,49 @@ const MyDataView = ({
                       (responsable para la ciudad de{" "}
                       <b>{currentLocation?.name}</b>) para coordinar los envios:
                     </>
-                  )} */}
+                  )}
 
-                  <div className="referal">
-                    <Row className="justify-content-center align-items-center">
-                      <Col xs="auto">
-                        <div className="referal-title">{`${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`}</div>
-                      </Col>
-                      <Col xs="auto">
-                        <div className="referal-items">
-                          <div className="referal-item pt-0">
-                            <Icon type="telegram" className="me-2" />
-                            <b>Telegram:</b>{" "}
-                            {currentLocation?.referral?.telegram}
+                  {currentLocation?.referral ? (
+                    <div className="referal">
+                      <Row className="justify-content-center align-items-center">
+                        <Col xs="auto">
+                          <div className="referal-title">{`${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`}</div>
+                        </Col>
+                        <Col xs="auto">
+                          <div className="referal-items">
+                            {currentLocation?.referral?.telegram ? (
+                              <div className="referal-item pt-0">
+                                <Icon type="telegram" className="me-2" />
+                                <b>Telegram:</b>{" "}
+                                {currentLocation?.referral?.telegram}
+                              </div>
+                            ) : null}
+                            {currentLocation?.referral?.whatsapp ? (
+                              <div className="referal-item pb-0">
+                                <Icon type="whatsapp" className="me-2" />
+                                <b>Whatsapp:</b>{" "}
+                                {currentLocation?.referral?.whatsapp}
+                              </div>
+                            ) : null}
+                            {currentLocation?.referral?.email ? (
+                              <div className="referal-item pb-0">
+                                <Icon type="envelope" className="me-2" />
+                                <b>Email:</b>{" "}
+                                <a
+                                  href={
+                                    "mailto:" + currentLocation?.referral?.email
+                                  }
+                                  target="_blank"
+                                >
+                                  {currentLocation?.referral?.email}
+                                </a>
+                              </div>
+                            ) : null}
                           </div>
-                          <div className="referal-item pb-0">
-                            <Icon type="whatsapp" className="me-2" />
-                            <b>Whatsapp:</b>{" "}
-                            {currentLocation?.referral?.whatsapp}
-                          </div>
-                        </div>
-                      </Col>
-                    </Row>
-                  </div>
+                        </Col>
+                      </Row>
+                    </div>
+                  ) : null}
                 </Alert>
               ) : null}
 
@@ -226,22 +247,24 @@ const MyDataView = ({
                 )}
               </div>
             </Form>
-            <div className="text-center">
-              {mathtradeData.IamIn ? (
-                <a
-                  href="#"
-                  className="small text-danger"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setModalExit(true);
-                  }}
-                >
-                  <I18N id="MyData.btn.SignOutToMathTrade" />
-                </a>
-              ) : (
-                <CancelInviteMT path="/" />
-              )}
-            </div>
+            {canEditList ? (
+              <div className="text-center">
+                {mathtradeData.IamIn ? (
+                  <a
+                    href="#"
+                    className="small text-danger"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setModalExit(true);
+                    }}
+                  >
+                    <I18N id="MyData.btn.SignOutToMathTrade" />
+                  </a>
+                ) : (
+                  <CancelInviteMT path="/" />
+                )}
+              </div>
+            ) : null}
           </div>
           <Modal
             isOpen={modalExit}

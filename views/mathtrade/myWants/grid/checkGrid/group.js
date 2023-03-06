@@ -11,6 +11,7 @@ const CheckGroup = ({
   setList,
   isMouseDown,
   onMouseDown,
+  canEditWants,
 }) => {
   return (
     <>
@@ -30,6 +31,7 @@ const CheckGroup = ({
         setList={setList}
         isMouseDown={isMouseDown}
         onMouseDown={onMouseDown}
+        canEditWants={canEditWants}
       />
       {myItemGroup.type === "group"
         ? myItemGroup.items.map((itm) => {
@@ -46,6 +48,7 @@ const CheckGroup = ({
                 setList={setList}
                 isMouseDown={isMouseDown}
                 onMouseDown={onMouseDown}
+                canEditWants={canEditWants}
               />
             );
           })

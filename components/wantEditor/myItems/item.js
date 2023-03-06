@@ -1,6 +1,6 @@
 import ItemMinimal from "components/item/minimal";
 
-const Item = ({ item, item_ids, setMyItemIds }) => {
+const Item = ({ item, item_ids, setMyItemIds, canEditWants }) => {
   const { id } = item;
 
   return (
@@ -10,6 +10,7 @@ const Item = ({ item, item_ids, setMyItemIds }) => {
       onClickCheckbox={() => {
         setMyItemIds([id]);
       }}
+      disabledCheck={!canEditWants}
       hideUser
       hideExtraData
     />

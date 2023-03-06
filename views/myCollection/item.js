@@ -17,6 +17,8 @@ const ItemOfCollection = ({
   notHighlated,
   showGroups,
   groups,
+  canEditList,
+  canEditWants,
 }) => {
   return (
     <Item
@@ -26,7 +28,7 @@ const ItemOfCollection = ({
       }
       btnRowListElement={[
         (k, itemRes, elementRes) => {
-          return (
+          return itemMathTradeData && !canEditList ? null : (
             <BtnCircle
               key={k}
               className="btn-edit-item"
@@ -50,6 +52,7 @@ const ItemOfCollection = ({
                 return (
                   <PublishInMT
                     key={k}
+                    canEditList={canEditList}
                     item={item}
                     itemMathTradeData={itemMathTradeData}
                     afterAnyChange={afterAnyChange}
@@ -60,17 +63,18 @@ const ItemOfCollection = ({
           : []
       }
       footer={
-        !notShowAddItem ? (
+        notShowAddItem || (itemMathTradeData && !canEditList) ? null : (
           <div className="py-2">
-            <AddItem item={item} onClick={editItem} />
+            <AddItem item={item} onClick={editItem} canEditList={canEditList} />
           </div>
-        ) : null
+        )
       }
       showUser={false}
-      withDragger={withDragger}
+      withDragger={canEditWants ? withDragger : false}
       groupHeader={
         showGroups ? (
           <GroupHeader
+            canEditWants={canEditWants}
             item={item}
             groups={groups}
             afterAnyChange={afterAnyChange}

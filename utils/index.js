@@ -323,6 +323,10 @@ export const getElementByFilter = (collection, method) => {
   return arrayCollection[0] || null;
 };
 
+export const getRandomColor = () => {
+  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+};
+
 export const getLanguageListText = (lang) => {
   if (!lang) {
     return "";

@@ -102,6 +102,8 @@
   &.high-wanted {
     .item-full-card {
       border-color: $mathtrade-want-border-color;
+      box-shadow: $main-box-shadow,
+        0 0 0 3px rgba($mathtrade-want-border-color, 0.8);
     }
   }
 }

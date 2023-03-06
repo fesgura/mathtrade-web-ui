@@ -7,7 +7,7 @@ import Item from "./item";
 import I18N, { getI18Ntext } from "i18n";
 import Error from "next/error";
 
-const MyItems = ({ item_ids, setMyItemIds, dup_protection }) => {
+const MyItems = ({ item_ids, setMyItemIds, dup_protection, canEditWants }) => {
   const [listItems, itemList, loading, errors] = useApi({
     promise: MathTradeService.listMyItems,
     initialState: null,
@@ -80,6 +80,7 @@ const MyItems = ({ item_ids, setMyItemIds, dup_protection }) => {
                     item_ids={item_ids}
                     setMyItemIds={setMyItemIds}
                     key={k}
+                    canEditWants={canEditWants}
                   />
                 );
               case "item":
@@ -89,6 +90,7 @@ const MyItems = ({ item_ids, setMyItemIds, dup_protection }) => {
                     item_ids={item_ids}
                     setMyItemIds={setMyItemIds}
                     key={k}
+                    canEditWants={canEditWants}
                   />
                 );
               default:

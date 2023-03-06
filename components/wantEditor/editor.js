@@ -16,6 +16,7 @@ const EditorWants = ({
   toggleModal,
   wantGroup,
   afterAnyChange,
+  canEditWants,
 }) => {
   // USER WANT GROUP
   const [id, set_id] = useState(null);
@@ -153,15 +154,17 @@ const EditorWants = ({
         dup_protection={dup_protection}
         set_dup_protection={set_dup_protection}
         afterAnyChange={afterAnyChange}
+        canEditWants={canEditWants}
       />
       <MyItems
         item_ids={item_ids}
         setMyItemIds={setMyItemIds}
         dup_protection={dup_protection}
+        canEditWants={canEditWants}
       />
       <ErrorAlert errors={postErrors || putErrors || deleteErrors} />
       <Row className="pt-4 pb-3 align-items-center justify-content-between">
-        {id ? (
+        {id && canEditWants ? (
           <Col xs="auto">
             <DeleteButton
               size="xs"
@@ -172,7 +175,7 @@ const EditorWants = ({
             />
           </Col>
         ) : null}
-        <Col xs={id ? "auto" : 12} className="text-center">
+        <Col xs={id && canEditWants ? "auto" : 12} className="text-center">
           <Button
             color="link"
             className="me-2 mb-sm-0 mb-2"
@@ -181,45 +184,47 @@ const EditorWants = ({
               toggleModal();
             }}
           >
-            <I18N id="btn.Cancel" />
+            <I18N id={canEditWants ? "btn.Cancel" : "btn.Accept"} />
           </Button>
-          <Button
-            color="primary"
-            type="submit"
-            disabled={want_ids.length === 0}
-            onClick={(e) => {
-              if (id) {
-                putWant({
-                  id,
-                  data: {
-                    name,
-                    bgg_id,
-                    want_ids,
-                    item_ids,
-                    dup_protection,
-                    tags,
-                  },
-                });
-              } else {
-                postWant({
-                  data: {
-                    name,
-                    bgg_id,
-                    want_ids,
-                    item_ids,
-                    dup_protection,
-                    tags,
-                  },
-                });
-              }
-            }}
-          >
-            {id ? (
-              <I18N id="wantEditor.btn.UpdateWant" />
-            ) : (
-              <I18N id="wantEditor.btn.AddWant" />
-            )}
-          </Button>
+          {canEditWants ? (
+            <Button
+              color="primary"
+              type="submit"
+              disabled={want_ids.length === 0}
+              onClick={(e) => {
+                if (id) {
+                  putWant({
+                    id,
+                    data: {
+                      name,
+                      bgg_id,
+                      want_ids,
+                      item_ids,
+                      dup_protection,
+                      tags,
+                    },
+                  });
+                } else {
+                  postWant({
+                    data: {
+                      name,
+                      bgg_id,
+                      want_ids,
+                      item_ids,
+                      dup_protection,
+                      tags,
+                    },
+                  });
+                }
+              }}
+            >
+              {id ? (
+                <I18N id="wantEditor.btn.UpdateWant" />
+              ) : (
+                <I18N id="wantEditor.btn.AddWant" />
+              )}
+            </Button>
+          ) : null}
         </Col>
       </Row>
       {postLoading || putLoading || deleteLoading ? <LoadingBox /> : null}

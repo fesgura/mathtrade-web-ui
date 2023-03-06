@@ -13,6 +13,7 @@ const WantGroup = ({
   deleteWant,
   set_wantListGrid,
   reloadWants,
+  canEditWants,
 }) => {
   return (
     <>
@@ -26,11 +27,13 @@ const WantGroup = ({
           >
             <Row className="g-0 align-items-center">
               <Col xs="auto">
-                <BtnDelete
-                  onDelete={() => {
-                    deleteWant({ id: group.id });
-                  }}
-                />
+                {canEditWants ? (
+                  <BtnDelete
+                    onDelete={() => {
+                      deleteWant({ id: group.id });
+                    }}
+                  />
+                ) : null}
               </Col>
               {group.type === "group" ? (
                 <Col xs="auto">
@@ -38,6 +41,7 @@ const WantGroup = ({
                     group={group}
                     set_wantListGrid={set_wantListGrid}
                     putWant={putWant}
+                    canEditWants={canEditWants}
                   />
                 </Col>
               ) : null}
@@ -89,6 +93,7 @@ const WantGroup = ({
             reloadWants={reloadWants}
             isInnerOf={group.type}
             isExtended={group.extended}
+            canEditWants={canEditWants}
           />
         );
       })}

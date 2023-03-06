@@ -4,7 +4,7 @@ import { Button } from "reactstrap";
 import Icon from "components/icon";
 import I18N from "i18n";
 
-const AddItem = ({ item, className, onClick }) => {
+const AddItem = ({ item, className, onClick, canEditList }) => {
   const [elementNum, setElementNum] = useState(0);
 
   useEffect(() => {
@@ -17,13 +17,29 @@ const AddItem = ({ item, className, onClick }) => {
 
   switch (elementNum) {
     case 0:
-      btnTitle = <I18N id="btn.MyCollection.addNewItem" />;
+      btnTitle = (
+        <I18N
+          id={`btn.MyCollection.addNewItem${canEditList ? "" : "CantEdit"}`}
+        />
+      );
       break;
     case 1:
-      btnTitle = <I18N id="btn.MyCollection.addNewItemForCombo" />;
+      btnTitle = (
+        <I18N
+          id={`btn.MyCollection.addNewItemForCombo${
+            canEditList ? "" : "CantEdit"
+          }`}
+        />
+      );
       break;
     default:
-      btnTitle = <I18N id="btn.MyCollection.addNewItemToCombo" />;
+      btnTitle = (
+        <I18N
+          id={`btn.MyCollection.addNewItemToCombo${
+            canEditList ? "" : "CantEdit"
+          }`}
+        />
+      );
   }
 
   return (

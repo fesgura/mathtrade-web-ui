@@ -6,7 +6,7 @@ import { getTextColorByBackgroundColor } from "utils";
 import classNames from "classnames";
 import Item from "./item";
 
-const Group = ({ group, item_ids, setMyItemIds }) => {
+const Group = ({ group, item_ids, setMyItemIds, canEditWants }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [groupSelected, setGroupSelected] = useState(false);
@@ -66,6 +66,7 @@ const Group = ({ group, item_ids, setMyItemIds }) => {
           <Col xs="auto">
             <Checkbox
               value={groupSelected}
+              disabled={!canEditWants}
               onClick={() => {
                 const list = group.items.map((item) => {
                   return item.id;
@@ -98,6 +99,7 @@ const Group = ({ group, item_ids, setMyItemIds }) => {
                 item_ids={item_ids}
                 setMyItemIds={setMyItemIds}
                 key={item.id}
+                canEditWants={canEditWants}
               />
             );
           })}
