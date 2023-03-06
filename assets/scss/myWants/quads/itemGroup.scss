@@ -60,6 +60,7 @@
   }
 
   .quad-want_myItemGroup-quad-wrap {
+    position: relative;
     .quad-want_myItemGroup-quad-cont {
       position: relative;
       width: $quad-w;
@@ -108,6 +109,9 @@
       &.for-tag {
         background-color: rgba($mywants-group-bg, 0.2);
       }
+      &.for-add-inner {
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+      }
       &.for-add {
         .quad-want_myItemGroup-quad {
           border: $border;
@@ -145,6 +149,40 @@
         opacity: 1;
       }
     }
+
+    .quad-want_myItemGroup-add {
+      $wa: 30px;
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: $wa;
+      height: $wa;
+      line-height: $wa;
+      text-align: center;
+      background-color: $mathtrade-want-color;
+      color: #fff;
+      border-radius: 50%;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+      cursor: pointer;
+      .icon {
+        position: relative;
+        top: 1px;
+      }
+      &:hover {
+        background-color: darken($mathtrade-want-color, 10);
+      }
+    }
+
+    .quad-want_myItemGroup-quad-add-triang {
+      position: absolute;
+      bottom: 0;
+      left: 0.5 * $quad-w - 12px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 12px 12px;
+      border-color: transparent transparent #ddd;
+    }
   }
 
   .quad-want_myItemGroup-group-container {
@@ -158,6 +196,33 @@
 
     .quad-want_myItemGroup-quad-wrap {
       padding: 0 $p $p 0;
+    }
+  }
+}
+.quad-want_myItemGroup-add-container {
+  padding-top: 15px;
+  .quad-want_myItemGroup-add-cont {
+    position: relative;
+    background-color: #ddd;
+    border-radius: 10px;
+    min-height: 200px;
+    padding: 20px;
+
+    .quad-want_myItemGroup-add-cont-close {
+      $wac: 24px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: $wac;
+      height: $wac;
+      line-height: $wac;
+      text-align: center;
+      opacity: 0.5;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 }

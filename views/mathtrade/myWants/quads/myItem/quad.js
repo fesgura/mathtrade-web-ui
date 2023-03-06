@@ -17,6 +17,8 @@ const Quad = ({
   setCurrentType,
   onDelete,
   canEditWants,
+  forAdd,
+  onAdd,
 }) => {
   const id = useId("quad-want").replace(twoPointsReg, "");
 
@@ -64,7 +66,8 @@ const Quad = ({
         <div
           className={classNames(
             "quad-want_myItemGroup-quad-cont",
-            `for-${type}`
+            `for-${type}`,
+            { "for-add-inner": forAdd }
           )}
         >
           <div
@@ -90,7 +93,7 @@ const Quad = ({
             {title}
           </UncontrolledTooltip>
 
-          {isGroup && canEditWants ? (
+          {isGroup && canEditWants && !forAdd ? (
             <>
               <div
                 className="quad-want_myItemGroup-delete"
@@ -103,6 +106,23 @@ const Quad = ({
               </div>
               <UncontrolledTooltip target={`quad-want-delete-${id}`}>
                 <I18N id="btn.Delete" />
+              </UncontrolledTooltip>
+            </>
+          ) : null}
+
+          {forAdd ? (
+            <>
+              <div
+                className="quad-want_myItemGroup-add"
+                id={`quad-want-add-${id}`}
+                onClick={() => {
+                  if (onAdd) onAdd(data);
+                }}
+              >
+                <Icon type="plus" />
+              </div>
+              <UncontrolledTooltip target={`quad-want-add-${id}`}>
+                <I18N id="btn.Add" />
               </UncontrolledTooltip>
             </>
           ) : null}

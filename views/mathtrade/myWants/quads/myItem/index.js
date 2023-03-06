@@ -1,8 +1,10 @@
-import { useId } from "react";
+import { useId, useState, useEffect } from "react";
 import Quad from "./quad";
 import { UncontrolledTooltip } from "reactstrap";
 import I18N from "i18n";
 import Icon from "components/icon";
+import AddQuad from "../addQuad";
+
 const twoPointsReg = new RegExp(":", "g");
 
 const MyItemView = ({
@@ -12,8 +14,30 @@ const MyItemView = ({
   setCurrentType,
   putWant,
   canEditWants,
+  wantList,
 }) => {
   const id = useId("quad-want-add").replace(twoPointsReg, "");
+
+  const [showAdd, setShowAdd] = useState(true);
+  const [wantListRest, setWantListRest] = useState([]);
+
+  useEffect(() => {
+    const newWantListRest = [];
+
+    wantList.list.forEach((uwg) => {
+      let isInData = false;
+      data.wantGroups.forEach((w) => {
+        if (w.id === uwg.id) {
+          isInData = true;
+        }
+      });
+      if (!isInData) {
+        newWantListRest.push(uwg);
+      }
+    });
+    setWantListRest(newWantListRest);
+  }, [wantList, data]);
+
   return (
     <div className="quad-want_myItemGroup">
       <div className="quad-want_myItemGroup-item">
@@ -69,13 +93,15 @@ const MyItemView = ({
               />
             );
           })}
-          {canEditWants ? (
+          {canEditWants && wantListRest.length ? (
             <div className="quad-want_myItemGroup-quad-wrap">
               <div className="quad-want_myItemGroup-quad-cont for-add">
                 <div
                   className="quad-want_myItemGroup-quad"
                   id={`quad-want-add-${id}`}
-                  onClick={() => {}}
+                  onClick={() => {
+                    setShowAdd((v) => !v);
+                  }}
                 >
                   <Icon type="plus" />
                 </div>
@@ -83,9 +109,44 @@ const MyItemView = ({
                   <I18N id="btn.Add" />
                 </UncontrolledTooltip>
               </div>
+              {showAdd ? (
+                <div className="quad-want_myItemGroup-quad-add-triang" />
+              ) : null}
             </div>
           ) : null}
         </div>
+        <AddQuad
+          showAdd={showAdd}
+          setShowAdd={setShowAdd}
+          wantListRest={wantListRest}
+          setModalWantOpen={setModalWantOpen}
+          setCurrentWantGroup={setCurrentWantGroup}
+          setCurrentType={setCurrentType}
+          onAdd={(wgToAdd) => {
+            setShowAdd(false);
+
+            const { bgg_id, dup_protection, id, items, name, tags, wants } =
+              wgToAdd;
+            const newItems = [...items];
+            newItems.push(data.item);
+
+            putWant({
+              id: id,
+              data: {
+                bgg_id,
+                name,
+                dup_protection,
+                want_ids: wants.map((want) => {
+                  return want.id;
+                }),
+                item_ids: newItems.map((item) => {
+                  return item.id;
+                }),
+                tags,
+              },
+            });
+          }}
+        />
       </div>
     </div>
   );

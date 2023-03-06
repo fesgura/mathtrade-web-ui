@@ -20,7 +20,8 @@ const useCanEdit = (type) => {
         //
       }
       const newCanEdit = moment().isBefore(dateToCompare);
-      setCantEdit(newCanEdit);
+      // setCantEdit(newCanEdit);
+      setCantEdit(true);
     }
   }, [type]);
 
