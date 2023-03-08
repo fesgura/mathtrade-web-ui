@@ -8,7 +8,9 @@ const Form = ({
   validations = {},
   // validationStatus,
   setValidationStatus = () => {},
+  setErrors = () => {},
   format = null,
+  scrollTop,
 }) => {
   const onSubmitForm = useCallback(
     (e) => {
@@ -31,10 +33,19 @@ const Form = ({
       setValidationStatus(errorsForm);
 
       if (_.isEmpty(errorsForm)) {
+        setErrors(null);
         onSubmit(format ? format(formProps) : formProps);
+      } else {
+        setErrors(errorsForm);
+        if (scrollTop && window) {
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
       }
     },
-    [onSubmit, format, validations, setValidationStatus]
+    [onSubmit, format, validations, setValidationStatus, scrollTop, setErrors]
   );
 
   return (

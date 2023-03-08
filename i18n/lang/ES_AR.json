@@ -43,6 +43,7 @@
   "validation.BGGuser": "Tenés que comprobar tu usuario en BGG.",
   "validation.BGGuserDoesNotExist": "Este usuario no aparece en la BGG.",
   "error.General": "Ocurrió un error. Por favor, intentá nuevamente.",
+  "error.Form": "Por favor, corregí los errores del formulario.",
   "inviteToMathTrade.lead": "¡Ya arrancó el Math Trade Argentina",
   "inviteToMathTrade.lead2": "Inscribite aquí para participar:",
   "inviteToMathTrade.btn.Participate": "Participar",
