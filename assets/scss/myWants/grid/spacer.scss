@@ -58,7 +58,14 @@
       border-bottom: 1px solid $border-color;
     }
     .mywants-grid-spacer_lab-cont_row-2 {
-      padding: 15px;
+      padding: 15px 0;
+    }
+  }
+  .mywants-grid-spacer_lab-toolbox {
+    padding: 0 10px;
+    border-left: $border;
+    &.no-border {
+      border-left: none;
     }
   }
 }

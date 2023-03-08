@@ -3,7 +3,8 @@ import Icon from "components/icon";
 import CommitBtn from "../../common/commit-btn";
 import I18N, { getI18Ntext } from "i18n";
 import OrderBy from "components/orderBy";
-import { Button, Col, Row } from "reactstrap";
+import { Col, Row } from "reactstrap";
+import AutoCompleteButton from "./autocomplete";
 
 const GridSpacer = ({
   extendAll,
@@ -14,6 +15,7 @@ const GridSpacer = ({
   commitChangesLoading,
   mustCommitChanges,
   canEditWants,
+  reloadWants,
 }) => {
   return (
     <div className="mywants-grid-spacer">
@@ -76,16 +78,31 @@ const GridSpacer = ({
             />
           </div>
           <div className="mywants-grid-spacer_lab-cont_row-2">
-            <Input
-              data={{ extended: extendAll }}
-              type="checkbox"
-              labelCheckbox="MyWants.Grid.ExtendAll"
-              classNameLabelCheckbox="small"
-              name="extended"
-              onChange={() => {
-                setExtendAll((v) => !v);
-              }}
-            />
+            <Row className="g-0 align-items-center">
+              <Col xs="auto">
+                <div className="mywants-grid-spacer_lab-toolbox no-border">
+                  <Input
+                    data={{ extended: extendAll }}
+                    type="checkbox"
+                    labelCheckbox="MyWants.Grid.ExtendAll"
+                    classNameContainer="m-0"
+                    classNameLabelCheckbox="smallest"
+                    name="extended"
+                    onChange={() => {
+                      setExtendAll((v) => !v);
+                    }}
+                  />
+                </div>
+              </Col>
+              <Col xs="auto">
+                <div className="mywants-grid-spacer_lab-toolbox">
+                  <AutoCompleteButton
+                    reloadWants={reloadWants}
+                    canEditWants={canEditWants}
+                  />
+                </div>
+              </Col>
+            </Row>
           </div>
         </div>
       </div>
