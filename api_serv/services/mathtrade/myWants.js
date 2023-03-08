@@ -48,6 +48,11 @@ const services = {
       endpoints.compose("DELETE_MYWANTS", [mathTradeId, props.id])
     );
   },
+  autocompleteWants: () => {
+    setAuth();
+    const mathTradeId = getMathtradeId();
+    return api.post(endpoints.compose("AUTOCOMPLETE_WANTS", [mathTradeId]));
+  },
 };
 
 export default services;

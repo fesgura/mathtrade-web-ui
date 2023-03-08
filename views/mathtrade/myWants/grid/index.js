@@ -82,7 +82,6 @@ const Grid = ({
 
   useEffect(() => {
     const getScroll = () => {
-      console.log("scrollTop", containerRef.current.scrollTop);
       if (containerRef.current.scrollTop > scrollH) {
         set_topScroll(containerRef.current.scrollTop - scrollH);
       } else {
@@ -98,7 +97,9 @@ const Grid = ({
     containerRef.current.addEventListener("scroll", getScroll);
 
     return () => {
-      containerRef.current.removeEventListener("scroll", getScroll);
+      if (containerRef.current) {
+        containerRef.current.removeEventListener("scroll", getScroll);
+      }
     };
   }, []);
 
@@ -139,6 +140,7 @@ const Grid = ({
               >
                 <div className="mywants-grid_myItems-row">
                   <GridSpacer
+                    reloadWants={reloadWants}
                     canEditWants={canEditWants}
                     extendAll={extendAll}
                     setExtendAll={() => {

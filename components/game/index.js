@@ -17,7 +17,6 @@ const Game = ({
   btnRowListGame,
   afterAnyChange,
 }) => {
-  console.log("game", game);
   const id = useId("a").replace(twoPointsReg, "");
 
   const [stats, setStats] = useState(getStatsOfElement(null).stats);
