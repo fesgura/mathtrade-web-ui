@@ -31,6 +31,8 @@ const RegisterView = ({
 
   const [validBGGuser, onValidateBGGuser] = useState(null);
 
+  const [errorsInForm, setErrorsInForm] = useState(null);
+
   const validations = {
     username: ["required"],
     appkeyui: [
@@ -111,6 +113,8 @@ const RegisterView = ({
                         validations={validations}
                         validationStatus={validationStatus}
                         setValidationStatus={setValidationStatus}
+                        setErrors={setErrorsInForm}
+                        scrollTop
                         onSubmit={onSubmit}
                         format={(dataToSend) => {
                           delete dataToSend.appkeyui;
@@ -119,6 +123,11 @@ const RegisterView = ({
                         }}
                       >
                         <hr />
+                        {errorsInForm ? (
+                          <Alert color="danger" className="text-center">
+                            <I18N id="error.Form" />
+                          </Alert>
+                        ) : null}
                         <h5 className="text-center py-4 m-0">
                           <I18N id="register.EnterData" />
                         </h5>
