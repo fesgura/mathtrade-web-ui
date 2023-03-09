@@ -18,7 +18,7 @@ const MyItemView = ({
 }) => {
   const id = useId("quad-want-add").replace(twoPointsReg, "");
 
-  const [showAdd, setShowAdd] = useState(true);
+  const [showAdd, setShowAdd] = useState(false);
   const [wantListRest, setWantListRest] = useState([]);
 
   useEffect(() => {
