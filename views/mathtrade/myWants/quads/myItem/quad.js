@@ -35,21 +35,37 @@ const Quad = ({
       if (data.bgg_id) {
         newType = "game";
         setTitle(data.name);
-        setSrc(data.wants[0].elements[0].thumbnail);
+        const allItems = [...data.wants, ...data.availables];
+
+        if (allItems.length) {
+          setSrc(allItems[0].elements[0].thumbnail);
+        }
+
+        //
       } else {
-        if (data.wants.length > 1) {
-          newType = "tag";
-          setTitle(data.name);
-          // thumbnail multiple
-          const thumbnailList = [];
-          data.wants.forEach((w) => {
-            thumbnailList.push(w.elements[0].thumbnail);
-          });
-          setSrc(thumbnailList);
+        if (data.tags.length > 0) {
+          if (data.wants.length > 1) {
+            newType = "tag";
+            setTitle(data.name);
+            // thumbnail multiple
+            const thumbnailList = [];
+            data.wants.forEach((w) => {
+              thumbnailList.push(w.elements[0].thumbnail);
+            });
+            setSrc(thumbnailList);
+          } else {
+            // item
+            if (data.wants[0]) {
+              setTitle(data.wants[0].title);
+              setSrc(data.wants[0].elements[0].thumbnail);
+            }
+          }
         } else {
           // item
-          setTitle(data.wants[0].title);
-          setSrc(data.wants[0].elements[0].thumbnail);
+          if (data.wants[0]) {
+            setTitle(data.wants[0].title);
+            setSrc(data.wants[0].elements[0].thumbnail);
+          }
         }
       }
 
