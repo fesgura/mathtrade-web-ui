@@ -30,6 +30,8 @@ const FiltersComp = ({
               min,
               max,
               options,
+              optgroups,
+              showTagText,
             } = inputData;
             return (
               <div key={k}>
@@ -44,6 +46,8 @@ const FiltersComp = ({
                   max={max}
                   size={size || "sm"}
                   options={options}
+                  optgroups={optgroups}
+                  showTagText={showTagText}
                   question={question}
                   notTranslateOptions={notTranslateOptions}
                   translateType={translateType}

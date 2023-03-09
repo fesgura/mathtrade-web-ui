@@ -2,6 +2,7 @@ const endpoints = {
   // User
   LOGIN: "api-token-auth/",
   POST_USER: "api/register/",
+  GET_USERS: "api/users/",
   GET_USER: "api/users/$[0]/",
   PUT_USER: "api/users/$[0]/",
   PUT_PASSWORD: "api/change-password/",
@@ -26,7 +27,8 @@ const endpoints = {
   // MATHTRADE
   GET_MATHTRADES: "api/mathtrades/",
   GET_MATHTRADE: "api/mathtrades/$[0]/",
-  GET_MATHTRADE_USERS: "api/mathtrades/$[0]/users/$[1]/",
+  GET_MATHTRADE_USER: "api/mathtrades/$[0]/users/$[1]/",
+  GET_MATHTRADE_USERS: "api/mathtrades/$[0]/users/",
 
   // MATHTRADE: MYITEMS
   GET_MYITEMS: "api/mathtrades/$[0]/user-items/",
@@ -73,6 +75,7 @@ const endpoints = {
   DELETE_BAN: "api/mathtrades/$[0]/user-bans/$[1]/",
 
   AUTOCOMPLETE_WANTS: "api/mathtrades/$[0]/user-want-groups-match/",
+  GET_MT_RESULTS: "api/mathtrades/$[0]/results/",
 
   // IMAGES
   POST_IMAGE: "api/images/",

@@ -129,7 +129,7 @@ const MyItemsView = ({
           ) : null}
 
           <div className="item-list">
-            {!loading ? (
+            {!loading && itemListOrdered.length ? (
               <BtnAddItems
                 groupIdSelected={groupIdSelected}
                 setModalAddOpen={setModalAddOpen}

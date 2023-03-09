@@ -379,3 +379,26 @@ export const formatDateString = (dateString) => {
     hour: m.format("h:mm"),
   };
 };
+
+export const capitalize = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+};
+
+export const usersToOptions = (users) => {
+  if (!users || !users.length) {
+    return [];
+  }
+
+  return users
+    .sort((a, b) => {
+      return a.last_name > b.last_name ? 1 : -1;
+    })
+    .map((user) => {
+      return {
+        value: user.id,
+        text: `${capitalize(user.first_name)} ${capitalize(user.last_name)} (${
+          user?.location?.name
+        })`,
+      };
+    });
+};

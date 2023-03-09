@@ -8,18 +8,30 @@ const useCanEdit = (type) => {
   useEffect(() => {
     const mathtrade = storage.getFromStore("mathtrade");
     let dateToCompare = null;
+    let isBefore = true;
     if (mathtrade && mathtrade.data && mathtrade.data.active) {
       switch (type) {
         case "list":
           dateToCompare = mathtrade.data?.frezze_geek_date;
           break;
         case "wants":
-          dateToCompare = mathtrade.data?.frezze_geek_date; //.frezze_wants_date;
+          dateToCompare = mathtrade.data?.frezze_geek_date;
+          break;
+        case "results":
+          isBefore = false;
+          dateToCompare = mathtrade.data?.show_results_date;
           break;
         default:
         //
       }
-      const newCanEdit = moment().isBefore(dateToCompare);
+      const today = moment();
+      let newCanEdit;
+      if (isBefore) {
+        newCanEdit = today.isBefore(dateToCompare);
+      } else {
+        newCanEdit = today.isAfter(dateToCompare);
+      }
+
       setCantEdit(newCanEdit);
       //setCantEdit(true);
     }

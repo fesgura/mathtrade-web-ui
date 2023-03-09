@@ -25,6 +25,11 @@ const MT_ItemListContainer = () => {
     initialState: [],
   });
 
+  const [getUsers, users, loadingUsers] = useApi({
+    promise: MathTradeService.getMathTradeUsers,
+    initialState: [],
+  });
+
   const [listItems, list, loading, errors] = useApi({
     promise: MathTradeService.listItems,
     startLoading: true,
@@ -100,6 +105,7 @@ const MT_ItemListContainer = () => {
   }, [filters]);
 
   useEffect(() => {
+    getUsers();
     fetchLocations();
     getMyWants();
     getTags();
@@ -115,6 +121,7 @@ const MT_ItemListContainer = () => {
         tagList={tagList}
         filters={filters}
         locations={dataLocations}
+        users={users}
         setFilters={(filterInput) => {
           const newFilters = {
             ...filters,
@@ -140,7 +147,8 @@ const MT_ItemListContainer = () => {
           loadingMyWants ||
           loadingLocations ||
           loadingTags ||
-          loadingPutTag
+          loadingPutTag ||
+          loadingUsers
         }
         errors={errors || errorsMyWants || errorsTags || errorsPutTag}
         dragToGroup={(tag, item) => {
