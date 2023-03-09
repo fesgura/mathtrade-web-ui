@@ -1,10 +1,14 @@
 import { Row, Col } from "reactstrap";
 import I18N from "i18n";
 
-const PageHeader = ({ title = "", leftSide, rightSide }) => {
+const PageHeader = ({ title = "", leftSide, rightSide, center }) => {
   return (
     <div className="page-header">
-      <Row className="align-items-center justify-content-between">
+      <Row
+        className={`align-items-center justify-content-${
+          center ? "center" : "between"
+        }`}
+      >
         <Col xs="auto">
           {leftSide ? (
             leftSide

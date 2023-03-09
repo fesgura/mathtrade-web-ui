@@ -394,5 +394,13 @@
   "btn.Autocomplete": "Autocompletar deseos por <b>Puntaje</b>",
   "Autocomplete.help": "Con esta acción, podrás autocompletar los checkbox en relación al Puntaje que le hayas dado tanto a tus ítems como a los ítems que deseas (esto podría eliminar algunos checks que hayas realizado previamente).",
   "Autocomplete.modal.help": "Autocompletar deseos en relación al <b>Puntaje</b> que le has dado tanto a <b>tus ítems</b> como a los <b>ítems que deseás</b> podría eliminar algunos de los checks que hayas realizado previamente.<br /><b>¿Estás seguro/a de querer hacerlo?</b>",
-  "btn.YesAutocomplete": "Autocompletar"
+  "btn.YesAutocomplete": "Autocompletar",
+  "results.label.user": "Elegí un usuario para ver sus intercambios",
+  "result.trade": "intercambio",
+  "result.trades": "intercambios",
+  "results.mySelf": "Yo",
+  "results.label.send.myself": "Envío",
+  "results.label.reseive.myself": "Recibo",
+  "results.label.send.other": "Envía",
+  "results.label.reseive.other": "Recibe"
 }
