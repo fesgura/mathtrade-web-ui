@@ -64,7 +64,18 @@ const SelectHot = ({
       error={error}
       before={before}
       beforeButton={beforeButton}
-      after={after}
+      after={
+        <div
+          className="pointer"
+          onClick={() => {
+            setValueInp("");
+            setTextInp("");
+            onChange("");
+          }}
+        >
+          <Icon />
+        </div>
+      }
       afterButton={afterButton}
     >
       <input

@@ -40,4 +40,9 @@
     width: 28px;
     height: 28px;
   }
+  &.md {
+    $w: 64px;
+    width: $w;
+    height: $w;
+  }
 }
