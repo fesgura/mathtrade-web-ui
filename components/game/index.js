@@ -134,6 +134,12 @@ const Game = ({
                 />
               </Col>
             </Row>
+            <div className="game_item-num">
+              <b>{game.items.length}</b>{" "}
+              <I18N
+                id={`game.item-num.${game.items.length === 1 ? "1" : "more"}`}
+              />
+            </div>
           </div>
           {btnRowListGame && btnRowListGame.length ? (
             <div className="game_btn-list">
