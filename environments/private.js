@@ -4,7 +4,6 @@ import storage from "utils/storage";
 import Router from "next/router";
 import { publicRoutes } from "config/routes";
 import { BggService, MathTradeService } from "api_serv";
-import { LoadingScreen } from "components/loading";
 import callToAPI from "api_serv/hooks/callToAPI";
 import xmlParser from "api_serv/utils/xmlParser";
 import { setLogoutAPI } from "api_serv/utils";

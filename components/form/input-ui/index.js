@@ -4,11 +4,12 @@ import Icon from "components/icon";
 import { selectMultipleToArray } from "./utils";
 import Question from "components/question";
 import RangeMultiple from "./range-multiple";
+import SelectHot from "./select-hot";
 import { getI18Ntext } from "i18n";
 
 const twoPointsReg = new RegExp(":", "g");
 
-const InputGroup = ({
+export const InputGroup = ({
   size,
   error,
   before,
@@ -56,7 +57,7 @@ const InputComp = ({
   notTranslateQuestion,
   notTranslateError,
   translateType,
-
+  showTagText,
   //
   size,
   className,
@@ -131,6 +132,27 @@ const InputComp = ({
   /* END DROP */
 
   switch (type) {
+    case "select-hot":
+      inputContent = (
+        <SelectHot
+          size={size}
+          error={error}
+          before={beforeContent}
+          beforeButton={beforeButton}
+          after={after}
+          afterButton={afterButton}
+          //
+          name={name}
+          value={value}
+          options={options}
+          placeholder={placeholderString}
+          onChange={onChange}
+          readOnly={readOnly}
+          className={className}
+          disabled={disabled}
+        />
+      );
+      break;
     case "select":
       inputContent = (
         <InputGroup
@@ -163,6 +185,7 @@ const InputComp = ({
                 {placeholderString || getI18Ntext("form.SelectOptInstruction")}
               </option>
             )}
+
             {optgroups
               ? options.map((optGroup, k) => {
                   if (loading) {
@@ -382,10 +405,38 @@ const InputComp = ({
           )}
         >
           {selectMultipleToArray(value).map((lab, k) => {
+            const labText = (() => {
+              const getText = (ops) => {
+                const opsFiltered = ops.filter((o) => {
+                  return `${o.value}` === `${lab}`;
+                });
+                if (opsFiltered[0]) {
+                  return opsFiltered[0].text;
+                }
+                return "";
+              };
+              if (showTagText) {
+                if (optgroups) {
+                  let text = "";
+                  options.forEach((og) => {
+                    const t = getText(og.value);
+
+                    if (t !== "") {
+                      text = t;
+                    }
+                  });
+                  return text;
+                } else {
+                  return getText(options);
+                }
+              }
+              return lab;
+            })();
+
             const tagText = notTranslateOptions
-              ? lab
+              ? labText
               : getI18Ntext(
-                  `${translateType ? translateType + "." : ""}${lab}`
+                  `${translateType ? translateType + "." : ""}${labText}`
                 );
 
             return (
@@ -424,19 +475,44 @@ const InputComp = ({
                 {placeholderString || getI18Ntext("form.SelectOptInstruction")}
               </option>
             )}
-            {options.map((opt) => {
-              if (value.indexOf(opt.value) >= 0) {
-                return null;
-              }
-              if (loading) {
-                return null;
-              }
-              return (
-                <option value={opt.value} key={opt.value}>
-                  {notTranslateOptions ? opt.text : getI18Ntext(opt.text)}
-                </option>
-              );
-            })}
+            {optgroups
+              ? options.map((optGroup, k) => {
+                  if (loading) {
+                    return null;
+                  }
+                  return (
+                    <optgroup label={optGroup.text} key={k}>
+                      {optGroup.value.map((opt) => {
+                        if (value.indexOf(opt.value) >= 0) {
+                          return null;
+                        }
+                        if (loading) {
+                          return null;
+                        }
+                        return (
+                          <option value={opt.value} key={opt.value}>
+                            {notTranslateOptions
+                              ? opt.text
+                              : getI18Ntext(opt.text)}
+                          </option>
+                        );
+                      })}
+                    </optgroup>
+                  );
+                })
+              : options.map((opt) => {
+                  if (value.indexOf(opt.value) >= 0) {
+                    return null;
+                  }
+                  if (loading) {
+                    return null;
+                  }
+                  return (
+                    <option value={opt.value} key={opt.value}>
+                      {notTranslateOptions ? opt.text : getI18Ntext(opt.text)}
+                    </option>
+                  );
+                })}
           </select>
           {value === "" && placeholderString !== "" ? (
             <div className="form-placeholder-float">{placeholderString}</div>

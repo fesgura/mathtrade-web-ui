@@ -18,6 +18,7 @@ import CancelInviteMT from "components/inviteRegisterMathTrade/cancel";
 import storage from "utils/storage";
 import ErrorAlert from "components/errorAlert";
 import I18N from "i18n";
+import LinkInternal from "components/link-internal";
 
 const validations = {
   location: ["required"],
@@ -86,7 +87,9 @@ const MyDataView = ({
       doctitle={
         mathtradeData && mathtradeData.IamIn
           ? "title.MyData"
-          : "title.SignToMathTrade"
+          : mathtradeData
+          ? "title.SignToMathTrade"
+          : "noMathtradeYet.Title"
       }
     >
       {mathtradeData && mathtradeData.mathtrade ? (
@@ -337,7 +340,31 @@ const MyDataView = ({
             </ModalBody>
           </Modal>
         </section>
-      ) : null}
+      ) : (
+        <div
+          className="text-center"
+          style={{ maxWidth: 950, margin: "0 auto" }}
+        >
+          <h1 className="mb-4">
+            <I18N id="noMathtradeYet.Title" />
+          </h1>
+          <p className="lead mb-4">
+            <I18N id="noMathtradeYet.text-1" />
+          </p>
+          <p>
+            <I18N id="noMathtradeYet.text-2" />
+          </p>
+          <div>
+            <LinkInternal
+              path="myCollection"
+              className="btn btn-primary"
+              withIcon
+            >
+              <I18N id="title.MyCollection" />
+            </LinkInternal>
+          </div>
+        </div>
+      )}
     </PrivateLayout>
   );
 };

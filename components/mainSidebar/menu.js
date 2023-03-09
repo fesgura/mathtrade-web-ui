@@ -11,18 +11,26 @@ import Icon from "components/icon";
 import I18N from "i18n";
 import storage from "utils/storage";
 import { Col, Row } from "reactstrap";
+import useCanEdit from "hooks/useCanEdit";
 
 const Menu = ({ menuList, router }) => {
+  const canViewResults = useCanEdit("results");
+
   return (
     <nav className="main-menu">
       {menuList.map((item, k) => {
-        const { path, icon, title, disabled } = item;
+        const { path, icon, title, disabled, hot } = item;
+        let disabledItem = false;
+        if (disabled === "results" && !canViewResults) {
+          disabledItem = true;
+        }
 
-        return typeof path !== "undefined" && !disabled ? (
+        return typeof path !== "undefined" && !disabledItem ? (
           <Link href={`/${path}`} key={k}>
             <a
               className={classNames("main-menu-item", {
                 active: router.pathname.indexOf(path) > 0,
+                hot,
               })}
             >
               <Row className="g-0 align-items-center">
@@ -37,12 +45,13 @@ const Menu = ({ menuList, router }) => {
                   </div>
                 </Col>
               </Row>
+              {hot ? <div className="main-menu-item-tag">Nuevo</div> : null}
             </a>
           </Link>
         ) : (
           <div
             className={classNames("main-menu-item", {
-              disabled,
+              disabled: true,
               active: router.pathname.indexOf(path) > 0,
             })}
             key={k}
@@ -73,7 +82,7 @@ const MainMenu = () => {
   const [menuMathTrade, set_menuMathTrade] = useState([]);
 
   useEffect(() => {
-    if (storeData) {
+    if (storeData && storeData.mathtrade) {
       set_menuMathTrade(
         storeData?.mathtrade?.IamIn ? menu_yes_mathTrade : menu_no_mathTrade
       );
@@ -83,10 +92,14 @@ const MainMenu = () => {
   return (
     <>
       <Menu menuList={menuBasic} router={router} />
-      <div className="main-menu-divider">
-        <div className="main-menu-divider_line">MathTrade</div>
-      </div>
-      <Menu menuList={menuMathTrade} router={router} />
+      {menuMathTrade.length ? (
+        <>
+          <div className="main-menu-divider">
+            <div className="main-menu-divider_line">MathTrade</div>
+          </div>
+          <Menu menuList={menuMathTrade} router={router} />
+        </>
+      ) : null}
     </>
   );
 };

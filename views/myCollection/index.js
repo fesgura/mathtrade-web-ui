@@ -113,7 +113,7 @@ const MyCollectionView = ({
             ) : (
               <>
                 {loading ? null : (
-                  <div className="item-list_empty">
+                  <div className="item-list_empty text-center">
                     <p className="lead mb-4">
                       <I18N id="myCollection.notItemsMessage" />
                     </p>

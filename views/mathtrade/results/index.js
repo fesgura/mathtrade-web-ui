@@ -1,11 +1,16 @@
 import PrivateLayout from "layouts/private";
-import PageHeader from "components/pageHeader";
+import I18N from "i18n";
 
 const ResultsView = ({ loading }) => {
   return (
     <PrivateLayout loading={loading} doctitle="title.Results">
-      <PageHeader title="title.Results" />
-      TO DO
+      <div className="text-center">
+        <h1>
+          <I18N id="title.Results" />
+        </h1>
+        TO DO
+        <hr />
+      </div>
     </PrivateLayout>
   );
 };

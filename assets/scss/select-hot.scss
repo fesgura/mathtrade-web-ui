@@ -1,0 +1,20 @@
+.select-hot_pad {
+  position: absolute;
+  z-index: 90;
+  top: 100%;
+  left: 4px;
+  right: 4px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  overflow: auto;
+  max-height: 200px;
+
+  .select-hot_item {
+    padding: 5px 10px;
+    font-size: 13px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba($primary, 0.2);
+    }
+  }
+}

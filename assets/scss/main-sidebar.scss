@@ -83,6 +83,7 @@
     display: block;
 
     .main-menu-item {
+      position: relative;
       display: block;
       height: $main-sidebar-closed-w;
       text-decoration: none;
@@ -96,6 +97,22 @@
         line-height: $main-sidebar-closed-w;
         font-size: 20px;
       }
+
+      .main-menu-item-tag {
+        position: absolute;
+        bottom: -4px;
+        left: 0.5 * $main-sidebar-closed-w;
+        transform: translateX(-50%);
+        background-color: $mathtrade;
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 8px;
+        line-height: 1.6;
+        font-weight: bold;
+        padding: 0 5px;
+        border-radius: 3px;
+      }
+
       &.disabled {
         opacity: 0.5;
         cursor: not-allowed;
@@ -112,6 +129,15 @@
         box-shadow: inset 5px 0 0 0 $primary;
         color: $primary;
         background-color: $main-sidebar-current-bg;
+      }
+
+      &.hot {
+        box-shadow: inset 5px 0 0 0 $mathtrade;
+        color: $mathtrade;
+        background-color: rgba($mathtrade, 0.1);
+        &:hover {
+          color: $mathtrade;
+        }
       }
     }
   }

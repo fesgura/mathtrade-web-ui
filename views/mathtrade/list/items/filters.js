@@ -2,7 +2,7 @@ import FiltersComp from "components/filters";
 import { useState, useEffect } from "react";
 import storage from "utils/storage";
 import Icon from "components/icon";
-import { getTextColorByBackgroundColor } from "utils";
+import { getTextColorByBackgroundColor, usersToOptions } from "utils";
 import { languageList, statusList, dependencyList } from "config";
 import { Row, Col, Alert } from "reactstrap";
 import { Input } from "components/form";
@@ -22,6 +22,7 @@ const Filters_MT_Items = ({
   filters,
   setFilters,
   locations,
+  users,
   tagList,
   afterAnyChange,
 }) => {
@@ -135,6 +136,7 @@ const Filters_MT_Items = ({
           const newFilters = { page: undefined };
           [
             "keyword",
+            "user",
             "value-from",
             "value-to",
             "language[]",
@@ -157,6 +159,11 @@ const Filters_MT_Items = ({
             newFilters.keyword = formData.keyword;
           } else {
             newFilters.keyword = undefined;
+          }
+          if (formData.user !== "") {
+            newFilters.user = formData.user;
+          } else {
+            newFilters.user = undefined;
           }
           if (formData.value) {
             const valueValues = formData.value.split(",");
@@ -191,14 +198,20 @@ const Filters_MT_Items = ({
             newFilters["status[]"] = undefined;
           }
           if (formData.location !== "") {
-            newFilters["location[]"] = formData.location
-              .split(",")
-              .map((locName) => {
-                const locArr = locations.filter((loc) => {
-                  return loc.text === locName;
-                });
-                return locArr[0].id;
-              });
+            newFilters["location[]"] = formData.location.split(",");
+            // .map((locId) => {
+            //   let idLoc;
+            //   locations.forEach((locGroup)=>{
+            //     const locArr = locations.filter((loc) => {
+            //       return `${loc.id}` === `${locId}`;
+            //     });
+            //     if(){
+
+            //     }
+            //   })
+
+            //   return locArr[0].id;
+            // });
           } else {
             newFilters["location[]"] = undefined;
           }
@@ -243,6 +256,19 @@ const Filters_MT_Items = ({
             },
           },
           {
+            type: "select-hot",
+            name: "user",
+            label: "filter.User",
+            placeholder: "form.SelectOptInstruction",
+            options: usersToOptions(users),
+            icon: "user",
+            size: "md",
+            notTranslateOptions: true,
+            data: {
+              user: filters?.query?.user || "",
+            },
+          },
+          {
             type: "range-multiple",
             name: "value",
             label: "filter.Value",
@@ -263,6 +289,7 @@ const Filters_MT_Items = ({
             options: statusList,
             placeholder: "form.SelectOptInstruction",
             notTranslateOptions: true,
+            showTagText: true,
             data: (() => {
               const d = { status: "" };
 
@@ -283,6 +310,8 @@ const Filters_MT_Items = ({
             placeholder: "form.SelectOptInstruction",
             options: locations,
             notTranslateOptions: true,
+            optgroups: true,
+            showTagText: true,
             data: (() => {
               const d = { location: "" };
 
@@ -294,12 +323,12 @@ const Filters_MT_Items = ({
                   list = [filters.query["location[]"]];
                 }
                 d.location = list
-                  .map((id) => {
-                    const locArr = locations.filter((loc) => {
-                      return `${loc.id}` === `${id}`;
-                    });
-                    return locArr[0].value;
-                  })
+                  // .map((id) => {
+                  //   const locArr = locations.filter((loc) => {
+                  //     return `${loc.id}` === `${id}`;
+                  //   });
+                  //   return locArr[0].id;
+                  // })
                   .join(",");
               }
               return d;

@@ -13,11 +13,13 @@ import SidebarSticky from "components/sidebarSticky";
 import SidebarTabs from "components/sidebarTabs";
 import SidebarTagList from "components/sidebarTagList";
 import I18N, { getI18Ntext } from "i18n";
+import { locationsToOptions } from "utils";
 
 const ItemListView = ({
   canEditWants,
   list,
   locations,
+  users,
   wantList,
   tagList,
   filters,
@@ -100,13 +102,8 @@ const ItemListView = ({
                       setFilters={setFilters}
                       tagList={tagList}
                       afterAnyChange={afterAnyChange}
-                      locations={locations.map((loc, k) => {
-                        return {
-                          text: loc.name,
-                          value: loc.name,
-                          id: loc.id,
-                        };
-                      })}
+                      locations={locationsToOptions(locations)}
+                      users={users}
                     />
                   ),
                 },

@@ -16,8 +16,13 @@ const services = {
     setAuth();
     const mathTradeId = getMathtradeId();
     return api.get(
-      endpoints.compose("GET_MATHTRADE_USERS", [mathTradeId, props.userId])
+      endpoints.compose("GET_MATHTRADE_USER", [mathTradeId, props.userId])
     );
+  },
+  getMathTradeUsers: () => {
+    setAuth();
+    const mathTradeId = getMathtradeId();
+    return api.get(endpoints.compose("GET_MATHTRADE_USERS", [mathTradeId]));
   },
 };
 
