@@ -85,6 +85,11 @@ export default Notification;
 
 /*
 
+{
+    type: COMC (creado) | COME (editado) | COMD (eliminado)
+    message: item.name
+    uwg_id: item.id
+}
 
 
 Sergio Soria, [14/02/2023 11:04]

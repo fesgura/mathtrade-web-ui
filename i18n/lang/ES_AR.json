@@ -100,7 +100,7 @@
   "element.Name": "Nombre",
   "element.Value": "Puntaje que le asigné",
   "element.Status": "Estado",
-  "element.Comment": "Comentario",
+  "element.Comment": "Descripción",
   "element.PublishedBy": "Publicado por",
   "Delete": "Eliminar",
   "NoData": "Sin datos",
@@ -402,5 +402,12 @@
   "results.label.send.myself": "Envío",
   "results.label.reseive.myself": "Recibo",
   "results.label.send.other": "Envía",
-  "results.label.reseive.other": "Recibe"
+  "results.label.reseive.other": "Recibe",
+  "itemComments.title.none": "Sin comentarios",
+  "itemComments.title.one": "1 Comentario",
+  "itemComments.title.many": "$$$ Comentarios",
+  "itemComments.title.add": "Agregar",
+  "itemComments.editor.label.add": "<b>Comentar:</b> (Max. 500 caracteres)",
+  "itemComments.editor.label.edit": "<b>Editar comentario:</b> (Max. 500 caracteres)",
+  "itemComments.title.deleteComment": "¿Eliminar comentario?"
 }

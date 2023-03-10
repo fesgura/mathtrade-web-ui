@@ -5,6 +5,7 @@ import GroupTagHeader from "components/groupTagHeader";
 import { Dragger } from "components/dragNdrop";
 import storage from "utils/storage";
 import Valuation from "components/valuation";
+import ItemComment from "components/itemComments";
 
 const MT_ItemListViewItem = ({
   canEditWants,
@@ -86,6 +87,7 @@ const MT_ItemListViewItem = ({
           />
         ) : null
       }
+      footer={<ItemComment item={item} />}
     />
   );
 

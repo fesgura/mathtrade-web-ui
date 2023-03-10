@@ -6,6 +6,7 @@ import results from "./results";
 import myData from "./myData";
 import myTags from "./myTags";
 import bans from "./ban";
+import comments from "./comments";
 
 const MathTradeService = {
   ...mathtrade,
@@ -16,6 +17,7 @@ const MathTradeService = {
   ...myData,
   ...myTags,
   ...bans,
+  ...comments,
 };
 
 export default MathTradeService;

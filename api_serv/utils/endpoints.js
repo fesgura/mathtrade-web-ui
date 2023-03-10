@@ -80,6 +80,11 @@ const endpoints = {
   // IMAGES
   POST_IMAGE: "api/images/",
 
+  // COMMENTS
+  GET_COMMENTS: "api/mathtrades/$[0]/items/$[1]/comments/",
+  POST_COMMENT: "api/mathtrades/$[0]/items/$[1]/comments/",
+  PUT_COMMENT: "api/mathtrades/$[0]/items/$[1]/comments/$[2]/",
+
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/1/
   /*
