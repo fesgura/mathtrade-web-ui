@@ -21,11 +21,13 @@ const MT_ItemListViewItem = ({
   useEffect(() => {
     if (item && wantList.length) {
       const wantListFiltered = wantList.filter((w) => {
-        const { bgg_id, want_ids } = w;
+        const { bgg_id, want_ids, tags } = w;
         if (bgg_id && bgg_id.length) {
           return false;
         }
-        return want_ids.length === 1 && want_ids[0] === item.id;
+        return (
+          want_ids.length === 1 && want_ids[0] === item.id && tags.length === 0
+        );
       });
       if (wantListFiltered[0]) {
         set_wantGroup(wantListFiltered[0]);
