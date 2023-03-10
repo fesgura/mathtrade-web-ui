@@ -35,11 +35,9 @@ const Quad = ({
       if (data.bgg_id) {
         newType = "game";
         setTitle(data.name);
-        const allItems = [...data.wants, ...data.availables];
 
-        if (allItems.length) {
-          setSrc(allItems[0].elements[0].thumbnail);
-        }
+        const allItems = [...data.wants, ...data.availables];
+        setSrc(allItems[0].elements[0].thumbnail);
 
         //
       } else {

@@ -7,6 +7,7 @@ import useCanEdit from "hooks/useCanEdit";
 import { getUniqueId } from "utils";
 import { useLeavePageConfirmation } from "hooks/useLeavePageConfirmation";
 import { getI18Ntext } from "i18n";
+import { filterEmptyWants } from "./utils";
 
 const customizedDialog = async (msg) => {
   const confirmationValue = window.confirm(msg);
@@ -26,8 +27,11 @@ const MyWants = () => {
   const [getWants, , loadingWantList, errorsWantList] = useApi({
     promise: MathTradeService.getWants,
     // initialState: [],
-    afterLoad: (list) => {
-      set_wantList({ list, version: getUniqueId() });
+    afterLoad: (newWantList) => {
+      set_wantList({
+        list: filterEmptyWants(newWantList),
+        version: getUniqueId(),
+      });
       set_firstLoadedWants(true);
     },
   });

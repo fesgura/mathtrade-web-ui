@@ -4,17 +4,7 @@ const getWantGroupsByItem = (item, wantList) => {
   wantList.list.forEach((wg) => {
     wg.items.forEach((itm) => {
       if (itm.id === item.id) {
-        if (wg.bgg_id) {
-          list.push(wg);
-        } else {
-          if (wg.tags.length > 0) {
-            list.push(wg);
-          } else {
-            if (wg.wants[0]) {
-              list.push(wg);
-            }
-          }
-        }
+        list.push(wg);
       }
     });
   });
