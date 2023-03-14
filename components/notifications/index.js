@@ -7,7 +7,7 @@ import classNames from "classnames";
 
 const page_size = 10;
 
-const NotificationsComp = ({ setCountUnread, unread }) => {
+const NotificationsComp = ({ setCountUnread, unread, setDisabledDropdown }) => {
   const [notificationList, setNotificationList] = useState([]);
   const [total, setTotal] = useState(0);
   const [nextPageToLoad, setNextPageToLoad] = useState(1);
@@ -57,6 +57,7 @@ const NotificationsComp = ({ setCountUnread, unread }) => {
                   dataNotification={notification}
                   setCountUnread={setCountUnread}
                   unread={unread}
+                  setDisabledDropdown={setDisabledDropdown}
                 />
               );
             })

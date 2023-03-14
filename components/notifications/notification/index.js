@@ -7,10 +7,17 @@ import { useApi, NotificationService } from "api_serv";
 import moment from "moment/moment";
 import "moment/locale/es";
 import WantView from "../wantView";
+import CommentView from "../commentView";
 
 moment.locale("es");
 
-const Notification = ({ dataNotification, idNode, setCountUnread, unread }) => {
+const Notification = ({
+  dataNotification,
+  idNode,
+  setCountUnread,
+  unread,
+  setDisabledDropdown,
+}) => {
   const [data, setData] = useState(dataNotification);
 
   const [putNotificationRead, , loading, errors] = useApi({
@@ -24,7 +31,7 @@ const Notification = ({ dataNotification, idNode, setCountUnread, unread }) => {
       }
     },
   });
-
+  console.log("data", data);
   return data ? (
     <div
       className={classNames("notification-ob", {
@@ -73,7 +80,19 @@ const Notification = ({ dataNotification, idNode, setCountUnread, unread }) => {
                 values={[data?.message]}
               />
             )}
-            {data.uwg_id ? <WantView wantGroupId={data.uwg_id} /> : null}
+            {data.uwg_id ? (
+              data.type.indexOf("COM") >= 0 ? (
+                <CommentView
+                  itemId={data.uwg_id}
+                  setDisabledDropdown={setDisabledDropdown}
+                />
+              ) : (
+                <WantView
+                  wantGroupId={data.uwg_id}
+                  setDisabledDropdown={setDisabledDropdown}
+                />
+              )
+            ) : null}
           </div>
         </Col>
       </Row>

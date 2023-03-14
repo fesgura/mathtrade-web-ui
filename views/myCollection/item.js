@@ -5,6 +5,7 @@ import GroupHeader from "components/groupHeader";
 import BtnCircle from "components/btnCircle";
 import Icon from "components/icon";
 import Valuation from "components/valuation";
+import ItemComment from "components/itemComments";
 
 const ItemOfCollection = ({
   IamInMathTrade,
@@ -19,6 +20,7 @@ const ItemOfCollection = ({
   groups,
   canEditList,
   canEditWants,
+  showComments,
 }) => {
   return (
     <Item
@@ -63,11 +65,18 @@ const ItemOfCollection = ({
           : []
       }
       footer={
-        notShowAddItem || (itemMathTradeData && !canEditList) ? null : (
-          <div className="py-2">
-            <AddItem item={item} onClick={editItem} canEditList={canEditList} />
-          </div>
-        )
+        <>
+          {showComments ? <ItemComment item={item} /> : null}
+          {notShowAddItem || (itemMathTradeData && !canEditList) ? null : (
+            <div className="py-2">
+              <AddItem
+                item={item}
+                onClick={editItem}
+                canEditList={canEditList}
+              />
+            </div>
+          )}
+        </>
       }
       showUser={false}
       withDragger={canEditWants ? withDragger : false}

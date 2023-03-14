@@ -22,6 +22,11 @@ const services = {
       props.query
     );
   },
+  getItemById: (props) => {
+    setAuth();
+    const mathTradeId = getMathtradeId();
+    return api.get(endpoints.compose("GET_ITEM", [mathTradeId, props.id]));
+  },
   listItemGroups: () => {
     setAuth();
     const mathTradeId = getMathtradeId();

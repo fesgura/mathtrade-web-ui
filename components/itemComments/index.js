@@ -6,9 +6,9 @@ import { Collapse } from "reactstrap";
 
 import CommentList from "./list";
 
-const ItemComment = ({ item }) => {
+const ItemComment = ({ item, forceOpen }) => {
   const [num, setNum] = useState(item.comments);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(forceOpen || false);
 
   return (
     <div className="item-comments-container">

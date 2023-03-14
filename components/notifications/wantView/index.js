@@ -6,7 +6,7 @@ import ModalEditor from "components/wantEditor/modalEditor";
 import Icon from "components/icon";
 import { useState } from "react";
 
-const WantView = ({ wantGroupId }) => {
+const WantView = ({ wantGroupId, setDisabledDropdown }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [wantGroup, setWantGroup] = useState(null);
   const [type, setType] = useState(null);
@@ -29,6 +29,7 @@ const WantView = ({ wantGroupId }) => {
       setType(newType);
 
       setModalOpen(true);
+      setDisabledDropdown(true);
     },
   });
 
@@ -52,11 +53,13 @@ const WantView = ({ wantGroupId }) => {
         isOpen={modalOpen}
         onClose={() => {
           setModalOpen(false);
+          setDisabledDropdown(false);
         }}
         wantGroup={wantGroup}
         type={type}
         afterAnyChange={() => {
           setModalOpen(false);
+          setDisabledDropdown(false);
         }}
       />
     </>

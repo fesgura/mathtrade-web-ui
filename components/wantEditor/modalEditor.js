@@ -2,15 +2,10 @@ import { useEffect, useState } from "react";
 import { Modal, ModalBody } from "reactstrap";
 import { formatUserWantGroup } from "utils";
 import EditorWants from "./editor";
+import useCanEdit from "hooks/useCanEdit";
 
-const ModalEditor = ({
-  isOpen,
-  onClose,
-  wantGroup,
-  type,
-  afterAnyChange,
-  canEditWants,
-}) => {
+const ModalEditor = ({ isOpen, onClose, wantGroup, type, afterAnyChange }) => {
+  const canEditWants = useCanEdit("wants");
   const [objectToWant, setObjectToWant] = useState(null);
   const [wantGroupFormmated, setWantGroupFormmated] = useState(null);
 

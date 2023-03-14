@@ -15,10 +15,11 @@ const NotificationsHeader = () => {
   const id = useId("notifications").replace(twoPointsReg, "");
 
   const [count, setCountUnread] = useState(0);
+  const [disabled, setDisabled] = useState(false);
 
   return (
     <>
-      <UncontrolledDropdown direction="down">
+      <UncontrolledDropdown direction="down" disabled={disabled}>
         <DropdownToggle
           tag="div"
           className="main-notifications-btn"
@@ -30,7 +31,11 @@ const NotificationsHeader = () => {
           <Icon type="bell-o" />
         </DropdownToggle>
         <DropdownMenu end className="main-notifications-pad">
-          <NotificationsComp setCountUnread={setCountUnread} unread={count} />
+          <NotificationsComp
+            setCountUnread={setCountUnread}
+            unread={count}
+            setDisabledDropdown={setDisabled}
+          />
         </DropdownMenu>
       </UncontrolledDropdown>
       <UncontrolledTooltip target={`tt-notifications-${id}`} placement="left">

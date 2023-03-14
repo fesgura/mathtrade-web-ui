@@ -14,6 +14,7 @@ const ItemContainer = ({
   groups,
   canEditList,
   canEditWants,
+  showComments,
 }) => {
   const [itemMathTradeData, setItemMathTradeData] = useState(null);
 
@@ -42,6 +43,7 @@ const ItemContainer = ({
       groups={groups}
       canEditList={canEditList}
       canEditWants={canEditWants}
+      showComments={showComments}
     />
   );
 };

@@ -9,12 +9,18 @@ const EditComment = ({ item_id, commentToEdit, onCancel, afterAnyChange }) => {
 
   const [postComment] = useApi({
     promise: MathTradeService.postComment,
-    afterLoad: afterAnyChange,
+    afterLoad: () => {
+      setContent("");
+      afterAnyChange();
+    },
   });
 
   const [putComment] = useApi({
     promise: MathTradeService.putComment,
-    afterLoad: afterAnyChange,
+    afterLoad: () => {
+      setContent("");
+      afterAnyChange();
+    },
   });
 
   return (

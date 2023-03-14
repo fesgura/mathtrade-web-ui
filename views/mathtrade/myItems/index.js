@@ -167,6 +167,7 @@ const MyItemsView = ({
                       notHighlated
                       showGroups
                       groups={groups}
+                      showComments
                     />
                   </Dragger>
                 );
