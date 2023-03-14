@@ -210,14 +210,24 @@ const MyDataView = ({
                                   <div className="referal-item pt-0">
                                     <Icon type="telegram" className="me-2" />
                                     <b>Telegram:</b>{" "}
-                                    {currentLocation?.referral?.telegram}
+                                    <a
+                                      href={`https://t.me/${currentLocation?.referral?.telegram}`}
+                                      target="_blank"
+                                    >
+                                      {currentLocation?.referral?.telegram}
+                                    </a>
                                   </div>
                                 ) : null}
                                 {currentLocation?.referral?.whatsapp ? (
                                   <div className="referal-item pb-0">
                                     <Icon type="whatsapp" className="me-2" />
                                     <b>Whatsapp:</b>{" "}
-                                    {currentLocation?.referral?.whatsapp}
+                                    <a
+                                      href={`https://wa.me/${currentLocation?.referral?.whatsapp}`}
+                                      target="_blank"
+                                    >
+                                      {currentLocation?.referral?.whatsapp}
+                                    </a>
                                   </div>
                                 ) : null}
                                 {currentLocation?.referral?.email ? (
