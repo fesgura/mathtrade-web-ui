@@ -42,13 +42,13 @@ const MyItemView = ({
     <div className="quad-want_myItemGroup">
       <div className="quad-want_myItemGroup-item">
         <div className="quad-want_myItemGroup-item-title quad-want_text">
-          Por este juego:
+          <I18N id="MyWants.Quad.ForThisGame" />
         </div>
         <Quad isGroup={false} data={data.item} />
       </div>
       <div className="quad-want_myItemGroup-group">
         <div className="quad-want_myItemGroup-group-title quad-want_text">
-          Recibo:
+          <I18N id="MyWants.Quad.IReceive" />
         </div>
         <div className="quad-want_myItemGroup-group-container">
           {data.wantGroups.map((wg) => {
