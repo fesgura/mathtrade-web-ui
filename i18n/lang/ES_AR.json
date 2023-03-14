@@ -397,7 +397,7 @@
   "cantEditList.Games": "Ya no se pueden agregar más juegos a la lista.",
   "cantEditList.Items": "Ya no se pueden agregar más juegos a la lista.",
   "cantEditWants": "Ya no podés editar tus deseos.",
-  "myData.help.AMBA": "Si vivis en el ámbito de la Ciudad Autónoma de Buenos Aires (AMBA), <b>debés ir y colaborar la juntada presencial</b>, que se llevará a cabo el día <b>$$$</b> a las <b>$$$hs</b>, en espacio a confirmar.<br /><br />Podés contactar al referente de CABA, <b>$$$</b>, por cualquier consulta:",
+  "myData.help.AMBA": "Si vivís en el ámbito de la Ciudad Autónoma de Buenos Aires (AMBA), <b>debés ir y colaborar la juntada presencial</b>, que se llevará a cabo el <b>$$$</b> a las <b>$$$hs</b>, en espacio a confirmar.<br /><br />Podés contactar al referente de CABA, <b>$$$</b>, por cualquier consulta:",
   "myData.help.noAMBA": "Si no vas a la juntada presencial, deberás enviar/recibir tus paquetes en coordinación con los participantes de tu ciudad (<b>$$$</b>).<br />Para ello deberás contactar a <b>$$$</b> (responsable para la ciudad de <b>$$$</b>) para coordinar los envios:",
   "btn.Autocomplete": "Autocompletar deseos por <b>Puntaje</b>",
   "Autocomplete.help": "Con esta acción, podrás autocompletar los checkbox en relación al Puntaje que le hayas dado tanto a tus ítems como a los ítems que deseas (esto podría eliminar algunos checks que hayas realizado previamente).",
