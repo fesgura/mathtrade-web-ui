@@ -64,11 +64,14 @@ const Tag = ({
             }}
           >
             <Row className="align-items-center g-0">
-              <Col xs="auto">
+              <Col xs={8}>
                 <div
-                  className={classNames("sidebar-group-list_tag_inner_text", {
-                    "d-block": tag.id < 0,
-                  })}
+                  className={classNames(
+                    "sidebar-group-list_tag_inner_text  break-word",
+                    {
+                      "d-block": tag.id < 0,
+                    }
+                  )}
                   onClick={() => {
                     filterByTag(tag.id);
                   }}

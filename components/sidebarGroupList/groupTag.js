@@ -38,17 +38,18 @@ const GroupTag = ({
               color: getTextColorByBackgroundColor(group?.color || "#999999"),
             }}
           >
-            <Row className="g-0 align-items-center">
-              <Col xs="auto">
+            <Row className="g-0 align-items-center flex-nowrap">
+              <Col xs={8}>
                 <div
-                  className="sidebar-group-list_tag_inner_text"
+                  className="sidebar-group-list_tag_inner_text break-word"
                   onClick={() => {
                     setGroupIdSelected(group.id);
                   }}
                 >{`${group?.name || "Sin título"} (${count || 0})`}</div>
               </Col>
-              <Col xs="auto">
-                {group.id && canEditWants > 0 ? (
+
+              {group.id && canEditWants > 0 ? (
+                <Col xs="auto">
                   <span
                     className="sidebar-group-list_tag_edit"
                     title={getI18Ntext("myItems.sidebar.Edit")}
@@ -58,9 +59,10 @@ const GroupTag = ({
                     }}
                   >
                     <Icon type="pencil" />
-                  </span>
-                ) : null}
-              </Col>
+                  </span>{" "}
+                </Col>
+              ) : null}
+
               {group.id > 0 ? (
                 <Col>
                   <div className="sidebar-group-list_tag_tools">

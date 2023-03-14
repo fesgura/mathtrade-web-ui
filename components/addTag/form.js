@@ -77,6 +77,7 @@ const FormAddTag = ({
                   name="name"
                   placeholder="itemList.Tags.form.TagNamePlaceholder"
                   onChange={setName}
+                  textSize={30}
                 />
               </Col>
               <Col xs={2}>

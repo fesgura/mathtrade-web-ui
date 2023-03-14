@@ -596,6 +596,7 @@ const InputComp = ({
           <input
             name={name}
             value={value}
+            maxLength={textSize || 99999}
             placeholder={placeholderString}
             onChange={(e) => {
               let val = e.target.value;

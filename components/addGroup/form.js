@@ -70,6 +70,7 @@ const FormAddGroup = ({
                   setValidationStatus={setValidationStatus}
                   label="myItems.sidebar.form.GroupName"
                   name="name"
+                  textSize={30}
                   placeholder="myItems.sidebar.form.GroupPlaceholder"
                   onChange={setName}
                 />
