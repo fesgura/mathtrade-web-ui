@@ -34,7 +34,7 @@ const Comment = ({ data, item_id, afterAnyChange }) => {
   return (
     <>
       <div className="item-comment">
-        <Row className="g-0">
+        <Row className="g-0 flex-nowrap">
           <Col
             xs={{
               order: isMyUser ? 2 : 1,
