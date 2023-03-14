@@ -13,6 +13,7 @@ import OrderBy from "components/orderBy";
 import { Dragger } from "components/dragNdrop";
 import SidebarSticky from "components/sidebarSticky";
 import I18N, { getI18Ntext } from "i18n";
+import ModalDeleteItem from "views/myCollection/modalDelete";
 
 const MyItemsView = ({
   canEditList,
@@ -34,6 +35,8 @@ const MyItemsView = ({
   const [groupIdSelected, setGroupIdSelected] = useState(-1);
 
   const [loadingForEditor, setLoadingForEditor] = useState(false);
+
+  const [itemToDelete, setItemToDelete] = useState(null);
 
   useEffect(() => {
     if (itemList.length) {
@@ -175,6 +178,7 @@ const MyItemsView = ({
                       showGroups
                       groups={groups}
                       showComments
+                      setItemToDelete={setItemToDelete}
                     />
                   </Dragger>
                 );
@@ -259,6 +263,13 @@ const MyItemsView = ({
           />
         </ModalBody>
       </Modal>
+      <ModalDeleteItem
+        objToDelete={itemToDelete}
+        onClose={() => {
+          setItemToDelete(null);
+        }}
+        afterAnyChange={afterAnyChange}
+      />
     </PrivateLayout>
   );
 };

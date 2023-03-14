@@ -21,6 +21,7 @@ const ItemOfCollection = ({
   canEditList,
   canEditWants,
   showComments,
+  setItemToDelete,
 }) => {
   return (
     <Item
@@ -77,6 +78,15 @@ const ItemOfCollection = ({
             </div>
           )}
         </>
+      }
+      onDeleteButton={
+        itemMathTradeData && !canEditList
+          ? null
+          : (objToDelete) => {
+              if (setItemToDelete) {
+                setItemToDelete(objToDelete);
+              }
+            }
       }
       showUser={false}
       withDragger={canEditWants ? withDragger : false}

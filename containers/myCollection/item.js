@@ -15,6 +15,7 @@ const ItemContainer = ({
   canEditList,
   canEditWants,
   showComments,
+  setItemToDelete,
 }) => {
   const [itemMathTradeData, setItemMathTradeData] = useState(null);
 
@@ -44,6 +45,7 @@ const ItemContainer = ({
       canEditList={canEditList}
       canEditWants={canEditWants}
       showComments={showComments}
+      setItemToDelete={setItemToDelete}
     />
   );
 };

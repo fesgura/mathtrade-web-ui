@@ -127,6 +127,12 @@
   .element-full-data {
     padding-left: 25px;
     padding-right: 15px;
+    position: relative;
+    height: 100%;
+
+    &.with-delete {
+      padding-right: 40px;
+    }
   }
   .element-full-title {
     .element-full-title_in {
@@ -156,6 +162,12 @@
 
   .element-full-pills {
     border-top: 1px dotted $border-color;
+  }
+
+  .element-full-delete-btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
 
   &.isCombo {

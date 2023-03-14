@@ -30,6 +30,7 @@ const ElementEditorView = ({
   fetchBGGelement,
   BGGelement,
   loadingBGGelement,
+  afterAnyChange,
 }) => {
   const [step, setStep] = useState(objToEdit.element ? 1 : 0);
   const [type, setType] = useState(0);
@@ -94,6 +95,7 @@ const ElementEditorView = ({
             fetchBGGelement={fetchBGGelement}
             BGGelement={BGGelement}
             loadingBGGelement={loadingBGGelement}
+            afterAnyChange={afterAnyChange}
           />
         </div>
       ) : null}

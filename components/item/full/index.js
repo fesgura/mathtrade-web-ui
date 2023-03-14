@@ -24,6 +24,7 @@ const ItemFull = ({
   inModal,
   afterAnyChange,
   notBan,
+  onDeleteButton,
 }) => {
   const [title, setTitle] = useState("");
   const [isCombo, setIsCombo] = useState(false);
@@ -119,6 +120,7 @@ const ItemFull = ({
               forGame={forGame}
               afterAnyChange={afterAnyChange}
               notBan={notBan}
+              onDeleteButton={onDeleteButton}
             />
           );
         })}

@@ -1,7 +1,7 @@
 import { useEffect, useId, useState } from "react";
 import classNames from "classnames";
 import PhotoGallery from "components/photoGallery";
-import { Col, Row, UncontrolledTooltip, Collapse } from "reactstrap";
+import { Button, Col, Row, UncontrolledTooltip, Collapse } from "reactstrap";
 import Thumbnail from "components/thumbnail";
 import Icon from "components/icon";
 import Pill from "components/pillData";
@@ -25,6 +25,7 @@ const Element = ({
   forGame,
   afterAnyChange,
   notBan,
+  onDeleteButton,
 }) => {
   const id = useId("a").replace(twoPointsReg, "");
 
@@ -54,7 +55,11 @@ const Element = ({
           </div>
         </Col>
         <Col>
-          <div className="element-full-data">
+          <div
+            className={classNames("element-full-data", {
+              "with-delete": onDeleteButton,
+            })}
+          >
             <div className="element-full-title">
               {element.type === 3 ? (
                 <span className="element-full-title_in">{element?.name}</span>
@@ -183,6 +188,19 @@ const Element = ({
               <div className="element-full-user">
                 <UserBox item={item} afterAnyChange={afterAnyChange} />
               </div>
+            ) : null}
+            {onDeleteButton ? (
+              <Button
+                className="element-full-delete-btn"
+                color="danger"
+                outline
+                size="xs"
+                onClick={() => {
+                  onDeleteButton({ item, element });
+                }}
+              >
+                <Icon type="trash" />
+              </Button>
             ) : null}
           </div>
         </Col>

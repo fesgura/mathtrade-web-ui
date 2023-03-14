@@ -1,10 +1,5 @@
 import ElementEditorView from "views/myCollection/editor";
-import {
-  useApi,
-  BggService,
-  ElementService,
-  myCollectionService,
-} from "api_serv";
+import { useApi, BggService, ElementService } from "api_serv";
 import { setItemTitle } from "./utils";
 import { useEffect } from "react";
 
@@ -14,6 +9,7 @@ const ElementEditor = ({
   onClose,
   afterAnyChange,
   onLoadingEditor,
+  setItemToDelete,
 }) => {
   // BGG ELEMENT
   const [fetchBGGelement, BGGelement, loadingBGGelement, errorMessage] = useApi(
@@ -51,33 +47,10 @@ const ElementEditor = ({
   });
   // End EDIT ELEMENT
 
-  // DELETE ELEMENT
-  const [deleteElement, , loadingDeleteElement, errorDeleteMessage] = useApi({
-    promise: ElementService.delete,
-    afterLoad: () => {
-      onClose();
-      afterAnyChange();
-    },
-  });
-  // End DELETE ELEMENT
-
-  // DELETE ITEM
-  const [deleteItem, , loadingDeleteItem, errorDeleteItemMessage] = useApi({
-    promise: myCollectionService.deleteItem,
-    afterLoad: () => {
-      onClose();
-      afterAnyChange();
-    },
-  });
-  // End DELETE ELEMENT
-
   useEffect(() => {
     if (onLoadingEditor) {
       onLoadingEditor(
-        loadingEditElement ||
-          loadingCreateElement ||
-          loadingDeleteElement ||
-          loadingDeleteItem
+        loadingEditElement || loadingCreateElement || loadingDeleteElement
       );
     }
   }, [
@@ -85,7 +58,6 @@ const ElementEditor = ({
     loadingEditElement,
     loadingCreateElement,
     loadingDeleteElement,
-    loadingDeleteItem,
   ]);
 
   return (
@@ -112,25 +84,12 @@ const ElementEditor = ({
           });
         }
       }}
-      deleteElement={(idElement) => {
-        if (objToEdit.item.elements.length === 1) {
-          deleteItem(objToEdit.item.id);
-        } else {
-          deleteElement(idElement);
-        }
-      }}
+      setItemToDelete={setItemToDelete}
+      afterAnyChange={afterAnyChange}
       loading={
-        loadingEditElement ||
-        loadingCreateElement ||
-        loadingDeleteElement ||
-        loadingDeleteItem
+        loadingEditElement || loadingCreateElement || loadingDeleteElement
       }
-      errors={
-        errorEditMessage ||
-        errorCreateMessage ||
-        errorDeleteMessage ||
-        errorDeleteItemMessage
-      }
+      errors={errorEditMessage || errorCreateMessage || errorDeleteMessage}
       // BGG ELEMENT
       fetchBGGelement={fetchBGGelement}
       BGGelement={BGGelement}

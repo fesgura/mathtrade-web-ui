@@ -22,6 +22,7 @@ import { NOGAMEresult } from "config";
 import PillsBGG from "components/item/full/element/pillsBGG";
 import PhotoUploader from "components/photoUploader";
 import StatusHelp from "components/pages/myItems/statusHelp";
+import ModalDeleteItem from "../modalDelete";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -40,6 +41,7 @@ const maxYear = (function () {
 
 const ElementEdit = ({
   element,
+  item,
   create,
   repeatedGame,
   setRepeatedGame,
@@ -52,10 +54,9 @@ const ElementEdit = ({
   onSaveElement,
   loading,
   errors,
-  deleteElement,
+  afterAnyChange,
 }) => {
   const id = useId("elem-editor-").replace(twoPointsReg, "");
-  const [showDelete, setShowDelete] = useState(false);
 
   const [modalUploadOpen, setModalUploadOpen] = useState(false);
 
@@ -69,6 +70,10 @@ const ElementEdit = ({
 
   const [images, set_images] = useState([]);
   const [imagesCollapseOpen, set_imagesCollapseOpen] = useState(false);
+
+  ////
+  const [objToDelete, setObjToDelete] = useState(null);
+  ////
 
   useEffect(() => {
     if (element && element.images && element.images !== "") {
@@ -159,21 +164,6 @@ const ElementEdit = ({
                     </>
                   ) : null}
                 </div>
-                {create ? null : (
-                  <div className="text-center py-3">
-                    <Button
-                      color="danger"
-                      outline
-                      size="xs"
-                      onClick={() => {
-                        setShowDelete(true);
-                      }}
-                    >
-                      <Icon type="trash" className="me-1" />
-                      <I18N id="btn.Delete" />
-                    </Button>
-                  </div>
-                )}
               </div>
             </Col>
             <Col>
@@ -445,30 +435,55 @@ const ElementEdit = ({
                       <div className="bgg_version_id_null-spacer" />
                     )}
                     <ErrorAlert errors={errors} />
-                    <div className="text-center py-3">
-                      <Button
-                        color="link"
-                        tag="a"
-                        className="me-2 mb-sm-0 mb-2"
-                        outline
-                        onClick={(e) => {
-                          e.preventDefault();
-                          onClose();
-                        }}
-                      >
-                        <I18N id="btn.Cancel" />
-                      </Button>
-                      <Button
-                        color="primary"
-                        type="submit"
-                        disabled={!bgg_version_id}
-                      >
-                        {create ? (
-                          <I18N id="btn.Add" />
-                        ) : (
-                          <I18N id="btn.SaveChanges" />
+                    <div className="py-3">
+                      <Row className="align-items-center">
+                        {create ? null : (
+                          <Col xs="auto">
+                            <Button
+                              color="danger"
+                              outline
+                              size="xs"
+                              onClick={() => {
+                                setObjToDelete({ item, element });
+                              }}
+                            >
+                              <Icon type="trash" />
+                            </Button>
+                          </Col>
                         )}
-                      </Button>
+                        <Col>
+                          <div
+                            className={classNames({
+                              "text-center": create,
+                              "text-end": !create,
+                            })}
+                          >
+                            <Button
+                              color="link"
+                              tag="a"
+                              className="me-2 mb-sm-0 mb-2"
+                              outline
+                              onClick={(e) => {
+                                e.preventDefault();
+                                onClose();
+                              }}
+                            >
+                              <I18N id="btn.Cancel" />
+                            </Button>
+                            <Button
+                              color="primary"
+                              type="submit"
+                              disabled={!bgg_version_id}
+                            >
+                              {create ? (
+                                <I18N id="btn.Add" />
+                              ) : (
+                                <I18N id="btn.SaveChanges" />
+                              )}
+                            </Button>
+                          </div>
+                        </Col>
+                      </Row>
                     </div>
                   </Form>
                 </div>
@@ -477,37 +492,6 @@ const ElementEdit = ({
           </Row>
           {loading ? <LoadingBox /> : null}
         </div>
-        {showDelete ? (
-          <div className="element-delete fade-in">
-            <div className="element-delete-cont">
-              <h5 className="mb-4">
-                <I18N id="Delete" /> "{element.name}"?
-              </h5>
-
-              <Button
-                color="link"
-                tag="a"
-                className="me-2 mb-sm-0 mb-2"
-                outline
-                onClick={(e) => {
-                  e.preventDefault();
-                  setShowDelete(false);
-                }}
-              >
-                <I18N id="btn.Cancel" />
-              </Button>
-              <Button
-                color="danger"
-                onClick={() => {
-                  setShowDelete(false);
-                  deleteElement(element.id);
-                }}
-              >
-                <I18N id="btn.Delete" />
-              </Button>
-            </div>
-          </div>
-        ) : null}
       </div>
       {modalUploadOpen ? (
         <PhotoUploader
@@ -521,6 +505,14 @@ const ElementEdit = ({
           }}
         />
       ) : null}
+      <ModalDeleteItem
+        objToDelete={objToDelete}
+        onClose={() => {
+          setObjToDelete(null);
+          onClose();
+        }}
+        afterAnyChange={afterAnyChange}
+      />
     </>
   );
 };

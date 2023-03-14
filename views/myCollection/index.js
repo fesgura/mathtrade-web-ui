@@ -9,6 +9,7 @@ import Item from "containers/myCollection/item";
 import AddItem from "components/pages/myItems/addItem";
 import ElementEditor from "containers/myCollection/editor";
 import I18N, { getI18Ntext } from "i18n";
+import ModalDeleteItem from "./modalDelete";
 
 const MyCollectionView = ({
   canEditList,
@@ -26,6 +27,8 @@ const MyCollectionView = ({
   const [orderByOption, setOrderByOption] = useState(null);
 
   const [loadingForEditor, setLoadingForEditor] = useState(false);
+
+  const [itemToDelete, setItemToDelete] = useState(null);
 
   useEffect(() => {
     if (orderByOption && itemList.length) {
@@ -114,6 +117,7 @@ const MyCollectionView = ({
                       setObjToEdit({ item, element });
                       setModalEditOpen(true);
                     }}
+                    setItemToDelete={setItemToDelete}
                   />
                 );
               })
@@ -165,6 +169,13 @@ const MyCollectionView = ({
           />
         </ModalBody>
       </Modal>
+      <ModalDeleteItem
+        objToDelete={itemToDelete}
+        onClose={() => {
+          setItemToDelete(null);
+        }}
+        afterAnyChange={afterAnyChange}
+      />
     </PrivateLayout>
   );
 };
