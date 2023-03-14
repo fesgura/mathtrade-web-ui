@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import AddItemView from "views/mathtrade/myItems/addItem";
 import { useApi, myCollectionService, MathTradeService } from "api_serv";
 
-const AddItem = ({ onClose, itemList, afterAnyChange }) => {
+const AddItem = ({ onClose, itemList, afterAnyChange, onLoadingEditor }) => {
   const [items, seItems] = useState([]);
 
   const [
@@ -27,6 +27,10 @@ const AddItem = ({ onClose, itemList, afterAnyChange }) => {
       listCollection();
     },
   });
+
+  useEffect(() => {
+    if (onLoadingEditor) onLoadingEditor(loadingPublishItem);
+  }, [onLoadingEditor, loadingPublishItem]);
 
   return (
     <AddItemView

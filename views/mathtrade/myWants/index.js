@@ -2,7 +2,6 @@ import { useState } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { Alert, Button } from "reactstrap";
-import LoadingPad from "components/loading/loadingPad";
 import Grid from "./grid";
 import QuadsView from "./quads";
 import I18N from "i18n";
@@ -72,6 +71,8 @@ const MyWantsView = ({
       loading={!firstLoaded ? loading : false}
       doctitle="title.MyWants"
       noMainContainer
+      withLoadingPad
+      loadingPad={firstLoaded ? loading : false}
     >
       <div className="main-container">
         <PageHeaderTabs
@@ -103,18 +104,6 @@ const MyWantsView = ({
       )}
 
       {content}
-      {/* <div className="main-container">
-        <ErrorAlert errors={errors} />
-        <div className="text-center py-5">
-          <Button color="link" className="me-2" outline>
-            <I18N id="btn.Cancel" />
-          </Button>
-          <Button color="primary" type="submit" onClick={(e) => {}}>
-            <I18N id="MyWants.btn.CommitChanges" />
-          </Button>
-        </div>
-      </div> */}
-      <LoadingPad loading={firstLoaded ? loading : false} />
     </PrivateLayout>
   );
 };

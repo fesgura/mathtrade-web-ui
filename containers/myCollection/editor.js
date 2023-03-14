@@ -6,8 +6,15 @@ import {
   myCollectionService,
 } from "api_serv";
 import { setItemTitle } from "./utils";
+import { useEffect } from "react";
 
-const ElementEditor = ({ objToEdit, itemList, onClose, afterAnyChange }) => {
+const ElementEditor = ({
+  objToEdit,
+  itemList,
+  onClose,
+  afterAnyChange,
+  onLoadingEditor,
+}) => {
   // BGG ELEMENT
   const [fetchBGGelement, BGGelement, loadingBGGelement, errorMessage] = useApi(
     {
@@ -63,6 +70,23 @@ const ElementEditor = ({ objToEdit, itemList, onClose, afterAnyChange }) => {
     },
   });
   // End DELETE ELEMENT
+
+  useEffect(() => {
+    if (onLoadingEditor) {
+      onLoadingEditor(
+        loadingEditElement ||
+          loadingCreateElement ||
+          loadingDeleteElement ||
+          loadingDeleteItem
+      );
+    }
+  }, [
+    onLoadingEditor,
+    loadingEditElement,
+    loadingCreateElement,
+    loadingDeleteElement,
+    loadingDeleteItem,
+  ]);
 
   return (
     <ElementEditorView

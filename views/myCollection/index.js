@@ -25,6 +25,8 @@ const MyCollectionView = ({
   const [itemListOrdered, setItemListOrdered] = useState([]);
   const [orderByOption, setOrderByOption] = useState(null);
 
+  const [loadingForEditor, setLoadingForEditor] = useState(false);
+
   useEffect(() => {
     if (orderByOption && itemList.length) {
       const { order, desc } = orderByOption;
@@ -52,7 +54,12 @@ const MyCollectionView = ({
   }, [itemList, orderByOption]);
 
   return (
-    <PrivateLayout loading={loading} doctitle="title.MyCollection">
+    <PrivateLayout
+      loading={loading}
+      doctitle="title.MyCollection"
+      withLoadingPad
+      loadingPad={loadingForEditor}
+    >
       <InviteRegisterMT />
       <PageHeader title="title.MyCollection" />
       <Row className="justify-content-center">
@@ -150,6 +157,7 @@ const MyCollectionView = ({
           <ElementEditor
             itemList={itemListOrdered}
             objToEdit={objToEdit}
+            onLoadingEditor={setLoadingForEditor}
             onClose={() => {
               setModalEditOpen(false);
             }}

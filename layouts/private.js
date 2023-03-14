@@ -2,13 +2,21 @@ import { useState, useEffect } from "react";
 import Head from "next/head";
 import Header from "components/header";
 import Footer from "components/footer";
-import { LoadingPage, LoadingScreen } from "components/loading";
+import { LoadingScreen } from "components/loading";
+import LoadingPad from "components/loading/loadingPad";
 import storage from "utils/storage";
 import classNames from "classnames";
 import { getI18Ntext } from "i18n";
 import MainSidebar from "components/mainSidebar";
 
-const PrivateLayout = ({ doctitle, children, loading, noMainContainer }) => {
+const PrivateLayout = ({
+  doctitle,
+  children,
+  loading,
+  noMainContainer,
+  withLoadingPad,
+  loadingPad,
+}) => {
   const [auth, setAuth] = useState(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarAnimationEnabled, setSidebarAnimationEnabled] = useState(false);
@@ -150,6 +158,7 @@ const PrivateLayout = ({ doctitle, children, loading, noMainContainer }) => {
         />
       </main>
       {loading ? <LoadingScreen /> : null}
+      {withLoadingPad ? <LoadingPad loading={loadingPad} /> : null}
     </>
   );
 };

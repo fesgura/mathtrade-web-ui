@@ -33,6 +33,8 @@ const MyItemsView = ({
 
   const [groupIdSelected, setGroupIdSelected] = useState(-1);
 
+  const [loadingForEditor, setLoadingForEditor] = useState(false);
+
   useEffect(() => {
     if (itemList.length) {
       const newItemList = itemList.filter((item) => {
@@ -74,7 +76,12 @@ const MyItemsView = ({
   }, [itemList, groupIdSelected, orderByOption]);
 
   return (
-    <PrivateLayout loading={loading} doctitle="title.MyItems">
+    <PrivateLayout
+      loading={loading}
+      doctitle="title.MyItems"
+      withLoadingPad
+      loadingPad={loadingForEditor}
+    >
       <PageHeader title="title.MyItems" />
       <Row className="justify-content-center">
         <Col xl={3}>
@@ -225,6 +232,7 @@ const MyItemsView = ({
               onClose={() => {
                 setModalAddOpen(false);
               }}
+              onLoadingEditor={setLoadingForEditor}
               itemList={itemList}
               afterAnyChange={afterAnyChange}
             />
@@ -243,6 +251,7 @@ const MyItemsView = ({
         <ModalBody>
           <ElementEditor
             objToEdit={objToEdit}
+            onLoadingEditor={setLoadingForEditor}
             onClose={() => {
               setModalEditOpen(false);
             }}
