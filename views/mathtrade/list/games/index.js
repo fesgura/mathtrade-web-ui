@@ -63,17 +63,7 @@ const GameListView = ({
           />
         }
       />
-      <Row className="justify-content-end">
-        <Col xs="auto">
-          <Pagination
-            filters={filters}
-            setFilters={setFilters}
-            elementsTotal={list?.count || 0}
-            pageSize={page_size.games}
-            onTop
-          />
-        </Col>
-      </Row>
+
       <Row>
         <Col xs={3}>
           <SidebarSticky>
@@ -85,6 +75,22 @@ const GameListView = ({
           </SidebarSticky>
         </Col>
         <Col xs={9}>
+          <Row className="justify-content-end">
+            <Col>
+              <p className="px-4 pb-5 m-0 text-center">
+                <I18N id="Games.page.explanation" />
+              </p>
+            </Col>
+            <Col xs="auto">
+              <Pagination
+                filters={filters}
+                setFilters={setFilters}
+                elementsTotal={list?.count || 0}
+                pageSize={page_size.games}
+                onTop
+              />
+            </Col>
+          </Row>
           {canEditList ? null : (
             <Alert color="info" className="text-center mb-4">
               <I18N id="cantEditList.Items" />

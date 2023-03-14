@@ -394,6 +394,7 @@
   "photoGallery.editElement.title": "<b>Fotos</b> <em>(opcional, máx. 4 fotos)</em>",
   "photoGallery.editElement.help": "Por favor, considerá subir fotos <u><b>sólo si es realmente necesario</b></u> aclarar el estado del ítem, o necesitás mostrar algo en particular, etc.",
   "photoGallery.full.title": "Ver fotos",
+  "Games.page.explanation": "Espacio para que Luis explique qué es esta cosa.",
   "cantEditList.Games": "Ya no se puede agregar más juegos a la lista.",
   "cantEditList.Items": "Ya no se puede agregar más juegos a la lista.",
   "cantEditWants": "Ya no podés editar tus wants.",
