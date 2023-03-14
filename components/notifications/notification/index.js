@@ -31,7 +31,7 @@ const Notification = ({
       }
     },
   });
-  console.log("data", data);
+
   return data ? (
     <div
       className={classNames("notification-ob", {
