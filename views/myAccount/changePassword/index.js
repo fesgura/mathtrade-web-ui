@@ -3,6 +3,7 @@ import { Form, Input } from "components/form";
 import { Button, Alert } from "reactstrap";
 import { LoadingBox } from "components/loading";
 import ErrorAlert from "components/errorAlert";
+import I18N from "i18n";
 
 const ChangePasswordView = ({
   setIsOpenModalPassword,
@@ -41,7 +42,9 @@ const ChangePasswordView = ({
   return (
     <div className="relative py-3 px-4">
       <div className="text-center mb-4">
-        <h4>Cambiar contraseña</h4>
+        <h4>
+          <I18N id="form.changePassword.title" />
+        </h4>
       </div>
       <Form
         validations={validations}
@@ -54,13 +57,15 @@ const ChangePasswordView = ({
         }}
       >
         <p className="muted text-center">
-          Por favor, ingresá contraseña actual, luego tu nueva contraseña.
+          <I18N id="form.changePassword.help" />
         </p>
         <Input
           validations={validations}
           validationStatus={validationStatus}
           setValidationStatus={setValidationStatus}
-          label="Contraseña actual"
+          label="form.Password.old"
+          placeholder="******"
+          notTranslatePlaceholder
           name="old_password"
           type="password"
           icon="key"
@@ -70,9 +75,10 @@ const ChangePasswordView = ({
           validations={validations}
           validationStatus={validationStatus}
           setValidationStatus={setValidationStatus}
-          label="Nueva contraseña"
+          label="form.Password.new"
           name="new_password"
           placeholder="******"
+          notTranslatePlaceholder
           type="password"
           icon="key"
           onChange={setPasswordValue}
@@ -81,9 +87,10 @@ const ChangePasswordView = ({
           validations={validations}
           validationStatus={validationStatus}
           setValidationStatus={setValidationStatus}
-          label="Repetí la nueva contraseña"
+          label="form.PasswordRepeat.new"
           name="new_password2"
           placeholder="******"
+          notTranslatePlaceholder
           type="password"
           icon="key"
           onChange={setPassword2Value}
@@ -91,21 +98,21 @@ const ChangePasswordView = ({
 
         <ErrorAlert errors={errors} />
         <Alert color="warning" className="text-center">
-          Recuerda que luego <b>deberás volver a ingresar</b> con{" "}
-          <b>tu nueva contraseña</b>.
+          <I18N id="form.changePassword.alert" />
         </Alert>
         <div className="text-center">
           <Button
             className="me-2"
-            color="cancel"
+            color="link"
+            outline
             onClick={() => {
               setIsOpenModalPassword(false);
             }}
           >
-            Cancelar
+            <I18N id="btn.Cancel" />
           </Button>
           <Button color="secondary" type="submit">
-            Cambiar contraseña
+            <I18N id="form.changePassword.btn" />
           </Button>
         </div>
       </Form>
