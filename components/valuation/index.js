@@ -1,7 +1,7 @@
 import { useId, useState, useEffect } from "react";
 import classNames from "classnames";
 import Icon from "components/icon";
-import { UncontrolledPopover } from "reactstrap";
+import { UncontrolledPopover, UncontrolledTooltip } from "reactstrap";
 import Question from "components/question";
 import { useApi, MathTradeService } from "api_serv";
 import I18N from "i18n";
@@ -63,6 +63,12 @@ const Valuation = ({ className, items, afterAnyChange = () => {}, min }) => {
           <div className="valuation-btn_num">{valueInternal}</div>
         )}
       </button>
+      <UncontrolledTooltip
+        //placement="right"
+        target={id + "-valuat"}
+      >
+        <I18N id="Valuation.Value.help" />
+      </UncontrolledTooltip>
       <UncontrolledPopover
         className="valuation-popover"
         placement="bottom"
@@ -83,9 +89,13 @@ const Valuation = ({ className, items, afterAnyChange = () => {}, min }) => {
               min={minValue}
               max={maxValue}
               onChange={(e) => {
-                const v = parseFloat(e.target.value);
-                if (v !== items[0].value) {
-                  setValueInternal(v);
+                let v = parseFloat(e.target.value);
+                if (!isNaN(v)) {
+                  v = v < minValue ? 0 : v;
+                  v = v > maxValue ? 10 : v;
+                  if (v !== items[0].value) {
+                    setValueInternal(v);
+                  }
                 }
               }}
               onBlur={(e) => {
