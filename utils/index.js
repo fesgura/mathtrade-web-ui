@@ -38,8 +38,8 @@ const createVersionList = (versions, defaultThumbnail) => {
   versions.forEach((version) => {
     const { thumbnail, id, yearpublished, name, link } = version;
 
-    const year =
-      yearpublished && yearpublished.value ? yearpublished.value : "";
+    let year = yearpublished && yearpublished.value ? yearpublished.value : "";
+    //  year = parseInt(year, 10) < 1 ? "1" : year;
     const version_name = (name && name.value ? name.value : "") + ` (${year})`;
 
     let publisher = "";
@@ -144,8 +144,8 @@ const getDependency = (BGGelement) => {
     }
   }
   return {
-    value: "",
-    votes: "",
+    value: "0",
+    votes: "0|0|0|0|0",
   };
 };
 const getStats = (BGGelement) => {
