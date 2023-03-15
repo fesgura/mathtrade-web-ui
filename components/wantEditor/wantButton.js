@@ -1,21 +1,30 @@
+import classNames from "classnames";
 import BtnCircle from "components/btnCircle";
 import Icon from "components/icon";
 
 const WantButton = ({
-  objectToWant,
   type,
   isOwner,
   wantGroup,
   onClick,
   min,
   canEditWants,
+  isItemInOtherGroup,
 }) => {
   return isOwner || (!canEditWants && !wantGroup) ? null : canEditWants ? (
     <BtnCircle
-      className={wantGroup ? "btn-in-want-list" : "btn-i-want-it"}
+      className={classNames({
+        "btn-in-want-list": wantGroup,
+        "btn-i-want-it": !wantGroup,
+        "btn-i-want-it-in-other": isItemInOtherGroup,
+      })}
       onClick={onClick}
       label={
-        wantGroup ? "wantEditor.btn.InMyWantList" : "wantEditor.btn.IwantIt"
+        wantGroup
+          ? "wantEditor.btn.InMyWantList"
+          : isItemInOtherGroup
+          ? "wantEditor.IsItemInOther"
+          : "wantEditor.btn.IwantIt"
       }
       min={min}
     >
