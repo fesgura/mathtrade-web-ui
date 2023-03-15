@@ -76,6 +76,7 @@ const Menu = ({ menuList, router }) => {
 };
 
 const MainMenu = () => {
+  const canEditList = useCanEdit("list");
   const router = useRouter();
   const storeData = storage.get();
 
@@ -84,10 +85,14 @@ const MainMenu = () => {
   useEffect(() => {
     if (storeData && storeData.mathtrade) {
       set_menuMathTrade(
-        storeData?.mathtrade?.IamIn ? menu_yes_mathTrade : menu_no_mathTrade
+        storeData?.mathtrade?.IamIn
+          ? menu_yes_mathTrade
+          : canEditList
+          ? menu_no_mathTrade
+          : []
       );
     }
-  }, [storeData]);
+  }, [storeData, canEditList]);
 
   return (
     <>

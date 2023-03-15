@@ -63,7 +63,7 @@ const GroupTag = ({
                 </Col>
               ) : null}
 
-              {group.id > 0 ? (
+              {group.id > 0 && group.items.length ? (
                 <Col>
                   <div className="sidebar-group-list_tag_tools">
                     <Valuation

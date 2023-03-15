@@ -7,7 +7,7 @@ export const defaultPageSize = 50;
 
 export const storageName = "MathTradeArgentina";
 export const storageOptionsName = storageName + "Options";
-export const daysExpireToken = 1;
+export const daysExpireToken = 0.9;
 
 export const NOGAMEresult = {
   bgg_id: "23953",
