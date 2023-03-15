@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^3.1.7",
     "@reduxjs/toolkit": "^1.8.6",
     "@splidejs/react-splide": "^0.7.6",
     "apisauce": "^2.1.5",
