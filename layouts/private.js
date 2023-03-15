@@ -8,6 +8,7 @@ import storage from "utils/storage";
 import classNames from "classnames";
 import { getI18Ntext } from "i18n";
 import MainSidebar from "components/mainSidebar";
+import AtoTop from "components/aToTop";
 
 const PrivateLayout = ({
   doctitle,
@@ -138,6 +139,7 @@ const PrivateLayout = ({
         sidebarAnimationEnabled={sidebarAnimationEnabled}
         toggleSidebar={toggleSidebar}
       />
+      <a id="a-top-pos"></a>
       <main
         className={classNames("main-wrap", {
           "sidebar-open": sidebarOpen,
@@ -157,6 +159,7 @@ const PrivateLayout = ({
           sidebarAnimationEnabled={sidebarAnimationEnabled}
         />
       </main>
+      <AtoTop />
       {loading ? <LoadingScreen /> : null}
       {withLoadingPad ? <LoadingPad loading={loadingPad} /> : null}
     </>
