@@ -118,3 +118,25 @@ hr {
 .order-9 {
   order: 9 !important;
 }
+
+.a-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999999;
+  display: block;
+  width: $btn_circle-w;
+  height: $btn_circle-w;
+  line-height: $btn_circle-w;
+  text-align: center;
+  background-color: $primary;
+  color: #fff;
+  font-size: 26px;
+  box-shadow: $main-box-shadow;
+  border-radius: 50%;
+  opacity: 0.5;
+  &:hover {
+    color: #fff;
+    opacity: 1;
+  }
+}
