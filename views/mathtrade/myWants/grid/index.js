@@ -32,6 +32,7 @@ const Grid = ({
   commitChanges,
   commitChangesLoading,
   mustCommitChanges,
+  set_mustCommitChanges,
   reloadMyItems,
   reloadWants,
   loading,
@@ -187,6 +188,7 @@ const Grid = ({
                     commitChanges={commitChanges}
                     commitChangesLoading={commitChangesLoading}
                     mustCommitChanges={mustCommitChanges}
+                    set_mustCommitChanges={set_mustCommitChanges}
                   />
                   <MyItems
                     myItemList={myItemListGrid}

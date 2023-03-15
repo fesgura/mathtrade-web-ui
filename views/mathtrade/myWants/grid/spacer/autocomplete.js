@@ -7,7 +7,11 @@ import { useApi, MathTradeService } from "api_serv";
 import ErrorAlert from "components/errorAlert";
 import { LoadingBox } from "components/loading";
 
-const AutoCompleteButton = ({ canEditWants, reloadWants }) => {
+const AutoCompleteButton = ({
+  canEditWants,
+  reloadWants,
+  set_mustCommitChanges,
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const toggleModal = () => {
     setModalOpen((v) => !v);
@@ -18,6 +22,7 @@ const AutoCompleteButton = ({ canEditWants, reloadWants }) => {
     // initialState: [],
     afterLoad: () => {
       setModalOpen(false);
+      set_mustCommitChanges(true);
       reloadWants();
     },
   });

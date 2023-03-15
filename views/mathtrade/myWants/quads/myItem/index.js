@@ -41,13 +41,13 @@ const MyItemView = ({
   return (
     <div className="quad-want_myItemGroup">
       <div className="quad-want_myItemGroup-item">
-        <div className="quad-want_myItemGroup-item-title quad-want_text">
+        <div className="quad-want_myItemGroup-item-title quad-want_text for-send">
           <I18N id="MyWants.Quad.ForThisGame" />
         </div>
         <Quad isGroup={false} data={data.item} />
       </div>
       <div className="quad-want_myItemGroup-group">
-        <div className="quad-want_myItemGroup-group-title quad-want_text">
+        <div className="quad-want_myItemGroup-group-title quad-want_text for-receive">
           <I18N id="MyWants.Quad.IReceive" />
         </div>
         <div className="quad-want_myItemGroup-group-container">
