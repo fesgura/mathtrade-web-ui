@@ -75,12 +75,10 @@ const GameListView = ({
           </SidebarSticky>
         </Col>
         <Col xs={9}>
+          <p className="px-4 pb-5 m-0 text-center">
+            <I18N id="Games.page.explanation" />
+          </p>
           <Row className="justify-content-end">
-            <Col>
-              <p className="px-4 pb-5 m-0 text-center">
-                <I18N id="Games.page.explanation" />
-              </p>
-            </Col>
             <Col xs="auto">
               <Pagination
                 filters={filters}

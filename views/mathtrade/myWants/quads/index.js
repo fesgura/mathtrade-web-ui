@@ -5,6 +5,7 @@ import { getMyItemGroups } from "./utils";
 import classNames from "classnames";
 import ModalEditor from "components/wantEditor/modalEditor";
 import CommitBtn from "../common/commit-btn";
+import I18N from "i18n";
 
 const QuadsView = ({
   myItemList,
@@ -32,6 +33,9 @@ const QuadsView = ({
   return (
     <>
       <div className="main-container">
+        <p className="pt-4 pb-5 m-0 text-center">
+          <I18N id="MyWants.page.ByGame.explanation" />
+        </p>
         <Card
           className={classNames("quad-want_card", {
             "not-commitment": mustCommitChanges,

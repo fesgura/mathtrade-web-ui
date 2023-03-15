@@ -78,17 +78,7 @@ const ItemListView = ({
           />
         }
       />
-      <Row className="justify-content-end">
-        <Col xs="auto">
-          <Pagination
-            filters={filters}
-            setFilters={setFilters}
-            elementsTotal={list?.count || 0}
-            onTop
-            pageSize={page_size.items}
-          />
-        </Col>
-      </Row>
+
       <Row>
         <Col xs={3}>
           <SidebarSticky>
@@ -126,6 +116,20 @@ const ItemListView = ({
           </SidebarSticky>
         </Col>
         <Col xs={9}>
+          <p className="px-4 pb-5 m-0 text-center">
+            <I18N id="Items.page.explanation" />
+          </p>
+          <Row className="justify-content-end">
+            <Col xs="auto">
+              <Pagination
+                filters={filters}
+                setFilters={setFilters}
+                elementsTotal={list?.count || 0}
+                onTop
+                pageSize={page_size.items}
+              />
+            </Col>
+          </Row>
           {canEditList ? null : (
             <Alert color="info" className="text-center mb-3">
               <I18N id="cantEditList.Items" />
