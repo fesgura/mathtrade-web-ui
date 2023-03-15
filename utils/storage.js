@@ -38,7 +38,7 @@ const storage = {
 
 const defaultModel = {
   user: {
-    data: {},
+    data: null,
     bgg: {},
   },
   auth: {
@@ -83,6 +83,9 @@ storage.setToStorage = (opts) => {
           }
 
           break;
+        case "passwordTemporal":
+          store.passwordTemporal = value;
+          break;
         default:
         //
       }
@@ -90,6 +93,13 @@ storage.setToStorage = (opts) => {
   }
   storage.set(store);
 };
+
+storage.clearInStorage = (element) => {
+  const store = storage.get() || { ...defaultModel };
+  delete store[element];
+  storage.set(store);
+};
+
 storage.getFromStore = (item) => {
   /*
   user => user.data

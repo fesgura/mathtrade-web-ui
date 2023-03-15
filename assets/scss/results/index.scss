@@ -19,9 +19,6 @@
 }
 
 .results-item-wrap {
-  $col-right: lighten($danger, 5);
-  $col-left: $mathtrade-want-color;
-
   position: relative;
   width: 800px;
   height: 380px;
@@ -39,10 +36,10 @@
       height: 100%;
 
       .arrow-right {
-        fill: $col-right;
+        fill: $result-send-color;
       }
       .arrow-left {
-        fill: $col-left;
+        fill: $result-receive-color;
       }
     }
   }
@@ -56,12 +53,12 @@
   .results-item-label-right {
     top: 18%;
     left: $results-item-label-left;
-    color: $col-right;
+    color: $result-send-color;
   }
   .results-item-label-left {
     bottom: 27%;
     left: $results-item-label-left;
-    color: $col-left;
+    color: $result-receive-color;
   }
 
   .results-float {

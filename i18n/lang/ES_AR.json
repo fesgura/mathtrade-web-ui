@@ -40,6 +40,7 @@
   "form.BGGuser": "Usuario en la BGG",
   "form.BGGuser.help": "Podés poner tu alias en la BGG.",
   "form.changePassword.title": "Cambiar contraseña",
+  "form.changePassword.login.help": "Por favor, cambia tu contraseña provisoria por una <b>nueva contraseña</b>.",
   "form.changePassword.help": "Por favor, ingresá contraseña actual, luego tu nueva contraseña.",
   "form.changePassword.alert": "Recuerda que luego <b>deberás volver a ingresar</b> con <b>tu nueva contraseña</b>.",
   "form.changePassword.btn": "Cambiar contraseña",

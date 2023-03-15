@@ -59,6 +59,7 @@ const MyWantsView = ({
           reloadWants={reloadWants}
           loading={loading}
           canEditWants={canEditWants}
+          set_mustCommitChanges={set_mustCommitChanges}
         />
       );
       break;

@@ -12,20 +12,9 @@ const ChangePasswordView = ({
   loading,
 }) => {
   const [validationStatus, setValidationStatus] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
 
   const [passwordValue, setPasswordValue] = useState("");
   const [password2Value, setPassword2Value] = useState("");
-
-  useEffect(() => {
-    if (errors) {
-      let errorMge = "Ocurrió un error. Por favor, intenta nuevamente.";
-      if (errors?.data?.old_password) {
-        errorMge = "La contraseña actual es incorrecta.";
-      }
-      setErrorMessage(errorMge);
-    }
-  }, [errors]);
 
   const validations = {
     old_password: ["required"],
@@ -35,7 +24,7 @@ const ChangePasswordView = ({
       function () {
         return passwordValue === password2Value
           ? null
-          : "Las contraseñas no coinciden";
+          : "validation.passwordNotMatch";
       },
     ],
   };

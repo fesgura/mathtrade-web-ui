@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import PublicEnv from "environments/public";
+import { publicRoutes } from "config/routes";
 import LoginView from "views/login";
 import { useApi, UserService } from "api_serv";
 import storage from "utils/storage";
@@ -8,9 +9,20 @@ import Router from "next/router";
 const LoginContainer = ({ verifingAuth, onGetCaptcha }) => {
   const [loginUser, , loading, errorApi] = useApi({
     promise: UserService.login,
-    afterLoad: (data) => {
+    afterLoad: (data, props) => {
+      // end temp
+      // const data = {
+      //   ...d,
+      //   user: null,
+      // };
+      // end temp
       storage.setToStorage(data);
-      Router.push("/");
+      if (data.user) {
+        Router.push("/");
+      } else {
+        storage.setToStorage(props);
+        Router.push("/" + publicRoutes.changePassword.path);
+      }
     },
   });
 
@@ -21,7 +33,7 @@ const LoginContainer = ({ verifingAuth, onGetCaptcha }) => {
           ...formData,
           recaptcha,
         };
-        loginUser(dataToSend);
+        loginUser(dataToSend, { passwordTemporal: formData.password });
       });
     },
     [onGetCaptcha, loginUser]

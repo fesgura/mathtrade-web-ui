@@ -14,6 +14,7 @@ const GridSpacer = ({
   commitChanges,
   commitChangesLoading,
   mustCommitChanges,
+  set_mustCommitChanges,
   canEditWants,
   reloadWants,
 }) => {
@@ -99,6 +100,7 @@ const GridSpacer = ({
                   <AutoCompleteButton
                     reloadWants={reloadWants}
                     canEditWants={canEditWants}
+                    set_mustCommitChanges={set_mustCommitChanges}
                   />
                 </div>
               </Col>
