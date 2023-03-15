@@ -26,6 +26,15 @@ const WantEditor = ({
     setModalIsItemInOtherGroup((v) => !v);
   };
 
+  useEffect(() => {
+    if (!wantGroup && type === "item" && objectToWant && wantList) {
+      const isItemInWantList = getItemInWantList(objectToWant, wantList);
+      if (isItemInWantList.inGroup) {
+        setIsItemInOtherGroup(isItemInWantList);
+      }
+    }
+  }, [objectToWant, wantGroup, type, wantList]);
+
   return (
     <>
       <WantButton
@@ -36,16 +45,10 @@ const WantEditor = ({
         isOwner={isOwner}
         min={min}
         canEditWants={canEditWants}
+        isItemInOtherGroup={isItemInOtherGroup}
         onClick={() => {
-          if (!wantGroup && type === "item" && objectToWant) {
-            // Test if item is already wanted in a group or game
-            const isItemInWantList = getItemInWantList(objectToWant, wantList);
-            if (isItemInWantList.inGroup) {
-              setIsItemInOtherGroup(isItemInWantList);
-              setModalIsItemInOtherGroup(true);
-            } else {
-              setModalWantOpen(true);
-            }
+          if (isItemInOtherGroup && isItemInOtherGroup.inGroup) {
+            setModalIsItemInOtherGroup(true);
           } else {
             setModalWantOpen(true);
           }
@@ -78,7 +81,7 @@ const WantEditor = ({
                   setModalIsItemInOtherGroup(false);
                 }}
               >
-                Mejor lo pienso
+                <I18N id="wantEditor.IsItemInOther.btn.Cancel" />
               </Button>
               <Button
                 color="primary"
@@ -88,7 +91,7 @@ const WantEditor = ({
                   setModalWantOpen(true);
                 }}
               >
-                Sí, sé lo que estoy haciendo
+                <I18N id="wantEditor.IsItemInOther.btn.Yes" />
               </Button>
             </div>
           </ModalBody>

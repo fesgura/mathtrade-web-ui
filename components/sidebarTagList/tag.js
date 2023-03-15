@@ -108,6 +108,7 @@ const Tag = ({
                       wantGroup={wantGroup}
                       afterAnyChange={afterAnyChange}
                       min
+                      canEditWants={canEditWants}
                     />
                   </div>
                 </Col>

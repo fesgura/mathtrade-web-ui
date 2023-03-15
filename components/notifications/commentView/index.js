@@ -55,6 +55,7 @@ const CommentView = ({ itemId, setDisabledDropdown }) => {
             <ItemFull
               item={item}
               showUser={false}
+              inModal
               footer={<ItemComment item={item} forceOpen />}
             />
             <hr />
