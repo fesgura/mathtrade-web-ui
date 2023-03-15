@@ -8,6 +8,9 @@ export const publicRoutes = {
   forgotPassword: {
     path: "forgot-password",
   },
+  changePassword: {
+    path: "change-password",
+  },
 };
 
 export const privateRoutes = {

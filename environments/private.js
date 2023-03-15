@@ -21,7 +21,7 @@ const PrivateEnv = ({ children }) => {
 
   const loadSignExtraData = async () => {
     const store = storage.get();
-    if (!(store && store.auth)) {
+    if (!(store && store.auth && store.user.data)) {
       return gotoSignIn();
     }
     const { expires } = store.auth;

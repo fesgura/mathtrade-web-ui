@@ -40,7 +40,7 @@ const useApi = ({
             ? format(xmlParser(responseData), props)
             : format(responseData, props);
           if (afterLoad && !errors) {
-            afterLoad(jsonData);
+            afterLoad(jsonData, props);
           }
           setData(_.isEmpty(responseData) ? initialState : jsonData);
         }

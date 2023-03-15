@@ -24,7 +24,6 @@ const ForgotPasswordContainer = ({ verifingAuth, onGetCaptcha }) => {
           ...formData,
           recaptcha,
         };
-        console.log(dataToSend);
         forgotPassword(dataToSend);
       });
     },

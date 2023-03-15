@@ -12,7 +12,7 @@ const PublicEnvComp = ({ ContainerComp }) => {
 
   useEffect(() => {
     const newStore = storage.get();
-    if (newStore && newStore.auth) {
+    if (newStore && newStore.auth && newStore.user.data) {
       //comprobar time
       Router.push("/");
     } else {
