@@ -32,8 +32,7 @@ const useCanEdit = (type) => {
         newCanEdit = today.isAfter(dateToCompare);
       }
 
-      //setCantEdit(newCanEdit);
-      setCantEdit(true);
+      setCantEdit(newCanEdit);
     }
   }, [type]);
 

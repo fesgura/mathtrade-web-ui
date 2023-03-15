@@ -6,8 +6,10 @@ import storage from "utils/storage";
 import Link from "next/link";
 import CancelInviteMT from "./cancel";
 import I18N from "i18n";
+import useCanEdit from "hooks/useCanEdit";
 
 const InviteRegisterMT = ({ className }) => {
+  const canEditList = useCanEdit("list");
   const [mathtradeName, set_mathtradeName] = useState("");
   const [visible, set_visible] = useState(false);
 
@@ -22,7 +24,7 @@ const InviteRegisterMT = ({ className }) => {
     }
   }, []);
 
-  return (
+  return canEditList ? (
     <div className={classNames("invite", className, { visible })}>
       <div
         className="invite-close"
@@ -57,7 +59,7 @@ const InviteRegisterMT = ({ className }) => {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 };
 
 export default InviteRegisterMT;

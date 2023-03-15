@@ -146,7 +146,7 @@ const ItemListView = ({
                     afterAnyChange={afterAnyChange}
                     tagList={tagList}
                     dragToGroup={dragToGroup}
-                    withDragger={currentSidebar === 1}
+                    withDragger={currentSidebar === 1 && tagList.length > 0}
                     canEditWants={canEditWants}
                   />
                 );

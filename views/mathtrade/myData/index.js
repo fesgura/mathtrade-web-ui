@@ -169,6 +169,7 @@ const MyDataView = ({
                 icon="map-marker"
                 question="form.Location.help"
                 onChange={onChangeLocation}
+                disabled={!canEditList}
               />
               {currentLocation && currentLocation.referral ? (
                 <div className="text-center mb-4">
@@ -269,22 +270,25 @@ const MyDataView = ({
                 labelCheckbox="MyData.InPerson.labelSwitch"
                 question="MyData.InPerson.help"
                 disabled={
-                  currentLocation && currentLocation.mandatory_attendance
+                  (currentLocation && currentLocation.mandatory_attendance) ||
+                  !canEditList
                 }
               />
               <ErrorAlert errors={errors} />
-              <div className="text-center py-4">
-                {mathtradeData.IamIn ? (
-                  <Button color="primary" type="submit">
-                    <I18N id="MyData.btn.UpdateData" />
-                  </Button>
-                ) : (
-                  <Button color="primary" type="submit" size="lg">
-                    <I18N id="MyData.btn.SignToMathTrade" />{" "}
-                    {mathtradeData.data?.name}
-                  </Button>
-                )}
-              </div>
+              {canEditList ? (
+                <div className="text-center py-4">
+                  {mathtradeData.IamIn ? (
+                    <Button color="primary" type="submit">
+                      <I18N id="MyData.btn.UpdateData" />
+                    </Button>
+                  ) : (
+                    <Button color="primary" type="submit" size="lg">
+                      <I18N id="MyData.btn.SignToMathTrade" />{" "}
+                      {mathtradeData.data?.name}
+                    </Button>
+                  )}
+                </div>
+              ) : null}
             </Form>
             {canEditList ? (
               <div className="text-center">

@@ -161,7 +161,7 @@ const MyItemsView = ({
                       dragToGroup(dataGroup.group_id, item);
                     }}
                     title={getI18Ntext("group.dragger.help")}
-                    hidden={!canEditWants}
+                    hidden={!canEditWants || groups.length === 0}
                   >
                     <Item
                       canEditList={canEditList}
