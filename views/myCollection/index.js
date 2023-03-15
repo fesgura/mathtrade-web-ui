@@ -64,44 +64,47 @@ const MyCollectionView = ({
       loadingPad={loadingForEditor}
     >
       <InviteRegisterMT />
-      <PageHeader title="title.MyCollection" />
+      <PageHeader
+        title="title.MyCollection"
+        rightSide={
+          itemListOrdered.length ? (
+            <OrderBy
+              // valueInitial={filters?.query?.order}
+              options={[
+                { text: getI18Ntext("element.Date"), value: "id" },
+                { text: getI18Ntext("element.Name"), value: "title" },
+                {
+                  text: getI18Ntext("element.Language"),
+                  value: "language",
+                },
+                {
+                  text: getI18Ntext("element.BGG.dependency"),
+                  value: "dependency",
+                },
+                { text: getI18Ntext("element.Status"), value: "status" },
+                {
+                  text: getI18Ntext("element.BGG.weight"),
+                  value: "weight",
+                },
+                { text: getI18Ntext("element.BGG.rating"), value: "rate" },
+                { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
+              ]}
+              onChange={(order, desc) => {
+                if (order === "") {
+                  setOrderByOption(null);
+                } else {
+                  setOrderByOption({ order, desc });
+                }
+              }}
+            />
+          ) : null
+        }
+      />
       <Row className="justify-content-center">
         <Col xl={8}>
-          {itemListOrdered.length ? (
-            <Row className="mb-4 justify-content-end">
-              <Col xs="auto">
-                <OrderBy
-                  // valueInitial={filters?.query?.order}
-                  options={[
-                    { text: getI18Ntext("element.Date"), value: "id" },
-                    { text: getI18Ntext("element.Name"), value: "title" },
-                    {
-                      text: getI18Ntext("element.Language"),
-                      value: "language",
-                    },
-                    {
-                      text: getI18Ntext("element.BGG.dependency"),
-                      value: "dependency",
-                    },
-                    { text: getI18Ntext("element.Status"), value: "status" },
-                    {
-                      text: getI18Ntext("element.BGG.weight"),
-                      value: "weight",
-                    },
-                    { text: getI18Ntext("element.BGG.rating"), value: "rate" },
-                    { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
-                  ]}
-                  onChange={(order, desc) => {
-                    if (order === "") {
-                      setOrderByOption(null);
-                    } else {
-                      setOrderByOption({ order, desc });
-                    }
-                  }}
-                />
-              </Col>
-            </Row>
-          ) : null}
+          <p className="py-4 m-0 text-center">
+            <I18N id="MyCollection.page.explanation" />
+          </p>
           <div className="item-list">
             {itemListOrdered.length ? (
               itemListOrdered.map((itemToShow, k) => {
