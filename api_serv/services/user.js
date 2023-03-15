@@ -21,6 +21,9 @@ const UserService = {
     setAuth();
     return api.put(endpoints.PUT_PASSWORD, data);
   },
+  forgotPassword: (data) => {
+    return api.post(endpoints.FORGOT_PASSWORD, data);
+  },
 };
 
 export default UserService;

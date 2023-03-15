@@ -1,12 +1,12 @@
 import { useCallback } from "react";
-import NewPasswordView from "views/newPassword";
+import ForgotPasswordView from "views/forgotPassword";
 import {
   GoogleReCaptchaProvider,
   useGoogleReCaptcha,
 } from "react-google-recaptcha-v3";
 import { google_recaptcha_v3_client_key } from "config";
 
-const NewPassword = () => {
+const ForgotPassword = () => {
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   const handleSubmit = useCallback(
@@ -14,7 +14,7 @@ const NewPassword = () => {
       if (!executeRecaptcha) {
         return;
       }
-      const token = await executeRecaptcha("newPassword");
+      const token = await executeRecaptcha("forgotPassword");
 
       formData.recaptcha_token = token;
 
@@ -23,7 +23,7 @@ const NewPassword = () => {
     [executeRecaptcha]
   );
   return (
-    <NewPasswordView
+    <ForgotPasswordView
       onSubmit={handleSubmit}
       //loading={true}
       respOnSave={() => {}}
@@ -37,7 +37,7 @@ const RecaptchaContainer = () => {
       reCaptchaKey={google_recaptcha_v3_client_key}
       language="es"
     >
-      <NewPassword />
+      <ForgotPassword />
     </GoogleReCaptchaProvider>
   );
 };

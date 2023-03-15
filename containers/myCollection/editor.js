@@ -49,16 +49,9 @@ const ElementEditor = ({
 
   useEffect(() => {
     if (onLoadingEditor) {
-      onLoadingEditor(
-        loadingEditElement || loadingCreateElement || loadingDeleteElement
-      );
+      onLoadingEditor(loadingEditElement || loadingCreateElement);
     }
-  }, [
-    onLoadingEditor,
-    loadingEditElement,
-    loadingCreateElement,
-    loadingDeleteElement,
-  ]);
+  }, [onLoadingEditor, loadingEditElement, loadingCreateElement]);
 
   return (
     <ElementEditorView
@@ -86,10 +79,8 @@ const ElementEditor = ({
       }}
       setItemToDelete={setItemToDelete}
       afterAnyChange={afterAnyChange}
-      loading={
-        loadingEditElement || loadingCreateElement || loadingDeleteElement
-      }
-      errors={errorEditMessage || errorCreateMessage || errorDeleteMessage}
+      loading={loadingEditElement || loadingCreateElement}
+      errors={errorEditMessage || errorCreateMessage}
       // BGG ELEMENT
       fetchBGGelement={fetchBGGelement}
       BGGelement={BGGelement}

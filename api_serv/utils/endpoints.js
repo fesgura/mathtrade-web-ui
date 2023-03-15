@@ -6,6 +6,7 @@ const endpoints = {
   GET_USER: "api/users/$[0]/",
   PUT_USER: "api/users/$[0]/",
   PUT_PASSWORD: "api/change-password/",
+  FORGOT_PASSWORD: "api/recovery-password/",
 
   // Location
   GET_LOCATIONS: "api/locations/",

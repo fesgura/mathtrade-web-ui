@@ -5,8 +5,8 @@ export const publicRoutes = {
   signup: {
     path: "signup",
   },
-  newPassword: {
-    path: "new-password",
+  forgotPassword: {
+    path: "forgot-password",
   },
 };
 
