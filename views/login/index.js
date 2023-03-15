@@ -78,7 +78,15 @@ const LoginView = ({ loading, errors, onSubmit }) => {
                       notTranslatePlaceholder
                       size="lg"
                       icon="key"
+                      classNameContainer="m-0"
                     />
+                    <div className="sign-forgot-pass">
+                      <Link href={`/${publicRoutes.forgotPassword.path}`}>
+                        <a>
+                          <I18N id="sign.ForgotPassword" />
+                        </a>
+                      </Link>
+                    </div>
                     <Input
                       validations={validations}
                       validationStatus={validationStatus}
@@ -93,6 +101,7 @@ const LoginView = ({ loading, errors, onSubmit }) => {
                       size="lg"
                       icon="puzzle-piece"
                       onChange={set_appkeyui}
+                      classNameContainer="mb-0 mt-4"
                     />
                     <ErrorAlert errors={errors} />
                     <div className="text-center py-4">
