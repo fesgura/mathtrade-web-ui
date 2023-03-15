@@ -26,6 +26,7 @@ const ResultsView = ({
           participantes.
         </p>
       </div>
+
       <div className="results-input">
         <Input
           data={{ userId }}
