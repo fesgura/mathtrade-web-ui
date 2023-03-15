@@ -103,7 +103,7 @@ const LoginView = ({ loading, errors, onSubmit }) => {
                       onChange={set_appkeyui}
                       classNameContainer="mb-0 mt-4"
                     />
-                    <ErrorAlert errors={errors} />
+                    <ErrorAlert errors={errors} className="mt-4" />
                     <div className="text-center py-4">
                       <Button color="primary" size="lg" type="submit">
                         <I18N id="btn.Enter" />
