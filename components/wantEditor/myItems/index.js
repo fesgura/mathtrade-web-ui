@@ -59,7 +59,7 @@ const MyItems = ({ item_ids, setMyItemIds, dup_protection, canEditWants }) => {
     <div className="relative">
       {errors ? (
         <ErrorAlert errors={errors} />
-      ) : (
+      ) : collection.length ? (
         <>
           <div className="pt-2 pb-2">
             {dup_protection ? (
@@ -98,7 +98,7 @@ const MyItems = ({ item_ids, setMyItemIds, dup_protection, canEditWants }) => {
             }
           })}
         </>
-      )}
+      ) : null}
       {loading ? <LoadingBox /> : null}
     </div>
   );
