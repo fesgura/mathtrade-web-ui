@@ -38,9 +38,26 @@ const createVersionList = (versions, defaultThumbnail) => {
   versions.forEach((version) => {
     const { thumbnail, id, yearpublished, name, link } = version;
 
+    console.log("name", name);
+
     let year = yearpublished && yearpublished.value ? yearpublished.value : "";
     //  year = parseInt(year, 10) < 1 ? "1" : year;
-    const version_name = (name && name.value ? name.value : "") + ` (${year})`;
+    const version_name = (() => {
+      let n = "";
+      if (typeof name.forEach === "undefined") {
+        n = name && name.value ? name.value : "";
+      } else {
+        const namesFiltered = name.filter((na) => {
+          return na.type === "primary";
+        });
+        if (namesFiltered[0]) {
+          n = namesFiltered[0]?.value;
+        } else {
+          n = name[0]?.value;
+        }
+      }
+      return n + ` (${year})`;
+    })();
 
     let publisher = "";
 
@@ -186,6 +203,7 @@ export const processBGGdata = (BGGelement) => {
       typeof BGGelement.versions.item.forEach === "undefined"
         ? [BGGelement.versions.item]
         : BGGelement.versions.item;
+
     BGGdata.versionList = createVersionList(
       versions,
       BGGelement.thumbnail || ""
