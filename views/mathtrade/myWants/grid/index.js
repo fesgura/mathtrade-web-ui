@@ -108,8 +108,11 @@ const Grid = ({
     <>
       <div className="main-container">
         <Container>
-          <p className="pt-4 pb-5 m-0 text-center">
+          <p className="pt-4 text-center lead">
             <I18N id="MyWants.page.Grid.explanation" />
+          </p>
+          <p className="pb-5 m-0 text-center">
+            <I18N id="MyWants.page.Grid.explanation2" />
           </p>
         </Container>
       </div>
