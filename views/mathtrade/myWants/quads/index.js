@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card, CardBody, Row, Col } from "reactstrap";
+import { Card, CardBody, Row, Col, Container } from "reactstrap";
 import MyItemView from "./myItem";
 import { getMyItemGroups } from "./utils";
 import classNames from "classnames";
@@ -33,9 +33,11 @@ const QuadsView = ({
   return (
     <>
       <div className="main-container">
-        <p className="pt-4 pb-5 m-0 text-center">
-          <I18N id="MyWants.page.ByGame.explanation" />
-        </p>
+        <Container>
+          <p className="pt-4 pb-5 m-0 text-center">
+            <I18N id="MyWants.page.ByGame.explanation" />
+          </p>
+        </Container>
         <Card
           className={classNames("quad-want_card", {
             "not-commitment": mustCommitChanges,
@@ -74,7 +76,9 @@ const QuadsView = ({
               </div>
             ) : (
               <div className="text-center">
-                <p className="lead">Todavía no has agregado ningún deseo.</p>
+                <p className="lead">
+                  <I18N id="MyWants.page.notWantsYet" />
+                </p>
               </div>
             )}
           </CardBody>

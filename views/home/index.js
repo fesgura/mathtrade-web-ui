@@ -4,6 +4,8 @@ import InviteRegisterMT from "components/inviteRegisterMathTrade";
 import LinkInternal from "components/link-internal";
 import Crecimiento from "./crecimiento";
 import I18N from "i18n";
+import { Container } from "reactstrap";
+import { linksToHelp } from "config";
 
 const HomeView = ({ loading, mathtradeData }) => {
   return (
@@ -12,47 +14,59 @@ const HomeView = ({ loading, mathtradeData }) => {
       {/* <PageHeader title="Math Trade Argentina" /> */}
       <InviteRegisterMT />
       <section className="text-center">
-        <h1 className="mb-4">
-          <I18N id="title.Home" />
-        </h1>
-        {mathtradeData ? (
-          <>
-            <p className="lead">
-              <I18N id="home.lead" />
-            </p>
-            <p>
-              <I18N id="home.help" />{" "}
-              <LinkInternal path="myCollection">
-                <I18N id="title.MyCollection" />
-              </LinkInternal>
-              .
-            </p>
-          </>
-        ) : (
-          <div
-            className="text-center"
-            style={{ maxWidth: 950, margin: "0 auto" }}
-          >
-            <h3 className="mb-4">
-              <I18N id="noMathtradeYet.Title" />
-            </h3>
-            <p className="lead mb-4">
-              <I18N id="noMathtradeYet.text-1" />
-            </p>
-            <p>
-              <I18N id="noMathtradeYet.text-2" />
-            </p>
-            <div>
-              <LinkInternal
-                path="myCollection"
-                className="btn btn-primary"
-                withIcon
-              >
-                <I18N id="title.MyCollection" />
-              </LinkInternal>
+        <Container>
+          <h1 className="mb-4">
+            <I18N id="title.Home" />
+          </h1>
+          {mathtradeData ? (
+            <>
+              <p className="lead">
+                <I18N id="home.lead" />
+              </p>
+              <p className="lead">
+                <I18N
+                  id="home.lead2"
+                  values={[
+                    linksToHelp.video,
+                    linksToHelp.bgg,
+                    linksToHelp.telegram,
+                  ]}
+                />
+              </p>
+              <p>
+                <I18N id="home.help" />{" "}
+                <LinkInternal path="myCollection">
+                  <I18N id="title.MyCollection" />
+                </LinkInternal>
+                .
+              </p>
+            </>
+          ) : (
+            <div
+              className="text-center"
+              style={{ maxWidth: 950, margin: "0 auto" }}
+            >
+              <h3 className="mb-4">
+                <I18N id="noMathtradeYet.Title" />
+              </h3>
+              <p className="lead mb-4">
+                <I18N id="noMathtradeYet.text-1" />
+              </p>
+              <p>
+                <I18N id="noMathtradeYet.text-2" />
+              </p>
+              <div>
+                <LinkInternal
+                  path="myCollection"
+                  className="btn btn-primary"
+                  withIcon
+                >
+                  <I18N id="title.MyCollection" />
+                </LinkInternal>
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </Container>
       </section>
       <Crecimiento />
     </PrivateLayout>
