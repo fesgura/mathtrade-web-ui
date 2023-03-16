@@ -106,7 +106,7 @@
   "element.editor.repeated.btn.yes": "Sí, sé lo que estoy haciendo",
   "element.editor.add": "Agregar",
   "element.editor.add.gameOrExpansion": "Juego <b>o</b> expansión",
-  "element.editor.add.Another": "Otro",
+  "element.editor.add.Another": "Otro (no listado en BGG)",
   "BGGsearch.Label": "Buscar en la BGG",
   "BGGsearch.help": "Escribí parte del nombre del juego o expansión, y luego seleccioná una de las opciones que aparecen.",
   "BGGsearch.notFound": "No se encuentra ningún juego o expansión",
