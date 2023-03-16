@@ -63,7 +63,6 @@ const PrivateEnv = ({ children }) => {
         setErrors(errors_mathtrade);
       } else {
         if (responseData_mathtrade && responseData_mathtrade.length) {
-          console.log(responseData_mathtrade);
           const mathtradeActiveArray = responseData_mathtrade.filter((mt) => {
             return mt.active && mt.id !== 1;
           });
