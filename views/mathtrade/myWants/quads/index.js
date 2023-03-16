@@ -55,22 +55,28 @@ const QuadsView = ({
                 </Col>
               </Row>
             </div>
-            <div className="quad-want_myItemGroup-list">
-              {myItemGroups.map((myItemGroup) => {
-                return (
-                  <MyItemView
-                    data={myItemGroup}
-                    key={myItemGroup.id}
-                    setModalWantOpen={setModalWantOpen}
-                    setCurrentWantGroup={setCurrentWantGroup}
-                    setCurrentType={setCurrentType}
-                    putWant={putWant}
-                    canEditWants={canEditWants}
-                    wantList={wantList}
-                  />
-                );
-              })}
-            </div>
+            {myItemGroups.length ? (
+              <div className="quad-want_myItemGroup-list">
+                {myItemGroups.map((myItemGroup) => {
+                  return (
+                    <MyItemView
+                      data={myItemGroup}
+                      key={myItemGroup.id}
+                      setModalWantOpen={setModalWantOpen}
+                      setCurrentWantGroup={setCurrentWantGroup}
+                      setCurrentType={setCurrentType}
+                      putWant={putWant}
+                      canEditWants={canEditWants}
+                      wantList={wantList}
+                    />
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-center">
+                <p className="lead">Todavía no has agregado ningún deseo.</p>
+              </div>
+            )}
           </CardBody>
         </Card>
       </div>
