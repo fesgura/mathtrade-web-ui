@@ -110,6 +110,7 @@ const MyAccountView = ({
                           setValidationStatus={setValidationStatus}
                           label="form.Username"
                           name="username"
+                          lowercase
                           placeholder="form.Username"
                           icon="user"
                           question="form.Username.help"
@@ -180,6 +181,7 @@ const MyAccountView = ({
                           label="form.Email"
                           name="email"
                           type="email"
+                          lowercase
                           placeholder="form.Email"
                           icon="envelope"
                           onChange={() => {
