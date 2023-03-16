@@ -54,7 +54,7 @@ const RegisterView = ({
     last_name: ["required"],
     email: ["required", "email"],
     phone: ["required", "phone"],
-    whatsapp: ["phone"],
+    whatsapp: ["required", "phone"],
     location: ["required"],
     bgg_user: [
       "required",
