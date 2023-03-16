@@ -14,7 +14,6 @@
   "register.BGGdata": "Datos desde BGG",
   "register.AlreadyHaveAccount": "¿Ya tenés cuenta? Ingresá aquí:",
   "sign.ForgotPassword": "Olvidé mi contraseña",
-
   "forgotPassword.title": "Olvidé mi contraseña",
   "forgotPassword.title2": "Enviamos una contraseña provisoria",
   "forgotPassword.help": "Ingresá el nombre de usuario o email con el que te registraste, para que podamos enviarte una <b>contraseña provisoria</b>.",
@@ -29,7 +28,6 @@
   "form.Username.help": "Tu nombre de usuario. Lo necesitarás para poder ingresar al sistema.",
   "form.Password": "Contraseña",
   "form.PasswordRepeat": "Repetí la contraseña",
-
   "sign.error": "Error, usuario y/o contraseña incorrectos.",
   "form.FirstName": "Nombre",
   "form.LastName": "Apellido",
@@ -447,5 +445,10 @@
   "itemComments.title.add": "Agregar",
   "itemComments.editor.label.add": "<b>Comentar:</b> (Max. 500 caracteres)",
   "itemComments.editor.label.edit": "<b>Editar comentario:</b> (Max. 500 caracteres)",
-  "itemComments.title.deleteComment": "¿Eliminar comentario?"
+  "itemComments.title.deleteComment": "¿Eliminar comentario?",
+  "timeline.start": "¡Arranca el MathTrade!",
+  "timeline.geek": "Hasta aquí podés cargar tus juegos al Mathtrade",
+  "timeline.want": "Hasta aquí podés agregar los deseos para tus intercambios <b>y comprometerlos</b>",
+  "timeline.res": "¡Los resultados del Mathtrade!<br /><i>(qué juegos intercambiás).</i>",
+  "timeline.meet": "¡La juntada presencial en AMBA!"
 }

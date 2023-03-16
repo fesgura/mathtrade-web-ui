@@ -6,6 +6,7 @@ import Crecimiento from "./crecimiento";
 import I18N from "i18n";
 import { Container } from "reactstrap";
 import { linksToHelp } from "config";
+import Timeline from "components/timeline";
 
 const HomeView = ({ loading, mathtradeData }) => {
   return (
@@ -40,6 +41,7 @@ const HomeView = ({ loading, mathtradeData }) => {
                 </LinkInternal>
                 .
               </p>
+              <Timeline className="mt-5" />
             </>
           ) : (
             <div

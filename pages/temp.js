@@ -3,13 +3,14 @@ import PrivateEnv from "environments/private";
 
 import PDFresults from "components/PDFresult";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import Timeline from "components/timeline";
 
 const TempPage = () => {
   const listTemp = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
 
   return (
     <PrivateEnv>
-      <div className="text-center py-5">
+      {/* <div className="text-center py-5">
         <PDFDownloadLink
           className="btn btn-primary"
           document={<PDFresults list={listTemp} />}
@@ -23,7 +24,10 @@ const TempPage = () => {
 
       <PDFViewer width={1200} height={900} className="ms-auto me-auto d-block">
         <PDFresults list={listTemp} />
-      </PDFViewer>
+      </PDFViewer> */}
+      <div className="container">
+        <Timeline />
+      </div>
     </PrivateEnv>
   );
 };
