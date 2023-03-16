@@ -106,6 +106,19 @@ const MyCollectionView = ({
             <I18N id="MyCollection.page.explanation" />
           </p>
           <div className="item-list">
+            {loading || itemListOrdered.length <= 1 ? null : (
+              <div className="card-comp">
+                <div className="card-comp_body py-3">
+                  <AddItem
+                    onClick={() => {
+                      setObjToEdit({ item: null, element: null });
+                      setModalEditOpen(true);
+                    }}
+                    canEditList={canEditList}
+                  />
+                </div>
+              </div>
+            )}
             {itemListOrdered.length ? (
               itemListOrdered.map((itemToShow, k) => {
                 return (

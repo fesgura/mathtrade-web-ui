@@ -88,7 +88,7 @@ const BGGsearch = ({ label, question, onResult = () => {} }) => {
 
   // Search Effect
   useEffect(() => {
-    if (inputValue.searchElement.length >= 3 && !inputValue.forSelect) {
+    if (inputValue.searchElement.length >= 2 && !inputValue.forSelect) {
       const delayDebounceFn = setTimeout(() => {
         searchBGGelements({
           type: "boardgame,boardgameexpansion",
