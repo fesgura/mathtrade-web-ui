@@ -15,7 +15,7 @@ const useCanEdit = (type) => {
           dateToCompare = mathtrade.data?.frezze_geek_date;
           break;
         case "wants":
-          dateToCompare = mathtrade.data?.frezze_geek_date;
+          dateToCompare = mathtrade.data?.frezze_wants_date;
           break;
         case "results":
           isBefore = false;

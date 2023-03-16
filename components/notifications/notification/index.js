@@ -8,8 +8,7 @@ import moment from "moment/moment";
 import "moment/locale/es";
 import WantView from "../wantView";
 import CommentView from "../commentView";
-
-moment.locale("es");
+import "moment/locale/es";
 
 const Notification = ({
   dataNotification,
@@ -19,6 +18,7 @@ const Notification = ({
   setDisabledDropdown,
 }) => {
   const [data, setData] = useState(dataNotification);
+  moment.locale("es");
 
   const [putNotificationRead, , loading, errors] = useApi({
     promise: NotificationService.putNotificationRead,

@@ -11,6 +11,7 @@ import ErrorAlert from "components/errorAlert";
 import I18N from "i18n";
 import LinkInternal from "components/link-internal";
 import { linksToHelp } from "config";
+import Timeline from "components/timeline";
 
 const validations = {
   location: ["required"],
@@ -115,6 +116,7 @@ const MyDataView = ({
               )}
             </h1>
           </div>
+          <Timeline className="mb-5" />
           <div
             style={{
               maxWidth: 650,
