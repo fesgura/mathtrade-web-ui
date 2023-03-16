@@ -5,6 +5,9 @@
   .mywants-grid_container-wrap {
     position: relative;
   }
+  &.not-wants-yet {
+    height: auto;
+  }
 }
 
 .mywants-grid_myItems-float {
@@ -27,7 +30,7 @@
 .mywants-grid_card {
   position: relative;
   border: 3px solid transparent;
-  min-height: 200px;
+  // min-height: 200px;
   .card-body {
     padding: 14px;
   }

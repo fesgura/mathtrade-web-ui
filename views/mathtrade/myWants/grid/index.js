@@ -5,7 +5,7 @@ import {
   order_list,
 } from "./utils";
 import { getUniqueId } from "utils";
-import { Card, CardBody } from "reactstrap";
+import { Card, CardBody, Container } from "reactstrap";
 import I18N from "i18n";
 import GridSpacer from "./spacer";
 import MyItems from "./myItems";
@@ -107,9 +107,11 @@ const Grid = ({
   return (
     <>
       <div className="main-container">
-        <p className="pt-4 pb-5 m-0 text-center">
-          <I18N id="MyWants.page.Grid.explanation" />
-        </p>
+        <Container>
+          <p className="pt-4 pb-5 m-0 text-center">
+            <I18N id="MyWants.page.Grid.explanation" />
+          </p>
+        </Container>
       </div>
       <div className="main-container full">
         <Card
@@ -119,106 +121,119 @@ const Grid = ({
         >
           {loading ? <div className="mywants-card-dimmer" /> : null}
           <CardBody>
-            <div className="mywants-grid_container" ref={containerRef}>
-              <div className="mywants-grid_container-wrap">
-                <div className="mywants-grid_myItems-container" />
-                <div className="mywants-grid_wantListGrid-container">
-                  <div className="mywants-grid_wantListGrid-row">
-                    <div className="mywants-grid_wantListGrid-col-left" />
-                    <div className="mywants-grid_wantListGrid-col-right">
-                      <div className="mywants-grid_check-grid-row">
-                        <GridComp
-                          myItemList={myItemListGrid.list}
-                          wantList={wantListGrid.list}
-                          set_wantListGrid={set_wantListGrid}
-                          putWant={putWant}
-                          putWantBatch={putWantBatch}
-                          canEditWants={canEditWants}
-                        />
+            <div
+              className={classNames("mywants-grid_container", {
+                "not-wants-yet": wantListGrid.list.length === 0,
+              })}
+              ref={containerRef}
+            >
+              {wantListGrid.list.length ? (
+                <div className="mywants-grid_container-wrap">
+                  <div className="mywants-grid_myItems-container" />
+                  <div className="mywants-grid_wantListGrid-container">
+                    <div className="mywants-grid_wantListGrid-row">
+                      <div className="mywants-grid_wantListGrid-col-left" />
+                      <div className="mywants-grid_wantListGrid-col-right">
+                        <div className="mywants-grid_check-grid-row">
+                          <GridComp
+                            myItemList={myItemListGrid.list}
+                            wantList={wantListGrid.list}
+                            set_wantListGrid={set_wantListGrid}
+                            putWant={putWant}
+                            putWantBatch={putWantBatch}
+                            canEditWants={canEditWants}
+                          />
+                        </div>
                       </div>
                     </div>
+                    <div className="mywants-grid_wantListGrid-row_padding" />
                   </div>
-                  <div className="mywants-grid_wantListGrid-row_padding" />
-                </div>
 
-                <div
-                  className="mywants-grid_myItems-float"
-                  style={{ top: `${topScroll}px` }}
-                >
-                  <div className="mywants-grid_myItems-row">
-                    <GridSpacer
+                  <div
+                    className="mywants-grid_myItems-float"
+                    style={{ top: `${topScroll}px` }}
+                  >
+                    <div className="mywants-grid_myItems-row">
+                      <GridSpacer
+                        reloadWants={reloadWants}
+                        canEditWants={canEditWants}
+                        extendAll={extendAll}
+                        setExtendAll={() => {
+                          const newExtendAll = !extendAll;
+
+                          set_myItemListGrid((obj) => {
+                            const newList = [...obj.list];
+                            newList.forEach((g) => {
+                              if (g.type === "group") {
+                                g.extended = newExtendAll;
+                              }
+                            });
+                            return { ...obj, list: newList };
+                          });
+                          set_wantListGrid((obj) => {
+                            const newList = [...obj.list];
+                            newList.forEach((g) => {
+                              if (g.type === "game" || g.type === "group") {
+                                g.extended = newExtendAll;
+                              }
+                            });
+                            return { ...obj, list: newList };
+                          });
+                          //
+                          setExtendAll(newExtendAll);
+                        }}
+                        set_myItemList_orderBy={(order, desc) => {
+                          const direction = desc ? -1 : 1;
+                          set_myItemListGrid((obj) => {
+                            return order_list(obj, order, direction);
+                          });
+                          set_myItemList_orderBy({
+                            order,
+                            direction,
+                          });
+                        }}
+                        set_wantList_orderBy={(order, desc) => {
+                          const direction = desc ? -1 : 1;
+                          set_wantListGrid((obj) => {
+                            return order_list(obj, order, direction);
+                          });
+                          set_wantList_orderBy({ order, direction });
+                        }}
+                        commitChanges={commitChanges}
+                        commitChangesLoading={commitChangesLoading}
+                        mustCommitChanges={mustCommitChanges}
+                        set_mustCommitChanges={set_mustCommitChanges}
+                      />
+                      <MyItems
+                        myItemList={myItemListGrid}
+                        set_myItemListGrid={set_myItemListGrid}
+                        reloadMyItems={reloadMyItems}
+                      />
+                      <div className="mywants-grid_myItems-row_padding" />
+                    </div>
+                  </div>
+
+                  <div
+                    className="mywants-grid_float"
+                    style={{ left: `${leftScroll}px` }}
+                  >
+                    <MyWants
+                      wantList={wantListGrid}
+                      putWant={putWant}
+                      deleteWant={deleteWant}
+                      set_wantListGrid={set_wantListGrid}
                       reloadWants={reloadWants}
                       canEditWants={canEditWants}
-                      extendAll={extendAll}
-                      setExtendAll={() => {
-                        const newExtendAll = !extendAll;
-
-                        set_myItemListGrid((obj) => {
-                          const newList = [...obj.list];
-                          newList.forEach((g) => {
-                            if (g.type === "group") {
-                              g.extended = newExtendAll;
-                            }
-                          });
-                          return { ...obj, list: newList };
-                        });
-                        set_wantListGrid((obj) => {
-                          const newList = [...obj.list];
-                          newList.forEach((g) => {
-                            if (g.type === "game" || g.type === "group") {
-                              g.extended = newExtendAll;
-                            }
-                          });
-                          return { ...obj, list: newList };
-                        });
-                        //
-                        setExtendAll(newExtendAll);
-                      }}
-                      set_myItemList_orderBy={(order, desc) => {
-                        const direction = desc ? -1 : 1;
-                        set_myItemListGrid((obj) => {
-                          return order_list(obj, order, direction);
-                        });
-                        set_myItemList_orderBy({
-                          order,
-                          direction,
-                        });
-                      }}
-                      set_wantList_orderBy={(order, desc) => {
-                        const direction = desc ? -1 : 1;
-                        set_wantListGrid((obj) => {
-                          return order_list(obj, order, direction);
-                        });
-                        set_wantList_orderBy({ order, direction });
-                      }}
-                      commitChanges={commitChanges}
-                      commitChangesLoading={commitChangesLoading}
-                      mustCommitChanges={mustCommitChanges}
-                      set_mustCommitChanges={set_mustCommitChanges}
                     />
-                    <MyItems
-                      myItemList={myItemListGrid}
-                      set_myItemListGrid={set_myItemListGrid}
-                      reloadMyItems={reloadMyItems}
-                    />
-                    <div className="mywants-grid_myItems-row_padding" />
                   </div>
                 </div>
-
-                <div
-                  className="mywants-grid_float"
-                  style={{ left: `${leftScroll}px` }}
-                >
-                  <MyWants
-                    wantList={wantListGrid}
-                    putWant={putWant}
-                    deleteWant={deleteWant}
-                    set_wantListGrid={set_wantListGrid}
-                    reloadWants={reloadWants}
-                    canEditWants={canEditWants}
-                  />
+              ) : (
+                <div className="text-center">
+                  <p className="lead m-0 py-4">
+                    <I18N id="MyWants.page.notWantsYet" />
+                  </p>
                 </div>
-              </div>
+              )}
             </div>
           </CardBody>
         </Card>
