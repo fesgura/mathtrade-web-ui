@@ -201,4 +201,5 @@ export const linksToHelp = {
   bgg: "https://boardgamegeek.com/thread/3007435/math-trade-argentina-abril-2023",
   telegram: "https://t.me/+vy8WiP3QbFtjNDhh",
   video: "https://www.youtube.com/watch?v=U5cSBZeiNfc",
+  organization: "https://t.me/Luis_Olcese",
 };

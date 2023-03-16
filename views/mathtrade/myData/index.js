@@ -3,22 +3,14 @@ import PrivateLayout from "layouts/private";
 import { Form, Input } from "components/form";
 import Logo from "components/logo";
 import { locationsToOptions, formatDateString } from "utils";
-import {
-  Button,
-  Alert,
-  Modal,
-  ModalBody,
-  Row,
-  Col,
-  Card,
-  CardBody,
-} from "reactstrap";
+import { Button, Modal, ModalBody, Row, Col, Card, CardBody } from "reactstrap";
 import Icon from "components/icon";
 import CancelInviteMT from "components/inviteRegisterMathTrade/cancel";
 import storage from "utils/storage";
 import ErrorAlert from "components/errorAlert";
 import I18N from "i18n";
 import LinkInternal from "components/link-internal";
+import { linksToHelp } from "config";
 
 const validations = {
   location: ["required"],
@@ -167,10 +159,17 @@ const MyDataView = ({
                 options={locationsToOptions(dataLocations)}
                 loading={loadingLocations}
                 icon="map-marker"
-                question="form.Location.help"
                 onChange={onChangeLocation}
                 disabled={!canEditList}
+                classNameContainer="mb-1"
               />
+              <p className="small muted mb-5">
+                <I18N
+                  id="form.Location.help"
+                  values={[linksToHelp.organization]}
+                />
+              </p>
+
               {currentLocation && currentLocation.referral ? (
                 <div className="text-center mb-4">
                   {currentLocation.mandatory_attendance ? (

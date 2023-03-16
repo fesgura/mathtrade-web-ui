@@ -36,7 +36,7 @@
   "form.Email": "Email",
   "form.Phone": "Teléfono",
   "form.Location": "Ubicación",
-  "form.Location.help": "Si no aparece tu ciudad, o no estás cerca de ninguna de las ciudades del listado, por favor contactate con la organización.",
+  "form.Location.help": "Si no aparece tu ciudad, o no estás cerca de ninguna de las ciudades del listado, por favor contactate con la <a href=\"$$$\" target=\"_blank\">organización</a>.",
   "form.BGGuser": "Usuario en la BGG",
   "form.BGGuser.help": "Podés poner tu alias en la BGG.",
   "form.changePassword.title": "Cambiar contraseña",
