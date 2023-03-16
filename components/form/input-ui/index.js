@@ -44,6 +44,7 @@ const InputComp = ({
   value,
   required,
   error,
+  lowercase,
   //
   onChange,
   //
@@ -599,7 +600,9 @@ const InputComp = ({
             maxLength={textSize || 99999}
             placeholder={placeholderString}
             onChange={(e) => {
-              let val = e.target.value;
+              let val = lowercase
+                ? e.target.value.toLocaleLowerCase()
+                : e.target.value;
               if (type === "phone") {
                 val = e.target.value.replace(/\D/g, "");
               }

@@ -138,6 +138,7 @@ const RegisterView = ({
                           label="form.Username"
                           name="username"
                           placeholder="form.Username"
+                          lowercase
                           size="lg"
                           icon="user"
                           question="form.Username.help"
@@ -214,6 +215,7 @@ const RegisterView = ({
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
                           label="form.Email"
+                          lowercase
                           name="email"
                           type="email"
                           placeholder="form.Email"
