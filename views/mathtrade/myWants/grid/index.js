@@ -123,11 +123,13 @@ const Grid = ({
           <CardBody>
             <div
               className={classNames("mywants-grid_container", {
-                "not-wants-yet": wantListGrid.list.length === 0,
+                "not-wants-yet":
+                  wantListGrid.list.length === 0 ||
+                  myItemListGrid.list.length === 0,
               })}
               ref={containerRef}
             >
-              {wantListGrid.list.length ? (
+              {wantListGrid.list.length && myItemListGrid.list.length ? (
                 <div className="mywants-grid_container-wrap">
                   <div className="mywants-grid_myItems-container" />
                   <div className="mywants-grid_wantListGrid-container">

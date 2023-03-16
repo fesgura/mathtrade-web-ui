@@ -14,6 +14,7 @@ const ResultsView = ({
   userId,
   setUserId,
 }) => {
+  console.log(mathTradeResults);
   return (
     <PrivateLayout loading={loading} doctitle="title.Results">
       <PageHeader title="title.Results" center />

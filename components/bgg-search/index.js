@@ -4,6 +4,7 @@ import { Input } from "components/form";
 import { Badge } from "reactstrap";
 import { typeOfElements } from "config";
 import I18N from "i18n";
+import { NOGAMEresult } from "config";
 
 const formatText = (text, str) => {
   const ind = text.toLowerCase().indexOf(str.toLowerCase());
@@ -125,6 +126,9 @@ const BGGsearch = ({ label, question, onResult = () => {} }) => {
               <div className="drop-search_list">
                 {list.map((item, k) => {
                   const { id, text, expansion } = item;
+                  if (id === NOGAMEresult.bgg_id) {
+                    return null;
+                  }
                   return (
                     <div
                       className="drop-search_list-item"
