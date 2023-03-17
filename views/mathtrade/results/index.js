@@ -21,7 +21,7 @@ const ResultsView = ({
   return (
     <PrivateLayout loading={loading} doctitle="title.Results">
       <PageHeader title="title.Results" center />
-      {!canViewResults ? (
+      {canViewResults ? (
         <>
           <div className="results-header">
             <h3 className="mb-4">

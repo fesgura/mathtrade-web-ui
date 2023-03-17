@@ -75,8 +75,6 @@ const createVersionList = (versions, defaultThumbnail) => {
 
     const language = languageList.join(",");
 
-    console.log("language", language);
-
     list.push({
       formData: {
         language,
@@ -428,6 +426,6 @@ export const dateToString = (d) => {
   }
   moment.locale("es");
   const m = moment(d);
-  const a = m.format("DD MMMM").split(" ");
-  return parseInt(a[0], 10) + " " + capitalize(a[1]);
+  const a = m.format("DD MMMM h:mm").split(" ");
+  return parseInt(a[0], 10) + " " + capitalize(a[1]) + " " + a[2] + "hs";
 };
