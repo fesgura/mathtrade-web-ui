@@ -39,8 +39,6 @@ const createVersionList = (versions, defaultThumbnail) => {
   versions.forEach((version) => {
     const { thumbnail, id, yearpublished, name, link } = version;
 
-    console.log("name", name);
-
     let year = yearpublished && yearpublished.value ? yearpublished.value : "";
     //  year = parseInt(year, 10) < 1 ? "1" : year;
     const version_name = (() => {

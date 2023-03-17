@@ -16,7 +16,6 @@ const ResultsView = ({
   userId,
   setUserId,
 }) => {
-  console.log(mathTradeResults);
   const canViewResults = useCanEdit("results");
 
   return (
