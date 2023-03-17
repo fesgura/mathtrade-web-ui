@@ -25,6 +25,7 @@ const ElementEditor = ({
       },
     }
   );
+
   // End BGG ELEMENT
 
   // CREATE ELEMENT
