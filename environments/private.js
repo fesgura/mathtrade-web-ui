@@ -7,6 +7,7 @@ import { BggService, MathTradeService } from "api_serv";
 import callToAPI from "api_serv/hooks/callToAPI";
 import xmlParser from "api_serv/utils/xmlParser";
 import { setLogoutAPI } from "api_serv/utils";
+import { mtExpireToken } from "config";
 
 const PrivateEnv = ({ children }) => {
   const [showEnvironment, setShowEnvironment] = useState(false);
@@ -53,7 +54,19 @@ const PrivateEnv = ({ children }) => {
         storage.setToStorage({ bggUser: dataBGG.user });
       }
     }
-    if (!store.mathtrade) {
+    const expireMathtrade = (() => {
+      let exp = true;
+      if (store.mathtrade && store.mathtrade.expires) {
+        const d = new Date();
+        const currentTime = d.getTime();
+        if (currentTime >= store.mathtrade.expires) {
+          exp = false;
+        }
+      }
+      return exp;
+    })();
+
+    if (!store.mathtrade || expireMathtrade) {
       // Load MATHTRADES
       const [errors_mathtrade, response_mathtrade, responseData_mathtrade] =
         await callToAPI(MathTradeService.listMathTrades());
@@ -79,6 +92,10 @@ const PrivateEnv = ({ children }) => {
               IamIn: arrExistUserInMathtrade.length > 0,
               data: mathtrade,
               memberId,
+              expires: (() => {
+                const d = new Date();
+                return d.getTime() + +3600000 * mtExpireToken;
+              })(),
             };
             storage.setToStorage({
               mathtrade: mathtradeData,

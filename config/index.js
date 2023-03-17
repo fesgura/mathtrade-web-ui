@@ -6,8 +6,9 @@ export const google_recaptcha_v3_client_key =
 export const defaultPageSize = 50;
 
 export const storageName = "MathTradeArgentina";
-export const storageOptionsName = storageName + "Options";
+export const storageOptionsName = storageName + "Options2";
 export const daysExpireToken = 0.9;
+export const mtExpireToken = 1; // hs.
 
 export const NOGAMEresult = {
   bgg_id: "23953",
