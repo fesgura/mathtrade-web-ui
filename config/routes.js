@@ -96,8 +96,7 @@ export const menu_yes_mathTrade = [
   {
     title: "menu.Results",
     path: privateRoutes.mathtrade.results.path,
-    hot: true,
-    disabled: "results",
+    isHot: "results",
     icon: privateRoutes.mathtrade.results.icon,
   },
   {

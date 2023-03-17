@@ -1,6 +1,7 @@
 import { listDependencyTexts } from "config";
 import { getI18Ntext } from "i18n";
 import moment from "moment";
+import "moment/locale/es";
 
 export const locationsToOptions = (locations) => {
   if (!locations) {
@@ -419,4 +420,14 @@ export const usersToOptions = (users) => {
         })`,
       };
     });
+};
+
+export const dateToString = (d) => {
+  if (!d) {
+    return "";
+  }
+  moment.locale("es");
+  const m = moment(d);
+  const a = m.format("DD MMMM").split(" ");
+  return parseInt(a[0], 10) + " " + capitalize(a[1]);
 };
