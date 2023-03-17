@@ -12,16 +12,21 @@ export const getItemInWantList = (item, wantList) => {
 
       if (!wg.bgg_id) {
         type =
-          wg?.wants_id?.length === 1 && wg?.tags?.length === 0
+          wg?.want_ids?.length === 1 && wg?.tags?.length === 0
             ? "item"
             : "group";
       } else {
         type = "game";
       }
-      o.inGroup = {
-        name: wg?.name,
-        type,
-      };
+
+      if (type === "item") {
+        o.inGroup = null;
+      } else {
+        o.inGroup = {
+          name: wg?.name,
+          type,
+        };
+      }
     }
   });
   return o;
