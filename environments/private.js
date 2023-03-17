@@ -64,7 +64,7 @@ const PrivateEnv = ({ children }) => {
       } else {
         if (responseData_mathtrade && responseData_mathtrade.length) {
           const mathtradeActiveArray = responseData_mathtrade.filter((mt) => {
-            return mt.active && mt.id !== 1;
+            return mt.active;
           });
           const mathtrade = mathtradeActiveArray[0] || null;
           if (mathtrade) {
