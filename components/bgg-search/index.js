@@ -154,7 +154,11 @@ const BGGsearch = ({ label, question, onResult = () => {} }) => {
             )
           ) : null
         }
+        classNameContainer="mb-1"
       />
+      <p className="text-center small muted m-0 pb-3">
+        <I18N id="BGGsearch.help2" />
+      </p>
     </div>
   );
 };
