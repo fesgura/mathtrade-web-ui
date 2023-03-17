@@ -97,6 +97,20 @@ const MT_ItemListContainer = () => {
   }, [router, isFetched]);
 
   useEffect(() => {
+    if (errors) {
+      const { pathname, query } = router;
+      if (query?.page !== 1) {
+        // let newQuery = { ...query, page: 1 };
+        delete query.page;
+        setFilters({ pathname, query, d: getUniqueId() });
+        router.push({
+          query,
+        });
+      }
+    }
+  }, [errors, router]);
+
+  useEffect(() => {
     if (filters.d) {
       listItems({
         query: filters.query,

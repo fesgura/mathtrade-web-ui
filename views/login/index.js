@@ -62,7 +62,7 @@ const LoginView = ({ loading, errors, onSubmit }) => {
                       setValidationStatus={setValidationStatus}
                       label="form.Username"
                       name="username"
-                      lowercase
+                      noSpaces
                       placeholder="form.Username"
                       size="lg"
                       icon="user"

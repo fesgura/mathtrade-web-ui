@@ -75,6 +75,8 @@ const createVersionList = (versions, defaultThumbnail) => {
 
     const language = languageList.join(",");
 
+    console.log("language", language);
+
     list.push({
       formData: {
         language,

@@ -165,6 +165,7 @@
   "dependencyType.max.3": "Uso extensivo de texto: se necesita conocer el idioma para poder jugar",
   "dependencyType.min.4": "Injugable en otro idioma",
   "dependencyType.max.4": "Injugable en otro idioma",
+  "language.(neutral)": "Neutral",
   "language.Spanish": "Español",
   "language.English": "Inglés",
   "language.Portuguese": "Portugués",

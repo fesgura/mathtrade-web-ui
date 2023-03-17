@@ -138,7 +138,7 @@ const RegisterView = ({
                           label="form.Username"
                           name="username"
                           placeholder="form.Username"
-                          lowercase
+                          noSpaces
                           size="lg"
                           icon="user"
                           question="form.Username.help"
