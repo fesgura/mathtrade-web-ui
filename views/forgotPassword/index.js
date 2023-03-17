@@ -22,7 +22,7 @@ const LoginView = ({ loading, errors, onSubmit, step }) => {
             <CardBody className="p-5">
               {step === 0 ? (
                 <>
-                  <div className="text-center">
+                  {/* <div className="text-center">
                     <p>
                       De momento, escribinos a{" "}
                       <a href="mailto:mathtradearg@gmail.com">
@@ -34,9 +34,9 @@ const LoginView = ({ loading, errors, onSubmit, step }) => {
                       Muy pronto tendremos el flujo de recupero completo y
                       funcional.
                     </p>
-                  </div>
+                  </div> */}
 
-                  {/* <div className="text-center mb-4">
+                  <div className="text-center mb-4">
                     <h2>
                       <I18N id="forgotPassword.title" />
                     </h2>
@@ -73,7 +73,7 @@ const LoginView = ({ loading, errors, onSubmit, step }) => {
                         </Button>
                       </Link>
                     </div>
-                  </Form> */}
+                  </Form>
                 </>
               ) : (
                 <>
