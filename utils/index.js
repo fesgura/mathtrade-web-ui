@@ -214,6 +214,22 @@ export const processBGGdata = (BGGelement) => {
   // stats
   BGGdata.stats = getStats(BGGelement);
 
+  BGGdata.rank = "";
+
+  //rank
+  if (BGGelement?.statistics?.ratings?.ranks?.rank) {
+    const rankArr =
+      typeof BGGelement.statistics.ratings.ranks.rank.forEach === "undefined"
+        ? [BGGelement.statistics.ratings.ranks.rank]
+        : BGGelement.statistics.ratings.ranks.rank;
+    const rankFiltered = rankArr.filter((ra) => {
+      return ra.name === "boardgame";
+    });
+    if (rankFiltered[0]) {
+      BGGdata.rank = rankFiltered[0].value;
+    }
+  }
+
   BGGdata.thumbnail = BGGelement.thumbnail || "";
   return BGGdata;
 };
