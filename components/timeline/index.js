@@ -18,16 +18,25 @@ const Timeline = ({ className }) => {
   const [dates, setDates] = useState(null);
 
   useEffect(() => {
-    const mathtrade = storage.getFromStore("mathtrade");
-    if (mathtrade && mathtrade.data && mathtrade.data.active) {
-      setDates({
-        start: dateToString(mathtrade.data?.start_date),
-        geek: dateToString(mathtrade.data?.frezze_geek_date),
-        want: dateToString(mathtrade.data?.frezze_wants_date),
-        res: dateToString(mathtrade.data?.show_results_date),
-        meet: dateToString(mathtrade.data?.meeting_date),
-      });
-    }
+    let timer = setInterval(() => {
+      const mathtrade = storage.getFromStore("mathtrade");
+      if (mathtrade && mathtrade.data && mathtrade.data.active) {
+        setDates({
+          start: dateToString(mathtrade.data?.start_date),
+          geek: dateToString(mathtrade.data?.frezze_geek_date),
+          want: dateToString(mathtrade.data?.frezze_wants_date),
+          res: dateToString(mathtrade.data?.show_results_date),
+          meet: dateToString(mathtrade.data?.meeting_date),
+        });
+      }
+      if (mathtrade) {
+        clearInterval(timer);
+      }
+    }, 500);
+
+    return () => {
+      clearInterval(timer);
+    };
   }, []);
 
   return dates ? (
