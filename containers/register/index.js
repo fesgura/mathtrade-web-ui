@@ -30,6 +30,7 @@ const RegisterContainer = ({ verifingAuth, onGetCaptcha }) => {
     (formData) => {
       onGetCaptcha("sign_up", (recaptcha) => {
         delete formData.password2;
+        console.log(JSON.stringify(formData));
         const dataToSend = {
           ...formData,
           recaptcha,

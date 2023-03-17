@@ -167,9 +167,9 @@ const MyCollectionView = ({
       </Row>
       <Modal
         isOpen={modalEditOpen}
-        toggle={() => {
-          setModalEditOpen((v) => !v);
-        }}
+        // toggle={() => {
+        //   setModalEditOpen((v) => !v);
+        // }}
         centered
         size="lg"
       >

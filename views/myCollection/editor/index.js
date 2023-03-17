@@ -3,6 +3,8 @@ import BGGsearch from "components/bgg-search";
 import { NOGAMEresult } from "config";
 import ElementEdit from "./edit";
 import ElementCreateStep0 from "./step0";
+import { Button } from "reactstrap";
+import I18N from "i18n";
 
 //////////////////////////////////////////////
 
@@ -48,6 +50,7 @@ const ElementEditorView = ({
           ...NOGAMEresult,
         });
       }}
+      onClose={onClose}
     />
   ) : (
     <div className="element-create-step-2 fade-in">
@@ -76,6 +79,22 @@ const ElementEditorView = ({
               }, 200);
             }}
           />
+          {ElementToEdit ? null : (
+            <div className="text-center">
+              <Button
+                color="link"
+                tag="a"
+                className="me-2 mb-sm-0 mb-2"
+                outline
+                onClick={(e) => {
+                  e.preventDefault();
+                  onClose();
+                }}
+              >
+                <I18N id="btn.Cancel" />
+              </Button>
+            </div>
+          )}
         </div>
       ) : null}
       {ElementToEdit ? (
