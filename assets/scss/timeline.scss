@@ -84,7 +84,11 @@
         left: -0.5 * $pos-date_width;
         text-align: center;
         font-weight: bold;
-        //  background-color: #d00;
+        line-height: 1.3;
+
+        .timeline_pos_date-hour {
+          font-size: 13px;
+        }
       }
       .timeline_pos_text {
         position: absolute;

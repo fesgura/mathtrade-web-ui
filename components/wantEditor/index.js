@@ -29,6 +29,7 @@ const WantEditor = ({
   useEffect(() => {
     if (!wantGroup && type === "item" && objectToWant && wantList) {
       const isItemInWantList = getItemInWantList(objectToWant, wantList);
+
       if (isItemInWantList.inGroup) {
         setIsItemInOtherGroup(isItemInWantList);
       }

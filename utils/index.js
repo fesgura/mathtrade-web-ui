@@ -427,5 +427,10 @@ export const dateToString = (d) => {
   moment.locale("es");
   const m = moment(d);
   const a = m.format("DD MMMM h:mm").split(" ");
-  return parseInt(a[0], 10) + " " + capitalize(a[1]) + " " + a[2] + "hs";
+
+  return {
+    day: parseInt(a[0], 10),
+    month: capitalize(a[1]),
+    hour: a[2] + "hs",
+  };
 };

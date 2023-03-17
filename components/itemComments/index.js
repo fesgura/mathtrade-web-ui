@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import classNames from "classnames";
 import Icon from "components/icon";
 import I18N from "i18n";
@@ -7,8 +7,12 @@ import { Collapse } from "reactstrap";
 import CommentList from "./list";
 
 const ItemComment = ({ item, forceOpen }) => {
-  const [num, setNum] = useState(item.comments);
+  const [num, setNum] = useState(0);
   const [isOpen, setIsOpen] = useState(forceOpen || false);
+
+  useEffect(() => {
+    if (item) setNum(item.comments || 0);
+  }, [item]);
 
   return (
     <div className="item-comments-container">

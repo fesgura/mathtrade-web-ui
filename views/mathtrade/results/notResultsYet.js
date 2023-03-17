@@ -17,7 +17,10 @@ const NotResultsYet = () => {
   return (
     <div className="results-header">
       <p className="mb-4 lead">
-        <I18N id="results.NotResultsYet.help1" values={[dateResult]} />
+        <I18N
+          id="results.NotResultsYet.help1"
+          values={[dateResult.day + " " + dateResult.month, dateResult.hour]}
+        />
       </p>
       <p>
         <I18N id="results.NotResultsYet.help2" />

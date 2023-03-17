@@ -59,31 +59,46 @@ const Timeline = ({ className }) => {
           </div>
 
           <div className="timeline_pos timeline_pos-start">
-            <div className="timeline_pos_date">{dates.start}</div>
+            <div className="timeline_pos_date">
+              {`${dates.start.day} ${dates.start.month}`}
+              <div className="timeline_pos_date-hour">{dates.start.hour}</div>
+            </div>
             <div className="timeline_pos_text">
               <I18N id="timeline.start" />
             </div>
           </div>
           <div className="timeline_pos timeline_pos-geek">
-            <div className="timeline_pos_date">{dates.geek}</div>
+            <div className="timeline_pos_date">
+              {`${dates.geek.day} ${dates.geek.month}`}
+              <div className="timeline_pos_date-hour">{dates.geek.hour}</div>
+            </div>
             <div className="timeline_pos_text">
               <I18N id="timeline.geek" />
             </div>
           </div>
           <div className="timeline_pos timeline_pos-want">
-            <div className="timeline_pos_date">{dates.want}</div>
+            <div className="timeline_pos_date">
+              {`${dates.want.day} ${dates.want.month}`}
+              <div className="timeline_pos_date-hour">{dates.want.hour}</div>
+            </div>
             <div className="timeline_pos_text">
               <I18N id="timeline.want" />
             </div>
           </div>
           <div className="timeline_pos timeline_pos-res">
-            <div className="timeline_pos_date">{dates.res}</div>
+            <div className="timeline_pos_date">
+              {`${dates.res.day} ${dates.res.month}`}
+              <div className="timeline_pos_date-hour">{dates.res.hour}</div>
+            </div>
             <div className="timeline_pos_text">
               <I18N id="timeline.res" />
             </div>
           </div>
           <div className="timeline_pos timeline_pos-meet">
-            <div className="timeline_pos_date">{dates.meet}</div>
+            <div className="timeline_pos_date">
+              {`${dates.meet.day} ${dates.meet.month}`}
+              <div className="timeline_pos_date-hour">{dates.meet.hour}</div>
+            </div>
             <div className="timeline_pos_text">
               <I18N id="timeline.meet" />
             </div>
