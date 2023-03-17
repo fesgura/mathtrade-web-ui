@@ -48,38 +48,41 @@ const QuadsView = ({
         >
           {loading ? <div className="mywants-card-dimmer" /> : null}
           <CardBody>
-            <div className="quad-want_myItemGroup-header">
-              <Row>
-                <Col className="text-center">
-                  <CommitBtn
-                    commitChanges={commitChanges}
-                    commitChangesLoading={commitChangesLoading}
-                    mustCommitChanges={mustCommitChanges}
-                    canEditWants={canEditWants}
-                  />
-                </Col>
-              </Row>
-            </div>
             {myItemGroups.length ? (
-              <div className="quad-want_myItemGroup-list">
-                {myItemGroups.map((myItemGroup) => {
-                  return (
-                    <MyItemView
-                      data={myItemGroup}
-                      key={myItemGroup.id}
-                      setModalWantOpen={setModalWantOpen}
-                      setCurrentWantGroup={setCurrentWantGroup}
-                      setCurrentType={setCurrentType}
-                      putWant={putWant}
-                      canEditWants={canEditWants}
-                      wantList={wantList}
-                    />
-                  );
-                })}
-              </div>
+              <>
+                <div className="quad-want_myItemGroup-header">
+                  <Row>
+                    <Col className="text-center">
+                      <CommitBtn
+                        commitChanges={commitChanges}
+                        commitChangesLoading={commitChangesLoading}
+                        mustCommitChanges={mustCommitChanges}
+                        canEditWants={canEditWants}
+                      />
+                    </Col>
+                  </Row>
+                </div>
+
+                <div className="quad-want_myItemGroup-list">
+                  {myItemGroups.map((myItemGroup) => {
+                    return (
+                      <MyItemView
+                        data={myItemGroup}
+                        key={myItemGroup.id}
+                        setModalWantOpen={setModalWantOpen}
+                        setCurrentWantGroup={setCurrentWantGroup}
+                        setCurrentType={setCurrentType}
+                        putWant={putWant}
+                        canEditWants={canEditWants}
+                        wantList={wantList}
+                      />
+                    );
+                  })}
+                </div>
+              </>
             ) : (
               <div className="text-center">
-                <p className="lead">
+                <p className="lead m-0 py-4">
                   <I18N id="MyWants.page.notWantsYet" />
                 </p>
               </div>

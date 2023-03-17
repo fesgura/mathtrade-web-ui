@@ -1,4 +1,5 @@
 import Icon from "components/icon";
+import { useEffect } from "react";
 import { Collapse, Button, CardBody, Card } from "reactstrap";
 import Quad from "../myItem/quad";
 
@@ -11,6 +12,12 @@ const AddQuad = ({
   setCurrentType,
   onAdd,
 }) => {
+  useEffect(() => {
+    if (wantListRest.length === 0) {
+      setShowAdd(false);
+    }
+  }, [setShowAdd, wantListRest]);
+
   return (
     <Collapse isOpen={showAdd}>
       <div className="quad-want_myItemGroup-add-container">

@@ -123,8 +123,6 @@ const MyItemView = ({
           setCurrentWantGroup={setCurrentWantGroup}
           setCurrentType={setCurrentType}
           onAdd={(wgToAdd) => {
-            setShowAdd(false);
-
             const { bgg_id, dup_protection, id, items, name, tags, wants } =
               wgToAdd;
             const newItems = [...items];
