@@ -2,6 +2,7 @@ import { useState } from "react";
 import Router from "next/router";
 import PrivateLayout from "layouts/private";
 import PageHeader from "components/pageHeader";
+import { linksToHelp } from "config";
 import {
   Row,
   Col,
@@ -110,7 +111,7 @@ const MyAccountView = ({
                           setValidationStatus={setValidationStatus}
                           label="form.Username"
                           name="username"
-                          lowercase
+                          noSpaces
                           placeholder="form.Username"
                           icon="user"
                           question="form.Username.help"
@@ -202,11 +203,18 @@ const MyAccountView = ({
                           options={locationsToOptions(dataLocations)}
                           loading={loadingLocations}
                           icon="map-marker"
-                          question="form.Location.help"
                           onChange={() => {
                             setModified(true);
                           }}
+                          classNameContainer="mb-1"
                         />
+
+                        <p className="small muted mb-5">
+                          <I18N
+                            id="form.Location.help"
+                            values={[linksToHelp.organization]}
+                          />
+                        </p>
                       </Col>
                     </Row>
                     <Row>

@@ -159,9 +159,10 @@ const ItemListView = ({
               </div>
             )}
           </div>
+          <ErrorAlert errors={errors} />
         </Col>
       </Row>
-      <ErrorAlert errors={errors} />
+
       <Row className="justify-content-end">
         <Col xs="auto">
           <Pagination

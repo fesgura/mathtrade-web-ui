@@ -45,6 +45,7 @@ const InputComp = ({
   required,
   error,
   lowercase,
+  noSpaces,
   //
   onChange,
   //
@@ -603,6 +604,10 @@ const InputComp = ({
               let val = lowercase
                 ? e.target.value.toLocaleLowerCase()
                 : e.target.value;
+              if (noSpaces) {
+                val = val.replace(/\s/g, "");
+              }
+
               if (type === "phone") {
                 val = e.target.value.replace(/\D/g, "");
               }
