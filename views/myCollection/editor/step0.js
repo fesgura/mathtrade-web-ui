@@ -1,7 +1,13 @@
 import Icon from "components/icon";
 import I18N from "i18n";
+import { Button } from "reactstrap";
 
-const ElementCreateStep0 = ({ setStep, setType, setElementToEdit }) => {
+const ElementCreateStep0 = ({
+  setStep,
+  setType,
+  setElementToEdit,
+  onClose,
+}) => {
   return (
     <div className="element-create_step-1">
       <div className="element-create-options_title">
@@ -36,6 +42,20 @@ const ElementCreateStep0 = ({ setStep, setType, setElementToEdit }) => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="text-center pt-3">
+        <Button
+          color="link"
+          tag="a"
+          className="me-2 mb-sm-0 mb-2"
+          outline
+          onClick={(e) => {
+            e.preventDefault();
+            onClose();
+          }}
+        >
+          <I18N id="btn.Cancel" />
+        </Button>
       </div>
     </div>
   );
