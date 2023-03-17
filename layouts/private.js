@@ -9,6 +9,7 @@ import classNames from "classnames";
 import { getI18Ntext } from "i18n";
 import MainSidebar from "components/mainSidebar";
 import AtoTop from "components/aToTop";
+import NoMobileModal from "components/noMobileModal";
 
 const PrivateLayout = ({
   doctitle,
@@ -160,6 +161,7 @@ const PrivateLayout = ({
         />
       </main>
       <AtoTop />
+      <NoMobileModal />
       {loading ? <LoadingScreen /> : null}
       {withLoadingPad ? <LoadingPad loading={loadingPad} /> : null}
     </>

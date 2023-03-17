@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import storage from "utils/storage";
-import moment from "moment";
-import "moment/locale/es";
-import { capitalize } from "utils";
 import classNames from "classnames";
 import I18N from "i18n";
+import { dateToString } from "utils";
+
 /*
-
-
 {
   start: "",
   geek: "",
@@ -15,8 +12,6 @@ import I18N from "i18n";
   res: "",
   meet: "",
 }
-
-
 */
 
 const Timeline = ({ className }) => {
@@ -25,23 +20,12 @@ const Timeline = ({ className }) => {
   useEffect(() => {
     const mathtrade = storage.getFromStore("mathtrade");
     if (mathtrade && mathtrade.data && mathtrade.data.active) {
-      moment.locale("es");
-
-      const getDate = (d) => {
-        if (!d) {
-          return "";
-        }
-        const m = moment(d);
-        const a = m.format("DD MMMM").split(" ");
-        return parseInt(a[0], 10) + " " + capitalize(a[1]);
-      };
-
       setDates({
-        start: getDate(mathtrade.data?.start_date),
-        geek: getDate(mathtrade.data?.frezze_geek_date),
-        want: getDate(mathtrade.data?.frezze_wants_date),
-        res: getDate(mathtrade.data?.show_results_date),
-        meet: getDate(mathtrade.data?.meeting_date),
+        start: dateToString(mathtrade.data?.start_date),
+        geek: dateToString(mathtrade.data?.frezze_geek_date),
+        want: dateToString(mathtrade.data?.frezze_wants_date),
+        res: dateToString(mathtrade.data?.show_results_date),
+        meet: dateToString(mathtrade.data?.meeting_date),
       });
     }
   }, []);

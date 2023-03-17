@@ -33,12 +33,13 @@ const Game = ({
       setDataDependency(o.dataDependency);
 
       let newType = 1;
-
-      game.items[0].elements.forEach((elem) => {
-        if (game.bgg_id === elem.bgg_id) {
-          newType = elem.type;
-        }
-      });
+      if (game.items[0]) {
+        game.items[0].elements.forEach((elem) => {
+          if (game.bgg_id === elem.bgg_id) {
+            newType = elem.type;
+          }
+        });
+      }
 
       setType(newType);
     }

@@ -62,3 +62,10 @@
     font-weight: bold;
   }
 }
+.alert-form-header {
+  position: absolute;
+  top: 15px;
+  right: 140px;
+  box-shadow: $main-box-shadow;
+  font-size: 12px;
+}

@@ -19,10 +19,11 @@ const Menu = ({ menuList, router }) => {
   return (
     <nav className="main-menu">
       {menuList.map((item, k) => {
-        const { path, icon, title, disabled, hot } = item;
+        const { path, icon, title, disabled, isHot } = item;
         let disabledItem = false;
-        if (disabled === "results" && !canViewResults) {
-          disabledItem = true;
+        let hot = false;
+        if (isHot === "results" && canViewResults) {
+          hot = true;
         }
 
         return typeof path !== "undefined" && !disabledItem ? (
