@@ -1,3 +1,5 @@
+import { cropWord } from "utils";
+
 export const setItemTitle = (item, data) => {
   let txt = "";
 
@@ -9,5 +11,5 @@ export const setItemTitle = (item, data) => {
 
   txt += data.name;
 
-  return txt;
+  return cropWord(txt, 196, "...");
 };
