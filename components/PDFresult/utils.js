@@ -1,3 +1,5 @@
+import { cropWord } from "utils";
+
 export const processList = (list) => {
   if (!list) {
     return [];
@@ -37,4 +39,15 @@ export const processList = (list) => {
     }
   });
   return listTo;
+};
+
+export const dataToTag = (data) => {
+  return {
+    id: 165,
+    name: cropWord("Indian Summer", 40, "..."),
+    from: "LOLCESE (Córdoba)",
+    to: "GENEZE_CB (AMBA)",
+    mesa: "687",
+    via: true,
+  };
 };

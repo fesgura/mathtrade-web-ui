@@ -10,7 +10,7 @@ const TempPage = () => {
 
   return (
     <PrivateEnv>
-      {/* <div className="text-center py-5">
+      <div className="text-center py-5">
         <PDFDownloadLink
           className="btn btn-primary"
           document={<PDFresults list={listTemp} />}
@@ -24,10 +24,7 @@ const TempPage = () => {
 
       <PDFViewer width={1200} height={900} className="ms-auto me-auto d-block">
         <PDFresults list={listTemp} />
-      </PDFViewer> */}
-      <div className="container">
-        <Timeline />
-      </div>
+      </PDFViewer>
     </PrivateEnv>
   );
 };

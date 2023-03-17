@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-import { processList } from "./utils";
+import { processList, dataToTag } from "./utils";
+
+const cuadro_w = 120;
+
+const scale = 1;
 
 // Create styles
 const styles = StyleSheet.create({
@@ -11,13 +15,47 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    flex: "0 0 33.3333%",
+    flex: "0 0 268px",
+    maxHeight: 268,
   },
   quad: {
-    padding: 10,
+    padding: 5,
     //height: 265,
     flex: "0 0 50%",
     border: "1px solid #000",
+  },
+  //
+  id: {
+    textAlign: "center",
+    fontSize: 48 * scale,
+  },
+  gameName: {
+    textAlign: "center",
+    fontSize: 20 * scale,
+    lineHeight: 1,
+    height: 50,
+  },
+  fromTo: {
+    textAlign: "center",
+    fontSize: 13 * scale,
+    lineHeight: 1.5 * scale,
+  },
+  via: {
+    textAlign: "center",
+    fontSize: 11 * scale,
+    lineHeight: 1.5 * scale,
+  },
+  cuadro: {
+    width: cuadro_w * 1.5 * scale,
+    height: cuadro_w,
+    border: "1px solid #000",
+    margin: "10px auto",
+  },
+  mesa: {
+    textAlign: "center",
+    fontSize: 70 * scale,
+    fontWeight: "bold",
+    marginTop: 10,
   },
 });
 
@@ -34,14 +72,24 @@ const PDFresults = ({ list }) => {
     <Document>
       {listProcessed.map((pag, kp) => {
         return (
-          <Page size="A4" style={styles.page} key={kp}>
+          <Page size="A4" style={styles.page} key={kp} wrap>
             {pag.rows.map((row, kr) => {
               return (
-                <View style={styles.row} key={kr}>
+                <View style={styles.row} key={kr} wrap>
                   {row.quads.map((quad, kq) => {
+                    const tag = dataToTag(quad);
                     return (
-                      <View style={styles.quad} key={kq}>
-                        <Text>Juego {quad}</Text>
+                      <View style={styles.quad} key={kq} wrap>
+                        <Text style={styles.id}>{tag.id}</Text>
+                        <Text style={styles.gameName}>{tag.name}</Text>
+                        <Text style={styles.fromTo}>De: {tag.from}</Text>
+                        {tag.via ? (
+                          <Text style={styles.via}>Mandar a CABA</Text>
+                        ) : null}
+                        <View style={styles.cuadro} wrap>
+                          <Text style={styles.mesa}>{tag.mesa}</Text>
+                        </View>
+                        <Text style={styles.fromTo}>Para: {tag.to}</Text>
                       </View>
                     );
                   })}
