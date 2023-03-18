@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useApi, MathTradeService } from "api_serv";
 import storage from "utils/storage";
 import PrivateEnv from "environments/private";
@@ -16,6 +16,7 @@ const customizedDialog = async (msg) => {
 
 const MyWants = () => {
   const canEditWants = useCanEdit("wants");
+  const canEditList = useCanEdit("list");
 
   const [mustCommitChanges, set_mustCommitChanges] = useState(false);
   const [firstLoadedWants, set_firstLoadedWants] = useState(false);
@@ -23,6 +24,17 @@ const MyWants = () => {
 
   const [wantList, set_wantList] = useState({ list: [], version: 0 });
   const [myItemList, set_myItemList] = useState({ list: [], version: 0 });
+
+  const changeMustCommitChanges = useCallback(
+    (status) => {
+      if (canEditList) {
+        set_mustCommitChanges(false);
+      } else {
+        set_mustCommitChanges(status);
+      }
+    },
+    [canEditList]
+  );
 
   const [getWants, , loadingWantList, errorsWantList] = useApi({
     promise: MathTradeService.getWants,
@@ -46,7 +58,7 @@ const MyWants = () => {
   const [putWant, , putLoading, putErrors] = useApi({
     promise: MathTradeService.putWant,
     afterLoad: () => {
-      set_mustCommitChanges(true);
+      changeMustCommitChanges(true);
       getWants();
     },
   });
@@ -54,7 +66,7 @@ const MyWants = () => {
   const [putWantBatch, , putBatchLoading, putBatchErrors] = useApi({
     promise: MathTradeService.postWantBatch,
     afterLoad: () => {
-      set_mustCommitChanges(true);
+      changeMustCommitChanges(true);
       getWants();
     },
   });
@@ -62,14 +74,14 @@ const MyWants = () => {
   const [commitChanges, , commitChangesLoading, commitChangesErrors] = useApi({
     promise: MathTradeService.commitChanges,
     afterLoad: (data) => {
-      set_mustCommitChanges(false);
+      changeMustCommitChanges(false);
     },
   });
 
   const [deleteWant, , deleteLoading, deleteErrors] = useApi({
     promise: MathTradeService.deleteWant,
     afterLoad: () => {
-      set_mustCommitChanges(true);
+      changeMustCommitChanges(true);
       getWants();
     },
   });
@@ -78,7 +90,7 @@ const MyWants = () => {
     // initialState: [],
     afterLoad: (data) => {
       if (typeof data.commitment !== "undefined") {
-        set_mustCommitChanges(!data.commitment);
+        changeMustCommitChanges(!data.commitment);
       }
     },
   });
@@ -109,7 +121,7 @@ const MyWants = () => {
         commitChanges={commitChanges}
         commitChangesLoading={commitChangesLoading}
         mustCommitChanges={mustCommitChanges}
-        set_mustCommitChanges={set_mustCommitChanges}
+        set_mustCommitChanges={changeMustCommitChanges}
         firstLoaded={firstLoadedWants && firstLoadedMyItems}
         loading={
           loadingWantList ||
