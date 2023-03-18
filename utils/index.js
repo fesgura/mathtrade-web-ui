@@ -214,7 +214,7 @@ export const processBGGdata = (BGGelement) => {
   // stats
   BGGdata.stats = getStats(BGGelement);
 
-  BGGdata.rank = "";
+  BGGdata.rank = 0;
 
   //rank
   if (BGGelement?.statistics?.ratings?.ranks?.rank) {
@@ -226,7 +226,10 @@ export const processBGGdata = (BGGelement) => {
       return ra.name === "boardgame";
     });
     if (rankFiltered[0]) {
-      BGGdata.rank = rankFiltered[0].value;
+      const newRank = parseInt(rankFiltered[0].value, 10);
+      if (!isNaN(newRank)) {
+        BGGdata.rank = newRank;
+      }
     }
   }
 
