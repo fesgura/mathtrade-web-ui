@@ -79,6 +79,14 @@ const QuadsView = ({
                     );
                   })}
                 </div>
+                <div className="text-center mb-4">
+                  <CommitBtn
+                    commitChanges={commitChanges}
+                    commitChangesLoading={commitChangesLoading}
+                    mustCommitChanges={mustCommitChanges}
+                    canEditWants={canEditWants}
+                  />
+                </div>
               </>
             ) : (
               <div className="text-center">

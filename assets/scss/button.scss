@@ -19,6 +19,22 @@
     }
   }
 
+  &.btn-gray {
+    background-color: $gray;
+    border-color: $gray;
+    color: #fff;
+    &:hover,
+    &:active {
+      background-color: darken($gray, 10);
+      border-color: darken($gray, 10);
+    }
+    &:focus,
+    &:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba($gray, 0.5);
+    }
+  }
+
   &.btn-outline-primary {
     color: $primary;
     border-color: $primary;

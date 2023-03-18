@@ -11,7 +11,11 @@ const CommitBtn = ({
   return (
     <>
       <Button
-        color="danger"
+        color={
+          !mustCommitChanges || commitChangesLoading || !canEditWants
+            ? "gray"
+            : "danger"
+        }
         disabled={!mustCommitChanges || commitChangesLoading || !canEditWants}
         onClick={commitChanges}
       >
@@ -21,9 +25,11 @@ const CommitBtn = ({
         />
         <I18N id="MyWants.btn.Commit" />
       </Button>
-      <p className="muted small italic m-0 pt-2 px-4">
-        <I18N id="MyWants.btn.Commit.help" />
-      </p>
+      {!mustCommitChanges || commitChangesLoading || !canEditWants ? null : (
+        <p className="muted small italic m-0 pt-2 px-4">
+          <I18N id="MyWants.btn.Commit.help" />
+        </p>
+      )}
     </>
   );
 };
