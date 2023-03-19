@@ -1,15 +1,31 @@
+import { useRef } from "react";
 import { Button, Modal, ModalBody } from "reactstrap";
 import I18N from "i18n";
 import { useApi, ElementService, myCollectionService } from "api_serv";
 import { LoadingBox } from "components/loading";
+import { setItemTitle } from "containers/myCollection/utils";
 
 const ModalDeleteItem = ({ objToDelete, onClose, afterAnyChange }) => {
+  const new_item_title = useRef("");
+
+  // EDIT ITEM
+  const [editItem, , loadingEditItem, errorEditItem] = useApi({
+    promise: myCollectionService.editItem,
+    afterLoad: () => {
+      onClose();
+      afterAnyChange();
+    },
+  });
+  // End EDIT ITEM
+
   // DELETE ELEMENT
   const [deleteElement, , loadingDeleteElement, errorDeleteMessage] = useApi({
     promise: ElementService.delete,
     afterLoad: () => {
-      onClose();
-      afterAnyChange();
+      editItem({
+        id: objToDelete.item.id,
+        data: { title: new_item_title.current },
+      });
     },
   });
   // End DELETE ELEMENT
@@ -48,6 +64,12 @@ const ModalDeleteItem = ({ objToDelete, onClose, afterAnyChange }) => {
                 if (objToDelete.item.elements.length === 1) {
                   deleteItem(objToDelete.item.id);
                 } else {
+                  new_item_title.current = setItemTitle(
+                    objToDelete.item,
+                    objToDelete.element,
+                    false,
+                    true
+                  );
                   deleteElement(objToDelete.element.id);
                 }
               }}

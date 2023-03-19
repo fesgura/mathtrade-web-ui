@@ -13,6 +13,7 @@ const endpoints = {
 
   //My collection
   GET_MYCOLLECTION_ITEMS: "api/items/",
+  EDIT_MYCOLLECTION_ITEM: "api/items/$[0]/",
   DELETE_MYCOLLECTION_ITEM: "api/items/$[0]/",
 
   // Element
