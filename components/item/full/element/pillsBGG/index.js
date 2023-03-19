@@ -20,6 +20,15 @@ const PillsBGG = ({ element }) => {
 
   return (
     <Row className="g-0">
+      {element?.rank ? (
+        <Col xs="auto">
+          <Pill
+            label="element.BGG.rank"
+            text={<b className="bgg-rank-num">{element?.rank}</b>}
+            question="element.BGG.rank.help"
+          />
+        </Col>
+      ) : null}
       <Col xs="auto">
         <Pill
           label="element.BGG.rating"

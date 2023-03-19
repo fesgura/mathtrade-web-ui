@@ -1,5 +1,11 @@
+import { useRef } from "react";
 import ElementEditorView from "views/myCollection/editor";
-import { useApi, BggService, ElementService } from "api_serv";
+import {
+  useApi,
+  BggService,
+  ElementService,
+  myCollectionService,
+} from "api_serv";
 import { setItemTitle } from "./utils";
 import { useEffect } from "react";
 
@@ -11,6 +17,9 @@ const ElementEditor = ({
   onLoadingEditor,
   setItemToDelete,
 }) => {
+  const old_item_title = useRef("");
+  const new_item_title = useRef("");
+
   // BGG ELEMENT
   const [fetchBGGelement, BGGelement, loadingBGGelement, errorMessage] = useApi(
     {
@@ -28,12 +37,32 @@ const ElementEditor = ({
 
   // End BGG ELEMENT
 
-  // CREATE ELEMENT
-  const [createElement, , loadingCreateElement, errorCreateMessage] = useApi({
-    promise: ElementService.post,
+  // EDIT ITEM
+  const [editItem, , loadingEditItem, errorEditItem] = useApi({
+    promise: myCollectionService.editItem,
     afterLoad: () => {
       onClose();
       afterAnyChange();
+    },
+  });
+  // End EDIT ITEM
+
+  // CREATE ELEMENT
+  const [createElement, , loadingCreateElement, errorCreateMessage] = useApi({
+    promise: ElementService.post,
+    afterLoad: (elem) => {
+      if (
+        old_item_title.current !== "" &&
+        old_item_title.current !== new_item_title.current
+      ) {
+        editItem({
+          id: elem.item_id,
+          data: { title: new_item_title.current },
+        });
+      } else {
+        onClose();
+        afterAnyChange();
+      }
     },
   });
   // End CREATE ELEMENT
@@ -64,7 +93,10 @@ const ElementEditor = ({
         const create = dataToSend.create;
         delete dataToSend.create;
 
-        dataToSend.item_title = setItemTitle(objToEdit.item, data);
+        old_item_title.current = objToEdit?.item?.title || "";
+        new_item_title.current = setItemTitle(objToEdit.item, data, create);
+
+        dataToSend.item_title = new_item_title.current;
         dataToSend.item_id = objToEdit.item ? objToEdit.item.id : null;
 
         if (create) {

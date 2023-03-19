@@ -45,6 +45,7 @@ const GameListView = ({
               { text: getI18Ntext("element.Name"), value: "title" },
               { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
               { text: getI18Ntext("element.Value"), value: "value" },
+              { text: getI18Ntext("element.BGG.rank"), value: "rank" },
               { text: getI18Ntext("element.BGG.rating"), value: "rate" },
               {
                 text: getI18Ntext("element.BGG.weight"),

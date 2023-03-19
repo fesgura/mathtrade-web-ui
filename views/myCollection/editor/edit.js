@@ -67,6 +67,7 @@ const ElementEdit = ({
   const [thumbnail, set_thumbnail] = useState(element.thumbnail);
   const [bgg_id, set_bgg_id] = useState(element.bgg_id);
   const [bgg_version_id, set_bgg_version_id] = useState(element.bgg_version_id);
+  const [rank, set_rank] = useState(0);
 
   const [images, set_images] = useState([]);
   const [imagesCollapseOpen, set_imagesCollapseOpen] = useState(false);
@@ -121,7 +122,7 @@ const ElementEdit = ({
         setVersionList(BGGdata.versionList);
         set_dependency(BGGdata.dependency);
         set_bgg_stats(BGGdata.stats);
-
+        set_rank(BGGdata.rank);
         const isBGGgame = BGGdata.bgg_id !== NOGAMEresult.bgg_id;
 
         if (create && isBGGgame) {
@@ -211,6 +212,7 @@ const ElementEdit = ({
                     <PillsBGG
                       element={{
                         ...element,
+                        rank,
                         ...bgg_stats,
                         dependency: dependency?.value || 0,
                         dependency_votes: dependency?.votes || "",
@@ -223,6 +225,7 @@ const ElementEdit = ({
                     onSubmit={(formData) => {
                       onSaveElement({
                         ...formData,
+                        rank,
                         images: images.join(","),
                         id: element.id,
                         create,

@@ -103,7 +103,9 @@ const EditorWants = ({
             set_want_ids(want_ids_for_game);
             break;
           case "item":
-            set_name(cropWord(objectToWant?.title || "", 128));
+            set_name(
+              cropWord(objectToWant?.title + "_" + objectToWant?.id || "", 120)
+            );
             set_want_ids([objectToWant?.id]);
             break;
           case "tag":

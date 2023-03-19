@@ -125,6 +125,8 @@
   "Combo": "Combo",
   "element.Edit": "Editar",
   "element.BGG.id": "id (BGG)",
+  "element.BGG.rank": "Ranking (BGG)",
+  "element.BGG.rank.help": "Top de la BGG",
   "element.BGG.rating": "Rating (BGG)",
   "element.BGG.weight": "Complejidad",
   "element.BGG.vote": "voto",

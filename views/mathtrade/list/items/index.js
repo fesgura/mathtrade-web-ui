@@ -54,6 +54,7 @@ const ItemListView = ({
               { text: getI18Ntext("element.Date"), value: "id" },
               { text: getI18Ntext("element.Name"), value: "name" },
               { text: getI18Ntext("element.Value"), value: "value" },
+              { text: getI18Ntext("element.BGG.rank"), value: "rank" },
               {
                 text: getI18Ntext("element.Language"),
                 value: "language",

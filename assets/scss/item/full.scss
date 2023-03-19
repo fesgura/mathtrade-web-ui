@@ -11,6 +11,17 @@
     color: $bgg;
   }
 }
+.bgg-rank-num {
+  display: inline-block;
+  padding: 0 4px;
+  line-height: 26px;
+  min-width: 26px;
+  border-radius: 50%;
+  text-align: center;
+  color: #fff;
+  background-color: darken($primary, 10);
+  border: none;
+}
 .bgg-rating-num {
   display: inline-block;
   padding: 0 2px;
