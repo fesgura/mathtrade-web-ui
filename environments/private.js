@@ -21,9 +21,6 @@ const PrivateEnv = ({ children }) => {
   };
 
   const loadSignExtraData = async () => {
-    // temp
-    return gotoSignIn();
-    //temp
     const store = storage.get();
     if (!(store && store.auth && store.user.data)) {
       return gotoSignIn();
