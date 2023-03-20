@@ -16,6 +16,7 @@ const ItemFull = ({
   footer,
   btnRowListItem,
   btnRowListElement,
+  className,
   highClassName,
   groupHeader,
   withDragger,
@@ -60,7 +61,7 @@ const ItemFull = ({
 
   return (
     <div
-      className={classNames("item-full", highClassName, {
+      className={classNames("item-full", highClassName, className, {
         "with-btn-row-v": btnRowListforItem.length,
         "with-btn-row-h":
           btnRowListforItem.length || btnRowListforElement.length,

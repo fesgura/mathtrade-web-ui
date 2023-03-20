@@ -11,7 +11,7 @@ const ItemComment = ({ item, forceOpen }) => {
   const [isOpen, setIsOpen] = useState(forceOpen || false);
 
   useEffect(() => {
-    if (item) setNum(item.comments || 0);
+    if (item) setNum(item?.comments || 0);
   }, [item]);
 
   return (

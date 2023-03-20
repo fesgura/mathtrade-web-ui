@@ -9,7 +9,6 @@ import UserBox from "components/userBox";
 import { cropWord, getLanguageListText } from "utils";
 import I18N from "i18n";
 import StatusBadge from "components/statusBadge";
-import ItemComment from "components/itemComments";
 
 const ItemMinimal = ({
   item,
@@ -126,13 +125,7 @@ const ItemMinimal = ({
             }}
           >
             <div className="item-minimal_previewer">
-              <Previewer>
-                <ItemFull
-                  item={item}
-                  inModal
-                  footer={<ItemComment item={item} />}
-                />
-              </Previewer>
+              <Previewer id={item.id} comments/>               
             </div>
           </Col>
           <Col

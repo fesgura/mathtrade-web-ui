@@ -97,9 +97,7 @@ const Quad = ({
           >
             <Thumbnail src={src} quad isMultiple={type === "tag"} />
             {!isGroup ? (
-              <Previewer colorInverted>
-                <ItemFull item={data} inModal notBan />
-              </Previewer>
+              <Previewer colorInverted id={data?.id}/>
             ) : null}
             {isGroup ? <Icon type="eye" className="quad-want_icon" /> : null}
           </div>

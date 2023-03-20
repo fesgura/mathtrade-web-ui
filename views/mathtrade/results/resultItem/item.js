@@ -26,9 +26,7 @@ const Item = ({ item, className }) => {
       <div className="results-item-quad-cont">
         <div className="results-item-quad-cont-inner">
           <Thumbnail src={src} quad isMultiple={isMultiple} />
-          <Previewer colorInverted>
-            <ItemFull item={item} inModal notBan />
-          </Previewer>
+          <Previewer colorInverted id={item?.id}/>
         </div>
       </div>
       <div className="results-item-quad-title">{item.title}</div>
