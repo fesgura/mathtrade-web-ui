@@ -49,7 +49,7 @@ const Game = ({
     <div className={classNames("game-container", { wanted, inModal })}>
       <div className="game">
         <div className="game_thumbnail">
-          <Thumbnail src={game?.thumbnail || ""} />
+          <Thumbnail src={game?.thumbnail || ""} height={260} />
         </div>
         <div className="game_data">
           <div className="game_title">
@@ -73,6 +73,13 @@ const Game = ({
           </div>
           <div className="game_pills">
             <Row className="justify-content-center">
+              <Col xs="auto">
+                <Pill
+                  label="element.BGG.rank"
+                  text={<b className="bgg-rank-num">{game?.rank || "-"}</b>}
+                  question="element.BGG.rank.help"
+                />
+              </Col>
               <Col xs="auto">
                 <Pill
                   label="element.BGG.rating"

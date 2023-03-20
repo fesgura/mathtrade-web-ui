@@ -53,6 +53,7 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
           users,
           games,
         });
+
       } else {
         setBans({
           items: [],
@@ -93,6 +94,9 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
                   </h4>
                   <Row className="justify-content-center">
                     {bans.games.map((elem, k) => {
+                      if(!elem.games[0]){
+                        return null;
+                      }
                       return (
                         <Col key={k} xs="auto">
                           <Game
@@ -124,6 +128,9 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
                     <I18N id="ban.Title.Items" />
                   </h4>
                   {bans.items.map((elem, k) => {
+                    if(!elem.items[0]){
+                      return null;
+                    }
                     return (
                       <div className="banned-list_item" key={k}>
                         <div className="banned-list_item-cont">
@@ -149,6 +156,9 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
                   </h4>
                   <Row className="justify-content-center">
                     {bans.users.map((elem, k) => {
+                      if(!elem.users[0]){
+                        return null;
+                      }
                       return (
                         <Col xs="auto" key={k}>
                           <div className="banned-list_user-cont">

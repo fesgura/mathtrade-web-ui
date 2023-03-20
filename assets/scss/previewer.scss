@@ -50,6 +50,11 @@
 }
 .previewer-container_body {
   padding: 15px;
+  position: relative;
+
+  &.for-loading {
+    min-height: 220px;
+  }
 }
 .previewer-popover {
   .popover {

@@ -43,6 +43,7 @@ const endpoints = {
 
   // MATHTRADE: LIST
   GET_GAMES_LIST: "api/mathtrades/$[0]/games/",
+  GET_GAME: "api/mathtrades/$[0]/games/$[1]/",
   GET_ITEMS_LIST: "api/mathtrades/$[0]/items/",
   GET_ITEM: "api/mathtrades/$[0]/items/$[1]/",
   POST_VALUE_ITEMS: "api/item-values/",
