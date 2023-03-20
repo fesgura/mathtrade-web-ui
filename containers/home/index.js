@@ -7,13 +7,13 @@ const HomeContainer = () => {
   const [mathtradeData, set_mathtradeData] = useState(null);
 
   useEffect(() => {
-    let timer = setInterval(() => {}, 500);
-
-    const storeData = storage.get();
-    if (storeData?.mathtrade) {
-      set_mathtradeData(storeData?.mathtrade);
-      clearInterval(timer);
-    }
+    let timer = setInterval(() => {
+      const storeData = storage.get();
+      if (storeData?.mathtrade) {
+        set_mathtradeData(storeData?.mathtrade);
+        clearInterval(timer);
+      }
+    }, 500);
 
     return () => {
       clearInterval(timer);
