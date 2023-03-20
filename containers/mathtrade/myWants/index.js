@@ -45,6 +45,8 @@ const MyWants = () => {
         version: getUniqueId(),
       });
       set_firstLoadedWants(true);
+      const storeData = storage.get();
+      getUser({ userId: storeData?.user?.data?.id });
     },
   });
   const [getMyItems, , loadingMyItems, errorsMyItems] = useApi({
@@ -97,10 +99,7 @@ const MyWants = () => {
 
   useEffect(() => {
     getMyItems();
-    getWants();
-
-    const storeData = storage.get();
-    getUser({ userId: storeData?.user?.data?.id });
+    getWants();   
   }, []);
 
   useLeavePageConfirmation(

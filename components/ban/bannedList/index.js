@@ -38,7 +38,6 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
   const [listBans, , loading, errors] = useApi({
     promise: MathTradeService.getBans,
     afterLoad: (list) => {
-      console.log(list)
       if (list.length) {
         const items = list.filter((elem) => {
           return elem.type === "I";
@@ -55,11 +54,6 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
           games,
         });
 
-        console.log({
-          items,
-          users,
-          games,
-        })
       } else {
         setBans({
           items: [],
