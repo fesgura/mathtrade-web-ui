@@ -105,6 +105,10 @@ section {
 hr {
   border-color: $border-color;
   opacity: 1;
+
+  &.dark {
+    border-color: darken($border-color, 10);
+  }
 }
 .order-6 {
   order: 6 !important;

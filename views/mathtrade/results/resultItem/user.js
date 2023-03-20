@@ -6,7 +6,7 @@ const User = ({ user, isMyUser, className }) => {
   return (
     <div className={classNames("results-item_user", className)}>
       <div className="results-item_user-cont">
-        <UserAvatar src={user?.avatar} username={user?.username} size="md" />
+        <UserAvatar src={user?.avatar} username={user?.first_name} size="md" />
         <div className="results-item_user-text">
           <div className="results-item_user-title">
             {isMyUser ? (

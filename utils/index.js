@@ -420,7 +420,7 @@ export const capitalize = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
 };
 
-export const usersToOptions = (users) => {
+export const usersToOptions = (users, forTrades) => {
   if (!users || !users.length) {
     return [];
   }
@@ -430,11 +430,21 @@ export const usersToOptions = (users) => {
       return a.last_name > b.last_name ? 1 : -1;
     })
     .map((user) => {
+      let text = `${capitalize(user.first_name)} ${capitalize(
+        user.last_name
+      )} (${user?.location?.name})`;
+      let trades = 0;
+      if (forTrades) {
+        const trades = user?.trades || 0;
+        text += ` - ${trades === 0 ? "Sin" : trades} ${
+          trades === 1 ? "intercambio" : "intercambios"
+        }`;
+      }
+
       return {
         value: user.id,
-        text: `${capitalize(user.first_name)} ${capitalize(user.last_name)} (${
-          user?.location?.name
-        })`,
+        text,
+        trades,
       };
     });
 };

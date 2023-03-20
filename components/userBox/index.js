@@ -11,7 +11,7 @@ const UserBox = ({ item, className, afterAnyChange, notBan }) => {
         <Col xs="auto">
           <UserAvatar
             src={item?.user?.avatar}
-            username={item?.user?.username}
+            username={item?.user?.first_name}
           />
         </Col>
         <Col>

@@ -4,7 +4,7 @@ import storage from "utils/storage";
 const UserAvatar = ({ size = "sm", src = null, username = "", className }) => {
   const [userState, setUserState] = useState({
     uname: username,
-    s: src,
+    s: src || null,
   });
 
   useEffect(() => {
@@ -29,11 +29,11 @@ const UserAvatar = ({ size = "sm", src = null, username = "", className }) => {
 
   return (
     <div className={`avatar ${size} ${className || ""}`}>
-      {userState.s ? (
+      {userState.s && userState.s !== "N/A" ? (
         <div
           className="avatar-bg"
           style={{
-            backgroundImage: `url(${userState.s})`,
+            backgroundImage: `url(${userState.s || ""})`,
           }}
         />
       ) : (

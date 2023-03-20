@@ -1,7 +1,7 @@
 .results-header {
   text-align: center;
   padding-top: 40px;
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
 
 .results-item {
@@ -91,10 +91,20 @@
     bottom: 0;
   }
 }
+.result-choose-user {
+  text-align: center;
+  padding: 70px 0;
+  font-style: italic;
+  font-size: 18px;
+}
 
 .results-input {
-  max-width: 440px;
-  margin: 0 auto;
+  width: 450px;
+}
+.results-input_check {
+  padding-top: 32px;
+  padding-left: 8px;
+  padding-bottom: 4px;
 }
 .results-item_user {
   .results-item_user-cont {
@@ -143,5 +153,54 @@
     text-align: center;
     font-weight: bold;
     font-size: 11px;
+  }
+}
+
+///////////////////
+.result-table {
+  font-size: 12px;
+  width: 100%;
+  text-align: center;
+  border-top: $border;
+  border-top-width: 3px;
+
+  td {
+    padding: 5px;
+    &.td-avatar {
+      width: 28px;
+    }
+    &.td-2 {
+      width: 1%;
+    }
+  }
+
+  .result-table_name {
+    text-align: left;
+  }
+
+  .result-table_tag {
+    font-weight: bold;
+    padding: 0 1.5em;
+    &.result-table_tag-send {
+      color: $result-send-color;
+    }
+    &.result-table_tag-receive {
+      color: $result-receive-color;
+    }
+  }
+
+  .result-table_title {
+    font-weight: bold;
+    text-align: left;
+  }
+
+  tr {
+    border-bottom: $border;
+    &.tr-bottom {
+      border-bottom-width: 3px;
+    }
+    &:hover {
+      background-color: #eee;
+    }
   }
 }

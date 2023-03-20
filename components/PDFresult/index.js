@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Page, Text, View, Document, StyleSheet } from "@react-pdf/renderer";
-import { processList, dataToTag } from "./utils";
+import { processList } from "./utils";
 
 const cuadro_w = 120;
 
@@ -51,6 +51,10 @@ const styles = StyleSheet.create({
     border: "1px solid #000",
     margin: "10px auto",
   },
+  viaOther: {
+    border: "2px dashed #000",
+    borderRadius: 0.5 * cuadro_w,
+  },
   mesa: {
     textAlign: "center",
     fontSize: 70 * scale,
@@ -76,8 +80,7 @@ const PDFresults = ({ list }) => {
             {pag.rows.map((row, kr) => {
               return (
                 <View style={styles.row} key={kr} wrap>
-                  {row.quads.map((quad, kq) => {
-                    const tag = dataToTag(quad);
+                  {row.quads.map((tag, kq) => {
                     return (
                       <View style={styles.quad} key={kq} wrap>
                         <Text style={styles.id}>{tag.id}</Text>
@@ -85,8 +88,18 @@ const PDFresults = ({ list }) => {
                         <Text style={styles.fromTo}>De: {tag.from}</Text>
                         {tag.via ? (
                           <Text style={styles.via}>Mandar a CABA</Text>
-                        ) : null}
-                        <View style={styles.cuadro} wrap>
+                        ) : (
+                          <Text style={styles.via}>
+                            Mandar a {tag.altLocation}
+                          </Text>
+                        )}
+                        <View
+                          style={{
+                            ...styles.cuadro,
+                            ...(tag.via ? {} : styles.viaOther),
+                          }}
+                          wrap
+                        >
                           <Text style={styles.mesa}>{tag.mesa}</Text>
                         </View>
                         <Text style={styles.fromTo}>Para: {tag.to}</Text>
