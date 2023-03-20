@@ -14,6 +14,8 @@ const MT_ItemListContainer = () => {
 
   const router = useRouter();
 
+  const [list, setList] = useState(null);
+
   const [filters, setFilters] = useState({
     pathname: "",
     query: {},
@@ -30,9 +32,10 @@ const MT_ItemListContainer = () => {
     initialState: [],
   });
 
-  const [listItems, list, loading, errors] = useApi({
+  const [listItems, , loading, errors] = useApi({
     promise: MathTradeService.listItems,
     startLoading: true,
+    afterLoad: setList,
   });
 
   const [getMyWants, myWantsList, loadingMyWants, errorsMyWants] = useApi({
