@@ -80,7 +80,9 @@ const RegisterView = ({
               </Col>
               <Col lg={6}>
                 <CardBody className="p-5">
-                  {isSuccess ? (
+                  <p>El Mathtrade esta pausado por ahora.</p>
+                  <p>Encontramos muchos problemas con la performance del sitio, y estamos tratando de solucionarlo. Tenenos paciencia!</p>
+                  {/* {isSuccess ? (
                     <div className="fade-in">
                       <div className="text-center mb-4">
                         <h1>
@@ -332,7 +334,7 @@ const RegisterView = ({
                         </Link>
                       </div>
                     </>
-                  )}
+                  )} */}
                 </CardBody>
               </Col>
             </Row>

@@ -37,7 +37,9 @@ const LoginView = ({ loading, errors, onSubmit }) => {
               </Col>
               <Col lg={6}>
                 <CardBody className="p-5">
-                  <div className="text-center mb-4">
+                  <p>El Mathtrade esta pausado por ahora.</p>
+                  <p>Encontramos muchos problemas con la performance del sitio, y estamos tratando de solucionarlo. Tenenos paciencia!</p>
+                  {/* <div className="text-center mb-4">
                     <h1>
                       <I18N id="sign.Title" />
                     </h1>
@@ -121,7 +123,7 @@ const LoginView = ({ loading, errors, onSubmit }) => {
                         <I18N id="btn.Register" />
                       </Button>
                     </Link>
-                  </div>
+                  </div> */}
                 </CardBody>
               </Col>
             </Row>
