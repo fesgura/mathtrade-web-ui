@@ -13,15 +13,16 @@ const MT_GameListContainer = () => {
   const canEditWants = useCanEdit("wants");
 
   const router = useRouter();
-
+  const [list, setList] = useState(null);
   const [filters, setFilters] = useState({
     pathname: "",
     query: {},
   });
   const [isFetched, setIsFetched] = useState(false);
 
-  const [listGames, list, loading, errors] = useApi({
+  const [listGames, , loading, errors] = useApi({
     promise: MathTradeService.listGames,
+    afterLoad: setList,
   });
 
   const [getMyWants, myWantsList, loadingMyWants, errorsMyWants] = useApi({

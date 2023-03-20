@@ -8,7 +8,7 @@ import storage from "utils/storage";
 // useSelector
 const MyCollectionContainer = () => {
   const [storeData, set_storeData] = useState(null);
-
+  const [itemList, set_itemList] = useState([]);
   const canEditList = useCanEdit("list");
 
   /* Math Trade */
@@ -24,12 +24,10 @@ const MyCollectionContainer = () => {
 
   /* END Math Trade */
 
-  const [listItems, itemList, loadingItemsList, errorItemsList] = useApi({
+  const [listItems, , loadingItemsList, errorItemsList] = useApi({
     promise: myCollectionService.listItems,
     initialState: [],
-    // afterLoad: () => {
-
-    // },
+    afterLoad: set_itemList,
   });
 
   const afterAnyChange = () => {
@@ -56,7 +54,7 @@ const MyCollectionContainer = () => {
       <MyCollectionView
         canEditList={canEditList}
         IamInMathTrade={storeData?.mathtrade?.IamIn}
-        itemList={loadingItemsList ? [] : itemList}
+        itemList={itemList}
         itemsInMathTradeList={itemsInMathTradeList}
         loading={loadingItemsList || loadingItemsInMathTradeList}
         errors={errorItemsList || errorItemsInMathTradeList}
