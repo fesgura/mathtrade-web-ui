@@ -3,19 +3,17 @@ import Game from "components/game";
 import WantEditor from "components/wantEditor";
 import Valuation from "components/valuation";
 
-const Game_in_list = ({ game, wantList, afterAnyChange, canEditWants }) => {
-  const [wantGroup, set_wantGroup] = useState(null);
+const Game_in_list = ({ game, afterAnyChange, canEditWants }) => {
+  const [wantGroup, setWantGroup] = useState(null);
 
   useEffect(() => {
-    if (wantList.length) {
-      const wantListFiltered = wantList.filter((w) => {
-        return game.bgg_id === w.bgg_id;
-      });
-      if (wantListFiltered[0]) {
-        set_wantGroup(wantListFiltered[0]);
-      }
+    const newWantGroupArray = game.wanted.filter((wg) => {
+      return wg.type === "game";
+    });
+    if (newWantGroupArray[0]) {
+      setWantGroup(newWantGroupArray[0]);
     }
-  }, [game, wantList]);
+  }, [game]);
 
   return (
     <Game
@@ -31,10 +29,9 @@ const Game_in_list = ({ game, wantList, afterAnyChange, canEditWants }) => {
             <WantEditor
               key={k}
               type="game"
-              wantGroup={wantGroup}
+              wantGroupId={wantGroup?.id || null}
               objectToWant={game}
               afterAnyChange={afterAnyChange}
-              wantList={wantList}
               canEditWants={canEditWants}
             />
           );

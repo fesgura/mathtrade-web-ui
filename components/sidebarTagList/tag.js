@@ -105,7 +105,7 @@ const Tag = ({
                     <WantEditor
                       objectToWant={tag}
                       type="tag"
-                      wantGroup={wantGroup}
+                      wantGroupId={tag.wanted}
                       afterAnyChange={afterAnyChange}
                       min
                       canEditWants={canEditWants}

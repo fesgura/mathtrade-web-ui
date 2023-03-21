@@ -3,21 +3,21 @@ import { Button, Modal, ModalBody } from "reactstrap";
 import WantButton from "./wantButton";
 import EditorWants from "./editor";
 import I18N from "i18n";
+import { useApi, MathTradeService } from "api_serv";
 import { getItemInWantList } from "./utils";
 
 const WantEditor = ({
   objectToWant,
   type = "item",
-  wantGroup,
+  wantGroupId,
+  isItemInOtherGroup = false,
   afterAnyChange,
   isOwner,
   min,
-  wantList,
   canEditWants,
 }) => {
   const [modalWantOpen, setModalWantOpen] = useState(false);
   const [modalIsItemInOtherGroup, setModalIsItemInOtherGroup] = useState(false);
-  const [isItemInOtherGroup, setIsItemInOtherGroup] = useState(null);
 
   const toggleModal = () => {
     setModalWantOpen((v) => !v);
@@ -26,20 +26,19 @@ const WantEditor = ({
     setModalIsItemInOtherGroup((v) => !v);
   };
 
-  useEffect(() => {
-    if (!wantGroup && type === "item" && objectToWant && wantList) {
-      const isItemInWantList = getItemInWantList(objectToWant, wantList);
-
-      if (isItemInWantList.inGroup) {
-        setIsItemInOtherGroup(isItemInWantList);
-      }
-    }
-  }, [objectToWant, wantGroup, type, wantList]);
+  const [getWantGroup, wantGroup, loading] = useApi({
+    promise: MathTradeService.getWant,
+    afterLoad: () => {
+      setModalIsItemInOtherGroup(false);
+      setModalWantOpen(true);
+    },
+  });
 
   return (
     <>
       <WantButton
-        wantGroup={wantGroup}
+        loading={loading}
+        wantGroupId={wantGroupId}
         objectToWant={objectToWant}
         afterAnyChange={afterAnyChange}
         type={type}
@@ -48,10 +47,14 @@ const WantEditor = ({
         canEditWants={canEditWants}
         isItemInOtherGroup={isItemInOtherGroup}
         onClick={() => {
-          if (isItemInOtherGroup && isItemInOtherGroup.inGroup) {
+          if (isItemInOtherGroup) {
             setModalIsItemInOtherGroup(true);
           } else {
-            setModalWantOpen(true);
+            if (wantGroupId) {
+              getWantGroup({ id: wantGroupId });
+            } else {
+              setModalWantOpen(true);
+            }
           }
         }}
       />
@@ -66,10 +69,7 @@ const WantEditor = ({
           <ModalBody>
             <div className="text-center  pt-2">
               <p className="mb-4">
-                <I18N
-                  id={`wantEditor.IsItemInOther.${isItemInOtherGroup.inGroup.type}`}
-                  values={[isItemInOtherGroup.inGroup.name]}
-                />
+                <I18N id="wantEditor.IsItemInOther" />
               </p>
             </div>
             <div className="text-center  pb-3">
@@ -88,8 +88,12 @@ const WantEditor = ({
                 color="primary"
                 size="sm"
                 onClick={() => {
-                  setModalIsItemInOtherGroup(false);
-                  setModalWantOpen(true);
+                  if (wantGroupId) {
+                    getWantGroup({ id: wantGroupId });
+                  } else {
+                    setModalIsItemInOtherGroup(false);
+                    setModalWantOpen(true);
+                  }
                 }}
               >
                 <I18N id="wantEditor.IsItemInOther.btn.Yes" />
