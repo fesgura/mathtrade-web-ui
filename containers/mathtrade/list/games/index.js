@@ -4,7 +4,7 @@ import storage from "utils/storage";
 import { useRouter } from "next/router";
 import { useApi, MathTradeService } from "api_serv";
 import useCanEdit from "hooks/useCanEdit";
-import { getUniqueId, formatUserWantGroup } from "utils";
+import { getUniqueId } from "utils";
 import GameListView from "views/mathtrade/list/games";
 import { page_size } from "config";
 
@@ -23,14 +23,6 @@ const MT_GameListContainer = () => {
   const [listGames, , loading, errors] = useApi({
     promise: MathTradeService.listGames,
     afterLoad: setList,
-  });
-
-  const [getMyWants, myWantsList, loadingMyWants, errorsMyWants] = useApi({
-    promise: MathTradeService.getWants,
-    initialState: [],
-    format: (mw) => {
-      return mw.map(formatUserWantGroup);
-    },
   });
 
   useEffect(() => {
@@ -83,17 +75,12 @@ const MT_GameListContainer = () => {
     }
   }, [filters]);
 
-  useEffect(() => {
-    getMyWants();
-  }, []);
-
   return (
     <PrivateEnv>
       <GameListView
         canEditList={canEditList}
         canEditWants={canEditWants}
         list={list}
-        wantList={myWantsList}
         filters={filters}
         setFilters={(filterInput) => {
           const newFilters = {
@@ -115,12 +102,9 @@ const MT_GameListContainer = () => {
             query: newFilters.query,
           });
         }}
-        loading={loading || loadingMyWants}
-        errors={errors || errorsMyWants}
-        afterAnyChange={(alsoLoadWants) => {
-          if (alsoLoadWants) {
-            getMyWants();
-          }
+        loading={loading}
+        errors={errors}
+        afterAnyChange={() => {
           setFilters((fil) => {
             return {
               ...fil,

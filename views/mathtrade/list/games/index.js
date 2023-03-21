@@ -16,7 +16,6 @@ const GameListView = ({
   canEditList,
   canEditWants,
   list,
-  wantList,
   filters,
   setFilters,
   loading,
@@ -101,7 +100,6 @@ const GameListView = ({
                 return (
                   <Game
                     game={game}
-                    wantList={wantList}
                     key={k}
                     afterAnyChange={afterAnyChange}
                     canEditWants={canEditWants}

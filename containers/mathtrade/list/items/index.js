@@ -4,7 +4,7 @@ import storage from "utils/storage";
 import { useRouter } from "next/router";
 import { useApi, MathTradeService, LocationService } from "api_serv";
 import useCanEdit from "hooks/useCanEdit";
-import { getUniqueId, formatUserWantGroup } from "utils";
+import { getUniqueId } from "utils";
 import { page_size } from "config";
 import ItemListView from "views/mathtrade/list/items";
 
@@ -38,14 +38,6 @@ const MT_ItemListContainer = () => {
     afterLoad: setList,
   });
 
-  const [getMyWants, myWantsList, loadingMyWants, errorsMyWants] = useApi({
-    promise: MathTradeService.getWants,
-    initialState: [],
-    format: (mw) => {
-      return mw.map(formatUserWantGroup);
-    },
-  });
-
   // TAGS
   const [getTags, tagList, loadingTags, errorsTags] = useApi({
     promise: MathTradeService.getTags,
@@ -60,7 +52,6 @@ const MT_ItemListContainer = () => {
   const [putTag, , loadingPutTag, errorsPutTag] = useApi({
     promise: MathTradeService.putTag,
     afterLoad: () => {
-      getMyWants();
       getTags();
       listItems({
         query: filters.query,
@@ -124,7 +115,6 @@ const MT_ItemListContainer = () => {
   useEffect(() => {
     getUsers();
     fetchLocations();
-    getMyWants();
     getTags();
   }, []);
 
@@ -134,7 +124,6 @@ const MT_ItemListContainer = () => {
         canEditList={canEditList}
         canEditWants={canEditWants}
         list={list}
-        wantList={myWantsList}
         tagList={tagList}
         filters={filters}
         locations={dataLocations}
@@ -161,13 +150,12 @@ const MT_ItemListContainer = () => {
         }}
         loading={
           loading ||
-          loadingMyWants ||
           loadingLocations ||
           loadingTags ||
           loadingPutTag ||
           loadingUsers
         }
-        errors={errors || errorsMyWants || errorsTags || errorsPutTag}
+        errors={errors || errorsTags || errorsPutTag}
         dragToGroup={(tag, item) => {
           const newTag = { ...tag };
           delete newTag.id;
@@ -179,7 +167,6 @@ const MT_ItemListContainer = () => {
           });
         }}
         afterAnyChange={() => {
-          getMyWants();
           getTags();
           listItems({
             query: filters.query,

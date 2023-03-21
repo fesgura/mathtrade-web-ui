@@ -11,34 +11,26 @@ const MT_ItemListViewItem = ({
   canEditWants,
   item,
   afterAnyChange,
-  wantList,
   tagList,
   dragToGroup,
   withDragger,
 }) => {
-  const [wantGroup, set_wantGroup] = useState(null);
   const [isOwner, setIsOwner] = useState(false);
 
-  useEffect(() => {
-    if (item && wantList.length) {
-      const wantListFiltered = wantList.filter((w) => {
-        const { bgg_id, want_ids, tags } = w;
-        if (bgg_id && bgg_id.length) {
-          return false;
-        }
-        return (
-          want_ids.length === 1 && want_ids[0] === item.id && tags.length === 0
-        );
-      });
-      if (wantListFiltered[0]) {
-        set_wantGroup(wantListFiltered[0]);
-      }
-    }
-  }, [item, wantList]);
+  const [wantGroup, setWantGroup] = useState(null);
 
   useEffect(() => {
     const user = storage.getFromStore("user");
     setIsOwner(user?.id === item?.user?.id);
+  }, [item]);
+
+  useEffect(() => {
+    const newWantGroupArray = item.wanted.filter((wg) => {
+      return wg.type === "item";
+    });
+    if (newWantGroupArray[0]) {
+      setWantGroup(newWantGroupArray[0]);
+    }
   }, [item]);
 
   const itemComp = (
@@ -65,10 +57,10 @@ const MT_ItemListViewItem = ({
             <WantEditor
               key={k}
               type="item"
-              wantGroup={wantGroup}
+              wantGroupId={wantGroup?.id || null}
+              isItemInOtherGroup={item.wanted.length > 1 && !wantGroup?.id}
               objectToWant={item}
               afterAnyChange={afterAnyChange}
-              wantList={wantList}
               isOwner={isOwner}
               canEditWants={canEditWants}
             />

@@ -295,23 +295,6 @@ export const cropWord = (str, lng, suffix) => {
   return str.substring(0, lng) + sf;
 };
 
-export const formatUserWantGroup = (uwg) => {
-  const { id, bgg_id, dup_protection, tags, name, wants, items } = uwg;
-
-  const want_ids = [];
-  const item_ids = [];
-
-  wants.forEach((d) => {
-    want_ids.push(d.id);
-  });
-
-  items.forEach((itm) => {
-    item_ids.push(itm.id);
-  });
-
-  return { id, bgg_id, name, want_ids, item_ids, tags, dup_protection };
-};
-
 export const wantsFromAPItoWantList = (wantListFromAPI) => {
   const list = wantListFromAPI.map((w) => {
     const { id, bgg_id, dup_protection, items, wants, availables, name } = w;

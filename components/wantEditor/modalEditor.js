@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Modal, ModalBody } from "reactstrap";
-import { formatUserWantGroup } from "utils";
 import EditorWants from "./editor";
 import useCanEdit from "hooks/useCanEdit";
 import { useApi, MathTradeService } from "api_serv";
@@ -10,7 +9,6 @@ import ErrorAlert from "components/errorAlert";
 const ModalEditor = ({ isOpen, onClose, wantGroup, type, afterAnyChange }) => {
   const canEditWants = useCanEdit("wants");
   const [objectToWant, setObjectToWant] = useState(null);
-  const [wantGroupFormmated, setWantGroupFormmated] = useState(null);
 
   const [getGameById, , loadingGame, errorsGame] = useApi({
     promise: MathTradeService.getGameById,
@@ -23,11 +21,6 @@ const ModalEditor = ({ isOpen, onClose, wantGroup, type, afterAnyChange }) => {
 
   useEffect(() => {
     if (isOpen) {
-      const newWantGroupFormmated = [{ ...wantGroup }].map(
-        formatUserWantGroup
-      )[0];
-      setWantGroupFormmated(newWantGroupFormmated);
-
       switch (type) {
         case "item":
           getItemById({ id: wantGroup.wants[0].id });
@@ -39,7 +32,7 @@ const ModalEditor = ({ isOpen, onClose, wantGroup, type, afterAnyChange }) => {
           setObjectToWant({
             id: wantGroup.tags[0],
             name: wantGroup.name,
-            items: newWantGroupFormmated.item_ids,
+            items: wantGroup.items,
           });
           break;
         default:
@@ -51,7 +44,7 @@ const ModalEditor = ({ isOpen, onClose, wantGroup, type, afterAnyChange }) => {
     }
   }, [isOpen, type, wantGroup]);
 
-  return isOpen && wantGroupFormmated ? (
+  return isOpen && wantGroup ? (
     <Modal isOpen={true} toggle={onClose} centered size="lg">
       <div className="text-center pt-4 pb-3 border-bottom">
         <h3 className="m-0">{wantGroup.name}</h3>
@@ -64,7 +57,7 @@ const ModalEditor = ({ isOpen, onClose, wantGroup, type, afterAnyChange }) => {
             <EditorWants
               objectToWant={objectToWant}
               type={type}
-              wantGroup={wantGroupFormmated}
+              wantGroup={wantGroup}
               afterAnyChange={afterAnyChange}
               toggleModal={onClose}
               canEditWants={canEditWants}

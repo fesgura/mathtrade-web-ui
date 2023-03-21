@@ -77,8 +77,14 @@ const EditorWants = ({
       set_id(wantGroup?.id);
       set_name(wantGroup?.name || "");
       set_bgg_id(wantGroup?.bgg_id || null);
-      set_want_ids(wantGroup?.want_ids || []);
-      set_item_ids(wantGroup?.item_ids || []);
+      const newWantsIds = wantGroup.wants.map((itm) => {
+        return itm.id;
+      });
+      set_want_ids(newWantsIds);
+      const newItemsIds = wantGroup.items.map((itm) => {
+        return itm.id;
+      });
+      set_item_ids(newItemsIds);
       set_tags(wantGroup?.tags?.length ? wantGroup.tags : []);
       set_dup_protection(
         typeof wantGroup.dup_protection !== "undefined"

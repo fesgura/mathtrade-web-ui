@@ -20,7 +20,6 @@ const ItemListView = ({
   list,
   locations,
   users,
-  wantList,
   tagList,
   filters,
   setFilters,
@@ -103,7 +102,7 @@ const ItemListView = ({
                   content: (
                     <SidebarTagList
                       tagList={tagList}
-                      wantList={wantList}
+                      wantList={[]}
                       afterAnyChange={afterAnyChange}
                       filters={filters}
                       setFilters={setFilters}
@@ -142,7 +141,6 @@ const ItemListView = ({
                 return (
                   <ItemView
                     item={item}
-                    wantList={wantList}
                     key={k}
                     afterAnyChange={afterAnyChange}
                     tagList={tagList}
