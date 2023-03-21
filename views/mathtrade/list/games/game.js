@@ -12,6 +12,8 @@ const Game_in_list = ({ game, afterAnyChange, canEditWants }) => {
     });
     if (newWantGroupArray[0]) {
       setWantGroup(newWantGroupArray[0]);
+    } else {
+      setWantGroup(null);
     }
   }, [game]);
 

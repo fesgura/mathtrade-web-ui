@@ -30,6 +30,8 @@ const MT_ItemListViewItem = ({
     });
     if (newWantGroupArray[0]) {
       setWantGroup(newWantGroupArray[0]);
+    } else {
+      setWantGroup(null);
     }
   }, [item]);
 

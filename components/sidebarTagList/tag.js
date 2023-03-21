@@ -29,6 +29,8 @@ const Tag = ({
       });
       if (wantGroupArr[0]) {
         setWantGroup(wantGroupArr[0]);
+      } else {
+        setWantGroup(null);
       }
     }
   }, [tag, wantList]);
