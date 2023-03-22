@@ -191,7 +191,8 @@ const Grid = ({
                         set_myItemList_orderBy={(order, desc) => {
                           const direction = desc ? -1 : 1;
                           set_myItemListGrid((obj) => {
-                            return order_list(obj, order, direction);
+                            const newObj = { ...obj };
+                            return order_list(newObj, order, direction);
                           });
                           set_myItemList_orderBy({
                             order,
@@ -201,7 +202,8 @@ const Grid = ({
                         set_wantList_orderBy={(order, desc) => {
                           const direction = desc ? -1 : 1;
                           set_wantListGrid((obj) => {
-                            return order_list(obj, order, direction);
+                            const newObj = { ...obj };
+                            return order_list(newObj, order, direction);
                           });
                           set_wantList_orderBy({ order, direction });
                         }}
