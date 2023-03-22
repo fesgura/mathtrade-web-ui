@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
-import CheckGroup from "./group";
-
 const h_elem = 42;
 const w_elem = 42;
 

@@ -19,11 +19,6 @@ const Header = ({ sidebarOpen, sidebarAnimationEnabled }) => {
       <div className="main-container">
         <div className="main-header-container">
           <Alert className="alert-form-header" color="info">
-            <u>
-              <b>MODO DE PRUEBA:</b>
-            </u>{" "}
-            Cualquier bug que encuentres <b>y que pueda reproducirse</b>, por
-            favor escribinos en este formulario:{" "}
             <a href="https://forms.gle/SypJB9TJ2VkBJJv9A" target="_blank">
               https://forms.gle/SypJB9TJ2VkBJJv9A
             </a>
