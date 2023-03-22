@@ -9,6 +9,7 @@ import "moment/locale/es";
 import WantView from "../wantView";
 import CommentView from "../commentView";
 import "moment/locale/es";
+import LinkInternal from "components/link-internal";
 
 const Notification = ({
   dataNotification,
@@ -31,6 +32,80 @@ const Notification = ({
       }
     },
   });
+
+  let content = null;
+
+  switch (data?.type) {
+    case "ADM":
+      content = data?.message;
+      break;
+    case "MTC":
+      content = (
+        <>
+          <I18N id={`notifications.message.MTC.${data?.message}`} />
+          <div>
+            {data?.message === "geek-list" ? (
+              <LinkInternal path="myCollection" withIcon>
+                <I18N id="link.GoToMyCollection" />
+              </LinkInternal>
+            ) : null}
+            {data?.message === "want-list" ? (
+              <LinkInternal path={"list"} mathtrade withIcon>
+                <I18N id="link.GoToList" />
+              </LinkInternal>
+            ) : null}
+            {data?.message === "pre-final" || data?.message === "final" ? (
+              <LinkInternal path={"results"} mathtrade withIcon>
+                <I18N id="link.GoToResults" />
+              </LinkInternal>
+            ) : null}
+          </div>
+        </>
+      );
+      break;
+
+    case "COMC":
+    case "COME":
+    case "COMD":
+      content = (
+        <>
+          <I18N
+            id={`notifications.message.${data?.type}`}
+            values={[data?.message]}
+          />
+
+          {data.item_id ? (
+            <CommentView
+              itemId={data.item_id}
+              setDisabledDropdown={setDisabledDropdown}
+            />
+          ) : null}
+        </>
+      );
+      break;
+
+    case "WGC":
+    case "WGR":
+      content = (
+        <>
+          <I18N
+            id={`notifications.message.${data?.type}`}
+            values={[data?.message]}
+          />
+
+          {data.uwg_id ? (
+            <WantView
+              wantGroupId={data.uwg_id}
+              setDisabledDropdown={setDisabledDropdown}
+            />
+          ) : null}
+        </>
+      );
+      break;
+
+    default:
+    //
+  }
 
   return data ? (
     <div
@@ -71,29 +146,7 @@ const Notification = ({
           </UncontrolledTooltip>
         </Col>
         <Col>
-          <div className="notification-ob_message">
-            {data?.type === "ADM" || data?.type === "MTC" ? (
-              data?.message
-            ) : (
-              <I18N
-                id={`notifications.message.${data?.type}`}
-                values={[data?.message]}
-              />
-            )}
-            {data.uwg_id ? (
-              data.type.indexOf("COM") >= 0 ? (
-                <CommentView
-                  itemId={data.uwg_id}
-                  setDisabledDropdown={setDisabledDropdown}
-                />
-              ) : (
-                <WantView
-                  wantGroupId={data.uwg_id}
-                  setDisabledDropdown={setDisabledDropdown}
-                />
-              )
-            ) : null}
-          </div>
+          <div className="notification-ob_message">{content}</div>
         </Col>
       </Row>
     </div>
