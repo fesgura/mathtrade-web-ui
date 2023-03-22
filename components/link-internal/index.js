@@ -13,12 +13,14 @@ const LinkInternal = ({
     ? privateRoutes.mathtrade[path].path || ""
     : privateRoutes[path].path || "";
 
+  const icon = mathtrade
+    ? privateRoutes.mathtrade[path].icon || ""
+    : privateRoutes[path].icon || "";
+
   return (
     <Link href={`/${href}`}>
       <a className={className}>
-        {withIcon && privateRoutes[path].icon ? (
-          <Icon type={privateRoutes[path].icon} className="me-2" />
-        ) : null}
+        {withIcon && icon ? <Icon type={icon} className="me-2" /> : null}
         {children}
       </a>
     </Link>
