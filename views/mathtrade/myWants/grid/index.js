@@ -19,12 +19,11 @@ const w_elem = 42;
 const default_orderBy = "value";
 const default_ob_direction = -1;
 
-const def_grid_height = 520;
-const def_grid_width = 680;
-const scrollDiff = 110;
+const scrollH = 340;
+const scrollW = 340;
 
-const scrollH = def_grid_height - scrollDiff;
-const scrollW = def_grid_width - scrollDiff;
+const topFloat_scroll_diff = 101;
+const leftFloat_scroll_diff = 101;
 
 const Grid = ({
   myItemList,
@@ -41,8 +40,15 @@ const Grid = ({
   canEditWants,
 }) => {
   const containerRef = useRef(null);
-  const [topScroll, set_topScroll] = useState(0);
+
+  const [topFloat_scroll, set_topFloat_scroll] = useState(0);
+  const [is_topFloat_fixed, set_is_topFloat_fixed] = useState(false);
+
+  const [leftFloat_scroll, set_leftFloat_scroll] = useState(0);
+  const [is_leftFloat_fixed, set_is_leftFloat_fixed] = useState(false);
+
   const [leftScroll, set_leftScroll] = useState(0);
+
   const [extendAll, setExtendAll] = useState(false);
 
   const [myItemList_orderBy, set_myItemList_orderBy] = useState({
@@ -103,26 +109,43 @@ const Grid = ({
 
   useEffect(() => {
     const getScroll = () => {
-      if (containerRef.current.scrollTop > scrollH) {
-        set_topScroll(containerRef.current.scrollTop - scrollH);
-      } else {
-        set_topScroll(0);
+      const rect = containerRef.current.getBoundingClientRect();
+      const limitY = rect.y + scrollH;
+      const limitX = rect.x + scrollW;
+
+      if (limitY < 0 && !is_topFloat_fixed) {
+        set_is_topFloat_fixed(true);
+        set_topFloat_scroll(rect.x);
       }
-      if (containerRef.current.scrollLeft > scrollW) {
-        set_leftScroll(containerRef.current.scrollLeft - scrollW);
-      } else {
-        set_leftScroll(0);
+
+      if (limitY >= 0 && is_topFloat_fixed) {
+        set_topFloat_scroll(0);
+        set_is_topFloat_fixed(false);
+      }
+      if (is_topFloat_fixed) {
+        set_topFloat_scroll(rect.x);
+      }
+
+      if (limitX < 0 && !is_leftFloat_fixed) {
+        set_is_leftFloat_fixed(true);
+        set_leftFloat_scroll(rect.y + 520);
+      }
+
+      if (limitX >= 0 && is_leftFloat_fixed) {
+        set_leftFloat_scroll(0);
+        set_is_leftFloat_fixed(false);
+      }
+      if (is_leftFloat_fixed) {
+        set_leftFloat_scroll(rect.y + 520);
       }
     };
 
-    containerRef.current.addEventListener("scroll", getScroll);
+    window.addEventListener("scroll", getScroll);
 
     return () => {
-      if (containerRef.current) {
-        containerRef.current.removeEventListener("scroll", getScroll);
-      }
+      window.removeEventListener("scroll", getScroll);
     };
-  }, []);
+  }, [is_topFloat_fixed, is_leftFloat_fixed]);
 
   return (
     <>
@@ -156,8 +179,12 @@ const Grid = ({
               {wantListGrid.list.length && myItemListGrid.list.length ? (
                 <div className="mywants-grid_container-wrap">
                   <div
-                    className="mywants-grid_myItems-float"
-                    style={{ top: `${topScroll}px` }}
+                    className={classNames("mywants-grid_myItems-float", {
+                      fixed: is_topFloat_fixed,
+                    })}
+                    style={{
+                      left: `${is_topFloat_fixed ? topFloat_scroll : 0}px`,
+                    }}
                   >
                     <div className="mywants-grid_myItems-row">
                       <GridSpacer
@@ -191,7 +218,8 @@ const Grid = ({
                         set_myItemList_orderBy={(order, desc) => {
                           const direction = desc ? -1 : 1;
                           set_myItemListGrid((obj) => {
-                            return order_list(obj, order, direction);
+                            const newObj = { ...obj };
+                            return order_list(newObj, order, direction);
                           });
                           set_myItemList_orderBy({
                             order,
@@ -201,7 +229,8 @@ const Grid = ({
                         set_wantList_orderBy={(order, desc) => {
                           const direction = desc ? -1 : 1;
                           set_wantListGrid((obj) => {
-                            return order_list(obj, order, direction);
+                            const newObj = { ...obj };
+                            return order_list(newObj, order, direction);
                           });
                           set_wantList_orderBy({ order, direction });
                         }}
@@ -218,8 +247,12 @@ const Grid = ({
                     </div>
                   </div>
                   <div
-                    className="mywants-grid_float"
-                    style={{ left: `${leftScroll}px` }}
+                    className={classNames("mywants-grid_float", {
+                      fixed: is_leftFloat_fixed,
+                    })}
+                    style={{
+                      top: `${is_leftFloat_fixed ? leftFloat_scroll : 520}px`,
+                    }}
                   >
                     <MyWants
                       wantList={wantListGrid}

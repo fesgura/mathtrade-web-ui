@@ -15,15 +15,26 @@
   z-index: 12;
   top: 0;
   left: 0;
-  transition: top 0.1s;
   background-color: #fff;
+  transition: left 0.05s;
+
+  &.fixed {
+    position: fixed;
+    top: -340px;
+  }
 }
 .mywants-grid_float {
   position: absolute;
   top: $mywants-my-Items-lab-height;
   left: 0;
-  transition: left 0.1s;
+  transition: top 0.05s;
   background-color: #fff;
+
+  &.fixed {
+    position: fixed;
+    z-index: 1;
+    left: -340px;
+  }
 }
 
 .quad-want_card,
