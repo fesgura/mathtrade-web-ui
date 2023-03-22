@@ -13,6 +13,9 @@ import MyWants from "./myWants";
 import GridComp from "./checkGrid";
 import classNames from "classnames";
 
+const h_elem = 42;
+const w_elem = 42;
+
 const default_orderBy = "value";
 const default_ob_direction = -1;
 
@@ -27,7 +30,6 @@ const Grid = ({
   myItemList,
   wantList,
   putWant,
-  putWantBatch,
   deleteWant,
   commitChanges,
   commitChangesLoading,
@@ -63,6 +65,9 @@ const Grid = ({
     version: -1,
   });
 
+  const [gridWidth, setGridWidth] = useState(0);
+  const [gridHeight, setGridHeight] = useState(0);
+
   useEffect(() => {
     if (myItemList.version !== myItemListGrid.version) {
       const newList = create_myItemListGrid(
@@ -71,6 +76,14 @@ const Grid = ({
         wantList
       );
       set_myItemListGrid(newList);
+      //
+
+      let newGridWidth = 0;
+      newList.list.forEach((g) => {
+        newGridWidth +=
+          g.type === "group" ? w_elem + w_elem * g.items.length : w_elem;
+      });
+      setGridWidth(newGridWidth);
     }
   }, [myItemList, myItemListGrid, wantList]);
 
@@ -78,6 +91,13 @@ const Grid = ({
     if (wantList.version !== wantListGrid.version) {
       const newList = create_wantListGrid(wantList, wantListGrid);
       set_wantListGrid(newList);
+
+      let newGridHeight = 0;
+      newList.list.forEach((g) => {
+        newGridHeight +=
+          g.type === "item" ? h_elem : h_elem + h_elem * g.items.length;
+      });
+      setGridHeight(newGridHeight);
     }
   }, [wantList, wantListGrid]);
 
@@ -116,11 +136,12 @@ const Grid = ({
           </p>
         </Container>
       </div>
-      <div className="main-container full">
+      <div className="px-2">
         <Card
           className={classNames("mywants-grid_card", {
             "not-commitment": mustCommitChanges,
           })}
+          style={{ minWidth: 720 + gridWidth }}
         >
           {loading ? <div className="mywants-card-dimmer" /> : null}
           <CardBody>
@@ -134,26 +155,6 @@ const Grid = ({
             >
               {wantListGrid.list.length && myItemListGrid.list.length ? (
                 <div className="mywants-grid_container-wrap">
-                  <div className="mywants-grid_myItems-container" />
-                  <div className="mywants-grid_wantListGrid-container">
-                    <div className="mywants-grid_wantListGrid-row">
-                      <div className="mywants-grid_wantListGrid-col-left" />
-                      <div className="mywants-grid_wantListGrid-col-right">
-                        <div className="mywants-grid_check-grid-row">
-                          <GridComp
-                            myItemList={myItemListGrid.list}
-                            wantList={wantListGrid.list}
-                            set_wantListGrid={set_wantListGrid}
-                            putWant={putWant}
-                            putWantBatch={putWantBatch}
-                            canEditWants={canEditWants}
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mywants-grid_wantListGrid-row_padding" />
-                  </div>
-
                   <div
                     className="mywants-grid_myItems-float"
                     style={{ top: `${topScroll}px` }}
@@ -214,10 +215,8 @@ const Grid = ({
                         set_myItemListGrid={set_myItemListGrid}
                         reloadMyItems={reloadMyItems}
                       />
-                      <div className="mywants-grid_myItems-row_padding" />
                     </div>
                   </div>
-
                   <div
                     className="mywants-grid_float"
                     style={{ left: `${leftScroll}px` }}
@@ -228,6 +227,17 @@ const Grid = ({
                       deleteWant={deleteWant}
                       set_wantListGrid={set_wantListGrid}
                       reloadWants={reloadWants}
+                      canEditWants={canEditWants}
+                    />
+                  </div>
+                  <div className="mywants-grid_wantListGrid">
+                    <GridComp
+                      myItemList={myItemListGrid}
+                      wantList={wantListGrid}
+                      gridWidth={gridWidth}
+                      gridHeight={gridHeight}
+                      set_wantListGrid={set_wantListGrid}
+                      putWant={putWant}
                       canEditWants={canEditWants}
                     />
                   </div>

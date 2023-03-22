@@ -55,23 +55,8 @@ const BtnDuplicates = ({ group, set_wantListGrid, putWant, canEditWants }) => {
                       group.obj.dup_protection ? "yes" : "no"
                     }`}
                     onChange={() => {
-                      const new_dup_protection = !group.obj.dup_protection;
-                      set_wantListGrid((obj) => {
-                        const newList = [...obj.list];
-                        newList.forEach((g) => {
-                          if (g.idkey === group.idkey) {
-                            g.obj.dup_protection = new_dup_protection;
-                          }
-                        });
-                        return { ...obj, list: newList };
-                      });
-                      putWant({
-                        id: group.id,
-                        data: {
-                          ...group.obj,
-                          dup_protection: new_dup_protection,
-                        },
-                      });
+                      group.obj.dup_protection = !group.obj.dup_protection;
+                      putWant(group);
                     }}
                   />
                 </Col>

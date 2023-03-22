@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useApi, MathTradeService } from "api_serv";
 import storage from "utils/storage";
 import PrivateEnv from "environments/private";
@@ -15,6 +15,8 @@ const customizedDialog = async (msg) => {
 };
 
 const MyWants = () => {
+  const changes = useRef([]);
+
   const canEditWants = useCanEdit("wants");
   const canEditList = useCanEdit("list");
 
@@ -57,36 +59,68 @@ const MyWants = () => {
       set_firstLoadedMyItems(true);
     },
   });
-  const [putWant, , putLoading, putErrors] = useApi({
-    promise: MathTradeService.putWant,
-    afterLoad: () => {
+
+  const addChange = useCallback(
+    (newChange) => {
+      const currentChanges = [...changes.current];
+
+      const newChanges = [];
+
+      let isInCurrentChanges = false;
+
+      currentChanges.forEach((change) => {
+        if (change.id === newChange.id) {
+          newChanges.push({
+            ...change,
+            ...newChange,
+          });
+          isInCurrentChanges = true;
+        } else {
+          newChanges.push(change);
+        }
+      });
+      if (!isInCurrentChanges) {
+        newChanges.push(newChange);
+      }
+
+      changes.current = newChanges;
+
       changeMustCommitChanges(true);
-      getWants();
     },
-  });
+    [changes]
+  );
+
+  const putWant = useCallback(
+    (newChange) => {
+      addChange(newChange);
+    },
+    [changes]
+  );
+  const deleteWant = useCallback(
+    (newChange) => {
+      newChange.obj.delete = true;
+
+      addChange(newChange);
+    },
+    [changes]
+  );
+
+  const [commitChangesToApi, , commitChangesLoading, commitChangesErrors] =
+    useApi({
+      promise: MathTradeService.commitChanges,
+      afterLoad: () => {
+        changeMustCommitChanges(false);
+        getWants();
+      },
+    });
 
   const [putWantBatch, , putBatchLoading, putBatchErrors] = useApi({
     promise: MathTradeService.postWantBatch,
     afterLoad: () => {
-      changeMustCommitChanges(true);
-      getWants();
+      commitChangesToApi();
     },
   });
 
-  const [commitChanges, , commitChangesLoading, commitChangesErrors] = useApi({
-    promise: MathTradeService.commitChanges,
-    afterLoad: (data) => {
-      changeMustCommitChanges(false);
-    },
-  });
-
-  const [deleteWant, , deleteLoading, deleteErrors] = useApi({
-    promise: MathTradeService.deleteWant,
-    afterLoad: () => {
-      changeMustCommitChanges(true);
-      getWants();
-    },
-  });
   const [getUser, , loadingGetUser, errorsGetUser] = useApi({
     promise: MathTradeService.getMathTradeUser,
     // initialState: [],
@@ -99,7 +133,7 @@ const MyWants = () => {
 
   useEffect(() => {
     getMyItems();
-    getWants();   
+    getWants();
   }, []);
 
   useLeavePageConfirmation(
@@ -108,6 +142,19 @@ const MyWants = () => {
     customizedDialog
   );
 
+  const commitChanges = () => {
+    if (changes.current.length) {
+      const want_groups = changes.current.map((ch) => {
+        return ch.obj;
+      });
+      putWantBatch({
+        data: { want_groups },
+      });
+    } else {
+      commitChangesToApi();
+    }
+  };
+
   return (
     <PrivateEnv>
       <MyWantsView
@@ -115,20 +162,20 @@ const MyWants = () => {
         wantList={wantList}
         myItemList={myItemList}
         putWant={putWant}
-        putWantBatch={putWantBatch}
         deleteWant={deleteWant}
         commitChanges={commitChanges}
-        commitChangesLoading={commitChangesLoading}
-        mustCommitChanges={mustCommitChanges}
+        commitChangesLoading={putBatchLoading || commitChangesLoading}
+        mustCommitChanges={
+          mustCommitChanges && !putBatchLoading && !commitChangesLoading
+        }
         set_mustCommitChanges={changeMustCommitChanges}
         firstLoaded={firstLoadedWants && firstLoadedMyItems}
         loading={
           loadingWantList ||
           loadingMyItems ||
           loadingGetUser ||
-          putLoading ||
           putBatchLoading ||
-          deleteLoading
+          commitChangesLoading
         }
         reloadMyItems={() => {
           getMyItems();
@@ -140,10 +187,8 @@ const MyWants = () => {
           errorsWantList ||
           errorsMyItems ||
           errorsGetUser ||
-          putErrors ||
           putBatchErrors ||
-          commitChangesErrors ||
-          deleteErrors
+          commitChangesErrors
         }
       />
     </PrivateEnv>
