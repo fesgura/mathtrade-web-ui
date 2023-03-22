@@ -49,6 +49,20 @@ export const order_list = (listToOrder, orderBy, orderByDirection) => {
   }
 };
 
+/**********
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
 export const create_myItemListGrid = (
   myItemList,
   oldMyItemListGrid,
@@ -138,6 +152,20 @@ export const create_myItemListGrid = (
   return order_list({ list, version: myItemList.version }, "order");
 };
 
+/**********
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ */
+
 export const create_wantListGrid = (wantList, oldWantListGrid) => {
   if (!wantList) {
     return [];
@@ -182,6 +210,7 @@ export const create_wantListGrid = (wantList, oldWantListGrid) => {
       idkey: `${id}-want`,
       version: getUniqueId(),
       obj: {
+        want_id: id,
         bgg_id,
         name: name,
         dup_protection,

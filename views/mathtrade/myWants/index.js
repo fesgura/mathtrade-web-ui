@@ -23,25 +23,32 @@ const MyWantsView = ({
   errors,
   canEditWants,
 }) => {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(1);
 
   let content = null;
   switch (current) {
     case 0:
       content = (
-        <QuadsView
-          myItemList={myItemList}
-          wantList={wantList}
-          putWant={putWant}
-          putWantBatch={putWantBatch}
-          commitChanges={commitChanges}
-          commitChangesLoading={commitChangesLoading}
-          mustCommitChanges={mustCommitChanges}
-          set_mustCommitChanges={set_mustCommitChanges}
-          reloadWants={reloadWants}
-          loading={loading}
-          canEditWants={canEditWants}
-        />
+        <div className="main-container text-center py-5">
+          Estamos trabajando en la optimización de esta vista. pronto podrás
+          volver a ella. Mientras tanto, podés usar la vista de grilla.
+          <br />
+          <br />
+          ¡Gracias por la paciencia y la buena onda! :-)
+        </div>
+        // <QuadsView
+        //   myItemList={myItemList}
+        //   wantList={wantList}
+        //   putWant={putWant}
+        //   putWantBatch={putWantBatch}
+        //   commitChanges={commitChanges}
+        //   commitChangesLoading={commitChangesLoading}
+        //   mustCommitChanges={mustCommitChanges}
+        //   set_mustCommitChanges={set_mustCommitChanges}
+        //   reloadWants={reloadWants}
+        //   loading={loading}
+        //   canEditWants={canEditWants}
+        // />
       );
       break;
     case 1:

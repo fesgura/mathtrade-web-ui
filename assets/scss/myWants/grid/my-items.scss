@@ -1,7 +1,3 @@
-.mywants-grid_myItems-container {
-  height: $mywants-my-Items-lab-height;
-}
-
 .mywants-grid_myItems-row {
   display: flex;
 
@@ -101,10 +97,5 @@
       width: $mywants-grid-h;
       flex: 0 0 $mywants-grid-h;
     }
-  }
-  .mywants-grid_myItems-row_padding {
-    width: 30px;
-    height: 30px;
-    flex: 0 0 30px;
   }
 }

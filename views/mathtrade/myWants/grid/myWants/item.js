@@ -13,12 +13,14 @@ import ItemMinimal from "components/item/minimal";
 import classNames from "classnames";
 import Icon from "components/icon";
 import I18N from "i18n";
+import { getUniqueId } from "utils";
 
 const twoPointsReg = new RegExp(":", "g");
 
 const WantItem = ({
   item,
   group,
+  set_wantListGrid,
   putWant,
   deleteWant,
   reloadWants,
@@ -29,7 +31,7 @@ const WantItem = ({
   const id = useId("mw-g").replace(twoPointsReg, "");
 
   const [isCheckedIndex, setIsCheckedIndex] = useState(-1);
-
+  const [isUpdatedCheck, setIsUpdatedCheck] = useState(-1);
   const [showDeleteButton, setShowDeleteButton] = useState(false);
   const [modalUniqueItemOpen, setModalUniqueItemOpen] = useState(false);
 
@@ -37,36 +39,64 @@ const WantItem = ({
     setModalUniqueItemOpen((v) => !v);
   };
 
-  const removeFromGroup = useCallback(() => {
-    // const newObj = { ...group.obj };
-    //const newWant_ids = [...newObj.want_ids];
-    let haveToChange = true;
-    if (isCheckedIndex >= 0) {
-      if (group.obj.want_ids.length > 1) {
-        group.obj.want_ids.splice(isCheckedIndex, 1);
+  const removeFromGroup = useCallback(
+    (id) => {
+      // const newObj = { ...group.obj };
+      //const newWant_ids = [...newObj.want_ids];
+      let haveToChange = true;
+      if (isCheckedIndex >= 0) {
+        if (group.obj.want_ids.length > 1) {
+          group.obj.want_ids.splice(isCheckedIndex, 1);
+        } else {
+          setModalUniqueItemOpen(true);
+          haveToChange = false;
+        }
       } else {
-        setModalUniqueItemOpen(true);
-        haveToChange = false;
+        group.obj.want_ids.push(item.id);
       }
-    } else {
-      group.obj.want_ids.push(item.id);
-    }
 
-    // newObj.want_ids = newWant_ids;
+      if (id) {
+        const newItems = group.items.filter((itm) => {
+          return itm.id !== id;
+        });
 
-    if (haveToChange && group.obj.want_ids.length) {
-      putWant({
-        id: group.id,
-        data: group.obj,
+        group.items = newItems;
+        putWant(group);
+        set_wantListGrid((obj) => {
+          return { ...obj };
+        });
+      } else {
+        if (haveToChange && group.obj.want_ids.length) {
+          putWant(group);
+          setIsUpdatedCheck(getUniqueId());
+        }
+      }
+    },
+    [isCheckedIndex, group, set_wantListGrid, putWant]
+  );
+
+  const deleteItem = useCallback(
+    (gr) => {
+      deleteWant(gr);
+      set_wantListGrid((obj) => {
+        const newList = obj.list.filter((g) => {
+          if (g.idkey === gr.idkey) {
+            return false;
+          }
+          return true;
+        });
+
+        return { ...obj, list: newList };
       });
-    }
-  }, [isCheckedIndex, group, putWant]);
+    },
+    [set_wantListGrid]
+  );
 
   useEffect(() => {
     if (isInnerOf) {
       setIsCheckedIndex(group.obj.want_ids.indexOf(item.id));
     }
-  }, [isInnerOf, group, item]);
+  }, [isInnerOf, group, isUpdatedCheck, item]);
 
   return (
     <>
@@ -85,7 +115,7 @@ const WantItem = ({
                 <Col xs="auto">
                   <BtnDelete
                     onDelete={() => {
-                      deleteWant({ id: group.id });
+                      deleteItem(group);
                     }}
                   />
                 </Col>
@@ -145,7 +175,7 @@ const WantItem = ({
                               color="danger"
                               onClick={() => {
                                 setShowDeleteButton(false);
-                                removeFromGroup();
+                                removeFromGroup(item.id);
                               }}
                             >
                               <I18N id="btn.Delete" />

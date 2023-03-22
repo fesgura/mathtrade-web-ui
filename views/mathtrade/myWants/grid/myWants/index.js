@@ -31,6 +31,7 @@ const MyWants = ({
               <WantItem
                 key={obj.idkey}
                 item={obj.items[0]}
+                set_wantListGrid={set_wantListGrid}
                 group={obj}
                 deleteWant={deleteWant}
                 isExtended={true}

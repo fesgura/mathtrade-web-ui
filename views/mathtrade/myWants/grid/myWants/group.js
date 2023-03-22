@@ -6,15 +6,34 @@ import BtnDelete from "./btnDelete";
 import Valuation from "components/valuation";
 import BtnDuplicates from "./btnDuplicates";
 import { cropWord } from "utils";
+import { useCallback } from "react";
 
 const WantGroup = ({
   group,
+  addChange,
+  set_wantListGrid,
   putWant,
   deleteWant,
-  set_wantListGrid,
   reloadWants,
   canEditWants,
 }) => {
+  const deleteGroup = useCallback(
+    (gr) => {
+      deleteWant(gr);
+      set_wantListGrid((obj) => {
+        const newList = obj.list.filter((g) => {
+          if (g.idkey === gr.idkey) {
+            return false;
+          }
+          return true;
+        });
+
+        return { ...obj, list: newList };
+      });
+    },
+    [set_wantListGrid, deleteWant]
+  );
+
   return (
     <>
       <div className="want-lab extended">
@@ -30,7 +49,7 @@ const WantGroup = ({
                 {canEditWants ? (
                   <BtnDelete
                     onDelete={() => {
-                      deleteWant({ id: group.id });
+                      deleteGroup(group);
                     }}
                   />
                 ) : null}
@@ -40,6 +59,7 @@ const WantGroup = ({
                   <BtnDuplicates
                     group={group}
                     set_wantListGrid={set_wantListGrid}
+                    addChange={addChange}
                     putWant={putWant}
                     canEditWants={canEditWants}
                   />
@@ -88,7 +108,8 @@ const WantGroup = ({
           <WantItem
             key={itm.id}
             item={itm}
-            group={{ ...group }}
+            group={group}
+            set_wantListGrid={set_wantListGrid}
             putWant={putWant}
             reloadWants={reloadWants}
             isInnerOf={group.type}

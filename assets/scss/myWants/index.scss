@@ -1,9 +1,9 @@
 .mywants-grid_container {
   width: 100%;
-  overflow: auto;
-  height: calc(100vh - 80px);
+
   .mywants-grid_container-wrap {
     position: relative;
+    padding-top: $mywants-my-Items-lab-height;
   }
   &.not-wants-yet {
     height: auto;

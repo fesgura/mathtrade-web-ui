@@ -1,10 +1,11 @@
-.mywants-grid_wantListGrid-row {
-  display: flex;
-  .mywants-grid_wantListGrid-col-left {
-    width: $mywants-grid-left-width;
-    flex: 0 0 $mywants-grid-left-width;
-    height: 25px;
-  }
+.mywants-grid_wantListGrid {
+  //display: flex;
+  padding-left: $mywants-grid-left-width;
+  // .mywants-grid_wantListGrid-col-left {
+  //   width: $mywants-grid-left-width;
+  //   flex: 0 0 $mywants-grid-left-width;
+  //   height: 25px;
+  // }
 }
 .want-lab {
   width: $mywants-my-Wants-lab-width;
@@ -120,10 +121,7 @@
     text-align: center;
   }
 }
-.mywants-grid_wantListGrid-row_padding {
-  height: 30px;
-  width: 30px;
-}
+
 .btn.btn_circle.mywants-grid_btn-menu-group {
   background-color: transparent;
   border-color: transparent;
