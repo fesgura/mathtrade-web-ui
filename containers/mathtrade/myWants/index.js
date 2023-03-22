@@ -42,6 +42,7 @@ const MyWants = () => {
     promise: MathTradeService.getWants,
     // initialState: [],
     afterLoad: (newWantList) => {
+      changes.current = [];
       set_wantList({
         list: filterEmptyWants(newWantList),
         version: getUniqueId(),
