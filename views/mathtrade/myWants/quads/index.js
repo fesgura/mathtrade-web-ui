@@ -75,6 +75,7 @@ const QuadsView = ({
                         putWant={putWant}
                         canEditWants={canEditWants}
                         wantList={wantList}
+                        setMyItemGroups={setMyItemGroups}
                       />
                     );
                   })}

@@ -9,6 +9,7 @@ const twoPointsReg = new RegExp(":", "g");
 
 const MyItemView = ({
   data,
+  setMyItemGroups,
   setModalWantOpen,
   setCurrentWantGroup,
   setCurrentType,
@@ -61,22 +62,32 @@ const MyItemView = ({
                 setCurrentType={setCurrentType}
                 canEditWants={canEditWants}
                 onDelete={() => {
-                  const {
-                    bgg_id,
-                    dup_protection,
-                    id,
-                    items,
-                    name,
-                    tags,
-                    wants,
-                  } = wg;
+                  const { bgg_id, dup_protection, id, items, name, wants } = wg;
                   const newItems = items.filter((itm) => {
                     return itm.id !== data.item.id;
                   });
 
+                  setMyItemGroups((obj) => {
+                    const newObj = [];
+                    obj.forEach((d) => {
+                      if (d.id === data.id) {
+                        newObj.push({
+                          ...d,
+                          wantGroups: d.wantGroups.filter((dwg) => {
+                            return dwg.id !== id;
+                          }),
+                        });
+                      } else {
+                        newObj.push(d);
+                      }
+                    });
+                    return newObj;
+                  });
+
                   putWant({
                     id: id,
-                    data: {
+                    obj: {
+                      want_id: id,
                       bgg_id,
                       name,
                       dup_protection,
@@ -86,7 +97,6 @@ const MyItemView = ({
                       item_ids: newItems.map((item) => {
                         return item.id;
                       }),
-                      tags,
                     },
                   });
                 }}
@@ -123,14 +133,28 @@ const MyItemView = ({
           setCurrentWantGroup={setCurrentWantGroup}
           setCurrentType={setCurrentType}
           onAdd={(wgToAdd) => {
-            const { bgg_id, dup_protection, id, items, name, tags, wants } =
-              wgToAdd;
+            const { bgg_id, dup_protection, id, items, name, wants } = wgToAdd;
             const newItems = [...items];
             newItems.push(data.item);
 
+            setMyItemGroups((obj) => {
+              const newObj = [];
+              obj.forEach((d) => {
+                if (d.id === data.id) {
+                  const newD = { ...d };
+                  newD.wantGroups.push(wgToAdd);
+                  newObj.push(newD);
+                } else {
+                  newObj.push(d);
+                }
+              });
+              return newObj;
+            });
+
             putWant({
               id: id,
-              data: {
+              obj: {
+                want_id: id,
                 bgg_id,
                 name,
                 dup_protection,
@@ -140,7 +164,6 @@ const MyItemView = ({
                 item_ids: newItems.map((item) => {
                   return item.id;
                 }),
-                tags,
               },
             });
           }}
