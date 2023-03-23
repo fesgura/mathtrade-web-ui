@@ -29,6 +29,17 @@ const storage = {
     }
     return null;
   },
+  getOption: (nameOption) => {
+    if (window) {
+      const dataString = window.localStorage.getItem(storageOptionsName);
+      if (dataString) {
+        const options = JSON.parse(dataString);
+
+        return options[nameOption] || null;
+      }
+    }
+    return null;
+  },
   setOptions: (data) => {
     if (window && data) {
       window.localStorage.setItem(storageOptionsName, JSON.stringify(data));

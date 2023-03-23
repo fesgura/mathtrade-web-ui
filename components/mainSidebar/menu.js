@@ -19,15 +19,36 @@ const Menu = ({ menuList, router }) => {
   return (
     <nav className="main-menu">
       {menuList.map((item, k) => {
-        const { path, icon, title, disabled, isHot } = item;
+        const { path, icon, title, disabled, isHot, storeQuery } = item;
         let disabledItem = false;
         let hot = false;
         if (isHot === "results" && canViewResults) {
           hot = true;
         }
 
+        let query = {};
+        let pathComplete = path;
+
+        if (storeQuery) {
+          const storeOptions = storage.getOptions();
+          const listPageType = storeOptions?.listPageType || "gameList";
+          if (listPageType === "gameList") {
+            query = storeOptions?.gameListFilters || {};
+            pathComplete += "/games";
+          } else {
+            query = storeOptions?.itemListFilters || {};
+            pathComplete += "/items";
+          }
+        }
+
         return typeof path !== "undefined" && !disabledItem ? (
-          <Link href={`/${path}`} key={k}>
+          <Link
+            href={{
+              pathname: `/${pathComplete}`,
+              query,
+            }}
+            key={k}
+          >
             <a
               className={classNames("main-menu-item", {
                 active: router.pathname.indexOf(path) > 0,

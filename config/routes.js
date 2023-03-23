@@ -40,6 +40,7 @@ export const privateRoutes = {
     gameList: {
       path: "mathtrade/list/games",
       icon: "list",
+      storeQuery: "gameListFilters",
     },
     itemList: {
       path: "mathtrade/list/items",
@@ -87,6 +88,7 @@ export const menu_yes_mathTrade = [
     title: "menu.List",
     path: privateRoutes.mathtrade.list.path,
     icon: privateRoutes.mathtrade.list.icon,
+    storeQuery: true,
   },
   {
     title: "menu.MyWants",
