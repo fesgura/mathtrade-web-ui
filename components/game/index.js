@@ -6,6 +6,7 @@ import Pill from "components/pillData";
 import { getStatsOfElement } from "utils";
 import I18N, { getI18Ntext } from "i18n";
 import BanButton from "components/ban/banButton";
+import Icon from "components/icon";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -16,6 +17,7 @@ const Game = ({
   noBan,
   btnRowListGame,
   afterAnyChange,
+  onOpenGame = () => {},
 }) => {
   const id = useId("a").replace(twoPointsReg, "");
 
@@ -50,6 +52,9 @@ const Game = ({
       <div className="game">
         <div className="game_thumbnail">
           <Thumbnail src={game?.thumbnail || ""} height={260} />
+          <div className="game_thumbnail-hover" onClick={onOpenGame}>
+            <Icon type="eye" />
+          </div>
         </div>
         <div className="game_data">
           <div className="game_title">

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button, Modal, ModalBody } from "reactstrap";
 import WantButton from "./wantButton";
 import EditorWants from "./editor";
@@ -15,12 +15,15 @@ const WantEditor = ({
   isOwner,
   min,
   canEditWants,
+  forceOpen,
+  setForceOpen,
 }) => {
   const [modalWantOpen, setModalWantOpen] = useState(false);
   const [modalIsItemInOtherGroup, setModalIsItemInOtherGroup] = useState(false);
 
   const toggleModal = () => {
-    setModalWantOpen((v) => !v);
+    if (setForceOpen) setForceOpen(false);
+    setModalWantOpen(false);
   };
   const toggleModalIsItemInOtherGroup = () => {
     setModalIsItemInOtherGroup((v) => !v);
@@ -34,6 +37,24 @@ const WantEditor = ({
     },
   });
 
+  const onOpenModal = useCallback(() => {
+    if (isItemInOtherGroup) {
+      setModalIsItemInOtherGroup(true);
+    } else {
+      if (wantGroupId) {
+        getWantGroup({ id: wantGroupId });
+      } else {
+        setModalWantOpen(true);
+      }
+    }
+  }, [isItemInOtherGroup, wantGroupId]);
+
+  useEffect(() => {
+    if (forceOpen) {
+      onOpenModal();
+    }
+  }, [forceOpen, onOpenModal]);
+
   return (
     <>
       <WantButton
@@ -46,17 +67,7 @@ const WantEditor = ({
         min={min}
         canEditWants={canEditWants}
         isItemInOtherGroup={isItemInOtherGroup}
-        onClick={() => {
-          if (isItemInOtherGroup) {
-            setModalIsItemInOtherGroup(true);
-          } else {
-            if (wantGroupId) {
-              getWantGroup({ id: wantGroupId });
-            } else {
-              setModalWantOpen(true);
-            }
-          }
-        }}
+        onClick={onOpenModal}
       />
 
       {modalIsItemInOtherGroup && isItemInOtherGroup ? (
