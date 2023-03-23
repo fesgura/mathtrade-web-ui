@@ -1,11 +1,6 @@
 import classNames from "classnames";
 import { useId } from "react";
-import {
-  UncontrolledTooltip,
-  UncontrolledButtonDropdown,
-  DropdownToggle,
-  DropdownMenu,
-} from "reactstrap";
+import { UncontrolledTooltip } from "reactstrap";
 import { getI18Ntext } from "i18n";
 
 const twoPointsReg = new RegExp(":", "g");

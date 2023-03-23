@@ -311,6 +311,7 @@
   "wantEditor.IsItemInOther.btn.Yes": "Sí, sé lo que estoy haciendo",
   "wantEditor.btn.OwnItem": "ítem propio",
   "wantEditor.btn.IwantIt": "¡Lo quiero!",
+  "wantEditor.btn.IwantItQuick": "¡Lo quiero YA!",
   "wantEditor.btn.InMyWantList": "En mi lista de deseos",
   "wantEditor.btn.InMyWantList.canEditWants": "Ya no podés quitar este juego o grupo de tus deseos.",
   "wantEditor.title.EditWant": "Editar Mis Deseos",
