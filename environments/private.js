@@ -40,20 +40,23 @@ const PrivateEnv = ({ children }) => {
 
     // Load extra info ********************************
     let isErrors = false;
+    /*
     if (_.isEmpty(store.user.bgg)) {
       // Load BGG USER
       const [errors_bgg_user, response_bgg_user, responseData_bgg_user] =
         await callToAPI(BggService.getUser(store.user.data.bgg_user));
 
-      if (!response_bgg_user.ok) {
-        isErrors = true;
-        setErrors(errors_bgg_user);
-      } else {
-        const dataBGG = xmlParser(responseData_bgg_user);
+      let dataBGG = { user: null };
 
-        storage.setToStorage({ bggUser: dataBGG.user });
+      if (!response_bgg_user.ok) {
+        // isErrors = true;
+        // setErrors(errors_bgg_user);
+      } else {
+        dataBGG = xmlParser(responseData_bgg_user);
       }
+      storage.setToStorage({ bggUser: dataBGG.user });
     }
+    */
     const expireMathtrade = (() => {
       let exp = true;
       if (store.mathtrade && store.mathtrade.expires) {
