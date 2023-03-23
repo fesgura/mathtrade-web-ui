@@ -143,3 +143,50 @@
     }
   }
 }
+
+.btn.btn_quick {
+  $btn_quick-w: 32px;
+
+  position: relative;
+  padding: 0;
+  width: $btn_quick-w - 2px;
+  height: $btn_quick-w - 2px;
+  line-height: $btn_quick-w - 2px;
+  text-align: center;
+  border: 1px solid transparent;
+  background-color: #999;
+  font-size: 16px;
+  color: #fff;
+  border-radius: 50%;
+  margin-left: $btn_circle-ml;
+  display: inline-block;
+  box-shadow: $main-box-shadow;
+  background-color: $mathtrade-want-color;
+
+  svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 70%;
+    path {
+      fill: #fff;
+    }
+  }
+
+  &:hover {
+    background-color: #fff;
+    border-color: $mathtrade-want-color;
+    color: $mathtrade-want-color;
+    svg {
+      rect,
+      path {
+        fill: $mathtrade-want-color;
+      }
+    }
+  }
+
+  &:disabled {
+    opacity: 1;
+  }
+}

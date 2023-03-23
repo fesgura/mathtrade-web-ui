@@ -130,7 +130,7 @@ const EditorWants = ({
 
   const [postWant, , postLoading, postErrors] = useApi({
     promise: MathTradeService.postWant,
-    afterLoad: (wGroup) => {
+    afterLoad: () => {
       toggleModal();
       afterAnyChange(true);
     },

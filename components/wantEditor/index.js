@@ -5,6 +5,7 @@ import EditorWants from "./editor";
 import I18N from "i18n";
 import { useApi, MathTradeService } from "api_serv";
 import { getItemInWantList } from "./utils";
+import WantQuick from "./wantQuick";
 
 const WantEditor = ({
   objectToWant,
@@ -69,6 +70,13 @@ const WantEditor = ({
         isItemInOtherGroup={isItemInOtherGroup}
         onClick={onOpenModal}
       />
+      {!canEditWants || wantGroupId || type === "tag" ? null : (
+        <WantQuick
+          objectToWant={objectToWant}
+          type={type}
+          afterAnyChange={afterAnyChange}
+        />
+      )}
 
       {modalIsItemInOtherGroup && isItemInOtherGroup ? (
         <Modal
