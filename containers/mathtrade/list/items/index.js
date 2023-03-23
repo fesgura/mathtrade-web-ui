@@ -66,11 +66,15 @@ const MT_ItemListContainer = () => {
     let timer = setTimeout(() => {
       if (!isFetched) {
         const { pathname, query } = router;
+
         setIsFetched(true);
 
         const storeOptions = storage.getOptions();
 
-        let queryUser = { ...query, page_size: page_size.items };
+        let queryUser = {
+          ...query,
+          page_size: page_size.items,
+        };
 
         if (storeOptions?.hideOwnUser) {
           const storeData = storage.get();
@@ -113,6 +117,11 @@ const MT_ItemListContainer = () => {
   }, [filters]);
 
   useEffect(() => {
+    //
+    storage.setToOptions({
+      listPageType: "itemList",
+    });
+    //
     getUsers();
     fetchLocations();
     getTags();
@@ -143,8 +152,13 @@ const MT_ItemListContainer = () => {
             }
           }
           setFilters(newFilters);
+
+          storage.setToOptions({
+            itemListFilters: newFilters.query,
+          });
+
           router.push({
-            path: newFilters.path,
+            pathname: newFilters.pathname,
             query: newFilters.query,
           });
         }}

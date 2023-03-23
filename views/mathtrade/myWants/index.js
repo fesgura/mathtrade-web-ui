@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { Alert, Button } from "reactstrap";
 import Grid from "./grid";
 import QuadsView from "./quads";
 import I18N from "i18n";
+import storage from "utils/storage";
 
 const MyWantsView = ({
   wantList,
@@ -23,19 +24,20 @@ const MyWantsView = ({
   errors,
   canEditWants,
 }) => {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(-1);
+
+  useEffect(() => {
+    const MyWantsViewType = storage.getOption("MyWantsViewType");
+
+    const newCurrent = MyWantsViewType || 0;
+
+    setCurrent(newCurrent);
+  }, []);
 
   let content = null;
   switch (current) {
     case 0:
       content = (
-        // <div className="main-container text-center py-5">
-        //   Estamos trabajando en la optimización de esta vista. pronto podrás
-        //   volver a ella. Mientras tanto, podés usar la vista de grilla.
-        //   <br />
-        //   <br />
-        //   ¡Gracias por la paciencia y la buena onda! :-)
-        // </div>
         <QuadsView
           myItemList={myItemList}
           wantList={wantList}
@@ -91,6 +93,9 @@ const MyWantsView = ({
             </h1>
           }
           onChange={(c) => {
+            storage.setToOptions({
+              MyWantsViewType: c,
+            });
             setCurrent(c);
             reloadWants();
           }}

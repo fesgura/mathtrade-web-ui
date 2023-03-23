@@ -75,6 +75,12 @@ const MT_GameListContainer = () => {
     }
   }, [filters]);
 
+  useEffect(() => {
+    storage.setToOptions({
+      listPageType: "gameList",
+    });
+  }, []);
+
   return (
     <PrivateEnv>
       <GameListView
@@ -97,8 +103,13 @@ const MT_GameListContainer = () => {
             }
           }
           setFilters(newFilters);
+
+          storage.setToOptions({
+            gameListFilters: newFilters.query,
+          });
+
           router.push({
-            path: newFilters.path,
+            pathname: newFilters.path,
             query: newFilters.query,
           });
         }}
