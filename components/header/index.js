@@ -18,11 +18,6 @@ const Header = ({ sidebarOpen, sidebarAnimationEnabled }) => {
     >
       <div className="main-container">
         <div className="main-header-container">
-          <Alert className="alert-form-header" color="info">
-            <a href="https://forms.gle/SypJB9TJ2VkBJJv9A" target="_blank">
-              https://forms.gle/SypJB9TJ2VkBJJv9A
-            </a>
-          </Alert>
           <User />
           <Notifications />
         </div>
