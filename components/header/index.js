@@ -1,14 +1,9 @@
-import { useState } from "react";
 import User from "./user";
+import TimelineHeader from "./timeline";
 import Notifications from "./notifications";
 import classNames from "classnames";
-import storage from "utils/storage";
-import { Alert } from "reactstrap";
 
 const Header = ({ sidebarOpen, sidebarAnimationEnabled }) => {
-  const storeData = storage.get();
-  const [menuMobileVisible, set_menuMobileVisible] = useState(false);
-
   return (
     <div
       className={classNames("main-header", {
@@ -19,6 +14,7 @@ const Header = ({ sidebarOpen, sidebarAnimationEnabled }) => {
       <div className="main-container">
         <div className="main-header-container">
           <User />
+          <TimelineHeader />
           <Notifications />
         </div>
       </div>

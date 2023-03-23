@@ -22,6 +22,7 @@
 }
 
 .main-user,
+.main-timeline-btn,
 .main-notifications-btn {
   position: absolute;
   top: $main-control-py;
@@ -37,8 +38,14 @@
 
 .main-user {
   right: 0;
-
   padding: 4px;
+}
+.main-timeline-btn {
+  right: 2 * ($main-control-w + $main-header-control-p);
+  text-align: center;
+  line-height: $main-control-w;
+  background-color: $primary;
+  color: #fff;
 }
 .main-notifications-btn {
   right: $main-control-w + $main-header-control-p;
@@ -62,10 +69,17 @@
     font-weight: bold;
   }
 }
+
 .alert-form-header {
   position: absolute;
   top: 15px;
   right: 140px;
   box-shadow: $main-box-shadow;
   font-size: 12px;
+}
+
+.main-timeline-pad {
+  width: 1050px;
+  padding: 25px;
+  border-radius: $card-border-radius;
 }
