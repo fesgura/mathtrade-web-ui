@@ -438,7 +438,7 @@ export const dateToString = (d) => {
   }
   moment.locale("es");
   const m = moment(d);
-  const a = m.format("DD MMMM h:mm").split(" ");
+  const a = m.format("DD MMMM H:mm").split(" ");
 
   return {
     day: parseInt(a[0], 10),
