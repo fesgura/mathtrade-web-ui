@@ -433,11 +433,13 @@ export const usersToOptions = (users, forTrades) => {
 };
 
 export const dateToString = (d) => {
-  if (!d) {
-    return "";
+  let m;
+  if (d) {
+    m = moment(d);
+  } else {
+    m = moment();
   }
   moment.locale("es");
-  const m = moment(d);
   const a = m.format("DD MMMM H:mm").split(" ");
 
   return {

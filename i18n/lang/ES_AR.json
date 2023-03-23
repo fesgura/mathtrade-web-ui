@@ -483,5 +483,6 @@
   "timeline.want": "Hasta aquí podés agregar los deseos para tus intercambios <b>y comprometerlos</b>",
   "timeline.res": "¡Los resultados del Mathtrade!<br /><i>(qué juegos intercambiás).</i>",
   "timeline.meet": "¡La juntada presencial en AMBA!",
-  "timeline.header": "Los tiempos para este MathTrade"
+  "timeline.header": "Los tiempos para este MathTrade",
+  "timeline.todayIs": "Hoy es $$$"
 }
