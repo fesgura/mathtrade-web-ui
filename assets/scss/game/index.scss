@@ -53,6 +53,34 @@
         rgba($game-bg, 0) 100%
       );
     }
+    .game_thumbnail-hover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      border-radius: ($game-border-radius + 1px) ($game-border-radius + 1px)
+        $game-border-radius $game-border-radius;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s;
+
+      .icon {
+        color: #fff;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        transform: translateY(-50%);
+        font-size: 30px;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
   .game_data {
     color: $game-color;

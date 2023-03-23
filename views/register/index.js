@@ -80,7 +80,7 @@ const RegisterView = ({
               </Col>
               <Col lg={6}>
                 <CardBody className="p-5">
-                   {isSuccess ? (
+                  {isSuccess ? (
                     <div className="fade-in">
                       <div className="text-center mb-4">
                         <h1>
@@ -90,7 +90,7 @@ const RegisterView = ({
                           <I18N id="register.ReadySubtitle" />
                         </p>
                       </div>
-                      <div className="text-center py-4">
+                      <div className="text-center pb-4">
                         <Link href={`/${publicRoutes.signin.path}`}>
                           <Button color="secondary" size="lg">
                             <I18N id="btn.Enter" />
@@ -147,6 +147,22 @@ const RegisterView = ({
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
+                          label="form.Email"
+                          lowercase
+                          name="email"
+                          type="email"
+                          placeholder="form.Email"
+                          size="lg"
+                          icon="envelope"
+                          classNameContainer="mb-1"
+                        />
+                        <p className="smallest muted text-center">
+                          <I18N id="form.Email.help" />
+                        </p>
+                        {/* <Input
+                          validations={validations}
+                          validationStatus={validationStatus}
+                          setValidationStatus={setValidationStatus}
                           label="form.Password"
                           name="password"
                           placeholder="******"
@@ -168,7 +184,7 @@ const RegisterView = ({
                           size="lg"
                           icon="key"
                           onChange={setPassword2Value}
-                        />
+                        /> */}
                         <Input
                           validations={validations}
                           validationStatus={validationStatus}
@@ -183,6 +199,7 @@ const RegisterView = ({
                           size="lg"
                           icon="puzzle-piece"
                           onChange={set_appkeyui}
+                          classNameContainer="mt-4"
                         />
                         <hr />
 
@@ -209,18 +226,6 @@ const RegisterView = ({
                           placeholder="form.LastName"
                           size="lg"
                           icon="user"
-                        />
-                        <Input
-                          validations={validations}
-                          validationStatus={validationStatus}
-                          setValidationStatus={setValidationStatus}
-                          label="form.Email"
-                          lowercase
-                          name="email"
-                          type="email"
-                          placeholder="form.Email"
-                          size="lg"
-                          icon="envelope"
                         />
                         <Input
                           validations={validations}
