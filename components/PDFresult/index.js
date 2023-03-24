@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
   },
   mesa: {
     textAlign: "center",
-    fontSize: 70 * scale,
+    fontSize: 55 * scale,
     fontWeight: "bold",
     marginTop: 10,
   },
