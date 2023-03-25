@@ -52,7 +52,6 @@ const ResultsView = ({
                         name="userId"
                         type="select-hot"
                         icon="user"
-                        after={"A"}
                         placeholder="form.SelectOptInstruction"
                         options={usersToOptions(users, true)}
                         notTranslateOptions

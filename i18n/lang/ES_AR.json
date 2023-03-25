@@ -451,6 +451,8 @@
   "results.label.user": "Elegí un usuario para ver sus intercambios",
   "result.trade": "intercambio",
   "result.trades": "intercambios",
+  "result.lastCommitment": "Última vez que se guardaron cambios: <b>$$$</b>.",
+  "results.lastCommitment.table": "Guardado el <b>$$$</b>.",
   "results.mySelf": "Yo",
   "results.label.send.myself": "Envío",
   "results.label.reseive.myself": "Recibo",

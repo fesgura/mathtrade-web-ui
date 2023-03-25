@@ -27,6 +27,8 @@ const SelectHot = ({
   const [valueInp, setValueInp] = useState("");
   const [optionsInp, setOptionsInp] = useState([]);
 
+  const inputReference = useRef(null);
+
   useEffect(() => {
     if (options && options.length) {
       if (textInp.length) {
@@ -71,6 +73,7 @@ const SelectHot = ({
             setValueInp("");
             setTextInp("");
             onChange("");
+            inputReference.current.focus();
           }}
         >
           <Icon />
@@ -79,6 +82,7 @@ const SelectHot = ({
       afterButton={afterButton}
     >
       <input
+        ref={inputReference}
         value={textInp}
         placeholder={placeholder}
         onChange={(e) => {

@@ -432,7 +432,7 @@ export const usersToOptions = (users, forTrades) => {
     });
 };
 
-export const dateToString = (d) => {
+export const dateToString = (d, toStr) => {
   let m;
   if (d) {
     m = moment(d);
@@ -442,9 +442,15 @@ export const dateToString = (d) => {
   moment.locale("es");
   const a = m.format("DD MMMM H:mm").split(" ");
 
-  return {
+  const o = {
     day: parseInt(a[0], 10),
     month: capitalize(a[1]),
     hour: a[2] + "hs",
   };
+
+  if (toStr) {
+    return `${o.day} ${o.month}, ${o.hour}`;
+  }
+
+  return o;
 };

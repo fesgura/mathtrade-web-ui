@@ -1,16 +1,31 @@
 import UserAvatar from "components/avatar";
-import Thumbnail from "components/thumbnail";
+import I18N from "i18n";
+import { Col, Row } from "reactstrap";
+import { dateToString } from "utils";
 
 const Trade = ({ data }) => {
-  const { user, trade_from, trade_to } = data;
+  const { user, trade_from, trade_to, commitment } = data;
+
   return (
     <>
       <tr>
-        <td rowSpan="2" className="td-avatar">
-          <UserAvatar src={user?.avatar} username={user?.first_name} />
-        </td>
         <td rowSpan="2">
-          <div className="result-table_name">{`${user?.first_name} ${user?.last_name} (${user?.location?.name})`}</div>
+          <Row className="g-0 flex-nowrap">
+            <Col xs="auto">
+              <UserAvatar src={user?.avatar} username={user?.first_name} />
+            </Col>
+            <Col>
+              <div className="result-table_name ps-2">{`${user?.first_name} ${user?.last_name} (${user?.location?.name})`}</div>
+              {commitment ? (
+                <div className="result-table_commitment ps-2">
+                  <I18N
+                    id="results.lastCommitment.table"
+                    values={[dateToString(commitment, true)]}
+                  />
+                </div>
+              ) : null}
+            </Col>
+          </Row>
         </td>
         <td>
           <div className="result-table_tag result-table_tag-send">envía</div>
