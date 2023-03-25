@@ -1,9 +1,23 @@
 import I18N from "i18n";
-import { usersToOptions } from "utils";
-import { Input } from "components/form";
 import ResultItem from "./resultItem";
+import { dateToString } from "utils";
+import { useEffect, useState } from "react";
 
 const MyTrades = ({ currentUser, mathTradeResults, myUserId, userId }) => {
+  const [dateCommitment, setDateCommitment] = useState("");
+
+  useEffect(() => {
+    if (
+      mathTradeResults &&
+      mathTradeResults[0] &&
+      mathTradeResults[0].commitment
+    ) {
+      setDateCommitment(dateToString(mathTradeResults[0].commitment, true));
+    } else {
+      setDateCommitment("");
+    }
+  }, [mathTradeResults]);
+
   return (
     <>
       {currentUser ? (
@@ -16,6 +30,11 @@ const MyTrades = ({ currentUser, mathTradeResults, myUserId, userId }) => {
               }
             />
           </div>
+          {dateCommitment !== "" ? (
+            <p className="small text-center">
+              <I18N id="result.lastCommitment" values={[dateCommitment]} />
+            </p>
+          ) : null}
           {mathTradeResults.map((tradeData, k) => {
             return (
               <ResultItem
