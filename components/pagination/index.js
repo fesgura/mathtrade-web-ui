@@ -1,16 +1,9 @@
 import classNames from "classnames";
 import { useState, useEffect } from "react";
 import { getI18Ntext } from "i18n";
-import { defaultPageSize } from "config";
+import { page_size } from "config";
 
-const Pagination = ({
-  filters,
-  setFilters,
-  elementsTotal,
-  className,
-  onTop,
-  onBottom,
-}) => {
+const Pagination = ({ filters, setFilters, elementsTotal, className }) => {
   const [page, set_page] = useState(0);
   const [pagesTotal, set_pagesTotal] = useState(1);
   const [listPages, set_listPages] = useState([1]);
@@ -22,7 +15,7 @@ const Pagination = ({
       set_page(1);
     }
 
-    let newElementsPerPage = defaultPageSize;
+    let newElementsPerPage = page_size;
     if (filters.query.page_size) {
       newElementsPerPage = parseInt(filters.query.page_size, 10);
     }
@@ -56,7 +49,7 @@ const Pagination = ({
   }, [page, pagesTotal]);
 
   return pagesTotal > 1 ? (
-    <div className={classNames("paginator", className, { onTop, onBottom })}>
+    <div className={classNames("paginator", className)}>
       <div className="paginator-row">
         {page > 1 ? (
           <a

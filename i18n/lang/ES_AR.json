@@ -475,8 +475,8 @@
   "itemComments.title.one": "1 Comentario",
   "itemComments.title.many": "$$$ Comentarios",
   "itemComments.title.add": "Agregar",
-  "itemComments.editor.label.add": "<b>Comentar:</b> (Max. 500 caracteres)",
-  "itemComments.editor.label.edit": "<b>Editar comentario:</b> (Max. 500 caracteres)",
+  "itemComments.editor.label.add": "<b>Comentar:</b> (Max. $$$ caracteres)",
+  "itemComments.editor.label.edit": "<b>Editar comentario:</b> (Max. $$$ caracteres)",
   "itemComments.title.deleteComment": "¿Eliminar comentario?",
   "timeline.start": "¡Arranca el MathTrade!",
   "timeline.geek": "Hasta aquí podés cargar tus juegos al Mathtrade",
@@ -484,5 +484,6 @@
   "timeline.res": "¡Los resultados del Mathtrade!<br /><i>(qué juegos intercambiás).</i>",
   "timeline.meet": "¡La juntada presencial en AMBA!",
   "timeline.header": "Los tiempos para este MathTrade",
-  "timeline.todayIs": "Hoy es $$$"
+  "timeline.todayIs": "Hoy es $$$",
+  "elementsPerPage": "Elementos por página"
 }

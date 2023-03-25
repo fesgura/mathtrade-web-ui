@@ -3,8 +3,6 @@ import { getI18Ntext } from "i18n";
 export const google_recaptcha_v3_client_key =
   "6LeWcz8gAAAAAGgpOiINIJZSwsmKH-eMjtbQbFbF";
 
-export const defaultPageSize = 50;
-
 export const storageName = "MathTradeArgentina";
 export const storageOptionsName = storageName + "Options2";
 export const daysExpireToken = 0.9;
@@ -193,14 +191,33 @@ export const photoUploaderConfig = (() => {
 
 export const claveAppUItemporal = "marvel8647";
 
-export const page_size = {
-  items: 30,
-  games: 30,
-};
+export const page_size = 30;
+
+export const pageSizeOptions = [2, 10, 20, 30, 40, 50];
 
 export const linksToHelp = {
   bgg: "https://boardgamegeek.com/thread/3007435/math-trade-argentina-abril-2023",
   telegram: "https://t.me/+vy8WiP3QbFtjNDhh",
   video: "https://www.youtube.com/watch?v=U5cSBZeiNfc",
   organization: "https://t.me/Luis_Olcese",
+};
+
+export const textSize = {
+  edit: {
+    title: 196,
+    comment: 500,
+    publisher: 155,
+  },
+  account: {
+    username: 50,
+    first_name: 50,
+    last_name: 50,
+    email: 1000,
+    phone: 15,
+    whatsapp: 15,
+    telegram: 32,
+  },
+  comment: {
+    commentSize: 500,
+  },
 };

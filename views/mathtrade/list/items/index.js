@@ -2,7 +2,6 @@ import { useState } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
-import { page_size } from "config";
 import ItemView from "./item";
 import { Alert, Col, Row } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
@@ -14,6 +13,7 @@ import SidebarTabs from "components/sidebarTabs";
 import SidebarTagList from "components/sidebarTagList";
 import I18N, { getI18Ntext } from "i18n";
 import { locationsToOptions } from "utils";
+import ElementPerPage from "components/pagination/elementsPerPage";
 
 const ItemListView = ({
   canEditWants,
@@ -119,14 +119,15 @@ const ItemListView = ({
           <p className="px-4 pb-5 m-0 text-center">
             <I18N id="Items.page.explanation" />
           </p>
-          <Row className="justify-content-end">
+          <Row className="justify-content-end align-items-center mb-4">
+            <Col xs="auto">
+              <ElementPerPage filters={filters} setFilters={setFilters} />
+            </Col>
             <Col xs="auto">
               <Pagination
                 filters={filters}
                 setFilters={setFilters}
                 elementsTotal={list?.count || 0}
-                onTop
-                pageSize={page_size.items}
               />
             </Col>
           </Row>
@@ -162,14 +163,15 @@ const ItemListView = ({
         </Col>
       </Row>
 
-      <Row className="justify-content-end">
+      <Row className="justify-content-end align-items-center mb-4">
+        <Col xs="auto">
+          <ElementPerPage filters={filters} setFilters={setFilters} />
+        </Col>
         <Col xs="auto">
           <Pagination
             filters={filters}
             setFilters={setFilters}
             elementsTotal={list?.count || 0}
-            pageSize={page_size.items}
-            onBottom
           />
         </Col>
       </Row>

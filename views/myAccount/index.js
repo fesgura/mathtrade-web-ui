@@ -2,7 +2,7 @@ import { useState } from "react";
 import Router from "next/router";
 import PrivateLayout from "layouts/private";
 import PageHeader from "components/pageHeader";
-import { linksToHelp } from "config";
+import { linksToHelp, textSize } from "config";
 import {
   Row,
   Col,
@@ -111,6 +111,7 @@ const MyAccountView = ({
                           setValidationStatus={setValidationStatus}
                           label="form.Username"
                           name="username"
+                          textSize={textSize.account.username}
                           noSpaces
                           placeholder="form.Username"
                           icon="user"
@@ -149,6 +150,7 @@ const MyAccountView = ({
                           setValidationStatus={setValidationStatus}
                           label="form.FirstName"
                           name="first_name"
+                          textSize={textSize.account.first_name}
                           placeholder="form.FirstName"
                           icon="user"
                           onChange={() => {
@@ -164,6 +166,7 @@ const MyAccountView = ({
                           setValidationStatus={setValidationStatus}
                           label="form.LastName"
                           name="last_name"
+                          textSize={textSize.account.last_name}
                           placeholder="form.LastName"
                           icon="user"
                           onChange={() => {
@@ -182,6 +185,7 @@ const MyAccountView = ({
                           label="form.Email"
                           name="email"
                           type="email"
+                          textSize={textSize.account.email}
                           lowercase
                           placeholder="form.Email"
                           icon="envelope"
@@ -227,6 +231,7 @@ const MyAccountView = ({
                           label="form.Phone"
                           name="phone"
                           type="phone"
+                          textSize={textSize.account.phone}
                           placeholder="form.Phone"
                           icon="phone"
                           onChange={(v) => {
@@ -243,6 +248,7 @@ const MyAccountView = ({
                           label="WhatsApp"
                           notTranslateLabels
                           name="whatsapp"
+                          textSize={textSize.account.whatsapp}
                           type="phone"
                           placeholder="form.Phone"
                           icon="whatsapp"
@@ -257,6 +263,7 @@ const MyAccountView = ({
                           label="Telegram"
                           name="telegram"
                           placeholder="Telegram"
+                          textSize={textSize.account.telegram}
                           notTranslateLabels
                           notTranslatePlaceholder
                           icon="telegram"

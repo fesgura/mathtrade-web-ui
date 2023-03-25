@@ -87,6 +87,7 @@ const InputComp = ({
   startFocus,
   disabled,
   textSize,
+  showTextSize,
   //
   min,
   max,
@@ -635,7 +636,7 @@ const InputComp = ({
         <label className={classNames("form-label", classNameLabel)}>
           {notTranslateLabels ? label : getI18Ntext(label)}
           {required && !readOnly ? <span className="req">*</span> : null}
-          {textSize ? (
+          {textSize && showTextSize ? (
             <span className="form-label-resume">{`(${getI18Ntext(
               "form.MaxTextSize"
             )} ${textSize} ${getI18Ntext("form.MaxTextCharaters")})`}</span>

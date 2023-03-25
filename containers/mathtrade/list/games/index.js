@@ -33,14 +33,17 @@ const MT_GameListContainer = () => {
         setIsFetched(true);
         const storeOptions = storage.getOptions();
 
-        let queryUser = { ...query, page_size: page_size.games };
+        let queryUser = {
+          ...query,
+          page_size: query.page_size ? query.page_size : page_size,
+        };
 
         if (storeOptions?.hideOwnUser) {
           const storeData = storage.get();
           queryUser = {
             ...query,
             user: `-${storeData?.user?.data?.id}`,
-            page_size: page_size.games,
+            page_size: query.page_size ? query.page_size : page_size,
           };
         }
 

@@ -6,6 +6,7 @@ import Game from "./game";
 import { Col, Row, Alert } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
 import Pagination from "components/pagination";
+import ElementPerPage from "components/pagination/elementsPerPage";
 import OrderBy from "components/orderBy";
 import Filters_MT_Games from "./filters";
 import SidebarSticky from "components/sidebarSticky";
@@ -78,14 +79,15 @@ const GameListView = ({
           <p className="px-4 pb-5 m-0 text-center">
             <I18N id="Games.page.explanation" />
           </p>
-          <Row className="justify-content-end">
+          <Row className="justify-content-end align-items-center mb-4">
+            <Col xs="auto">
+              <ElementPerPage filters={filters} setFilters={setFilters} />
+            </Col>
             <Col xs="auto">
               <Pagination
                 filters={filters}
                 setFilters={setFilters}
                 elementsTotal={list?.count || 0}
-                pageSize={page_size.games}
-                onTop
               />
             </Col>
           </Row>
@@ -117,14 +119,15 @@ const GameListView = ({
         </Col>
       </Row>
       <ErrorAlert errors={errors} />
-      <Row className="justify-content-end">
+      <Row className="justify-content-end align-items-center mb-4">
+        <Col xs="auto">
+          <ElementPerPage filters={filters} setFilters={setFilters} />
+        </Col>
         <Col xs="auto">
           <Pagination
             filters={filters}
             setFilters={setFilters}
             elementsTotal={list?.count || 0}
-            pageSize={page_size.games}
-            onBottom
           />
         </Col>
       </Row>

@@ -1,0 +1,39 @@
+.element-per-page_label {
+  font-size: 12px;
+  padding-right: 5px;
+}
+.element-per-page_select {
+  $h: 22px;
+  position: relative;
+  min-width: 56px;
+  background-color: #fff;
+
+  height: $h;
+  border: 1px solid $primary;
+  border-radius: 4px;
+  font-size: 12px;
+
+  select {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    background: transparent;
+    padding: 1px 4px 1px 4px;
+  }
+  &:after {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 6px;
+    top: 7px;
+    width: 0;
+    height: 0;
+    border-width: 6px;
+    border-color: $text-color transparent transparent;
+    border-style: solid;
+  }
+}
