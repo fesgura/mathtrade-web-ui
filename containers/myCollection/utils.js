@@ -1,4 +1,4 @@
-import { cropWord } from "utils";
+import { cropWord, textSize } from "utils";
 
 export const setItemTitle = (item, data, isCreate, isDeleting) => {
   //const newData
@@ -21,5 +21,5 @@ export const setItemTitle = (item, data, isCreate, isDeleting) => {
   }
 
   const txt = listNames.join(" + ");
-  return cropWord(txt, 196, "...");
+  return cropWord(txt, textSize.edit.title, "...");
 };

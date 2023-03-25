@@ -10,7 +10,7 @@ import Icon from "components/icon";
 import TestBGGuser from "components/testBGGuser";
 import I18N, { getI18Ntext } from "i18n";
 import ErrorAlert from "components/errorAlert";
-import { claveAppUItemporal } from "config";
+import { claveAppUItemporal, textSize } from "config";
 
 const RegisterView = ({
   errors,
@@ -137,6 +137,7 @@ const RegisterView = ({
                           setValidationStatus={setValidationStatus}
                           label="form.Username"
                           name="username"
+                          textSize={textSize.account.username}
                           placeholder="form.Username"
                           noSpaces
                           size="lg"
@@ -151,6 +152,7 @@ const RegisterView = ({
                           lowercase
                           name="email"
                           type="email"
+                          textSize={textSize.account.email}
                           placeholder="form.Email"
                           size="lg"
                           icon="envelope"
@@ -213,6 +215,7 @@ const RegisterView = ({
                           setValidationStatus={setValidationStatus}
                           label="form.FirstName"
                           name="first_name"
+                          textSize={textSize.account.first_name}
                           placeholder="form.FirstName"
                           size="lg"
                           icon="user"
@@ -223,6 +226,7 @@ const RegisterView = ({
                           setValidationStatus={setValidationStatus}
                           label="form.LastName"
                           name="last_name"
+                          textSize={textSize.account.last_name}
                           placeholder="form.LastName"
                           size="lg"
                           icon="user"
@@ -234,6 +238,7 @@ const RegisterView = ({
                           label="form.Phone"
                           name="phone"
                           type="phone"
+                          textSize={textSize.account.phone}
                           placeholder="form.Phone"
                           size="lg"
                           icon="phone"
@@ -246,6 +251,7 @@ const RegisterView = ({
                           notTranslateLabels
                           name="whatsapp"
                           type="phone"
+                          textSize={textSize.account.whatsapp}
                           placeholder="form.Phone"
                           size="lg"
                           icon="whatsapp"
@@ -253,6 +259,7 @@ const RegisterView = ({
                         <Input
                           label="Telegram"
                           name="telegram"
+                          textSize={textSize.account.telegram}
                           notTranslateLabels
                           notTranslatePlaceholder
                           placeholder="Telegram"

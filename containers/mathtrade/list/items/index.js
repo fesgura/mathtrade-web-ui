@@ -73,7 +73,7 @@ const MT_ItemListContainer = () => {
 
         let queryUser = {
           ...query,
-          page_size: page_size.items,
+          page_size: query.page_size ? query.page_size : page_size,
         };
 
         if (storeOptions?.hideOwnUser) {
@@ -81,7 +81,7 @@ const MT_ItemListContainer = () => {
           queryUser = {
             ...query,
             user: `-${storeData?.user?.data?.id}`,
-            page_size: page_size.items,
+            page_size: query.page_size ? query.page_size : page_size,
           };
         }
 

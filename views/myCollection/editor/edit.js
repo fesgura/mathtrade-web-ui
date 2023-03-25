@@ -8,7 +8,12 @@ import {
   Alert,
 } from "reactstrap";
 import classNames from "classnames";
-import { languageList, statusList, photoUploaderConfig } from "config";
+import {
+  languageList,
+  statusList,
+  photoUploaderConfig,
+  textSize,
+} from "config";
 import PhotoGallery from "components/photoGallery";
 import ElementDropVersions from "components/elementDropVersions";
 import { Form, Input, Hidden } from "components/form";
@@ -330,6 +335,7 @@ const ElementEdit = ({
                               setValidationStatus={setValidationStatus}
                               label="element.Publisher"
                               name="publisher"
+                              textSize={textSize.edit.publisher}
                               readOnly={bgg_version_id !== "other"}
                               onChange={(v) => {
                                 changeData({ publisher: v });
@@ -426,7 +432,8 @@ const ElementEdit = ({
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
                           label="element.Comment"
-                          textSize={500}
+                          textSize={textSize.edit.comment}
+                          showTextSize
                           name="comment"
                           type="textarea"
                           onChange={(v) => {

@@ -3,6 +3,7 @@ import { Input } from "components/form";
 import { Button } from "reactstrap";
 import { useApi, MathTradeService } from "api_serv";
 import I18N from "i18n";
+import { textSize } from "config";
 
 const EditComment = ({ item_id, commentToEdit, onCancel, afterAnyChange }) => {
   const [content, setContent] = useState(commentToEdit?.content || "");
@@ -28,10 +29,11 @@ const EditComment = ({ item_id, commentToEdit, onCancel, afterAnyChange }) => {
       <div className="item-comments-form-label">
         <I18N
           id={`itemComments.editor.label.${commentToEdit ? "edit" : "add"}`}
+          values={[textSize.comment.commentSize]}
         />
       </div>
       <Input
-        textSize={500}
+        textSize={textSize.comment.commentSize}
         name="comment"
         value={content}
         type="textarea"
