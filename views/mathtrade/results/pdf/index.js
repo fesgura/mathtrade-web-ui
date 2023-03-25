@@ -7,8 +7,6 @@ import PDFresults from "components/PDFresult";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import { dataToTag } from "./utils";
 
-const listTemp = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
-
 const PdfButton = ({ mathTradeResults }) => {
   const [showModal, setShowModal] = useState(false);
   const [dataTags, setDataTags] = useState([]);
@@ -64,7 +62,7 @@ const PdfButton = ({ mathTradeResults }) => {
             <div className="text-center">
               <PDFDownloadLink
                 className="btn btn-primary mb-3"
-                document={<PDFresults list={listTemp} />}
+                document={<PDFresults list={dataTags} />}
                 fileName="resultados.pdf"
               >
                 {({ blob, url, loading, error }) =>
