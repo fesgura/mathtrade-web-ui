@@ -487,5 +487,16 @@
   "timeline.meet": "¡La juntada presencial en AMBA!",
   "timeline.header": "Los tiempos para este MathTrade",
   "timeline.todayIs": "Hoy es $$$",
-  "elementsPerPage": "Elementos por página"
+  "elementsPerPage": "Elementos por página",
+  "menu.Stats": "Estadísticas",
+  "title.Stats": "Estadísticas",
+  "stats.pill.game": "Juegos publicados",
+  "stats.pill.item": "Ejemplares publicados",
+  "stats.pill.item.footer": "de $$$ ejemplares ($$$%).",
+  "stats.pill.user": "Participantes intercambiaron",
+  "stats.pill.user.footer": "de $$$ participantes ($$$%).",
+  "stats.map.title": "Por provincias",
+  "stats.map.label": "porcentajes",
+  "stats.map.tooltipFormat": "{%user_count} participantes\n{%item_count} ejemplares publicados ({%value}%)",
+  "stats.segment.title": "Usuarios por cantidad de ejemplares publicados"
 }

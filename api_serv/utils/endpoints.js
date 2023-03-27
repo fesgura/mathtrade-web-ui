@@ -69,6 +69,8 @@ const endpoints = {
   DELETE_MYTAGS: "api/mathtrades/$[0]/user-tags/$[1]/",
   COMMIT_CHANGES: "api/mathtrades/$[0]/user-commit/",
 
+  GET_MATHTRADE_STATS: "api/mathtrades/$[0]/stats/",
+
   // NOTIFICATIONS
   GET_NOTIFICATIONS: "api/notifications/",
   PUT_NOTIFICATIONS: "api/notifications/$[0]/",

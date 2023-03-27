@@ -24,6 +24,11 @@ const services = {
     const mathTradeId = getMathtradeId();
     return api.get(endpoints.compose("GET_MATHTRADE_USERS", [mathTradeId]));
   },
+  getMathTradeStats: () => {
+    setAuth();
+    const mathTradeId = getMathtradeId();
+    return api.get(endpoints.compose("GET_MATHTRADE_STATS", [mathTradeId]));
+  },
 };
 
 export default services;
