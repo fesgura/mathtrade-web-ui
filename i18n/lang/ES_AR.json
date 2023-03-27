@@ -472,7 +472,6 @@
   "results.tags.title": "Etiquetas",
   "results.tags.btn.loading": "Cargando...",
   "results.tags.btn.download": "Descargar",
-
   "itemComments.title.none": "Sin comentarios",
   "itemComments.title.one": "1 Comentario",
   "itemComments.title.many": "$$$ Comentarios",
@@ -490,6 +489,7 @@
   "elementsPerPage": "Elementos por página",
   "menu.Stats": "Estadísticas",
   "title.Stats": "Estadísticas",
+  "subtitle.Stats": "para este MathTrade",
   "stats.pill.game": "Juegos publicados",
   "stats.pill.item": "Ejemplares publicados",
   "stats.pill.item.footer": "de $$$ ejemplares ($$$%).",
@@ -498,5 +498,11 @@
   "stats.map.title": "Por provincias",
   "stats.map.label": "porcentajes",
   "stats.map.tooltipFormat": "{%user_count} participantes\n{%item_count} ejemplares publicados ({%value}%)",
-  "stats.segment.title": "Usuarios por cantidad de ejemplares publicados"
+  "stats.segment.title": "Participantes por cantidad de ejemplares publicados",
+  "stats.segment.tooltipFormat": "{%value} participantes",
+  "stats.downloads.title": "¿Cómo se calculan los cambios?",
+  "stats.downloads.btn.results": "RESULTS.txt (archivo de resultados del <i>Trade Maximizer</i>)",
+  "stats.downloads.btn.wants": "WANTS.txt (archivo que utiliza <i>Trade Maximizer</i> para generar los cambios.)",
+  "stats.downloads.text1": "Para generar los cambios utilizamos <b>Trade Maximizer</b> <i>(podés descargarlo <a href=\"$$$\" target=\"_blank\">aquí</a>)</i>.<br />Podés probar vos mismo/a generar los resultados <i>(instrucciones <a href=\"$$$\" target=\"_blank\">aquí</a>)</i>, utilizando el siguiente archivo de <b>wants</b>:",
+  "stats.downloads.text2": "Con esto, se obtiene el siguiente archivo de <b>resultados</b>:"
 }

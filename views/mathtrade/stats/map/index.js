@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { Card, CardBody, Col, Row } from "reactstrap";
+import { useEffect, useRef } from "react";
+import { Card, CardBody } from "reactstrap";
 import geoArgentina from "./geoArgentina";
 import { locsToGraph } from "./utils";
 import I18N, { getI18Ntext } from "i18n";
@@ -25,8 +25,6 @@ const Map = ({ stats }) => {
         tooltip.padding([8, 13, 10, 13]);
         tooltip.fontSize(15);
         tooltip.format(getI18Ntext("stats.map.tooltipFormat"));
-
-        tooltip.separator(false);
 
         series.selectionMode("none").stroke("#B9B9B9");
 

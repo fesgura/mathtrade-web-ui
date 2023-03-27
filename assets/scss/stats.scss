@@ -63,3 +63,16 @@
     top: -5px;
   }
 }
+.segments-stats_container {
+  .segments-stats_ref {
+    & > div {
+      display: none;
+      &:last-child {
+        display: block;
+      }
+    }
+    .anychart-credits {
+      display: none !important;
+    }
+  }
+}
