@@ -497,7 +497,7 @@
   "stats.pill.user.footer": "de $$$ participantes ($$$%).",
   "stats.map.title": "Por provincias",
   "stats.map.label": "porcentajes",
-  "stats.map.tooltipFormat": "{%user_count} participantes\n{%item_count} ejemplares publicados ({%value}%)",
+  "stats.map.tooltipFormat": "{%item_count} ejemplares publicados ({%value}%)\n({%user_count} participantes)",
   "stats.segment.title": "Participantes por cantidad de ejemplares publicados",
   "stats.segment.tooltipFormat": "{%value} participantes",
   "stats.downloads.title": "¿Cómo se calculan los cambios?",
