@@ -54,6 +54,10 @@ export const privateRoutes = {
       path: "mathtrade/results",
       icon: "star",
     },
+    stats: {
+      path: "mathtrade/stats",
+      icon: "bar-chart",
+    },
     myData: {
       path: "mathtrade/my-data",
       icon: "user-o",
@@ -98,8 +102,13 @@ export const menu_yes_mathTrade = [
   {
     title: "menu.Results",
     path: privateRoutes.mathtrade.results.path,
-    isHot: "results",
     icon: privateRoutes.mathtrade.results.icon,
+  },
+  {
+    title: "menu.Stats",
+    path: privateRoutes.mathtrade.stats.path,
+    icon: privateRoutes.mathtrade.stats.icon,
+    hot: true,
   },
   {
     title: "menu.MyData",

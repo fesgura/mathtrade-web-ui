@@ -174,6 +174,8 @@ export const languageList = (() => {
   return list;
 })();
 
+export const urlBaseMedia = "https://api.mathtrade.com.ar/media/";
+
 export const photoUploaderConfig = (() => {
   const o = {
     formats: ["image/jpeg", "image/png", "image/jpg"],
@@ -182,7 +184,7 @@ export const photoUploaderConfig = (() => {
       format: "image/jpeg",
       quality: 0.8,
     },
-    urlBase: "https://api.mathtrade.com.ar/media/",
+    urlBase: urlBaseMedia,
   };
 
   o.formatString = o.formats.join(", ");
@@ -220,4 +222,9 @@ export const textSize = {
   comment: {
     commentSize: 500,
   },
+};
+
+export const TradeMaximizerLinks = {
+  source: "https://sourceforge.net/projects/trademax/",
+  instructions: "https://boardgamegeek.com/wiki/page/TradeMaximizer",
 };

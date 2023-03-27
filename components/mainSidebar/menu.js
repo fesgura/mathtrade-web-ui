@@ -14,17 +14,11 @@ import { Col, Row } from "reactstrap";
 import useCanEdit from "hooks/useCanEdit";
 
 const Menu = ({ menuList, router }) => {
-  const canViewResults = useCanEdit("results");
-
   return (
     <nav className="main-menu">
       {menuList.map((item, k) => {
-        const { path, icon, title, disabled, isHot, storeQuery } = item;
+        const { path, icon, title, disabled, hot, storeQuery } = item;
         let disabledItem = false;
-        let hot = false;
-        if (isHot === "results" && canViewResults) {
-          hot = true;
-        }
 
         let query = {};
         let pathComplete = path;

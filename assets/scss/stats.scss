@@ -1,0 +1,78 @@
+.pill-stats {
+  padding: 30px 0;
+  max-width: 1100px;
+  margin: 0 auto 20px;
+
+  .pill-stats_item {
+    background-color: $primary;
+    color: #fff;
+    height: 100%;
+    padding: 20px 25px;
+    box-shadow: $main-box-shadow;
+    border-radius: $card-border-radius;
+
+    .pill-stats_item-content-value {
+      font-size: 60px;
+      font-weight: bold;
+      line-height: 1;
+    }
+    .pill-stats_item-content-label {
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.2;
+      padding: 5px 0;
+    }
+
+    .pill-stats_item-content-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.5);
+      font-size: 13px;
+      font-weight: bold;
+      line-height: 1.2;
+      padding-top: 6px;
+    }
+
+    &.game {
+      background-color: darken($bgg, 4);
+    }
+    &.item {
+      background-color: darken($primary, 6);
+    }
+    &.user {
+      background-color: darken($secondary, 4);
+    }
+  }
+}
+.map-stats {
+  width: 450px;
+  .map-stats_ref {
+    & > div {
+      display: none;
+      &:last-child {
+        display: block;
+      }
+    }
+    .anychart-credits {
+      display: none !important;
+    }
+  }
+  .map-stats_label {
+    text-align: center;
+    font-size: 11px;
+    line-height: 1;
+    position: relative;
+    top: -5px;
+  }
+}
+.segments-stats_container {
+  .segments-stats_ref {
+    & > div {
+      display: none;
+      &:last-child {
+        display: block;
+      }
+    }
+    .anychart-credits {
+      display: none !important;
+    }
+  }
+}
