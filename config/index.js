@@ -175,6 +175,7 @@ export const languageList = (() => {
 })();
 
 export const urlBaseMedia = "https://api.mathtrade.com.ar/media/";
+export const urlBaseMediaTest = "https://api.mathtrade.com.ar:8000/media/";
 
 export const photoUploaderConfig = (() => {
   const o = {

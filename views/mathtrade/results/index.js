@@ -60,7 +60,7 @@ const ResultsView = ({
                     </div>
                   </Col>
                   <Col xs="auto" className="ps-2 pb-1">
-                    {/* <PdfButton mathTradeResults={mathTradeResults} /> */}
+                    <PdfButton mathTradeResults={mathTradeResults} />
                   </Col>
                 </Row>
               )}
