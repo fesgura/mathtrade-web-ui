@@ -4,7 +4,7 @@ export const google_recaptcha_v3_client_key =
   "6LeWcz8gAAAAAGgpOiINIJZSwsmKH-eMjtbQbFbF";
 
 export const storageName = "MathTradeArgentina";
-export const storageOptionsName = storageName + "Options2";
+export const storageOptionsName = storageName + "Options3";
 export const daysExpireToken = 0.9;
 export const mtExpireToken = 1; // hs.
 
