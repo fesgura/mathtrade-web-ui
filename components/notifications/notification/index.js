@@ -67,6 +67,8 @@ const Notification = ({
     case "COMC":
     case "COME":
     case "COMD":
+      // case "COMR":
+      // case "COMRE":
       content = (
         <>
           <I18N
