@@ -53,7 +53,7 @@ const Trade = ({ data }) => {
           </div>
         </td>
         <td>
-          <div className="result-table_title">{trade_from.item.title}</div>
+          <div className="result-table_title">{trade_from?.item.title}</div>
         </td>
         <td>
           <div className="result-table_tag result-table_tag-receive">de</div>

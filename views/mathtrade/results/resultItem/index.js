@@ -48,19 +48,19 @@ const ResultItem = ({ user, isMyUser, data }) => {
           className="results-float results_user-my"
         />
         <User
-          user={data?.trade_to.user}
+          user={data?.trade_to?.user}
           className="results-float results_user-to"
         />
         <User
-          user={data?.trade_from.user}
+          user={data?.trade_from?.user}
           className="results-float results_user-from"
         />
         <Item
-          item={data?.trade_to.item}
+          item={data?.trade_to?.item}
           className="results-float results_item-to"
         />
         <Item
-          item={data?.trade_from.item}
+          item={data?.trade_from?.item}
           className="results-float results_item-from"
         />
       </div>

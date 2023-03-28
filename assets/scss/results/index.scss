@@ -164,6 +164,10 @@
   border-top: $border;
   border-top-width: 3px;
 
+  thead {
+    background-color: #eee;
+  }
+
   td {
     padding: 5px;
     &.td-avatar {
@@ -206,6 +210,50 @@
     }
     &:hover {
       background-color: #eee;
+    }
+
+    &.tr-danger {
+      background-color: rgba($danger, 0.3);
+    }
+  }
+  a {
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  .commint-yes {
+    color: $success;
+  }
+  .commint-no {
+    color: $danger;
+  }
+
+  &.for-users {
+    border-top-width: 1px;
+    text-align: left;
+
+    th {
+      font-weight: bold;
+      .icon {
+        font-size: 18px;
+        margin-left: 0.3em;
+        vertical-align: middle;
+        opacity: 0.3;
+        &.active {
+          opacity: 1;
+        }
+      }
+      &.th-pointer {
+        cursor: pointer;
+      }
+    }
+    th,
+    td {
+      padding: 8px 12px;
+    }
+
+    tr {
+      border-bottom: 2px solid #ebebeb;
     }
   }
 }
