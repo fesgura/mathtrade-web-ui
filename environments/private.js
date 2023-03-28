@@ -14,9 +14,6 @@ const PrivateEnv = ({ children }) => {
   const [errors, setErrors] = useState(null);
 
   const gotoSignIn = () => {
-    // Temp
-    storage.clearTemp("MathTradeArgentinaOptions");
-    storage.clearTemp("MathTradeArgentinaOptions2");
     storage.clear();
 
     setLogoutAPI();
