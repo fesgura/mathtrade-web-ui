@@ -191,7 +191,7 @@ export const photoUploaderConfig = (() => {
   return o;
 })();
 
-export const claveAppUItemporal = "marvel8647";
+export const claveAppUItemporal = "no.es.OLWLG.2023";
 
 export const page_size = 30;
 
