@@ -1,4 +1,5 @@
-import { cropWord, textSize } from "utils";
+import { cropWord } from "utils";
+import { textSize } from "config";
 
 export const setItemTitle = (item, data, isCreate, isDeleting) => {
   //const newData
