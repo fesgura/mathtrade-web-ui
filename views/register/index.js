@@ -191,8 +191,7 @@ const RegisterView = ({
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
-                          label="Clave temporal de la app"
-                          notTranslateLabels
+                          label="form.KeyApp"
                           name="appkeyui"
                           placeholder="******"
                           notTranslatePlaceholder

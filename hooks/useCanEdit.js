@@ -32,7 +32,6 @@ const useCanEdit = (type) => {
         newCanEdit = today.isAfter(dateToCompare);
       }
       // TEMP test
-      console.log(storage.getOption("isTest"));
       if (storage.getOption("isTest") && type === "results") {
         setCantEdit(true);
       } else {
