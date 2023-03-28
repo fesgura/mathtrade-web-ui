@@ -11,6 +11,7 @@ const QuadsView = ({
   myItemList,
   wantList,
   putWant,
+  lastCommitDate,
   commitChanges,
   commitChangesLoading,
   mustCommitChanges,
@@ -54,6 +55,7 @@ const QuadsView = ({
                   <Row>
                     <Col className="text-center">
                       <CommitBtn
+                        lastCommitDate={lastCommitDate}
                         commitChanges={commitChanges}
                         commitChangesLoading={commitChangesLoading}
                         mustCommitChanges={mustCommitChanges}
@@ -82,6 +84,7 @@ const QuadsView = ({
                 </div>
                 <div className="text-center mb-4">
                   <CommitBtn
+                    lastCommitDate={lastCommitDate}
                     commitChanges={commitChanges}
                     commitChangesLoading={commitChangesLoading}
                     mustCommitChanges={mustCommitChanges}

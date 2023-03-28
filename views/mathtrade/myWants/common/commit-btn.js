@@ -1,8 +1,10 @@
 import Icon from "components/icon";
 import I18N from "i18n";
 import { Button } from "reactstrap";
+import { dateToString } from "utils";
 
 const CommitBtn = ({
+  lastCommitDate,
   commitChanges,
   commitChangesLoading,
   mustCommitChanges,
@@ -30,6 +32,11 @@ const CommitBtn = ({
           <I18N id="MyWants.btn.Commit.help" />
         </p>
       )}
+      {lastCommitDate ? (
+        <p className="small istalic m-0 pt-1 px-4">
+          <I18N id="MyWants.btn.Commit.help2" values={[lastCommitDate]} />
+        </p>
+      ) : null}
     </>
   );
 };
