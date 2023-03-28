@@ -13,6 +13,7 @@ const MyWantsView = ({
   putWant,
   putWantBatch,
   deleteWant,
+  lastCommitDate,
   commitChanges,
   commitChangesLoading,
   set_mustCommitChanges,
@@ -43,6 +44,7 @@ const MyWantsView = ({
           wantList={wantList}
           putWant={putWant}
           putWantBatch={putWantBatch}
+          lastCommitDate={lastCommitDate}
           commitChanges={commitChanges}
           commitChangesLoading={commitChangesLoading}
           mustCommitChanges={mustCommitChanges}
@@ -61,6 +63,7 @@ const MyWantsView = ({
           putWant={putWant}
           putWantBatch={putWantBatch}
           deleteWant={deleteWant}
+          lastCommitDate={lastCommitDate}
           commitChanges={commitChanges}
           commitChangesLoading={commitChangesLoading}
           mustCommitChanges={mustCommitChanges}

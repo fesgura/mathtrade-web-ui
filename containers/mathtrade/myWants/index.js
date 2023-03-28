@@ -4,7 +4,7 @@ import storage from "utils/storage";
 import PrivateEnv from "environments/private";
 import MyWantsView from "views/mathtrade/myWants";
 import useCanEdit from "hooks/useCanEdit";
-import { getUniqueId } from "utils";
+import { getUniqueId, dateToString } from "utils";
 import { useLeavePageConfirmation } from "hooks/useLeavePageConfirmation";
 import { getI18Ntext } from "i18n";
 import { filterEmptyWants } from "./utils";
@@ -18,24 +18,20 @@ const MyWants = () => {
   const changes = useRef([]);
 
   const canEditWants = useCanEdit("wants");
-  const canEditList = useCanEdit("list");
 
   const [mustCommitChanges, set_mustCommitChanges] = useState(false);
   const [firstLoadedWants, set_firstLoadedWants] = useState(false);
   const [firstLoadedMyItems, set_firstLoadedMyItems] = useState(false);
+  const [lastCommitDate, set_lastCommitDate] = useState(null);
 
   const [wantList, set_wantList] = useState({ list: [], version: 0 });
   const [myItemList, set_myItemList] = useState({ list: [], version: 0 });
 
   const changeMustCommitChanges = useCallback(
     (status) => {
-      if (canEditList) {
-        set_mustCommitChanges(false);
-      } else {
-        set_mustCommitChanges(status);
-      }
+      set_mustCommitChanges(status);
     },
-    [canEditList]
+    [canEditWants]
   );
 
   const [getWants, , loadingWantList, errorsWantList] = useApi({
@@ -129,6 +125,9 @@ const MyWants = () => {
       if (typeof data.commitment !== "undefined") {
         changeMustCommitChanges(!data.commitment);
       }
+      if (typeof data.commitment_datetime !== "undefined") {
+        set_lastCommitDate(dateToString(data.commitment_datetime, true));
+      }
     },
   });
 
@@ -164,6 +163,7 @@ const MyWants = () => {
         myItemList={myItemList}
         putWant={putWant}
         deleteWant={deleteWant}
+        lastCommitDate={lastCommitDate}
         commitChanges={commitChanges}
         commitChangesLoading={putBatchLoading || commitChangesLoading}
         mustCommitChanges={

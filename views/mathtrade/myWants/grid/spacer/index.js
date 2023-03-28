@@ -11,6 +11,7 @@ const GridSpacer = ({
   setExtendAll,
   set_myItemList_orderBy,
   set_wantList_orderBy,
+  lastCommitDate,
   commitChanges,
   commitChangesLoading,
   mustCommitChanges,
@@ -72,6 +73,7 @@ const GridSpacer = ({
         <div className="mywants-grid-spacer_lab-cont">
           <div className="mywants-grid-spacer_lab-cont_row-1">
             <CommitBtn
+              lastCommitDate={lastCommitDate}
               commitChanges={commitChanges}
               commitChangesLoading={commitChangesLoading}
               mustCommitChanges={mustCommitChanges}

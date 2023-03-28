@@ -30,6 +30,7 @@ const Grid = ({
   wantList,
   putWant,
   deleteWant,
+  lastCommitDate,
   commitChanges,
   commitChangesLoading,
   mustCommitChanges,
@@ -234,6 +235,7 @@ const Grid = ({
                           });
                           set_wantList_orderBy({ order, direction });
                         }}
+                        lastCommitDate={lastCommitDate}
                         commitChanges={commitChanges}
                         commitChangesLoading={commitChangesLoading}
                         mustCommitChanges={mustCommitChanges}
