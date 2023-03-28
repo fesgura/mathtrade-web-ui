@@ -58,12 +58,12 @@ const PrivateEnv = ({ children }) => {
     }
     */
     const expireMathtrade = (() => {
-      let exp = true;
+      let exp = false;
       if (store.mathtrade && store.mathtrade.expires) {
         const d = new Date();
         const currentTime = d.getTime();
         if (currentTime >= store.mathtrade.expires) {
-          exp = false;
+          exp = true;
         }
       }
       return exp;
@@ -97,7 +97,7 @@ const PrivateEnv = ({ children }) => {
               memberId,
               expires: (() => {
                 const d = new Date();
-                return d.getTime() + +3600000 * mtExpireToken;
+                return d.getTime() + 3600000 * mtExpireToken;
               })(),
             };
             storage.setToStorage({
