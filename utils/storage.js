@@ -45,6 +45,11 @@ const storage = {
       window.localStorage.setItem(storageOptionsName, JSON.stringify(data));
     }
   },
+  clearTemp: (name) => {
+    if (typeof window !== "undefined") {
+      window.localStorage.removeItem(name);
+    }
+  },
 };
 
 const defaultModel = {
