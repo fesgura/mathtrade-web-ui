@@ -22,6 +22,10 @@ export const setApiTest = () => {
 };
 
 export const setAuth = () => {
+  if (storage.getFromOptions("isTest")) {
+    api.setBaseURL(apiHostTest);
+  }
+
   if (!api.headers.Authorization) {
     const token = storage.getFromStore("token");
     if (token) {

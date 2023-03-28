@@ -2,7 +2,7 @@ import { storageName, storageOptionsName, daysExpireToken } from "config";
 
 const storage = {
   get: () => {
-    if (window) {
+    if (typeof window !== "undefined") {
       const dataString = window.localStorage.getItem(storageName);
       if (dataString) {
         return JSON.parse(dataString);
@@ -11,17 +11,17 @@ const storage = {
     return null;
   },
   set: (data) => {
-    if (window && data) {
+    if (typeof window !== "undefined" && data) {
       window.localStorage.setItem(storageName, JSON.stringify(data));
     }
   },
   clear: () => {
-    if (window) {
+    if (typeof window !== "undefined") {
       window.localStorage.removeItem(storageName);
     }
   },
   getOptions: () => {
-    if (window) {
+    if (typeof window !== "undefined") {
       const dataString = window.localStorage.getItem(storageOptionsName);
       if (dataString) {
         return JSON.parse(dataString);
@@ -30,7 +30,7 @@ const storage = {
     return null;
   },
   getOption: (nameOption) => {
-    if (window) {
+    if (typeof window !== "undefined") {
       const dataString = window.localStorage.getItem(storageOptionsName);
       if (dataString) {
         const options = JSON.parse(dataString);
@@ -41,7 +41,7 @@ const storage = {
     return null;
   },
   setOptions: (data) => {
-    if (window && data) {
+    if (typeof window !== "undefined" && data) {
       window.localStorage.setItem(storageOptionsName, JSON.stringify(data));
     }
   },
