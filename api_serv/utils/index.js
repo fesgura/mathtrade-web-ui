@@ -2,8 +2,8 @@ import { create } from "apisauce";
 import Qs from "qs";
 import storage from "utils/storage";
 
-const apiHost =
-  process.env.NEXT_PUBLIC_API_HOST || "https://api.mathtrade.com.ar/";
+const apiHost = "https://api.mathtrade.com.ar/";
+const apiHostTest = "https://api.mathtrade.com.ar:8000/";
 
 export const api = create({
   timeout: 60000,
@@ -16,6 +16,10 @@ export const api = create({
     "content-Type": "application/json",
   },
 });
+
+export const setApiTest = () => {
+  api.setBaseURL(apiHostTest);
+};
 
 export const setAuth = () => {
   if (!api.headers.Authorization) {

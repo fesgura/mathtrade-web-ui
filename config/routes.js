@@ -108,7 +108,6 @@ export const menu_yes_mathTrade = [
     title: "menu.Stats",
     path: privateRoutes.mathtrade.stats.path,
     icon: privateRoutes.mathtrade.stats.icon,
-    hot: true,
   },
   {
     title: "menu.MyData",
