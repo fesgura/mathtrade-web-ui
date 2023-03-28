@@ -410,7 +410,7 @@ export const usersToOptions = (users, forTrades) => {
 
   return users
     .sort((a, b) => {
-      return a.last_name > b.last_name ? 1 : -1;
+      return a.last_name.toLowerCase() > b.last_name.toLowerCase() ? 1 : -1;
     })
     .map((user) => {
       let text = `${capitalize(user.first_name)} ${capitalize(
