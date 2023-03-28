@@ -7,10 +7,9 @@ import PageHeader from "components/pageHeader";
 import NotResultsYet from "./notResultsYet";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import MyTrades from "./myTrades";
-import { Button, Col, Row } from "reactstrap";
-import Question from "components/question";
-import Icon from "components/icon";
+import { Col, Row } from "reactstrap";
 import List from "./list";
+import UserList from "./userList";
 import PdfButton from "./pdf";
 
 const ResultsView = ({
@@ -61,7 +60,7 @@ const ResultsView = ({
                     </div>
                   </Col>
                   <Col xs="auto" className="ps-2 pb-1">
-                    <PdfButton mathTradeResults={mathTradeResults} />
+                    {/* <PdfButton mathTradeResults={mathTradeResults} /> */}
                   </Col>
                 </Row>
               )}
@@ -98,6 +97,10 @@ const ResultsView = ({
                 text: "results.tab.2",
                 current: current === 1,
               },
+              {
+                text: "results.userTable.title",
+                current: current === 2,
+              },
             ]}
           />
 
@@ -110,16 +113,21 @@ const ResultsView = ({
               userId={userId}
               setUserId={setUserId}
             />
-          ) : (
+          ) : current === 1 ? (
             <List
               mathTradeResults={
                 allUsers ? mathTradeResultsAll : mathTradeResults
               }
             />
+          ) : (
+            <UserList users={users} hideTitle />
           )}
         </>
       ) : (
-        <NotResultsYet />
+        <>
+          <NotResultsYet />
+          <UserList users={users} />
+        </>
       )}
     </PrivateLayout>
   );

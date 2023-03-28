@@ -506,5 +506,12 @@
   "stats.downloads.btn.results": "RESULTS.txt (archivo de resultados del <i>Trade Maximizer</i>)",
   "stats.downloads.btn.wants": "WANTS.txt (archivo que utiliza <i>Trade Maximizer</i> para generar los cambios.)",
   "stats.downloads.text1": "Para generar los cambios utilizamos <b>Trade Maximizer</b> <i>(podés descargarlo <a href=\"$$$\" target=\"_blank\">aquí</a>)</i>.<br />Podés probar vos mismo/a generar los resultados <i>(instrucciones <a href=\"$$$\" target=\"_blank\">aquí</a>)</i>, utilizando el siguiente archivo de <b>wants</b>:",
-  "stats.downloads.text2": "Con esto, se obtiene el siguiente archivo de <b>resultados</b>:"
+  "stats.downloads.text2": "Con esto, se obtiene el siguiente archivo de <b>resultados</b>:",
+  "results.userTable.title": "Participantes y fechas de compromiso de cambios",
+  "results.userTable.th.name": "Nombre",
+  "results.userTable.th.last_update": "Fecha de último cambio",
+  "results.userTable.th.commitment_datetime": "Fecha de compromiso de cambios",
+  "results.userTable.th.commitment": "Comprometió cambios",
+  "results.userTable.commitment.yes": "¡Ya estás participando!",
+  "results.userTable.commitment.no": "<b>No estás participando.</b><br/>Para hacerlo debés <b>\"Guardar y comprometer cambios\"</b> desde<br/>"
 }

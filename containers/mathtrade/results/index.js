@@ -45,8 +45,8 @@ const Results = () => {
       const storeData = storage.get();
       setMyUserId(storeData?.user?.data?.id);
       setUserId(storeData?.user?.data?.id);
-      getUsers();
     }
+    getUsers();
   }, [canViewResults]);
 
   useEffect(() => {

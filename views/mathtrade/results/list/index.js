@@ -1,4 +1,4 @@
-import { Card, Button, Col, Row, CardBody } from "reactstrap";
+import { Card, CardBody } from "reactstrap";
 import Trade from "./trade";
 
 const List = ({ mathTradeResults }) => {
