@@ -28,6 +28,7 @@
   "form.Username.help": "Tu nombre de usuario. Lo necesitarás para poder ingresar al sistema.",
   "form.Email": "Email",
   "form.Email.help": "<u>Muy importante</u>: te vamos a enviar a este email una contraseña provisoria para que puedas ingresar al sitio.",
+  "form.KeyApp": "Clave de la app",
   "form.Password": "Contraseña",
   "form.PasswordRepeat": "Repetí la contraseña",
   "sign.error": "Error, usuario y/o contraseña incorrectos.",
