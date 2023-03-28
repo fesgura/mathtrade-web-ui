@@ -205,6 +205,8 @@
 
   tr {
     border-bottom: $border;
+    transition: background-color 0.1s;
+
     &.tr-bottom {
       border-bottom-width: 3px;
     }
@@ -214,6 +216,9 @@
 
     &.tr-danger {
       background-color: rgba($danger, 0.3);
+      &:hover {
+        background-color: rgba($danger, 0.4);
+      }
     }
   }
   a {
