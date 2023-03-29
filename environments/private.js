@@ -7,7 +7,8 @@ import { BggService, MathTradeService } from "api_serv";
 import callToAPI from "api_serv/hooks/callToAPI";
 import xmlParser from "api_serv/utils/xmlParser";
 import { setLogoutAPI } from "api_serv/utils";
-import { mtExpireToken } from "config";
+import { mtExpireToken, PAUSED_SITE } from "config";
+import SiteWorkingScreen from "components/siteWorkingScreen";
 
 const PrivateEnv = ({ children }) => {
   const [showEnvironment, setShowEnvironment] = useState(false);
@@ -122,6 +123,10 @@ const PrivateEnv = ({ children }) => {
   useEffect(() => {
     loadSignExtraData();
   }, []);
+
+  if (PAUSED_SITE) {
+    return <SiteWorkingScreen />;
+  }
 
   return showEnvironment ? <>{children}</> : errors ? <div>ERRORS</div> : null;
 };

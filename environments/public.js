@@ -5,7 +5,8 @@ import {
   GoogleReCaptchaProvider,
   useGoogleReCaptcha,
 } from "react-google-recaptcha-v3";
-import { google_recaptcha_v3_client_key } from "config";
+import { google_recaptcha_v3_client_key, PAUSED_SITE } from "config";
+import SiteWorkingScreen from "components/siteWorkingScreen";
 
 const PublicEnvComp = ({ ContainerComp }) => {
   const [verifingAuth, setVerifingAuth] = useState(true);
@@ -46,6 +47,9 @@ const PublicEnvComp = ({ ContainerComp }) => {
 };
 
 const PublicEnv = ({ Container }) => {
+  if (PAUSED_SITE) {
+    return <SiteWorkingScreen />;
+  }
   return (
     <GoogleReCaptchaProvider
       reCaptchaKey={google_recaptcha_v3_client_key}
