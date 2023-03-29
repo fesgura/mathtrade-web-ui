@@ -192,7 +192,7 @@ export const photoUploaderConfig = (() => {
   return o;
 })();
 
-export const claveAppUItemporal = "no.es.OLWLG.2023";
+export const claveAppUItemporal = "mucho.TAKENOKO.341";
 
 export const page_size = 30;
 
