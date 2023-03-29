@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import PublicEnv from "environments/public";
 import { publicRoutes } from "config/routes";
 import LoginView from "views/login";
@@ -7,6 +7,8 @@ import storage from "utils/storage";
 import Router from "next/router";
 
 const LoginContainer = ({ verifingAuth, onGetCaptcha }) => {
+  const [acceptView, setAcceptView] = useState(false);
+
   const [loginUser, , loading, errorApi] = useApi({
     promise: UserService.login,
     afterLoad: (data, props) => {
@@ -16,15 +18,41 @@ const LoginContainer = ({ verifingAuth, onGetCaptcha }) => {
       //   user: null,
       // };
       // end temp
+
       storage.setToStorage(data);
       if (data.user) {
-        Router.push("/");
+        if (!data.user.terms_acceptance) {
+          setAcceptView(true);
+        } else {
+          Router.push("/");
+        }
+        //
       } else {
         storage.setToStorage(props);
         Router.push("/" + publicRoutes.changePassword.path);
       }
     },
   });
+  const [putUser, , loadingPut, errorApiPut] = useApi({
+    promise: UserService.put,
+    afterLoad: () => {
+      Router.push("/");
+    },
+  });
+
+  const handleAcceptTerms = useCallback(() => {
+    const storeData = storage.get();
+    const userData = storeData?.user?.data;
+    putUser({
+      id: userData.id,
+      data: {
+        ...userData,
+        location: userData.location.id,
+        referred: userData.location.referral.id,
+        terms_acceptance: true,
+      },
+    });
+  }, []);
 
   const handleSubmit = useCallback(
     (formData) => {
@@ -40,7 +68,13 @@ const LoginContainer = ({ verifingAuth, onGetCaptcha }) => {
   );
 
   return verifingAuth ? null : (
-    <LoginView onSubmit={handleSubmit} loading={loading} errors={errorApi} />
+    <LoginView
+      onSubmit={handleSubmit}
+      loading={loading || loadingPut}
+      errors={errorApi || errorApiPut}
+      acceptView={acceptView}
+      handleAcceptTerms={handleAcceptTerms}
+    />
   );
 };
 

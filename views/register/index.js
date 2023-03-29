@@ -10,7 +10,7 @@ import Icon from "components/icon";
 import TestBGGuser from "components/testBGGuser";
 import I18N, { getI18Ntext } from "i18n";
 import ErrorAlert from "components/errorAlert";
-import { claveAppUItemporal, textSize } from "config";
+import { textSize } from "config";
 
 const RegisterView = ({
   errors,
@@ -21,11 +21,10 @@ const RegisterView = ({
   isSuccess,
 }) => {
   const [validationStatus, setValidationStatus] = useState({});
+  const [terms_acceptance, setTerms_acceptance] = useState(false);
 
-  const [appkeyui, set_appkeyui] = useState("");
-
-  const [passwordValue, setPasswordValue] = useState("");
-  const [password2Value, setPassword2Value] = useState("");
+  // const [passwordValue, setPasswordValue] = useState("");
+  // const [password2Value, setPassword2Value] = useState("");
   const [avatar, setAvatar] = useState("");
   const [BGGuser, setBGGuser] = useState("");
 
@@ -35,24 +34,19 @@ const RegisterView = ({
 
   const validations = {
     username: ["required"],
-    appkeyui: [
-      "required",
-      function () {
-        return appkeyui === claveAppUItemporal ? null : "error.General";
-      },
-    ],
-    password: ["required"],
-    password2: [
-      "required",
-      function () {
-        return passwordValue === password2Value
-          ? null
-          : "validation.passwordNotMatch"; //getI18Ntext("validation.passwordNotMatch");
-      },
-    ],
+    email: ["required", "email"],
+    app_key: ["required"],
+    // password: ["required"],
+    // password2: [
+    //   "required",
+    //   function () {
+    //     return passwordValue === password2Value
+    //       ? null
+    //       : "validation.passwordNotMatch"; //getI18Ntext("validation.passwordNotMatch");
+    //   },
+    // ],
     first_name: ["required"],
     last_name: ["required"],
-    email: ["required", "email"],
     phone: ["required", "phone"],
     whatsapp: ["required", "phone"],
     location: ["required"],
@@ -116,11 +110,11 @@ const RegisterView = ({
                         setErrors={setErrorsInForm}
                         scrollTop
                         onSubmit={onSubmit}
-                        format={(dataToSend) => {
-                          delete dataToSend.appkeyui;
-                          delete dataToSend.password2;
-                          return dataToSend;
-                        }}
+                        // format={(dataToSend) => {
+                        //   delete dataToSend.appkeyui;
+                        //   delete dataToSend.password2;
+                        //   return {...dataToSend};
+                        // }}
                       >
                         <hr />
                         {errorsInForm ? (
@@ -192,14 +186,13 @@ const RegisterView = ({
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
                           label="form.KeyApp"
-                          name="appkeyui"
+                          name="app_key"
                           placeholder="******"
                           notTranslatePlaceholder
                           notTranslateQuestion
                           question="Si no tenés esta clave, no podrás registrarte. Contacta a los administradores para que te la proporcionen."
                           size="lg"
                           icon="puzzle-piece"
-                          onChange={set_appkeyui}
                           classNameContainer="mt-4"
                         />
                         <hr />
@@ -322,11 +315,24 @@ const RegisterView = ({
                             }}
                           />
                         </div>
+
                         <Hidden name="referred" value="Luis Olcese" />
                         <hr />
+                        <Input
+                          type="checkbox"
+                          labelCheckbox="accept.TyC"
+                          name="terms_acceptance"
+                          classNameContainer="m-0"
+                          onChange={setTerms_acceptance}
+                        />
                         <ErrorAlert errors={errors} />
                         <div className="text-center py-4">
-                          <Button color="primary" size="lg" type="submit">
+                          <Button
+                            color="primary"
+                            size="lg"
+                            type="submit"
+                            disabled={!terms_acceptance}
+                          >
                             Crear cuenta
                           </Button>
                         </div>
