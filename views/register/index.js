@@ -8,7 +8,7 @@ import { Form, Input, Hidden } from "components/form";
 import { locationsToOptions } from "utils";
 import Icon from "components/icon";
 import TestBGGuser from "components/testBGGuser";
-import I18N, { getI18Ntext } from "i18n";
+import I18N from "i18n";
 import ErrorAlert from "components/errorAlert";
 import { textSize } from "config";
 
