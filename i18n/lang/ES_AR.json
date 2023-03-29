@@ -511,9 +511,9 @@
   "stats.downloads.text2": "Con esto, se obtiene el siguiente archivo de <b>resultados</b>:",
   "results.userTable.title": "Participantes y fechas de compromiso de cambios",
   "results.userTable.th.name": "Nombre",
-  "results.userTable.th.last_update": "Fecha de último cambio",
-  "results.userTable.th.commitment_datetime": "Fecha de compromiso de cambios",
-  "results.userTable.th.commitment": "Comprometió cambios",
+  "results.userTable.th.last_update": "Último cambio en deseos",
+  "results.userTable.th.commitment_datetime": "Envío compromiso de cambios",
+  "results.userTable.th.commitment": "Cambios guardados",
   "results.userTable.commitment.yes": "¡Ya estás participando!",
-  "results.userTable.commitment.no": "<b>No estás participando.</b><br/>Para hacerlo debés <b>\"Guardar y comprometer cambios\"</b> desde<br/>"
+  "results.userTable.commitment.no": "<b>No está participando.</b><br/>Para hacerlo debe <b>\"Guardar y comprometer cambios\"</b> desde<br/>"
 }
