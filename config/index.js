@@ -192,8 +192,6 @@ export const photoUploaderConfig = (() => {
   return o;
 })();
 
-export const claveAppUItemporal = "mucho.TAKENOKO.341";
-
 export const page_size = 30;
 
 export const pageSizeOptions = [2, 10, 20, 30, 40, 50];

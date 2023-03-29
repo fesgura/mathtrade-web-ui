@@ -2,12 +2,11 @@ import { useState } from "react";
 import Link from "next/link";
 import { publicRoutes } from "config/routes";
 import PublicLayout from "layouts/public";
-import { Card, CardBody, Button, Col, Row, Alert } from "reactstrap";
+import { Card, CardBody, Button, Col, Row } from "reactstrap";
 import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
 import I18N from "i18n";
 import ErrorAlert from "components/errorAlert";
-import { claveAppUItemporal } from "config";
 
 const dataInitial = null; //{ username: "math", password: "MeepleLand" };
 

@@ -12,6 +12,7 @@ const LoginView = ({ loading, errors, onSubmit, step }) => {
 
   const validations = {
     target: ["required"],
+    app_key: ["required"],
   };
 
   return (
@@ -58,6 +59,20 @@ const LoginView = ({ loading, errors, onSubmit, step }) => {
                       name="target"
                       size="lg"
                       icon="user"
+                    />
+                    <Input
+                      validations={validations}
+                      validationStatus={validationStatus}
+                      setValidationStatus={setValidationStatus}
+                      label="form.KeyApp"
+                      name="app_key"
+                      placeholder="******"
+                      notTranslatePlaceholder
+                      notTranslateQuestion
+                      question="Si no tenés esta clave, no podrás registrarte. Contacta a los administradores para que te la proporcionen."
+                      size="lg"
+                      icon="puzzle-piece"
+                      classNameContainer="mt-4"
                     />
                     <ErrorAlert errors={errors} />
                     <div className="text-center pt-4">
