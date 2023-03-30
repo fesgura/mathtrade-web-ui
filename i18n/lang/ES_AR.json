@@ -144,7 +144,7 @@
   "orderBy.Order": "Ordenar",
   "orderBy.Descent": "Descendente",
   "statusType.CE": "Cerrado en el envoltorio original",
-  "statusType.NU": "Nuevo, perfecto",
+  "statusType.NU": "Nuevo, sin destroquelar",
   "statusType.CN": "Casi nuevo",
   "statusType.EX": "Excelente",
   "statusType.MB": "Muy bueno",
