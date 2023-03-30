@@ -8,6 +8,7 @@ const LinkInternal = ({
   children,
   className,
   withIcon,
+  onClick,
 }) => {
   const href = mathtrade
     ? privateRoutes.mathtrade[path].path || ""
@@ -19,7 +20,7 @@ const LinkInternal = ({
 
   return (
     <Link href={`/${href}`}>
-      <a className={className}>
+      <a className={className} onClick={onClick}>
         {withIcon && icon ? <Icon type={icon} className="me-2" /> : null}
         {children}
       </a>

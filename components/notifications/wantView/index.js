@@ -6,7 +6,11 @@ import ModalEditor from "components/wantEditor/modalEditor";
 import Icon from "components/icon";
 import { useState } from "react";
 
-const WantView = ({ wantGroupId, setDisabledDropdown }) => {
+const WantView = ({
+  wantGroupId,
+  setDisabledDropdown,
+  toogleReadNotification,
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [wantGroup, setWantGroup] = useState(null);
   const [type, setType] = useState(null);
@@ -41,6 +45,7 @@ const WantView = ({ wantGroupId, setDisabledDropdown }) => {
           color="primary"
           disabled={loading}
           onClick={() => {
+            toogleReadNotification(false);
             getWant({ id: wantGroupId });
           }}
         >

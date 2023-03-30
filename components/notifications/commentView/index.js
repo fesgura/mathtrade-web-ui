@@ -6,7 +6,11 @@ import { useState } from "react";
 import ItemFull from "components/item/full";
 import ItemComment from "components/itemComments";
 
-const CommentView = ({ itemId, setDisabledDropdown }) => {
+const CommentView = ({
+  itemId,
+  setDisabledDropdown,
+  toogleReadNotification,
+}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [item, setItem] = useState(null);
 
@@ -27,6 +31,7 @@ const CommentView = ({ itemId, setDisabledDropdown }) => {
           color="primary"
           disabled={loading}
           onClick={() => {
+            toogleReadNotification(false);
             getItem({ id: itemId });
           }}
         >

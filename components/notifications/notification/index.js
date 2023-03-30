@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import classNames from "classnames";
 import Icon from "components/icon";
 import I18N from "i18n";
@@ -21,7 +21,7 @@ const Notification = ({
   const [data, setData] = useState(dataNotification);
   moment.locale("es");
 
-  const [putNotificationRead, , loading, errors] = useApi({
+  const [putNotificationRead, , loading] = useApi({
     promise: NotificationService.putNotificationRead,
     afterLoad: (newDataNotification) => {
       setData(newDataNotification);
@@ -32,6 +32,21 @@ const Notification = ({
       }
     },
   });
+
+  const toogleReadNotification = useCallback(
+    (forced) => {
+      if (!loading) {
+        const unread = typeof forced !== "undefined" ? forced : !data?.unread;
+        if (unread !== data?.unread) {
+          putNotificationRead({
+            id: data.id,
+            data: { unread },
+          });
+        }
+      }
+    },
+    [data, loading]
+  );
 
   let content = null;
 
@@ -45,17 +60,37 @@ const Notification = ({
           <I18N id={`notifications.message.MTC.${data?.message}`} />
           <div>
             {data?.message === "geek-list" ? (
-              <LinkInternal path="myCollection" withIcon>
+              <LinkInternal
+                path="myCollection"
+                withIcon
+                onClick={() => {
+                  toogleReadNotification(false);
+                }}
+              >
                 <I18N id="link.GoToMyCollection" />
               </LinkInternal>
             ) : null}
             {data?.message === "want-list" ? (
-              <LinkInternal path={"list"} mathtrade withIcon>
+              <LinkInternal
+                path={"list"}
+                mathtrade
+                withIcon
+                onClick={() => {
+                  toogleReadNotification(false);
+                }}
+              >
                 <I18N id="link.GoToList" />
               </LinkInternal>
             ) : null}
             {data?.message === "pre-final" || data?.message === "final" ? (
-              <LinkInternal path={"results"} mathtrade withIcon>
+              <LinkInternal
+                path={"results"}
+                mathtrade
+                withIcon
+                onClick={() => {
+                  toogleReadNotification(false);
+                }}
+              >
                 <I18N id="link.GoToResults" />
               </LinkInternal>
             ) : null}
@@ -80,6 +115,7 @@ const Notification = ({
             <CommentView
               itemId={data.item_id}
               setDisabledDropdown={setDisabledDropdown}
+              toogleReadNotification={toogleReadNotification}
             />
           ) : null}
         </>
@@ -99,6 +135,7 @@ const Notification = ({
             <WantView
               wantGroupId={data.uwg_id}
               setDisabledDropdown={setDisabledDropdown}
+              toogleReadNotification={toogleReadNotification}
             />
           ) : null}
         </>
@@ -127,12 +164,7 @@ const Notification = ({
             className="notification-ob_mark"
             id={`notifications-mark-${idNode}`}
             onClick={() => {
-              if (!loading) {
-                putNotificationRead({
-                  id: data.id,
-                  data: { unread: !data?.unread },
-                });
-              }
+              toogleReadNotification();
             }}
           >
             <Icon type="circle" />
