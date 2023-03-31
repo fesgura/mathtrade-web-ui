@@ -54,6 +54,7 @@
   "menu.MyWants": "Mis Deseos",
   "menu.Results": "Resultados",
   "menu.MyData": "Mis datos",
+  "menu.PostMT": "Post Math Trade",
   "validation.required": "Este campo es requerido",
   "validation.email": "Completá el email correctamente",
   "validation.phone": "Completá el teléfono correctamente",
@@ -505,9 +506,9 @@
   "stats.segment.title": "Participantes por cantidad de ejemplares publicados",
   "stats.segment.tooltipFormat": "{%value} participantes",
   "stats.downloads.title": "¿Cómo se calculan los cambios?",
-  "stats.downloads.btn.results": "RESULTS.txt (archivo de resultados del <i>Trade Maximizer</i>)",
-  "stats.downloads.btn.wants": "WANTS.txt (archivo que utiliza <i>Trade Maximizer</i> para generar los cambios.)",
-  "stats.downloads.text1": "Para generar los cambios utilizamos <b>Trade Maximizer</b> <i>(podés descargarlo <a href=\"$$$\" target=\"_blank\">aquí</a>)</i>.<br />Podés probar vos mismo/a generar los resultados <i>(instrucciones <a href=\"$$$\" target=\"_blank\">aquí</a>)</i>, utilizando el siguiente archivo de <b>wants</b>:",
+  "stats.downloads.btn.results": "RESULTS.txt (archivo de resultados del <i>TradeMaximizer</i>)",
+  "stats.downloads.btn.wants": "WANTS.txt (archivo que utiliza <i>TradeMaximizer</i> para generar los cambios.)",
+  "stats.downloads.text1": "Para generar los cambios utilizamos <b>TradeMaximizer</b> <i>(podés descargarlo <a href=\"$$$\" target=\"_blank\">aquí</a>)</i>.<br />Podés probar vos mismo/a generar los resultados <i>(instrucciones <a href=\"$$$\" target=\"_blank\">aquí</a>)</i>, utilizando el siguiente archivo de <b>wants</b>:",
   "stats.downloads.text2": "Con esto, se obtiene el siguiente archivo de <b>resultados</b>:",
   "results.userTable.title": "Participantes y fechas de compromiso de cambios",
   "results.userTable.th.name": "Nombre",
@@ -515,5 +516,25 @@
   "results.userTable.th.commitment_datetime": "Envío compromiso de cambios",
   "results.userTable.th.commitment": "Cambios guardados",
   "results.userTable.commitment.yes": "¡Ya estás participando!",
-  "results.userTable.commitment.no": "<b>No está participando.</b><br/>Para hacerlo debe <b>\"Guardar y comprometer cambios\"</b> desde<br/>"
+  "results.userTable.commitment.no": "<b>No está participando.</b><br/>Para hacerlo debe <b>\"Guardar y comprometer cambios\"</b> desde<br/>",
+  "title.PostMT": "Post Math Trade",
+
+  "postMT.Nothelp1a": "Muy pronto, cuando estén los ",
+  "postMT.Nothelp1b": " del Math Trade, podrás intercambiar <i>\"por tu cuenta\"</i> los juegos que te queden.",
+
+  "postMT.help1a": "Ahora que ya están los ",
+  "postMT.results": "resultados",
+  "postMT.help1b": " del Math Trade, seguro que te quedaron varios juegos que te gustaría intercambiar... ¿Por qué no hacerlo?",
+
+  "postMT.help2": "A continuación te mostramos el listado de tus juegos, y también aquellos juegos <b>que ofrecieron los otros participantes</b> a cambio de los tuyos.",
+  "postMT.help3": "¿Quién te dice? <u>El algoritmo no lo sabe todo</u>... Tal vez encuentres en la propuesta de los otros participantes un intercambio que te interese y antes no habías considerado. Si es así, <b>¡contactate con esa persona y coordiná el cambiazo!</b> Si ese intercambio tiene que pasar por las manos de la organización (es decir, si hay envíos), <a href=\"$$$\" target=\"_blank\">avisanos</a> para generar la etiqueta correspondiente.",
+  "postMT.ForMyItem": "Por mi ejemplar:",
+  "postMT.OtherOffer": "Otros participantes ofrecen:",
+  "postMT.notItems": "No hay ningún ejemplar ofrecido a cambio de tu juego.",
+  "postMT.offers.1": "Ofrecido por:",
+  "postMT.offers.more": "Ofrecidos por:",
+  "postMT.contact.title": "Contacto:",
+  "postMT.contact.telegram": "Contactar por Telegram",
+  "postMT.contact.email": "Contactar por email",
+  "postMT.contact.bgg": "Contactar por la BGG"
 }
