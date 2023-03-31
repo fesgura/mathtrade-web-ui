@@ -11,16 +11,11 @@ const PostMT = () => {
   const [getPostMathTrade, data, loading, errors] = useApi({
     promise: MathTradeService.getPostMathTrade,
     initialState: [],
-    // format: (data) => {
-    //   return data[0];
-    // },
   });
 
   useEffect(() => {
     getPostMathTrade();
   }, []);
-
-  console.log(data);
 
   return (
     <PrivateEnv>

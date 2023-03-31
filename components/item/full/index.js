@@ -127,7 +127,11 @@ const ItemFull = ({
         })}
         {!forGame && isCombo && showUser ? (
           <div className="item-full-user">
-            <UserBox item={item} afterAnyChange={afterAnyChange} />
+            <UserBox
+              item={item}
+              afterAnyChange={afterAnyChange}
+              notBan={notBan}
+            />
           </div>
         ) : null}
         {footer ? <div className="item-full-footer">{footer}</div> : null}
