@@ -518,9 +518,14 @@
   "results.userTable.commitment.yes": "¡Ya estás participando!",
   "results.userTable.commitment.no": "<b>No está participando.</b><br/>Para hacerlo debe <b>\"Guardar y comprometer cambios\"</b> desde<br/>",
   "title.PostMT": "Post Math Trade",
+
+  "postMT.Nothelp1a": "Muy pronto, cuando estén los ",
+  "postMT.Nothelp1b": " del Math Trade, podrás intercambiar <i>\"por tu cuenta\"</i> los juegos que te queden.",
+
   "postMT.help1a": "Ahora que ya están los ",
   "postMT.results": "resultados",
   "postMT.help1b": " del Math Trade, seguro que te quedaron varios juegos que te gustaría intercambiar... ¿Por qué no hacerlo?",
+
   "postMT.help2": "A continuación te mostramos el listado de tus juegos, y también aquellos juegos <b>que ofrecieron los otros participantes</b> a cambio de los tuyos.",
   "postMT.help3": "¿Quién te dice? <u>El algoritmo no lo sabe todo</u>... Tal vez encuentres en la propuesta de los otro usuario un intercambio que te interese. Si es así, <b>¡contactate con esa persona y coordiná el cambiazo por tu cuenta!</b>",
   "postMT.ForMyItem": "Por mi ejemplar:",
