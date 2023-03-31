@@ -24,7 +24,7 @@ const LoginView = ({
   const validations = {
     username: ["required"],
     password: ["required"],
-    app_key: ["required"],
+    // app_key: ["required"],
   };
 
   return (
@@ -110,7 +110,7 @@ const LoginView = ({
                             </a>
                           </Link>
                         </div>
-                        <Input
+                        {/* <Input
                           validations={validations}
                           validationStatus={validationStatus}
                           setValidationStatus={setValidationStatus}
@@ -123,7 +123,7 @@ const LoginView = ({
                           size="lg"
                           icon="puzzle-piece"
                           classNameContainer="mb-0 mt-4"
-                        />
+                        /> */}
                         <ErrorAlert errors={errors} className="mt-4" />
                         <div className="text-center py-4">
                           <Button color="primary" size="lg" type="submit">
