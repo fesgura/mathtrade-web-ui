@@ -24,7 +24,11 @@ const UserOffer = ({ userOff }) => {
         <Row>
           <Col xs="auto">
             <div className="post-mt-myItem_quad-user-offer">
-              <I18N id="postMT.offers" />
+              <I18N
+                id={`postMT.offers.${
+                  userOff.items.length === 1 ? "1" : "more"
+                }`}
+              />
             </div>
             <div className="user_item">
               <Row className="align-items-center g-0">
@@ -46,7 +50,7 @@ const UserOffer = ({ userOff }) => {
             </div>
           </Col>
           <Col>
-            <div className="ps-3">
+            <div className="ps-2">
               <div className="post-mt-myItem_quad-user-offer">
                 <I18N id="postMT.contact.title" />
               </div>

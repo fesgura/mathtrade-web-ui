@@ -62,6 +62,10 @@ export const privateRoutes = {
       path: "mathtrade/my-data",
       icon: "user-o",
     },
+    postMT: {
+      path: "mathtrade/post-mathtrade",
+      icon: "handshake-o",
+    },
   },
 };
 
@@ -108,6 +112,12 @@ export const menu_yes_mathTrade = [
     title: "menu.Stats",
     path: privateRoutes.mathtrade.stats.path,
     icon: privateRoutes.mathtrade.stats.icon,
+  },
+  {
+    title: "menu.PostMT",
+    path: privateRoutes.mathtrade.postMT.path,
+    icon: privateRoutes.mathtrade.postMT.icon,
+    //hidden: true,
   },
   {
     title: "menu.MyData",
