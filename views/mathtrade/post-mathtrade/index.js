@@ -23,7 +23,7 @@ const PostMTView = ({ data, loading, errors }) => {
               <I18N id="postMT.help2" />
             </p>
             <p>
-              <I18N id="postMT.help3" />
+              <I18N id="postMT.help3" values={["https://t.me/Luis_Olcese"]} />
             </p>
           </div>
           <ErrorAlert errors={errors} />
