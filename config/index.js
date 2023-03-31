@@ -226,6 +226,6 @@ export const textSize = {
 };
 
 export const TradeMaximizerLinks = {
-  source: "https://sourceforge.net/projects/trademax/",
+  source: "https://boardgamegeek.com/wiki/page/TradeMaximizer",
   instructions: "https://boardgamegeek.com/wiki/page/TradeMaximizer",
 };
