@@ -91,6 +91,9 @@ const endpoints = {
   POST_COMMENT: "api/mathtrades/$[0]/items/$[1]/comments/",
   PUT_COMMENT: "api/mathtrades/$[0]/items/$[1]/comments/$[2]/",
 
+  // POST MT
+  POST_MT: "api/mathtrades/$[0]/post-items/",
+
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/1/
   /*
