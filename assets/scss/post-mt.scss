@@ -1,0 +1,43 @@
+.post-mt-help {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 40px;
+}
+
+.post-mt-myItem {
+  margin-bottom: 25px;
+  .post-mt-myItem_container {
+    padding: 50px;
+  }
+}
+.post-mt-myItem_quad {
+  width: 172px;
+  border: $border;
+  border-radius: 12px;
+  box-shadow: $main-box-shadow;
+  .post-mt-myItem_quad_inner {
+    padding: 10px;
+  }
+  .post-mt-myItem_quad_title {
+    padding-top: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.post-mt-myItem_quad-myItem {
+  padding: 15px 40px 15px 0;
+}
+.post-mt-myItem_quad-row_container {
+  border: 2px solid transparent;
+  border-left-color: $border-color;
+  padding: 15px 0 15px 40px;
+  border-radius: 20px;
+}
+.post-mt-myItem_quad-row {
+  display: flex;
+  flex-wrap: wrap;
+  .post-mt-myItem_quad-col {
+  }
+}
