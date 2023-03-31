@@ -186,7 +186,11 @@ const Element = ({
             </div>
             {!forGame && !isCombo && showUser ? (
               <div className="element-full-user">
-                <UserBox item={item} afterAnyChange={afterAnyChange} />
+                <UserBox
+                  item={item}
+                  afterAnyChange={afterAnyChange}
+                  notBan={notBan}
+                />
               </div>
             ) : null}
             {onDeleteButton ? (

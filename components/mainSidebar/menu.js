@@ -17,7 +17,12 @@ const Menu = ({ menuList, router }) => {
   return (
     <nav className="main-menu">
       {menuList.map((item, k) => {
+        if (item?.hidden) {
+          return null;
+        }
+
         const { path, icon, title, disabled, hot, storeQuery } = item;
+
         let disabledItem = false;
 
         let query = {};
