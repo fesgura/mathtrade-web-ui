@@ -83,7 +83,7 @@ const createVersionList = (versions, defaultThumbnail) => {
         version_name,
       },
       versionData: {
-        thumbnail,
+        thumbnail: thumbnail || "none",
         bgg_version_id: id,
       },
     });
@@ -205,7 +205,7 @@ export const processBGGdata = (BGGelement) => {
 
     BGGdata.versionList = createVersionList(
       versions,
-      BGGelement.thumbnail || ""
+      BGGelement.thumbnail || "none"
     );
   }
   // dependency

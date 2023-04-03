@@ -153,7 +153,9 @@ const ElementEdit = ({
                 <div className="element-thumbnail-container-wrap">
                   <Thumbnail src={thumbnail} />
 
-                  {isNOGAME || bgg_version_id === "other" ? (
+                  {isNOGAME ||
+                  bgg_version_id === "other" ||
+                  thumbnail === "none" ? (
                     <>
                       <div
                         className="element-thumbnail-container-edit-thumbnail"
@@ -291,10 +293,6 @@ const ElementEdit = ({
                             <ElementDropVersions
                               versionList={versionList}
                               onChange={(v) => {
-                                console.log(
-                                  "versionData",
-                                  v.versionData.bgg_version_id
-                                );
                                 set_bgg_version_id(
                                   v.versionData.bgg_version_id
                                 );
