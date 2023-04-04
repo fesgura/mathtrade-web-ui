@@ -61,6 +61,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 10,
   },
+  postMT: {
+    textAlign: "center",
+    fontSize: 35 * scale,
+    fontWeight: "bold",
+    marginTop: 25,
+  },
 });
 
 const PDFresults = ({ list }) => {
@@ -100,7 +106,11 @@ const PDFresults = ({ list }) => {
                           }}
                           wrap
                         >
-                          <Text style={styles.mesa}>{tag.mesa}</Text>
+                          <Text
+                            style={tag.postMT ? styles.postMT : styles.mesa}
+                          >
+                            {tag.mesa}
+                          </Text>
                         </View>
                         <Text style={styles.fromTo}>Para: {tag.to}</Text>
                       </View>

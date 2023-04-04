@@ -16,8 +16,9 @@ import I18N from "i18n";
 import UserAvatar from "components/avatar";
 import Quad from "./quad";
 import { getI18Ntext } from "i18n";
+import PdfButton from "./pdfButton";
 
-const UserOffer = ({ userOff }) => {
+const UserOffer = ({ userOff, item }) => {
   return (
     <>
       <div className="post-mt-myItem_quad-user">
@@ -100,6 +101,11 @@ const UserOffer = ({ userOff }) => {
                   ) : null}
                 </Row>
               </div>
+            </div>
+          </Col>
+          <Col xs="auto">
+            <div className="pt-3">
+              <PdfButton userOff={userOff} item={item} />
             </div>
           </Col>
         </Row>
