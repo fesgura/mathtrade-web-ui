@@ -68,7 +68,9 @@ const MyItem = ({ item }) => {
 
               {wantedList.length ? (
                 wantedList.map((userOff) => {
-                  return <UserOffer userOff={userOff} key={userOff.id} />;
+                  return (
+                    <UserOffer userOff={userOff} key={userOff.id} item={item} />
+                  );
                 })
               ) : (
                 <div className="italic">
