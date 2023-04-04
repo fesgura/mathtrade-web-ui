@@ -197,17 +197,19 @@ export const processBGGdata = (BGGelement) => {
   }
 
   const BGGdata = { versionList: [], bgg_id: BGGelement.id };
+
+  let versions = [];
   if (BGGelement.versions && BGGelement.versions.item) {
-    const versions =
+    versions =
       typeof BGGelement.versions.item.forEach === "undefined"
         ? [BGGelement.versions.item]
         : BGGelement.versions.item;
-
-    BGGdata.versionList = createVersionList(
-      versions,
-      BGGelement.thumbnail || "none"
-    );
   }
+  BGGdata.versionList = createVersionList(
+    versions,
+    BGGelement.thumbnail || "none"
+  );
+
   // dependency
   BGGdata.dependency = getDependency(BGGelement);
 
