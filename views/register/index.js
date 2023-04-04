@@ -316,7 +316,6 @@ const RegisterView = ({
                           />
                         </div>
 
-                        <Hidden name="referred" value="Luis Olcese" />
                         <hr />
                         <Input
                           type="checkbox"

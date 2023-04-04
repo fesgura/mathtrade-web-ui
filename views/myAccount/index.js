@@ -323,7 +323,6 @@ const MyAccountView = ({
                         </div>
                       </Col>
                     </Row>
-                    <Hidden name="referred" value="Luis Olcese" />
                     <hr />
                     <ErrorAlert errors={errors} />
                     <div className="text-center py-4">
