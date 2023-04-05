@@ -11,10 +11,10 @@
   "register.ReadySubtitle": "¡Genial! Tu cuenta <b>ha sido creada</b>.<br/><br/>Te hemos enviado un email a tu casilla con una <b>contraseña provisoria</b> para que puedas acceder al sitio.<br/>Una vez allí, te pediremos que cambies tu contraseña por una que solo vos conozcas.",
   "accept.TyC1": "Acepto los ",
   "accept.TyC2": " y el uso de mis datos ingresados, solo con fines exclusivamente relacionados con el MathTrade.",
-
   "accept.editor.TyC1": "Acepto la responsabilidad por los datos consignados aquí, en acuerdo con el <b>punto 5.</b> de los ",
   "accept.editor.TyC2": " establecidos.",
-
+  "accept.myData.TyC1": "Acepto los ",
+  "accept.myData.TyC2": " establecidos por la organización para este Math Trade (costos, responsabilidades, etc.).",
   "register.EnterData": "Datos de ingreso",
   "register.AccountData": "Datos de tu cuenta",
   "register.BGGdata": "Datos desde BGG",
@@ -369,7 +369,7 @@
   "MyData.InPerson.labelSwitch": "¿Vas a ir a la juntada presencial?",
   "MyData.InPerson.help": "Es importante que te comprometas, si podés acercarte a la juntada presencial y así colaborar con la organización.",
   "MyData.btn.UpdateData": "Actualizar mis datos",
-  "MyData.btn.SignToMathTrade": "Inscribirme al <br /> Math Trade Argentina",
+  "MyData.btn.SignToMathTrade": "Inscribirme al <br /> Math Trade",
   "MyData.btn.SignOutToMathTrade": "Salir del Math Trade",
   "MyData.title.SignOutToMathTrade": "¿Salir del Math Trade?",
   "MyData.title.SignOutToMathTrade.lead": "Luego podrás volver a inscribirte.",

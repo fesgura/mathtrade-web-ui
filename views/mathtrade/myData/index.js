@@ -42,6 +42,7 @@ const MyDataView = ({
   const [currentLocation, setCurrentLocation] = useState(null);
   const [modalExit, setModalExit] = useState(false);
   const [meetingDay, setMeetingDay] = useState({ day: "", hour: "" });
+  const [terms_acceptance, setTerms_acceptance] = useState(false);
 
   const onChangeLocation = useCallback(
     (locationId) => {
@@ -283,10 +284,37 @@ const MyDataView = ({
                       <I18N id="MyData.btn.UpdateData" />
                     </Button>
                   ) : (
-                    <Button color="primary" type="submit" size="lg">
-                      <I18N id="MyData.btn.SignToMathTrade" />{" "}
-                      {mathtradeData.data?.name}
-                    </Button>
+                    <>
+                      <div className="text-start py-4">
+                        <Row className="g-0">
+                          <Col xs="auto">
+                            <Input
+                              type="checkbox"
+                              name="username"
+                              onChange={setTerms_acceptance}
+                            />
+                          </Col>
+                          <Col>
+                            <div className="ps-2">
+                              <I18N id="accept.myData.TyC1" />
+                              <LinkInternal hrefPrecise="tyc" blank>
+                                <I18N id="title.TyC" />
+                              </LinkInternal>
+                              <I18N id="accept.myData.TyC2" />
+                            </div>
+                          </Col>
+                        </Row>
+                      </div>
+                      <Button
+                        color="primary"
+                        type="submit"
+                        size="lg"
+                        disabled={!terms_acceptance}
+                      >
+                        <I18N id="MyData.btn.SignToMathTrade" />{" "}
+                        {mathtradeData.data?.name}
+                      </Button>
+                    </>
                   )}
                 </div>
               ) : null}
