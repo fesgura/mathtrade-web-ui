@@ -24,7 +24,7 @@ const TycView = () => {
             empezar a correr algoritmos y cambiar juegos de manos, es importante
             que tengas en cuenta algunas consideraciones fundamentales:
           </p>
-          <ul className="tyc-ul">
+          <ol className="tyc-ul">
             <li>
               Los cambios finales son un compromiso. Cada juego ofrecido o
               deseado puede transformarse en un cambio definitivo. Analizá y
@@ -92,7 +92,7 @@ const TycView = () => {
               colaborar, pero tampoco somos el servicio de atención al cliente
               de Aduana (?) Somos mejores (?){" "}
             </li>
-          </ul>
+          </ol>
         </CardBody>
       </Card>
     </SemiLayout>
