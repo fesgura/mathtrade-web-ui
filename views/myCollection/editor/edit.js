@@ -28,6 +28,7 @@ import PillsBGG from "components/item/full/element/pillsBGG";
 import PhotoUploader from "components/photoUploader";
 import StatusHelp from "components/pages/myItems/statusHelp";
 import ModalDeleteItem from "../modalDelete";
+import LinkInternal from "components/link-internal";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -66,6 +67,7 @@ const ElementEdit = ({
   const [modalUploadOpen, setModalUploadOpen] = useState(false);
 
   const [isNOGAME, setIsNOGAME] = useState(false);
+  const [terms_acceptance, setTerms_acceptance] = useState(false);
 
   const [validationStatus, setValidationStatus] = useState({});
 
@@ -442,6 +444,27 @@ const ElementEdit = ({
                             changeData({ comment: v });
                           }}
                         />
+
+                        <div className="pb-2">
+                          <Row className="g-0">
+                            <Col xs="auto">
+                              <Input
+                                type="checkbox"
+                                name="username"
+                                onChange={setTerms_acceptance}
+                              />
+                            </Col>
+                            <Col>
+                              <div className="ps-2">
+                                <I18N id="accept.editor.TyC1" />
+                                <LinkInternal hrefPrecise="tyc" blank>
+                                  <I18N id="title.TyC" />
+                                </LinkInternal>
+                                <I18N id="accept.editor.TyC2" />
+                              </div>
+                            </Col>
+                          </Row>
+                        </div>
                       </>
                     ) : (
                       <div className="bgg_version_id_null-spacer" />
@@ -485,7 +508,7 @@ const ElementEdit = ({
                             <Button
                               color="primary"
                               type="submit"
-                              disabled={!bgg_version_id}
+                              disabled={!bgg_version_id || !terms_acceptance}
                             >
                               {create ? (
                                 <I18N id="btn.Add" />

@@ -9,7 +9,12 @@
   "register.Subtitle": "Completá los datos para crear tu cuenta",
   "register.ReadyTitle": "¡Listo!",
   "register.ReadySubtitle": "¡Genial! Tu cuenta <b>ha sido creada</b>.<br/><br/>Te hemos enviado un email a tu casilla con una <b>contraseña provisoria</b> para que puedas acceder al sitio.<br/>Una vez allí, te pediremos que cambies tu contraseña por una que solo vos conozcas.",
-  "accept.TyC": "Acepto el uso de mis datos ingresados, solo con fines exclusivamente relacionados con el MathTrade.",
+  "accept.TyC1": "Acepto los ",
+  "accept.TyC2": " y el uso de mis datos ingresados, solo con fines exclusivamente relacionados con el MathTrade.",
+
+  "accept.editor.TyC1": "Acepto la responsabilidad por los datos consignados aquí, en acuerdo con los ",
+  "accept.editor.TyC2": " establecidos.",
+
   "register.EnterData": "Datos de ingreso",
   "register.AccountData": "Datos de tu cuenta",
   "register.BGGdata": "Datos desde BGG",
