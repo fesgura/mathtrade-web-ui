@@ -25,6 +25,9 @@ a {
 .muted {
   color: #999;
 }
+.text-color {
+  color: $text-color;
+}
 
 .smallest {
   font-size: 75%;

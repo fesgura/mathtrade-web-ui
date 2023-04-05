@@ -11,6 +11,7 @@ import TestBGGuser from "components/testBGGuser";
 import I18N from "i18n";
 import ErrorAlert from "components/errorAlert";
 import { textSize } from "config";
+import LinkInternal from "components/link-internal";
 
 const RegisterView = ({
   errors,
@@ -317,13 +318,27 @@ const RegisterView = ({
                         </div>
 
                         <hr />
-                        <Input
-                          type="checkbox"
-                          labelCheckbox="accept.TyC"
-                          name="terms_acceptance"
-                          classNameContainer="m-0"
-                          onChange={setTerms_acceptance}
-                        />
+
+                        <Row className="g-0">
+                          <Col xs="auto">
+                            <Input
+                              type="checkbox"
+                              name="terms_acceptance"
+                              classNameContainer="m-0"
+                              onChange={setTerms_acceptance}
+                            />
+                          </Col>
+                          <Col>
+                            <div className="ps-2">
+                              <I18N id="accept.TyC1" />
+                              <LinkInternal hrefPrecise="tyc" blank>
+                                <I18N id="title.TyC" />
+                              </LinkInternal>
+                              <I18N id="accept.TyC2" />
+                            </div>
+                          </Col>
+                        </Row>
+
                         <ErrorAlert errors={errors} />
                         <div className="text-center py-4">
                           <Button

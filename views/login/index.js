@@ -7,6 +7,7 @@ import LoginSlider from "components/pages/loginSlider";
 import { Form, Input } from "components/form";
 import I18N from "i18n";
 import ErrorAlert from "components/errorAlert";
+import LinkInternal from "components/link-internal";
 
 const dataInitial = null; //{ username: "math", password: "MeepleLand" };
 
@@ -40,13 +41,27 @@ const LoginView = ({
                 <CardBody className="p-5">
                   {acceptView ? (
                     <div className="py-5">
-                      <Input
-                        type="checkbox"
-                        labelCheckbox="accept.TyC"
-                        name="username"
-                        onChange={setTerms_acceptance}
-                      />
-                      <div className="text-center">
+                      <Row className="g-0">
+                        <Col xs="auto">
+                          <Input
+                            type="checkbox"
+                            // labelCheckbox="accept.TyC"
+                            name="username"
+                            onChange={setTerms_acceptance}
+                          />
+                        </Col>
+                        <Col>
+                          <div className="ps-2">
+                            <I18N id="accept.TyC1" />
+                            <LinkInternal hrefPrecise="tyc" blank>
+                              <I18N id="title.TyC" />
+                            </LinkInternal>
+                            <I18N id="accept.TyC2" />
+                          </div>
+                        </Col>
+                      </Row>
+
+                      <div className="text-center pt-4">
                         <Button
                           color="primary"
                           size="lg"
