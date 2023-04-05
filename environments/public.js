@@ -12,10 +12,6 @@ const PublicEnvComp = ({ ContainerComp }) => {
   const [verifingAuth, setVerifingAuth] = useState(true);
 
   useEffect(() => {
-    // Temp
-    storage.clearTemp("MathTradeArgentinaOptions");
-    storage.clearTemp("MathTradeArgentinaOptions2");
-    // TEMP
     const newStore = storage.get();
     if (newStore && newStore.auth && newStore.user.data) {
       //comprobar time

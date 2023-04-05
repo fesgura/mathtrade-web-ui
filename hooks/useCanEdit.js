@@ -31,12 +31,13 @@ const useCanEdit = (type) => {
       } else {
         newCanEdit = today.isAfter(dateToCompare);
       }
-      // TEMP test
-      if (storage.getOption("isTest") && type === "results") {
-        setCantEdit(true);
-      } else {
-        setCantEdit(newCanEdit);
-      }
+
+      // if (storage.getOption("isTest") && type === "results") {
+      //   setCantEdit(true);
+      // } else {
+      //   setCantEdit(newCanEdit);
+      // }
+      setCantEdit(newCanEdit);
       //
     }
   }, [type]);
