@@ -538,5 +538,6 @@
   "postMT.contact.email": "Contactar por email",
   "postMT.contact.bgg": "Contactar por la BGG",
   "postMT.print_download": "Imprimir / descargar<br/>etiqueta para este intercambio",
-  "postMT.tagPDF": "Etiqueta"
+  "postMT.tagPDF": "Etiqueta",
+  "title.TyC": "Términos y condiciones"
 }

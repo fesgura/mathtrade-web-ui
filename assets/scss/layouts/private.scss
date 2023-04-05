@@ -14,6 +14,11 @@
   &.sidebar-animation-enabled {
     transition: padding-left $main-sidebar-transition $main-sidebar-delay;
   }
+  &.for-semi {
+    padding-top: 60px;
+    padding-left: 60px;
+    padding-right: 60px;
+  }
 }
 
 .main-container {

@@ -26,6 +26,11 @@
       font-size: 60%;
     }
   }
+  &.text-color {
+    .main-logo_text {
+      color: $text-color;
+    }
+  }
 }
 
 @media screen and (max-width: 990px) {
