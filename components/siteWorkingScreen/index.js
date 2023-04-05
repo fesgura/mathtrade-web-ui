@@ -1,8 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
 import logoSrc from "assets/img/logo.svg";
+import { setLogoutAPI } from "api_serv/utils";
+import storage from "utils/storage";
+import { useEffect } from "react";
 
 const SiteWorkingScreen = () => {
+  useEffect(() => {
+    storage.clear();
+    setLogoutAPI();
+  }, []);
   return (
     <>
       <Head>
@@ -91,17 +98,29 @@ const SiteWorkingScreen = () => {
       </Head>
 
       <div className="SiteWorkingScreen">
-        <Image
-          src={logoSrc}
-          alt="Math Trade Argentina"
-          priority
-          width="200"
-          height="200"
-        />
-        <h3 className="mt-3">Estamos trabajando en el sitio</h3>
+        <div className="SiteWorkingScreen_logo">
+          <Image
+            src={logoSrc}
+            alt="Math Trade Argentina"
+            priority
+            width="200"
+            height="200"
+          />
+        </div>
+        <h1 className="mb-5">
+          Se viene el
+          <br />
+          Math Trade Argentina Abril 2023
+        </h1>
+        <h3 className="mb-4">¡¡¡Muy pronto arrancamos!!!</h3>
+        <p className="lead">
+          A las <b>00:05hs.</b> aprox. se viene lo bueno... aguantando la
+          ansiedad!!
+        </p>
+        {/* <h3 className="mt-3">Estamos trabajando en el sitio</h3>
         <p className="lead">
           Muy pronto estaremos <i>en línea</i> de vuelta ;-).
-        </p>
+        </p> */}
       </div>
     </>
   );
