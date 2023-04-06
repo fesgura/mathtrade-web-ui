@@ -102,7 +102,7 @@ const GameListView = ({
                 return (
                   <Game
                     game={game}
-                    key={k}
+                    key={game.id}
                     afterAnyChange={afterAnyChange}
                     canEditWants={canEditWants}
                   />

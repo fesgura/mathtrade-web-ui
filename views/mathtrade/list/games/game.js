@@ -6,6 +6,7 @@ import Valuation from "components/valuation";
 const Game_in_list = ({ game, afterAnyChange, canEditWants }) => {
   const [wantGroup, setWantGroup] = useState(null);
   const [forceOpenWantEditor, setForceOpenWantEditor] = useState(false);
+  const [renderElem, setRenderElem] = useState(true);
 
   useEffect(() => {
     const newWantGroupArray = game.wanted.filter((wg) => {
@@ -16,9 +17,19 @@ const Game_in_list = ({ game, afterAnyChange, canEditWants }) => {
     } else {
       setWantGroup(null);
     }
+
+    //
+    setRenderElem(false);
+    let timer = setTimeout(() => {
+      setRenderElem(true);
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [game]);
 
-  return (
+  return renderElem ? (
     <Game
       game={game}
       wanted={wantGroup}
@@ -46,6 +57,8 @@ const Game_in_list = ({ game, afterAnyChange, canEditWants }) => {
         },
       ]}
     />
+  ) : (
+    <div style={{ height: 656 }} />
   );
 };
 export default Game_in_list;
