@@ -128,7 +128,11 @@ const PrivateEnv = ({ children }) => {
     return <SiteWorkingScreen />;
   }
 
-  return showEnvironment ? <>{children}</> : errors ? <div>ERRORS</div> : null;
+  return showEnvironment ? (
+    <>{children}</>
+  ) : errors ? (
+    <SiteWorkingScreen />
+  ) : null;
 };
 
 export default PrivateEnv;
