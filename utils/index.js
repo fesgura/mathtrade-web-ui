@@ -240,7 +240,13 @@ export const processBGGdata = (BGGelement) => {
 };
 
 export const dependencyToData = (dependency) => {
-  if (!dependency || dependency.value.length === 0) {
+  console.log("dependency", dependency);
+  if (
+    !dependency ||
+    !dependency.votes ||
+    !dependency.value ||
+    dependency?.value?.length === 0
+  ) {
     return {
       most: "Sin datos",
       list: [],
@@ -248,7 +254,7 @@ export const dependencyToData = (dependency) => {
   }
 
   return {
-    most: listDependencyTexts[parseInt(dependency.value, 10)].min,
+    most: listDependencyTexts[parseInt(dependency?.value || 0, 10)].min,
     list: dependency.votes.split("|").map((vote, i) => {
       return {
         value: parseInt(vote, 10),
