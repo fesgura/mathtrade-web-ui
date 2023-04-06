@@ -51,6 +51,24 @@ const PrivateLayout = ({
         <title>
           {doctitle ? `${getI18Ntext(doctitle)} | ` : ""}Math Trade Argentina
         </title>
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=G-FDNQEMTZZH`}
+        />
+        ;
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-FDNQEMTZZH', {
+                    page_path: window.location.pathname,
+                });
+                `,
+          }}
+        />
+        ;
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="apple-touch-icon"
@@ -122,7 +140,6 @@ const PrivateLayout = ({
           href="/favicon/favicon-16x16.png"
         />
         <link rel="manifest" href="/favicon/manifest.json" />
-
         <style>
           @import
           url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Montserrat:wght@500;600&display=swap');
