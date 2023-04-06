@@ -7,6 +7,23 @@ const PublicLayout = ({ title, loading, children }) => {
     <>
       <Head>
         <title>{title ? `${title} | ` : ""}Math Trade Argentina</title>
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=G-FDNQEMTZZH`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-FDNQEMTZZH', {
+                    page_path: window.location.pathname,
+                });
+                `,
+          }}
+        />
+        <link rel="icon" href="/favicon/favicon.ico" />
         <link
           rel="apple-touch-icon"
           sizes="57x57"
