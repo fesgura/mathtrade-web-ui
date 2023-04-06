@@ -18,13 +18,12 @@ const MT_ItemListViewItem = ({
   const [isOwner, setIsOwner] = useState(false);
 
   const [wantGroup, setWantGroup] = useState(null);
+  const [renderElem, setRenderElem] = useState(true);
 
   useEffect(() => {
     const user = storage.getFromStore("user");
     setIsOwner(user?.id === item?.user?.id);
-  }, [item]);
-
-  useEffect(() => {
+    //
     const newWantGroupArray = item.wanted.filter((wg) => {
       return wg.type === "item";
     });
@@ -33,6 +32,16 @@ const MT_ItemListViewItem = ({
     } else {
       setWantGroup(null);
     }
+
+    //
+    setRenderElem(false);
+    let timer = setTimeout(() => {
+      setRenderElem(true);
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [item]);
 
   const itemComp = (
@@ -85,7 +94,7 @@ const MT_ItemListViewItem = ({
     />
   );
 
-  return (
+  return renderElem ? (
     <Dragger
       // key={`${item?.id}-${"item"}`}
       type="item_in_list"
@@ -102,6 +111,8 @@ const MT_ItemListViewItem = ({
     >
       {itemComp}
     </Dragger>
+  ) : (
+    <div style={{ height: 360 }} />
   );
 };
 export default MT_ItemListViewItem;

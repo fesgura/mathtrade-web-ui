@@ -138,11 +138,11 @@ const ItemListView = ({
           )}
           <div className="item-list pb-1">
             {list && list.results && list.results.length ? (
-              list.results.map((item, k) => {
+              list.results.map((item) => {
                 return (
                   <ItemView
                     item={item}
-                    key={k}
+                    key={item.id}
                     afterAnyChange={afterAnyChange}
                     tagList={tagList}
                     dragToGroup={dragToGroup}
