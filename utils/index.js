@@ -240,7 +240,6 @@ export const processBGGdata = (BGGelement) => {
 };
 
 export const dependencyToData = (dependency) => {
-  console.log("dependency", dependency);
   if (
     !dependency ||
     !dependency.votes ||

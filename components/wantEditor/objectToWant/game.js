@@ -17,7 +17,6 @@ const Game = ({ game, want_ids, setWantId, afterAnyChange, canEditWants }) => {
 
   useEffect(() => {
     if (game || game.items || game.items[0]) {
-      console.log("asdsada", game.items[0]);
       getItem({ id: game.items[0].id });
     }
   }, [game]);
