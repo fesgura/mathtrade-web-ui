@@ -196,7 +196,7 @@ export const photoUploaderConfig = (() => {
 
 export const page_size = 30;
 
-export const pageSizeOptions = [10, 20, 30, 40, 50];
+export const pageSizeOptions = [2, 10, 20, 30, 40, 50];
 
 export const linksToHelp = {
   bgg: "https://boardgamegeek.com/thread/3007435/math-trade-argentina-abril-2023",
