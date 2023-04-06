@@ -1,11 +1,34 @@
 import I18N from "i18n";
 import ItemListToWant from "./comps/itemListToWant";
 import ItemFull from "components/item/full";
+import { useApi, MathTradeService } from "api_serv";
+import { useState, useEffect } from "react";
+import { LoadingBox } from "components/loading";
 
 const Game = ({ game, want_ids, setWantId, afterAnyChange, canEditWants }) => {
-  return (
+  const [item, setItem] = useState(null);
+
+  const [getItem, , loading, errors] = useApi({
+    promise: MathTradeService.getItemById,
+    afterLoad: (newItem) => {
+      setItem(newItem);
+    },
+  });
+
+  useEffect(() => {
+    if (game || game.items || game.items[0]) {
+      console.log("asdsada", game.items[0]);
+      getItem({ id: game.items[0].id });
+    }
+  }, [game]);
+
+  return loading ? (
+    <div className="relative" style={{ height: 200 }}>
+      <LoadingBox />
+    </div>
+  ) : item ? (
     <ItemFull
-      item={game.items[0]}
+      item={item}
       forGame={game.bgg_id}
       inModal
       footer={
@@ -26,7 +49,7 @@ const Game = ({ game, want_ids, setWantId, afterAnyChange, canEditWants }) => {
         </>
       }
     />
-  );
+  ) : null;
 };
 
 export default Game;
