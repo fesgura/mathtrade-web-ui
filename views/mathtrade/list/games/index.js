@@ -37,34 +37,38 @@ const GameListView = ({
             path: `/${privateRoutes.mathtrade.itemList.path}`,
           },
         ]}
-        rightSide={
-          <OrderBy
-            valueInitial={filters?.query?.order}
-            defaultValue="title"
-            options={[
-              { text: getI18Ntext("element.Name"), value: "title" },
-              { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
-              { text: getI18Ntext("element.Value"), value: "value" },
-              { text: getI18Ntext("element.BGG.rank"), value: "rank" },
-              { text: getI18Ntext("element.BGG.rating"), value: "rate" },
-              {
-                text: getI18Ntext("element.BGG.weight"),
-                value: "weight",
-              },
-              {
-                text: getI18Ntext("element.BGG.dependency"),
-                value: "dependency",
-              },
-            ]}
-            onChange={(order, desc) => {
-              setFilters({
-                order: `${desc ? "-" : ""}${order}`,
-              });
-            }}
-          />
-        }
+        // TEMP
+        // rightSide={
+        //   <OrderBy
+        //     valueInitial={filters?.query?.order}
+        //     defaultValue="title"
+        //     options={[
+        //       { text: getI18Ntext("element.Name"), value: "title" },
+        //       { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
+        //       { text: getI18Ntext("element.Value"), value: "value" },
+        //       { text: getI18Ntext("element.BGG.rank"), value: "rank" },
+        //       { text: getI18Ntext("element.BGG.rating"), value: "rate" },
+        //       {
+        //         text: getI18Ntext("element.BGG.weight"),
+        //         value: "weight",
+        //       },
+        //       {
+        //         text: getI18Ntext("element.BGG.dependency"),
+        //         value: "dependency",
+        //       },
+        //     ]}
+        //     onChange={(order, desc) => {
+        //       setFilters({
+        //         order: `${desc ? "-" : ""}${order}`,
+        //       });
+        //     }}
+        //   />
+        // }
       />
-
+      <h2 className="text-center p-5">
+        Esta vista está momentáneamente suspendida
+      </h2>
+      {/* TEMP <>
       <Row>
         <Col xs={3}>
           <SidebarSticky>
@@ -131,6 +135,7 @@ const GameListView = ({
           />
         </Col>
       </Row>
+    </> */}
     </PrivateLayout>
   );
 };
