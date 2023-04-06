@@ -51,7 +51,23 @@ const PrivateLayout = ({
         <title>
           {doctitle ? `${getI18Ntext(doctitle)} | ` : ""}Math Trade Argentina
         </title>
-        <link rel="icon" href="/favicon.ico" />
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=G-FDNQEMTZZH`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-FDNQEMTZZH', {
+                    page_path: window.location.pathname,
+                });
+                `,
+          }}
+        />
+        <link rel="icon" href="/favicon/favicon.ico" />
         <link
           rel="apple-touch-icon"
           sizes="57x57"
