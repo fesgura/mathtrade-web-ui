@@ -55,7 +55,6 @@ const PrivateLayout = ({
           async
           src={`https://www.googletagmanager.com/gtag/js?id=G-FDNQEMTZZH`}
         />
-        ;
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -68,7 +67,6 @@ const PrivateLayout = ({
                 `,
           }}
         />
-        ;
         <link rel="icon" href="/favicon.ico" />
         <link
           rel="apple-touch-icon"
