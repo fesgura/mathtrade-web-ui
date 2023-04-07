@@ -49,7 +49,7 @@ const WantQuick = ({ objectToWant, type, afterAnyChange }) => {
   const [postWant, , loading, errors] = useApi({
     promise: MathTradeService.postWant,
     afterLoad: () => {
-      afterAnyChange();
+      afterAnyChange(true);
     },
   });
   /*********************************/
