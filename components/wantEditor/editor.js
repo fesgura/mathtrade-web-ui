@@ -110,7 +110,7 @@ const EditorWants = ({
             break;
           case "item":
             set_name(
-              cropWord(objectToWant?.title + "_" + objectToWant?.id || "", 120)
+              cropWord(objectToWant?.title, 110) + "_" + objectToWant?.id || ""
             );
             set_want_ids([objectToWant?.id]);
             break;
