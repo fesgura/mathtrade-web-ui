@@ -35,7 +35,7 @@ const Valuation = ({ className, items, afterAnyChange = () => {}, min }) => {
   const [valuatePostItem, , loadingPutItem] = useApi({
     promise: MathTradeService.valuatePostItem,
     afterLoad: () => {
-      afterAnyChange();
+      afterAnyChange({ origin: "valuation", items, value: valueInternal });
     },
   });
 

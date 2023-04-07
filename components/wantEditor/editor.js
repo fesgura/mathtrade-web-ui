@@ -176,7 +176,7 @@ const EditorWants = ({
           <Col xs="auto">
             <DeleteButton
               size="xs"
-              itemName="want"
+              itemName="deseo"
               onDelete={() => {
                 deleteWant({ id });
               }}

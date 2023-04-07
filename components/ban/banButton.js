@@ -22,7 +22,7 @@ const BanButton = ({
   const [postBan, , loading] = useApi({
     promise: MathTradeService.postBan,
     afterLoad: (data) => {
-      afterAnyChange();
+      afterAnyChange({ origin: "ban", type, element });
     },
   });
 

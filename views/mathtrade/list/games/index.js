@@ -1,7 +1,6 @@
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
-import { page_size } from "config";
 import Game from "./game";
 import { Col, Row, Alert } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
@@ -12,6 +11,17 @@ import Filters_MT_Games from "./filters";
 import SidebarSticky from "components/sidebarSticky";
 import { getI18Ntext } from "i18n";
 import I18N from "i18n";
+import { useState, useEffect } from "react";
+
+const filterList = (list, itemBanIds, afterAnyChange) => {
+  const newList = list.filter((item) => {
+    return itemBanIds.indexOf(item.bgg_id) < 0;
+  });
+  if (newList.length === 0) {
+    afterAnyChange();
+  }
+  return newList;
+};
 
 const GameListView = ({
   canEditList,
@@ -23,6 +33,12 @@ const GameListView = ({
   errors,
   afterAnyChange,
 }) => {
+  const [itemBanIds, setItemBanIds] = useState([]);
+
+  useEffect(() => {
+    setItemBanIds([]);
+  }, [list]);
+
   return (
     <PrivateLayout loading={loading} doctitle="title.GameList">
       <PageHeaderTabs
@@ -37,38 +53,34 @@ const GameListView = ({
             path: `/${privateRoutes.mathtrade.itemList.path}`,
           },
         ]}
-        // TEMP
-        // rightSide={
-        //   <OrderBy
-        //     valueInitial={filters?.query?.order}
-        //     defaultValue="title"
-        //     options={[
-        //       { text: getI18Ntext("element.Name"), value: "title" },
-        //       { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
-        //       { text: getI18Ntext("element.Value"), value: "value" },
-        //       { text: getI18Ntext("element.BGG.rank"), value: "rank" },
-        //       { text: getI18Ntext("element.BGG.rating"), value: "rate" },
-        //       {
-        //         text: getI18Ntext("element.BGG.weight"),
-        //         value: "weight",
-        //       },
-        //       {
-        //         text: getI18Ntext("element.BGG.dependency"),
-        //         value: "dependency",
-        //       },
-        //     ]}
-        //     onChange={(order, desc) => {
-        //       setFilters({
-        //         order: `${desc ? "-" : ""}${order}`,
-        //       });
-        //     }}
-        //   />
-        // }
+        rightSide={
+          <OrderBy
+            valueInitial={filters?.query?.order}
+            defaultValue="title"
+            options={[
+              { text: getI18Ntext("element.Name"), value: "title" },
+              { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
+              { text: getI18Ntext("element.Value"), value: "value" },
+              { text: getI18Ntext("element.BGG.rank"), value: "rank" },
+              { text: getI18Ntext("element.BGG.rating"), value: "rate" },
+              {
+                text: getI18Ntext("element.BGG.weight"),
+                value: "weight",
+              },
+              {
+                text: getI18Ntext("element.BGG.dependency"),
+                value: "dependency",
+              },
+            ]}
+            onChange={(order, desc) => {
+              setFilters({
+                order: `${desc ? "-" : ""}${order}`,
+              });
+            }}
+          />
+        }
       />
-      <h2 className="text-center p-5">
-        Esta vista está momentáneamente suspendida
-      </h2>
-      {/* TEMP <>
+
       <Row>
         <Col xs={3}>
           <SidebarSticky>
@@ -102,16 +114,45 @@ const GameListView = ({
           )}
           <div className="game-list">
             {list && list.results && list.results.length ? (
-              list.results.map((game, k) => {
-                return (
-                  <Game
-                    game={game}
-                    key={game.id}
-                    afterAnyChange={afterAnyChange}
-                    canEditWants={canEditWants}
-                  />
-                );
-              })
+              filterList(list.results, itemBanIds, afterAnyChange).map(
+                (game, k) => {
+                  return (
+                    <Game
+                      game={game}
+                      key={`${game.id}-${k}`}
+                      canEditWants={canEditWants}
+                      afterAnyChange={(data_afterAnyChange) => {
+                        if (typeof data_afterAnyChange === "boolean") {
+                          afterAnyChange(data_afterAnyChange);
+                        } else {
+                          if (data_afterAnyChange) {
+                            switch (data_afterAnyChange.origin) {
+                              case "ban":
+                                if (data_afterAnyChange.type === "game") {
+                                  setItemBanIds((banItemList) => {
+                                    const newBanItemList = [...banItemList];
+
+                                    newBanItemList.push(
+                                      data_afterAnyChange.element.bgg_id
+                                    );
+                                    return newBanItemList;
+                                  });
+                                }
+                                if (data_afterAnyChange.type === "user") {
+                                  afterAnyChange();
+                                }
+                                break;
+                              default:
+                              //
+                            }
+                          }
+                        }
+                        //
+                      }}
+                    />
+                  );
+                }
+              )
             ) : loading ? null : (
               <div className="item-list_empty">
                 <p className="lead py-4">
@@ -135,7 +176,6 @@ const GameListView = ({
           />
         </Col>
       </Row>
-    </> */}
     </PrivateLayout>
   );
 };

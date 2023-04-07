@@ -9,8 +9,6 @@ import GameListView from "views/mathtrade/list/games";
 import { page_size } from "config";
 
 const MT_GameListContainer = () => {
-  /*
-  TEMP
   const canEditList = useCanEdit("list");
   const canEditWants = useCanEdit("wants");
 
@@ -28,6 +26,7 @@ const MT_GameListContainer = () => {
   });
 
   useEffect(() => {
+    //
     let timer = setTimeout(() => {
       if (!isFetched) {
         const { pathname, query } = router;
@@ -61,6 +60,7 @@ const MT_GameListContainer = () => {
     if (errors) {
       const { pathname, query } = router;
       if (query?.page !== 1) {
+        // let newQuery = { ...query, page: 1 };
         delete query.page;
         setFilters({ pathname, query, d: getUniqueId() });
         router.push({
@@ -83,50 +83,49 @@ const MT_GameListContainer = () => {
       listPageType: "gameList",
     });
   }, []);
-*/
+
   return (
     <PrivateEnv>
       <GameListView
-      // TEMP
-      // canEditList={canEditList}
-      // canEditWants={canEditWants}
-      // list={list}
-      // filters={filters}
-      // setFilters={(filterInput) => {
-      //   const newFilters = {
-      //     ...filters,
-      //     query: {
-      //       ...filters.query,
-      //       ...filterInput,
-      //     },
-      //     d: getUniqueId(),
-      //   };
-      //   for (let a in newFilters.query) {
-      //     if (typeof newFilters.query[a] === "undefined") {
-      //       delete newFilters.query[a];
-      //     }
-      //   }
-      //   setFilters(newFilters);
+        canEditList={canEditList}
+        canEditWants={canEditWants}
+        list={list}
+        filters={filters}
+        setFilters={(filterInput) => {
+          const newFilters = {
+            ...filters,
+            query: {
+              ...filters.query,
+              ...filterInput,
+            },
+            d: getUniqueId(),
+          };
+          for (let a in newFilters.query) {
+            if (typeof newFilters.query[a] === "undefined") {
+              delete newFilters.query[a];
+            }
+          }
+          setFilters(newFilters);
 
-      //   storage.setToOptions({
-      //     gameListFilters: newFilters.query,
-      //   });
+          storage.setToOptions({
+            gameListFilters: newFilters.query,
+          });
 
-      //   router.push({
-      //     pathname: newFilters.path,
-      //     query: newFilters.query,
-      //   });
-      // }}
-      // loading={loading}
-      // errors={errors}
-      // afterAnyChange={() => {
-      //   setFilters((fil) => {
-      //     return {
-      //       ...fil,
-      //       d: getUniqueId(),
-      //     };
-      //   });
-      // }}
+          router.push({
+            pathname: newFilters.path,
+            query: newFilters.query,
+          });
+        }}
+        loading={loading}
+        errors={errors}
+        afterAnyChange={() => {
+          setFilters((fil) => {
+            return {
+              ...fil,
+              d: getUniqueId(),
+            };
+          });
+        }}
       />
     </PrivateEnv>
   );

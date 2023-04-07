@@ -9,6 +9,7 @@ const CommitBtn = ({
   commitChangesLoading,
   mustCommitChanges,
   canEditWants,
+  canEditList,
 }) => {
   return (
     <>
@@ -25,7 +26,9 @@ const CommitBtn = ({
           type={commitChangesLoading ? "refresh fa-spin" : "check"}
           className="me-2"
         />
-        <I18N id="MyWants.btn.Commit" />
+        <I18N
+          id={canEditList ? "MyWants.btn.Save" : "MyWants.btn.SaveAndCommit"}
+        />
       </Button>
       {!mustCommitChanges || commitChangesLoading || !canEditWants ? null : (
         <p className="muted small italic m-0 pt-2 px-4">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
@@ -15,6 +15,18 @@ import I18N, { getI18Ntext } from "i18n";
 import { locationsToOptions } from "utils";
 import ElementPerPage from "components/pagination/elementsPerPage";
 
+const filterList = (list, userBanIds, itemBanIds, afterAnyChange) => {
+  const newList = list.filter((item) => {
+    return (
+      itemBanIds.indexOf(item.id) < 0 && userBanIds.indexOf(item.user.id) < 0
+    );
+  });
+  if (newList.length === 0) {
+    afterAnyChange();
+  }
+  return newList;
+};
+
 const ItemListView = ({
   canEditWants,
   list,
@@ -30,6 +42,14 @@ const ItemListView = ({
   canEditList,
 }) => {
   const [currentSidebar, setCurrentSidebar] = useState(0);
+
+  const [userBanIds, setUserBanIds] = useState([]);
+  const [itemBanIds, setItemBanIds] = useState([]);
+
+  useEffect(() => {
+    setUserBanIds([]);
+    setItemBanIds([]);
+  }, [list]);
 
   return (
     <PrivateLayout loading={loading} doctitle="title.ItemList">
@@ -138,16 +158,53 @@ const ItemListView = ({
           )}
           <div className="item-list pb-1">
             {list && list.results && list.results.length ? (
-              list.results.map((item) => {
+              filterList(
+                list.results,
+                userBanIds,
+                itemBanIds,
+                afterAnyChange
+              ).map((item, k) => {
                 return (
                   <ItemView
                     item={item}
-                    key={item.id}
-                    afterAnyChange={afterAnyChange}
+                    key={`${item.id}-${k}`}
                     tagList={tagList}
                     dragToGroup={dragToGroup}
                     withDragger={currentSidebar === 1 && tagList.length > 0}
                     canEditWants={canEditWants}
+                    afterAnyChange={(data_afterAnyChange) => {
+                      if (typeof data_afterAnyChange === "boolean") {
+                        afterAnyChange(data_afterAnyChange);
+                      } else {
+                        if (data_afterAnyChange) {
+                          switch (data_afterAnyChange.origin) {
+                            case "ban":
+                              if (data_afterAnyChange.type === "item") {
+                                setItemBanIds((banItemList) => {
+                                  const newBanItemList = [...banItemList];
+                                  newBanItemList.push(
+                                    data_afterAnyChange.element.id
+                                  );
+                                  return newBanItemList;
+                                });
+                              }
+                              if (data_afterAnyChange.type === "user") {
+                                setUserBanIds((banUserList) => {
+                                  const newBanUserList = [...banUserList];
+                                  newBanUserList.push(
+                                    data_afterAnyChange.element.id
+                                  );
+                                  return newBanUserList;
+                                });
+                              }
+                              break;
+                            default:
+                            //
+                          }
+                        }
+                      }
+                      //
+                    }}
                   />
                 );
               })
