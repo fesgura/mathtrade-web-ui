@@ -24,6 +24,7 @@ const MyWantsView = ({
   reloadWants,
   errors,
   canEditWants,
+  canEditList,
 }) => {
   const [current, setCurrent] = useState(-1);
 
@@ -52,6 +53,7 @@ const MyWantsView = ({
           reloadWants={reloadWants}
           loading={loading}
           canEditWants={canEditWants}
+          canEditList={canEditList}
         />
       );
       break;
@@ -71,6 +73,7 @@ const MyWantsView = ({
           reloadWants={reloadWants}
           loading={loading}
           canEditWants={canEditWants}
+          canEditList={canEditList}
           set_mustCommitChanges={set_mustCommitChanges}
         />
       );

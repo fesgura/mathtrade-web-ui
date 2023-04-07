@@ -39,6 +39,7 @@ const Grid = ({
   reloadWants,
   loading,
   canEditWants,
+  canEditList,
 }) => {
   const containerRef = useRef(null);
 
@@ -191,6 +192,7 @@ const Grid = ({
                       <GridSpacer
                         reloadWants={reloadWants}
                         canEditWants={canEditWants}
+                        canEditList={canEditList}
                         extendAll={extendAll}
                         setExtendAll={() => {
                           const newExtendAll = !extendAll;

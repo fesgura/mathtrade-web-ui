@@ -19,6 +19,7 @@ const QuadsView = ({
   reloadWants,
   loading,
   canEditWants,
+  canEditList,
 }) => {
   const [myItemGroups, setMyItemGroups] = useState([]);
   //
@@ -60,6 +61,7 @@ const QuadsView = ({
                         commitChangesLoading={commitChangesLoading}
                         mustCommitChanges={mustCommitChanges}
                         canEditWants={canEditWants}
+                        canEditList={canEditList}
                       />
                     </Col>
                   </Row>
@@ -89,6 +91,7 @@ const QuadsView = ({
                     commitChangesLoading={commitChangesLoading}
                     mustCommitChanges={mustCommitChanges}
                     canEditWants={canEditWants}
+                    canEditList={canEditList}
                   />
                 </div>
               </>

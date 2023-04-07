@@ -18,6 +18,7 @@ const MyWants = () => {
   const changes = useRef([]);
 
   const canEditWants = useCanEdit("wants");
+  const canEditList = useCanEdit("list");
 
   const [mustCommitChanges, set_mustCommitChanges] = useState(false);
   const [firstLoadedWants, set_firstLoadedWants] = useState(false);
@@ -159,6 +160,7 @@ const MyWants = () => {
     <PrivateEnv>
       <MyWantsView
         canEditWants={canEditWants}
+        canEditList={canEditList}
         wantList={wantList}
         myItemList={myItemList}
         putWant={putWant}
