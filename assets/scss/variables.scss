@@ -187,9 +187,6 @@ $mywants-group-bg: $primary;
 $mywants-group-border-bottom: 10px solid lighten($border-color, 7);
 $mywants-checkbox-color: $mathtrade;
 
-// mobile limit
-$mobile_limit: 992px;
-
 // FONTS
 $font: "Montserrat", sans-serif;
 $font-alt: "Comfortaa", sans-serif;
@@ -198,3 +195,8 @@ $font-alt: "Comfortaa", sans-serif;
   font-family: $font-alt;
   //letter-spacing: .05em;
 }
+
+// MOBILE
+$mobile_limit: 992px;
+
+$header-mobile-h: 50px;

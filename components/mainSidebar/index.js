@@ -15,6 +15,8 @@ const MainSidebar = ({
   sidebarOpen,
   toggleSidebar,
   sidebarAnimationEnabled,
+  showMobileSidebar,
+  setShowMobileSidebar,
 }) => {
   return (
     <>
@@ -22,9 +24,18 @@ const MainSidebar = ({
         className={classNames("main-sidebar", {
           "sidebar-open": sidebarOpen,
           "sidebar-animation-enabled": sidebarAnimationEnabled,
+          "show-mobile-sidebar": showMobileSidebar,
         })}
       >
         <div className="main-sidebar-container">
+          <div
+            className="main-sidebar-mobile-closer"
+            onClick={() => {
+              setShowMobileSidebar(false);
+            }}
+          >
+            <Icon />
+          </div>
           <div className="main-sidebar-top">
             <Link href={"/"}>
               <a className="main-logo">
