@@ -11,6 +11,7 @@ import { Col, Row } from "reactstrap";
 import List from "./list";
 import UserList from "./userList";
 import PdfButton from "./pdf";
+import Pills from "./pills";
 
 const ResultsView = ({
   canViewResults,
@@ -29,6 +30,7 @@ const ResultsView = ({
   return (
     <PrivateLayout loading={loading} doctitle="title.Results">
       <PageHeader title="title.Results" center />
+      <Pills users={users} />
       {canViewResults ? (
         <>
           <div className="results-header">

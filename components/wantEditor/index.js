@@ -75,6 +75,7 @@ const WantEditor = ({
           objectToWant={objectToWant}
           type={type}
           afterAnyChange={afterAnyChange}
+          isItemInOtherGroup={isItemInOtherGroup}
         />
       )}
 

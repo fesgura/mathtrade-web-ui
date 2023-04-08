@@ -14,7 +14,7 @@ const PageHeader = ({
     <div className={classNames("page-header-tab", className)}>
       <Row className="align-items-end justify-content-between g-0">
         {leftSide ? (
-          <Col xs="auto">
+          <Col lg="auto">
             <div className="page-header-tab-left-side">
               <div className="page-header-tab-left-side-content">
                 {leftSide}
@@ -55,7 +55,7 @@ const PageHeader = ({
             })}
           </div>
         </Col>
-        <Col>
+        <Col lg="">
           <div className="page-header-tab-right-side">
             <div className="page-header-tab-right-side-content">
               {rightSide}

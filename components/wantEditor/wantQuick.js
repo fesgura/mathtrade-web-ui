@@ -1,9 +1,10 @@
-import { UncontrolledTooltip } from "reactstrap";
+import { UncontrolledTooltip, Modal, ModalBody, Button } from "reactstrap";
 import { useCallback, useEffect, useId, useState } from "react";
 import I18N from "i18n";
 import Icon from "components/icon";
 import { useApi, MathTradeService } from "api_serv";
 import { cropWord } from "utils";
+import classNames from "classnames";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -41,9 +42,16 @@ const QuickIcon = () => {
   );
 };
 
-const WantQuick = ({ objectToWant, type, afterAnyChange }) => {
+const WantQuick = ({
+  objectToWant,
+  type,
+  afterAnyChange,
+  isItemInOtherGroup,
+}) => {
   const id = useId("bq").replace(twoPointsReg, "");
   const [disabled, setDisabled] = useState(false);
+
+  const [modalIsItemInOtherGroup, setModalIsItemInOtherGroup] = useState(false);
 
   /* API *****************************/
 
@@ -93,9 +101,17 @@ const WantQuick = ({ objectToWant, type, afterAnyChange }) => {
   return (
     <>
       <button
-        className="btn btn_quick"
+        className={classNames("btn btn_quick", {
+          "btn-i-want-it-in-other": isItemInOtherGroup,
+        })}
         id={`tt-btnq-circle-q-${id}`}
-        onClick={onPostWant}
+        onClick={() => {
+          if (isItemInOtherGroup) {
+            setModalIsItemInOtherGroup(true);
+          } else {
+            onPostWant();
+          }
+        }}
         disabled={disabled}
       >
         {loading ? <Icon type="loading" /> : <QuickIcon />}
@@ -106,6 +122,48 @@ const WantQuick = ({ objectToWant, type, afterAnyChange }) => {
       >
         <I18N id="wantEditor.btn.IwantItQuick" />
       </UncontrolledTooltip>
+
+      {modalIsItemInOtherGroup && isItemInOtherGroup ? (
+        <Modal
+          isOpen={true}
+          toggle={() => {
+            setModalIsItemInOtherGroup(false);
+          }}
+          centered
+          size="lg"
+        >
+          <ModalBody>
+            <div className="text-center  pt-2">
+              <p className="mb-4">
+                <I18N id="wantEditor.IsItemInOther" />
+              </p>
+            </div>
+            <div className="text-center  pb-3">
+              <Button
+                color="link"
+                size="sm"
+                outline
+                className="me-2"
+                onClick={() => {
+                  setModalIsItemInOtherGroup(false);
+                }}
+              >
+                <I18N id="wantEditor.IsItemInOther.btn.Cancel" />
+              </Button>
+              <Button
+                color="primary"
+                size="sm"
+                onClick={() => {
+                  setModalIsItemInOtherGroup(false);
+                  onPostWant();
+                }}
+              >
+                <I18N id="wantEditor.IsItemInOther.btn.Yes" />
+              </Button>
+            </div>
+          </ModalBody>
+        </Modal>
+      ) : null}
     </>
   );
 };
