@@ -70,6 +70,7 @@ const PhotoGallery = ({
           toggle={() => {
             setModalViewOpen(false);
           }}
+          zIndex={3000}
           centered
           size="lg"
           className="modal-photo-gallery"
