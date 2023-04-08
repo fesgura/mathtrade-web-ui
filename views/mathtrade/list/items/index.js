@@ -201,6 +201,8 @@ const ItemListView = ({
                             default:
                             //
                           }
+                        } else {
+                          afterAnyChange();
                         }
                       }
                       //
