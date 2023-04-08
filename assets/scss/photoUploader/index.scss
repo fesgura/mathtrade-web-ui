@@ -4,5 +4,12 @@
   padding: 20px 15px 20px;
 }
 
+@media screen and (max-width: $mobile_limit) {
+  .photoUploader {
+    width: 100%;
+    padding: 15px 5px;
+  }
+}
+
 @import "uploader";
 @import "editor";

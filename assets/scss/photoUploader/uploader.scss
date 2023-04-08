@@ -47,9 +47,15 @@
       color: $primary;
       text-decoration: underline;
       font-weight: bold;
+      padding: 0 5px 0 0;
     }
   }
   .photoUploader_uploader-box_error {
     height: 0;
+  }
+}
+@media screen and (max-width: $mobile_limit) {
+  .photoUploader_uploader-box {
+    padding: 40px 15px;
   }
 }

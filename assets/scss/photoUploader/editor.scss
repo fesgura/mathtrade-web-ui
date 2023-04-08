@@ -115,3 +115,15 @@
     }
   }
 }
+
+@media screen and (max-width: $mobile_limit) {
+  .photoUploader_editor {
+    width: 310px;
+    .photoUploader_editor-container {
+      .photoUploader_editor-canvas-container {
+        width: 252px;
+        height: 252px;
+      }
+    }
+  }
+}

@@ -1,4 +1,4 @@
-import { useId, useEffect, useRef } from "react";
+import { useId, useEffect, useRef, useState } from "react";
 import Icon from "components/icon";
 import I18N from "i18n";
 import ErrorAlert from "components/errorAlert";
@@ -28,6 +28,26 @@ canvasSize.crop.style = {
   height: canvasSize.crop.height,
 };
 
+//
+const canvasSizeMobile = {
+  width: 250,
+  height: 250,
+  crop: {
+    width: 150,
+    height: 150,
+    style: {},
+  },
+};
+canvasSizeMobile.midH = 0.5 * canvasSizeMobile.width;
+canvasSizeMobile.midV = 0.5 * canvasSizeMobile.height;
+
+canvasSizeMobile.crop.style = {
+  left: 0.5 * (canvasSizeMobile.width - canvasSizeMobile.crop.width),
+  top: 0.5 * (canvasSizeMobile.height - canvasSizeMobile.crop.height),
+  width: canvasSizeMobile.crop.width,
+  height: canvasSizeMobile.crop.height,
+};
+
 const Editor = ({ srcBlob, onBack, onCancel, widthSend, onLoaded }) => {
   const [postBase64Image, , loading, errors] = useApi({
     promise: ImageService.postBase64Image,
@@ -53,12 +73,14 @@ const Editor = ({ srcBlob, onBack, onCancel, widthSend, onLoaded }) => {
   const xMouseInitial = useRef(0);
   const yMouseInitial = useRef(0);
 
+  const [currentCanvasSize, setCurrentCanvasSize] = useState(canvasSize);
+
   const draw = (ctx, centerImage) => {
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = "#aaa";
-    ctx.fillRect(0, 0, canvasSize.width, canvasSize.height);
+    ctx.fillRect(0, 0, currentCanvasSize.width, currentCanvasSize.height);
     //
-    ctx.translate(canvasSize.midH, canvasSize.midV);
+    ctx.translate(currentCanvasSize.midH, currentCanvasSize.midV);
 
     //
 
@@ -98,7 +120,7 @@ const Editor = ({ srcBlob, onBack, onCancel, widthSend, onLoaded }) => {
     const centerCanvas = 0.5 * widthSend;
     ctxOut.translate(centerCanvas, centerCanvas);
 
-    const scaleFit = widthSend / canvasSize.crop.width;
+    const scaleFit = widthSend / currentCanvasSize.crop.width;
     ctxOut.scale(scale.current.now * scaleFit, scale.current.now * scaleFit);
     ctxOut.rotate(rotate.current.now);
 
@@ -126,8 +148,8 @@ const Editor = ({ srcBlob, onBack, onCancel, widthSend, onLoaded }) => {
       image.addEventListener("load", function () {
         if (!imageLoaded.current) {
           const scaleFit = Math.min(
-            canvasSize.width / image.width,
-            canvasSize.height / image.height
+            currentCanvasSize.width / image.width,
+            currentCanvasSize.height / image.height
           );
           scale.current = { now: scaleFit, prev: scaleFit };
           imageLoaded.current = true;
@@ -154,7 +176,24 @@ const Editor = ({ srcBlob, onBack, onCancel, widthSend, onLoaded }) => {
     return () => {
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, [draw, srcBlob]);
+  }, [draw, currentCanvasSize, srcBlob]);
+
+  useEffect(() => {
+    const onResize = () => {
+      if (window.innerWidth <= 992) {
+        setCurrentCanvasSize(canvasSizeMobile);
+      } else {
+        setCurrentCanvasSize(canvasSize);
+      }
+    };
+
+    window.addEventListener("resize", onResize);
+    onResize();
+
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
 
   return (
     <div className="photoUploader_editor">
@@ -205,13 +244,13 @@ const Editor = ({ srcBlob, onBack, onCancel, widthSend, onLoaded }) => {
           }}
         >
           <canvas
-            width={canvasSize.width}
-            height={canvasSize.height}
+            width={currentCanvasSize.width}
+            height={currentCanvasSize.height}
             ref={canvasRef}
           />
           <div
             className="photoUploader_editor-canvas-mark"
-            style={canvasSize.crop.style}
+            style={currentCanvasSize.crop.style}
           />
         </div>
         <div className="photoUploader_editor-tool-container">
@@ -275,10 +314,10 @@ const Editor = ({ srcBlob, onBack, onCancel, widthSend, onLoaded }) => {
       </div>
       <div className="photoUploader_editor-footer">
         <ErrorAlert errors={errors} className="mb-3" />
-        <Button color="link" outline className="me-2" onClick={onCancel}>
+        <Button color="link" outline className="me-2 mb-2" onClick={onCancel}>
           <I18N id="btn.Cancel" />
         </Button>
-        <Button color="primary" onClick={drawOut}>
+        <Button color="primary" onClick={drawOut} className="mb-2">
           <I18N id="photoUploader.edit.btn.LoadImage" />
         </Button>
       </div>

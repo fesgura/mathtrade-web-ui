@@ -1,5 +1,11 @@
+.timeline-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
 .timeline-container {
   max-width: 2000px;
+  min-width: 1000px;
   margin: 0 auto;
   padding: 60px 66px 80px;
 }
