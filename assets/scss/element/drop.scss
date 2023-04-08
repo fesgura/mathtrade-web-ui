@@ -56,24 +56,29 @@
     }
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: $mobile_limit) {
   .element-drop-version {
+    $w: 50px;
     height: 220px;
     .element-drop-version_thumbnail {
-      display: none;
+      width: $w;
+      padding: 5px;
     }
     .element-drop-version_list {
-      position: relative;
-      left: 0;
-      height: 100%;
-      .element-drop-version_item {
-        &.prev {
-          border-bottom-left-radius: 0;
-        }
-        &.next {
-          border-top-left-radius: 0;
-        }
-      }
+      left: $w + 0px;
     }
+    // .element-drop-version_list {
+    //   position: relative;
+    //   left: 0;
+    //   height: 100%;
+    //   .element-drop-version_item {
+    //     &.prev {
+    //       border-bottom-left-radius: 0;
+    //     }
+    //     &.next {
+    //       border-top-left-radius: 0;
+    //     }
+    //   }
+    // }
   }
 }

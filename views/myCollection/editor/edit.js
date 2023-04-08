@@ -150,7 +150,7 @@ const ElementEdit = ({
       >
         <div className="element-edit-container">
           <Row className="g-0 align-items-stretch">
-            <Col md={"auto"}>
+            <Col lg="auto" xs={12}>
               <div className="element-thumbnail-container">
                 <div className="element-thumbnail-container-wrap">
                   <Thumbnail src={thumbnail} />
@@ -177,7 +177,7 @@ const ElementEdit = ({
               </div>
             </Col>
             <Col>
-              <div className="element-edit-data-container">
+              <div className="element-edit-data-container  mt-lg-0 mt-4 ps-lg-4 ps-0">
                 <Alert color="info" isOpen={repeatedGame}>
                   <div className="text-center">
                     <I18N id="element.editor.repeated.alert" />
@@ -331,7 +331,7 @@ const ElementEdit = ({
                           </Col>
                         </Row>
                         <Row>
-                          <Col lg={8} xs={7}>
+                          <Col lg={8} xs={12}>
                             <Input
                               data={data}
                               validations={validations}
@@ -346,7 +346,7 @@ const ElementEdit = ({
                               }}
                             />
                           </Col>
-                          <Col lg={4} xs={5}>
+                          <Col lg={4} xs={6}>
                             <Input
                               data={data}
                               validations={validations}
@@ -365,7 +365,7 @@ const ElementEdit = ({
                           </Col>
                         </Row>
                         <Row>
-                          <Col md={6}>
+                          <Col lg={6}>
                             <Input
                               data={data}
                               validations={validations}
@@ -478,6 +478,7 @@ const ElementEdit = ({
                               color="danger"
                               outline
                               size="xs"
+                              className="mb-sm-0 mb-2"
                               onClick={() => {
                                 setObjToDelete({ item, element });
                               }}
@@ -509,6 +510,7 @@ const ElementEdit = ({
                               color="primary"
                               type="submit"
                               disabled={!bgg_version_id || !terms_acceptance}
+                              className="mb-sm-0 mb-2"
                             >
                               {create ? (
                                 <I18N id="btn.Add" />

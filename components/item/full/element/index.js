@@ -41,7 +41,7 @@ const Element = ({
 
   return (
     <div className={classNames("element-full", { isCombo })}>
-      <Row className="g-0 flex-nowrap">
+      <Row className="g-0 flex-md-nowrap">
         <Col xs="auto">
           <div
             className={classNames("dragger-spacer", {
@@ -49,8 +49,8 @@ const Element = ({
             })}
           />
         </Col>
-        <Col xs="auto">
-          <div className="element-full-thumbnail">
+        <Col md="auto" xs={12}>
+          <div className="element-full-thumbnail mb-md-0 mb-3">
             <Thumbnail src={element?.thumbnail || ""} />
           </div>
         </Col>

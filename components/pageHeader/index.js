@@ -15,7 +15,11 @@ const PageHeader = ({ title = "", subtitle, leftSide, rightSide, center }) => {
             leftSide
           ) : (
             <>
-              <h1 className={classNames({ "text-center": center })}>
+              <h1
+                className={classNames("mb-md-0 mb-3", {
+                  "text-center": center,
+                })}
+              >
                 <I18N id={title} />
               </h1>
               {subtitle ? (

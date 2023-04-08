@@ -21,3 +21,15 @@
     }
   }
 }
+
+@media screen and (max-width: $mobile_limit) {
+  .main-footer {
+    &,
+    &.absolute {
+      &,
+      &.sidebar-open {
+        left: 0;
+      }
+    }
+  }
+}

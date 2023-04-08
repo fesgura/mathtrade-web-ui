@@ -42,3 +42,23 @@
     opacity: 1;
   }
 }
+
+@media screen and (max-width: $mobile_limit) {
+  .main-wrap {
+    &,
+    &.sidebar-open,
+    &.for-semi {
+      padding-top: $header-mobile-h * 1.2;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    &.show-mobile-sidebar {
+      overflow: hidden;
+      height: 100%;
+    }
+  }
+  .main-container {
+    padding: 0 10px;
+  }
+}

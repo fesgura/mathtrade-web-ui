@@ -23,6 +23,8 @@ const PrivateLayout = ({
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarAnimationEnabled, setSidebarAnimationEnabled] = useState(false);
 
+  const [showMobileSidebar, setShowMobileSidebar] = useState(false);
+
   useEffect(() => {
     const auth = storage.getFromStore("token");
     setAuth(auth);
@@ -154,17 +156,21 @@ const PrivateLayout = ({
         sidebarOpen={sidebarOpen}
         sidebarAnimationEnabled={sidebarAnimationEnabled}
         toggleSidebar={toggleSidebar}
+        showMobileSidebar={showMobileSidebar}
+        setShowMobileSidebar={setShowMobileSidebar}
       />
       <a id="a-top-pos"></a>
       <main
         className={classNames("main-wrap", {
           "sidebar-open": sidebarOpen,
           "sidebar-animation-enabled": sidebarAnimationEnabled,
+          "show-mobile-sidebar": showMobileSidebar,
         })}
       >
         <Header
           sidebarOpen={sidebarOpen}
           sidebarAnimationEnabled={sidebarAnimationEnabled}
+          setShowMobileSidebar={setShowMobileSidebar}
         />
         <div className={classNames({ "main-container": !noMainContainer })}>
           {children}
