@@ -69,7 +69,7 @@ const MT_ItemListViewItem = ({
               key={k}
               type="item"
               wantGroupId={wantGroup?.id || null}
-              isItemInOtherGroup={item.wanted.length > 1 && !wantGroup?.id}
+              isItemInOtherGroup={item.wanted.length >= 1 && !wantGroup?.id}
               objectToWant={item}
               afterAnyChange={afterAnyChange}
               isOwner={isOwner}

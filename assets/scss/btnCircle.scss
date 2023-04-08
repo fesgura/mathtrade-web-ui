@@ -186,6 +186,26 @@
     }
   }
 
+  &.btn-i-want-it-in-other {
+    background: linear-gradient(
+      -45deg,
+      $mathtrade-want-color 50%,
+      $mathtrade-wanted-color 50%
+    );
+    background-size: 105%;
+    background-position: center;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    &:hover {
+      svg {
+        rect,
+        path {
+          fill: #fff;
+        }
+      }
+    }
+  }
+
   &:disabled {
     opacity: 1;
   }
