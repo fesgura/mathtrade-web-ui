@@ -183,10 +183,14 @@ export const create_wantListGrid = (wantList, oldWantListGrid) => {
 
     let type = "item";
 
-    if (itemsList.length > 1) {
-      if (bgg_id) {
-        type = "game";
-      } else {
+    // if (itemsList.length > 1) {
+
+    // }
+
+    if (bgg_id) {
+      type = "game";
+    } else {
+      if (tags.length) {
         type = "group";
       }
     }
