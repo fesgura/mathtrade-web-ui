@@ -164,7 +164,6 @@ const ItemListView = ({
                 itemBanIds,
                 afterAnyChange
               ).map((item, k) => {
-                console.log(item);
                 return (
                   <ItemView
                     item={item}
