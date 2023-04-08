@@ -3,6 +3,7 @@ import { useCallback, useEffect, useId, useState } from "react";
 import I18N from "i18n";
 import Icon from "components/icon";
 import { useApi, MathTradeService } from "api_serv";
+import { cropWord } from "utils";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -60,7 +61,7 @@ const WantQuick = ({ objectToWant, type, afterAnyChange }) => {
     let want_ids = [];
 
     if (type === "item") {
-      name = objectToWant.title;
+      name = cropWord(objectToWant?.title, 110) + "_" + objectToWant?.id || "";
       want_ids.push(objectToWant.id);
     }
     if (type === "game") {
