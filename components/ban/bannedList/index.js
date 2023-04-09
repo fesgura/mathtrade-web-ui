@@ -9,6 +9,7 @@ import classNames from "classnames";
 import ItemMinimal from "components/item/minimal";
 import UserBox from "components/userBox";
 import ErrorAlert from "components/errorAlert";
+import { Input } from "components/form";
 
 const UnBanBtn = ({ className, elem, onClick }) => {
   return (
@@ -28,12 +29,54 @@ const UnBanBtn = ({ className, elem, onClick }) => {
   );
 };
 
+const filterByKeyword = (elems, type, keyword) => {
+  if (keyword === "") {
+    return elems;
+  }
+  const kewLow = keyword.toLowerCase();
+
+  switch (type) {
+    case "items":
+      return elems.filter((b) => {
+        if (!b?.items[0]) {
+          return false;
+        }
+        return b.items[0].title.toLowerCase().indexOf(kewLow) >= 0;
+      });
+    case "games":
+      return elems.filter((b) => {
+        if (!b?.games[0]) {
+          return false;
+        }
+        return b.games[0].name.toLowerCase().indexOf(kewLow) >= 0;
+      });
+    case "users":
+      return elems.filter((b) => {
+        if (!b?.users[0]) {
+          return false;
+        }
+        const str =
+          b.users[0].first_name +
+          " " +
+          b.users[0].last_name +
+          " " +
+          b.users[0].username;
+        return str.toLowerCase().indexOf(kewLow) >= 0;
+      });
+    default:
+      //
+      return [];
+  }
+};
+
 const BannedList = ({ onCloseModal, setWithChanges }) => {
   const [bans, setBans] = useState({
     items: [],
     users: [],
     games: [],
   });
+
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   const [listBans, , loading, errors] = useApi({
     promise: MathTradeService.getBans,
@@ -53,7 +96,6 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
           users,
           games,
         });
-
       } else {
         setBans({
           items: [],
@@ -85,6 +127,15 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
         <LoadingBox />
       ) : (
         <div className="banned-list_content">
+          <div style={{ maxWidth: 540, margin: "0 auto", padding: "0 0 25px" }}>
+            <Input
+              label="filter.Search"
+              placeholder="filter.Search.placeholder"
+              icon="search"
+              value={searchKeyword}
+              onChange={setSearchKeyword}
+            />
+          </div>
           {bans.items.length || bans.users.length || bans.games.length ? (
             <>
               {bans.games.length ? (
@@ -93,32 +144,34 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
                     <I18N id="ban.Title.Games" />
                   </h4>
                   <Row className="justify-content-center">
-                    {bans.games.map((elem, k) => {
-                      if(!elem.games[0]){
-                        return null;
+                    {filterByKeyword(bans.games, "games", searchKeyword).map(
+                      (elem, k) => {
+                        if (!elem.games[0]) {
+                          return null;
+                        }
+                        return (
+                          <Col key={k} xs="auto">
+                            <Game
+                              game={elem.games[0]}
+                              inModal
+                              noBan
+                              btnRowListGame={[
+                                (j) => {
+                                  return (
+                                    <UnBanBtn
+                                      key={j}
+                                      elem={elem}
+                                      className="for-game"
+                                      onClick={deleteElem}
+                                    />
+                                  );
+                                },
+                              ]}
+                            />
+                          </Col>
+                        );
                       }
-                      return (
-                        <Col key={k} xs="auto">
-                          <Game
-                            game={elem.games[0]}
-                            inModal
-                            noBan
-                            btnRowListGame={[
-                              (j) => {
-                                return (
-                                  <UnBanBtn
-                                    key={j}
-                                    elem={elem}
-                                    className="for-game"
-                                    onClick={deleteElem}
-                                  />
-                                );
-                              },
-                            ]}
-                          />
-                        </Col>
-                      );
-                    })}
+                    )}
                   </Row>
                 </div>
               ) : null}
@@ -127,25 +180,27 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
                   <h4 className="text-center mb-5">
                     <I18N id="ban.Title.Items" />
                   </h4>
-                  {bans.items.map((elem, k) => {
-                    if(!elem.items[0]){
-                      return null;
+                  {filterByKeyword(bans.items, "items", searchKeyword).map(
+                    (elem, k) => {
+                      if (!elem.items[0]) {
+                        return null;
+                      }
+                      return (
+                        <div className="banned-list_item" key={k}>
+                          <div className="banned-list_item-cont">
+                            <ItemMinimal item={elem.items[0]} hideCheckbox />
+                          </div>
+                          <div className="banned-list_item-btn-cont">
+                            <UnBanBtn
+                              elem={elem}
+                              className="for-item"
+                              onClick={deleteElem}
+                            />
+                          </div>
+                        </div>
+                      );
                     }
-                    return (
-                      <div className="banned-list_item" key={k}>
-                        <div className="banned-list_item-cont">
-                          <ItemMinimal item={elem.items[0]} hideCheckbox />
-                        </div>
-                        <div className="banned-list_item-btn-cont">
-                          <UnBanBtn
-                            elem={elem}
-                            className="for-item"
-                            onClick={deleteElem}
-                          />
-                        </div>
-                      </div>
-                    );
-                  })}
+                  )}
                 </div>
               ) : null}
 
@@ -155,25 +210,27 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
                     <I18N id="ban.Title.Users" />
                   </h4>
                   <Row className="justify-content-center">
-                    {bans.users.map((elem, k) => {
-                      if(!elem.users[0]){
-                        return null;
-                      }
-                      return (
-                        <Col xs="auto" key={k}>
-                          <div className="banned-list_user-cont">
-                            <UserBox item={{ user: elem.users[0] }} notBan />
-                            <div className="banned-list_user-btn">
-                              <UnBanBtn
-                                elem={elem}
-                                className="for-user"
-                                onClick={deleteElem}
-                              />
+                    {filterByKeyword(bans.users, "users", searchKeyword).map(
+                      (elem, k) => {
+                        if (!elem.users[0]) {
+                          return null;
+                        }
+                        return (
+                          <Col xs="auto" key={k}>
+                            <div className="banned-list_user-cont">
+                              <UserBox item={{ user: elem.users[0] }} notBan />
+                              <div className="banned-list_user-btn">
+                                <UnBanBtn
+                                  elem={elem}
+                                  className="for-user"
+                                  onClick={deleteElem}
+                                />
+                              </div>
                             </div>
-                          </div>
-                        </Col>
-                      );
-                    })}
+                          </Col>
+                        );
+                      }
+                    )}
                   </Row>
                 </div>
               ) : null}
