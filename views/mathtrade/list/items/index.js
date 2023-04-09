@@ -74,7 +74,7 @@ const ItemListView = ({
             valueInitial={filters?.query?.order}
             defaultValue="id"
             options={[
-              { text: getI18Ntext("element.Date"), value: "id" },
+              { text: getI18Ntext("element.Date"), value: "added_mt" },
               { text: getI18Ntext("element.Name"), value: "name" },
               { text: getI18Ntext("element.Value"), value: "value" },
               { text: getI18Ntext("element.BGG.rank"), value: "rank" },
