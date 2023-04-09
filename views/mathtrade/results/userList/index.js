@@ -2,7 +2,7 @@ import classNames from "classnames";
 import Icon from "components/icon";
 import I18N from "i18n";
 import { useEffect, useState } from "react";
-import { Card, CardBody } from "reactstrap";
+import { Card, CardBody, Col, Row } from "reactstrap";
 import User from "./user";
 
 const Th_comp = ({ orderBy, setDesc, desc, setOrderBy, name, value }) => {
@@ -17,16 +17,23 @@ const Th_comp = ({ orderBy, setDesc, desc, setOrderBy, name, value }) => {
         }
       }}
     >
-      <I18N id={name} />
-      <Icon
-        type={classNames({
-          "caret-down": desc === 1,
-          "caret-up": desc === -1,
-        })}
-        className={classNames({
-          active: orderBy === value,
-        })}
-      />
+      <Row className="g-0 flex-nowrap">
+        <Col xs="auto">
+          <I18N id={name} />
+        </Col>
+        <Col xs="auto">
+          {" "}
+          <Icon
+            type={classNames({
+              "caret-down": desc === 1,
+              "caret-up": desc === -1,
+            })}
+            className={classNames({
+              active: orderBy === value,
+            })}
+          />
+        </Col>
+      </Row>
     </th>
   );
 };
@@ -40,6 +47,10 @@ const UserList = ({ users, hideTitle }) => {
     const newUsers = [...users];
 
     newUsers.sort((a, b) => {
+      if (orderBy === "items" || orderBy === "games") {
+        return a[orderBy] > b[orderBy] ? desc : -1 * desc;
+      }
+
       return `${a[orderBy]}`.toLowerCase() > `${b[orderBy]}`.toLowerCase()
         ? desc
         : -1 * desc;
@@ -68,6 +79,25 @@ const UserList = ({ users, hideTitle }) => {
                   name="results.userTable.th.name"
                   value="last_name"
                 />
+
+                <Th_comp
+                  orderBy={orderBy}
+                  desc={desc}
+                  setDesc={setDesc}
+                  setOrderBy={setOrderBy}
+                  name="results.userTable.th.items"
+                  value="items"
+                />
+
+                <Th_comp
+                  orderBy={orderBy}
+                  desc={desc}
+                  setDesc={setDesc}
+                  setOrderBy={setOrderBy}
+                  name="results.userTable.th.games"
+                  value="games"
+                />
+
                 <Th_comp
                   orderBy={orderBy}
                   desc={desc}
@@ -92,7 +122,6 @@ const UserList = ({ users, hideTitle }) => {
                   name="results.userTable.th.commitment"
                   value="commitment"
                 />
-                <th></th>
               </tr>
             </thead>
             <tbody>

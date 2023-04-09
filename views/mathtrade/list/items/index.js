@@ -75,6 +75,7 @@ const ItemListView = ({
             defaultValue="added_mt"
             options={[
               { text: getI18Ntext("element.Date"), value: "added_mt" },
+              { text: getI18Ntext("element.DateUpdate"), value: "last_update" },
               { text: getI18Ntext("element.Name"), value: "name" },
               { text: getI18Ntext("element.Value"), value: "value" },
               { text: getI18Ntext("element.BGG.rank"), value: "rank" },

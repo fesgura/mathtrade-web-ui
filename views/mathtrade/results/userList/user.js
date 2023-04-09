@@ -10,6 +10,8 @@ const User = ({ data }) => {
     first_name,
     avatar,
     last_name,
+    items,
+    games,
     location,
     last_update,
     commitment_datetime,
@@ -40,37 +42,43 @@ const User = ({ data }) => {
           </Col>
         </Row>
       </td>
+      <td>{items || 0}</td>
+      <td>{games || 0}</td>
       <td>{dateToString(last_update, true)}</td>
       <td>{dateToString(commitment_datetime, true)}</td>
       <td>
-        {commitment ? (
-          <b className="commint-yes">
-            <I18N id="Yes" />
-          </b>
-        ) : (
-          <b className="commint-no">
-            <I18N id="No" />
-          </b>
-        )}
-      </td>
-      <td>
-        {!commitment ? (
-          <div>
-            <I18N id="results.userTable.commitment.no" />
-            <LinkInternal
-              path="myWants"
-              withIcon
-              mathtrade
-              className="commint-no"
-            >
-              <I18N id="title.MyWants" />
-            </LinkInternal>
-          </div>
-        ) : (
-          <div className="commint-yes">
-            <I18N id="results.userTable.commitment.yes" />
-          </div>
-        )}
+        <Row>
+          <Col xs="auto">
+            {commitment ? (
+              <b className="commint-yes">
+                <I18N id="Yes" />
+              </b>
+            ) : (
+              <b className="commint-no">
+                <I18N id="No" />
+              </b>
+            )}
+          </Col>
+          <Col>
+            {!commitment ? (
+              <div>
+                <I18N id="results.userTable.commitment.no" />
+                <LinkInternal
+                  path="myWants"
+                  withIcon
+                  mathtrade
+                  className="commint-no"
+                >
+                  <I18N id="title.MyWants" />
+                </LinkInternal>
+              </div>
+            ) : (
+              <div className="commint-yes">
+                <I18N id="results.userTable.commitment.yes" />
+              </div>
+            )}
+          </Col>
+        </Row>
       </td>
     </tr>
   );
