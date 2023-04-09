@@ -10,7 +10,7 @@ const Game_in_list = ({ game, afterAnyChange, canEditWants }) => {
 
   useEffect(() => {
     const newWantGroupArray = game.wanted.filter((wg) => {
-      return wg.type === "game";
+      return wg.type === "game" && `${game.bgg_id}` === `${wg.bgg_id}`;
     });
     if (newWantGroupArray[0]) {
       setWantGroup(newWantGroupArray[0]);

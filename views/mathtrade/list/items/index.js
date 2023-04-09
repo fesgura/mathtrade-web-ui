@@ -3,7 +3,7 @@ import PrivateLayout from "layouts/private";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import { privateRoutes } from "config/routes";
 import ItemView from "./item";
-import { Alert, Col, Row } from "reactstrap";
+import { Alert, Col, Row, Button, Modal, ModalBody } from "reactstrap";
 import ErrorAlert from "components/errorAlert";
 import Pagination from "components/pagination";
 import OrderBy from "components/orderBy";
@@ -44,6 +44,9 @@ const ItemListView = ({
   canEditList,
 }) => {
   const [currentSidebar, setCurrentSidebar] = useState(0);
+
+  const [modalIsItemInOtherGroup, setModalIsItemInOtherGroup] = useState(false);
+  const [tagToAdd, setTagToAdd] = useState(null);
 
   /*
   const [userBanIds, setUserBanIds] = useState([]);
@@ -127,7 +130,6 @@ const ItemListView = ({
                   content: (
                     <SidebarTagList
                       tagList={tagList}
-                      wantList={[]}
                       afterAnyChange={afterAnyChange}
                       filters={filters}
                       setFilters={setFilters}
@@ -170,7 +172,30 @@ const ItemListView = ({
                     item={item}
                     key={`${item.id}-${k}`}
                     tagList={tagList}
-                    dragToGroup={dragToGroup}
+                    dragToGroup={(tag, item) => {
+                      let isTagWanted = false;
+
+                      if (tag.wanted) {
+                        const newWantGroupArray = tag.wanted.filter((wg) => {
+                          return (
+                            wg.type === "tag" && wg.tags.indexOf(tag.id) >= 0
+                          );
+                        });
+                        if (newWantGroupArray[0]) {
+                          isTagWanted = true;
+                        }
+                      }
+                      if (
+                        isTagWanted &&
+                        item.wanted &&
+                        item.wanted.length > 0
+                      ) {
+                        setTagToAdd({ tag, item });
+                        setModalIsItemInOtherGroup(true);
+                      } else {
+                        dragToGroup(tag, item);
+                      }
+                    }}
                     withDragger={currentSidebar === 1 && tagList.length > 0}
                     canEditWants={canEditWants}
                     afterAnyChange={afterAnyChange}
@@ -238,6 +263,47 @@ const ItemListView = ({
           />
         </Col>
       </Row>
+      {modalIsItemInOtherGroup ? (
+        <Modal
+          isOpen={true}
+          toggle={() => {
+            setModalIsItemInOtherGroup(false);
+          }}
+          centered
+          size="lg"
+        >
+          <ModalBody>
+            <div className="text-center  pt-2">
+              <p className="mb-4">
+                <I18N id="wantEditor.IsItemInOther.item" />
+              </p>
+            </div>
+            <div className="text-center  pb-3">
+              <Button
+                color="link"
+                size="sm"
+                outline
+                className="me-2"
+                onClick={() => {
+                  setModalIsItemInOtherGroup(false);
+                }}
+              >
+                <I18N id="wantEditor.IsItemInOther.btn.Cancel" />
+              </Button>
+              <Button
+                color="primary"
+                size="sm"
+                onClick={() => {
+                  setModalIsItemInOtherGroup(false);
+                  dragToGroup(tagToAdd.tag, tagToAdd.item);
+                }}
+              >
+                <I18N id="wantEditor.IsItemInOther.btn.Yes" />
+              </Button>
+            </div>
+          </ModalBody>
+        </Modal>
+      ) : null}
     </PrivateLayout>
   );
 };
