@@ -24,6 +24,11 @@ const Results = () => {
     },
   });
 
+  const [getMathTrade, MathTradeData, loadingMathTrade, errorsMathTrade] =
+    useApi({
+      promise: MathTradeService.getMathTrade,
+    });
+
   const [getMathTradeResultsAll, , loadingAll, errorsAll] = useApi({
     promise: MathTradeService.getMathTradeResults,
     initialState: [],
@@ -48,6 +53,10 @@ const Results = () => {
     }
     getUsers();
   }, [canViewResults]);
+
+  useEffect(() => {
+    getMathTrade();
+  }, []);
 
   useEffect(() => {
     if (canViewResults && userId && userId !== "") {
@@ -82,6 +91,7 @@ const Results = () => {
     <PrivateEnv>
       <ResultsView
         canViewResults={canViewResults}
+        MathTradeData={MathTradeData}
         allUsers={allUsers}
         setAllUsers={setAllUsers}
         userId={userId}

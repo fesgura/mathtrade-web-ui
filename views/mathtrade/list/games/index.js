@@ -62,6 +62,8 @@ const GameListView = ({
             valueInitial={filters?.query?.order}
             defaultValue="title"
             options={[
+              { text: getI18Ntext("element.Date"), value: "added_mt" },
+              { text: getI18Ntext("element.DateUpdate"), value: "last_update" },
               { text: getI18Ntext("element.Name"), value: "title" },
               { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
               { text: getI18Ntext("element.Value"), value: "value" },

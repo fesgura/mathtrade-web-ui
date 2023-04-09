@@ -14,6 +14,7 @@ import PdfButton from "./pdf";
 import Pills from "./pills";
 
 const ResultsView = ({
+  MathTradeData,
   canViewResults,
   allUsers,
   setAllUsers,
@@ -30,7 +31,7 @@ const ResultsView = ({
   return (
     <PrivateLayout loading={loading} doctitle="title.Results">
       <PageHeader title="title.Results" center />
-      <Pills users={users} />
+
       {canViewResults ? (
         <>
           <div className="results-header">
@@ -41,6 +42,7 @@ const ResultsView = ({
               <I18N id="results.text2" />
             </p>
           </div>
+          <Pills MathTradeData={MathTradeData} />
           <Row className="align-items-end justify-content-between">
             <Col xs="auto">
               {allUsers && current === 1 ? null : (
@@ -128,6 +130,7 @@ const ResultsView = ({
       ) : (
         <>
           <NotResultsYet />
+          <Pills MathTradeData={MathTradeData} />
           <UserList users={users} />
         </>
       )}
