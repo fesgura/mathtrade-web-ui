@@ -47,6 +47,7 @@ const Game_in_list = ({ game, afterAnyChange, canEditWants }) => {
               key={k}
               type="game"
               wantGroupId={wantGroup?.id || null}
+              isItemInOtherGroup={game.wanted.length >= 1 && !wantGroup?.id}
               objectToWant={game}
               afterAnyChange={afterAnyChange}
               canEditWants={canEditWants}
