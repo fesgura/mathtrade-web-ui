@@ -6,7 +6,6 @@ import I18N, { getI18Ntext } from "i18n";
 
 const SidebarTagList = ({
   tagList,
-  wantList,
   afterAnyChange,
   filters,
   setFilters,
@@ -52,7 +51,6 @@ const SidebarTagList = ({
                   key={tag.id}
                   zIndex={999 - k}
                   tag={tag}
-                  wantList={wantList}
                   filterByTag={filterByTag}
                   afterAnyChange={afterAnyChange}
                   current={`${currentTag}` === `${tag.id}`}

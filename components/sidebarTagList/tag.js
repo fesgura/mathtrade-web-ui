@@ -12,7 +12,6 @@ import { getI18Ntext } from "i18n";
 const Tag = ({
   tag,
   zIndex,
-  wantList,
   filterByTag,
   afterAnyChange,
   current,
@@ -24,16 +23,16 @@ const Tag = ({
 
   useEffect(() => {
     if (tag.wanted) {
-      const wantGroupArr = wantList.filter((w) => {
-        return w.id === tag.wanted;
+      const newWantGroupArray = tag.wanted.filter((wg) => {
+        return wg.type === "tag" && wg.tags.indexOf(tag.id) >= 0;
       });
-      if (wantGroupArr[0]) {
-        setWantGroup(wantGroupArr[0]);
+      if (newWantGroupArray[0]) {
+        setWantGroup(newWantGroupArray[0]);
       } else {
         setWantGroup(null);
       }
     }
-  }, [tag, wantList]);
+  }, [tag]);
 
   useEffect(() => {
     if (tag && tag.items) {
@@ -107,7 +106,10 @@ const Tag = ({
                     <WantEditor
                       objectToWant={tag}
                       type="tag"
-                      wantGroupId={tag.wanted}
+                      wantGroupId={wantGroup?.id || null}
+                      isItemInOtherGroup={
+                        tag?.wanted?.length >= 1 && !wantGroup?.id
+                      }
                       afterAnyChange={afterAnyChange}
                       min
                       canEditWants={canEditWants}
