@@ -72,7 +72,7 @@ const ItemListView = ({
         rightSide={
           <OrderBy
             valueInitial={filters?.query?.order}
-            defaultValue="id"
+            defaultValue="added_mt"
             options={[
               { text: getI18Ntext("element.Date"), value: "added_mt" },
               { text: getI18Ntext("element.Name"), value: "name" },
