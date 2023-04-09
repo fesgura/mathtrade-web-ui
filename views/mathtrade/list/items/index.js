@@ -15,6 +15,7 @@ import I18N, { getI18Ntext } from "i18n";
 import { locationsToOptions } from "utils";
 import ElementPerPage from "components/pagination/elementsPerPage";
 
+/*
 const filterList = (list, userBanIds, itemBanIds, afterAnyChange) => {
   const newList = list.filter((item) => {
     return (
@@ -26,6 +27,7 @@ const filterList = (list, userBanIds, itemBanIds, afterAnyChange) => {
   }
   return newList;
 };
+*/
 
 const ItemListView = ({
   canEditWants,
@@ -43,6 +45,7 @@ const ItemListView = ({
 }) => {
   const [currentSidebar, setCurrentSidebar] = useState(0);
 
+  /*
   const [userBanIds, setUserBanIds] = useState([]);
   const [itemBanIds, setItemBanIds] = useState([]);
 
@@ -50,6 +53,7 @@ const ItemListView = ({
     setUserBanIds([]);
     setItemBanIds([]);
   }, [list]);
+*/
 
   return (
     <PrivateLayout loading={loading} doctitle="title.ItemList">
@@ -158,12 +162,8 @@ const ItemListView = ({
           )}
           <div className="item-list pb-1">
             {list && list.results && list.results.length ? (
-              filterList(
-                list.results,
-                userBanIds,
-                itemBanIds,
-                afterAnyChange
-              ).map((item, k) => {
+              //filterList(list.results, userBanIds, itemBanIds, afterAnyChange).map((item, k) => {
+              list.results.map((item, k) => {
                 return (
                   <ItemView
                     item={item}
@@ -172,6 +172,8 @@ const ItemListView = ({
                     dragToGroup={dragToGroup}
                     withDragger={currentSidebar === 1 && tagList.length > 0}
                     canEditWants={canEditWants}
+                    afterAnyChange={afterAnyChange}
+                    /*
                     afterAnyChange={(data_afterAnyChange) => {
                       if (typeof data_afterAnyChange === "boolean") {
                         afterAnyChange(data_afterAnyChange);
@@ -207,6 +209,7 @@ const ItemListView = ({
                       }
                       //
                     }}
+                    */
                   />
                 );
               })

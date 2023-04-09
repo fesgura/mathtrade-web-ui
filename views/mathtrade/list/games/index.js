@@ -13,6 +13,7 @@ import { getI18Ntext } from "i18n";
 import I18N from "i18n";
 import { useState, useEffect } from "react";
 
+/*
 const filterList = (list, itemBanIds, afterAnyChange) => {
   const newList = list.filter((item) => {
     return itemBanIds.indexOf(item.bgg_id) < 0;
@@ -22,6 +23,7 @@ const filterList = (list, itemBanIds, afterAnyChange) => {
   }
   return newList;
 };
+*/
 
 const GameListView = ({
   canEditList,
@@ -33,11 +35,13 @@ const GameListView = ({
   errors,
   afterAnyChange,
 }) => {
+  /*
   const [itemBanIds, setItemBanIds] = useState([]);
 
   useEffect(() => {
     setItemBanIds([]);
   }, [list]);
+  */
 
   return (
     <PrivateLayout loading={loading} doctitle="title.GameList">
@@ -114,13 +118,15 @@ const GameListView = ({
           )}
           <div className="game-list">
             {list && list.results && list.results.length ? (
-              filterList(list.results, itemBanIds, afterAnyChange).map(
-                (game, k) => {
-                  return (
-                    <Game
-                      game={game}
-                      key={`${game.id}-${k}`}
-                      canEditWants={canEditWants}
+              //filterList(list.results, itemBanIds, afterAnyChange).map(
+              list.results.map((game, k) => {
+                return (
+                  <Game
+                    game={game}
+                    key={`${game.id}-${k}`}
+                    canEditWants={canEditWants}
+                    afterAnyChange={afterAnyChange}
+                    /*
                       afterAnyChange={(data_afterAnyChange) => {
                         if (typeof data_afterAnyChange === "boolean") {
                           afterAnyChange(data_afterAnyChange);
@@ -149,10 +155,10 @@ const GameListView = ({
                         }
                         //
                       }}
-                    />
-                  );
-                }
-              )
+                      */
+                  />
+                );
+              })
             ) : loading ? null : (
               <div className="item-list_empty">
                 <p className="lead py-4">
