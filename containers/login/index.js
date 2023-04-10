@@ -48,7 +48,6 @@ const LoginContainer = ({ verifingAuth, onGetCaptcha }) => {
       data: {
         ...userData,
         location: userData.location.id,
-        referred: userData.location.referral.id,
         terms_acceptance: true,
       },
     });
