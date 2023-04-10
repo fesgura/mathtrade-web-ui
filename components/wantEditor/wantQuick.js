@@ -135,7 +135,15 @@ const WantQuick = ({
           <ModalBody>
             <div className="text-center  pt-2">
               <p className="mb-4">
-                <I18N id="wantEditor.IsItemInOther" />
+                <I18N
+                  id={
+                    type === "item"
+                      ? "wantEditor.IsItemInOther.item"
+                      : type === "game"
+                      ? "wantEditor.IsItemInOther.game"
+                      : "wantEditor.IsItemInOther.tag"
+                  }
+                />
               </p>
             </div>
             <div className="text-center  pb-3">
