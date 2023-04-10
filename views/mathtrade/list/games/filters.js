@@ -6,6 +6,7 @@ import { Input } from "components/form";
 import { Row, Col, Alert } from "reactstrap";
 import I18N from "i18n";
 import BannedElements from "components/ban/bannedElements";
+import ShowBanned from "components/ban/showBanned";
 
 const minValue = 0;
 const maxValue = 10;
@@ -79,6 +80,7 @@ const Filters_MT_Games = ({ filters, setFilters, afterAnyChange }) => {
           </Alert>
         </div>
       ) : null}
+      <ShowBanned filters={filters} setFilters={setFilters} type="game" />
       <BannedElements afterAnyChange={afterAnyChange} />
       <FiltersComp
         filters={filters}

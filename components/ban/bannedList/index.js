@@ -3,22 +3,8 @@ import { useApi, MathTradeService } from "api_serv";
 import { LoadingBox } from "components/loading";
 import I18N from "i18n";
 import Icon from "components/icon";
-import Game from "components/game";
-import {
-  Button,
-  Col,
-  Row,
-  TabContent,
-  TabPane,
-  Nav,
-  NavItem,
-  NavLink,
-  Card,
-  CardTitle,
-  CardText,
-} from "reactstrap";
+import { Button, Col, Row } from "reactstrap";
 import classNames from "classnames";
-import ItemMinimal from "components/item/minimal";
 import UserBox from "components/userBox";
 import ErrorAlert from "components/errorAlert";
 import { Input } from "components/form";
@@ -46,7 +32,6 @@ function eliminarDiacriticos(texto) {
 }
 
 const filterByKeyword = (elems, keyword) => {
-  //console.log(elems);
   if (!elems) {
     return [];
   }
@@ -81,7 +66,6 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
   const [listBans, , loading, errors] = useApi({
     promise: MathTradeService.getBans,
     afterLoad: (list) => {
-      console.log(list);
       if (list.length) {
         const users = list.filter((elem) => {
           return elem.type === "U";
@@ -98,8 +82,8 @@ const BannedList = ({ onCloseModal, setWithChanges }) => {
   });
 
   useEffect(() => {
-    //listBans({ users: true });
-    listBans();
+    listBans({ users: true });
+    //listBans();
   }, []);
 
   ////////////////////////////////////////

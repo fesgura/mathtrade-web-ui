@@ -6,6 +6,7 @@ import { Dragger } from "components/dragNdrop";
 import storage from "utils/storage";
 import Valuation from "components/valuation";
 import ItemComment from "components/itemComments";
+import UnBanButton from "components/ban/unbanButton";
 
 const MT_ItemListViewItem = ({
   canEditWants,
@@ -14,6 +15,7 @@ const MT_ItemListViewItem = ({
   tagList,
   dragToGroup,
   withDragger,
+  showAsIgnored,
 }) => {
   const [isOwner, setIsOwner] = useState(false);
 
@@ -50,34 +52,56 @@ const MT_ItemListViewItem = ({
       high={wantGroup}
       highClassName={wantGroup ? "high-wanted" : null}
       afterAnyChange={afterAnyChange}
-      btnRowListItem={[
-        (k) => {
-          return isOwner ? (
-            <div key={k} className="item-full_own-item">
-              Item propio
-            </div>
-          ) : null;
-        },
-        (k) => {
-          return (
-            <Valuation key={k} items={[item]} afterAnyChange={afterAnyChange} />
-          );
-        },
-        (k) => {
-          return (
-            <WantEditor
-              key={k}
-              type="item"
-              wantGroupId={wantGroup?.id || null}
-              isItemInOtherGroup={item.wanted.length >= 1 && !wantGroup?.id}
-              objectToWant={item}
-              afterAnyChange={afterAnyChange}
-              isOwner={isOwner}
-              canEditWants={canEditWants}
-            />
-          );
-        },
-      ]}
+      notBan={showAsIgnored}
+      btnRowListItem={
+        showAsIgnored
+          ? [
+              (k) => {
+                return (
+                  <UnBanButton
+                    key={k}
+                    type="item"
+                    banData={item}
+                    afterAnyChange={afterAnyChange}
+                  />
+                );
+              },
+            ]
+          : [
+              (k) => {
+                return isOwner ? (
+                  <div key={k} className="item-full_own-item">
+                    Item propio
+                  </div>
+                ) : null;
+              },
+              (k) => {
+                return (
+                  <Valuation
+                    key={k}
+                    items={[item]}
+                    afterAnyChange={afterAnyChange}
+                  />
+                );
+              },
+              (k) => {
+                return (
+                  <WantEditor
+                    key={k}
+                    type="item"
+                    wantGroupId={wantGroup?.id || null}
+                    isItemInOtherGroup={
+                      item.wanted.length >= 1 && !wantGroup?.id
+                    }
+                    objectToWant={item}
+                    afterAnyChange={afterAnyChange}
+                    isOwner={isOwner}
+                    canEditWants={canEditWants}
+                  />
+                );
+              },
+            ]
+      }
       withDragger={!isOwner && withDragger && canEditWants}
       groupHeader={
         !isOwner ? (

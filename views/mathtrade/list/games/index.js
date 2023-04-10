@@ -128,6 +128,7 @@ const GameListView = ({
                     key={`${game.id}-${k}`}
                     canEditWants={canEditWants}
                     afterAnyChange={afterAnyChange}
+                    showAsIgnored={filters?.query?.ignored}
                     /*
                       afterAnyChange={(data_afterAnyChange) => {
                         if (typeof data_afterAnyChange === "boolean") {

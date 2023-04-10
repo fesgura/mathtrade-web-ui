@@ -2,8 +2,14 @@ import { useState, useEffect } from "react";
 import Game from "components/game";
 import WantEditor from "components/wantEditor";
 import Valuation from "components/valuation";
+import UnBanButton from "components/ban/unbanButton";
 
-const Game_in_list = ({ game, afterAnyChange, canEditWants }) => {
+const Game_in_list = ({
+  game,
+  afterAnyChange,
+  canEditWants,
+  showAsIgnored,
+}) => {
   const [wantGroup, setWantGroup] = useState(null);
   const [forceOpenWantEditor, setForceOpenWantEditor] = useState(false);
   const [renderElem, setRenderElem] = useState(true);
@@ -37,26 +43,44 @@ const Game_in_list = ({ game, afterAnyChange, canEditWants }) => {
       onOpenGame={() => {
         setForceOpenWantEditor(true);
       }}
-      btnRowListGame={[
-        (k) => {
-          return <Valuation key={k} items={game.items} />;
-        },
-        (k) => {
-          return (
-            <WantEditor
-              key={k}
-              type="game"
-              wantGroupId={wantGroup?.id || null}
-              isItemInOtherGroup={game.wanted.length >= 1 && !wantGroup?.id}
-              objectToWant={game}
-              afterAnyChange={afterAnyChange}
-              canEditWants={canEditWants}
-              forceOpen={forceOpenWantEditor}
-              setForceOpen={setForceOpenWantEditor}
-            />
-          );
-        },
-      ]}
+      notBan={showAsIgnored}
+      btnRowListGame={
+        showAsIgnored
+          ? [
+              (k) => {
+                return (
+                  <UnBanButton
+                    key={k}
+                    type="item"
+                    banData={game}
+                    afterAnyChange={afterAnyChange}
+                  />
+                );
+              },
+            ]
+          : [
+              (k) => {
+                return <Valuation key={k} items={game.items} />;
+              },
+              (k) => {
+                return (
+                  <WantEditor
+                    key={k}
+                    type="game"
+                    wantGroupId={wantGroup?.id || null}
+                    isItemInOtherGroup={
+                      game.wanted.length >= 1 && !wantGroup?.id
+                    }
+                    objectToWant={game}
+                    afterAnyChange={afterAnyChange}
+                    canEditWants={canEditWants}
+                    forceOpen={forceOpenWantEditor}
+                    setForceOpen={setForceOpenWantEditor}
+                  />
+                );
+              },
+            ]
+      }
     />
   ) : (
     <div style={{ height: 656 }} />

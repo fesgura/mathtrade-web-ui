@@ -81,6 +81,23 @@
     position: relative;
     top: 10px;
   }
+
+  &.for-circle {
+    .unban-btn-icon {
+      margin-right: 0;
+      .unban-btn-icon_bar {
+        width: 4px;
+        height: 30px;
+        background-color: #fff;
+        position: absolute;
+        top: 7px;
+        left: 50%;
+        margin-left: -1px;
+        border: 1px solid darken($danger, 20);
+        transform: rotate(45deg);
+      }
+    }
+  }
 }
 
 .banned-list_item {
@@ -105,5 +122,25 @@
   .banned-list_user-btn {
     text-align: center;
     padding: 6px 0;
+  }
+}
+.btn-filter-showBans_container {
+  padding: 5px 18px 8px 0;
+}
+.btn-filter-showBans {
+  background-color: lighten($danger, 40);
+  border: 1px solid lighten($danger, 30);
+  font-size: 13px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: $main-box-shadow;
+  color: darken($danger, 40);
+  cursor: pointer;
+  transition: all 0.1s;
+
+  &:hover {
+    background-color: lighten($danger, 20);
+    border-color: lighten($danger, 20);
+    color: #fff;
   }
 }
