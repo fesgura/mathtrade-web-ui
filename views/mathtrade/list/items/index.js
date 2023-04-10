@@ -172,6 +172,7 @@ const ItemListView = ({
                     item={item}
                     key={`${item.id}-${k}`}
                     tagList={tagList}
+                    showAsIgnored={filters?.query?.ignored}
                     dragToGroup={(tag, item) => {
                       let isTagWanted = false;
 

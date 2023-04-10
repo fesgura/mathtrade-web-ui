@@ -8,6 +8,7 @@ import { Row, Col, Alert } from "reactstrap";
 import { Input } from "components/form";
 import I18N from "i18n";
 import BannedElements from "components/ban/bannedElements";
+import ShowBanned from "components/ban/showBanned";
 
 const minValue = 0;
 const maxValue = 10;
@@ -128,6 +129,7 @@ const Filters_MT_Items = ({
           </Alert>
         </div>
       ) : null}
+      <ShowBanned filters={filters} setFilters={setFilters} type="item" />
       <BannedElements afterAnyChange={afterAnyChange} />
       <FiltersComp
         className="pt-0"

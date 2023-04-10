@@ -14,7 +14,7 @@ const Game = ({
   game,
   wanted,
   inModal,
-  noBan,
+  notBan,
   btnRowListGame,
   afterAnyChange,
   onOpenGame = () => {},
@@ -161,7 +161,7 @@ const Game = ({
               })}
             </div>
           ) : null}
-          {noBan ? null : (
+          {notBan ? null : (
             <BanButton
               label="ban.Game"
               element={game}
