@@ -240,12 +240,7 @@ export const processBGGdata = (BGGelement) => {
 };
 
 export const dependencyToData = (dependency) => {
-  if (
-    !dependency ||
-    !dependency.votes ||
-    !dependency.value ||
-    dependency?.value?.length === 0
-  ) {
+  if (dependency?.value?.length === 0) {
     return {
       most: "Sin datos",
       list: [],
@@ -392,8 +387,8 @@ export const getStatsOfElement = (element) => {
     weightVotes: parseInt(element.weight_votes, 10),
   };
   o.dataDependency = dependencyToData({
-    value: element.dependency,
-    votes: element.dependency_votes,
+    value: element?.dependency || 0,
+    votes: element.dependency_votes || "",
   });
   return o;
 };
