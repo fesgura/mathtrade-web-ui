@@ -70,7 +70,7 @@ const WantEditor = ({
         isItemInOtherGroup={isItemInOtherGroup}
         onClick={onOpenModal}
       />
-      {!canEditWants || wantGroupId || type === "tag" ? null : (
+      {!canEditWants || isOwner || wantGroupId || type === "tag" ? null : (
         <WantQuick
           objectToWant={objectToWant}
           type={type}
