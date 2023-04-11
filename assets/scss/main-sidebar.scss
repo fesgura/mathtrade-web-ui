@@ -175,9 +175,6 @@
   }
 }
 .main-sidebar-toggler {
-  // temp
-  display: none;
-  //
   position: fixed;
   z-index: $main-sidebar-toggler-z;
   top: $main-sidebar-toggler-y;
@@ -224,7 +221,7 @@
 
 .main-sidebar-mobile-closer {
   $wb: 45px;
-
+  display: none;
   position: absolute;
   top: 0;
   right: 0;
@@ -237,6 +234,12 @@
 }
 
 @media screen and (max-width: $mobile_limit) {
+  .main-sidebar-toggler {
+    display: none;
+  }
+  .main-sidebar-mobile-closer {
+    display: block;
+  }
   .main-sidebar {
     top: 0;
     left: 0;
