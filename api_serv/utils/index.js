@@ -6,7 +6,7 @@ const apiHost = "https://api.mathtrade.com.ar/";
 const apiHostTest = "https://api.mathtrade.com.ar:8000/";
 
 export const api = create({
-  timeout: 60000,
+  timeout: 300000, // 5 minutes
   paramsSerializer: function (params) {
     return Qs.stringify(params, { arrayFormat: "repeat" });
   },
