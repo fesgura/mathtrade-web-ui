@@ -187,7 +187,33 @@ const WantItem = ({
                       )
                     ) : null
                   }
-                  afterAnyChange={reloadWants}
+                  afterAnyChange={(d) => {
+                    if (d && d?.origin === "valuation") {
+                      set_wantListGrid((obj) => {
+                        const newList = [...obj.list];
+
+                        let ind = -1;
+
+                        newList.forEach((g, i) => {
+                          if (g.idkey === group.idkey) {
+                            ind = i;
+                          }
+                        });
+
+                        if (newList[ind]) {
+                          const newItems = [...newList[ind].items];
+                          newItems.forEach((itm) => {
+                            if (itm.id === item.id) {
+                              itm.value = d.value;
+                            }
+                          });
+                          newList[ind].items = newItems;
+                        }
+
+                        return { ...obj, list: newList };
+                      });
+                    }
+                  }}
                 />
               </Col>
             </Row>

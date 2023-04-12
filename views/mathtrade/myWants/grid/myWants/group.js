@@ -69,7 +69,22 @@ const WantGroup = ({
                 <Valuation
                   items={group.items}
                   min
-                  afterAnyChange={reloadWants}
+                  afterAnyChange={(d) => {
+                    set_wantListGrid((obj) => {
+                      const newList = [...obj.list];
+
+                      newList.forEach((g, i) => {
+                        if (g.idkey === group.idkey) {
+                          // ind = i;
+                          g.items.forEach((itm) => {
+                            itm.value = d.value;
+                          });
+                        }
+                      });
+
+                      return { ...obj, list: newList };
+                    });
+                  }}
                 />
               </Col>
               <Col>
