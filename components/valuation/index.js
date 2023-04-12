@@ -18,16 +18,27 @@ const Valuation = ({ className, items, afterAnyChange = () => {}, min }) => {
   const [valueInternal, setValueInternal] = useState(minValue);
   const [isOpen, setIsOpen] = useState(false);
 
+  const [notValuable, setNotValuable] = useState(true);
+
   useEffect(() => {
     if (items && items.length) {
-      let minValue = 12;
+      let minValueOp = 12;
       items.forEach((itm) => {
-        const valueItem = itm.value ? parseFloat(itm.value) : 0;
-        if (valueItem < minValue) {
-          minValue = valueItem;
+        console.log(itm.value);
+        if (itm.value !== null) {
+          const valueItem = itm.value ? parseFloat(itm.value) : 0;
+          if (valueItem < minValueOp) {
+            minValueOp = valueItem;
+          }
         }
       });
-      setValueInternal(minValue);
+      if (minValueOp === 12) {
+        minValueOp = 0;
+        setNotValuable(true);
+      } else {
+        setNotValuable(false);
+      }
+      setValueInternal(minValueOp);
     }
   }, [items]);
 
@@ -60,7 +71,9 @@ const Valuation = ({ className, items, afterAnyChange = () => {}, min }) => {
           )}
         />
         {loadingPutItem ? null : (
-          <div className="valuation-btn_num">{valueInternal}</div>
+          <div className="valuation-btn_num">
+            {notValuable ? "-" : valueInternal}
+          </div>
         )}
       </button>
       <UncontrolledTooltip
@@ -89,6 +102,7 @@ const Valuation = ({ className, items, afterAnyChange = () => {}, min }) => {
               min={minValue}
               max={maxValue}
               onChange={(e) => {
+                setNotValuable(false);
                 let v = parseFloat(e.target.value);
                 if (!isNaN(v)) {
                   v = v < minValue ? 0 : v;
@@ -126,6 +140,7 @@ const Valuation = ({ className, items, afterAnyChange = () => {}, min }) => {
                 step={step}
                 value={valueInternal}
                 onChange={(e) => {
+                  setNotValuable(false);
                   const v = parseFloat(e.target.value);
                   if (v !== items[0].value) {
                     setValueInternal(v);
