@@ -24,7 +24,6 @@ const Valuation = ({ className, items, afterAnyChange = () => {}, min }) => {
     if (items && items.length) {
       let minValueOp = 12;
       items.forEach((itm) => {
-        console.log(itm.value);
         if (itm.value !== null) {
           const valueItem = itm.value ? parseFloat(itm.value) : 0;
           if (valueItem < minValueOp) {
