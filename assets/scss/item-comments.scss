@@ -221,3 +221,34 @@
 .item-comments-list-edit {
   padding: 0 104px;
 }
+@media screen and (max-width: 768px) {
+  .item-comments-container {
+    padding: 10px;
+  }
+  .item-comments-list-edit {
+    padding: 0;
+  }
+  .item-comment {
+    $m-blob: 15px;
+    .item-comment_user {
+      width: 40px;
+      .avatar.md {
+        width: 40px;
+        height: 40px;
+      }
+      .item-comment_user-text {
+        font-size: 8px;
+        .item-comment_user-title {
+          font-size: 10px;
+        }
+      }
+    }
+    .item-comment-blob-container {
+      padding-right: 0;
+      &.isMyUser {
+        padding-right: $m-blob;
+        padding-left: 0;
+      }
+    }
+  }
+}

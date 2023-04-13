@@ -84,3 +84,11 @@
     }
   }
 }
+@media screen and (max-width: 480px) {
+  .main-notifications-pad {
+    z-index: 1060;
+    .main-notifications-container {
+      width: 100vw;
+    }
+  }
+}

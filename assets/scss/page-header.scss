@@ -56,3 +56,23 @@
     height: 50px;
   }
 }
+
+@media screen and (max-width: 992px) {
+  .page-header-tab {
+    .page-header-tab-right-side {
+      // border-top: 1px solid #999;
+      border-bottom: none;
+      height: auto;
+    }
+  }
+}
+
+@media screen and (max-width: $mobile_limit) {
+  .page-header-tab {
+    .list-tab-header {
+      .list-tab-header-h {
+        font-size: 18px;
+      }
+    }
+  }
+}

@@ -107,8 +107,8 @@ const ItemListView = ({
         }
       />
 
-      <Row>
-        <Col xs={3}>
+      <Row className="flex-nowrap">
+        <Col xs={"auto"} className="col-sidebar-sticky">
           <SidebarSticky>
             <SidebarTabs
               tabs={[
@@ -142,15 +142,15 @@ const ItemListView = ({
             />
           </SidebarSticky>
         </Col>
-        <Col xs={9}>
+        <Col>
           <p className="px-4 pb-5 m-0 text-center">
             <I18N id="Items.page.explanation" />
           </p>
-          <Row className="justify-content-end align-items-center mb-4">
-            <Col xs="auto">
+          <Row className="justify-content-md-end justify-content-center align-items-center mb-4">
+            <Col xs="auto" className="mb-3">
               <ElementPerPage filters={filters} setFilters={setFilters} />
             </Col>
-            <Col xs="auto">
+            <Col xs="auto" className="mb-3">
               <Pagination
                 filters={filters}
                 setFilters={setFilters}
@@ -253,10 +253,10 @@ const ItemListView = ({
       </Row>
 
       <Row className="justify-content-end align-items-center mb-4">
-        <Col xs="auto">
+        <Col xs="auto" className="mb-3">
           <ElementPerPage filters={filters} setFilters={setFilters} />
         </Col>
-        <Col xs="auto">
+        <Col xs="auto" className="mb-3">
           <Pagination
             filters={filters}
             setFilters={setFilters}

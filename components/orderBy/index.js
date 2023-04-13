@@ -41,13 +41,13 @@ const OrderBy = ({
     >
       <Row className={classNames("g-0", { "align-items-center": !twoRows })}>
         {notAuto ? null : (
-          <Col xs={twoRows ? 12 : "auto"}>
+          <Col sm={twoRows ? 12 : "auto"}>
             <div className="order-by_label">
               <I18N id="orderBy.Title" />:
             </div>
           </Col>
         )}
-        <Col xs="auto">
+        <Col sm="auto">
           <div className="order-by_select">
             <select
               value={optionValue}
@@ -75,7 +75,7 @@ const OrderBy = ({
         </Col>
 
         {notAuto ? (
-          <Col xs="auto">
+          <Col sm="auto">
             <div
               className="order-by_btn"
               onClick={() => {
@@ -90,7 +90,7 @@ const OrderBy = ({
           </Col>
         ) : (
           <>
-            <Col xs="auto" className="px-1">
+            <Col xs="auto" className="px-sm-1 pt-sm-0 pt-1">
               <Checkbox
                 value={desc}
                 onClick={(e) => {
@@ -101,7 +101,7 @@ const OrderBy = ({
                 }}
               />
             </Col>
-            <Col xs="auto">
+            <Col xs="auto" className="pt-sm-0 pt-1">
               <label
                 className="order-by_label cursor-pointer"
                 onClick={(e) => {

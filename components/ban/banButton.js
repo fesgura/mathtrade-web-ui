@@ -62,8 +62,9 @@ const BanButton = ({
             default:
             //
           }
-
-          postBan({ data });
+          if (!loading) {
+            postBan({ data });
+          }
         }}
       >
         <Icon type={loading ? "refresh fa-spin" : "ban"} />
