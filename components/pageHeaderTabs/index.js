@@ -56,7 +56,7 @@ const PageHeader = ({
           </div>
         </Col>
         <Col lg="">
-          <div className="page-header-tab-right-side">
+          <div className="page-header-tab-right-side pt-lg-0 pt-3">
             <div className="page-header-tab-right-side-content">
               {rightSide}
             </div>

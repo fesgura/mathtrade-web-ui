@@ -123,8 +123,8 @@ const MyItemsView = ({
           ) : null
         }
       />
-      <Row className="justify-content-center">
-        <Col xl={3}>
+      <Row className="flex-nowrap">
+        <Col xs={"auto"} className="col-sidebar-sticky">
           <SidebarSticky>
             <SidebarGroupList
               groups={groups}
@@ -137,7 +137,7 @@ const MyItemsView = ({
             />
           </SidebarSticky>
         </Col>
-        <Col xl={8}>
+        <Col>
           <p className="pt-4 pb-5 m-0 text-center">
             <I18N id="MyItems.page.explanation" />
           </p>

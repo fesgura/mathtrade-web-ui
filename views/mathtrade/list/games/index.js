@@ -87,8 +87,8 @@ const GameListView = ({
         }
       />
 
-      <Row>
-        <Col xs={3}>
+      <Row className="flex-nowrap">
+        <Col xs={"auto"} className="col-sidebar-sticky">
           <SidebarSticky>
             <Filters_MT_Games
               filters={filters}
@@ -97,7 +97,7 @@ const GameListView = ({
             />
           </SidebarSticky>
         </Col>
-        <Col xs={9}>
+        <Col>
           <p className="px-4 pb-5 m-0 text-center">
             <I18N id="Games.page.explanation" />
           </p>

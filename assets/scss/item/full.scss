@@ -240,3 +240,22 @@
     border-color: $element-type-badge-bg-3;
   }
 }
+
+@media screen and (max-width: $mobile_limit-sidebar) {
+  .dragger-spacer {
+    display: none;
+  }
+}
+@media screen and (max-width: 480px) {
+  .item-full {
+    .item-full-title {
+      margin-right: 0;
+    }
+  }
+  .element-full {
+    .element-full-data {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}

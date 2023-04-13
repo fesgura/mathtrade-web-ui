@@ -37,9 +37,7 @@ export const setAuth = () => {
 };
 
 export const setLogoutAPI = () => {
-  api.setHeaders({
-    Authorization: null,
-  });
+  delete api.headers["Authorization"];
 };
 export const getMathtradeId = () => {
   const mathtrade = storage.getFromStore("mathtrade");

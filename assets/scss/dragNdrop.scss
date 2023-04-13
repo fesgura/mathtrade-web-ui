@@ -71,3 +71,10 @@
   background-color: rgb(170, 216, 238);
   height: 200px;
 }
+@media screen and (max-width: $mobile_limit-sidebar) {
+  .dragger {
+    .dragger-handler {
+      display: none;
+    }
+  }
+}
