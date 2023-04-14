@@ -12,6 +12,7 @@ import I18N from "i18n";
 import LinkInternal from "components/link-internal";
 import { linksToHelp } from "config";
 import Timeline from "components/timeline";
+import SoonMT from "./soonMT";
 
 const validations = {
   location: ["required"],
@@ -104,7 +105,9 @@ const MyDataView = ({
         </>
       ) : null}
 
-      {mathtradeData ? (
+      {!mathtradeData || (!mathtradeData.IamIn && !canEditList) ? (
+        <SoonMT />
+      ) : (
         <section className="py-3">
           <div className="text-center mb-4">
             <h1>
@@ -383,30 +386,6 @@ const MyDataView = ({
             </ModalBody>
           </Modal>
         </section>
-      ) : (
-        <div
-          className="text-center"
-          style={{ maxWidth: 950, margin: "0 auto" }}
-        >
-          <h1 className="mb-4">
-            <I18N id="noMathtradeYet.Title" />
-          </h1>
-          <p className="lead mb-4">
-            <I18N id="noMathtradeYet.text-1" />
-          </p>
-          <p>
-            <I18N id="noMathtradeYet.text-2" />
-          </p>
-          <div>
-            <LinkInternal
-              path="myCollection"
-              className="btn btn-primary"
-              withIcon
-            >
-              <I18N id="title.MyCollection" />
-            </LinkInternal>
-          </div>
-        </div>
       )}
     </PrivateLayout>
   );

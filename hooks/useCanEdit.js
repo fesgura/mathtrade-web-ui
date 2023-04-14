@@ -38,6 +38,7 @@ const useCanEdit = (type) => {
       //   setCantEdit(newCanEdit);
       // }
       setCantEdit(newCanEdit);
+      //setCantEdit(true);
       //
     }
   }, [type]);
