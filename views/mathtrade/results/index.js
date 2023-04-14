@@ -124,14 +124,14 @@ const ResultsView = ({
               }
             />
           ) : (
-            <UserList users={users} hideTitle />
+            <UserList users={users} hideTitle canViewResults={canViewResults} />
           )}
         </>
       ) : (
         <>
           <NotResultsYet />
           <Pills MathTradeData={MathTradeData} />
-          <UserList users={users} />
+          <UserList users={users} canViewResults={canViewResults} />
         </>
       )}
     </PrivateLayout>

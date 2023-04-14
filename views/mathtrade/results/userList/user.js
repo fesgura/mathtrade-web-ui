@@ -5,7 +5,7 @@ import { Col, Row } from "reactstrap";
 import { dateToString } from "utils";
 import LinkInternal from "components/link-internal";
 
-const User = ({ data }) => {
+const User = ({ data, canViewResults }) => {
   const {
     first_name,
     avatar,
@@ -21,7 +21,7 @@ const User = ({ data }) => {
   return (
     <tr
       className={classNames({
-        "tr-danger": !commitment,
+        "tr-danger": !commitment && canViewResults,
       })}
     >
       <td>
@@ -31,55 +31,52 @@ const User = ({ data }) => {
           </Col>
           <Col>
             <div className="result-table_name ps-2">{`${first_name} ${last_name} (${location?.name})`}</div>
-            {/* {commitment ? (
-          <div className="result-table_commitment ps-2">
-            <I18N
-              id="results.lastCommitment.table"
-              values={[dateToString(commitment, true)]}
-            />
-          </div>
-        ) : null} */}
           </Col>
         </Row>
       </td>
       <td>{items || 0}</td>
       <td>{games || 0}</td>
       <td>{dateToString(last_update, true)}</td>
-      <td>{dateToString(commitment_datetime, true)}</td>
-      <td>
-        <Row>
-          <Col xs="auto">
-            {commitment ? (
-              <b className="commint-yes">
-                <I18N id="Yes" />
-              </b>
-            ) : (
-              <b className="commint-no">
-                <I18N id="No" />
-              </b>
-            )}
-          </Col>
-          <Col>
-            {!commitment ? (
-              <div>
-                <I18N id="results.userTable.commitment.no" />
-                <LinkInternal
-                  path="myWants"
-                  withIcon
-                  mathtrade
-                  className="commint-no"
-                >
-                  <I18N id="title.MyWants" />
-                </LinkInternal>
-              </div>
-            ) : (
-              <div className="commint-yes">
-                <I18N id="results.userTable.commitment.yes" />
-              </div>
-            )}
-          </Col>
-        </Row>
-      </td>
+
+      {canViewResults ? (
+        <>
+          <td>{dateToString(commitment_datetime, true)}</td>
+          <td>
+            <Row>
+              <Col xs="auto">
+                {commitment ? (
+                  <b className="commint-yes">
+                    <I18N id="Yes" />
+                  </b>
+                ) : (
+                  <b className="commint-no">
+                    <I18N id="No" />
+                  </b>
+                )}
+              </Col>
+              <Col>
+                {!commitment ? (
+                  <div>
+                    <I18N id="results.userTable.commitment.no" />
+                    <LinkInternal
+                      path="myWants"
+                      withIcon
+                      mathtrade
+                      className="commint-no"
+                    >
+                      <I18N id="title.MyWants" />
+                    </LinkInternal>
+                  </div>
+                ) : (
+                  <div className="commint-yes">
+                    <I18N id="results.userTable.commitment.yes" />
+                  </div>
+                )}
+              </Col>
+            </Row>
+          </td>
+        </>
+      ) : null}
     </tr>
   );
 };
