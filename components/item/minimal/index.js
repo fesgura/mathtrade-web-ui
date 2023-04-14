@@ -1,10 +1,10 @@
+import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { Row, Col } from "reactstrap";
 import Valuation from "components/valuation";
 import Checkbox from "components/checkbox";
 import Thumbnail from "components/thumbnail";
 import Previewer from "components/previewer";
-import ItemFull from "components/item/full";
 import UserBox from "components/userBox";
 import { cropWord, getLanguageListText } from "utils";
 import I18N from "i18n";
@@ -28,6 +28,19 @@ const ItemMinimal = ({
   afterAnyChange = () => {},
 }) => {
   const { title, elements, value } = item;
+  const [src, setSrc] = useState(null);
+
+  useEffect(() => {
+    if (elements) {
+      let newThumbnail = "none";
+      elements.forEach((element) => {
+        if (element.thumbnail && element.thumbnail !== "none") {
+          newThumbnail = element.thumbnail;
+        }
+      });
+      setSrc(newThumbnail);
+    }
+  }, [elements]);
 
   let orderNum = inverted ? 6 : 1;
 
@@ -70,7 +83,7 @@ const ItemMinimal = ({
             }}
           >
             <div className="item-minimal_thumbnail">
-              <Thumbnail src={elements[0].thumbnail} height={26} />
+              <Thumbnail src={src} height={26} />
             </div>
           </Col>
           <Col
@@ -125,7 +138,7 @@ const ItemMinimal = ({
             }}
           >
             <div className="item-minimal_previewer">
-              <Previewer id={item.id} comments/>               
+              <Previewer id={item.id} comments />
             </div>
           </Col>
           <Col

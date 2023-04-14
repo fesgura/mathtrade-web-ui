@@ -35,9 +35,23 @@ const Quad = ({
       if (data.bgg_id) {
         newType = "game";
         setTitle(data.name);
+        if (data.name.indexOf("Smart") >= 0) {
+          console.log(data);
+        }
 
         const allItems = [...data.wants, ...data.availables];
-        setSrc(allItems[0].elements[0].thumbnail);
+
+        let newThumbnail = "none";
+
+        allItems.forEach((itm) => {
+          itm.elements.forEach((element) => {
+            if (element.thumbnail && element.thumbnail !== "none") {
+              newThumbnail = element.thumbnail;
+            }
+          });
+        });
+
+        setSrc(newThumbnail);
 
         //
       } else {
@@ -96,9 +110,7 @@ const Quad = ({
             }}
           >
             <Thumbnail src={src} quad isMultiple={type === "tag"} />
-            {!isGroup ? (
-              <Previewer colorInverted id={data?.id}/>
-            ) : null}
+            {!isGroup ? <Previewer colorInverted id={data?.id} /> : null}
             {isGroup ? <Icon type="eye" className="quad-want_icon" /> : null}
           </div>
           <UncontrolledTooltip target={`quad-want-${id}`}>
