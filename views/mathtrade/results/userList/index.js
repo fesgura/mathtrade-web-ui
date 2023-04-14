@@ -38,7 +38,7 @@ const Th_comp = ({ orderBy, setDesc, desc, setOrderBy, name, value }) => {
   );
 };
 
-const UserList = ({ users, hideTitle }) => {
+const UserList = ({ users, hideTitle, canViewResults }) => {
   const [userList, setUserList] = useState([]);
   const [orderBy, setOrderBy] = useState("last_name");
   const [desc, setDesc] = useState(1);
@@ -106,27 +106,34 @@ const UserList = ({ users, hideTitle }) => {
                   name="results.userTable.th.last_update"
                   value="last_update"
                 />
-                <Th_comp
-                  orderBy={orderBy}
-                  desc={desc}
-                  setDesc={setDesc}
-                  setOrderBy={setOrderBy}
-                  name="results.userTable.th.commitment_datetime"
-                  value="commitment_datetime"
-                />
-                <Th_comp
-                  orderBy={orderBy}
-                  desc={desc}
-                  setDesc={setDesc}
-                  setOrderBy={setOrderBy}
-                  name="results.userTable.th.commitment"
-                  value="commitment"
-                />
+                {canViewResults ? (
+                  <>
+                    <Th_comp
+                      orderBy={orderBy}
+                      desc={desc}
+                      setDesc={setDesc}
+                      setOrderBy={setOrderBy}
+                      name="results.userTable.th.commitment_datetime"
+                      value="commitment_datetime"
+                    />
+
+                    <Th_comp
+                      orderBy={orderBy}
+                      desc={desc}
+                      setDesc={setDesc}
+                      setOrderBy={setOrderBy}
+                      name="results.userTable.th.commitment"
+                      value="commitment"
+                    />
+                  </>
+                ) : null}
               </tr>
             </thead>
             <tbody>
               {userList.map((data, k) => {
-                return <User key={k} data={data} />;
+                return (
+                  <User key={k} data={data} canViewResults={canViewResults} />
+                );
               })}
             </tbody>
           </table>
