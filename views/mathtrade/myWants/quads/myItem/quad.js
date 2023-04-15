@@ -35,9 +35,6 @@ const Quad = ({
       if (data.bgg_id) {
         newType = "game";
         setTitle(data.name);
-        if (data.name.indexOf("Smart") >= 0) {
-          console.log(data);
-        }
 
         const allItems = [...data.wants, ...data.availables];
 

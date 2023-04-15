@@ -29,6 +29,7 @@ import PhotoUploader from "components/photoUploader";
 import StatusHelp from "components/pages/myItems/statusHelp";
 import ModalDeleteItem from "../modalDelete";
 import LinkInternal from "components/link-internal";
+import StatusHelpRow from "components/pages/myItems/statusHelpRow";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -364,8 +365,9 @@ const ElementEdit = ({
                             />
                           </Col>
                         </Row>
-                        <Row>
-                          <Col lg={6}>
+                        <hr className="mt-0" />
+                        <Row className="align-items-center">
+                          <Col lg={5}>
                             <Input
                               data={data}
                               validations={validations}
@@ -378,12 +380,17 @@ const ElementEdit = ({
                               question={<StatusHelp />}
                               questionDropdown
                               notTranslateQuestion
+                              classNameContainer="mb-lg-0 mb-2"
                               onChange={(v) => {
                                 changeData({ status: v });
                               }}
                             />
                           </Col>
+                          <Col lg={7}>
+                            <StatusHelpRow st={data?.status} block />
+                          </Col>
                         </Row>
+                        <hr />
                         <div className="element-edit-photoGallery">
                           <div
                             className="element-edit-photoGallery-title"
