@@ -1,13 +1,14 @@
 .timeline-wrap {
   width: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .timeline-container {
   max-width: 2000px;
   min-width: 1000px;
   margin: 0 auto;
-  padding: 60px 66px 80px;
+  padding: 60px 66px 105px;
 }
 .timeline {
   $p: 3px;
@@ -104,6 +105,9 @@
         text-align: center;
         font-size: 11px;
         padding-top: 4px;
+        a {
+          display: block;
+        }
       }
 
       &.timeline_pos-start {

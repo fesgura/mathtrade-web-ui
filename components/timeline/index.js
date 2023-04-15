@@ -3,6 +3,8 @@ import storage from "utils/storage";
 import classNames from "classnames";
 import I18N from "i18n";
 import { dateToString } from "utils";
+import { meetingAddress } from "config";
+import Icon from "components/icon";
 
 /*
 {
@@ -102,6 +104,17 @@ const Timeline = ({ className }) => {
               </div>
               <div className="timeline_pos_text">
                 <I18N id="timeline.meet" />
+                <a
+                  href={meetingAddress.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="in-body"
+                >
+                  {meetingAddress.name}
+                  <br />
+                  {`${meetingAddress.address}, ${meetingAddress.location}`}
+                  <Icon type="external-link" className="ms-1" />
+                </a>
               </div>
             </div>
           </div>

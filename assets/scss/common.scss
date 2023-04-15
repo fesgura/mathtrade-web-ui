@@ -172,3 +172,10 @@ hr {
     transform: rotate(360deg);
   }
 }
+a.in-body {
+  color: darken($primary, 5);
+  font-weight: bold;
+  &:hover {
+    color: darken($primary, 15);
+  }
+}

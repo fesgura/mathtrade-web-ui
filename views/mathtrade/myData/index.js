@@ -13,6 +13,7 @@ import LinkInternal from "components/link-internal";
 import { linksToHelp } from "config";
 import Timeline from "components/timeline";
 import SoonMT from "./soonMT";
+import { meetingAddress } from "config";
 
 const validations = {
   location: ["required"],
@@ -182,9 +183,25 @@ const MyDataView = ({
                     <p>
                       <I18N
                         id="myData.help.AMBA"
+                        values={[meetingDay.day, meetingDay.hour]}
+                      />
+                      <br />
+                      <a
+                        href={meetingAddress.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="in-body"
+                      >
+                        {meetingAddress.name}
+                        <br />
+                        {`${meetingAddress.address}, ${meetingAddress.location}`}
+                        <Icon type="external-link" className="ms-1" />
+                      </a>
+                      <br />
+                      <br />
+                      <I18N
+                        id="myData.help.AMBA2"
                         values={[
-                          meetingDay.day,
-                          meetingDay.hour,
                           `${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`,
                         ]}
                       />
@@ -279,6 +296,18 @@ const MyDataView = ({
                   !canEditList
                 }
               />
+              <p className="small">
+                <a
+                  href={meetingAddress.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="in-body"
+                >
+                  {meetingAddress.name}.{" "}
+                  {`${meetingAddress.address}, ${meetingAddress.location}`}
+                  <Icon type="external-link" className="ms-1" />
+                </a>
+              </p>
               <ErrorAlert errors={errors} />
               {canEditList ? (
                 <div className="text-center py-4">

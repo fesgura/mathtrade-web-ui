@@ -229,3 +229,19 @@ export const TradeMaximizerLinks = {
   source: "https://boardgamegeek.com/wiki/page/TradeMaximizer",
   instructions: "https://boardgamegeek.com/wiki/page/TradeMaximizer",
 };
+
+export const meetingAddress = {
+  name: "Punto de Partida Café",
+  address: "Nazca 2893",
+  location: "Villa del Parque, CABA",
+  url: "https://goo.gl/maps/NXa9Zhg51FMSpjvC6",
+};
+
+/*
+Punto de Partida Café
+Nazca 2893
+Villa del Parque, CABA
+
+https://goo.gl/maps/NXa9Zhg51FMSpjvC6
+
+*/
