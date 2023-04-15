@@ -167,7 +167,12 @@ const Notification = ({
               toogleReadNotification();
             }}
           >
-            <Icon type="circle" />
+            <div className="notification-ob_mark_text">
+              <I18N
+                id={`notifications.label.read.${data?.unread ? "no" : "yes"}`}
+              />
+            </div>
+            <Icon type={`toggle-${data?.unread ? "on" : "off"}`} />
           </div>
           <UncontrolledTooltip target={`notifications-mark-${idNode}`}>
             <I18N

@@ -1,6 +1,7 @@
-import { useId, useState } from "react";
+import { useId, useState, useEffect } from "react";
 import I18N from "i18n";
 import {
+  Tooltip,
   UncontrolledTooltip,
   UncontrolledDropdown,
   DropdownToggle,
@@ -8,6 +9,7 @@ import {
 } from "reactstrap";
 import Icon from "components/icon";
 import NotificationsComp from "components/notifications";
+import storage from "utils/storage";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -17,6 +19,13 @@ const NotificationsHeader = () => {
   const [count, setCountUnread] = useState(0);
   const [disabled, setDisabled] = useState(false);
 
+  const [isOpenAdvice, setIsOpenAdvice] = useState(false);
+
+  useEffect(() => {
+    const storeOptions = storage.getOptions();
+    setIsOpenAdvice(count > 0 && !storeOptions.hideNotificationsAdvice);
+  }, [count]);
+
   return (
     <>
       <UncontrolledDropdown direction="down" disabled={disabled}>
@@ -24,6 +33,12 @@ const NotificationsHeader = () => {
           tag="div"
           className="main-notifications-btn"
           id={`tt-notifications-${id}`}
+          onClick={() => {
+            setIsOpenAdvice(false);
+            storage.setToOptions({
+              hideNotificationsAdvice: true,
+            });
+          }}
         >
           {count ? (
             <div className="main-notifications-btn_count">{count}</div>
@@ -50,6 +65,15 @@ const NotificationsHeader = () => {
           }
         />
       </UncontrolledTooltip>
+
+      <Tooltip
+        target={`tt-notifications-${id}`}
+        placement="bottom"
+        isOpen={isOpenAdvice}
+        className="NotificationsAdvice"
+      >
+        <I18N id="title.YouHaveNotifications" />
+      </Tooltip>
     </>
   );
 };

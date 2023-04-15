@@ -20,6 +20,9 @@ const LoginContainer = ({ verifingAuth, onGetCaptcha }) => {
       // end temp
 
       storage.setToStorage(data);
+      storage.setToOptions({
+        hideNotificationsAdvice: false,
+      });
       if (data.user) {
         if (!data.user.terms_acceptance) {
           setAcceptView(true);
