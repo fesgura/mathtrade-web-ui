@@ -4,7 +4,7 @@ import storage from "utils/storage";
 import { dependencyList } from "config";
 import { Input } from "components/form";
 import { Row, Col, Alert } from "reactstrap";
-import I18N from "i18n";
+import I18N, { getI18Ntext } from "i18n";
 import BannedElements from "components/ban/bannedElements";
 import ShowBanned from "components/ban/showBanned";
 
@@ -89,6 +89,7 @@ const Filters_MT_Games = ({ filters, setFilters, afterAnyChange }) => {
           [
             "page",
             "keyword",
+            "type",
             "value-from",
             "value-to",
             "rate-from",
@@ -108,7 +109,11 @@ const Filters_MT_Games = ({ filters, setFilters, afterAnyChange }) => {
           } else {
             newFilters.keyword = undefined;
           }
-
+          if (formData.type !== "") {
+            newFilters.type = formData.type;
+          } else {
+            newFilters.type = undefined;
+          }
           if (formData.dependency !== "") {
             newFilters["dependency[]"] = formData.dependency
               .split(",")
@@ -170,6 +175,28 @@ const Filters_MT_Games = ({ filters, setFilters, afterAnyChange }) => {
             hr: true,
             data: {
               keyword: filters?.query?.keyword || "",
+            },
+          },
+          {
+            type: "select",
+            name: "type",
+            label: "filter.Type",
+            placeholder: "filter.Type.All",
+            options: [
+              {
+                value: "1",
+                text: getI18Ntext("filter.Type.Game"),
+              },
+              {
+                value: "2",
+                text: getI18Ntext("filter.Type.Expansion"),
+              },
+            ],
+            // icon: "user",
+            size: "md",
+            notTranslateOptions: true,
+            data: {
+              type: filters?.query?.type || "",
             },
           },
           {

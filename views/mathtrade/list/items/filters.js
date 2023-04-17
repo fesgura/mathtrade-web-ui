@@ -6,7 +6,7 @@ import { getTextColorByBackgroundColor, usersToOptions } from "utils";
 import { languageList, statusList, dependencyList } from "config";
 import { Row, Col, Alert } from "reactstrap";
 import { Input } from "components/form";
-import I18N from "i18n";
+import I18N, { getI18Ntext } from "i18n";
 import BannedElements from "components/ban/bannedElements";
 import ShowBanned from "components/ban/showBanned";
 
@@ -141,6 +141,7 @@ const Filters_MT_Items = ({
             "user",
             "value-from",
             "value-to",
+            "type",
             "language[]",
             "dependency[]",
             "status[]",
@@ -166,6 +167,11 @@ const Filters_MT_Items = ({
             newFilters.user = formData.user;
           } else {
             newFilters.user = undefined;
+          }
+          if (formData.type !== "") {
+            newFilters.type = formData.type;
+          } else {
+            newFilters.type = undefined;
           }
           if (formData.value) {
             const valueValues = formData.value.split(",");
@@ -268,6 +274,32 @@ const Filters_MT_Items = ({
             notTranslateOptions: true,
             data: {
               user: filters?.query?.user || "",
+            },
+          },
+          {
+            type: "select",
+            name: "type",
+            label: "filter.Type",
+            placeholder: "filter.Type.All",
+            options: [
+              {
+                value: "1",
+                text: getI18Ntext("filter.Type.Game"),
+              },
+              {
+                value: "2",
+                text: getI18Ntext("filter.Type.Expansion"),
+              },
+              {
+                value: "3",
+                text: getI18Ntext("filter.Type.Other"),
+              },
+            ],
+            // icon: "user",
+            size: "md",
+            notTranslateOptions: true,
+            data: {
+              type: filters?.query?.type || "",
             },
           },
           {
