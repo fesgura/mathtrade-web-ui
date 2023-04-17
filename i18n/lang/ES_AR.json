@@ -41,6 +41,7 @@
   "form.FirstName": "Nombre",
   "form.LastName": "Apellido",
   "form.Phone": "Teléfono",
+  "form.Telegram.user": "Telegram (nombre de usuario)",
   "form.Location": "Ubicación",
   "form.Location.help": "Si no aparece tu ciudad, o no estás cerca de ninguna de las ciudades del listado, por favor contactate con la <a class=\"in-body\" href=\"$$$\" target=\"_blank\">organización</a>.",
   "form.BGGuser": "Usuario en la BGG",

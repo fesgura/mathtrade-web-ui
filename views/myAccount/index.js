@@ -260,12 +260,10 @@ const MyAccountView = ({
                       <Col md={4}>
                         <Input
                           data={data}
-                          label="Telegram"
+                          label="form.Telegram.user"
                           name="telegram"
-                          placeholder="Telegram"
+                          placeholder="form.Telegram.user"
                           textSize={textSize.account.telegram}
-                          notTranslateLabels
-                          notTranslatePlaceholder
                           icon="telegram"
                           onChange={() => {
                             setModified(true);

@@ -250,12 +250,10 @@ const RegisterView = ({
                           icon="whatsapp"
                         />
                         <Input
-                          label="Telegram"
+                          label="form.Telegram.user"
                           name="telegram"
                           textSize={textSize.account.telegram}
-                          notTranslateLabels
-                          notTranslatePlaceholder
-                          placeholder="Telegram"
+                          placeholder="form.Telegram.user"
                           size="lg"
                           icon="telegram"
                         />
