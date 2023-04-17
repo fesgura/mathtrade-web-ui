@@ -5,8 +5,17 @@ import I18N, { getI18Ntext } from "i18n";
 import OrderBy from "components/orderBy";
 import { Col, Row } from "reactstrap";
 import AutoCompleteButton from "./autocomplete";
+import Pagination from "components/pagination";
+import ElementPerPage from "components/pagination/elementsPerPage";
+import storage from "utils/storage";
 
 const GridSpacer = ({
+  page,
+  set_page,
+  page_size,
+  set_page_size,
+  onUpdateFlag,
+  wantsTotal,
   extendAll,
   setExtendAll,
   set_myItemList_orderBy,
@@ -67,6 +76,49 @@ const GridSpacer = ({
                   notAuto
                 />
               </div>
+            </Col>
+          </Row>
+          <hr className="my-2" />
+          <Row className="g-0 align-items-center justify-content-between">
+            <Col xs="auto">
+              <ElementPerPage
+                min
+                all
+                filters={{
+                  query: {
+                    page_size,
+                    page: page + 1,
+                  },
+                }}
+                setFilters={(d) => {
+                  set_page(0);
+                  set_page_size(parseInt(d.page_size, 10));
+                  storage.setToOptions({
+                    grid_page: 0,
+                    grid_page_size: parseInt(d.page_size, 10),
+                  });
+                  onUpdateFlag();
+                }}
+              />
+            </Col>
+            <Col>
+              <Pagination
+                className="over-white"
+                filters={{
+                  query: {
+                    page_size,
+                    page: page + 1,
+                  },
+                }}
+                setFilters={(d) => {
+                  set_page(parseInt(d.page, 10) - 1);
+                  storage.setToOptions({
+                    grid_page: parseInt(d.page, 10) - 1,
+                  });
+                  onUpdateFlag();
+                }}
+                elementsTotal={wantsTotal}
+              />
             </Col>
           </Row>
         </div>

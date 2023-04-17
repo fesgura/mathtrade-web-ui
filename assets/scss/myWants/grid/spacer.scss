@@ -38,6 +38,11 @@
       border-right: $border;
       bottom: 0;
       left: 0;
+      height: $mywants-grid-spacer-lab-want-h;
+      padding: 10px 15px;
+      & > .row {
+        height: auto;
+      }
     }
 
     .mywants-grid-spacer_lab-cont {
@@ -48,7 +53,7 @@
       top: 0;
       left: 0;
       right: $mywants-grid-spacer-lab-h;
-      bottom: $mywants-grid-spacer-lab-h;
+      bottom: $mywants-grid-spacer-lab-want-h;
 
       border-radius: 6px 0 0 0;
     }
@@ -68,4 +73,10 @@
       border-left: none;
     }
   }
+}
+.renderGridFlag_box {
+  font-size: 40px;
+  color: $success;
+  position: relative;
+  padding: 60px 0;
 }

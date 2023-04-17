@@ -2,6 +2,8 @@ import WantGroup from "./group";
 import WantItem from "./item";
 
 const MyWants = ({
+  page,
+  page_size,
   wantList,
   set_wantListGrid,
   putWant,
@@ -11,7 +13,11 @@ const MyWants = ({
 }) => {
   return (
     <>
-      {wantList.list.map((obj) => {
+      {wantList.list.map((obj, k) => {
+        if (k < page * page_size || k >= (page + 1) * page_size) {
+          return null;
+        }
+
         switch (obj.type) {
           case "group":
           case "game":

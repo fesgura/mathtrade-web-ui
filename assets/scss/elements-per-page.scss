@@ -36,4 +36,7 @@
     border-color: $text-color transparent transparent;
     border-style: solid;
   }
+  &.min {
+    min-width: 66px;
+  }
 }

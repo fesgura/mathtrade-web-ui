@@ -519,6 +519,8 @@
   "timeline.header": "Los tiempos para este MathTrade",
   "timeline.todayIs": "Hoy es $$$",
   "elementsPerPage": "Elementos por página",
+  "elementsPerPage.min": "Por página",
+  "elementsPerPage.all": "Todos",
   "menu.Stats": "Estadísticas",
   "title.Stats": "Estadísticas",
   "subtitle.Stats": "para este MathTrade",

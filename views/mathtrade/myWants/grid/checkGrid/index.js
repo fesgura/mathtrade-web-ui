@@ -12,10 +12,11 @@ const pCheck_new_color = "#00f";
 const pCheck_inn = 0.5 * (w_elem - widthCheck);
 
 const Grid = ({
+  page,
+  page_size,
   myItemList,
   wantList,
   gridWidth,
-  gridHeight,
   set_wantListGrid,
   putWant,
   canEditWants,
@@ -25,6 +26,8 @@ const Grid = ({
 
   const dataGrid = useRef({});
   const [dataNewChecks, set_dataNewChecks] = useState({});
+
+  const [gridHeight, set_gridHeight] = useState(100);
 
   const drawCell = useCallback((ctx, cell) => {
     const { x, y, width, height, color, checked } = cell;
@@ -94,81 +97,110 @@ const Grid = ({
   );
 
   useEffect(() => {
+    let timer = null;
     if (canvasGrid.current) {
       const pool = {};
       let y = 0;
       let ind_y = 0;
 
-      wantList.list.forEach((wantGroup) => {
-        const y_count = 1 + (wantGroup.extended ? wantGroup.items.length : 0);
-        const height = h_elem * y_count;
-        const width = w_elem;
+      let newGridHeight = 0;
 
-        pool[ind_y] = {};
-        let x = 0;
-        let ind_x = 0;
+      wantList.list.forEach((wantGroup, k) => {
+        if (k < page * page_size || k >= (page + 1) * page_size) {
+          return null;
+        } else {
+          newGridHeight +=
+            wantGroup.type === "item"
+              ? h_elem
+              : h_elem + h_elem * wantGroup.items.length;
 
-        myItemList.list.forEach((myGroup) => {
-          let checked = true;
-          if (myGroup.type === "item") {
-            checked = wantGroup.obj.item_ids.indexOf(myGroup.item.id) >= 0;
-          } else {
-            myGroup.items.forEach((itm) => {
-              if (wantGroup.obj.item_ids.indexOf(itm.id) < 0) {
-                checked = false;
-              }
-            });
-          }
+          const y_count = 1 + (wantGroup.extended ? wantGroup.items.length : 0);
+          const height = h_elem * y_count;
+          const width = w_elem;
 
-          pool[ind_y][ind_x] = {
-            x,
-            y,
-            width,
-            height,
-            color: myGroup.color || "#999",
-            checked,
-            //
-            wantGroup,
-            myGroup,
-            isChild: false,
-            type: myGroup.type,
-            item_id: myGroup.item ? myGroup.item.id : null,
-          };
+          pool[ind_y] = {};
+          let x = 0;
+          let ind_x = 0;
 
-          x += width;
-          ind_x++;
+          myItemList.list.forEach((myGroup) => {
+            let checked = true;
+            if (myGroup.type === "item") {
+              checked = wantGroup.obj.item_ids.indexOf(myGroup.item.id) >= 0;
+            } else {
+              myGroup.items.forEach((itm) => {
+                if (wantGroup.obj.item_ids.indexOf(itm.id) < 0) {
+                  checked = false;
+                }
+              });
+            }
 
-          if (myGroup.type === "group" && myGroup.extended) {
-            myGroup.items.forEach((item) => {
-              const checked = wantGroup.obj.item_ids.indexOf(item.id) >= 0;
-              pool[ind_y][ind_x] = {
-                x,
-                y,
-                color: "#aaa",
-                width,
-                height,
-                checked,
-                //
-                wantGroup,
-                myGroup,
-                isChild: true,
-                type: "item",
-                item_id: item.id,
-              };
-              x += width;
-              ind_x++;
-            });
-          }
-        });
+            pool[ind_y][ind_x] = {
+              x,
+              y,
+              width,
+              height,
+              color: myGroup.color || "#999",
+              checked,
+              //
+              wantGroup,
+              myGroup,
+              isChild: false,
+              type: myGroup.type,
+              item_id: myGroup.item ? myGroup.item.id : null,
+            };
 
-        y += height;
-        ind_y += y_count;
+            x += width;
+            ind_x++;
+
+            if (myGroup.type === "group" && myGroup.extended) {
+              myGroup.items.forEach((item) => {
+                const checked = wantGroup.obj.item_ids.indexOf(item.id) >= 0;
+                pool[ind_y][ind_x] = {
+                  x,
+                  y,
+                  color: "#aaa",
+                  width,
+                  height,
+                  checked,
+                  //
+                  wantGroup,
+                  myGroup,
+                  isChild: true,
+                  type: "item",
+                  item_id: item.id,
+                };
+                x += width;
+                ind_x++;
+              });
+            }
+          });
+
+          y += height;
+          ind_y += y_count;
+        }
       });
 
+      set_gridHeight(newGridHeight);
+
       dataGrid.current = pool;
-      drawAll(pool);
+
+      timer = setTimeout(() => {
+        drawAll(pool);
+      }, 250);
     }
-  }, [myItemList, wantList, wantsVersion, canvasGrid, dataGrid]);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [
+    myItemList,
+    wantList,
+    page,
+    page_size,
+    wantsVersion,
+    canvasGrid,
+    dataGrid,
+  ]);
 
   //////////////////////////////
   const setCheck = (ind_x, ind_y) => {

@@ -12,6 +12,8 @@ import MyItems from "./myItems";
 import MyWants from "./myWants";
 import GridComp from "./checkGrid";
 import classNames from "classnames";
+import storage from "utils/storage";
+import Icon from "components/icon";
 
 const h_elem = 42;
 const w_elem = 42;
@@ -49,8 +51,6 @@ const Grid = ({
   const [leftFloat_scroll, set_leftFloat_scroll] = useState(0);
   const [is_leftFloat_fixed, set_is_leftFloat_fixed] = useState(false);
 
-  const [leftScroll, set_leftScroll] = useState(0);
-
   const [extendAll, setExtendAll] = useState(false);
 
   const [myItemList_orderBy, set_myItemList_orderBy] = useState({
@@ -74,7 +74,6 @@ const Grid = ({
   });
 
   const [gridWidth, setGridWidth] = useState(0);
-  const [gridHeight, setGridHeight] = useState(0);
 
   useEffect(() => {
     if (myItemList.version !== myItemListGrid.version) {
@@ -99,13 +98,6 @@ const Grid = ({
     if (wantList.version !== wantListGrid.version) {
       const newList = create_wantListGrid(wantList, wantListGrid);
       set_wantListGrid(newList);
-
-      let newGridHeight = 0;
-      newList.list.forEach((g) => {
-        newGridHeight +=
-          g.type === "item" ? h_elem : h_elem + h_elem * g.items.length;
-      });
-      setGridHeight(newGridHeight);
     }
   }, [wantList, wantListGrid]);
 
@@ -149,6 +141,40 @@ const Grid = ({
     };
   }, [is_topFloat_fixed, is_leftFloat_fixed]);
 
+  //
+
+  const [page, set_page] = useState(0);
+  const [page_size, set_page_size] = useState(9999);
+
+  const [updateFlag, set_updateFlag] = useState(-1);
+  const [renderFlag, set_renderFlag] = useState(false);
+
+  useEffect(() => {
+    const storeOptions = storage.getOptions();
+    if (storeOptions?.grid_page) {
+      set_page(parseInt(storeOptions.grid_page, 10));
+    }
+    if (storeOptions?.grid_page_size) {
+      set_page_size(parseInt(storeOptions.grid_page_size, 10));
+    }
+  }, []);
+
+  useEffect(() => {
+    set_renderFlag(false);
+
+    let timer = setTimeout(() => {
+      set_renderFlag(true);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [updateFlag]);
+
+  const onUpdateFlag = () => {
+    set_updateFlag(getUniqueId());
+  };
+
   return (
     <>
       <div className="main-container">
@@ -190,6 +216,12 @@ const Grid = ({
                   >
                     <div className="mywants-grid_myItems-row">
                       <GridSpacer
+                        page={page}
+                        set_page={set_page}
+                        onUpdateFlag={onUpdateFlag}
+                        page_size={page_size}
+                        wantsTotal={wantListGrid?.list?.length || 1}
+                        set_page_size={set_page_size}
                         reloadWants={reloadWants}
                         canEditWants={canEditWants}
                         canEditList={canEditList}
@@ -258,25 +290,36 @@ const Grid = ({
                       top: `${is_leftFloat_fixed ? leftFloat_scroll : 520}px`,
                     }}
                   >
-                    <MyWants
-                      wantList={wantListGrid}
-                      putWant={putWant}
-                      deleteWant={deleteWant}
-                      set_wantListGrid={set_wantListGrid}
-                      reloadWants={reloadWants}
-                      canEditWants={canEditWants}
-                    />
+                    {renderFlag ? (
+                      <MyWants
+                        page={page}
+                        page_size={page_size}
+                        wantList={wantListGrid}
+                        putWant={putWant}
+                        deleteWant={deleteWant}
+                        set_wantListGrid={set_wantListGrid}
+                        reloadWants={reloadWants}
+                        canEditWants={canEditWants}
+                      />
+                    ) : null}
                   </div>
                   <div className="mywants-grid_wantListGrid">
-                    <GridComp
-                      myItemList={myItemListGrid}
-                      wantList={wantListGrid}
-                      gridWidth={gridWidth}
-                      gridHeight={gridHeight}
-                      set_wantListGrid={set_wantListGrid}
-                      putWant={putWant}
-                      canEditWants={canEditWants}
-                    />
+                    {renderFlag ? (
+                      <GridComp
+                        page={page}
+                        page_size={page_size}
+                        myItemList={myItemListGrid}
+                        wantList={wantListGrid}
+                        gridWidth={gridWidth}
+                        set_wantListGrid={set_wantListGrid}
+                        putWant={putWant}
+                        canEditWants={canEditWants}
+                      />
+                    ) : (
+                      <div className="renderGridFlag_box">
+                        <Icon type="loading" />
+                      </div>
+                    )}
                   </div>
                 </div>
               ) : (
