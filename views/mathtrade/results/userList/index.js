@@ -50,6 +50,15 @@ const UserList = ({ users, hideTitle, canEditList }) => {
       if (orderBy === "items" || orderBy === "games") {
         return a[orderBy] > b[orderBy] ? desc : -1 * desc;
       }
+      if (orderBy === "last_update" || orderBy === "commitment_datetime") {
+        return a[orderBy] > b[orderBy] ? desc : -1 * desc;
+      }
+
+      if (orderBy === "commitment") {
+        const a_resp = a[orderBy] ? 1 : 2;
+        const b_resp = b[orderBy] ? 1 : 2;
+        return a_resp > b_resp ? desc : -1 * desc;
+      }
 
       return `${a[orderBy]}`.toLowerCase() > `${b[orderBy]}`.toLowerCase()
         ? desc
@@ -131,6 +140,9 @@ const UserList = ({ users, hideTitle, canEditList }) => {
             </thead>
             <tbody>
               {userList.map((data, k) => {
+                if (data.items <= 0) {
+                  return null;
+                }
                 return <User key={k} data={data} canEditList={canEditList} />;
               })}
             </tbody>

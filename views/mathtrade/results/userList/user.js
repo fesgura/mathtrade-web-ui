@@ -4,8 +4,13 @@ import I18N from "i18n";
 import { Col, Row } from "reactstrap";
 import { dateToString } from "utils";
 import LinkInternal from "components/link-internal";
+import { useState, useEffect } from "react";
+import storage from "utils/storage";
+import moment from "moment";
 
 const User = ({ data, canEditList }) => {
+  const [commitment, set_commitment] = useState(false);
+
   const {
     first_name,
     avatar,
@@ -15,8 +20,27 @@ const User = ({ data, canEditList }) => {
     location,
     last_update,
     commitment_datetime,
-    commitment,
   } = data;
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
+      if (!data?.commitment) {
+        set_commitment(false);
+      } else {
+        const mathtrade = storage.getFromStore("mathtrade");
+
+        const dateToCompare = mathtrade.data?.frezze_geek_date;
+
+        const frezze_geek_date = moment(dateToCompare);
+
+        const isCommitment = frezze_geek_date.isBefore(
+          data.commitment_datetime
+        );
+        set_commitment(isCommitment);
+      }
+    }
+  }, [data]);
 
   return (
     <tr
@@ -40,7 +64,11 @@ const User = ({ data, canEditList }) => {
 
       {!canEditList ? (
         <>
-          <td>{dateToString(commitment_datetime, true)}</td>
+          <td>
+            {commitment_datetime
+              ? dateToString(commitment_datetime, true)
+              : "-"}
+          </td>
           <td>
             <Row>
               <Col xs="auto">
