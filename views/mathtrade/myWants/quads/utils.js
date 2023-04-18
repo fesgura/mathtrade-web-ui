@@ -8,6 +8,7 @@ const getWantGroupsByItem = (item, wantList) => {
       }
     });
   });
+
   return list;
 };
 
@@ -21,6 +22,10 @@ export const getMyItemGroups = (myItemList, wantList) => {
     return [];
   }
 
+  wantList.list.sort((a, b) => {
+    return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+  });
+
   const list = [];
 
   myItemList.list.forEach((myItem) => {
@@ -30,10 +35,6 @@ export const getMyItemGroups = (myItemList, wantList) => {
       wantGroups: getWantGroupsByItem(myItem, wantList),
     });
   });
-
-  // list.sort((a, b) => {
-  //   return a.wantGroups.length > b.wantGroups.length ? -1 : 1;
-  // });
 
   return list;
 };

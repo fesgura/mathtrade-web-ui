@@ -374,6 +374,7 @@
   "MyWants.onDeleteLastItemOfGroupAdvert": "No podés <b>eliminar el último juego de un grupo</b>, pero sí podés <b>eliminar el grupo</b> directamente.",
   "MyWants.Quad.ForThisGame": "Por este juego:",
   "MyWants.Quad.IReceive": "Quiero recibir uno de estos juegos:",
+  "MyWants.Quad.loadMore": "Cargar más (quedan $$$)",
   "game.item-num.1": "ejemplar ofrecido",
   "game.item-num.more": "ejemplares ofrecidos",
   "title.Results": "Resultados del Math Trade",
