@@ -4,6 +4,7 @@ import { UncontrolledTooltip } from "reactstrap";
 import I18N from "i18n";
 import Icon from "components/icon";
 import AddQuad from "../addQuad";
+import classNames from "classnames";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -78,7 +79,18 @@ const MyItemView = ({
                           }),
                         });
                       } else {
-                        newObj.push(d);
+                        const new_d_wantGroups = [];
+                        d.wantGroups.forEach((w) => {
+                          if (w.id === wg.id) {
+                            new_d_wantGroups.push({ ...wg, items: newItems });
+                          } else {
+                            new_d_wantGroups.push(w);
+                          }
+                        });
+                        newObj.push({
+                          ...d,
+                          wantGroups: new_d_wantGroups,
+                        });
                       }
                     });
                     return newObj;
@@ -105,7 +117,12 @@ const MyItemView = ({
           })}
           {canEditWants && wantListRest.length ? (
             <div className="quad-want_myItemGroup-quad-wrap">
-              <div className="quad-want_myItemGroup-quad-cont for-add">
+              <div
+                className={classNames(
+                  "quad-want_myItemGroup-quad-cont for-add",
+                  { showAdd }
+                )}
+              >
                 <div
                   className="quad-want_myItemGroup-quad"
                   id={`quad-want-add-${id}`}
@@ -135,6 +152,7 @@ const MyItemView = ({
           onAdd={(wgToAdd) => {
             const { bgg_id, dup_protection, id, items, name, wants } = wgToAdd;
             const newItems = [...items];
+
             newItems.push(data.item);
 
             setMyItemGroups((obj) => {
@@ -142,7 +160,12 @@ const MyItemView = ({
               obj.forEach((d) => {
                 if (d.id === data.id) {
                   const newD = { ...d };
-                  newD.wantGroups.push(wgToAdd);
+
+                  const new_wgToAdd = { ...wgToAdd };
+
+                  new_wgToAdd.items.push(data.item);
+
+                  newD.wantGroups.push(new_wgToAdd);
                   newObj.push(newD);
                 } else {
                   newObj.push(d);

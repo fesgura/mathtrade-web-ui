@@ -125,6 +125,7 @@
         .quad-want_myItemGroup-quad {
           border: $border;
           cursor: pointer;
+          transition: background-color 0.1s;
           .icon {
             position: absolute;
             top: 50%;
@@ -132,6 +133,11 @@
             transform: translateX(-50%) translateY(-50%);
             font-size: 50px;
             opacity: 0.2;
+          }
+        }
+        &.showAdd {
+          .quad-want_myItemGroup-quad {
+            background-color: #eee;
           }
         }
       }

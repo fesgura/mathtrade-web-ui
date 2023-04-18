@@ -31,9 +31,9 @@ export const getMyItemGroups = (myItemList, wantList) => {
     });
   });
 
-  list.sort((a, b) => {
-    return a.wantGroups.length > b.wantGroups.length ? -1 : 1;
-  });
+  // list.sort((a, b) => {
+  //   return a.wantGroups.length > b.wantGroups.length ? -1 : 1;
+  // });
 
   return list;
 };
