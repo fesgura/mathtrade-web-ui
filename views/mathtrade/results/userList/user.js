@@ -24,7 +24,6 @@ const User = ({ data, canEditList }) => {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       if (!data?.commitment) {
         set_commitment(false);
       } else {

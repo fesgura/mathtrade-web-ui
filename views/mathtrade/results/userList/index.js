@@ -51,7 +51,9 @@ const UserList = ({ users, hideTitle, canEditList }) => {
         return a[orderBy] > b[orderBy] ? desc : -1 * desc;
       }
       if (orderBy === "last_update" || orderBy === "commitment_datetime") {
-        return a[orderBy] > b[orderBy] ? desc : -1 * desc;
+        const a_date = a[orderBy] || "";
+        const b_date = b[orderBy] || "";
+        return a_date > b_date ? desc : -1 * desc;
       }
 
       if (orderBy === "commitment") {
