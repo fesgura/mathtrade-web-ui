@@ -81,19 +81,21 @@ const Grid = ({
 
   const drawAll = useCallback(
     (pool) => {
-      const canvas = canvasGrid.current;
+      if (canvasGrid.current) {
+        const canvas = canvasGrid.current;
 
-      const ctx = canvas.getContext("2d");
+        const ctx = canvas.getContext("2d");
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      for (let row in pool) {
-        for (let cell_id in pool[row]) {
-          drawCell(ctx, pool[row][cell_id]);
+        for (let row in pool) {
+          for (let cell_id in pool[row]) {
+            drawCell(ctx, pool[row][cell_id]);
+          }
         }
       }
     },
-    [dataNewChecks]
+    [dataNewChecks, canvasGrid]
   );
 
   useEffect(() => {
