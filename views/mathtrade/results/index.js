@@ -16,6 +16,7 @@ import Pills from "./pills";
 const ResultsView = ({
   MathTradeData,
   canViewResults,
+  canEditList,
   allUsers,
   setAllUsers,
   loading,
@@ -131,7 +132,7 @@ const ResultsView = ({
         <>
           <NotResultsYet />
           <Pills MathTradeData={MathTradeData} />
-          <UserList users={users} canViewResults={canViewResults} />
+          <UserList users={users} canEditList={canEditList} />
         </>
       )}
     </PrivateLayout>

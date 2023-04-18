@@ -7,6 +7,7 @@ import useCanEdit from "hooks/useCanEdit";
 
 const Results = () => {
   const canViewResults = useCanEdit("results");
+  const canEditList = useCanEdit("list");
 
   const [myUserId, setMyUserId] = useState(null);
   const [userId, setUserId] = useState(null);
@@ -91,6 +92,7 @@ const Results = () => {
     <PrivateEnv>
       <ResultsView
         canViewResults={canViewResults}
+        canEditList={canEditList}
         MathTradeData={MathTradeData}
         allUsers={allUsers}
         setAllUsers={setAllUsers}

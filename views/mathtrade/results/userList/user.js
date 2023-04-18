@@ -5,7 +5,7 @@ import { Col, Row } from "reactstrap";
 import { dateToString } from "utils";
 import LinkInternal from "components/link-internal";
 
-const User = ({ data, canViewResults }) => {
+const User = ({ data, canEditList }) => {
   const {
     first_name,
     avatar,
@@ -21,7 +21,7 @@ const User = ({ data, canViewResults }) => {
   return (
     <tr
       className={classNames({
-        "tr-danger": !commitment && canViewResults,
+        "tr-danger": !commitment && !canEditList,
       })}
     >
       <td>
@@ -38,7 +38,7 @@ const User = ({ data, canViewResults }) => {
       <td>{games || 0}</td>
       <td>{dateToString(last_update, true)}</td>
 
-      {canViewResults ? (
+      {!canEditList ? (
         <>
           <td>{dateToString(commitment_datetime, true)}</td>
           <td>
