@@ -17,6 +17,7 @@ const EditorWants = ({
   wantGroup,
   afterAnyChange,
   canEditWants,
+  forQuads,
 }) => {
   // USER WANT GROUP
   const [id, set_id] = useState(null);
@@ -164,15 +165,17 @@ const EditorWants = ({
         afterAnyChange={afterAnyChange}
         canEditWants={canEditWants}
       />
-      <MyItems
-        item_ids={item_ids}
-        setMyItemIds={setMyItemIds}
-        dup_protection={dup_protection}
-        canEditWants={canEditWants}
-      />
+      {forQuads ? null : (
+        <MyItems
+          item_ids={item_ids}
+          setMyItemIds={setMyItemIds}
+          dup_protection={dup_protection}
+          canEditWants={canEditWants}
+        />
+      )}
       <ErrorAlert errors={postErrors || putErrors || deleteErrors} />
       <Row className="pt-4 pb-3 align-items-center justify-content-between">
-        {id && canEditWants ? (
+        {id && canEditWants && !forQuads ? (
           <Col xs="auto">
             <DeleteButton
               size="xs"
@@ -183,7 +186,10 @@ const EditorWants = ({
             />
           </Col>
         ) : null}
-        <Col xs={id && canEditWants ? "auto" : 12} className="text-center">
+        <Col
+          xs={id && canEditWants && !forQuads ? "auto" : 12}
+          className="text-center"
+        >
           <Button
             color="link"
             className="me-2 mb-sm-0 mb-2"

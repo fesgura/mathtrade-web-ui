@@ -243,6 +243,7 @@ const QuadsView = ({
       <ModalEditor
         isOpen={modalWantOpen}
         canEditWants={canEditWants}
+        forQuads
         onClose={() => {
           setModalWantOpen(false);
         }}

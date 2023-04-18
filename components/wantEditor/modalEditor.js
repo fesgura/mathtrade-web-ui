@@ -6,7 +6,14 @@ import { useApi, MathTradeService } from "api_serv";
 import { LoadingBox } from "components/loading";
 import ErrorAlert from "components/errorAlert";
 
-const ModalEditor = ({ isOpen, onClose, wantGroup, type, afterAnyChange }) => {
+const ModalEditor = ({
+  isOpen,
+  onClose,
+  wantGroup,
+  type,
+  afterAnyChange,
+  forQuads,
+}) => {
   const canEditWants = useCanEdit("wants");
   const [objectToWant, setObjectToWant] = useState(null);
 
@@ -61,6 +68,7 @@ const ModalEditor = ({ isOpen, onClose, wantGroup, type, afterAnyChange }) => {
               afterAnyChange={afterAnyChange}
               toggleModal={onClose}
               canEditWants={canEditWants}
+              forQuads={forQuads}
             />
           ) : null}
           <ErrorAlert errors={errorsGame || errorsItem} className="m-0" />
