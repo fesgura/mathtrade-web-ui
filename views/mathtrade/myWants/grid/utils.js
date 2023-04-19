@@ -122,13 +122,15 @@ export const create_myItemListGrid = (
   const newGroups = [];
 
   for (let grpId in newGroupsPool) {
-    let valueGroup = 10;
+    let valueGroup = 12;
+    let isValue = false;
     newGroupsPool[grpId].items.forEach((itm) => {
-      if (itm.value < valueGroup) {
+      if (itm.value && itm.value < valueGroup) {
         valueGroup = itm.value;
+        isValue = true;
       }
     });
-    newGroupsPool[grpId].value = valueGroup;
+    newGroupsPool[grpId].value = isValue ? valueGroup : 0;
 
     newGroups.push(newGroupsPool[grpId]);
   }
@@ -196,13 +198,15 @@ export const create_wantListGrid = (wantList, oldWantListGrid) => {
     }
 
     const value = (() => {
-      let valMax = 10;
-      wants.forEach((itm) => {
-        if (itm.value < valMax) {
+      let valMax = 12;
+      let isValue = false;
+      itemsList.forEach((itm) => {
+        if (itm.value && itm.value < valMax) {
           valMax = itm.value;
+          isValue = true;
         }
       });
-      return valMax;
+      return isValue ? valMax : 0;
     })();
 
     const itemsListFilteredByUser = itemsList.filter((itm) => {

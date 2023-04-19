@@ -2,10 +2,10 @@ import { useId, useEffect, useState } from "react";
 import { UncontrolledTooltip, Button, Modal, ModalBody } from "reactstrap";
 import Thumbnail from "components/thumbnail";
 import Previewer from "components/previewer";
-import ItemFull from "components/item/full";
 import classNames from "classnames";
 import Icon from "components/icon";
 import I18N from "i18n";
+import Valuation from "components/valuation";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -27,6 +27,7 @@ const Quad = ({
   const [src, setSrc] = useState(null);
   const [title, setTitle] = useState("");
   const [type, setType] = useState("item");
+  const [itemsToValuate, setItemsToValuate] = useState([]);
 
   useEffect(() => {
     if (isGroup) {
@@ -49,7 +50,7 @@ const Quad = ({
         });
 
         setSrc(newThumbnail);
-
+        setItemsToValuate(allItems);
         //
       } else {
         if (data.tags.length > 0) {
@@ -82,6 +83,7 @@ const Quad = ({
     } else {
       setTitle(data.title);
       setSrc(data.elements[0].thumbnail);
+      setItemsToValuate([data]);
     }
   }, [isGroup, data]);
 
@@ -107,12 +109,17 @@ const Quad = ({
             }}
           >
             <Thumbnail src={src} quad isMultiple={type === "tag"} />
+
             {!isGroup ? <Previewer colorInverted id={data?.id} /> : null}
             {isGroup ? <Icon type="eye" className="quad-want_icon" /> : null}
           </div>
           <UncontrolledTooltip target={`quad-want-${id}`}>
             {title}
           </UncontrolledTooltip>
+
+          <div className="quad_valuation">
+            <Valuation items={itemsToValuate} min />
+          </div>
 
           {isGroup && canEditWants && !forAdd ? (
             <>
