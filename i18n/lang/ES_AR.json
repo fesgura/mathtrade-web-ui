@@ -574,5 +574,7 @@
   "postMT.contact.bgg": "Contactar por la BGG",
   "postMT.print_download": "Imprimir / descargar<br/>etiqueta para este intercambio",
   "postMT.tagPDF": "Etiqueta",
-  "title.TyC": "Términos y condiciones"
+  "title.TyC": "Términos y condiciones",
+  "AlertNoCommitment": "<b>NO ESTÁS PARTICIPANDO DEL MATH TRADE.</b><br/>Para hacerlo debés <b>\"Guardar y comprometer cambios\"</b> desde  ",
+  "AlertNoCommitment.myWants": "<b>NO ESTÁS PARTICIPANDO DEL MATH TRADE.</b><br/>Para hacerlo debés <b>\"Guardar y comprometer cambios\"</b>."
 }

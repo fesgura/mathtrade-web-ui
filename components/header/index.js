@@ -6,6 +6,7 @@ import { Col, Row } from "reactstrap";
 import Image from "next/image";
 import logoSrc from "assets/img/logo.svg";
 import Icon from "components/icon";
+import AlertNoCommitment from "./alertNoCommitment";
 
 const Header = ({
   sidebarOpen,
@@ -63,6 +64,7 @@ const Header = ({
               </Row>
             </Col>
           </Row>
+          <AlertNoCommitment />
         </div>
       </div>
     </div>

@@ -200,43 +200,6 @@ const ItemListView = ({
                     withDragger={currentSidebar === 1 && tagList.length > 0}
                     canEditWants={canEditWants}
                     afterAnyChange={afterAnyChange}
-                    /*
-                    afterAnyChange={(data_afterAnyChange) => {
-                      if (typeof data_afterAnyChange === "boolean") {
-                        afterAnyChange(data_afterAnyChange);
-                      } else {
-                        if (data_afterAnyChange) {
-                          switch (data_afterAnyChange.origin) {
-                            case "ban":
-                              if (data_afterAnyChange.type === "item") {
-                                setItemBanIds((banItemList) => {
-                                  const newBanItemList = [...banItemList];
-                                  newBanItemList.push(
-                                    data_afterAnyChange.element.id
-                                  );
-                                  return newBanItemList;
-                                });
-                              }
-                              if (data_afterAnyChange.type === "user") {
-                                setUserBanIds((banUserList) => {
-                                  const newBanUserList = [...banUserList];
-                                  newBanUserList.push(
-                                    data_afterAnyChange.element.id
-                                  );
-                                  return newBanUserList;
-                                });
-                              }
-                              break;
-                            default:
-                            //
-                          }
-                        } else {
-                          afterAnyChange();
-                        }
-                      }
-                      //
-                    }}
-                    */
                   />
                 );
               })

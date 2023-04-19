@@ -8,6 +8,7 @@ import { getUniqueId, dateToString } from "utils";
 import { useLeavePageConfirmation } from "hooks/useLeavePageConfirmation";
 import { getI18Ntext } from "i18n";
 import { filterEmptyWants } from "./utils";
+import { toggleAlertNoCommitment } from "utils";
 
 const customizedDialog = async (msg) => {
   const confirmationValue = window.confirm(msg);
@@ -31,6 +32,7 @@ const MyWants = () => {
   const changeMustCommitChanges = useCallback(
     (status) => {
       set_mustCommitChanges(status);
+      toggleAlertNoCommitment(status);
     },
     [canEditWants]
   );

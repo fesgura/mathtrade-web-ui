@@ -456,3 +456,14 @@ export const dateToString = (d, toStr) => {
 
   return o;
 };
+
+const AlertNoCommitmentClassName = "show-alert-no-commitment";
+export const toggleAlertNoCommitment = (value) => {
+  if (typeof document !== "undefined") {
+    if (value) {
+      document.body.classList.add(AlertNoCommitmentClassName);
+    } else {
+      document.body.classList.remove(AlertNoCommitmentClassName);
+    }
+  }
+};

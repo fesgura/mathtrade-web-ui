@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useApi, MathTradeService } from "api_serv";
 import { LoadingBox } from "components/loading";
-import { cropWord } from "utils";
+import { cropWord, toggleAlertNoCommitment } from "utils";
 import storage from "utils/storage";
 import DeleteButton from "components/deleteButton";
 import { Button, Alert, Row, Col } from "reactstrap";
@@ -133,6 +133,7 @@ const EditorWants = ({
     promise: MathTradeService.postWant,
     afterLoad: () => {
       toggleModal();
+      toggleAlertNoCommitment(true);
       afterAnyChange(true);
     },
   });
@@ -141,6 +142,7 @@ const EditorWants = ({
     promise: MathTradeService.putWant,
     afterLoad: () => {
       toggleModal();
+      toggleAlertNoCommitment(true);
       afterAnyChange(true);
     },
   });
@@ -149,6 +151,7 @@ const EditorWants = ({
     promise: MathTradeService.deleteWant,
     afterLoad: () => {
       toggleModal();
+      toggleAlertNoCommitment(true);
       afterAnyChange(true);
     },
   });

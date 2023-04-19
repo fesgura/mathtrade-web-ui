@@ -5,6 +5,7 @@ import Icon from "components/icon";
 import { useApi, MathTradeService } from "api_serv";
 import { cropWord } from "utils";
 import classNames from "classnames";
+import { toggleAlertNoCommitment } from "utils";
 
 const twoPointsReg = new RegExp(":", "g");
 
@@ -58,6 +59,7 @@ const WantQuick = ({
   const [postWant, , loading, errors] = useApi({
     promise: MathTradeService.postWant,
     afterLoad: () => {
+      toggleAlertNoCommitment(true);
       afterAnyChange(true);
     },
   });
