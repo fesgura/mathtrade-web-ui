@@ -54,9 +54,9 @@ export const orderGroups = (groups, value, desc) => {
       break;
     case "value":
       newGroups.sort((a, b) => {
-        return parseFloat(a.item.value) > parseFloat(b.item.value)
-          ? -1 * dir
-          : dir;
+        const a_value = a.item.value || 0;
+        const b_value = b.item.value || 0;
+        return parseFloat(a_value) > parseFloat(b_value) ? -1 * dir : dir;
       });
       break;
     case "count_want":
