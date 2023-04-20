@@ -31,20 +31,20 @@ export const privateRoutes = {
   mathtrade: {
     myItems: {
       path: "mathtrade/my-items",
-      icon: "th-large",
+      icon: "yo-ofrezco",
     },
     list: {
       path: "mathtrade/list",
-      icon: "list",
+      icon: "otros-ofrecen",
     },
     gameList: {
       path: "mathtrade/list/games",
-      icon: "list",
+      icon: "otros-ofrecen",
       storeQuery: "gameListFilters",
     },
     itemList: {
       path: "mathtrade/list/items",
-      icon: "list",
+      icon: "otros-ofrecen",
     },
     myWants: {
       path: "mathtrade/my-wants",
@@ -91,12 +91,14 @@ export const menu_yes_mathTrade = [
     title: "menu.MyItems",
     path: privateRoutes.mathtrade.myItems.path,
     icon: privateRoutes.mathtrade.myItems.icon,
+    isMTicon: true,
   },
   {
     title: "menu.List",
     path: privateRoutes.mathtrade.list.path,
     icon: privateRoutes.mathtrade.list.icon,
     storeQuery: true,
+    isMTicon: true,
   },
   {
     title: "menu.MyWants",

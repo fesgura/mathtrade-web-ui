@@ -3,16 +3,44 @@ import quitFromMTsrc from "assets/img/icons/quitFromMT.svg";
 import { ReactSVG } from "react-svg";
 
 const dicc = {
-  bgg: true,
-  telegram: true,
+  // FA
+  loading: {
+    prefix: "fa fa-",
+    value: "refresh fa-spin fa-fw",
+  },
+  iwantit: {
+    prefix: "fa fa-",
+    value: "heart",
+  },
+  inmywantlist: {
+    prefix: "fa fa-",
+    value: "heart",
+  },
+  ban: {
+    prefix: "fa fa-",
+    value: "trash",
+  },
+  // icomoon
+  bgg: {
+    prefix: "icomoon-",
+    value: "bgg",
+  },
+  telegram: {
+    prefix: "icomoon-",
+    value: "telegram",
+  },
+  // mt
+  "yo-ofrezco": {
+    prefix: "mt-icon-",
+    value: "yo-ofrezco",
+  },
+  "otros-ofrecen": {
+    prefix: "mt-icon-",
+    value: "otros-ofrecen",
+  },
 };
 
-const diccFa = {
-  loading: "refresh fa-spin fa-fw",
-  iwantit: "heart",
-  inmywantlist: "heart",
-  ban: "trash",
-};
+//class="mt-icon-otros-ofrecen"
 
 const diccSVG = {
   addToMT: <ReactSVG src={addToMTsrc.src} />,
@@ -23,8 +51,8 @@ const Icon = ({ type = "times", className }) => {
   return (
     diccSVG[type] || (
       <i
-        className={`icon ${dicc[type] ? "icomoon-" : "fa fa-"}${
-          diccFa[type] ? diccFa[type] : type
+        className={`icon ${
+          dicc[type] ? dicc[type].prefix + dicc[type].value : "fa fa-" + type
         } ${className || ""}`}
         aria-hidden="true"
       />

@@ -21,7 +21,7 @@ const Menu = ({ menuList, router }) => {
           return null;
         }
 
-        const { path, icon, title, disabled, hot, storeQuery } = item;
+        const { path, icon, title, disabled, hot, storeQuery, isMTicon } = item;
 
         let disabledItem = false;
 
@@ -52,6 +52,7 @@ const Menu = ({ menuList, router }) => {
               className={classNames("main-menu-item", {
                 active: router.pathname.indexOf(path) > 0,
                 hot,
+                isMTicon,
               })}
             >
               <Row className="g-0 align-items-center">
@@ -74,6 +75,7 @@ const Menu = ({ menuList, router }) => {
             className={classNames("main-menu-item", {
               disabled: true,
               active: router.pathname.indexOf(path) > 0,
+              isMTicon,
             })}
             key={k}
           >

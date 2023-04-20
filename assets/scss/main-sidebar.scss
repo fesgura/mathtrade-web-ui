@@ -98,6 +98,14 @@
         font-size: 20px;
       }
 
+      &.isMTicon {
+        .main-menu-item_icon {
+          font-size: 30px;
+          position: relative;
+          top: 2px;
+        }
+      }
+
       .main-menu-item-tag {
         position: absolute;
         bottom: -4px;
