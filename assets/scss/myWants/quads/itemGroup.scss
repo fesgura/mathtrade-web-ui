@@ -243,6 +243,11 @@
       &:hover {
         opacity: 1;
       }
+
+      &.on-bottom {
+        top: auto;
+        bottom: 0;
+      }
     }
   }
 }

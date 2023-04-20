@@ -81,6 +81,14 @@ const AddQuad = ({
               </Button>
             </div>
           )}
+          <div
+            className="quad-want_myItemGroup-add-cont-close on-bottom"
+            onClick={() => {
+              setShowAdd(false);
+            }}
+          >
+            <Icon />
+          </div>
         </div>
       </div>
     </Collapse>
