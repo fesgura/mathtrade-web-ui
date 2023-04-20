@@ -56,11 +56,19 @@ export const orderGroups = (groups, value, desc) => {
       newGroups.sort((a, b) => {
         const a_value = a.item.value || 0;
         const b_value = b.item.value || 0;
+
+        if (a_value === b_value) {
+          return a.id < b.id ? -1 : 1;
+        }
+
         return parseFloat(a_value) > parseFloat(b_value) ? -1 * dir : dir;
       });
       break;
     case "count_want":
       newGroups.sort((a, b) => {
+        if (a.wantGroups.length === b.wantGroups.length) {
+          return a.id < b.id ? -1 : 1;
+        }
         return a.wantGroups.length > b.wantGroups.length ? -1 * dir : dir;
       });
       break;

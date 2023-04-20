@@ -17,6 +17,9 @@ export const order_list = (listToOrder, orderBy, orderByDirection) => {
     case "value":
       listToOrder.list
         .sort((a, b) => {
+          if (a.value === b.value) {
+            return a.idkey < b.idkey ? -1 : 1;
+          }
           return a.value < b.value ? -1 * orderByDirection : orderByDirection;
         })
         .forEach((elem, k) => {
@@ -26,6 +29,9 @@ export const order_list = (listToOrder, orderBy, orderByDirection) => {
     case "title":
       listToOrder.list
         .sort((a, b) => {
+          if (a.title === b.title) {
+            return a.idkey < b.idkey ? -1 : 1;
+          }
           return a.title < b.title ? -1 * orderByDirection : orderByDirection;
         })
         .forEach((elem, k) => {
@@ -35,6 +41,9 @@ export const order_list = (listToOrder, orderBy, orderByDirection) => {
     case "count_want":
       listToOrder.list
         .sort((a, b) => {
+          if (a.count_want === b.count_want) {
+            return a.idkey < b.idkey ? -1 : 1;
+          }
           return a.count_want < b.count_want
             ? -1 * orderByDirection
             : orderByDirection;
