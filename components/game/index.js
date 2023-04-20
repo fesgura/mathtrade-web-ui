@@ -27,6 +27,7 @@ const Game = ({
   );
 
   const [type, setType] = useState(1);
+  const [src, setSrc] = useState("none");
 
   useEffect(() => {
     if (game) {
@@ -42,16 +43,42 @@ const Game = ({
           }
         });
       }
+      if (
+        !game.thumbnail ||
+        game.thumbnail === "" ||
+        game.thumbnail === "none"
+      ) {
+        let newThumbnail = "none";
+
+        game.items.forEach((itm) => {
+          itm.elements.forEach((elem) => {
+            if (
+              newThumbnail === "none" &&
+              elem.thumbnail &&
+              elem.thumbnail !== "none"
+            ) {
+              newThumbnail = elem.thumbnail;
+            }
+          });
+        });
+        setSrc(newThumbnail);
+      } else {
+        setSrc(game.thumbnail);
+      }
 
       setType(newType);
     }
   }, [game]);
 
+  if (game?.name.indexOf("Clank") >= 0) {
+    console.log(game);
+  }
+
   return (
     <div className={classNames("game-container", { wanted, inModal })}>
       <div className="game">
         <div className="game_thumbnail">
-          <Thumbnail src={game?.thumbnail || ""} height={260} />
+          <Thumbnail src={src} height={260} />
           <div className="game_thumbnail-hover" onClick={onOpenGame}>
             <Icon type="eye" />
           </div>
