@@ -24,6 +24,20 @@
       width: auto;
       text-align: left;
       padding-left: 10px;
+      cursor: pointer;
+
+      .icon {
+        transition: transform 0.2s;
+      }
+
+      &.showReceived {
+        .icon {
+          transform: rotate(90deg);
+        }
+      }
+      &:hover {
+        opacity: 0.7;
+      }
     }
   }
 
@@ -70,12 +84,34 @@
 
   .quad-want_myItemGroup-quad-wrap {
     position: relative;
+    .quad-want_myItemGroup-quad-gray {
+      background-color: #eee;
+      border-radius: 12px;
+      .quad-want_title-for {
+        text-align: center;
+
+        padding: 5px;
+        .quad-want_title-for_label {
+          font-size: 10px;
+          line-height: 1.1;
+        }
+        .quad-want_title-for_cont {
+          font-size: 11px;
+          line-height: 1.1;
+          font-weight: bold;
+        }
+      }
+    }
     .quad-want_myItemGroup-quad-cont {
       position: relative;
       width: $quad-w;
       border: $border;
       padding: $quad-p - 1px;
       border-radius: 12px;
+
+      &.for-titled {
+        box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+      }
 
       .quad-want_myItemGroup-quad {
         width: $quad-inner-w;

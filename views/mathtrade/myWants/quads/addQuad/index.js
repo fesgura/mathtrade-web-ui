@@ -7,6 +7,7 @@ import I18N from "i18n";
 const wantListRest_pageSize = 14;
 
 const AddQuad = ({
+  titleFor,
   showAdd,
   setShowAdd,
   wantListRest,
@@ -49,6 +50,7 @@ const AddQuad = ({
 
               return (
                 <Quad
+                  titleFor={titleFor}
                   data={wg}
                   key={wg.id}
                   setModalWantOpen={setModalWantOpen}

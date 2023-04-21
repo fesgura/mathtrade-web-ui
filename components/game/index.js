@@ -70,10 +70,6 @@ const Game = ({
     }
   }, [game]);
 
-  if (game?.name.indexOf("Clank") >= 0) {
-    console.log(game);
-  }
-
   return (
     <div className={classNames("game-container", { wanted, inModal })}>
       <div className="game">

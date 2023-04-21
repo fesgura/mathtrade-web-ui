@@ -10,6 +10,7 @@ import Valuation from "components/valuation";
 const twoPointsReg = new RegExp(":", "g");
 
 const Quad = ({
+  titleFor,
   isGroup = true,
   data,
   setModalWantOpen,
@@ -91,68 +92,82 @@ const Quad = ({
     <>
       <div className="quad-want_myItemGroup-quad-wrap">
         <div
-          className={classNames(
-            "quad-want_myItemGroup-quad-cont",
-            `for-${type}`,
-            { "for-add-inner": forAdd }
-          )}
+          className={classNames({
+            "quad-want_myItemGroup-quad-gray": titleFor,
+          })}
         >
           <div
-            className={classNames("quad-want_myItemGroup-quad", { isGroup })}
-            id={`quad-want-${id}`}
-            onClick={() => {
-              if (isGroup) {
-                setCurrentWantGroup(data);
-                setCurrentType(type);
-                setModalWantOpen(true);
-              }
-            }}
+            className={classNames(
+              "quad-want_myItemGroup-quad-cont",
+              `for-${type}`,
+              { "for-add-inner": forAdd, "for-titled": titleFor }
+            )}
           >
-            <Thumbnail src={src} quad isMultiple={type === "tag"} />
+            <div
+              className={classNames("quad-want_myItemGroup-quad", { isGroup })}
+              id={`quad-want-${id}`}
+              onClick={() => {
+                if (isGroup) {
+                  setCurrentWantGroup(data);
+                  setCurrentType(type);
+                  setModalWantOpen(true);
+                }
+              }}
+            >
+              <Thumbnail src={src} quad isMultiple={type === "tag"} />
 
-            {!isGroup ? <Previewer colorInverted id={data?.id} /> : null}
-            {isGroup ? <Icon type="eye" className="quad-want_icon" /> : null}
+              {!isGroup ? <Previewer colorInverted id={data?.id} /> : null}
+              {isGroup ? <Icon type="eye" className="quad-want_icon" /> : null}
+            </div>
+            <UncontrolledTooltip target={`quad-want-${id}`}>
+              {title}
+            </UncontrolledTooltip>
+
+            <div className="quad_valuation">
+              <Valuation items={itemsToValuate} min />
+            </div>
+
+            {isGroup && canEditWants && !forAdd ? (
+              <>
+                <div
+                  className="quad-want_myItemGroup-delete"
+                  id={`quad-want-delete-${id}`}
+                  onClick={() => {
+                    setModalDeleteOpen(true);
+                  }}
+                >
+                  <Icon />
+                </div>
+                <UncontrolledTooltip target={`quad-want-delete-${id}`}>
+                  <I18N id="btn.Delete" />
+                </UncontrolledTooltip>
+              </>
+            ) : null}
+
+            {forAdd ? (
+              <>
+                <div
+                  className="quad-want_myItemGroup-add"
+                  id={`quad-want-add-${id}`}
+                  onClick={() => {
+                    if (onAdd) onAdd(data);
+                  }}
+                >
+                  <Icon type="plus" />
+                </div>
+                <UncontrolledTooltip target={`quad-want-add-${id}`}>
+                  <I18N id="btn.Add" />
+                </UncontrolledTooltip>
+              </>
+            ) : null}
           </div>
-          <UncontrolledTooltip target={`quad-want-${id}`}>
-            {title}
-          </UncontrolledTooltip>
-
-          <div className="quad_valuation">
-            <Valuation items={itemsToValuate} min />
-          </div>
-
-          {isGroup && canEditWants && !forAdd ? (
-            <>
-              <div
-                className="quad-want_myItemGroup-delete"
-                id={`quad-want-delete-${id}`}
-                onClick={() => {
-                  setModalDeleteOpen(true);
-                }}
-              >
-                <Icon />
+          {titleFor ? (
+            <div className="quad-want_title-for">
+              <div className="quad-want_title-for_label">
+                <I18N id="changedFor" />
               </div>
-              <UncontrolledTooltip target={`quad-want-delete-${id}`}>
-                <I18N id="btn.Delete" />
-              </UncontrolledTooltip>
-            </>
-          ) : null}
-
-          {forAdd ? (
-            <>
-              <div
-                className="quad-want_myItemGroup-add"
-                id={`quad-want-add-${id}`}
-                onClick={() => {
-                  if (onAdd) onAdd(data);
-                }}
-              >
-                <Icon type="plus" />
-              </div>
-              <UncontrolledTooltip target={`quad-want-add-${id}`}>
-                <I18N id="btn.Add" />
-              </UncontrolledTooltip>
-            </>
+              <div className="quad-want_title-for_cont"> {titleFor}</div>
+            </div>
           ) : null}
         </div>
       </div>
