@@ -3,7 +3,7 @@ import { Row, Col } from "reactstrap";
 import classNames from "classnames";
 import { page_size, pageSizeOptions } from "config";
 
-const ElementPerPage = ({ className, filters, setFilters, min, all }) => {
+const ElementPerPage = ({ className, filters, setFilters, min, all, one }) => {
   return (
     <div className={classNames("element-per-page", className)}>
       <Row className="g-0 flex-nowrap align-items-center">
@@ -25,6 +25,7 @@ const ElementPerPage = ({ className, filters, setFilters, min, all }) => {
                   <I18N id="elementsPerPage.all" />
                 </option>
               ) : null}
+              {one ? <option value={1}>1</option> : null}
               {pageSizeOptions.map((op, k) => {
                 return (
                   <option value={op} key={k}>

@@ -8,6 +8,7 @@ import classNames from "classnames";
 import UserBox from "components/userBox";
 import ErrorAlert from "components/errorAlert";
 import { Input } from "components/form";
+import { eliminarDiacriticos } from "utils";
 
 const UnBanBtn = ({ className, elem, onClick }) => {
   return (
@@ -26,10 +27,6 @@ const UnBanBtn = ({ className, elem, onClick }) => {
     </Button>
   );
 };
-
-function eliminarDiacriticos(texto) {
-  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
 
 const filterByKeyword = (elems, keyword) => {
   if (!elems) {

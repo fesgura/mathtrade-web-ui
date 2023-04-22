@@ -15,17 +15,11 @@ import classNames from "classnames";
 import storage from "utils/storage";
 import Icon from "components/icon";
 
-const h_elem = 42;
 const w_elem = 42;
-
 const default_orderBy = "value";
 const default_ob_direction = -1;
-
 const scrollH = 340;
 const scrollW = 340;
-
-const topFloat_scroll_diff = 101;
-const leftFloat_scroll_diff = 101;
 
 const Grid = ({
   myItemList,
@@ -146,6 +140,8 @@ const Grid = ({
   const [page, set_page] = useState(0);
   const [page_size, set_page_size] = useState(9999);
 
+  const [filterKeyword, set_filterKeyword] = useState("");
+
   const [updateFlag, set_updateFlag] = useState(-1);
   const [renderFlag, set_renderFlag] = useState(false);
 
@@ -217,6 +213,8 @@ const Grid = ({
                     <div className="mywants-grid_myItems-row">
                       <GridSpacer
                         page={page}
+                        filterKeyword={filterKeyword}
+                        set_filterKeyword={set_filterKeyword}
                         set_page={set_page}
                         onUpdateFlag={onUpdateFlag}
                         page_size={page_size}
@@ -294,6 +292,7 @@ const Grid = ({
                       <MyWants
                         page={page}
                         page_size={page_size}
+                        filterKeyword={filterKeyword}
                         wantList={wantListGrid}
                         putWant={putWant}
                         deleteWant={deleteWant}
@@ -308,6 +307,7 @@ const Grid = ({
                       <GridComp
                         page={page}
                         page_size={page_size}
+                        filterKeyword={filterKeyword}
                         myItemList={myItemListGrid}
                         wantList={wantListGrid}
                         gridWidth={gridWidth}

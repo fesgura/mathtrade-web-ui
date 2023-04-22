@@ -8,12 +8,15 @@ import AutoCompleteButton from "./autocomplete";
 import Pagination from "components/pagination";
 import ElementPerPage from "components/pagination/elementsPerPage";
 import storage from "utils/storage";
+import { eliminarDiacriticos } from "utils";
 
 const GridSpacer = ({
   page,
   set_page,
   page_size,
   set_page_size,
+  filterKeyword,
+  set_filterKeyword,
   onUpdateFlag,
   wantsTotal,
   extendAll,
@@ -57,12 +60,22 @@ const GridSpacer = ({
         </div>
 
         <div className="mywants-grid-spacer_lab-my-wants">
+          <div className="mywants-grid-spacer_lab-text pb-3">
+            <Icon type="arrow-down" className="me-1" />
+            <I18N id="MyWants.Grid.MyWants" />
+          </div>
           <Row className="g-0 align-items-center justify-content-between">
             <Col xs="auto">
-              <div className="mywants-grid-spacer_lab-text">
-                <Icon type="arrow-down" className="me-1" />
-                <I18N id="MyWants.Grid.MyWants" />
-              </div>
+              <Input
+                label="filter.Filter"
+                placeholder="filter.Search.placeholder"
+                icon="filter"
+                size="sm"
+                value={filterKeyword}
+                onChange={(v) => {
+                  set_filterKeyword(eliminarDiacriticos(v.toLowerCase()));
+                }}
+              />
             </Col>
             <Col xs="auto">
               <div className="mywants-grid-spacer_lab-orderby">
@@ -84,6 +97,7 @@ const GridSpacer = ({
               <ElementPerPage
                 min
                 all
+                one
                 filters={{
                   query: {
                     page_size,

@@ -290,6 +290,7 @@
   "title.GameList": "Catálogo",
   "title.ItemList": "Ejemplares",
   "filter.Title": "Filtros",
+  "filter.Filter": "Filtrar",
   "filter.Search": "Buscar",
   "filter.Search.placeholder": "Escribí alguna palabra...",
   "filter.Value": "Puntaje",

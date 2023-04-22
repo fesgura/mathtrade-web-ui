@@ -14,6 +14,7 @@ const pCheck_inn = 0.5 * (w_elem - widthCheck);
 const Grid = ({
   page,
   page_size,
+  filterKeyword,
   myItemList,
   wantList,
   gridWidth,
@@ -107,80 +108,88 @@ const Grid = ({
 
       let newGridHeight = 0;
 
-      wantList.list.forEach((wantGroup, k) => {
-        if (k < page * page_size || k >= (page + 1) * page_size) {
-          return null;
-        } else {
-          newGridHeight +=
-            wantGroup.type === "item"
-              ? h_elem
-              : h_elem + h_elem * wantGroup.items.length;
+      wantList.list
+        .filter((obj) => {
+          if (!filterKeyword || filterKeyword === "") {
+            return true;
+          }
+          return obj.title.toLowerCase().indexOf(filterKeyword) >= 0;
+        })
+        .forEach((wantGroup, k) => {
+          if (k < page * page_size || k >= (page + 1) * page_size) {
+            return null;
+          } else {
+            newGridHeight +=
+              wantGroup.type === "item"
+                ? h_elem
+                : h_elem + h_elem * wantGroup.items.length;
 
-          const y_count = 1 + (wantGroup.extended ? wantGroup.items.length : 0);
-          const height = h_elem * y_count;
-          const width = w_elem;
+            const y_count =
+              1 + (wantGroup.extended ? wantGroup.items.length : 0);
+            const height = h_elem * y_count;
+            const width = w_elem;
 
-          pool[ind_y] = {};
-          let x = 0;
-          let ind_x = 0;
+            pool[ind_y] = {};
+            let x = 0;
+            let ind_x = 0;
 
-          myItemList.list.forEach((myGroup) => {
-            let checked = true;
-            if (myGroup.type === "item") {
-              checked = wantGroup.obj.item_ids.indexOf(myGroup.item.id) >= 0;
-            } else {
-              myGroup.items.forEach((itm) => {
-                if (wantGroup.obj.item_ids.indexOf(itm.id) < 0) {
-                  checked = false;
-                }
-              });
-            }
+            myItemList.list.forEach((myGroup) => {
+              let checked = true;
+              if (myGroup.type === "item") {
+                checked = wantGroup.obj.item_ids.indexOf(myGroup.item.id) >= 0;
+              } else {
+                myGroup.items.forEach((itm) => {
+                  if (wantGroup.obj.item_ids.indexOf(itm.id) < 0) {
+                    checked = false;
+                  }
+                });
+              }
 
-            pool[ind_y][ind_x] = {
-              x,
-              y,
-              width,
-              height,
-              color: myGroup.color || "#999",
-              checked,
-              //
-              wantGroup,
-              myGroup,
-              isChild: false,
-              type: myGroup.type,
-              item_id: myGroup.item ? myGroup.item.id : null,
-            };
+              pool[ind_y][ind_x] = {
+                x,
+                y,
+                width,
+                height,
+                color: myGroup.color || "#999",
+                checked,
+                //
+                wantGroup,
+                myGroup,
+                isChild: false,
+                type: myGroup.type,
+                item_id: myGroup.item ? myGroup.item.id : null,
+              };
 
-            x += width;
-            ind_x++;
+              x += width;
+              ind_x++;
 
-            if (myGroup.type === "group" && myGroup.extended) {
-              myGroup.items.forEach((item) => {
-                const checked = wantGroup.obj.item_ids.indexOf(item.id) >= 0;
-                pool[ind_y][ind_x] = {
-                  x,
-                  y,
-                  color: "#aaa",
-                  width,
-                  height,
-                  checked,
-                  //
-                  wantGroup,
-                  myGroup,
-                  isChild: true,
-                  type: "item",
-                  item_id: item.id,
-                };
-                x += width;
-                ind_x++;
-              });
-            }
-          });
+              if (myGroup.type === "group" && myGroup.extended) {
+                myGroup.items.forEach((item) => {
+                  const checked = wantGroup.obj.item_ids.indexOf(item.id) >= 0;
+                  pool[ind_y][ind_x] = {
+                    x,
+                    y,
+                    color: "#aaa",
+                    width,
+                    height,
+                    checked,
+                    //
+                    wantGroup,
+                    myGroup,
+                    isChild: true,
+                    type: "item",
+                    item_id: item.id,
+                  };
+                  x += width;
+                  ind_x++;
+                });
+              }
+            });
 
-          y += height;
-          ind_y += y_count;
-        }
-      });
+            y += height;
+            ind_y += y_count;
+          }
+        });
 
       set_gridHeight(newGridHeight);
 
@@ -199,6 +208,7 @@ const Grid = ({
     wantList,
     page,
     page_size,
+    filterKeyword,
     wantsVersion,
     canvasGrid,
     dataGrid,
