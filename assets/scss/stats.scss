@@ -40,6 +40,9 @@
     &.user {
       background-color: darken($secondary, 4);
     }
+    &.participants {
+      background-color: darken($success, 2);
+    }
   }
 }
 .map-stats {

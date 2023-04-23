@@ -535,6 +535,7 @@
   "stats.pill.item.footer": "de $$$ ejemplares ($$$%).",
   "stats.pill.user": "Participantes intercambiaron",
   "results.pill.user": "Participantes",
+  "results.pill.user.commit": "Participantes comprometieron sus cambios<br/>y participan del Math Trade",
   "stats.pill.user.footer": "de $$$ participantes ($$$%).",
   "stats.map.title": "Por provincias",
   "stats.map.label": "porcentajes",

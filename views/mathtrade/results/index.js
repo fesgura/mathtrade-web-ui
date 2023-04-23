@@ -43,7 +43,7 @@ const ResultsView = ({
               <I18N id="results.text2" />
             </p>
           </div>
-          <Pills MathTradeData={MathTradeData} />
+          <Pills MathTradeData={MathTradeData} users={users} />
           <Row className="align-items-end justify-content-between">
             <Col xs="auto">
               {allUsers && current === 1 ? null : (
@@ -131,7 +131,7 @@ const ResultsView = ({
       ) : (
         <>
           <NotResultsYet />
-          <Pills MathTradeData={MathTradeData} />
+          <Pills MathTradeData={MathTradeData} users={users} />
           <UserList users={users} canEditList={canEditList} />
         </>
       )}
