@@ -90,10 +90,10 @@ const PDFcredencial = ({ user }) => {
       /////// TEXTS
       ctx.fillStyle = "#000";
       ctx.font = "bold 74px Arial";
-      ctx.fillText(cropWord(user.username, 20, "..."), p, 440);
+      ctx.fillText(cropWord(user.username, 22, "..."), p, 440);
 
       ctx.fillText(
-        cropWord(`${user.first_name} ${user.last_name}`, 20, "..."),
+        cropWord(`${user.first_name} ${user.last_name}`, 24, "..."),
         p,
         640
       );
