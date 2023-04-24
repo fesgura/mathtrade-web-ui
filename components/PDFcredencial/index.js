@@ -12,7 +12,8 @@ const PDFcredencial = ({ user }) => {
 
   const drawImage = useCallback((props) => {
     const newImg = new Image();
-    newImg.addEventListener("load", function () {
+
+    const onLoad = () => {
       props.ctx.drawImage(
         newImg,
         0,
@@ -24,12 +25,14 @@ const PDFcredencial = ({ user }) => {
         props.width,
         props.height
       );
-    });
+    };
+    newImg.addEventListener("load", onLoad);
+    newImg.addEventListener("error", onLoad);
     newImg.src = props.src;
   }, []);
 
   useEffect(() => {
-    if (user && user.avatar && canvasRef.current) {
+    if (user && canvasRef.current) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
       ctx.fillStyle = "#FFF";
@@ -51,6 +54,7 @@ const PDFcredencial = ({ user }) => {
       });
 
       // avatar
+
       const avatar_w = 300;
       drawImage({
         x: width - p - avatar_w,
@@ -62,13 +66,24 @@ const PDFcredencial = ({ user }) => {
       });
       ctx.strokeRect(width - p - avatar_w, p, avatar_w, avatar_w);
 
+      if (!user.avatar) {
+        ctx.fillStyle = "rgb(240, 105, 105)";
+        ctx.fillRect(width - p - avatar_w, p, avatar_w, avatar_w);
+        ctx.font = "bold 100px Arial";
+        ctx.fillStyle = "#FFF";
+        ctx.fillText(
+          user.username.substring(0, 1),
+          width - p - 0.5 * avatar_w - 25,
+          p + 0.5 * avatar_w + 25
+        );
+      }
+
       /////// LABELS
       ctx.fillStyle = "#AAA";
       ctx.font = "bold 32px Arial";
       ctx.fillText("USUARIO", p, 350);
       ctx.fillRect(p, 360, width - 2 * p, 2);
 
-      ctx.font = "bold 32px Arial";
       ctx.fillText("NOMBRE y APELLIDO", p, 550);
       ctx.fillRect(p, 560, width - 2 * p, 2);
 
@@ -77,8 +92,6 @@ const PDFcredencial = ({ user }) => {
       ctx.font = "bold 74px Arial";
       ctx.fillText(cropWord(user.username, 20, "..."), p, 440);
 
-      ctx.fillStyle = "#000";
-      ctx.font = "bold 74px Arial";
       ctx.fillText(
         cropWord(`${user.first_name} ${user.last_name}`, 20, "..."),
         p,

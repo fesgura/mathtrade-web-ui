@@ -10,6 +10,8 @@ const cuadro_w = 76;
 const UserCardSign = ({ user }) => {
   const [showModal, setShowModal] = useState(false);
 
+  console.log(user);
+
   return user ? (
     <>
       <div className="user-card-sign_container">
