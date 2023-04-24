@@ -37,10 +37,7 @@ const Pills = ({ MathTradeData, users }) => {
             footer={
               <I18N
                 id="stats.pill.user.footer"
-                values={[
-                  MathTradeData?.users?.length || 0,
-                  userParticipants.percent,
-                ]}
+                values={[users?.length || 0, userParticipants.percent]}
               />
             }
           />

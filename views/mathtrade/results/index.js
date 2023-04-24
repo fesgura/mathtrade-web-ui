@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import PrivateLayout from "layouts/private";
 import I18N from "i18n";
 import { usersToOptions } from "utils";
@@ -29,6 +29,16 @@ const ResultsView = ({
   setUserId,
 }) => {
   const [current, setCurrent] = useState(0);
+
+  const usersFiltered = useMemo(() => {
+    if (users) {
+      return users.filter((user) => {
+        return user.items > 0;
+      });
+    }
+    return [];
+  }, [users]);
+
   return (
     <PrivateLayout loading={loading} doctitle="title.Results">
       <PageHeader title="title.Results" center />
@@ -43,7 +53,7 @@ const ResultsView = ({
               <I18N id="results.text2" />
             </p>
           </div>
-          <Pills MathTradeData={MathTradeData} users={users} />
+          <Pills MathTradeData={MathTradeData} users={usersFiltered} />
           <Row className="align-items-end justify-content-between">
             <Col xs="auto">
               {allUsers && current === 1 ? null : (
@@ -111,7 +121,7 @@ const ResultsView = ({
 
           {current === 0 ? (
             <MyTrades
-              users={users}
+              users={usersFiltered}
               currentUser={currentUser}
               mathTradeResults={mathTradeResults}
               myUserId={myUserId}
@@ -125,14 +135,18 @@ const ResultsView = ({
               }
             />
           ) : (
-            <UserList users={users} hideTitle canViewResults={canViewResults} />
+            <UserList
+              users={usersFiltered}
+              hideTitle
+              canViewResults={canViewResults}
+            />
           )}
         </>
       ) : (
         <>
           <NotResultsYet />
-          <Pills MathTradeData={MathTradeData} users={users} />
-          <UserList users={users} canEditList={canEditList} />
+          <Pills MathTradeData={MathTradeData} users={usersFiltered} />
+          <UserList users={usersFiltered} canEditList={canEditList} />
         </>
       )}
     </PrivateLayout>

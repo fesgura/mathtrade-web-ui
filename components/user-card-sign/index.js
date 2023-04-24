@@ -2,15 +2,10 @@ import { useState, useRef, useEffect } from "react";
 import I18N from "i18n";
 import Icon from "components/icon";
 import { Button, Modal, ModalBody } from "reactstrap";
-import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import PDFcredencial from "components/PDFcredencial";
-
-const cuadro_w = 76;
 
 const UserCardSign = ({ user }) => {
   const [showModal, setShowModal] = useState(false);
-
-  console.log(user);
 
   return user ? (
     <>

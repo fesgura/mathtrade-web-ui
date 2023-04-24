@@ -142,9 +142,9 @@ const UserList = ({ users, hideTitle, canEditList }) => {
             </thead>
             <tbody>
               {userList.map((data, k) => {
-                if (data.items <= 0) {
-                  return null;
-                }
+                // if (data.items <= 0) {
+                //   return null;
+                // }
                 return <User key={k} data={data} canEditList={canEditList} />;
               })}
             </tbody>
