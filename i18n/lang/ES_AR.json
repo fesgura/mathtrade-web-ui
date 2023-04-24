@@ -580,5 +580,11 @@
   "postMT.tagPDF": "Etiqueta",
   "title.TyC": "Términos y condiciones",
   "AlertNoCommitment": "<b>NO ESTÁS PARTICIPANDO DEL MATH TRADE.</b><br/>Para hacerlo debés <b>\"Guardar y comprometer cambios\"</b> desde  ",
-  "AlertNoCommitment.myWants": "<b>NO ESTÁS PARTICIPANDO DEL MATH TRADE.</b><br/>Para hacerlo debés <b>\"Guardar y comprometer cambios\"</b>."
+  "AlertNoCommitment.myWants": "<b>NO ESTÁS PARTICIPANDO DEL MATH TRADE.</b><br/>Para hacerlo debés <b>\"Guardar y comprometer cambios\"</b>.",
+  "UserCardSign.help": "Si vas a la juntada presencial, <b>descargá e imprimí tu credencial</b> para que podamos identificarte rápidamente:",
+  "UserCardSign.btn.print_download": "Descargar e imprimir Credencial",
+  "UserCardSign.modal.title": "Credencial",
+  "UserCardSign.btn.download": "Descargar",
+  "UserCardSign.help.1": "Click con botón derecho del mouse, luego <b>\"Guardar imagen como...\"</b>",
+  "UserCardSign.help.2": "Luego imprimí la imagen, recortala y enfundala en una funda de carta Standard (63 x 88 mm).<br />Te esperamos en la juntada presencial con tu credencial."
 }

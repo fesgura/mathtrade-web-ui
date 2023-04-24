@@ -14,6 +14,7 @@ import { linksToHelp } from "config";
 import Timeline from "components/timeline";
 import SoonMT from "./soonMT";
 import { meetingAddress } from "config";
+import UserCardSign from "components/user-card-sign";
 
 const validations = {
   location: ["required"],
@@ -46,6 +47,8 @@ const MyDataView = ({
   const [meetingDay, setMeetingDay] = useState({ day: "", hour: "" });
   const [terms_acceptance, setTerms_acceptance] = useState(false);
 
+  const [userData, setUserData] = useState(null);
+
   const onChangeLocation = useCallback(
     (locationId) => {
       const newLocation = getLocationById(locationId, dataLocations);
@@ -75,6 +78,7 @@ const MyDataView = ({
     }`;
     const newLocation = getLocationById(locationId, dataLocations);
     setCurrentLocation(newLocation);
+    setUserData(user);
   }, [MathTradeUserInitial, mathtradeData, dataLocations]);
 
   return (
@@ -308,6 +312,7 @@ const MyDataView = ({
                   <Icon type="external-link" className="ms-1" />
                 </a>
               </p>
+              <UserCardSign user={userData} />
               <ErrorAlert errors={errors} />
               {canEditList ? (
                 <div className="text-center py-4">
