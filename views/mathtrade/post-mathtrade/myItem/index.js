@@ -3,9 +3,15 @@ import Quad from "./quad";
 import { useEffect, useState } from "react";
 import I18N from "i18n";
 import UserOffer from "./userOffer";
+import Icon from "components/icon";
+import classNames from "classnames";
 
 const MyItem = ({ item }) => {
   const [wantedList, setWantedList] = useState([]);
+
+  const [showOffer, setShowOffer] = useState(false);
+
+  //console.log(item);
 
   useEffect(() => {
     if (item.wanted && item.wanted.length) {
@@ -62,16 +68,33 @@ const MyItem = ({ item }) => {
           </Col>
           <Col>
             <div className="post-mt-myItem_quad-row_container">
-              <div className="post-mt-myItem_label receive">
-                <I18N id="postMT.OtherOffer" />
+              <div
+                className={classNames("post-mt-myItem_label receive", {
+                  showOffer,
+                })}
+                onClick={() => {
+                  setShowOffer((v) => !v);
+                }}
+              >
+                <Icon type="chevron-right" className="me-1" />
+                <I18N
+                  id="postMT.OtherOffer"
+                  values={[item?.wanted?.length || 0]}
+                />
               </div>
 
               {wantedList.length ? (
-                wantedList.map((userOff) => {
-                  return (
-                    <UserOffer userOff={userOff} key={userOff.id} item={item} />
-                  );
-                })
+                showOffer ? (
+                  wantedList.map((userOff) => {
+                    return (
+                      <UserOffer
+                        userOff={userOff}
+                        key={userOff.id}
+                        item={item}
+                      />
+                    );
+                  })
+                ) : null
               ) : (
                 <div className="italic">
                   <I18N id="postMT.notItems" />

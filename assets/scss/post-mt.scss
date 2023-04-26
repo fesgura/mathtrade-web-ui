@@ -64,6 +64,15 @@
   color: $mathtrade-offer-color;
   &.receive {
     color: $mathtrade-want-color;
+    cursor: pointer;
+    &.showOffer {
+      .icon {
+        transform: rotate(90deg);
+      }
+    }
+  }
+  &.no-offer {
+    color: $text-color;
   }
 }
 .post-mt-myItem_quad-row_divisor {

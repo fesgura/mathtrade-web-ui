@@ -132,7 +132,6 @@ const QuadsView = ({
                         </Col>
                         <Col xs="auto">
                           <Pagination
-                            className="over-white"
                             filters={{
                               query: {
                                 page_size,
