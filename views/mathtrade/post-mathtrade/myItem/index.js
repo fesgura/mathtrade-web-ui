@@ -11,8 +11,6 @@ const MyItem = ({ item }) => {
 
   const [showOffer, setShowOffer] = useState(false);
 
-  //console.log(item);
-
   useEffect(() => {
     if (item.wanted && item.wanted.length) {
       const newWanted = [...item.wanted];
