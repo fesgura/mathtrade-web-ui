@@ -25,12 +25,13 @@ const PageHeader = ({
         <Col xs="auto">
           <div className="list-tab-header">
             {tabs.map((tab, k) => {
-              const { text, path, current } = tab;
+              const { text, path, current, hot } = tab;
               return (
                 <div
                   key={k}
                   className={classNames("list-tab-header-h", {
                     current,
+                    hot,
                   })}
                 >
                   {onChange ? (
@@ -49,6 +50,11 @@ const PageHeader = ({
                         <I18N id={text} />
                       </a>
                     </Link>
+                  )}
+                  {hot && (
+                    <div className="list-tab-header-h_hot">
+                      <I18N id="important" />
+                    </div>
                   )}
                 </div>
               );

@@ -14,6 +14,7 @@ import { Col, Row } from "reactstrap";
 import useCanEdit from "hooks/useCanEdit";
 
 const Menu = ({ menuList, router }) => {
+  const isResults = useCanEdit("results");
   return (
     <nav className="main-menu">
       {menuList.map((item, k) => {
@@ -21,12 +22,27 @@ const Menu = ({ menuList, router }) => {
           return null;
         }
 
-        const { path, icon, title, disabled, hot, storeQuery, isMTicon } = item;
+        const {
+          path,
+          icon,
+          title,
+          disabled,
+          isHot,
+          hotIfIsResults,
+          storeQuery,
+          isMTicon,
+        } = item;
 
         let disabledItem = false;
 
         let query = {};
         let pathComplete = path;
+
+        let hot = isHot;
+
+        if (hotIfIsResults && isResults) {
+          hot = true;
+        }
 
         if (storeQuery) {
           const storeOptions = storage.getOptions();

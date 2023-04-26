@@ -80,24 +80,6 @@ const ResultsView = ({
                 </Row>
               )}
             </Col>
-
-            {current === 1 ? (
-              <Col xs="auto">
-                <div className="results-input_check">
-                  <Input
-                    data={{ allUsers }}
-                    type="checkbox"
-                    labelCheckbox="results.showAll"
-                    classNameContainer="m-0"
-                    classNameLabelCheckbox="smallest"
-                    name="allUsers"
-                    onChange={() => {
-                      setAllUsers((v) => !v);
-                    }}
-                  />
-                </div>
-              </Col>
-            ) : null}
           </Row>
           <hr className="dark" />
           <PageHeaderTabs
@@ -113,8 +95,13 @@ const ResultsView = ({
                 current: current === 1,
               },
               {
-                text: "results.userTable.title",
+                text: "results.tab.3",
                 current: current === 2,
+                hot: true,
+              },
+              {
+                text: "results.tab.4",
+                current: current === 3,
               },
             ]}
           />
@@ -129,11 +116,35 @@ const ResultsView = ({
               setUserId={setUserId}
             />
           ) : current === 1 ? (
-            <List
-              mathTradeResults={
-                allUsers ? mathTradeResultsAll : mathTradeResults
-              }
-            />
+            <>
+              <div className="results-input_check">
+                <Input
+                  data={{ allUsers }}
+                  type="checkbox"
+                  labelCheckbox="results.showAll"
+                  classNameContainer="m-0"
+                  classNameLabelCheckbox="smallest"
+                  name="allUsers"
+                  onChange={() => {
+                    setAllUsers((v) => !v);
+                  }}
+                />
+              </div>
+              <List
+                mathTradeResults={
+                  allUsers ? mathTradeResultsAll : mathTradeResults
+                }
+              />
+            </>
+          ) : current === 2 ? (
+            <div>
+              <iframe
+                src={"/pdf/instrucciones_de_envio.pdf"}
+                title="Inline Frame Example"
+                width="100%"
+                height="1000px"
+              ></iframe>
+            </div>
           ) : (
             <UserList
               users={usersFiltered}
