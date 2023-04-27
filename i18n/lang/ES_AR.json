@@ -532,7 +532,7 @@
   "title.Stats": "Estadísticas",
   "subtitle.Stats": "para este MathTrade",
   "stats.pill.game": "Juegos publicados",
-  "stats.pill.item": "Ejemplares publicados",
+  "stats.pill.item": "Ejemplares cambiados",
   "results.pill.game": "Juegos publicados",
   "results.pill.item": "Ejemplares publicados",
   "stats.pill.item.footer": "de $$$ ejemplares ($$$%).",
@@ -590,5 +590,12 @@
   "UserCardSign.modal.title": "Credencial",
   "UserCardSign.btn.download": "Descargar",
   "UserCardSign.help.1": "Click con botón derecho del mouse, luego <b>\"Guardar imagen como...\"</b>",
-  "UserCardSign.help.2": "Luego imprimí la imagen, recortala y enfundala en una funda de carta Standard (63 x 88 mm).<br />Te esperamos en la juntada presencial con tu credencial."
+  "UserCardSign.help.2": "Luego imprimí la imagen, recortala y enfundala en una funda de carta Standard (63 x 88 mm).<br />Te esperamos en la juntada presencial con tu credencial.",
+  "postMT.tab.1": "Ofrecimientos",
+  "postMT.tab.2": "Contactos de los participantes",
+  "postMT.userTable.th.name": "Nombre",
+  "postMT.userTable.th.city": "Ciudad",
+  "postMT.userTable.th.telegram": "Telegram",
+  "postMT.userTable.th.email": "Email",
+  "postMT.userTable.th.bgg_name": "Usuario BGG"
 }
