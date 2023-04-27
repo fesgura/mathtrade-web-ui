@@ -139,7 +139,7 @@ const ResultsView = ({
           ) : current === 2 ? (
             <div>
               <iframe
-                src={"/pdf/instrucciones_de_envio.pdf"}
+                src={"/pdf/instrucciones-de-envio.pdf"}
                 title="Inline Frame Example"
                 width="100%"
                 height="1000px"

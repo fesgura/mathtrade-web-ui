@@ -1,14 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId } from "react";
 import I18N from "i18n";
-import { Button, Modal, ModalBody } from "reactstrap";
+import { Button, Modal, ModalBody, UncontrolledTooltip } from "reactstrap";
 import Icon from "components/icon";
 import PDFresults from "components/PDFresult";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
-
+const twoPointsReg = new RegExp(":", "g");
 const PdfButton = ({ userOff, item }) => {
   const [showModal, setShowModal] = useState(false);
   const [dataTag, setDataTag] = useState([]);
-
+  const idButton = useId("q").replace(twoPointsReg, "");
   useEffect(
     () => {
       setDataTag([
@@ -30,17 +30,25 @@ const PdfButton = ({ userOff, item }) => {
 
   return (
     <>
-      <Button
-        color="primary"
-        size="xs"
-        onClick={() => {
-          setShowModal(true);
-        }}
+      <div id={`tt-bb-et-q-${idButton}`}>
+        <Button
+          color="primary"
+          size="xs"
+          onClick={() => {
+            setShowModal(true);
+          }}
+          disabled
+        >
+          <Icon type="file-pdf-o" className="me-2" />
+          <I18N id="postMT.print_download" />
+        </Button>
+      </div>
+      <UncontrolledTooltip
+        //placement="right"
+        target={`tt-bb-et-q-${idButton}`}
       >
-        <Icon type="file-pdf-o" className="me-2" />
-        <I18N id="postMT.print_download" />
-      </Button>
-
+        Muy pronto vas a poder imprimir / descargar la etiqueta de tu juego.
+      </UncontrolledTooltip>
       {showModal ? (
         <Modal
           isOpen={true}

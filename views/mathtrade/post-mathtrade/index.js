@@ -92,6 +92,47 @@ const PostMTView = ({ data, loading, errors }) => {
             }
             return <MyItem item={item} key={item.id} />;
           })}
+          <div className="pt-3 pb-5">
+            <Row className="align-items-center justify-content-end">
+              <Col xs="auto">
+                <ElementPerPage
+                  min
+                  all
+                  filters={{
+                    query: {
+                      page_size,
+                      page: page + 1,
+                    },
+                  }}
+                  setFilters={(d) => {
+                    set_page(0);
+                    set_page_size(parseInt(d.page_size, 10));
+                    storage.setToOptions({
+                      postmt_page: 0,
+                      postmt_page_size: parseInt(d.page_size, 10),
+                    });
+                  }}
+                />
+              </Col>
+              <Col xs="auto">
+                <Pagination
+                  filters={{
+                    query: {
+                      page_size,
+                      page: page + 1,
+                    },
+                  }}
+                  setFilters={(d) => {
+                    set_page(parseInt(d.page, 10) - 1);
+                    storage.setToOptions({
+                      postmt_page: parseInt(d.page, 10) - 1,
+                    });
+                  }}
+                  elementsTotal={data.length || 1}
+                />
+              </Col>
+            </Row>
+          </div>
         </>
       ) : (
         <div className="text-center">
