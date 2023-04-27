@@ -115,14 +115,15 @@ export const menu_yes_mathTrade = [
     title: "menu.PostMT",
     path: privateRoutes.mathtrade.postMT.path,
     icon: privateRoutes.mathtrade.postMT.icon,
-    isHot: true,
+    //isHot: true,
     //  hidden: true,
   },
   {
     title: "menu.Stats",
     path: privateRoutes.mathtrade.stats.path,
     icon: privateRoutes.mathtrade.stats.icon,
-    hidden: true,
+    isHot: true,
+    //hidden: true,
   },
   {
     title: "menu.MyData",
