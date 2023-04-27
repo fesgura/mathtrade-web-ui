@@ -8,7 +8,7 @@ import UserContacts from "./userContacts.js";
 import PageHeaderTabs from "components/pageHeaderTabs";
 
 const PostMTView = ({ data, loading, errors }) => {
-  const [current, setCurrent] = useState(1);
+  const [current, setCurrent] = useState(0);
 
   return (
     <PrivateLayout loading={loading} doctitle="title.PostMT">
