@@ -116,13 +116,13 @@ export const menu_yes_mathTrade = [
     path: privateRoutes.mathtrade.postMT.path,
     icon: privateRoutes.mathtrade.postMT.icon,
     //isHot: true,
-    //  hidden: true,
+    hidden: true,
   },
   {
     title: "menu.Stats",
     path: privateRoutes.mathtrade.stats.path,
     icon: privateRoutes.mathtrade.stats.icon,
-    isHot: true,
+    //isHot: true,
     //hidden: true,
   },
   {

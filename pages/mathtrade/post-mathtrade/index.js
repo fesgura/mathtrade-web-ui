@@ -1,7 +1,8 @@
-import PostMT from "containers/mathtrade/post-mathtrade";
+//import PostMT from "containers/mathtrade/post-mathtrade";
 
 const PostMTPage = () => {
-  return <PostMT />;
+  return null;
+  // return <PostMT />;
 };
 
 export default PostMTPage;
