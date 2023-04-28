@@ -33,8 +33,8 @@ const Pills = ({ stats }) => {
               <I18N
                 id="stats.pill.user.footer"
                 values={[
-                  stats.user_count,
-                  ((100 * stats.user_trading) / stats.user_count).toFixed(0),
+                  338, //stats.user_count,
+                  ((100 * stats.user_trading) / 338).toFixed(0),
                 ]}
               />
             }
