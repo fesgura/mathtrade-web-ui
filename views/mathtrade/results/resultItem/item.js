@@ -3,6 +3,7 @@ import classNames from "classnames";
 import Thumbnail from "components/thumbnail";
 import Previewer from "components/previewer";
 import ItemFull from "components/item/full";
+import { cropWord } from "utils";
 
 const Item = ({ item, className }) => {
   const [src, setSrc] = useState("");
@@ -29,7 +30,9 @@ const Item = ({ item, className }) => {
           <Previewer colorInverted id={item?.id} />
         </div>
       </div>
-      <div className="results-item-quad-title">{item?.title}</div>
+      <div className="results-item-quad-title">
+        {cropWord(item?.title, 50, "...")}
+      </div>
     </div>
   );
 };
