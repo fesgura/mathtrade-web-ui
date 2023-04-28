@@ -6,6 +6,7 @@ import LinkInternal from "components/link-internal";
 import PostMTList from "./list";
 import UserContacts from "./userContacts.js";
 import PageHeaderTabs from "components/pageHeaderTabs";
+import { Alert } from "reactstrap";
 
 const PostMTView = ({ data, loading, errors }) => {
   const [current, setCurrent] = useState(0);
@@ -30,6 +31,11 @@ const PostMTView = ({ data, loading, errors }) => {
               <I18N id="postMT.help3" values={["https://t.me/Luis_Olcese"]} />
             </p>
           </div>
+          <Alert color="danger" className="text-center mb-5">
+            <p className="lead m-0">
+              El POST MT estará disponible hasta las <b>13hs</b> de HOY!!
+            </p>
+          </Alert>
           <PageHeaderTabs
             className="mt-0 pt-0"
             onChange={setCurrent}
