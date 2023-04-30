@@ -63,6 +63,14 @@
 
   .results-float {
     position: absolute;
+
+    &.for-nothing {
+      background-color: #fff;
+      padding: 25px;
+      box-shadow: $main-box-shadow;
+      border-radius: 15px;
+      font-weight: bold;
+    }
   }
   //
   .results_user-my {

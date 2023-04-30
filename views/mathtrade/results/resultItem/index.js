@@ -47,22 +47,42 @@ const ResultItem = ({ user, isMyUser, data }) => {
           isMyUser={isMyUser}
           className="results-float results_user-my"
         />
-        <User
-          user={data?.trade_to?.user}
-          className="results-float results_user-to"
-        />
-        <User
-          user={data?.trade_from?.user}
-          className="results-float results_user-from"
-        />
-        <Item
-          item={data?.trade_to?.item}
-          className="results-float results_item-to"
-        />
-        <Item
-          item={data?.trade_from?.item}
-          className="results-float results_item-from"
-        />
+        {data.trade_to ? (
+          <User
+            user={data?.trade_to?.user}
+            className="results-float results_user-to"
+          />
+        ) : (
+          <div className="results-float results_user-to for-nothing">Nadie</div>
+        )}
+        {data.trade_from ? (
+          <User
+            user={data?.trade_from?.user}
+            className="results-float results_user-from"
+          />
+        ) : (
+          <div className="results-float results_user-from for-nothing">
+            Nadie
+          </div>
+        )}
+        {data.trade_to ? (
+          <Item
+            item={data?.trade_to?.item}
+            className="results-float results_item-to"
+          />
+        ) : (
+          <div className="results-float results_item-to for-nothing">Nada</div>
+        )}
+        {data.trade_from ? (
+          <Item
+            item={data?.trade_from?.item}
+            className="results-float results_item-from"
+          />
+        ) : (
+          <div className="results-float results_item-from for-nothing">
+            Nada
+          </div>
+        )}
       </div>
     </div>
   );

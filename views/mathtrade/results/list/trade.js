@@ -31,19 +31,31 @@ const Trade = ({ data }) => {
           <div className="result-table_tag result-table_tag-send">envía</div>
         </td>
         <td>
-          <div className="result-table_title">{trade_to.item.title}</div>
+          {trade_to ? (
+            <div className="result-table_title">{trade_to.item.title}</div>
+          ) : (
+            "-"
+          )}
         </td>
         <td>
           <div className="result-table_tag result-table_tag-send">a</div>
         </td>
         <td className="td-avatar">
-          <UserAvatar
-            src={trade_to.user?.avatar}
-            username={trade_to.user?.first_name}
-          />
+          {trade_to ? (
+            <UserAvatar
+              src={trade_to.user?.avatar}
+              username={trade_to.user?.first_name}
+            />
+          ) : (
+            "-"
+          )}
         </td>
         <td>
-          <div className="result-table_name">{`${trade_to.user?.first_name} ${trade_to.user?.last_name} (${trade_to.user?.location?.name})`}</div>
+          {trade_to ? (
+            <div className="result-table_name">{`${trade_to.user?.first_name} ${trade_to.user?.last_name} (${trade_to.user?.location?.name})`}</div>
+          ) : (
+            "-"
+          )}
         </td>
       </tr>
       <tr className="tr-bottom">
@@ -53,19 +65,31 @@ const Trade = ({ data }) => {
           </div>
         </td>
         <td>
-          <div className="result-table_title">{trade_from?.item.title}</div>
+          {trade_from ? (
+            <div className="result-table_title">{trade_from?.item.title}</div>
+          ) : (
+            "-"
+          )}
         </td>
         <td>
           <div className="result-table_tag result-table_tag-receive">de</div>
         </td>
         <td className="td-avatar">
-          <UserAvatar
-            src={trade_from.user?.avatar}
-            username={trade_from.user?.first_name}
-          />
+          {trade_from ? (
+            <UserAvatar
+              src={trade_from.user?.avatar}
+              username={trade_from.user?.first_name}
+            />
+          ) : (
+            "-"
+          )}
         </td>
         <td>
-          <div className="result-table_name">{`${trade_from.user?.first_name} ${trade_from.user?.last_name} (${trade_from.user?.location?.name})`}</div>
+          {trade_from ? (
+            <div className="result-table_name">{`${trade_from.user?.first_name} ${trade_from.user?.last_name} (${trade_from.user?.location?.name})`}</div>
+          ) : (
+            "-"
+          )}
         </td>
       </tr>
     </>
