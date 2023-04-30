@@ -1,7 +1,7 @@
 import { cropWord } from "utils";
 
 export const dataToTag = (data) => {
-  if (!data.table_number) {
+  if (!data.table_number || !data.show_label) {
     return null;
   }
 
