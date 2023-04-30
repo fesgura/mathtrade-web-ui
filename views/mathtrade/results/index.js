@@ -30,8 +30,6 @@ const ResultsView = ({
 }) => {
   const [current, setCurrent] = useState(0);
 
-  console.log(mathTradeResults);
-
   const usersFiltered = useMemo(() => {
     if (users) {
       return users.filter((user) => {
