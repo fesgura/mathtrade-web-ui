@@ -38,6 +38,7 @@ const createVersionList = (versions, defaultThumbnail) => {
 
   versions.forEach((version) => {
     const { thumbnail, id, yearpublished, name, link } = version;
+    console.log(version);
 
     let year = yearpublished && yearpublished.value ? yearpublished.value : "";
     //  year = parseInt(year, 10) < 1 ? "1" : year;
@@ -75,6 +76,13 @@ const createVersionList = (versions, defaultThumbnail) => {
 
     const language = languageList.join(",");
 
+    const sizeData = { width: 0, length: 0, depth: 0, weight: 0 };
+    ["width", "length", "depth", "weight"].forEach((sz) => {
+      if (version[sz]) {
+        sizeData[sz] = parseFloat(version[sz].value);
+      }
+    });
+
     list.push({
       formData: {
         language,
@@ -86,6 +94,7 @@ const createVersionList = (versions, defaultThumbnail) => {
         thumbnail: thumbnail || "none",
         bgg_version_id: id,
       },
+      sizeData,
     });
   });
 
