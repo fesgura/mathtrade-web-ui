@@ -7,11 +7,12 @@ import PageHeader from "components/pageHeader";
 import NotResultsYet from "./notResultsYet";
 import PageHeaderTabs from "components/pageHeaderTabs";
 import MyTrades from "./myTrades";
-import { Col, Row } from "reactstrap";
+import { Card, CardBody, Col, Row } from "reactstrap";
 import List from "./list";
 import UserList from "./userList";
 import PdfButton from "./pdf";
 import Pills from "./pills";
+import ListSizes from "./listSizes";
 
 const ResultsView = ({
   MathTradeData,
@@ -29,6 +30,7 @@ const ResultsView = ({
   setUserId,
 }) => {
   const [current, setCurrent] = useState(0);
+  const [admPass, setadmPass] = useState("");
 
   const usersFiltered = useMemo(() => {
     if (users) {
@@ -103,6 +105,10 @@ const ResultsView = ({
                 text: "results.tab.4",
                 current: current === 3,
               },
+              {
+                text: "results.tab.5",
+                current: current === 4,
+              },
             ]}
           />
 
@@ -145,12 +151,47 @@ const ResultsView = ({
                 height="1000px"
               ></iframe>
             </div>
-          ) : (
+          ) : current === 3 ? (
             <UserList
               users={usersFiltered}
               hideTitle
               canViewResults={canViewResults}
             />
+          ) : admPass === "sizepaq123" ? (
+            <>
+              <div className="results-input_check">
+                <Input
+                  data={{ allUsers }}
+                  type="checkbox"
+                  labelCheckbox="results.showAll"
+                  classNameContainer="m-0"
+                  classNameLabelCheckbox="smallest"
+                  name="allUsers"
+                  onChange={() => {
+                    setAllUsers((v) => !v);
+                  }}
+                />
+              </div>
+
+              <ListSizes
+                mathTradeResults={
+                  allUsers ? mathTradeResultsAll : mathTradeResults
+                }
+              />
+            </>
+          ) : (
+            <div>
+              <Card style={{ maxWidth: 260, margin: "0 auto 40px" }}>
+                <CardBody>
+                  <Input
+                    label="Contraseña"
+                    notTranslateLabels
+                    value={admPass}
+                    onChange={setadmPass}
+                  />
+                </CardBody>
+              </Card>
+            </div>
           )}
         </>
       ) : (
