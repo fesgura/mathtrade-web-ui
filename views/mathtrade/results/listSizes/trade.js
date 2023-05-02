@@ -6,68 +6,90 @@ import { dateToString } from "utils";
 
 const Weights = ({ elements }) => {
   const listSizes = useMemo(() => {
-
-    const totales = {box_width:0,box_length:0,box_depth:0,box_weight:0};
+    const totales = {
+      box_width: 0,
+      box_length: 0,
+      box_depth: 0,
+      box_weight: 0,
+    };
     const listData = [];
 
-    elements.forEach((el)=>{
+    elements.forEach((el) => {
       const elData = {};
-      ['box_depth', 'box_length',  'box_width'].forEach((n)=>{
-        elData[n] = el[n] * 2.54
+      ["box_depth", "box_length", "box_width"].forEach((n) => {
+        elData[n] = el[n] * 2.54;
         totales[n] += elData[n];
       });
-      elData.box_weight = (el.box_weight * 0.453592);
+      elData.box_weight = el.box_weight * 0.453592;
 
       totales.box_weight += elData.box_weight;
 
       //
 
-      const cm3 = (elData.box_width * elData.box_length * elData.box_depth / 1000);
-      elData.textSize = `${elData.box_width.toFixed(1)} x ${elData.box_length.toFixed(1)} x ${elData.box_depth.toFixed(1)} cm (${cm3.toFixed(1)} litros).`
-      elData.textWeight =elData.box_weight ? `${elData.box_weight.toFixed(1)} kg.`:null;
+      const cm3 =
+        (elData.box_width * elData.box_length * elData.box_depth) / 1000;
+      elData.textSize = `${elData.box_width.toFixed(
+        1
+      )} x ${elData.box_length.toFixed(1)} x ${elData.box_depth.toFixed(
+        1
+      )} cm (${cm3.toFixed(1)} litros).`;
+      elData.textWeight = elData.box_weight
+        ? `${elData.box_weight.toFixed(1)} kg.`
+        : null;
 
       listData.push(elData);
-
     });
 
-    const cm3totales = (totales.box_width * totales.box_length * totales.box_depth / 1000);
-    totales.textSize = `${totales.box_width.toFixed(1)} x ${totales.box_length.toFixed(1)} x ${totales.box_depth.toFixed(1)} cm (${cm3totales.toFixed(1)} litros).`
-    totales.textWeight =totales.box_weight ? `${totales.box_weight.toFixed(1)} kg.`:null;
+    const cm3totales =
+      (totales.box_width * totales.box_length * totales.box_depth) / 1000;
+    totales.textSize = `${totales.box_width.toFixed(
+      1
+    )} x ${totales.box_length.toFixed(1)} x ${totales.box_depth.toFixed(
+      1
+    )} cm (${cm3totales.toFixed(1)} litros).`;
+    totales.textWeight = totales.box_weight
+      ? `${totales.box_weight.toFixed(1)} kg.`
+      : null;
 
     //
     return {
       listData,
-      totales
-    }
-
+      totales,
+    };
   }, [elements]);
 
   return listSizes.listData.length > 1 ? (
     <>
       <div className="result-table_title bold">-</div>
       <ul className="text-start">
-        {listSizes.listData.map((el,k) => {
-          return <li key={k}>
-            {el.textSize}<br/>
-            {el.textWeight ? 'Peso: '+el.textWeight:'-'}
-          </li>;
+        {listSizes.listData.map((el, k) => {
+          return (
+            <li key={k}>
+              {el.textSize}
+              <br />
+              {el.textWeight ? "Peso: " + el.textWeight : "-"}
+            </li>
+          );
         })}
       </ul>
-      <div className="result-table_title bold">Total:<br/>
-      
-      {listSizes.totales.textSize}<br/>
-          
-      {'Peso: '}{listSizes.totales.textWeight || '-'}
-      
+      <div className="result-table_title bold">
+        Total:
+        <br />
+        {listSizes.totales.textSize}
+        <br />
+        {"Peso: "}
+        {listSizes.totales.textWeight || "-"}
       </div>
-      
     </>
   ) : (
     <>
-    <div className="result-table_title bold">{listSizes.totales.textSize}<br/>
-          
-    {'Peso: '}{listSizes.totales.textWeight || '-'}
-            </div>
+      <div className="result-table_title bold">
+        {listSizes.totales.textSize}
+        <br />
+
+        {"Peso: "}
+        {listSizes.totales.textWeight || "-"}
+      </div>
     </>
   );
 };
