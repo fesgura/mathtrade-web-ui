@@ -97,8 +97,6 @@ const Weights = ({ elements }) => {
 const Trade = ({ data }) => {
   const { user, trade_from } = data;
 
-  const { elements } = trade_from?.item || [];
-
   return (
     <>
       <tr>
@@ -117,11 +115,11 @@ const Trade = ({ data }) => {
         <td>
           {trade_from ? (
             <>
-              {elements.length > 1 ? (
+              {trade_from.item.elements.length > 1 ? (
                 <>
                   <div className="result-table_title bold">Combo:</div>
                   <ul className="text-start">
-                    {elements.map((el) => {
+                    {trade_from.item.elements.map((el) => {
                       return <li key={el.id}>{el?.name || "-"}</li>;
                     })}
                   </ul>
@@ -137,7 +135,7 @@ const Trade = ({ data }) => {
           )}
         </td>
         <td>
-          <Weights elements={elements} />
+          {trade_from ? <Weights elements={trade_from.item.elements} /> : "-"}
         </td>
       </tr>
     </>
