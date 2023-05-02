@@ -11,6 +11,7 @@ const Weights = ({ elements }) => {
       box_length: 0,
       box_depth: 0,
       box_weight: 0,
+      cm3: 0,
     };
     const listData = [];
 
@@ -24,15 +25,16 @@ const Weights = ({ elements }) => {
 
       totales.box_weight += elData.box_weight;
 
-      //
-
-      const cm3 =
+      elData.cm3 =
         (elData.box_width * elData.box_length * elData.box_depth) / 1000;
+      //
+      totales.cm3 += elData.cm3;
+
       elData.textSize = `${elData.box_width.toFixed(
         1
       )} x ${elData.box_length.toFixed(1)} x ${elData.box_depth.toFixed(
         1
-      )} cm (${cm3.toFixed(1)} litros).`;
+      )} cm (${elData.cm3.toFixed(1)} litros).`;
       elData.textWeight = elData.box_weight
         ? `${elData.box_weight.toFixed(1)} kg.`
         : null;
@@ -40,13 +42,11 @@ const Weights = ({ elements }) => {
       listData.push(elData);
     });
 
-    const cm3totales =
-      (totales.box_width * totales.box_length * totales.box_depth) / 1000;
     totales.textSize = `${totales.box_width.toFixed(
       1
     )} x ${totales.box_length.toFixed(1)} x ${totales.box_depth.toFixed(
       1
-    )} cm (${cm3totales.toFixed(1)} litros).`;
+    )} cm (${totales.cm3.toFixed(1)} litros).`;
     totales.textWeight = totales.box_weight
       ? `${totales.box_weight.toFixed(1)} kg.`
       : null;
@@ -100,6 +100,7 @@ const Trade = ({ data }) => {
   return (
     <>
       <tr>
+        <td>{trade_from ? trade_from.item.id : "-"}</td>
         <td>
           <div className="result-table_name ps-2">{`${user?.first_name} ${user?.last_name} (${user?.location?.name})`}</div>
         </td>
