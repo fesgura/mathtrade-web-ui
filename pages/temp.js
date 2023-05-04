@@ -27,7 +27,7 @@ const TempPage = () => {
         }
       },
       afterLoad: (d) => {
-        console.log("juego", processBGGdata(d));
+        
         set_versionList(processBGGdata(d).versionList);
       },
     }

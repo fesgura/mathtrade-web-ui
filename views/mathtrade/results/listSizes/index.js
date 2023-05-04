@@ -2,7 +2,7 @@ import { Card, CardBody } from "reactstrap";
 import Trade from "./trade";
 
 const ListSizes = ({ mathTradeResults }) => {
-  console.log(mathTradeResults)
+  
   return (
     <Card>
       <CardBody className="p-5">
@@ -13,7 +13,7 @@ const ListSizes = ({ mathTradeResults }) => {
                 <th>Id</th>
                 <th>Username</th>
                 <th>Nombre</th>
-                
+                <th>¿Va al encuentro?</th>
                 <th>Recibe de</th>
                 <th>Item</th>
                 <th>Tamaño</th>
