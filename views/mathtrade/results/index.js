@@ -13,6 +13,7 @@ import UserList from "./userList";
 import PdfButton from "./pdf";
 import Pills from "./pills";
 import ListSizes from "./listSizes";
+import InfoPayment from "./infoPayment";
 
 const ResultsView = ({
   MathTradeData,
@@ -97,14 +98,19 @@ const ResultsView = ({
                 current: current === 1,
               },
               {
-                text: "results.tab.3",
+                text: "results.tab.6",
                 current: current === 2,
                 hot: true,
               },
               {
-                text: "results.tab.4",
+                text: "results.tab.3",
                 current: current === 3,
+               
               },
+              // {
+              //   text: "results.tab.4",
+              //   current: current === 3,
+              // },
               {
                 text: "results.tab.5",
                 current: current === 4,
@@ -143,6 +149,8 @@ const ResultsView = ({
               />
             </>
           ) : current === 2 ? (
+            <InfoPayment/>
+          ) : current === 3 ? (
             <div>
               <iframe
                 src={"/pdf/instrucciones-de-envio.pdf"}
@@ -151,12 +159,11 @@ const ResultsView = ({
                 height="1000px"
               ></iframe>
             </div>
-          ) : current === 3 ? (
-            <UserList
-              users={usersFiltered}
-              hideTitle
-              canViewResults={canViewResults}
-            />
+            // <UserList
+            //   users={usersFiltered}
+            //   hideTitle
+            //   canViewResults={canViewResults}
+            // />
           ) : admPass === "sizepaq123" ? (
             <>
               <div className="results-input_check">

@@ -92,6 +92,7 @@ export const menu_yes_mathTrade = [
     path: privateRoutes.mathtrade.myItems.path,
     icon: privateRoutes.mathtrade.myItems.icon,
     isMTicon: true,
+    hidden: true,
   },
   {
     title: "menu.List",
@@ -99,11 +100,13 @@ export const menu_yes_mathTrade = [
     icon: privateRoutes.mathtrade.list.icon,
     storeQuery: true,
     isMTicon: true,
+    hidden: true,
   },
   {
     title: "menu.MyWants",
     path: privateRoutes.mathtrade.myWants.path,
     icon: privateRoutes.mathtrade.myWants.icon,
+    hidden: true,
   },
   {
     title: "menu.Results",

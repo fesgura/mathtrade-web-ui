@@ -102,8 +102,12 @@ const Trade = ({ data }) => {
       <tr>
         <td>{trade_from ? trade_from.item.id : "-"}</td>
         <td>
+          <div className="result-table_name ps-2">{`${user?.username}`}</div>
+        </td>
+        <td>
           <div className="result-table_name ps-2">{`${user?.first_name} ${user?.last_name} (${user?.location?.name})`}</div>
         </td>
+        
         <td>
           {trade_from ? (
             <div className="result-table_tag">
