@@ -94,6 +94,9 @@ const endpoints = {
   // POST MT
   POST_MT: "api/mathtrades/$[0]/post-items/",
 
+  GET_PRICES: "api/mathtrades/$[0]/prices/",
+  POST_IMG_PRICES: "api/mathtrades/$[0]/prices/",
+
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/1/
   /*

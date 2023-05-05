@@ -25,7 +25,7 @@ const useCanEdit = (type) => {
         case "results":
           // isAfter;
           dateToCompare = mathtrade.data?.show_results_date;
-          newCanEdit = today.isAfter(dateToCompare);
+          newCanEdit = true;//today.isAfter(dateToCompare);
           break;
         default:
         //

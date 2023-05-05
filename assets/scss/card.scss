@@ -1,6 +1,9 @@
 .card {
   box-shadow: $main-box-shadow;
   border: none;
+  &.card-semi {
+    background-color: rgba(255, 255, 255, 0.55);
+  }
 }
 
 .card,
