@@ -156,6 +156,9 @@ const InfoPayment = () => {
           </CardBody>
         </Card>
         <p>Muchísimas gracias.</p>
+        <Alert color="danger">
+          ¡CUIDADO! No subas el comprobante de DONACIÓN confundiendote con el pago de envíos, por favor. Si donás a los desarrolladores NO SUBAS ESE COMPROBANTE!
+        </Alert>
       </Col>
     </Row>
   );
