@@ -1,0 +1,56 @@
+{
+  "id": 36,
+  "title": "MegaCity: Oceanía (2019)",
+  "user": {
+    "id": 18,
+    "first_name": "Xavier A.",
+    "last_name": "Perez",
+    "bgg_user": "Xapi",
+    "avatar": "https://cf.geekdo-static.com/avatars/avatar_id49155.jpg",
+    "location": 1
+  },
+  "elements": [
+    {
+      "id": 42,
+      "game": {
+        "bgg_id": 266304,
+        "type": 1,
+        "primary_name": "MegaCity: Oceania (2019)",
+        "names": "MegaCity: Oceania (2019)",
+        "min_players": null,
+        "max_players": null,
+        "playing_time": null,
+        "min_playtime": null,
+        "max_playtime": null,
+        "dependency": 0,
+        "dependency_votes": "1|0|0|0|0",
+        "rank": 3787,
+        "rate": 6.78874,
+        "rate_votes": "717",
+        "weight": 0.0,
+        "weight_votes": "8"
+      },
+      "bgg_version_id": "433510",
+      "thumbnail": "https://cf.geekdo-images.com/cZCahfLC3nxVbFirEnrD5A__thumb/img/60nCy2D4pJsY1RnilzYhfPUDy_c=/fit-in/200x150/filters:strip_icc()/pic4563288.png",
+      "name": "MegaCity: Oceanía (2019)",
+      "language": "English",
+      "publisher": "Hub Games",
+      "year": "2019",
+      "status": "EX",
+      "comment": "Tres usos, en excelente estado.",
+      "item_id": 36,
+      "images": ""
+    }
+  ],
+  "value": null,
+  "owner": false,
+  "wanted": [{ "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] }],
+  "groups": [],
+  "tags": [
+    { "id": 3426, "tag": 141 },
+    { "id": 3427, "tag": 632 },
+    { "id": 3445, "tag": 630 }
+  ],
+  "comments": 0,
+  "added_mt": "2023-04-06T00:41:51.550415-03:00"
+}

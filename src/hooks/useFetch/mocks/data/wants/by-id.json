@@ -1,0 +1,131 @@
+{
+  "id": 5139,
+  "name": "Arkham Horror: The Card Game (2016)",
+  "bgg_id": 205637,
+  "type": "game",
+  "dup_protection": true,
+  "wants": [
+    {
+      "id": 2164,
+      "title": "Arkham Horror: The Card Game (2016)",
+      "user": {
+        "id": 288,
+        "first_name": "Federico",
+        "last_name": "Cumiano",
+        "bgg_user": "fedecumiano",
+        "avatar": "https://cf.geekdo-static.com/avatars/avatar_id182181.png",
+        "location": 3
+      },
+      "elements": [
+        {
+          "id": 2531,
+          "type": 1,
+          "name": "Arkham Horror: The Card Game (2016)",
+          "bgg_id": 205637,
+          "thumbnail": "https://cf.geekdo-images.com/RR0GIKJkK9rsyfHXTOeVqw__thumb/img/mCo7ftUSyKRYBWjvJe7xn9xgZAw=/fit-in/200x150/filters:strip_icc()/pic6100049.jpg",
+          "language": "Spanish",
+          "status": "MB"
+        }
+      ],
+      "value": 5.3
+    },
+    {
+      "id": 793,
+      "title": "Arkham Horror: The Card Game (2016)",
+      "user": {
+        "id": 126,
+        "first_name": "Cristhian",
+        "last_name": "Weber",
+        "bgg_user": "Saga_kanon",
+        "avatar": "N/A",
+        "location": 13
+      },
+      "elements": [
+        {
+          "id": 917,
+          "type": 1,
+          "name": "Arkham Horror: The Card Game (2016)",
+          "bgg_id": 205637,
+          "thumbnail": "https://cf.geekdo-images.com/RR0GIKJkK9rsyfHXTOeVqw__thumb/img/mCo7ftUSyKRYBWjvJe7xn9xgZAw=/fit-in/200x150/filters:strip_icc()/pic6100049.jpg",
+          "language": "Spanish",
+          "status": "EX"
+        }
+      ],
+      "value": 5.3
+    },
+    {
+      "id": 1964,
+      "title": "Arkham Horror: The Card Game (2016) + Arkham Horror: El Juego de Cartas – El Camino a Carcosa: Expansión (2017)",
+      "user": {
+        "id": 132,
+        "first_name": "Pablo",
+        "last_name": "Poza",
+        "bgg_user": "pablopoza",
+        "avatar": "N/A",
+        "location": 3
+      },
+      "elements": [
+        {
+          "id": 2294,
+          "type": 1,
+          "name": "Arkham Horror: The Card Game (2016)",
+          "bgg_id": 205637,
+          "thumbnail": "https://cf.geekdo-images.com/RR0GIKJkK9rsyfHXTOeVqw__thumb/img/mCo7ftUSyKRYBWjvJe7xn9xgZAw=/fit-in/200x150/filters:strip_icc()/pic6100049.jpg",
+          "language": "Spanish",
+          "status": "EX"
+        },
+        {
+          "id": 2295,
+          "type": 2,
+          "name": "Arkham Horror: El Juego de Cartas – El Camino a Carcosa: Expansión (2017)",
+          "bgg_id": 225563,
+          "thumbnail": "https://cf.geekdo-images.com/Zx_BbIxnbUI0l9BLdD0CFQ__thumb/img/7fQZW3jDb9ZSduI8WpIUx9CNxg0=/fit-in/200x150/filters:strip_icc()/pic3523852.png",
+          "language": "Spanish",
+          "status": "EX"
+        }
+      ],
+      "value": null
+    }
+  ],
+  "items": [
+    { "id": 3887 },
+    { "id": 4518 },
+    { "id": 4520 },
+    { "id": 442 },
+    { "id": 436 },
+    { "id": 4514 },
+    { "id": 4519 },
+    { "id": 3878 },
+    { "id": 3895 },
+    { "id": 3885 },
+    { "id": 3889 },
+    { "id": 3894 },
+    { "id": 372 },
+    { "id": 3880 },
+    { "id": 4630 },
+    { "id": 3891 },
+    { "id": 3883 },
+    { "id": 4633 },
+    { "id": 4643 },
+    { "id": 3884 },
+    { "id": 373 },
+    { "id": 3879 },
+    { "id": 3892 },
+    { "id": 3896 },
+    { "id": 3898 },
+    { "id": 3899 },
+    { "id": 3900 },
+    { "id": 3903 },
+    { "id": 3905 },
+    { "id": 4515 },
+    { "id": 4641 },
+    { "id": 4645 },
+    { "id": 4648 },
+    { "id": 4649 },
+    { "id": 4650 },
+    { "id": 4651 }
+  ],
+  "availables": [],
+  "tags": [],
+  "value": "5.3"
+}

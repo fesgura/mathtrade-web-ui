@@ -1,0 +1,91 @@
+import { getI18Ntext } from "@/i18n";
+
+const languagePool = [
+  "Spanish",
+  "English",
+  "Portuguese",
+  "German",
+  "French",
+  "Chinese",
+  "Catalan",
+  "Afrikaans",
+  "Albanian",
+  "Arabic",
+  "Armenian",
+  "Azerbaijani",
+  "Basque",
+  "Belarusian",
+  "Bengali",
+  "Bosnian",
+  "Breton",
+  "Bulgarian",
+  "Burmese",
+  "Croatian",
+  "Czech",
+  "Danish",
+  "Dutch",
+  "Esperanto",
+  "Estonian",
+  "Faroese",
+  "Filipino",
+  "Finnish",
+  "Galician",
+  "Georgian",
+  "Greek",
+  "Hebrew",
+  "Hindi",
+  "Hungarian",
+  "Icelandic",
+  "Indonesian",
+  "Inuktitut",
+  "Iranian",
+  "Irish",
+  "Italian",
+  "Japanese",
+  "Korean",
+  "Latin",
+  "Latvian",
+  "Lithuanian",
+  "Luxembourgish",
+  "Macedonian",
+  "Malay",
+  "Maltese",
+  "Mapudungun",
+  "Norwegian",
+  "Persian",
+  "Polish",
+  "Romanian",
+  "Romansh",
+  "Russian",
+  "Salishan languages",
+  "Sardinian",
+  "Scottish Gaelic",
+  "Serbian",
+  "Slovak",
+  "Slovenian",
+  "Swahili",
+  "Swedish",
+  "Tamil",
+  "Thai",
+  "Turkish",
+  "Ukrainian",
+  "Uyghur",
+  "Vietnamese",
+  "Welsh",
+  "OtherNotListed",
+];
+
+const languagesOptions = (() => {
+  const list = [];
+
+  languagePool.forEach((lan) => {
+    list.push({
+      value: lan,
+      text: getI18Ntext(`language.${lan}`),
+    });
+  });
+
+  return list;
+})();
+
+export default languagesOptions;

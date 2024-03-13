@@ -1,0 +1,191 @@
+"use client";
+import {
+  createContext,
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+} from "react";
+import { useStore } from "@/store";
+
+export const PageContext = createContext({
+  pageType: null,
+  setPageType: () => {},
+  reloadValue: 1,
+  forceReloadPage: () => {},
+  //
+  items: { list: [], count: 0 },
+  setItems: () => {},
+  games: [],
+  setGames: () => {},
+  myCollection: [],
+  setMyCollection: () => {},
+  myCollectionBGGids: [],
+  setMyCollectionBGGids: () => {},
+  myItemsInMT: [],
+  setMyItemsInMT: () => {},
+  myItemsInMT_forWants: [],
+  setMyItemsInMT_forWants: () => {},
+  myGroups: [],
+  setMyGroups: () => {},
+  myGroups_forWants: [],
+  setMyGroups_forWants: () => {},
+  myWants: [],
+  setMyWants: () => {},
+  loadingMyWants: false,
+  setLoadingMyWants: () => {},
+  newMyWantsNum: 0,
+  setNewMyWantsNum: () => {},
+  wantsNumPosition: null,
+  setWantsNumPosition: () => {},
+  //
+  itemTags: [],
+  setItemTags: () => {},
+  users: [],
+  setUsers: () => {},
+  loadingUsers: [],
+  setLoadingUsers: () => {},
+  //
+  mathTradeId: null,
+  userId: "",
+  //
+  showBanUsers: false,
+  setShowBanUsers: () => {},
+  //
+  itemPreviewId: null,
+  setItemPreviewId: () => {},
+  showModalPreview: false,
+  setShowModalPreview: () => {},
+  //
+  canI: {
+    offer: false,
+    want: false,
+    results: false,
+  },
+});
+
+export const PageContextProvider = ({ children }) => {
+  const { mathtrade, user } = useStore((state) => state.data);
+
+  const [pageType, setPageType] = useState(null);
+  const [items, setItems] = useState({ list: [], count: 0 });
+  const [games, setGames] = useState({ list: [], count: 0 });
+  const [myCollection, setMyCollection] = useState([]);
+  const [myCollectionBGGids, setMyCollectionBGGids] = useState([]);
+  const [myItemsInMT, setMyItemsInMT] = useState([]);
+  const [myItemsInMT_forWants, setMyItemsInMT_forWants] = useState([]);
+  const [myGroups, setMyGroups] = useState([]);
+  const [myGroups_forWants, setMyGroups_forWants] = useState([]);
+  const [myWants, setMyWants] = useState([]);
+  const [loadingMyWants, setLoadingMyWants] = useState(false);
+  const [newMyWantsNum, setNewMyWantsNum] = useState(0);
+  const [wantsNumPosition, setWantsNumPosition] = useState(null);
+  const [itemTags, setItemTags] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [loadingUsers, setLoadingUsers] = useState(false);
+
+  const [showBanUsers, setShowBanUsers] = useState(false);
+
+  const [itemPreviewId, setItemPreviewId] = useState(null);
+  const [showModalPreview, setShowModalPreview] = useState(false);
+
+  const [reloadValue, setReload] = useState(1);
+  const forceReloadPage = useCallback(() => {
+    setReload(Date.now());
+  }, []);
+
+  const canI = useMemo(() => {
+    if (!mathtrade) {
+      return {
+        offer: false,
+        want: false,
+        results: false,
+      };
+    }
+    const $now = new Date().getTime();
+
+    const $dates = [
+      "start_date",
+      "frezze_geek_date",
+      "frezze_wants_date",
+      "meeting_date",
+      "show_results_date",
+    ].reduce((obj, dateName) => {
+      obj[dateName] = new Date(mathtrade[dateName]).getTime();
+      return obj;
+    }, {});
+
+    const offer = $now >= $dates.start_date && $now < $dates.frezze_geek_date;
+    const want = $now >= $dates.start_date && $now < $dates.frezze_wants_date;
+    const results =
+      $now >= $dates.show_results_date &&
+      (mathtrade.status === "pre-final" || mathtrade.status === "final");
+
+    return {
+      offer,
+      want,
+      results,
+      pageType,
+    };
+  }, [mathtrade, pageType]);
+
+  return (
+    <PageContext.Provider
+      value={{
+        pageType,
+        setPageType,
+        //
+        reloadValue,
+        forceReloadPage,
+        //
+        items,
+        setItems,
+        games,
+        setGames,
+        myCollection,
+        setMyCollection,
+        myCollectionBGGids,
+        setMyCollectionBGGids,
+        myItemsInMT,
+        setMyItemsInMT,
+        myItemsInMT_forWants,
+        setMyItemsInMT_forWants,
+        myGroups,
+        setMyGroups,
+        myGroups_forWants,
+        setMyGroups_forWants,
+        myWants,
+        setMyWants,
+        loadingMyWants,
+        setLoadingMyWants,
+        newMyWantsNum,
+        setNewMyWantsNum,
+        wantsNumPosition,
+        setWantsNumPosition,
+        //
+        itemTags,
+        setItemTags,
+        users,
+        setUsers,
+        loadingUsers,
+        setLoadingUsers,
+        //
+        mathtrade,
+        mathTradeId: mathtrade && mathtrade.id ? mathtrade.id : null,
+        userId: user && user.id ? user.id : "",
+        //
+        showBanUsers,
+        setShowBanUsers,
+        //
+        itemPreviewId,
+        setItemPreviewId,
+        showModalPreview,
+        setShowModalPreview,
+        //
+        canI,
+      }}
+    >
+      {children}
+    </PageContext.Provider>
+  );
+};

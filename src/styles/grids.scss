@@ -1,0 +1,18 @@
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.75rem;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(516px, 1fr));
+  // gap: 1.75rem;
+  row-gap: 3rem;
+  column-gap: 1.75rem;
+}
+@media screen and (max-width: 769px) {
+  .game-grid {
+    grid-template-columns: 100%;
+  }
+}

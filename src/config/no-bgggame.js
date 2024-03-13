@@ -1,0 +1,11 @@
+export const noBGGgame = {
+  element: {
+    bgg_id: "23953",
+    name: "",
+    bgg_version_id: "OTHER",
+    type: 3,
+    thumbnail: "none",
+  },
+  game: null,
+  versions: null,
+};

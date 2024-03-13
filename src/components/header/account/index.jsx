@@ -1,0 +1,66 @@
+"use client";
+import { useStore } from "@/store";
+import Avatar from "@/components/avatar";
+import Icon from "@/components/icon";
+import Link from "next/link";
+import { PRIVATE_ROUTES } from "@/config/routes";
+import I18N from "@/i18n";
+import useHeaderAccount from "./useHeaderAccount";
+import HeadContent from "../head-content";
+
+const AccountMenuButton = () => {
+  const { user } = useStore((state) => state.data);
+  const { show, visibleMobile, toggleMobile, signOut } = useHeaderAccount();
+
+  return show ? (
+    <div className="relative">
+      <div className="cursor-pointer peer">
+        <Avatar
+          className="pointer"
+          avatar={user?.avatar}
+          first_name={user?.first_name || ""}
+          onClick={toggleMobile}
+        />
+      </div>
+
+      <HeadContent visibleMobile={visibleMobile} toggleMobile={toggleMobile}>
+        <div className="text-center pt-6 pb-1">
+          <div className="w-[80px] mx-auto mb-2">
+            <Avatar
+              avatar={user?.avatar}
+              first_name={user?.first_name || ""}
+              width={80}
+            />
+          </div>
+          <h3 className="font-bold text-lg text-gray-900 mb-3">{`${user?.first_name} ${user?.last_name}`}</h3>
+          <nav className="text-gray-900 border-t pt-1">
+            <Link
+              href={PRIVATE_ROUTES.MY_ACCOUNT.path}
+              className="block leading-10 hover:bg-sky-200"
+            >
+              <Icon type="user" className="mr-1" />
+              <I18N id="title.MyAccount" />
+            </Link>
+            <Link
+              href={PRIVATE_ROUTES.MY_COLLECTION.path}
+              className="block leading-10 hover:bg-sky-200"
+            >
+              <Icon type="collection" className="mr-1 relative -top-[2px]" />
+              <I18N id="title.MyCollection" />
+            </Link>
+            <button
+              href="/"
+              className="block leading-10 hover:bg-danger hover:text-white w-full text-danger"
+              onClick={signOut}
+            >
+              <Icon type="signout" className="mr-1" />
+              <I18N id="sign.SignOut" />
+            </button>
+          </nav>
+        </div>
+      </HeadContent>
+    </div>
+  ) : null;
+};
+
+export default AccountMenuButton;

@@ -1,0 +1,45 @@
+[
+  {
+    "id": 141,
+    "name": "Ni fu ni fa",
+    "items": [62, 64, 96, 100, 36],
+    "color": "#2d72fb",
+    "wanted": [
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] }
+    ],
+    "value": "0.0"
+  },
+  {
+    "id": 632,
+    "name": "Simples",
+    "items": [62, 211, 92, 96, 36, 37],
+    "color": "#2ceda3",
+    "wanted": [
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] }
+    ],
+    "value": "0.0"
+  },
+  {
+    "id": 630,
+    "name": "Eurostyle",
+    "items": [60, 62, 131, 212, 48, 96, 36, 37],
+    "color": "#da21b3",
+    "wanted": [
+      { "id": 15186, "type": "game", "bgg_id": 182028, "tags": [] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] },
+      { "id": 42668, "type": "tag", "bgg_id": null, "tags": [630] }
+    ],
+    "value": "0.0"
+  }
+]

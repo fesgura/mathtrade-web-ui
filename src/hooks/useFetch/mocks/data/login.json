@@ -1,0 +1,37 @@
+{
+  "token": "b601d9195dec70c11f59245fb3f207eee7d1d1f7",
+  "change_required": false,
+  "user": {
+    "id": 52,
+    "first_name": "Pablo",
+    "last_name": "Cazorla",
+    "bgg_user": "davicazu",
+    "avatar": "https://cf.geekdo-static.com/avatars/avatar_id150448.jpg",
+    "location": 2
+  },
+  "mathtrade": {
+    "id": 3,
+    "name": "MT Argentina abril 2023",
+    "status": "geek-list",
+    "start_date": "2023-04-06T00:00:00-03:00",
+    "frezze_geek_date": "2023-04-18T13:00:00-03:00",
+    "frezze_wants_date": "2023-04-26T13:00:00-03:00",
+    "show_results_date": "2023-04-26T14:00:00-03:00",
+    "meeting_date": "2023-05-13T11:00:00-03:00",
+    "location": {
+      "id": 1,
+      "name": "AMBA",
+      "province": "AMBA",
+      "geolocation": null,
+      "mandatory_attendance": true,
+      "referral": null
+    }
+  },
+  "membership": {
+    "user_id": 52,
+    "location": 2,
+    "event_attendance": false,
+    "commitment": "2023-04-25T20:32:58.840684-03:00",
+    "is_committed": false
+  }
+}

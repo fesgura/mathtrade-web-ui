@@ -1,0 +1,151 @@
+import { useContext, useCallback, useState, useEffect, useMemo } from "react";
+import { useOptions } from "@/store";
+import { PageContext } from "@/context/page";
+import { MyWantsContext } from "@/context/myWants/all";
+import useFetch from "@/hooks/useFetch";
+import { DateIntlFormat } from "@/utils/dateUtils";
+
+const useWants = () => {
+  /* SCREEN OPTIONS **********************************************/
+  const options = useOptions((state) => state.options);
+  const updateOptions = useOptions((state) => state.updateOptions);
+  const [screenView, setScreenView] = useState(options?.screenView || 0);
+  useEffect(() => {
+    updateOptions({
+      screenView,
+    });
+  }, [updateOptions, screenView]);
+  /* end SCREEN OPTIONS **********************************************/
+
+  /* PAGE CONTEXT **********************************************/
+  const {
+    myWants,
+    setMyWants,
+    myItemsInMT_forWants,
+    setMyItemsInMT_forWants,
+    userId,
+    myGroups_forWants,
+    setMyGroups_forWants,
+  } = useContext(PageContext);
+  /* end PAGE CONTEXT **********************************************/
+
+  /* MYWANTS CONTEXT **********************************************/
+  const {
+    setMatchValues,
+    setChanges,
+    setDeletedWantgroupIds,
+    setMustConfirm,
+    setMustConfirmDate,
+    setIsLoadedWants,
+  } = useContext(MyWantsContext);
+
+  /* end MYWANTS CONTEXT **********************************************/
+
+  /* GET MY WANTS *************************************************/
+  const afterLoadMyWants = useCallback(
+    (wantList) => {
+      setMyWants(wantList);
+      setIsLoadedWants(true);
+      setChanges({});
+      setDeletedWantgroupIds({});
+    },
+    [setIsLoadedWants, setMyWants, setChanges, setDeletedWantgroupIds]
+  );
+  const [, , loadingMyWants, errorMyWants] = useFetch({
+    endpoint: "MYWANTS",
+    autoLoad: true,
+    initialState: [],
+    afterLoad: afterLoadMyWants,
+  });
+
+  // end GET MY WANTS ********************************************
+
+  // GET MY ITEMS ********************************************
+  const afterLoadMyItems = useCallback(
+    (newMyItemsInMT) => {
+      setMyItemsInMT_forWants(newMyItemsInMT);
+      setChanges({});
+    },
+    [setMyItemsInMT_forWants, setChanges]
+  );
+  const [loadMyItemsInMT, , loadingMyItemsInMT, errorMyItemsInMT] = useFetch({
+    endpoint: "GET_MYITEMS",
+    initialState: [],
+    afterLoad: afterLoadMyItems,
+  });
+  useEffect(() => {
+    if (!myItemsInMT_forWants.length) {
+      loadMyItemsInMT();
+    }
+  }, [myItemsInMT_forWants, loadMyItemsInMT]);
+  // END GET MY ITEMS ********************************************
+
+  // CREATE ORIGINAL MATCHES ********************************************
+  useEffect(() => {
+    const newMatchValues = myWants.reduce((obj, wantGroup) => {
+      const { id, items } = wantGroup;
+      items.forEach((itemId) => {
+        obj[`${id}_${itemId}`] = true;
+      });
+      return obj;
+    }, {});
+
+    setMatchValues(newMatchValues);
+  }, [myWants, setMatchValues]);
+  // end CREATE ORIGINAL MATCHES ********************************************
+
+  // MY GROUPS ********************************************
+  const afterLoadMyGroups = useCallback(
+    (newGroups) => {
+      setMyGroups_forWants(newGroups);
+    },
+    [setMyGroups_forWants]
+  );
+  const [loadMyGropus, , loadingMyGropus, errorGropusMyGropus] = useFetch({
+    endpoint: "GET_MYITEM_GROUPS",
+    initialState: [],
+    afterLoad: afterLoadMyGroups,
+  });
+  useEffect(() => {
+    if (screenView === 1) {
+      loadMyGropus();
+    }
+  }, [loadMyGropus, screenView]);
+  // end MY GROUPS ********************************************
+
+  // MY USER ************************************************
+  const afterLoadMyUser = useCallback(
+    (user) => {
+      if (typeof user.commitment !== "undefined") {
+        setMustConfirm(!user.commitment);
+      }
+      if (typeof user.commitment_datetime !== "undefined") {
+        setMustConfirmDate(DateIntlFormat(user.commitment_datetime));
+      }
+    },
+    [setMustConfirm, setMustConfirmDate]
+  );
+
+  const urlUserParams = useMemo(() => {
+    return [userId];
+  }, [userId]);
+
+  const [, , loadingMyUser, errorMyUser] = useFetch({
+    endpoint: "GET_MATHTRADE_USER",
+    urlParams: urlUserParams,
+    afterLoad: afterLoadMyUser,
+    autoLoad: true,
+  });
+  // end MY USER ********************************************
+
+  return {
+    screenView,
+    setScreenView,
+    loading:
+      loadingMyWants || loadingMyItemsInMT || loadingMyGropus || loadingMyUser,
+    error:
+      errorMyWants || errorMyItemsInMT || errorGropusMyGropus || errorMyUser,
+  };
+};
+
+export default useWants;

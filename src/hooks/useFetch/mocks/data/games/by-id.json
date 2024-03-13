@@ -1,0 +1,88 @@
+{
+  "bgg_id": 169255,
+  "thumbnail": "https://cf.geekdo-images.com/2gP4Uti9RPquZVlweeapLw__thumb/img/fe1ELDopk_qSeiDruI0hs8nmzSQ=/fit-in/200x150/filters:strip_icc()/pic2783386.jpg",
+  "name": "A Game of Thrones: The Card Game (Second Edition) (2015)",
+  "dependency": 3,
+  "dependency_votes": "0|0|0|13|2",
+  "rank": 603,
+  "rate": 7.51387,
+  "rate_votes": "4764",
+  "weight": 3.5274,
+  "weight_votes": "146",
+  "images": "",
+  "wanted": [],
+  "items": [
+    {
+      "id": 570,
+      "title": "A Game of Thrones: The Card Game (Second Edition) (2015)",
+      "user": {
+        "id": 8,
+        "first_name": "Gonzalo",
+        "last_name": "Muñoz",
+        "bgg_user": "HQ063",
+        "avatar": "https://cf.geekdo-static.com/avatars/avatar_id90185.jpg",
+        "location": 1
+      },
+      "elements": [
+        {
+          "id": 655,
+          "type": 1,
+          "name": "A Game of Thrones: The Card Game (Second Edition) (2015)",
+          "bgg_id": 169255,
+          "thumbnail": "https://cf.geekdo-images.com/2gP4Uti9RPquZVlweeapLw__thumb/img/fe1ELDopk_qSeiDruI0hs8nmzSQ=/fit-in/200x150/filters:strip_icc()/pic2783386.jpg",
+          "language": "English",
+          "status": "BU"
+        }
+      ],
+      "value": null
+    },
+    {
+      "id": 1164,
+      "title": "A Game of Thrones: The Card Game (Second Edition) (2015)",
+      "user": {
+        "id": 148,
+        "first_name": "Joaquín",
+        "last_name": "Romero",
+        "bgg_user": "Olandersone",
+        "avatar": "https://cf.geekdo-static.com/avatars/avatar_id182578.jpg",
+        "location": 1
+      },
+      "elements": [
+        {
+          "id": 1372,
+          "type": 1,
+          "name": "A Game of Thrones: The Card Game (Second Edition) (2015)",
+          "bgg_id": 169255,
+          "thumbnail": "https://cf.geekdo-images.com/2gP4Uti9RPquZVlweeapLw__thumb/img/fe1ELDopk_qSeiDruI0hs8nmzSQ=/fit-in/200x150/filters:strip_icc()/pic2783386.jpg",
+          "language": "English",
+          "status": "MB"
+        }
+      ],
+      "value": null
+    },
+    {
+      "id": 4185,
+      "title": "A Game of Thrones: The Card Game (Second Edition) (2015)",
+      "user": {
+        "id": 198,
+        "first_name": "Belisario",
+        "last_name": "Barbosa",
+        "bgg_user": "LuxBelito",
+        "avatar": "N/A",
+        "location": 2
+      },
+      "elements": [
+        {
+          "id": 4953,
+          "type": 1,
+          "name": "A Game of Thrones: The Card Game (Second Edition) (2015)",
+          "bgg_id": 169255,
+          "thumbnail": "https://cf.geekdo-images.com/rePN_OExDvIcp2m3Wxsdug__thumb/img/ylH8h03HCBUjW7KsD-5sKJFWLyg=/fit-in/200x150/filters:strip_icc()/pic2590617.png",
+          "language": "Spanish",
+          "status": "CN"
+        }
+      ],
+      "value": null
+    }
+  ]
+}

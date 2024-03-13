@@ -1,0 +1,238 @@
+$top-diff: 30px;
+$left-diff: $top-diff;
+
+.loading-box {
+  position: absolute;
+  display: grid;
+  place-content: start center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  padding-top: 80px;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(2px);
+  border-radius: 10px;
+  animation-duration: 0.2s;
+
+  &.transparent {
+    background-color: rgba($bg-body, 0.6);
+  }
+
+  &.min {
+    padding-top: 15px;
+  }
+}
+.loading-graph {
+  width: 100px + (2 * $top-diff);
+  height: 100px + (2 * $top-diff);
+  position: sticky;
+  top: 140px;
+  background-color: rgba(255, 255, 255, 1);
+  padding: $top-diff;
+  border-radius: 50%;
+  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.1);
+
+  &.min {
+    // position: relative;
+    top: 110px;
+    transform-origin: top center;
+    transform: scale(0.5);
+  }
+}
+.loading-box.center {
+  .loading-graph {
+    top: 50%;
+    margin-top: (-0.5 * (100px + (2 * $top-diff)));
+  }
+}
+.loading-graph .loading-graph_inner {
+  width: 100px;
+  height: 100px;
+  transform: rotate(45deg);
+  position: relative;
+}
+.loading-graph svg path {
+  fill: #3f3f3f;
+}
+.loading-graph .loading-g {
+  position: absolute;
+  top: 50px;
+  left: 50px;
+}
+.loading-graph .loading-g .loading-g-in {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 2px;
+}
+.loading-graph .loading-g .ball {
+  width: 26px;
+  height: 26px;
+  animation: loading-rotation 4.2s infinite;
+  position: absolute;
+  top: -13px;
+  left: 24px;
+}
+.loading-graph .loading-g .ball .ball-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  background-color: #d00;
+  transform: rotate(45deg);
+}
+.loading-graph .loading-g.loading-g-1 {
+  animation: loading-rotation 4.2s infinite;
+}
+.loading-graph .loading-g.loading-g-1 .ball .ball-inner {
+  background-color: #2a9d8f;
+  width: 28.6px;
+  height: 23.4px;
+}
+.loading-graph .loading-g.loading-g-2 {
+  animation: loading-rotation 4.2s infinite;
+  animation-delay: 0.1s;
+}
+.loading-graph .loading-g.loading-g-2 .ball .ball-inner {
+  background-color: #e9c46a;
+}
+.loading-graph .loading-g.loading-g-2 .loading-g-in {
+  transform: rotate(90deg);
+}
+.loading-graph .loading-g.loading-g-3 {
+  animation: loading-rotation 4.2s infinite;
+  animation-delay: 0.2s;
+}
+.loading-graph .loading-g.loading-g-3 .ball .ball-inner {
+  background-color: #f4a261;
+  width: 31.2px;
+}
+.loading-graph .loading-g.loading-g-3 .loading-g-in {
+  transform: rotate(180deg);
+}
+.loading-graph .loading-g.loading-g-4 {
+  animation: loading-rotation 4.2s infinite;
+  animation-delay: 0.3s;
+}
+.loading-graph .loading-g.loading-g-4 .ball .ball-inner {
+  background-color: #e76f51;
+}
+.loading-graph .loading-g.loading-g-4 .loading-g-in {
+  transform: rotate(270deg);
+}
+.loading-graph .hand {
+  width: 36.4px;
+  position: absolute;
+}
+.loading-graph .hand svg path {
+  border: 1px solid rgba(0, 0, 0, 1);
+}
+.loading-graph .hand.hand-1 {
+  top: $top-diff + 26px;
+  left: $left-diff - 1px;
+}
+.loading-graph .hand.hand-1 svg {
+  animation: hand-rotation 4.2s infinite;
+  transform-origin: left top;
+}
+.loading-graph .hand.hand-2 {
+  top: $top-diff + 26px;
+  left: $left-diff + 64.6px;
+  transform: scale(-1, 1);
+}
+.loading-graph .hand.hand-2 svg {
+  animation: hand-rotation 4.2s infinite;
+  animation-delay: 0.1s;
+  transform-origin: left top;
+}
+.loading-graph .hand.hand-3 {
+  top: $top-diff + 77px;
+  left: $left-diff - 1px;
+}
+.loading-graph .hand.hand-3 svg {
+  animation: hand-rotation 4.2s infinite;
+  animation-delay: 0.2s;
+  transform-origin: left top;
+}
+.loading-graph .hand.hand-4 {
+  top: $top-diff + 77px;
+  left: $left-diff + 64.6px;
+  transform: scale(-1, 1);
+}
+.loading-graph .hand.hand-4 svg {
+  animation: hand-rotation 4.2s infinite;
+  animation-delay: 0.3s;
+  transform-origin: left top;
+}
+@keyframes loading-rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  15% {
+    transform: rotate(90deg);
+  }
+  25% {
+    transform: rotate(90deg);
+  }
+  35% {
+    transform: rotate(180deg);
+  }
+  50% {
+    transform: rotate(180deg);
+  }
+  65% {
+    transform: rotate(270deg);
+  }
+  75% {
+    transform: rotate(270deg);
+  }
+  90% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes hand-rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  7% {
+    transform: rotate(25deg);
+  }
+  15% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(0deg);
+  }
+  30% {
+    transform: rotate(25deg);
+  }
+  35% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  57% {
+    transform: rotate(25deg);
+  }
+  65% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(0deg);
+  }
+  82% {
+    transform: rotate(25deg);
+  }
+  90% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
