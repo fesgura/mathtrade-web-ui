@@ -18,7 +18,7 @@ const STORE_DEFAULT = {
 const STORAGE_NAME = "MT_ARG_STORE";
 const OPTIONS_NAME = "MT_ARG_OPTIONS";
 
-export const DAYS_EXPIRE_TOKEN = 999;
+export const DAYS_EXPIRE_TOKEN = 1;
 
 export const useOptions = create(
   persist(
