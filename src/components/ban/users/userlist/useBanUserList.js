@@ -1,6 +1,7 @@
 import { useContext, useMemo, useCallback, useEffect, useState } from "react";
 import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
+import { normalizeString } from "@/utils";
 
 const useBanUserList = () => {
   /* PAGE CONTEXT **********************************************/
@@ -23,7 +24,7 @@ const useBanUserList = () => {
   const [loadUsers, , , errorLoadingUsers] = useFetch({
     endpoint: "GET_MATHTRADE_USERS",
     initialState: [],
-    //autoLoad: true,
+    autoLoad: true,
     beforeLoad: beforeLoadUsers,
     afterLoad: afterLoadUsers,
   });
@@ -69,6 +70,8 @@ const useBanUserList = () => {
 
   /* end GET BAN USERS ****************************************/
 
+  const [searchValue, setSearchValue] = useState("");
+
   const [order, setOrder] = useState("name");
 
   const userListUnordered = useMemo(() => {
@@ -76,8 +79,22 @@ const useBanUserList = () => {
       return [];
     }
 
+    const keyLow = normalizeString(searchValue);
+
     return users
-      .filter((user) => user.id !== userId)
+      .filter((user) => {
+        if (user.id === userId) {
+          return false;
+        }
+        if (keyLow === "") {
+          return true;
+        }
+        return (
+          normalizeString(
+            `${user?.first_name || ""} ${user?.last_name || ""}`
+          ).indexOf(keyLow) >= 0
+        );
+      })
       .map((user) => {
         const { id, /*ban_id,*/ avatar, first_name, last_name, location } =
           user;
@@ -90,7 +107,7 @@ const useBanUserList = () => {
           location: location?.name || "-",
         };
       });
-  }, [users, userId]);
+  }, [users, userId, searchValue]);
 
   const userList = useMemo(() => {
     return userListUnordered.sort((a, b) => {
@@ -118,6 +135,8 @@ const useBanUserList = () => {
     error: errorLoadingUsers || errorBanUsers,
     order,
     setOrder,
+    searchValue,
+    setSearchValue,
   };
 };
 

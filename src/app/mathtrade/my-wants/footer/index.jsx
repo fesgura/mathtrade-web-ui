@@ -15,8 +15,6 @@ const Footer = () => {
     canCommit,
   } = useFooter();
 
-  console.log(canCommit);
-
   if (emptyWants) {
     return null;
   }

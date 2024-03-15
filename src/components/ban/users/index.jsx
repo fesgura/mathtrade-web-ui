@@ -20,9 +20,9 @@ const BanUsers = () => {
         }}
       >
         <InnerButton>
-          <Icon type="trash" />
+          <Icon type="user" />
           <span className="text-xs">
-            <I18N id="ban.linkToOpen" />
+            <I18N id="Users.List.view" />
           </span>
         </InnerButton>
       </a>
