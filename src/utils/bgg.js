@@ -1,4 +1,5 @@
 import { getI18Ntext } from "@/i18n";
+import { NO_RANK_VALUE } from "@/config/no-bgggame";
 
 export const extractBGGdataFromElement = (data) => {
   if (!data || !data.items || !data.items.item) {
@@ -91,7 +92,7 @@ export const extractBGGdataFromElement = (data) => {
 
   // STATISTIC
   const stats = (() => {
-    let rank = 999999999;
+    let rank = NO_RANK_VALUE;
     let rate = null;
     let rate_votes = null;
     let weight = null;
@@ -116,6 +117,7 @@ export const extractBGGdataFromElement = (data) => {
           }
         }
       }
+     
       // rate
       if (ratings.average) {
         rate = ratings.average.value;

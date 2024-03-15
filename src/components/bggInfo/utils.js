@@ -95,6 +95,8 @@ export const getStatsOfElement = (element) => {
     rank,
   } = element;
 
+  console.log(element)
+
   return {
     isInBGG: `${bgg_id}` !== noBGGgame.element.bgg_id,
     rate: Math.round((rate || 0) * 10) / 10,

@@ -9,3 +9,6 @@ export const noBGGgame = {
   game: null,
   versions: null,
 };
+
+
+export const NO_RANK_VALUE = 999999999;

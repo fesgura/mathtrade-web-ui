@@ -2,6 +2,7 @@ import I18N, { getI18Ntext } from "@/i18n";
 import useBGGdata from "./useBGGdata";
 import Question from "../question";
 import clsx from "clsx";
+import { NO_RANK_VALUE } from "@/config/no-bgggame";
 
 const BGGinfoLabel = ({ label, question, children, contextFor }) => {
   return (
@@ -57,7 +58,7 @@ const BGGinfo = ({ game, contextFor = "black", className }) => {
             question={getI18Ntext("element.BGG.rank.help")}
             contextFor={contextFor}
           >
-            <div className="text-xs">{rank}</div>
+            <div className="text-xs">{rank === NO_RANK_VALUE ? "-" : rank}</div>
           </BGGinfoLabel>
           <BGGinfoLabel
             label="element.BGG.weight"
