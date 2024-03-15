@@ -36,6 +36,8 @@ const SearchMyCollectionBGG = ({ setSearchResultBGG }) => {
           onFocus={onFocus}
           onBlur={onBlur}
           ref={inputRef}
+          autoComplete="false"
+          autoCorrect="false"
         />
         {loading ? (
           <div className="absolute top-1/2 right-3 translate-y-[-50%] text-primary">
@@ -53,11 +55,11 @@ const SearchMyCollectionBGG = ({ setSearchResultBGG }) => {
         {visiblePad ? (
           <div className="absolute  top-full left-0 w-full max-h-56 pb-1 bg-white shadow-xl z-10 border overflow-auto">
             <ul className="text-sm">
-              {list.map((elem) => {
+              {list.map((elem, k) => {
                 const { bgg_id, name } = elem;
                 return (
                   <li
-                    key={bgg_id}
+                    key={`${bgg_id}-${k}`}
                     className="px-3 py-2 hover:bg-primary/20 cursor-pointer"
                     onClick={() => {
                       onSelect(elem);

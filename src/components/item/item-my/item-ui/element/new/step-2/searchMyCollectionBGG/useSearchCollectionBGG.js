@@ -39,7 +39,8 @@ const useSearchCollectionBGG = ({ setSearchResultBGG }) => {
             : null,
       };
     });
-
+    inputRef.current.focus();
+    setIsFocus(true);
     setListComplete(newList);
   }, []);
 
