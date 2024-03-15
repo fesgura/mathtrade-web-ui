@@ -8,6 +8,7 @@ import ItemTagEditor from "../item-tag-editor";
 
 const ItemTagHeaderUI = () => {
   const {
+    showingBans,
     tag,
     tagColor,
     count,
@@ -18,7 +19,7 @@ const ItemTagHeaderUI = () => {
     onChangeValue,
   } = useItemTagHeader();
 
-  return (
+  return showingBans ? null : (
     <>
       <div className="mb-6 sticky top-[112px] z-[110]">
         <div className="mb-5 py-3 px-5 shadow-md" style={tagColor}>

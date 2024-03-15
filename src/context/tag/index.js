@@ -5,6 +5,7 @@ import { PageContext } from "@/context/page";
 
 export const TagContext = createContext({
   tag: null,
+  showingBans: false,
   wantGroup: null,
 });
 
@@ -17,15 +18,16 @@ export const TagContextProvider = ({ children }) => {
   const filters = useOptions((state) => state.filters_item);
   /* end FILTERS */
 
-  const tag = useMemo(() => {
+  const { tag, showingBans } = useMemo(() => {
+    const showingBans = filters?.ignored || false;
     if (filters.tag && filters.tag[0] && itemTags) {
       const tagsFiltered = itemTags.filter((t) => {
         return `${t.id}` === filters.tag[0];
       });
 
-      return tagsFiltered[0] || null;
+      return { tag: tagsFiltered[0] || null, showingBans };
     }
-    return null;
+    return { tag: null, showingBans };
   }, [filters, itemTags]);
 
   const wantGroup = useMemo(() => {
@@ -46,6 +48,7 @@ export const TagContextProvider = ({ children }) => {
     <TagContext.Provider
       value={{
         tag,
+        showingBans,
         //
         wantGroup,
       }}

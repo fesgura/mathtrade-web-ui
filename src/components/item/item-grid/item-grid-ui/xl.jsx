@@ -15,7 +15,7 @@ import clsx from "clsx";
 const ItemXL = ({ onToggleExpanse }) => {
   /* ITEM CONTEXT **********************************************/
   const { item, loadingItem, showAsIgnored } = useContext(ItemContext);
-  const { isCombo, elements } = item;
+  const { ban_id, isCombo, elements } = item;
   /* end ITEM CONTEXT */
 
   return (
@@ -42,10 +42,10 @@ const ItemXL = ({ onToggleExpanse }) => {
         </div>
 
         <ItemComments className="pb-5" />
-        <ItemTagList />
+        {ban_id ? null : <ItemTagList />}
       </div>
 
-      <WantButton contextSize="xl" />
+      {ban_id ? null : <WantButton contextSize="xl" />}
       {onToggleExpanse ? (
         <button
           className="absolute top-1 right-1 aspect-square w-7 opacity-50 hover:opacity-100"

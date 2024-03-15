@@ -15,6 +15,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
   const { game, gameRaw, showAsIgnored } = useContext(GameContext);
 
   const {
+    ban_id,
     /* bgg_id,*/ title,
     titleLink,
     type,
@@ -76,7 +77,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
                 id={itemCount === 1 ? "game.item-num.1" : "game.item-num.more"}
               />
             </div>
-            <WantButton contextSize="md" />
+            {ban_id ? null : <WantButton contextSize="md" />}
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ const useItemTagHeader = () => {
   /* end PAGE CONTEXT */
 
   /* TAG CONTEXT **********************************************/
-  const { tag } = useContext(TagContext);
+  const { tag, showingBans } = useContext(TagContext);
   /* end TAG CONTEXT */
 
   const [expanded, setExpanded] = useState(false);
@@ -25,6 +25,7 @@ const useItemTagHeader = () => {
 
   return {
     tag,
+    showingBans,
     tagColor,
     count: tag?.items?.length || 0,
     expanded,

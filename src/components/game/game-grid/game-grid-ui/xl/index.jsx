@@ -14,7 +14,7 @@ const GameGridXL = ({ onToggleExpanse }) => {
   /* GAME CONTEXT **********************************************/
   const { game, gameRaw, showAsIgnored } = useContext(GameContext);
 
-  const { title, titleLink, type, thumbnail } = game;
+  const { ban_id, title, titleLink, type, thumbnail } = game;
   /* end GAME CONTEXT */
 
   return (
@@ -66,7 +66,7 @@ const GameGridXL = ({ onToggleExpanse }) => {
           </div>
         </button>
       </div>
-      <WantButton contextSize="xl" />
+      {ban_id ? null : <WantButton contextSize="xl" />}
     </>
   );
 };

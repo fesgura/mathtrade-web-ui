@@ -53,6 +53,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
   /* end RELOAD ITEM ***************************/
 
   const item = useMemo(() => {
+    setShowAsIgnored(false);
     if (!itemLoaded) {
       return null;
     }

@@ -17,6 +17,7 @@ const ItemMD = ({ onToggleExpanse }) => {
   const { item, showAsIgnored } = useContext(ItemContext);
 
   const {
+    ban_id,
     isCombo,
     typeNum,
     title,
@@ -101,10 +102,12 @@ const ItemMD = ({ onToggleExpanse }) => {
           </div>
         </div>
       </div>
-      <div className="pt-1">
-        <ItemTagList />
-        <WantButton contextSize="md" />
-      </div>
+      {ban_id ? null : (
+        <div className="pt-1">
+          <ItemTagList />
+          <WantButton contextSize="md" />
+        </div>
+      )}
     </div>
   );
 };

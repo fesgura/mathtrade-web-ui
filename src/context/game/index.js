@@ -20,6 +20,7 @@ export const GameContextProvider = ({ gameRaw, children }) => {
   const [showAsIgnored, setShowAsIgnored] = useState(false);
 
   const game = useMemo(() => {
+    setShowAsIgnored(false);
     const { bgg_id, name: title, thumbnail, items, ban_id } = gameRaw;
 
     return {
