@@ -60,6 +60,7 @@ export const PageContext = createContext({
   canI: {
     offer: false,
     want: false,
+    commit: false,
     results: false,
   },
 });
@@ -99,6 +100,7 @@ export const PageContextProvider = ({ children }) => {
       return {
         offer: false,
         want: false,
+        commit: false,
         results: false,
       };
     }
@@ -117,6 +119,8 @@ export const PageContextProvider = ({ children }) => {
 
     const offer = $now >= $dates.start_date && $now < $dates.frezze_geek_date;
     const want = $now >= $dates.start_date && $now < $dates.frezze_wants_date;
+    const commit =
+      $now >= $dates.frezze_geek_date && $now < $dates.frezze_wants_date;
     const results =
       $now >= $dates.show_results_date &&
       (mathtrade.status === "pre-final" || mathtrade.status === "final");
@@ -124,6 +128,7 @@ export const PageContextProvider = ({ children }) => {
     return {
       offer,
       want,
+      commit,
       results,
       pageType,
     };

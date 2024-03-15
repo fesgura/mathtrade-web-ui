@@ -398,7 +398,7 @@
   "MyWants.tabTitle2": "Grilla",
   "MyWants.btn.CommitChanges": "Comprometer deseos",
   "MyWants.Grid.ExtendAll": "Extender/contraer la grilla.",
-  "MyWants.btn.Save": "Guardar cambios",
+  "MyWants.btn.Save": "Guardar deseos",
   "MyWants.btn.SaveAndCommit": "Guardar y comprometer deseos",
   "MyWants.btn.Commit.help": "Para participar, <b class=\"text-danger\">debés guardar todos los cambios que hayas realizado.</strong>",
   "MyWants.btn.Commit.help2": "Última vez guardado: <strong>$$$.</strong>",

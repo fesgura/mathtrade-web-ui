@@ -6,8 +6,16 @@ import clsx from "clsx";
 import SearchForm from "./search";
 
 const Footer = () => {
-  const { emptyWants, onlyCommit, enabledBtn, onClick, mustConfirmDate } =
-    useFooter();
+  const {
+    emptyWants,
+    onlyCommit,
+    enabledBtn,
+    onClick,
+    mustConfirmDate,
+    canCommit,
+  } = useFooter();
+
+  console.log(canCommit);
 
   if (emptyWants) {
     return null;
@@ -41,32 +49,43 @@ const Footer = () => {
           className={clsx(
             "rounded-full outline-none transition-colors inline-block w-auto lg:px-7 px-2 py-2 lg:text-lg text-sm  shadow-md ",
             {
-              "bg-danger text-white hover:opacity-75": enabledBtn,
+              "bg-danger text-white hover:opacity-75": enabledBtn && canCommit,
+              "bg-want text-white hover:opacity-75": enabledBtn && !canCommit,
               "bg-gray-300 text-gray-400": !enabledBtn,
             }
           )}
           onClick={onClick}
           disabled={!enabledBtn}
         >
-          <I18N
-            id={`MyWants.btn.${onlyCommit ? "CommitChanges" : "SaveAndCommit"}`}
-          />
-        </button>
-        <div className="text-xs text-center text-gray-800">
-          {mustConfirmDate ? (
-            <>
-              <div className="">
-                <I18N id="wantview.LastCommitmentDay" />
-              </div>
-
-              <strong>{mustConfirmDate}</strong>
-            </>
+          {canCommit ? (
+            <I18N
+              id={`MyWants.btn.${
+                onlyCommit
+                  ? "MyWants.btn.CommitChanges"
+                  : "MyWants.btn.SaveAndCommit"
+              }`}
+            />
           ) : (
-            <div className="text-danger font-bold">
-              <I18N id="wantview.NotCommitmentYet" />
-            </div>
+            <I18N id="MyWants.btn.Save" />
           )}
-        </div>
+        </button>
+        {canCommit ? (
+          <div className="text-xs text-center text-gray-800">
+            {mustConfirmDate ? (
+              <>
+                <div className="">
+                  <I18N id="wantview.LastCommitmentDay" />
+                </div>
+
+                <strong>{mustConfirmDate}</strong>
+              </>
+            ) : (
+              <div className="text-danger font-bold">
+                <I18N id="wantview.NotCommitmentYet" />
+              </div>
+            )}
+          </div>
+        ) : null}
       </div>
     </div>
   );

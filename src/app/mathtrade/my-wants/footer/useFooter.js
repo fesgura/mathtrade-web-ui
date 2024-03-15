@@ -64,16 +64,17 @@ const useFooter = () => {
   });
   /* end POST CHANGES ************************/
 
-  const { onlyCommit, enabledBtn } = useMemo(() => {
+  const { onlyCommit, enabledBtn, canCommit } = useMemo(() => {
     if (!canI.want) {
-      return { onlyCommit: true, enabledBtn: false };
+      return { onlyCommit: true, enabledBtn: false, canCommit: false };
     }
+    const canCommit = canI.commit;
     const hasChanges =
       Object.keys(changes).length > 0 ||
       Object.keys(deletedWantgroupIds).length > 0;
-    const enabledBtn = mustConfirm || hasChanges;
+    const enabledBtn = mustConfirm || hasChanges || canCommit;
 
-    return { onlyCommit: !hasChanges, enabledBtn };
+    return { onlyCommit: !hasChanges, enabledBtn, canCommit };
   }, [changes, deletedWantgroupIds, canI, mustConfirm]);
 
   const onClick = useCallback(() => {
@@ -100,6 +101,7 @@ const useFooter = () => {
     loading: loadingPost || loadingCommit,
     error: errorPost || errorCommit,
     mustConfirmDate,
+    canCommit,
   };
 };
 
