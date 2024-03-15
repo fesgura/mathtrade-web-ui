@@ -117,7 +117,7 @@ export const extractBGGdataFromElement = (data) => {
           }
         }
       }
-     
+
       // rate
       if (ratings.average) {
         rate = ratings.average.value;
@@ -220,7 +220,7 @@ export const extractBGGdataFromElement = (data) => {
     getI18Ntext;
     return list.concat([
       {
-        value: "OTHER",
+        value: "other",
         text: getI18Ntext("Another.Version"),
         thumbnail,
         publisher: "",

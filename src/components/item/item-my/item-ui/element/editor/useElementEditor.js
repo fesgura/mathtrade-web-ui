@@ -110,7 +110,9 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
 
     setName(BGGinfoClone.element?.name || "");
     setThumbnail(BGGinfoClone.element?.thumbnail || "");
-    setBgg_version_id(BGGinfoClone.element?.bgg_version_id || "");
+    setBgg_version_id(
+      `${BGGinfoClone.element?.bgg_version_id || ""}`.toLowerCase()
+    );
     setLanguage(BGGinfoClone.element?.language || "");
     setPublisher(BGGinfoClone.element?.publisher || "");
     setYear(BGGinfoClone.element?.year || "");

@@ -67,6 +67,8 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     toggleEditingMode,
   });
 
+  console.log("bgg_version_id", bgg_version_id, versions);
+
   return (
     <div className="relative">
       <div className="sm:flex">
@@ -178,7 +180,7 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
                     options={languagesOptions}
                     icon="language"
                     multiple
-                    disabledInput={bgg_version_id !== "OTHER"}
+                    disabledInput={bgg_version_id !== "other"}
                     onChange={setLanguage}
                   />
                 </InputContainer>
@@ -194,7 +196,7 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
                         data={{ publisher }}
                         name="publisher"
                         icon="publisher"
-                        disabledInput={bgg_version_id !== "OTHER"}
+                        disabledInput={bgg_version_id !== "other"}
                         onChange={(v) => {
                           setPublisher(v.target.value);
                         }}
@@ -208,7 +210,7 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
                         data={{ year }}
                         name="year"
                         icon="calendar"
-                        disabledInput={bgg_version_id !== "OTHER"}
+                        disabledInput={bgg_version_id !== "other"}
                         onChange={(v) => {
                           setYear(v.target.value);
                         }}
