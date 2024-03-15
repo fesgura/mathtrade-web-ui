@@ -68,16 +68,12 @@ const useWants = () => {
     },
     [setMyItemsInMT_forWants, setChanges]
   );
-  const [loadMyItemsInMT, , loadingMyItemsInMT, errorMyItemsInMT] = useFetch({
+  const [, , loadingMyItemsInMT, errorMyItemsInMT] = useFetch({
     endpoint: "GET_MYITEMS",
+    autoLoad: true,
     initialState: [],
     afterLoad: afterLoadMyItems,
   });
-  useEffect(() => {
-    if (!myItemsInMT_forWants.length) {
-      loadMyItemsInMT();
-    }
-  }, [myItemsInMT_forWants, loadMyItemsInMT]);
   // END GET MY ITEMS ********************************************
 
   // CREATE ORIGINAL MATCHES ********************************************
