@@ -190,7 +190,7 @@ const Select = ({
                       option?.highlighted,
                   })}
                   key={option.value}
-                  onClick={() => {
+                  onMouseDown={() => {
                     handleClickOption(option);
                   }}
                   onMouseOver={

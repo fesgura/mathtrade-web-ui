@@ -75,7 +75,7 @@ const useSelect = (
       } else {
         setTimeout(() => {
           setVisible(false);
-        }, 150);
+        }, 160);
       }
     },
     [filterList]
