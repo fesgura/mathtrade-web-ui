@@ -47,6 +47,7 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     //
     game,
     comment,
+    setComment,
     item_id,
     hiddenInputs,
     //
@@ -66,8 +67,6 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     newBGGinfo,
     toggleEditingMode,
   });
-
-  console.log("bgg_version_id", bgg_version_id, versions);
 
   return (
     <div className="relative">
@@ -258,7 +257,13 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
 
             <InputContainer>
               <Label text="element.Comment" name="comment" />
-              <Textarea data={{ comment }} name="comment" />
+              <Textarea
+                data={{ comment }}
+                name="comment"
+                onChange={({ target }) => {
+                  setComment(target.value);
+                }}
+              />
             </InputContainer>
             <ErrorAlert error={error} />
             <div className="flex items-center justify-center gap-4 pt-2 pb-5">

@@ -74,6 +74,8 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, newBGGinfo]);
 
+  const [comment, setComment] = useState("");
+
   const dataComplete = useMemo(() => {
     const elementClone = {
       ...(element && element.elementRaw
@@ -118,6 +120,8 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     setYear(BGGinfoClone.element?.year || "");
     setStatus(BGGinfoClone.element?.status || "");
     setImages(BGGinfoClone.element?.images || "");
+
+    setComment(BGGinfoClone.element?.comment || "");
 
     return BGGinfoClone;
   }, [BGGinfo, element]);
@@ -190,7 +194,8 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     setImages,
     //
     game: dataComplete.game,
-    comment: dataComplete.element?.comment,
+    comment,
+    setComment,
     item_id: itemId || null,
     hiddenInputs: [
       "type",
