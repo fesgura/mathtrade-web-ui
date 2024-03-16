@@ -5,7 +5,6 @@ import VisualSectionUI from "./ui";
 
 const VisualSectionContainer = ({ wantGroup, myItemList }) => {
   const { forceShow } = useContext(WantVisualSectionContext);
-  //console.log(forceShow);
 
   const targetRef = useRef(null);
   const visible = useIntersectionObserver(
