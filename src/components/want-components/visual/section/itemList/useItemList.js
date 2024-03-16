@@ -8,6 +8,7 @@ import {
 } from "react";
 import { PageContext } from "@/context/page";
 import { MyWantsContext } from "@/context/myWants/all";
+import { WantVisualSectionContext } from "@/context/wantVisualSection";
 import { getRightValue } from "@/components/want-components/utils";
 
 const useItemList = (wantGroup, myItemList) => {
@@ -19,11 +20,19 @@ const useItemList = (wantGroup, myItemList) => {
   const { matchValues, changes } = useContext(MyWantsContext);
   /* end MYWANTS CONTEXT **********************************************/
 
+  /* MYWANTS CONTEXT **********************************************/
+  const { setForceShow } = useContext(WantVisualSectionContext);
+  /* end MYWANTS CONTEXT **********************************************/
+
   const [addOpen, setAddOpen] = useState(false);
 
   const toggleAddOpen = useCallback(() => {
     setAddOpen((v) => !v);
   }, []);
+
+  useEffect(() => {
+    setForceShow(addOpen);
+  }, [setForceShow, addOpen]);
 
   const addPadRef = useRef(null);
 
