@@ -33,7 +33,7 @@ const GameGridXL = ({ onToggleExpanse }) => {
               elements={[{ thumbnail }]}
               className="rounded-lg lg:w-52 w-24"
             />
-            <Value size="md" type="game" />
+            {ban_id ? null : <Value size="md" type="game" />}
             <BanButton size="md" type="game" />
           </div>
           <div className="text-white grow">

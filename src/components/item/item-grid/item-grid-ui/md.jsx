@@ -54,7 +54,7 @@ const ItemMD = ({ onToggleExpanse }) => {
               </div>
             </div>
           </div>
-          <Value size="md" type="item" />
+          {ban_id ? null : <Value size="md" type="item" />}
           <BanButton size="md" type="item" />
         </div>
         <div className="p-3 px-1">

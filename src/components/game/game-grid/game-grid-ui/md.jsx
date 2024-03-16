@@ -50,7 +50,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
               </div>
             </div>
           </div>
-          <Value size="md" type="game" />
+          {ban_id ? null : <Value size="md" type="game" />}
           <BanButton size="md" type="game" />
         </div>
         <div className="text-white flex flex-col h-full justify-between">

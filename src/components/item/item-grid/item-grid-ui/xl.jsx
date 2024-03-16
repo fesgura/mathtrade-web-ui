@@ -30,7 +30,7 @@ const ItemXL = ({ onToggleExpanse }) => {
             <div className="uppercase text-sm font-bold text-gray-900 ">
               <I18N id="element-type-badge-0" />
             </div>
-            <Value size="xl" type="item" />
+            {ban_id ? null : <Value size="xl" type="item" />}
             <BanButton size="xl" type="item" />
           </h3>
         ) : null}
