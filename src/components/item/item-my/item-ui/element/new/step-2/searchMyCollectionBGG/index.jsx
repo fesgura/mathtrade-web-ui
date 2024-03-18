@@ -61,7 +61,7 @@ const SearchMyCollectionBGG = ({ setSearchResultBGG }) => {
                   <li
                     key={`${bgg_id}-${k}`}
                     className="px-3 py-2 hover:bg-primary/20 cursor-pointer"
-                    onClick={() => {
+                    onMouseDown={() => {
                       onSelect(elem);
                     }}
                   >
