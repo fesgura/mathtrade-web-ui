@@ -28,7 +28,7 @@ const Comment = ({ comment, myUserId, isLast }) => {
         })}
       >
         <div className="md:min-w-[80px]">
-          {!isMyUser && <UserBox user={user} avatarWidth={32} toCenter />}
+          {!isMyUser && <UserBox userForce={user} avatarWidth={32} toCenter />}
         </div>
         <div
           className={clsx("grow", {

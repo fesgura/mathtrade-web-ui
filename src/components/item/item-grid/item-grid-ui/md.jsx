@@ -98,7 +98,7 @@ const ItemMD = ({ onToggleExpanse }) => {
           ) : null}
 
           <div className="border-t border-gray-300 border-dotted mt-3 pt-2">
-            <UserBox user={user} />
+            <UserBox userForce={user} />
           </div>
         </div>
       </div>

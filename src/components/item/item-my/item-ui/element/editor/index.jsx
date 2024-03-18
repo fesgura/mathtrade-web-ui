@@ -152,7 +152,6 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
                     }}
                     onChange={(optVal, opt) => {
                       setBgg_version_id(optVal);
-                      console.log("opt", opt);
                       if (opt) {
                         setThumbnail(opt.thumbnail);
                         setLanguage(opt.language);

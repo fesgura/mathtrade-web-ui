@@ -4,10 +4,11 @@ import Avatar from "@/components/avatar";
 import { useMemo, useContext } from "react";
 import { ItemContext } from "@/context/item";
 
-const UserBox = ({ avatarWidth = 20, toLeft, toCenter }) => {
+const UserBox = ({ userForce, avatarWidth = 20, toLeft, toCenter }) => {
   /* ITEM CONTEXT **********************************************/
   const { item } = useContext(ItemContext);
-  const { user } = item;
+  const { user: userDefault } = item;
+  const user = userForce || userDefault;
   /* end ITEM CONTEXT */
 
   const locations = useStore((state) => state.locations);
