@@ -66,7 +66,7 @@ export const PageContext = createContext({
 });
 
 export const PageContextProvider = ({ children }) => {
-  const { mathtrade, user } = useStore((state) => state.data);
+  const { mathtrade, membership, user } = useStore((state) => state.data);
 
   const [pageType, setPageType] = useState(null);
   const [items, setItems] = useState({ list: [], count: 0 });
@@ -96,7 +96,7 @@ export const PageContextProvider = ({ children }) => {
   }, []);
 
   const canI = useMemo(() => {
-    if (!mathtrade) {
+    if (!mathtrade || !membership) {
       return {
         offer: false,
         want: false,
@@ -132,7 +132,7 @@ export const PageContextProvider = ({ children }) => {
       results,
       pageType,
     };
-  }, [mathtrade, pageType]);
+  }, [mathtrade, membership, pageType]);
 
   return (
     <PageContext.Provider
