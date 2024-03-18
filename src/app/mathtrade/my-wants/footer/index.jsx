@@ -67,9 +67,7 @@ const Footer = () => {
               {canCommit ? (
                 <I18N
                   id={`MyWants.btn.${
-                    onlyCommit
-                      ? "MyWants.btn.CommitChanges"
-                      : "MyWants.btn.SaveAndCommit"
+                    onlyCommit ? "CommitChanges" : "SaveAndCommit"
                   }`}
                 />
               ) : (
