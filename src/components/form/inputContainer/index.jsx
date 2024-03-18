@@ -2,7 +2,13 @@ import useInputContainer from "./useInputContainer";
 import clsx from "clsx";
 import I18N, { getI18Ntext } from "@/i18n";
 
-const Input = ({ validate, error, className = "mb-4", children }) => {
+const Input = ({
+  validate,
+  error,
+  className = "mb-4",
+  children,
+  customErrorText,
+}) => {
   const { errorMessage } = useInputContainer(validate, error);
 
   return (
@@ -14,7 +20,7 @@ const Input = ({ validate, error, className = "mb-4", children }) => {
       {children}
       {errorMessage && (
         <div className="text-danger text-sm">
-          <I18N id={errorMessage} />
+          <I18N id={customErrorText || errorMessage} />
         </div>
       )}
     </div>

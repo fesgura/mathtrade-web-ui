@@ -713,5 +713,7 @@
   "results.screen.visual": "Visual",
   "results.screen.grid": "Tabla",
   "results.none.noCommitment": "En esta oportunidad no has conseguido ningún cambio, ya que <strong>no comprometiste</strong> tus deseos en tiempo y forma.",
-  "results.none.noTrades": "En esta oportunidad <strong>no has conseguido</strong> ningún cambio."
+  "results.none.noTrades": "En esta oportunidad <strong>no has conseguido</strong> ningún cambio.",
+  "btn.thumbnail.load": "Cargar portada",
+  "error.thumbnail": "El ejemplar debe tener una portada. Si la edición actual no posee, puedes cargar una."
 }

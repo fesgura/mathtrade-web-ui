@@ -226,6 +226,7 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     onCancel: toggleEditingMode,
     //
     validations: {
+      thumbnail: ["required"],
       bgg_version_id: ["required"],
       name: ["required"],
       language: ["required"],

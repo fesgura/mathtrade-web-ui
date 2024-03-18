@@ -70,49 +70,60 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
 
   return (
     <div className="relative">
-      <div className="sm:flex">
-        <div className="w-52 sm:mb-0 mb-4  mx-auto">
-          <Thumbnail
-            elements={[{ thumbnail, name }]}
-            src={thumbnailAlt}
-            className="rounded-lg w-52"
-          />
-          <div className="px-3 pt-2">
-            <PhotoUploader
-              className=" border border-gray-300 text-gray-500 rounded-full block w-full p-1 hover:bg-primary hover:text-white hover:border-primary transition-colors"
-              onLoaded={onLoadedNewThumbnail}
+      <Form validations={validations} onSubmit={onSubmit}>
+        <div className="sm:flex">
+          <div className="w-52 sm:mb-0 mb-4 mx-auto text-center">
+            <InputContainer
+              validate="thumbnail"
+              customErrorText="error.thumbnail"
             >
-              <InnerButton>
-                <Icon type="photo" />
-                <span className="text-[10px] font-bold">Cargar portada</span>
-              </InnerButton>
-            </PhotoUploader>
+              <Thumbnail
+                elements={[{ thumbnail, name }]}
+                src={thumbnailAlt}
+                className="rounded-lg w-52"
+              />
+            </InputContainer>
+            {/* <div className="text-center text-xs text-red-600 text-balance">
+            
+          </div> */}
+            <div className="px-3">
+              <PhotoUploader
+                className=" border border-gray-300 text-gray-500 rounded-full block w-full p-1 hover:bg-primary hover:text-white hover:border-primary transition-colors"
+                onLoaded={onLoadedNewThumbnail}
+              >
+                <InnerButton>
+                  <Icon type="photo" />
+                  <span className="text-[10px] font-bold">
+                    <I18N id="btn.thumbnail.load" />
+                  </span>
+                </InnerButton>
+              </PhotoUploader>
+            </div>
           </div>
-        </div>
-        <div className="sm:pl-6 flex-grow">
-          {!noGame && (
-            <>
-              <div className="pr-[60px]">
-                <div className="uppercase text-[10px] font-bold text-gray-400">
-                  <I18N id={`element-type-badge-${game?.type || 1}`} />
+          <div className="sm:pl-6 flex-grow">
+            {!noGame && (
+              <>
+                <div className="pr-[60px]">
+                  <div className="uppercase text-[10px] font-bold text-gray-400">
+                    <I18N id={`element-type-badge-${game?.type || 1}`} />
+                  </div>
+                  <h3 className="text-lg font-bold">
+                    <LinkExternal
+                      href={`https://boardgamegeek.com/boardgame/${game.bgg_id}/`}
+                      tooltip="element.BGG.OpenGameInBGG"
+                    >
+                      {name}
+                    </LinkExternal>
+                  </h3>
                 </div>
-                <h3 className="text-lg font-bold">
-                  <LinkExternal
-                    href={`https://boardgamegeek.com/boardgame/${game.bgg_id}/`}
-                    tooltip="element.BGG.OpenGameInBGG"
-                  >
-                    {name}
-                  </LinkExternal>
-                </h3>
-              </div>
-              <div className="py-3">
-                <div className="pb-5 border-b border-gray-300">
-                  <BGGinfo game={game} contextFor="element" />
+                <div className="py-3">
+                  <div className="pb-5 border-b border-gray-300">
+                    <BGGinfo game={game} contextFor="element" />
+                  </div>
                 </div>
-              </div>
-            </>
-          )}
-          <Form validations={validations} onSubmit={onSubmit}>
+              </>
+            )}
+
             {hiddenInputs.map((k) => {
               return <Hidden data={game} name={k} key={k} />;
             })}
@@ -141,6 +152,7 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
                     }}
                     onChange={(optVal, opt) => {
                       setBgg_version_id(optVal);
+                      console.log("opt", opt);
                       if (opt) {
                         setThumbnail(opt.thumbnail);
                         setLanguage(opt.language);
@@ -283,9 +295,10 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
                 <I18N id="btn.Save" />
               </button>
             </div>
-          </Form>
+          </div>
         </div>
-      </div>
+      </Form>
+
       <LoadingBox loading={loading} />
     </div>
   );
