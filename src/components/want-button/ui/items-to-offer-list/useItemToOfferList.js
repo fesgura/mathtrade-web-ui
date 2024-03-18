@@ -55,12 +55,13 @@ const useItemsToOfferList = () => {
     endpoint: "GET_MYITEM_GROUPS",
     initialState: [],
     afterLoad: afterLoadMyGroups,
+    autoLoad: true,
   });
-  useEffect(() => {
+  /*   useEffect(() => {
     if (!myGroups_forWants.length) {
       loadMyGropus();
     }
-  }, [myGroups_forWants, loadMyGropus]);
+  }, [myGroups_forWants, loadMyGropus]); */
   // end MY GROUPS ********************************************
 
   const list = useMemo(() => {
