@@ -37,6 +37,7 @@ const AccountMenuButton = () => {
             <Link
               href={PRIVATE_ROUTES.MY_ACCOUNT.path}
               className="block leading-10 hover:bg-sky-200"
+              onClick={toggleMobile}
             >
               <Icon type="user" className="mr-1" />
               <I18N id="title.MyAccount" />
@@ -44,6 +45,7 @@ const AccountMenuButton = () => {
             <Link
               href={PRIVATE_ROUTES.MY_COLLECTION.path}
               className="block leading-10 hover:bg-sky-200"
+              onClick={toggleMobile}
             >
               <Icon type="collection" className="mr-1 relative -top-[2px]" />
               <I18N id="title.MyCollection" />
@@ -51,7 +53,10 @@ const AccountMenuButton = () => {
             <button
               href="/"
               className="block leading-10 hover:bg-danger hover:text-white w-full text-danger"
-              onClick={signOut}
+              onClick={() => {
+                toggleMobile();
+                signOut();
+              }}
             >
               <Icon type="signout" className="mr-1" />
               <I18N id="sign.SignOut" />

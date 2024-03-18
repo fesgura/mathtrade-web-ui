@@ -59,7 +59,7 @@ const CartButton = () => {
           buttonRef={buttonRef}
         />
         <HeadContent visibleMobile={visibleMobile} toggleMobile={toggleMobile}>
-          <CartList />
+          <CartList toggleMobile={toggleMobile} />
         </HeadContent>
       </div>
 
