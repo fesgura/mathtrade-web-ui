@@ -345,6 +345,12 @@ const listIcons = {
       d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7m0 9.5a2.5 2.5 0 0 1 0-5a2.5 2.5 0 0 1 0 5"
     />
   ),
+  circle: (
+    <path
+      fill="currentColor"
+      d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10s10-4.47 10-10S17.53 2 12 2"
+    />
+  ),
 };
 
 export default listIcons;
