@@ -1,5 +1,4 @@
 "use client";
-import { useCallback, useState } from "react";
 import HeadContent from "../head-content";
 import HeadButton from "../head-button";
 import Notification from "./notification";
@@ -9,17 +8,18 @@ import clsx from "clsx";
 import I18N from "@/i18n";
 
 const NotificationsButton = () => {
-  // const { visibleMobile, toggleMobile, num, list, loading } =     useNotifications();
+  const { visibleMobile, toggleMobile, num, list, loading } =
+    useNotifications();
 
   return (
     <div className="relative">
       <HeadButton
-        //onClick={toggleMobile}
+        onClick={toggleMobile}
         icon="notifications"
-        //num={num > 9 ? "+9" : num}
+        num={num > 9 ? "+9" : num}
       />
 
-      {/* <HeadContent visibleMobile={visibleMobile} toggleMobile={toggleMobile}>
+      <HeadContent visibleMobile={visibleMobile} toggleMobile={toggleMobile}>
         <div
           className={clsx("relative", {
             "min-h-40": loading,
@@ -36,7 +36,7 @@ const NotificationsButton = () => {
           ) : null}
           <LoadingBox loading={loading} min />
         </div>
-      </HeadContent> */}
+      </HeadContent>
     </div>
   );
 };
