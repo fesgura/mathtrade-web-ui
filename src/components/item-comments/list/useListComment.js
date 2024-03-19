@@ -19,7 +19,7 @@ const useListComment = () => {
     endpoint: "GET_COMMENTS",
     urlParams,
     initialState: [],
-    autoLoad: commentsCount > 0,
+    autoLoad: commentsCount >= 0,
     reloadValue: commentsCount || 0,
   });
 
