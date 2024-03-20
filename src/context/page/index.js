@@ -70,6 +70,9 @@ export const PageContext = createContext({
   setPreviewWantGroup: () => {},
   showPreviewWantGroupModal: false,
   tooglePreviewWantGroupModal: () => {},
+  //
+  showFaqsModal: false,
+  toogleShowFaqsModal: () => {},
 });
 
 export const PageContextProvider = ({ children }) => {
@@ -150,6 +153,13 @@ export const PageContextProvider = ({ children }) => {
     setShowPreviewWantGroupModal((v) => !v);
   }, []);
 
+  //
+  const [showFaqsModal, setShowFaqsModal] = useState(false);
+
+  const toogleShowFaqsModal = useCallback(() => {
+    setShowFaqsModal((v) => !v);
+  }, []);
+
   return (
     <PageContext.Provider
       value={{
@@ -212,6 +222,9 @@ export const PageContextProvider = ({ children }) => {
         showPreviewWantGroupModal,
         setShowPreviewWantGroupModal,
         tooglePreviewWantGroupModal,
+        //
+        showFaqsModal,
+        toogleShowFaqsModal,
       }}
     >
       {children}

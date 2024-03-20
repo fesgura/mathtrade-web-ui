@@ -111,8 +111,6 @@ const useNotifications = () => {
 
   const loading = loadingNotifications || loadingNotificationsBulk;
 
-  //console.log(list);
-
   return {
     visibleMobile,
     toggleMobile,
