@@ -57,7 +57,8 @@ const endpoints = {
 
   // NOTIFICATIONS
   GET_NOTIFICATIONS: "api/notifications/",
-  PUT_NOTIFICATIONS: "api/notifications/$[mathtradeId]/",
+  PUT_NOTIFICATION: "api/notifications/$[1]/",
+  POST_NOTIFICATIONS_BULK: "api/notifications-bulk/",
 
   // MATHTRADE
   GET_MATHTRADES: "api/mathtrades/",

@@ -3,9 +3,9 @@ import I18N, { getI18Ntext } from "@/i18n";
 import clsx from "clsx";
 import useNotification from "./useNotification";
 
-const Notification = ({ data }) => {
+const Notification = ({ data, setNum, toggleMobile }) => {
   const {
-    readed,
+    unreaded,
     toggleReaded,
     date,
     body,
@@ -13,33 +13,35 @@ const Notification = ({ data }) => {
     values,
     linkFunction,
     linkText,
-  } = useNotification(data);
+    loading,
+  } = useNotification(data, setNum, toggleMobile);
 
   return (
     <div className="border-b border-gray-300">
-      <div className="text-xs flex items-start gap-3 p-2">
+      <div
+        className={clsx("text-xs flex items-start gap-3 p-2", {
+          "opacity-50": loading,
+        })}
+      >
         <div
-          className={clsx("scursor-pointer", {
-            "text-gray-300": readed,
-            "text-primary": !readed,
+          className={clsx("cursor-pointer", {
+            "text-gray-300": !unreaded,
+            "text-primary": unreaded,
           })}
-          /* data-tooltip={getI18Ntext(
-            `notifications.${readed ? "MarkAsNotRead" : "MarkAsRead"}`
-          )} */
-          //data-placement="right"
-          // onClick={toggleReaded}
+          data-tooltip={getI18Ntext(
+            `notifications.${!unreaded ? "MarkAsNotRead" : "MarkAsRead"}`
+          )}
+          data-placement="right"
+          onClick={toggleReaded}
         >
           <Icon type="circle" />
         </div>
         <div
           className={clsx({
-            "opacity-70": readed,
+            "opacity-70": !unreaded,
           })}
         >
-          <div
-          //className="cursor-pointer"
-          // onClick={toggleReaded}
-          >
+          <div className="cursor-pointer" onClick={toggleReaded}>
             <p className="text-[10px] font-bold mb-1">{`${date} hs.`}</p>
             <p className="text-gray-600 mb-2">
               <I18N id={messageText} values={values} />

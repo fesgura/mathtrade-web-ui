@@ -469,6 +469,7 @@
   "notifications.label.read.yes": "leída",
   "notifications.label.read.no": "no leída",
   "notifications.MarkAsRead": "Marcar como leída",
+  "notifications.all.MarkAsRead": "Marcar todas como leídas",
   "notifications.MarkAsNotRead": "Marcar como no leída",
   "hideOwnItems.label": "Ocultar (de mí) mis propios ejemplares",
   "hideOwnItems.help": "Se ocultarán <u>sólo para vos</u> (para que puedas ver solamente los elementos que podrían interesarte).<br/>Los demás usuarios <strong>sí seguirán viendo tus ejemplares</strong>.",

@@ -1,8 +1,9 @@
-import { useMemo, useState, useContext } from "react";
+import { useMemo, useState, useContext, useCallback, useEffect } from "react";
 import { DateIntlFormat } from "@/utils/dateUtils";
 import { PageContext } from "@/context/page";
+import useFetch from "@/hooks/useFetch";
 
-const useNotification = (data) => {
+const useNotification = (data, setNum, toggleMobile) => {
   const {
     setItemPreviewId,
     setShowModalPreview,
@@ -10,9 +11,11 @@ const useNotification = (data) => {
     setShowPreviewWantGroupModal,
   } = useContext(PageContext);
 
-  const [readed, setReaded] = useState(!data?.unread || false);
+  const [unreaded, setUnreaded] = useState(data?.unread || false);
 
-  const toggleReaded = () => setReaded((v) => !v);
+  useEffect(() => {
+    setUnreaded(data?.unread || false);
+  }, [data?.unread, data?.version_ui]);
 
   const { date, body, messageText, values, linkFunction, linkText } =
     useMemo(() => {
@@ -42,6 +45,7 @@ const useNotification = (data) => {
           values.push(message?.uwg_name || "");
           linkFunction = message?.uwg_id
             ? () => {
+                toggleMobile();
                 setPreviewWantGroupId(message?.uwg_id);
                 setShowPreviewWantGroupModal(true);
               }
@@ -61,6 +65,7 @@ const useNotification = (data) => {
           body = type === "COMD" ? null : `"${message?.comment || body}"`;
           linkFunction = message?.item_id
             ? () => {
+                toggleMobile();
                 setItemPreviewId(message?.item_id);
                 setShowModalPreview(true);
               }
@@ -79,10 +84,37 @@ const useNotification = (data) => {
       setShowModalPreview,
       setPreviewWantGroupId,
       setShowPreviewWantGroupModal,
+      toggleMobile,
     ]);
 
+  /* FETCH *************************************************/
+
+  const afterLoad = useCallback(() => {
+    setNum((oldNum) => {
+      const newNum = oldNum + (unreaded ? -1 : 1);
+      return newNum < 0 ? 0 : newNum;
+    });
+    setUnreaded((v) => !v);
+  }, [unreaded, setNum]);
+
+  const [setNotificationReaded, , loading] = useFetch({
+    endpoint: "PUT_NOTIFICATION",
+    method: "PUT",
+    afterLoad,
+  });
+  /* end FETCH */
+
+  const toggleReaded = useCallback(() => {
+    setNotificationReaded({
+      urlParams: [data?.id],
+      params: {
+        unread: !unreaded,
+      },
+    });
+  }, [data, unreaded, setNotificationReaded]);
+
   return {
-    readed,
+    unreaded,
     toggleReaded,
     date,
     body,
@@ -90,6 +122,7 @@ const useNotification = (data) => {
     values,
     linkFunction,
     linkText,
+    loading,
   };
 };
 

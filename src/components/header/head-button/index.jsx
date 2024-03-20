@@ -2,11 +2,20 @@ import Link from "next/link";
 import Icon from "@/components/icon";
 import clsx from "clsx";
 
-const HeadButton = ({ onClick, icon, num, href, forWants, buttonRef }) => {
+const HeadButton = ({
+  onClick,
+  icon,
+  num,
+  href,
+  forWants,
+  buttonRef,
+  onMouseEnter,
+}) => {
   return href ? (
     <Link
       href={href}
       className="relative cursor-pointer peer block w-9 h-9 leading-9 text-xl text-center text-white"
+      onMouseEnter={onMouseEnter}
     >
       <Icon type={icon} />
     </Link>
@@ -15,6 +24,7 @@ const HeadButton = ({ onClick, icon, num, href, forWants, buttonRef }) => {
       className="relative cursor-pointer peer block w-9 h-9 text-xl text-center text-white"
       onClick={onClick}
       ref={buttonRef || null}
+      onMouseEnter={onMouseEnter}
     >
       <Icon type={icon} />
       {num ? (
