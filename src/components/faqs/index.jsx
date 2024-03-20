@@ -7,7 +7,12 @@ const Faqs = () => {
   const { showFaqsModal, toogleShowFaqsModal } = useContext(PageContext);
 
   return (
-    <Modal isOpen={showFaqsModal} onClose={toogleShowFaqsModal} size="md2">
+    <Modal
+      isOpen={showFaqsModal}
+      onClose={toogleShowFaqsModal}
+      size="md2"
+      className="w-full"
+    >
       <FaqContent />
     </Modal>
   );

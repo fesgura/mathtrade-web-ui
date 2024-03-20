@@ -1,16 +1,19 @@
 import { useContext } from "react";
 import { PageContext } from "@/context/page";
-import I18N from "@/i18n";
+import Icon from "@/components/icon";
+import { getI18Ntext } from "@/i18n";
 
 const HelpButton = () => {
   const { toogleShowFaqsModal } = useContext(PageContext);
 
   return (
     <button
-      className="text-white suppercase text-sm hover:bg-primary/30 px-2 h-11"
+      className="relative cursor-pointer peer block w-7 h-7 text-sssxl text-center text-white hover:bg-primary bg-primary/50 rounded-full leading-none"
       onClick={toogleShowFaqsModal}
+      data-tooltip={getI18Ntext("help.menu")}
+      data-placement="bottom"
     >
-      <I18N id="help.menu" />
+      <Icon type="help2" />
     </button>
   );
 };

@@ -1,7 +1,13 @@
 import clsx from "clsx";
 import Icon from "../icon";
 
-const Modal = ({ isOpen, onClose, children, className, size = "lg" }) => {
+const Modal = ({
+  isOpen,
+  onClose,
+  children,
+  className = "py-7 px-5 w-full",
+  size = "lg",
+}) => {
   return isOpen ? (
     <>
       <style>{"body{overflow:hidden !important}"}</style>
@@ -23,12 +29,12 @@ const Modal = ({ isOpen, onClose, children, className, size = "lg" }) => {
             )}
           >
             <button
-              className="absolute w-10 h-10 leading-10 text-center text-[gray] transition-[color] duration-[0.1s] text-xl right-0 top-0"
+              className="absolute top-2 right-2 w-8 h-8 leading-none text-center bg-white/60 text-[gray] rounded-full transition-[color] duration-[0.1s] text-xl"
               onClick={onClose}
             >
               <Icon />
             </button>
-            <div className="py-7 px-5 w-full">{children}</div>
+            <div className={className}>{children}</div>
           </article>
         </div>
       </dialog>
