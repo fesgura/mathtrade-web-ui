@@ -2,11 +2,11 @@ import clsx from "clsx";
 import Icon from "../icon";
 import { getI18Ntext } from "@/i18n";
 import { useContext } from "react";
-import { MyWantsContext } from "@/context/myWants/all";
+import { PageContext } from "@/context/page";
 
 const PreviewerWantGroup = ({ wantGroup, className }) => {
   const { setPreviewWantGroup, tooglePreviewWantGroupModal } =
-    useContext(MyWantsContext);
+    useContext(PageContext);
 
   return (
     <>

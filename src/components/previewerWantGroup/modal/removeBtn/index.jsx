@@ -12,11 +12,10 @@ import { LoadingBox } from "@/components/loading";
 const RemoveButton = ({ wantGroup }) => {
   const [showDelete, setShowDelete] = useState(false);
 
-  const { tooglePreviewWantGroupModal, setDeletedWantgroupIds } =
-    useContext(MyWantsContext);
+  const { setDeletedWantgroupIds } = useContext(MyWantsContext);
 
   /* PAGE CONTEXT **********************************************/
-  const { setMyWants } = useContext(PageContext);
+  const { setMyWants, tooglePreviewWantGroupModal } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
   const { id } = wantGroup;
@@ -28,11 +27,14 @@ const RemoveButton = ({ wantGroup }) => {
       const oldMyWantsCopy = [...oldMyWants].filter((w) => w.id !== id);
       return oldMyWantsCopy;
     });
-    setDeletedWantgroupIds((oldDeletedWantgroupIds) => {
-      const oldDeletedWantgroupIdsCopy = { ...oldDeletedWantgroupIds };
-      oldDeletedWantgroupIdsCopy[id] = true;
-      return oldDeletedWantgroupIdsCopy;
-    });
+    if (setDeletedWantgroupIds) {
+      setDeletedWantgroupIds((oldDeletedWantgroupIds) => {
+        const oldDeletedWantgroupIdsCopy = { ...oldDeletedWantgroupIds };
+        oldDeletedWantgroupIdsCopy[id] = true;
+        return oldDeletedWantgroupIdsCopy;
+      });
+    }
+
     tooglePreviewWantGroupModal();
   }, [setMyWants, id, tooglePreviewWantGroupModal, setDeletedWantgroupIds]);
 

@@ -7,11 +7,7 @@ export const MyWantsContext = createContext({
   setChanges: () => {},
   deletedWantgroupIds: {},
   setDeletedWantgroupIds: () => {},
-  //
-  previewWantGroup: null,
-  setPreviewWantGroup: () => {},
-  showPreviewWantGroupModal: false,
-  tooglePreviewWantGroupModal: () => {},
+
   //
   previewItemId: null,
   setPreviewItemId: () => {},
@@ -31,13 +27,7 @@ export const MyWantsContextProvider = ({ children }) => {
   const [matchValues, setMatchValues] = useState({});
   const [changes, setChanges] = useState({});
   const [deletedWantgroupIds, setDeletedWantgroupIds] = useState({});
-  //
-  const [previewWantGroup, setPreviewWantGroup] = useState(null);
-  const [showPreviewWantGroupModal, setShowPreviewWantGroupModal] =
-    useState(false);
-  const tooglePreviewWantGroupModal = useCallback(() => {
-    setShowPreviewWantGroupModal((v) => !v);
-  }, []);
+
   //
   const [previewItemId, setPreviewItemId] = useState(null);
   const [showPreviewItemModal, setShowPreviewItemModal] = useState(false);
@@ -59,11 +49,7 @@ export const MyWantsContextProvider = ({ children }) => {
         setChanges,
         deletedWantgroupIds,
         setDeletedWantgroupIds,
-        //
-        previewWantGroup,
-        setPreviewWantGroup,
-        showPreviewWantGroupModal,
-        tooglePreviewWantGroupModal,
+
         //
         previewItemId,
         setPreviewItemId,

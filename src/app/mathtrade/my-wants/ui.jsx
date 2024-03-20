@@ -10,8 +10,6 @@ import Footer from "./footer";
 import ErrorAlert from "@/components/errorAlert";
 import Container from "@/components/container";
 import ModalPreviewerItem from "@/components/previewerItem/modal";
-import ModalPreviewerWantGroup from "@/components/previewerWantGroup/modal";
-import ModalPreviewer from "@/components/previewer/modal";
 
 export default function MyWantsUI() {
   const { screenView, setScreenView, loading, error } = useWants();
@@ -48,8 +46,6 @@ export default function MyWantsUI() {
       {<Footer />}
 
       <ModalPreviewerItem />
-      <ModalPreviewerWantGroup />
-      <ModalPreviewer />
     </>
   );
 }

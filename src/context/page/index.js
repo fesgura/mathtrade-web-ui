@@ -63,6 +63,13 @@ export const PageContext = createContext({
     commit: false,
     results: false,
   },
+  //
+  previewWantGroupId: null,
+  setPreviewWantGroupId: () => {},
+  previewWantGroup: null,
+  setPreviewWantGroup: () => {},
+  showPreviewWantGroupModal: false,
+  tooglePreviewWantGroupModal: () => {},
 });
 
 export const PageContextProvider = ({ children }) => {
@@ -134,6 +141,15 @@ export const PageContextProvider = ({ children }) => {
     };
   }, [mathtrade, membership, pageType]);
 
+  //
+  const [previewWantGroupId, setPreviewWantGroupId] = useState(null);
+  const [previewWantGroup, setPreviewWantGroup] = useState(null);
+  const [showPreviewWantGroupModal, setShowPreviewWantGroupModal] =
+    useState(false);
+  const tooglePreviewWantGroupModal = useCallback(() => {
+    setShowPreviewWantGroupModal((v) => !v);
+  }, []);
+
   return (
     <PageContext.Provider
       value={{
@@ -188,6 +204,14 @@ export const PageContextProvider = ({ children }) => {
         setShowModalPreview,
         //
         canI,
+        //
+        previewWantGroupId,
+        setPreviewWantGroupId,
+        previewWantGroup,
+        setPreviewWantGroup,
+        showPreviewWantGroupModal,
+        setShowPreviewWantGroupModal,
+        tooglePreviewWantGroupModal,
       }}
     >
       {children}

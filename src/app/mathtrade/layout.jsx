@@ -1,7 +1,10 @@
+"use client";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import PrivateEnvironment from "@/environments/private";
 import { PageContextProvider } from "@/context/page";
+import ModalPreviewer from "@/components/previewer/modal";
+import ModalPreviewerWantGroup from "@/components/previewerWantGroup/modal";
 
 export default function MathTradeLayout({ children }) {
   return (
@@ -13,6 +16,8 @@ export default function MathTradeLayout({ children }) {
           <main className="relative pb-4">{children}</main>
           <Footer />
         </div>
+        <ModalPreviewerWantGroup />
+        <ModalPreviewer />
       </PageContextProvider>
     </PrivateEnvironment>
   );

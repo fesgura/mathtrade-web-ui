@@ -11,7 +11,7 @@ const Notification = ({ data }) => {
     body,
     messageText,
     values,
-    link,
+    linkFunction,
     linkText,
   } = useNotification(data);
 
@@ -47,13 +47,14 @@ const Notification = ({ data }) => {
             <p className="text-gray-600 mb-2 italic">{body}</p>
           </div>
 
-          {link ? (
+          {linkFunction ? (
             <div>
-              <div className="underline text-primary font-bold">
+              <button
+                className="underline text-primary font-bold"
+                onClick={linkFunction}
+              >
                 <I18N id={linkText} />
-                <br />
-                (LINK NO HABILITADO DE MOMENTO)
-              </div>
+              </button>
             </div>
           ) : null}
         </div>

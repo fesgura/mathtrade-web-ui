@@ -111,12 +111,10 @@ const useNotifications = () => {
 
   /*
   useEffect(() => {
-
     setNum(temp?.count || 0);
     setList(temp?.results || []);
   }, []);
-  */
-
+*/
   return {
     visibleMobile,
     toggleMobile,

@@ -14,7 +14,6 @@ import ItemTagHeader from "@/components/item-tags/item-tag-header";
 import ErrorAlert from "@/components/errorAlert";
 import EmptyList from "@/components/emptyList";
 import BanUsersModal from "@/components/ban/users/modal";
-import ModalPreviewer from "@/components/previewer/modal";
 
 const ItemsPage = () => {
   const { isLoaded, items, expandedItem, setExpandedItem, loading, error } =
@@ -66,7 +65,6 @@ const ItemsPage = () => {
         </SidebarGrid>
       </SectionWithSidebar>
       <BanUsersModal />
-      <ModalPreviewer />
     </>
   );
 };

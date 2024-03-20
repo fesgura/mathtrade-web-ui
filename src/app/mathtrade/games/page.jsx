@@ -13,7 +13,6 @@ import ErrorAlert from "@/components/errorAlert";
 import GameGrid from "@/components/game/game-grid";
 import EmptyList from "@/components/emptyList";
 import BanUsersModal from "@/components/ban/users/modal";
-import ModalPreviewer from "@/components/previewer/modal";
 
 const ItemsPage = () => {
   const { isLoaded, games, expandedGame, setExpandedGame, loading, error } =
@@ -62,7 +61,6 @@ const ItemsPage = () => {
         </SidebarGrid>
       </SectionWithSidebar>
       <BanUsersModal />
-      <ModalPreviewer />
     </>
   );
 };

@@ -6,7 +6,6 @@ import UserSelector from "@/components/results/userSelector";
 import Tabs from "@/components/tabs";
 import ResultsVisual from "@/components/results/visual";
 import ResultsTable from "@/components/results/table";
-import ModalPreviewer from "@/components/previewer/modal";
 
 export default function ResultsUI() {
   const { screenViewResults, setScreenViewResults, loading } = useResults();
@@ -25,7 +24,6 @@ export default function ResultsUI() {
           {screenViewResults === 0 ? <ResultsVisual /> : <ResultsTable />}
         </Container>
       </SectionCommon>
-      <ModalPreviewer />
     </>
   );
 }
