@@ -11,7 +11,7 @@ import MainMenu from "./menu";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import clsx from "clsx";
 import TimelineButton from "./timeline";
-import HelpButton from "./helpButton";
+//import HelpButton from "./helpButton";
 
 const Header = () => {
   /* PAGE CONTEXT **********************************************/
@@ -53,9 +53,9 @@ const Header = () => {
             <div className="main-header_col">
               <CartButton />
             </div>
-            <div className="main-header_col">
+            {/* <div className="main-header_col">
               <HelpButton />
-            </div>
+            </div> */}
             <AccountMenuButton />
           </div>
         </div>

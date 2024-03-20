@@ -6,6 +6,7 @@ import { PageContextProvider } from "@/context/page";
 import ModalPreviewer from "@/components/previewer/modal";
 import ModalPreviewerWantGroup from "@/components/previewerWantGroup/modal";
 import Faqs from "@/components/faqs";
+import ButtonHelp from "@/components/faqs/button";
 
 export default function MathTradeLayout({ children }) {
   return (
@@ -17,6 +18,7 @@ export default function MathTradeLayout({ children }) {
           <main className="relative pb-4">{children}</main>
           <Footer />
         </div>
+        <ButtonHelp />
         <Faqs />
         <ModalPreviewerWantGroup />
         <ModalPreviewer />
