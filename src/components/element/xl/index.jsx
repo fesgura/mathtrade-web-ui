@@ -9,6 +9,7 @@ import Value from "@/components/value";
 import { ItemContext } from "@/context/item";
 import MyGroupsInItem from "@/components/item-mygroups/header-groups";
 import BanButton from "@/components/ban/button";
+import Icon from "@/components/icon";
 
 const ElementXL = ({ element, onChangeValue }) => {
   /* ITEM CONTEXT **********************************************/
@@ -51,14 +52,19 @@ const ElementXL = ({ element, onChangeValue }) => {
             <div className="uppercase text-[10px] font-bold text-gray-400">
               {type}
             </div>
-            <h3 className="text-lg font-bold mb-2">
+
+            <div>
+              <h3 className="text-lg font-bold mb-2">{title}</h3>
               <LinkExternal
                 href={titleLink}
+                className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
                 tooltip="element.BGG.OpenGameInBGG"
               >
-                {title}
+                BGG
+                <Icon type="external-link" />
               </LinkExternal>
-            </h3>
+            </div>
+
             {isCombo ? null : <MyGroupsInItem className="mb-4" />}
           </div>
 

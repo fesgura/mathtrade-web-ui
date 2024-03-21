@@ -66,18 +66,27 @@ const ItemMD = ({ onToggleExpanse }) => {
           >
             <I18N id={`element-type-badge-${typeNum}`} />
           </div>
+
           <div
-            data-tooltip={
-              titleLink ? getI18Ntext("element.BGG.OpenGameInBGG") : null
-            }
+            data-tooltip={getI18Ntext("Ampliar")}
+            className="cursor-pointer"
+            onClick={onToggleExpanse}
           >
-            <h3 className="text-lg font-bold cropped">
-              <LinkExternal href={titleLink}>{title}</LinkExternal>
+            <h3 className="text-lg font-bold cropped hover:opacity-70">
+              {title}
             </h3>
           </div>
 
           {!isCombo && (
             <>
+              <LinkExternal
+                href={titleLink}
+                className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
+                tooltip="element.BGG.OpenGameInBGG"
+              >
+                BGG
+                <Icon type="external-link" />
+              </LinkExternal>
               <div className="text-sm italic text-gray-500 mb-2">
                 <LinkExternal
                   href={publisherLink}

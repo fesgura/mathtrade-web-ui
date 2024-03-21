@@ -41,14 +41,19 @@ const GameGridXL = ({ onToggleExpanse }) => {
               <div className="uppercase text-[10px] font-bold opacity-70">
                 {type}
               </div>
-              <div
-                className="w-fit"
-                data-tooltip={getI18Ntext("element.BGG.OpenGameInBGG")}
-              >
-                <h3 className="text-lg font-bold cropped">
-                  <LinkExternal href={titleLink}>{title}</LinkExternal>
-                </h3>
+
+              <div>
+                <h3 className="text-lg font-bold mb-2">{title}</h3>
+                <LinkExternal
+                  href={titleLink}
+                  className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
+                  tooltip="element.BGG.OpenGameInBGG"
+                >
+                  BGG
+                  <Icon type="external-link" />
+                </LinkExternal>
               </div>
+
               <div className="py-3">
                 <div className="py-3 border-b border-t border-gray-700">
                   <BGGinfo game={gameRaw} />

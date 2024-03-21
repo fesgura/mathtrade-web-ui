@@ -58,11 +58,26 @@ const GameGridMD = ({ onToggleExpanse }) => {
             <div className="uppercase text-[10px] font-bold opacity-70">
               {type}
             </div>
-            <div data-tooltip={getI18Ntext("element.BGG.OpenGameInBGG")}>
-              <h3 className="text-lg font-bold cropped">
-                <LinkExternal href={titleLink}>{title}</LinkExternal>
+
+            <div
+              data-tooltip={getI18Ntext("Ampliar")}
+              className="cursor-pointer"
+              onClick={onToggleExpanse}
+            >
+              <h3 className="text-lg font-bold cropped hover:opacity-70">
+                {title}
               </h3>
             </div>
+
+            <LinkExternal
+              href={titleLink}
+              className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
+              tooltip="element.BGG.OpenGameInBGG"
+            >
+              BGG
+              <Icon type="external-link" />
+            </LinkExternal>
+
             <div className="py-3">
               <div className="py-3 border-b border-t border-gray-700">
                 <BGGinfo game={gameRaw} />
@@ -70,8 +85,11 @@ const GameGridMD = ({ onToggleExpanse }) => {
             </div>
           </div>
 
-          <div className="text-center">
-            <div className="text-xs opacity-50 mb-2">
+          <div className="text-center" data-tooltip={getI18Ntext("Ampliar")}>
+            <div
+              className="text-xs opacity-50 mb-2 cursor-pointer"
+              onClick={onToggleExpanse}
+            >
               {`${itemCount} `}
               <I18N
                 id={itemCount === 1 ? "game.item-num.1" : "game.item-num.more"}
