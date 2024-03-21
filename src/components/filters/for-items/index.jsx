@@ -5,10 +5,10 @@ import {
   Input,
   RangeTwo,
   Switch,
+  TagSelector,
 } from "@/components/form";
 import useFilterItems from "./useFilterItems";
 import I18N from "@/i18n";
-import { colorTagStyles } from "@/utils/color";
 import NewItemTag from "@/components/item-tags/new-item-tag";
 import BanUsers from "@/components/ban/users";
 
@@ -45,11 +45,11 @@ const FiltersForItems = () => {
 
         <InputContainer>
           <Label text="filter.Tag" name="tag" size="sm" />
-          <Select
+          <TagSelector
             data={data}
             name="tag"
             options={tagList}
-            size="sm"
+            /* size="sm"
             multiple
             unique
             customRenderOption={(option) => {
@@ -80,7 +80,7 @@ const FiltersForItems = () => {
                   {closeButton}
                 </div>
               );
-            }}
+            }} */
           />
           <NewItemTag />
         </InputContainer>

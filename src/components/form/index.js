@@ -9,3 +9,4 @@ export { default as Checkbox } from "./inputTypes/checkbox";
 export { default as Switch } from "./inputTypes/switch";
 export { default as Range } from "./inputTypes/range";
 export { default as RangeTwo } from "./inputTypes/rangeTwo";
+export { default as TagSelector } from "./inputTypes/tagSelector";
