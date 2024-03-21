@@ -13,15 +13,17 @@ const Filters = ({ type = "item" }) => {
   });
 
   return (
-    <Form onSubmit={onSubmit} formatTypes={formatTypes} className="p-5">
-      {enabledRender ? (
-        type === "item" ? (
-          <FiltersForItems />
-        ) : (
-          <FiltersForGames />
-        )
-      ) : null}
-      <div className="text-center pt-4">
+    <Form onSubmit={onSubmit} formatTypes={formatTypes}>
+      <div className="lg:h-[calc(100vh-250px)] overflow-x-hidden overflow-y-scroll p-5 scrollbar">
+        {enabledRender ? (
+          type === "item" ? (
+            <FiltersForItems />
+          ) : (
+            <FiltersForGames />
+          )
+        ) : null}
+      </div>
+      <div className="text-center py-4 px-5 bg-white lg:border-t lg:border-gray-300">
         <Button block>
           <InnerButton>
             <Icon type="filters" />
