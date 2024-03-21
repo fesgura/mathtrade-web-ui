@@ -78,7 +78,7 @@ const ElementXL = ({ element, onChangeValue }) => {
           </div>
 
           <div className="flex gap-3 items-center mb-3">
-            <div className="text-sm text-gray-600 leading-none">{language}</div>
+            <div className="text-sm text-purple-950 font-bold">{language}</div>
             <StatusBadge status={status} />
           </div>
 

@@ -87,7 +87,9 @@ const ItemMD = ({ onToggleExpanse }) => {
                 </LinkExternal>
               </div>
 
-              <div className="text-sm text-gray-600">{language}</div>
+              <div className="text-sm text-purple-950 font-bold">
+                {language}
+              </div>
               <StatusBadge status={status} />
             </>
           )}
