@@ -11,12 +11,12 @@ const Faq = ({ data }) => {
   const toggleOpen = () => setOpen((v) => !v);
 
   return (
-    <div className="mb-4 shadow border border-gray-300 rounded-lg">
+    <div className="mb-4 shadow border border-gray-300 rounded-lg bg-white">
       <div
         className={clsx(
           " py-2 px-3 cursor-pointer hover:opacity-70 transition-colors",
           {
-            "bg-gray-200 rounded-lg": !open,
+            "bg-white rounded-lg": !open,
             "bg-teal-500 text-white rounded-tl-lg rounded-tr-lg": open,
           }
         )}

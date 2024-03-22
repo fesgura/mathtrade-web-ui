@@ -76,4 +76,8 @@ export const PRIVATE_ROUTES = {
     title: "myAccount",
     path: privateRoot + "/my-account",
   },
+  FAQS: {
+    title: "faqs",
+    path: privateRoot + "/faqs",
+  },
 };

@@ -22,6 +22,7 @@ const PageHeader = ({
         "from-yellow-600 to-lime-700": name === "stats",
         "from-sky-600 to-indigo-800": name === "myData",
         "from-red-500 to-purple-800": name === "myAccount",
+        "from-want to-sky-700": name === "faqs",
       })}
     >
       <Container>

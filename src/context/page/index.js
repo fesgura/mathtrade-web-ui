@@ -71,9 +71,7 @@ export const PageContext = createContext({
   showPreviewWantGroupModal: false,
   tooglePreviewWantGroupModal: () => {},
   //
-  showFaqsModal: false,
-  toogleShowFaqsModal: () => {},
-  //
+
   showChatBox: false,
   setShowChatBox: () => {},
 });
@@ -157,11 +155,6 @@ export const PageContextProvider = ({ children }) => {
   }, []);
 
   //
-  const [showFaqsModal, setShowFaqsModal] = useState(false);
-
-  const toogleShowFaqsModal = useCallback(() => {
-    setShowFaqsModal((v) => !v);
-  }, []);
 
   const [showChatBox, setShowChatBox] = useState(false);
 
@@ -227,9 +220,7 @@ export const PageContextProvider = ({ children }) => {
         showPreviewWantGroupModal,
         setShowPreviewWantGroupModal,
         tooglePreviewWantGroupModal,
-        //
-        showFaqsModal,
-        toogleShowFaqsModal,
+
         //
         showChatBox,
         setShowChatBox,

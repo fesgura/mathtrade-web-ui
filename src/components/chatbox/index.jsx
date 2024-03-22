@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { PageContext } from "@/context/page";
 import Icon from "@/components/icon";
+import I18N from "@/i18n";
 
 const ChatBoxButton = () => {
   /* PAGE CONTEXT **********************************************/
@@ -18,14 +19,14 @@ const ChatBoxButton = () => {
           <Icon type="chatbox" />
         </div>
         <div className="uppercase text-primary text-[9px] font-bold lg:block hidden">
-          Chat de ayuda
+          <I18N id="chatbox.btn" />
         </div>
       </button>
       {showChatBox ? (
-        <div className="absolute w-80 min-h-[460px] bg-white shadow-xl bottom-full right-0">
+        <div className="absolute w-80 min-h-[430px] bg-white shadow-xl bottom-full right-0">
           <iframe
             width="320"
-            height="460"
+            height="430"
             allow="microphone;"
             src="https://console.dialogflow.com/api-client/demo/embedded/a642ce57-93e6-4849-8060-8295894f2a98"
           ></iframe>

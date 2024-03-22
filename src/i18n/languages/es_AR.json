@@ -596,6 +596,8 @@
   "elementsPerPage.all": "Todos",
   "menu.Stats": "Estadísticas",
   "title.Stats": "Estadísticas",
+  "menu.Faqs": "Preguntas frecuentes",
+  "title.Faqs": "Preguntas frecuentes",
   "subtitle.Stats": "para este MathTrade",
   "stats.pill.game": "Juegos publicados",
   "stats.pill.item": "Ejemplares cambiados",
@@ -719,5 +721,6 @@
   "btn.thumbnail.load": "Cargar portada",
   "error.thumbnail": "El ejemplar debe tener una portada. Si la edición actual no posee, puedes cargar una.",
   "help.menu": "Ayuda",
-  "help.title": "Ayuda"
+  "help.title": "Ayuda",
+  "chatbox.btn": "Chat de ayuda"
 }
