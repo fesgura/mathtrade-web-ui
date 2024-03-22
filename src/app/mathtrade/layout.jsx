@@ -6,6 +6,7 @@ import { PageContextProvider } from "@/context/page";
 import ModalPreviewer from "@/components/previewer/modal";
 import ModalPreviewerWantGroup from "@/components/previewerWantGroup/modal";
 import Faqs from "@/components/faqs";
+import ChatBoxButton from "@/components/chatbox";
 //import ButtonHelp from "@/components/faqs/button";
 
 export default function MathTradeLayout({ children }) {
@@ -22,6 +23,7 @@ export default function MathTradeLayout({ children }) {
         <Faqs />
         <ModalPreviewerWantGroup />
         <ModalPreviewer />
+        <ChatBoxButton />
       </PageContextProvider>
     </PrivateEnvironment>
   );

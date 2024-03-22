@@ -73,6 +73,9 @@ export const PageContext = createContext({
   //
   showFaqsModal: false,
   toogleShowFaqsModal: () => {},
+  //
+  showChatBox: false,
+  setShowChatBox: () => {},
 });
 
 export const PageContextProvider = ({ children }) => {
@@ -160,6 +163,8 @@ export const PageContextProvider = ({ children }) => {
     setShowFaqsModal((v) => !v);
   }, []);
 
+  const [showChatBox, setShowChatBox] = useState(false);
+
   return (
     <PageContext.Provider
       value={{
@@ -225,6 +230,9 @@ export const PageContextProvider = ({ children }) => {
         //
         showFaqsModal,
         toogleShowFaqsModal,
+        //
+        showChatBox,
+        setShowChatBox,
       }}
     >
       {children}
