@@ -46,7 +46,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
             <div className="text-center text-white">
               <Icon type="plus" className="text-5xl" />
               <div className="font-bold uppercase text-xs">
-                <I18N id="Ampliar" />
+                <I18N id="Enlarge" />
               </div>
             </div>
           </div>
@@ -60,7 +60,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
             </div>
 
             <div
-              data-tooltip={getI18Ntext("Ampliar")}
+              data-tooltip={getI18Ntext("Enlarge")}
               className="cursor-pointer"
               onClick={onToggleExpanse}
             >
@@ -85,7 +85,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
             </div>
           </div>
 
-          <div className="text-center" data-tooltip={getI18Ntext("Ampliar")}>
+          <div className="text-center" data-tooltip={getI18Ntext("Enlarge")}>
             <div
               className="text-xs opacity-50 mb-2 cursor-pointer"
               onClick={onToggleExpanse}

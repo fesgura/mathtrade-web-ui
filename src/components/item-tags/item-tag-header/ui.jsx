@@ -85,7 +85,7 @@ const ItemTagHeaderUI = () => {
               <InnerButton>
                 <Icon type="arrow-down" />
                 <div className="text-xs uppercase">
-                  <I18N id="Ampliar" />
+                  <I18N id="Enlarge" />
                 </div>
               </InnerButton>
             </button>
