@@ -15,13 +15,20 @@ const Range = ({
   }, [valueInternal, min, max]);
 
   const onChangeValue = useCallback(
-    (v) => {
-      setValueInternal(v);
-      if (onChange) {
-        onChange(v);
+    (w) => {
+      if (!parseFloat(w) && w !== "0") {
+        return;
+      }
+      const v = parseFloat(w);
+
+      if (v >= min && v <= max) {
+        setValueInternal(v);
+        if (onChange) {
+          onChange(v);
+        }
       }
     },
-    [onChange]
+    [onChange, min, max]
   );
 
   return (
@@ -35,7 +42,7 @@ const Range = ({
           className="text-xs bg-white border border-gray-400 rounded-md w-12 text-center focus:outline-none focus:border-primary"
           value={valueInternal}
           onChange={(e) => {
-            onChangeValue(parseFloat(e.target.value));
+            onChangeValue(e.target.value);
           }}
         />
       </div>
@@ -56,7 +63,7 @@ const Range = ({
           className="range-input appearance-none absolute top-0 left-0 w-full opacity-0 cursor-grab"
           value={valueInternal}
           onChange={(e) => {
-            onChangeValue(parseFloat(e.target.value));
+            onChangeValue(e.target.value);
           }}
         />
       </div>

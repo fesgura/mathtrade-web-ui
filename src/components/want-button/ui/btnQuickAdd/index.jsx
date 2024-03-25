@@ -51,8 +51,6 @@ const BtnQuickAdd = () => {
   const { groupWantList } = useContext(WantGroupContext);
   /* end WANTGROUP CONTEXT */
 
-  console.log("groupWantList", groupWantList);
-
   /* POST *************************************/
 
   const afterLoad = useCallback(

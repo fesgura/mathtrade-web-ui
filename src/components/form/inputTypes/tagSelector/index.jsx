@@ -8,8 +8,6 @@ const TagSelector = ({ name, data, loading, options }) => {
   const [isFocus, setFocus] = useState(false);
   const [valueOutput, setValueOutput] = useState("");
 
-  console.log(options);
-
   const buttonContent = useMemo(() => {
     const defaultContent = (
       <div className="text-gray-400  py-1">

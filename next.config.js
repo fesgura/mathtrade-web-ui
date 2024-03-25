@@ -2,7 +2,7 @@
 const nextConfig = {
   env: {
     BASE_URL: "https://api.mathtrade.com.ar/",
-    // BASE_URL: "https://mathtrade-backend-dev-tbmf.2.us-1.fl0.io/",
+     //BASE_URL: "https://mathtrade-backend-dev-tbmf.2.us-1.fl0.io/",
     BASE_URL_MEDIA: "https://mathtrade-backend-dev-tbmf.2.us-1.fl0.io/media/",
     GOOGLE_RECAPTCHA_CLIENT_KEY: "6LeWcz8gAAAAAGgpOiINIJZSwsmKH-eMjtbQbFbF",
     //

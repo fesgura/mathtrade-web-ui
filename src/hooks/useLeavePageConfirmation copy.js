@@ -9,7 +9,6 @@ export const useLeavePageConfirmation = (
   confirmationDialog = defaultConfirmationDialog
 ) => {
   useEffect(() => {
-    console.log(SingletonRouter)
     if (!SingletonRouter.router?.change) {
       return;
     }

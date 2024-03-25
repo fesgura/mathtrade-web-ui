@@ -16,10 +16,6 @@ export const useLeavePageConfirmation = (
 
 
 
- useEffect(()=>{
-  console.log(`The page is now: ${router}`,router);
- },[router])
-
 
 
 };
