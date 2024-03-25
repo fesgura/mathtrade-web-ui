@@ -338,6 +338,7 @@
   "register.ReadyTitle": "¡Listo!",
   "register.Subtitle": "Completá los datos para crear tu cuenta",
   "register.Title": "Creá tu cuenta",
+  "results.none.noTrades": "En esta oportunidad <strong>no has conseguido</strong> ningún cambio.",
   "result.trade": "intercambio",
   "result.trades": "intercambios",
   "results.NotResultsYet.help": "Muy pronto podrás ver aquí los <strong>resultados</strong> para este Math Trade.",
