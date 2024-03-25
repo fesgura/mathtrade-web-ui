@@ -42,6 +42,7 @@ const useNotification = (data, setNum, toggleMobile) => {
           break;
         case "WGC":
         case "WGR":
+        case "WGA":
           values.push(message?.uwg_name || "");
           linkFunction = message?.uwg_id
             ? () => {
