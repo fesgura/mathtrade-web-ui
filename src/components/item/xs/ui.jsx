@@ -31,7 +31,7 @@ const ItemXSUI = ({ className, extraContent, dark, hideUser, hideValue }) => {
               <Thumbnail elements={elements} className="w-7" />
             </div>
             <div data-tooltip={title}>
-              <h3 className="text-xs font-bold cropped_1 max-w-[260px]">
+              <h3 className="text-xs font-bold cropped_1 xmax-w-[260px]">
                 {isCombo && (
                   <>
                     <span className="underline">Combo</span>:{" "}
