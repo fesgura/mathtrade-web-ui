@@ -287,6 +287,7 @@
   "MyWants.dup_protection.help": "¡Si DESACTIVÁS la \"Protección de duplicados\" corrés el riesgo de recibir dos o más juegos de este grupo! ¡Desactivalo SOLO SI SABÉS LO QUE ESTÁS HACIENDO!",
   "MyWants.dup_protection.no": "Protección de duplicados <strong>desactivada</strong>.",
   "MyWants.dup_protection.yes": "Protección de duplicados <strong>activada</strong>.",
+  "MyWants.EmptyList": "No has agregado ningún deseo a tu lista.<br/>Agrega alguno desde lo que los otros participantes ofrecen.",
   "notifications.all.MarkAsRead": "Marcar todas como leídas",
   "notifications.LoadMore": "Cargar más",
   "notifications.MarkAsNotRead": "Marcar como no leída",
