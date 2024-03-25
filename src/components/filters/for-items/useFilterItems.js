@@ -108,13 +108,17 @@ const useFiltersItems = () => {
       return [];
     }
 
-    return users.map((user) => {
-      const { id, first_name, last_name, location } = user;
-      return {
-        value: id,
-        text: `${first_name} ${last_name} (${location?.name})`,
-      };
-    });
+    return [...users]
+      .sort((a, b) => {
+        return a?.last_name < b?.last_name ? -1 : 1;
+      })
+      .map((user) => {
+        const { id, first_name, last_name, location } = user;
+        return {
+          value: id,
+          text: `${first_name} ${last_name} (${location?.name})`,
+        };
+      });
   }, [users]);
 
   return {
