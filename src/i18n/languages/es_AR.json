@@ -104,6 +104,7 @@
   "EmptyList.items": "Sin ejemplares que mostrar.",
   "EmptyList.myOffer": "Sin ejemplares que ofrecer.",
   "Enlarge": "Ampliar",
+  "error.Login": "Usuario o contraseña incorrecto.",
   "error.General": "Ocurrió un error. Por favor, intentá nuevamente.",
   "filter.Dependency": "Dependencia del idioma",
   "filter.Filter": "Filtrar",
