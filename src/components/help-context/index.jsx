@@ -66,7 +66,7 @@ const HelpContext = ({ id }) => {
             </div>
 
             <div className="bg-white border border-orange-600 px-3 pb-2 rounded-tr-md rounded-br-md text-sm leading-6">
-              <div className="font-bold border-b border-gray-300 py-1 mb-2 text-gray-400 italic">
+              <div className="font-bold border-b border-gray-300 py-1 mb-2 text-gray-600 italic">
                 <I18N id={`helpcontext.title.${id}`} />
               </div>
               <I18N id={`helpcontext.answer.${id}`} />
