@@ -51,7 +51,7 @@ const ItemXL = ({ onToggleExpanse }) => {
           className="absolute top-1 right-1 aspect-square w-7 opacity-50 hover:opacity-100"
           onClick={onToggleExpanse}
         >
-          <div data-tooltip={getI18Ntext("Cerrar")}>
+          <div data-tooltip={getI18Ntext("minimize")}>
             <Icon />
           </div>
         </button>

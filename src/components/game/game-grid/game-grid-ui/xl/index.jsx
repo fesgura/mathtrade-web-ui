@@ -74,7 +74,7 @@ const GameGridXL = ({ onToggleExpanse }) => {
           className="absolute top-1 right-1 aspect-square w-7 opacity-80 hover:opacity-100 text-white"
           onClick={onToggleExpanse}
         >
-          <div data-tooltip={getI18Ntext("Cerrar")}>
+          <div data-tooltip={getI18Ntext("minimize")}>
             <Icon />
           </div>
         </button>

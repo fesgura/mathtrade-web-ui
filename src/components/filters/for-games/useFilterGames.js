@@ -39,6 +39,10 @@ const useFilterGames = () => {
           value: "2",
           text: getI18Ntext("filter.Type.Expansion"),
         },
+        {
+          value: "3",
+          text: getI18Ntext("filter.Type.Other"),
+        },
       ],
       banOptions: [
         {
