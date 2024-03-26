@@ -405,6 +405,13 @@
   "wantview.LastCommitmentDay": "Último compromiso, el día:",
   "wantview.NotCommitmentYet": "Todavía no has comprometido tus deseos.<br />Debes hacerlo para poder participar.",
   "wantview.RemoveItems": "Quitar",
+  "want.updated": "Deseo actualizado",
+  "want.updated.label": "Actualizado",
+  "want.owner.item": "Ejemplar propio",
+  "want.owner.game": "Juego propio",
+  "want.notSelectedGame": "Tenés que seleccionar al menos <strong><u>uno</u></strong> de los ejemplares ofrecidos.",
+  "want.removeFrom.answer": "¿Quitar de mis deseos?",
+  "want.screen.grid.disabled": "La <strong>vista de grilla</strong> sólo puede utilizarse en pantallas de <strong>$$$px</strong> o más de ancho (<strong>PC de escritorio, laptop, etc.</strong>).<br />De esta manera, <strong> prevenimos confusiones y errores</strong> que puedan surgir por el uso de la interfaz.",
   "whatIsMathTrade": "¿Qué es el MathTrade?",
   "Yes": "Sí"
 }

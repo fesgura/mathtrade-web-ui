@@ -4,7 +4,6 @@ import {
   useState,
   useCallback,
   useMemo,
-  useEffect,
 } from "react";
 import { useStore } from "@/store";
 
@@ -70,10 +69,7 @@ export const PageContext = createContext({
   setPreviewWantGroup: () => {},
   showPreviewWantGroupModal: false,
   tooglePreviewWantGroupModal: () => {},
-  //
 
-  showChatBox: false,
-  setShowChatBox: () => {},
 });
 
 export const PageContextProvider = ({ children }) => {
@@ -154,10 +150,6 @@ export const PageContextProvider = ({ children }) => {
     setShowPreviewWantGroupModal((v) => !v);
   }, []);
 
-  //
-
-  const [showChatBox, setShowChatBox] = useState(false);
-
   return (
     <PageContext.Provider
       value={{
@@ -220,10 +212,6 @@ export const PageContextProvider = ({ children }) => {
         showPreviewWantGroupModal,
         setShowPreviewWantGroupModal,
         tooglePreviewWantGroupModal,
-
-        //
-        showChatBox,
-        setShowChatBox,
       }}
     >
       {children}

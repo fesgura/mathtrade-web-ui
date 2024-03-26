@@ -1,14 +1,11 @@
 "use client";
-import { useCallback, useState, useContext } from "react";
-import { PageContext } from "@/context/page";
+import { useCallback, useState } from "react";
 import HeadContent from "../head-content";
 import I18N from "@/i18n";
 import Link from "next/link";
 import { PRIVATE_ROUTES } from "@/config/routes";
 
 const HelpButton = () => {
-  const { setShowChatBox } = useContext(PageContext);
-
   const [visibleMobile, setVisibleMobile] = useState(false);
 
   const toggleMobile = useCallback(() => {
@@ -33,16 +30,6 @@ const HelpButton = () => {
           >
             <I18N id="menu.Faqs" />
           </Link>
-          <hr />
-          <button
-            className="leading-10 hover:bg-sky-200 text-center w-full"
-            onClick={() => {
-              toggleMobile();
-              setShowChatBox(true);
-            }}
-          >
-            Chat de ayuda
-          </button>
         </div>
       </HeadContent>
     </div>
