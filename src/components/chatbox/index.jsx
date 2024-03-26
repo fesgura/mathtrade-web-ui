@@ -1,38 +1,45 @@
 import { useContext, useEffect } from "react";
 import { PageContext } from "@/context/page";
-import Icon from "@/components/icon";
 import I18N from "@/i18n";
 
 const ChatBoxButton = () => {
   /* PAGE CONTEXT **********************************************/
-  const { showChatBox, setShowChatBox } = useContext(PageContext);
+  const { userId } = useContext(PageContext);
+
+  useEffect(() => {
+    let dfMessenger = null;
+
+    const onLoaded = function (event) {
+      document
+        .querySelector("df-messenger")
+        .shadowRoot.querySelector(".df-messenger-wrapper")
+        .querySelector("#widgetIcon").style.bottom = "30px";
+    };
+
+    if (window) {
+      const dfMessenger = document.querySelector("df-messenger");
+      dfMessenger.addEventListener("df-messenger-loaded", onLoaded);
+    }
+
+    return () => {
+      if (window && dfMessenger) {
+        dfMessenger.removeEventListener("df-messenger-loaded", onLoaded);
+      }
+    };
+  }, []);
 
   return (
-    <div className="fixed lg:bottom-4 bottom-12 lg:right-4 right-2 z-[999999] pt-3">
-      <button
-        className="hover:opacity-70"
-        onClick={() => {
-          setShowChatBox((v) => !v);
-        }}
-      >
-        <div className="bg-primary text-white w-10 leading-10 mx-auto text-xl rounded-full mb-1">
-          <Icon type="chatbox" />
-        </div>
-        <div className="uppercase text-primary text-[9px] font-bold lg:block hidden">
-          <I18N id="chatbox.btn" />
-        </div>
-      </button>
-      {showChatBox ? (
-        <div className="absolute w-80 min-h-[430px] bg-white shadow-xl bottom-full right-0">
-          <iframe
-            width="320"
-            height="430"
-            allow="microphone;"
-            src="https://console.dialogflow.com/api-client/demo/embedded/a642ce57-93e6-4849-8060-8295894f2a98"
-          ></iframe>
-          <div className="bottom-0 right-0 -mb-5 lg:mr-6 mr-3 absolute w-0 h-0 border-[10px] border-l-transparent border-r-transparent border-b-transparent border-t-white" />
-        </div>
-      ) : null}
+    <div className="relative z-[99999999]">
+      <df-messenger
+        chat-icon="https:&#x2F;&#x2F;www.mathtrade.com.ar&#x2F;chatbox.png"
+        intent="WELCOME"
+        chat-title="Ayuda Math Trade"
+        agent-id="a642ce57-93e6-4849-8060-8295894f2a98"
+        language-code="es"
+        user-id={userId}
+        session-id="1"
+        wait-open
+      ></df-messenger>
     </div>
   );
 };

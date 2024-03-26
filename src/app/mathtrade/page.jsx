@@ -53,12 +53,6 @@ export default function HomePage() {
       >
         <Container>
           <p>Inicio (TODO)</p>
-          {/*  <iframe
-            width="320"
-            height="430"
-            allow="microphone;"
-            src="https://console.dialogflow.com/api-client/demo/embedded/a642ce57-93e6-4849-8060-8295894f2a98"
-          ></iframe> */}
         </Container>
       </SectionCommon>
     </>
