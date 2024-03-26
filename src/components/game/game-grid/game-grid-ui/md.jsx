@@ -9,6 +9,8 @@ import Value from "@/components/value";
 import WantButton from "@/components/want-button";
 import BanButton from "@/components/ban/button";
 import clsx from "clsx";
+import WantButtonGame from "./wantButtonGame";
+import ItemNoBGG from "./itemNoBgg";
 
 const GameGridMD = ({ onToggleExpanse }) => {
   /* GAME CONTEXT **********************************************/
@@ -20,7 +22,9 @@ const GameGridMD = ({ onToggleExpanse }) => {
     titleLink,
     type,
     thumbnail,
-    /*items,*/ itemCount,
+    items,
+    itemCount,
+    notGame,
   } = game;
   /* end GAME CONTEXT */
 
@@ -69,33 +73,50 @@ const GameGridMD = ({ onToggleExpanse }) => {
               </h3>
             </div>
 
-            <LinkExternal
-              href={titleLink}
-              className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
-              tooltip="element.BGG.OpenGameInBGG"
-            >
-              BGG
-              <Icon type="external-link" />
-            </LinkExternal>
+            {titleLink ? (
+              <LinkExternal
+                href={titleLink}
+                className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
+                tooltip="element.BGG.OpenGameInBGG"
+              >
+                BGG
+                <Icon type="external-link" />
+              </LinkExternal>
+            ) : null}
 
-            <div className="py-3">
-              <div className="py-3 border-b border-t border-gray-700">
-                <BGGinfo game={gameRaw} />
+            {notGame ? (
+              <ItemNoBGG itemRaw={items[0]} />
+            ) : (
+              <div className="py-3">
+                <div className="py-3 border-b border-t border-gray-700">
+                  <BGGinfo game={gameRaw} />
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
-          <div className="text-center" data-tooltip={getI18Ntext("Enlarge")}>
-            <div
-              className="text-xs opacity-50 mb-2 cursor-pointer"
-              onClick={onToggleExpanse}
-            >
-              {`${itemCount} `}
-              <I18N
-                id={itemCount === 1 ? "game.item-num.1" : "game.item-num.more"}
-              />
-            </div>
-            {ban_id ? null : <WantButton contextSize="md" />}
+          <div className="text-center">
+            {notGame ? null : (
+              <div data-tooltip={getI18Ntext("Enlarge")}>
+                <div
+                  className="text-xs opacity-50 mb-2 cursor-pointer"
+                  onClick={onToggleExpanse}
+                >
+                  {`${itemCount} `}
+                  <I18N
+                    id={
+                      itemCount === 1 ? "game.item-num.1" : "game.item-num.more"
+                    }
+                  />
+                </div>
+              </div>
+            )}
+            <WantButtonGame
+              ban_id={ban_id}
+              contextSize="md"
+              notGame={notGame}
+              itemRaw={items[0]}
+            />
           </div>
         </div>
       </div>

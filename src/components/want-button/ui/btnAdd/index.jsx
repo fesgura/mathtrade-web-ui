@@ -120,7 +120,7 @@ const BtnAdd = () => {
 
     const params = {
       name: item?.title || game?.title || tag?.name || "",
-      bgg_id: game?.bgg_id || null,
+      bgg_id: game?.notGame ? null : game?.bgg_id || null,
       want_ids,
       item_ids,
       dup_protection,
@@ -130,7 +130,6 @@ const BtnAdd = () => {
       params.tag = parseInt(tag.id, 10);
       params.want_ids = tag.items;
     }
-
     postMyWant({ params });
   }, [
     item,

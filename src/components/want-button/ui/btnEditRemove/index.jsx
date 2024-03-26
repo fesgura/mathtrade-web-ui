@@ -112,7 +112,7 @@ const BtnEditRemove = () => {
 
     const params = {
       name: item?.title || game?.title || tag?.name || "",
-      bgg_id: game?.bgg_id || null,
+      bgg_id: game?.notGame ? null : game?.bgg_id || null,
       want_ids,
       item_ids,
       dup_protection,

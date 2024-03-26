@@ -20,18 +20,26 @@ export const GameContextProvider = ({ gameRaw, children }) => {
   const [showAsIgnored, setShowAsIgnored] = useState(false);
 
   const game = useMemo(() => {
+    if (!gameRaw) {
+      return null;
+    }
     setShowAsIgnored(false);
-    const { bgg_id, name: title, thumbnail, items, ban_id } = gameRaw;
+    const { bgg_id, name: title, thumbnail, items, ban_id, type } = gameRaw;
+
+    const notGame = type === 3 || bgg_id === 23953 || bgg_id < 0;
 
     return {
       bgg_id,
       title,
-      titleLink: `https://boardgamegeek.com/boardgame/${bgg_id}/`,
-      type: getI18Ntext(`element-type-badge-${1}`),
+      titleLink: notGame
+        ? null
+        : `https://boardgamegeek.com/boardgame/${bgg_id}/`,
+      type: getI18Ntext(`element-type-badge-${notGame ? 3 : 1}`),
       thumbnail,
       items,
       itemCount: items?.length || 1,
       ban_id,
+      notGame,
     };
   }, [gameRaw]);
 

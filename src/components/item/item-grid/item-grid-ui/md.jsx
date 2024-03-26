@@ -79,14 +79,16 @@ const ItemMD = ({ onToggleExpanse }) => {
 
           {!isCombo && (
             <>
-              <LinkExternal
-                href={titleLink}
-                className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
-                tooltip="element.BGG.OpenGameInBGG"
-              >
-                BGG
-                <Icon type="external-link" />
-              </LinkExternal>
+              {titleLink ? (
+                <LinkExternal
+                  href={titleLink}
+                  className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
+                  tooltip="element.BGG.OpenGameInBGG"
+                >
+                  BGG
+                  <Icon type="external-link" />
+                </LinkExternal>
+              ) : null}
               <div className="text-sm italic text-gray-500 mb-2">
                 <LinkExternal
                   href={publisherLink}

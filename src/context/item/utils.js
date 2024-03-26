@@ -21,6 +21,7 @@ export const processElements = (elementsRaw) => {
     /////////////////////
 
     ///////////////
+    const notGame = game?.bgg_id === 23953 || game?.bgg_id < 0;
 
     return {
       id,
@@ -30,10 +31,9 @@ export const processElements = (elementsRaw) => {
       thumbnail,
       title: element.name,
       // titleCropped: cropWord(element.name, 50),
-      titleLink:
-        typeNum > 0 && typeNum < 3
-          ? `https://boardgamegeek.com/boardgame/${game?.bgg_id}/`
-          : null,
+      titleLink: notGame
+        ? null
+        : `https://boardgamegeek.com/boardgame/${game?.bgg_id}/`,
       publisher:
         element.publisher && element.year
           ? `${element.publisher} (${element.year})`
@@ -49,6 +49,7 @@ export const processElements = (elementsRaw) => {
 
       images: element.images && element.images.length ? element.images : null,
       elementRaw: element,
+      notGame,
     };
   });
 };

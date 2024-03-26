@@ -9,12 +9,14 @@ import Value from "@/components/value";
 import WantButton from "@/components/want-button";
 import BanButton from "@/components/ban/button";
 import clsx from "clsx";
+import WantButtonGame from "../wantButtonGame";
+import ItemNoBGG from "../itemNoBgg";
 
 const GameGridXL = ({ onToggleExpanse }) => {
   /* GAME CONTEXT **********************************************/
   const { game, gameRaw, showAsIgnored } = useContext(GameContext);
 
-  const { ban_id, title, titleLink, type, thumbnail } = game;
+  const { ban_id, title, titleLink, type, thumbnail, items, notGame } = game;
   /* end GAME CONTEXT */
 
   return (
@@ -44,21 +46,27 @@ const GameGridXL = ({ onToggleExpanse }) => {
 
               <div>
                 <h3 className="text-lg font-bold mb-2">{title}</h3>
-                <LinkExternal
-                  href={titleLink}
-                  className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
-                  tooltip="element.BGG.OpenGameInBGG"
-                >
-                  BGG
-                  <Icon type="external-link" />
-                </LinkExternal>
+                {titleLink ? (
+                  <LinkExternal
+                    href={titleLink}
+                    className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
+                    tooltip="element.BGG.OpenGameInBGG"
+                  >
+                    BGG
+                    <Icon type="external-link" />
+                  </LinkExternal>
+                ) : null}
               </div>
 
-              <div className="py-3">
-                <div className="py-3 border-b border-t border-gray-700">
-                  <BGGinfo game={gameRaw} />
+              {notGame ? (
+                <ItemNoBGG itemRaw={items[0]} />
+              ) : (
+                <div className="py-3">
+                  <div className="py-3 border-b border-t border-gray-700">
+                    <BGGinfo game={gameRaw} />
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>
@@ -71,7 +79,12 @@ const GameGridXL = ({ onToggleExpanse }) => {
           </div>
         </button>
       </div>
-      {ban_id ? null : <WantButton contextSize="xl" />}
+      <WantButtonGame
+        ban_id={ban_id}
+        contextSize="xl"
+        notGame={notGame}
+        itemRaw={items[0]}
+      />
     </>
   );
 };

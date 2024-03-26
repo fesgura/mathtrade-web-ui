@@ -10,6 +10,7 @@ import { ItemContext } from "@/context/item";
 import MyGroupsInItem from "@/components/item-mygroups/header-groups";
 import BanButton from "@/components/ban/button";
 import Icon from "@/components/icon";
+import I18N from "@/i18n";
 
 const ElementXL = ({ element, onChangeValue }) => {
   /* ITEM CONTEXT **********************************************/
@@ -28,6 +29,7 @@ const ElementXL = ({ element, onChangeValue }) => {
     status,
     comment,
     images,
+    notGame,
   } = element;
 
   return (
@@ -55,24 +57,32 @@ const ElementXL = ({ element, onChangeValue }) => {
 
             <div>
               <h3 className="text-lg font-bold mb-2">{title}</h3>
-              <LinkExternal
-                href={titleLink}
-                className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
-                tooltip="element.BGG.OpenGameInBGG"
-              >
-                BGG
-                <Icon type="external-link" />
-              </LinkExternal>
+              {titleLink ? (
+                <LinkExternal
+                  href={titleLink}
+                  className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
+                  tooltip="element.BGG.OpenGameInBGG"
+                >
+                  BGG
+                  <Icon type="external-link" />
+                </LinkExternal>
+              ) : (
+                <div className="italic text-gray-500 font-bold text-xs mb-3">
+                  <I18N id="element-type-badge-3" />
+                </div>
+              )}
             </div>
 
             {isCombo ? null : <MyGroupsInItem className="mb-4" />}
           </div>
 
-          <BGGinfo
-            game={game}
-            contextFor="element"
-            className="pb-4 border-b border-gray-300 mb-3"
-          />
+          {notGame ? null : (
+            <BGGinfo
+              game={game}
+              contextFor="element"
+              className="pb-4 border-b border-gray-300 mb-3"
+            />
+          )}
 
           <div className="text-sm italic text-gray-500 mb-2 ">
             <LinkExternal
