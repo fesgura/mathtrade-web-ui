@@ -2,13 +2,20 @@ import { PRIVATE_ROUTES } from "@/config/routes";
 
 export const MenuList = [
   {
+    title: `menu.${PRIVATE_ROUTES.MY_COLLECTION.title}`,
+    path: PRIVATE_ROUTES.MY_COLLECTION.path,
+    name: "myCollection",
+  },
+  {
     title: `menu.${PRIVATE_ROUTES.MY_OFFER.title}`,
     path: PRIVATE_ROUTES.MY_OFFER.path,
     name: "myOffer",
   },
   {
-    title: `menu.OtherOffer`,
-    subMenu: [
+    title: `menu.OfferGames`,
+    path: PRIVATE_ROUTES.OFFER.path,
+    name: "offer",
+    /*  subMenu: [
       {
         title: `menu.${PRIVATE_ROUTES.GAMES.title}`,
         path: PRIVATE_ROUTES.GAMES.path,
@@ -19,7 +26,7 @@ export const MenuList = [
         path: PRIVATE_ROUTES.ITEMS.path,
         name: "items",
       },
-    ],
+    ], */
   },
   {
     title: `menu.${PRIVATE_ROUTES.WANTS.title}`,
@@ -44,6 +51,11 @@ export const MenuList = [
 ];
 
 export const MenuListNotSignedToMathtrade = [
+  {
+    title: `menu.${PRIVATE_ROUTES.MY_COLLECTION.title}`,
+    path: PRIVATE_ROUTES.MY_COLLECTION.path,
+    name: "myCollection",
+  },
   {
     title: `menu.${PRIVATE_ROUTES.SIGN_TO_MATHTRADE.title}`,
     path: PRIVATE_ROUTES.SIGN_TO_MATHTRADE.path,

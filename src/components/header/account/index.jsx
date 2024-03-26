@@ -42,14 +42,6 @@ const AccountMenuButton = () => {
               <Icon type="user" className="mr-1" />
               <I18N id="title.MyAccount" />
             </Link>
-            <Link
-              href={PRIVATE_ROUTES.MY_COLLECTION.path}
-              className="block leading-10 hover:bg-sky-200"
-              onClick={toggleMobile}
-            >
-              <Icon type="collection" className="mr-1 relative -top-[2px]" />
-              <I18N id="title.MyCollection" />
-            </Link>
             <button
               href="/"
               className="block leading-10 hover:bg-danger hover:text-white w-full text-danger"
