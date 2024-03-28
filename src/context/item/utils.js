@@ -13,7 +13,7 @@ export const getLanguageListText = (lang) => {
 
 export const processElements = (elementsRaw) => {
   return elementsRaw.map((element) => {
-    const { id, thumbnail, game, status } = element;
+    const { id, thumbnail, game, status, bgg_id } = element;
 
     const typeNum = game?.type || 1;
 
@@ -25,6 +25,7 @@ export const processElements = (elementsRaw) => {
 
     return {
       id,
+      bgg_id,
       // type,
       typeNum,
       game,

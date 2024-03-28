@@ -16,7 +16,8 @@ const GameGridXL = ({ onToggleExpanse }) => {
   /* GAME CONTEXT **********************************************/
   const { game, gameRaw, showAsIgnored } = useContext(GameContext);
 
-  const { ban_id, title, titleLink, type, thumbnail, items, notGame } = game;
+  const { ban_id, bgg_id, title, titleLink, type, thumbnail, items, notGame } =
+    game;
   /* end GAME CONTEXT */
 
   return (
@@ -59,7 +60,7 @@ const GameGridXL = ({ onToggleExpanse }) => {
               </div>
 
               {notGame ? (
-                <ItemNoBGG itemRaw={items[0]} />
+                <ItemNoBGG itemRaw={items[0]} bgg_id={bgg_id} />
               ) : (
                 <div className="py-3">
                   <div className="py-3 border-b border-t border-gray-700">

@@ -3,15 +3,16 @@ import { getI18Ntext } from "@/i18n";
 import { useContext } from "react";
 import { ItemContext } from "@/context/item";
 import { PageContext } from "@/context/page";
+import clsx from "clsx";
 
-const Previewer = ({ notooltip }) => {
+const Previewer = ({ notooltip, className = "w-7 h-7" }) => {
   const { item } = useContext(ItemContext);
   const { setItemPreviewId, setShowModalPreview } = useContext(PageContext);
 
   return (
     <>
       <button
-        className="w-7 h-7 hover:text-white hover:bg-primary"
+        className={clsx("hover:text-white hover:bg-primary", className)}
         onClick={() => {
           if (item && item.id) {
             setItemPreviewId(item.id);
