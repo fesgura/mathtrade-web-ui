@@ -53,7 +53,6 @@ const Header = () => {
                   text: getI18Ntext("element.BGG.dependency"),
                   value: "dependency",
                 },
-                { text: getI18Ntext("element.Status"), value: "status" },
                 {
                   text: getI18Ntext("element.BGG.weight"),
                   value: "weight",
