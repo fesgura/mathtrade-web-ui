@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
+
 import { page_size_default } from "@/config/pagination";
 import { useOptions } from "@/store";
 
-const usePagination = (type, count) => {
+const usePagination = (type, count, gotoTop) => {
   /* FILTERS */
   const filters_item = useOptions((state) => state.filters_item);
   const filters_game = useOptions((state) => state.filters_game);
@@ -50,18 +51,18 @@ const usePagination = (type, count) => {
     onBlur: ({ target }) => {
       const newPage = parseInt(target.value, 10);
       if (filters?.page !== newPage) {
-        window.location.hash = "#a-top";
+        gotoTop();
         updateFilters({ page: newPage }, type);
       }
     },
     total,
     prevPage: () => {
-      window.location.hash = "#a-top";
+      gotoTop();
       const newPage = filters.page - 1;
       updateFilters({ page: newPage }, type);
     },
     nextPage: () => {
-      window.location.hash = "#a-top";
+      gotoTop();
       const newPage = (filters?.page || 1) + 1;
       updateFilters({ page: newPage }, type);
     },

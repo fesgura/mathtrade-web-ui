@@ -3,8 +3,10 @@ import { PageContext } from "@/context/page";
 import { MyWantsContext } from "@/context/myWants/all";
 import useFetch from "@/hooks/useFetch";
 import { todayString } from "@/utils/dateUtils";
+import { GotoTopContext } from "@/context/goto-top";
 
 const useAutocomplete = () => {
+  const { gotoTop } = useContext(GotoTopContext);
   /* PAGE CONTEXT **********************************************/
   const { setMyWants, canI } = useContext(PageContext);
   /* end PAGE CONTEXT */
@@ -26,6 +28,7 @@ const useAutocomplete = () => {
   const afterLoad = useCallback(
     (updatedWants) => {
       if (updatedWants && updatedWants.want_groups) {
+        gotoTop();
         setMyWants(updatedWants.want_groups);
         setChanges({});
         setDeletedWantgroupIds({});
@@ -35,6 +38,7 @@ const useAutocomplete = () => {
       setIsOpen(false);
     },
     [
+      gotoTop,
       setMyWants,
       setChanges,
       setDeletedWantgroupIds,

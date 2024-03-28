@@ -131,7 +131,6 @@ const useMyOffer = () => {
 
   return {
     isLoaded,
-    myItemsInMT,
     items,
     loading: loadingMyItemsInMT || loadingMyCollection || loadingMyGropus,
     error: errorMyItemsInMT || errorMyCollection || errorGropusMyGropus,

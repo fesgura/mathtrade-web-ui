@@ -1,14 +1,6 @@
-import StatusBadge from "@/components/status-badge";
-import Previewer from "@/components/previewer";
-import UserBox from "@/components/userBox";
-import { useContext } from "react";
-import { ItemContext } from "@/context/item";
 import Thumbnail from "@/components/thumbnail";
-import clsx from "clsx";
-import ValueMini from "@/components/value/mini";
 
 const ElementXSS = ({ element }) => {
-  console.log(element);
   const { title } = element;
 
   return (

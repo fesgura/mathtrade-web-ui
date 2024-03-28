@@ -1,9 +1,11 @@
 import { useCallback, useContext, useState } from "react";
 import { useStore, useOptions } from "@/store";
 import { SidebarContext } from "@/context/sidebar";
+import { GotoTopContext } from "@/context/goto-top";
 
 const useFilters = ({ type }) => {
   const { hideSidebar } = useContext(SidebarContext);
+  const { gotoTop } = useContext(GotoTopContext);
 
   /* FILTERS */
   const filters_item = useOptions((state) => state.filters_item);
@@ -22,13 +24,14 @@ const useFilters = ({ type }) => {
           newFilters[key] = undefined;
         }
       );
+      gotoTop();
       updateFilters(newFilters, type);
       setEnabledRender(false);
       setTimeout(() => {
         setEnabledRender(true);
       }, 150);
     },
-    [filters_item, filters_game, type, updateFilters, hideSidebar]
+    [filters_item, filters_game, type, updateFilters, hideSidebar, gotoTop]
   );
 
   const { user } = useStore((state) => state.data);
@@ -71,7 +74,7 @@ const useFilters = ({ type }) => {
       if (newFilters.ignored === "no") {
         newFilters.ignored = undefined;
       }
-
+      gotoTop();
       updateFilters(
         {
           ...newFilters,

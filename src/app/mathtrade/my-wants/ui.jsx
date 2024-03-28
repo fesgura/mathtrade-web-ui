@@ -10,6 +10,7 @@ import Footer from "./footer";
 import ErrorAlert from "@/components/errorAlert";
 import Container from "@/components/container";
 import ModalPreviewerItem from "@/components/previewerItem/modal";
+import { GotoTopContextProvider } from "@/context/goto-top";
 
 export default function MyWantsUI() {
   const { screenView, setScreenView, loading, error } = useWants();
@@ -40,10 +41,11 @@ export default function MyWantsUI() {
         ) : (
           false
         )}
-
-        {screenView === 0 ? <Visual /> : <Grid />}
+        <GotoTopContextProvider>
+          {screenView === 0 ? <Visual /> : <Grid />}
+          <Footer />
+        </GotoTopContextProvider>
       </SectionCommon>
-      {<Footer />}
 
       <ModalPreviewerItem />
     </>

@@ -1,5 +1,6 @@
 "use client";
 import useMyCollection from "./useMyCollection";
+import { GotoTopContextProvider } from "@/context/goto-top";
 import SectionCommon from "@/components/sections/common";
 import ErrorAlert from "@/components/errorAlert";
 import ItemMy from "@/components/item/item-my";
@@ -20,6 +21,7 @@ const MyCollectionPage = () => {
     updateFilters,
     isLoadedItems,
     myCollection,
+    searchText,
   } = useMyCollection();
 
   return (
@@ -47,48 +49,43 @@ const MyCollectionPage = () => {
           </>
         }
       >
-        <StickyHeader size="md">
-          <div className="sm:flex items-center gap-2 py-3 justify-between">
-            <div>
-              <div className="flex items-center gap-1 md:pb-0 pb-3">
-                <label className="block text-sm font-bold text-gray-500 whitespace-nowrap">
-                  <I18N id="filter.Search" />
-                </label>
-                <input
-                  type="text"
-                  placeholder={getI18Ntext("filter.Search")}
-                  value={filters_collection?.keyword || ""}
-                  onChange={({ target }) => {
-                    updateFilters(
-                      {
-                        keyword: target.value || undefined,
-                      },
-                      "collection"
-                    );
-                  }}
-                  className="border border-stroke rounded-md p-1 text-xs focus:outline-none"
-                />
+        <GotoTopContextProvider>
+          <StickyHeader size="md">
+            <div className="sm:flex items-center gap-2 py-3 justify-between">
+              <div>
+                <div className="flex items-center gap-1 md:pb-0 pb-3">
+                  <label className="block text-sm font-bold text-gray-500 whitespace-nowrap">
+                    <I18N id="filter.Search" />
+                  </label>
+                  <input
+                    type="text"
+                    placeholder={getI18Ntext("filter.Search")}
+                    value={filters_collection?.keyword || ""}
+                    onChange={searchText}
+                    className="border border-stroke rounded-md p-1 text-xs focus:outline-none"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <OrderBy type="collection" options={optionsOrder} />
               </div>
             </div>
-
-            <div>
-              <OrderBy type="collection" options={optionsOrder} />
-            </div>
-          </div>
-        </StickyHeader>
-        <Container size="md">
-          {items.length >= 2 ? <NewItem /> : null}
-          {!myCollection?.length && isLoadedItems ? (
-            <p className="text-center text-balance text-xl py-6 mb-4">
-              <I18N id="myCollection.notItemsMessage" />
-            </p>
-          ) : null}
-          {items.map((itemRaw) => {
-            return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
-          })}
-          <NewItem />
-          <ErrorAlert error={error} />
-        </Container>
+          </StickyHeader>
+          <Container size="md">
+            {items.length >= 2 ? <NewItem /> : null}
+            {!myCollection?.length && isLoadedItems ? (
+              <p className="text-center text-balance text-xl py-6 mb-4">
+                <I18N id="myCollection.notItemsMessage" />
+              </p>
+            ) : null}
+            {items.map((itemRaw) => {
+              return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
+            })}
+            <NewItem />
+            <ErrorAlert error={error} />
+          </Container>
+        </GotoTopContextProvider>
       </SectionCommon>
     </>
   );

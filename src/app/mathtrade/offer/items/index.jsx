@@ -1,5 +1,6 @@
 "use client";
 import Filters from "@/components/filters";
+import { GotoTopContextProvider } from "@/context/goto-top";
 import useItems from "./useItems";
 import SectionWithSidebar, {
   SidebarGrid,
@@ -18,36 +19,38 @@ const ItemsView = () => {
 
   return (
     <SectionWithSidebar name="items" loading={loading}>
-      <StickyHeader>
-        <Header />
-      </StickyHeader>
-      <SidebarGrid>
-        <Sidebar>
-          <Filters type="item" />
-        </Sidebar>
-        <div>
-          <ItemTagHeader />
+      <GotoTopContextProvider>
+        <StickyHeader>
+          <Header />
+        </StickyHeader>
+        <SidebarGrid>
+          <Sidebar>
+            <Filters type="item" />
+          </Sidebar>
           <div>
-            <div className="item-grid">
-              {items.list.map((itemRaw) => {
-                return (
-                  <ItemGrid
-                    key={itemRaw.id}
-                    itemRaw={itemRaw}
-                    expanded={expandedItem}
-                    setExpanded={setExpandedItem}
-                  />
-                );
-              })}
+            <ItemTagHeader />
+            <div>
+              <div className="item-grid">
+                {items.list.map((itemRaw) => {
+                  return (
+                    <ItemGrid
+                      key={itemRaw.id}
+                      itemRaw={itemRaw}
+                      expanded={expandedItem}
+                      setExpanded={setExpandedItem}
+                    />
+                  );
+                })}
+              </div>
+              <EmptyList
+                visible={isLoaded && !(items?.list?.length || 0) && !error}
+                message="EmptyList.items"
+              />
+              <ErrorAlert error={error} className="mt-3" />
             </div>
-            <EmptyList
-              visible={isLoaded && !(items?.list?.length || 0) && !error}
-              message="EmptyList.items"
-            />
-            <ErrorAlert error={error} className="mt-3" />
           </div>
-        </div>
-      </SidebarGrid>
+        </SidebarGrid>
+      </GotoTopContextProvider>
     </SectionWithSidebar>
   );
 };

@@ -1,10 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { useContext } from "react";
+import { GotoTopContext } from "@/context/goto-top";
 import { Form } from "../form";
 import Icon from "../icon";
 import { getI18Ntext } from "@/i18n";
 import usePagination from "./usePagination";
 
 const Pagination = ({ type = "item", count }) => {
+  const { gotoTop } = useContext(GotoTopContext);
+
   const {
     page,
     onChange,
@@ -15,7 +18,7 @@ const Pagination = ({ type = "item", count }) => {
     showPrevPage,
     notShowNextPage,
     updateFilters,
-  } = usePagination(type, count);
+  } = usePagination(type, count, gotoTop);
 
   return (
     <div className="flex items-center">
@@ -38,6 +41,7 @@ const Pagination = ({ type = "item", count }) => {
         {total > 1 ? (
           <Form
             onSubmit={(d) => {
+              gotoTop();
               updateFilters(d, type);
             }}
             formatTypes={{ page: "number" }}

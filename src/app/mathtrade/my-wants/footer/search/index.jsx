@@ -2,9 +2,12 @@ import { Form } from "@/components/form";
 import Icon from "@/components/icon";
 import I18N, { getI18Ntext } from "@/i18n";
 import { useOptions } from "@/store";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { GotoTopContext } from "@/context/goto-top";
 
 const SearchForm = () => {
+  const { gotoTop } = useContext(GotoTopContext);
+
   /* FILTER OPTIONS **********************************************/
   const filters_wants = useOptions((state) => state.filters_wants);
   const updateFilters = useOptions((state) => state.updateFilters);
@@ -15,6 +18,7 @@ const SearchForm = () => {
   return (
     <Form
       onSubmit={(d) => {
+        gotoTop();
         updateFilters(
           {
             keyword: d.keyword || undefined,

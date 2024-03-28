@@ -4,8 +4,11 @@ import { MyWantsContext } from "@/context/myWants/all";
 import useFetch from "@/hooks/useFetch";
 import { processChanges } from "./utils";
 import { todayString } from "@/utils/dateUtils";
+import { GotoTopContext } from "@/context/goto-top";
 
 const useFooter = () => {
+  const { gotoTop } = useContext(GotoTopContext);
+
   /* PAGE CONTEXT **********************************************/
   const { myWants, setMyWants, canI } = useContext(PageContext);
   /* end PAGE CONTEXT */
@@ -42,6 +45,7 @@ const useFooter = () => {
     (updatedWants) => {
       if (updatedWants && updatedWants.want_groups) {
         setMyWants(updatedWants.want_groups);
+        gotoTop();
         setChanges({});
         setDeletedWantgroupIds({});
         //commitChanges({ params: {} });
@@ -50,6 +54,7 @@ const useFooter = () => {
       }
     },
     [
+      gotoTop,
       setMyWants,
       setChanges,
       setDeletedWantgroupIds,

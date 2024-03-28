@@ -1,11 +1,14 @@
 import useFetch from "@/hooks/useFetch";
 import { useCallback, useState, useContext, useMemo, useEffect } from "react";
+import { GotoTopContext } from "@/context/goto-top";
 import { PageContext } from "@/context/page";
 import { getI18Ntext } from "@/i18n";
 import { useOptions } from "@/store";
 import { normalizeString } from "@/utils";
 
 const useMyCollection = () => {
+  const { gotoTop } = useContext(GotoTopContext);
+
   /* PAGE CONTEXT **********************************************/
   const {
     setPageType,
@@ -152,6 +155,16 @@ const useMyCollection = () => {
   }, [mathTradeId]);
   // END Order Items ********************************************
 
+  const searchText = ({ target }) => {
+    gotoTop();
+    updateFilters(
+      {
+        keyword: target.value || undefined,
+      },
+      "collection"
+    );
+  };
+
   return {
     items,
     optionsOrder,
@@ -161,6 +174,7 @@ const useMyCollection = () => {
     updateFilters,
     isLoadedItems,
     myCollection,
+    searchText,
   };
 };
 

@@ -1,7 +1,10 @@
-import { useCallback, useId, useMemo } from "react";
+import { useContext, useCallback, useId, useMemo } from "react";
+import { GotoTopContext } from "@/context/goto-top";
 import { useOptions } from "@/store";
 
 const useOrderBy = (type) => {
+  const { gotoTop } = useContext(GotoTopContext);
+
   /* FILTERS */
   const filters_item = useOptions((state) => state.filters_item);
   const filters_game = useOptions((state) => state.filters_game);
@@ -57,6 +60,7 @@ const useOrderBy = (type) => {
     ({ target }) => {
       const { desc } = data;
       const orderVal = `${desc ? "-" : ""}${target.value}`;
+      gotoTop();
       updateFilters(
         {
           order: orderVal === "added_mt" ? undefined : orderVal,
@@ -65,13 +69,14 @@ const useOrderBy = (type) => {
         type
       );
     },
-    [data, type, updateFilters]
+    [data, type, updateFilters, gotoTop]
   );
 
   const onChangeDesc = useCallback(
     ({ target }) => {
       const { value } = data;
       const orderVal = `${target.checked ? "-" : ""}${value || "added_mt"}`;
+      gotoTop();
       updateFilters(
         {
           order: orderVal === "added_mt" ? undefined : orderVal,
@@ -80,7 +85,7 @@ const useOrderBy = (type) => {
         type
       );
     },
-    [data, type, updateFilters]
+    [data, type, updateFilters, gotoTop]
   );
 
   return {

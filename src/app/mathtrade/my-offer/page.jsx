@@ -6,6 +6,7 @@ import I18N from "@/i18n";
 import StickyHeader from "@/components/sticky-header";
 import Container from "@/components/container";
 import PageHeader from "@/components/pageHeader";
+import { GotoTopContextProvider } from "@/context/goto-top";
 import SectionWithSidebar, {
   SidebarGrid,
   Sidebar,
@@ -16,7 +17,7 @@ import MyGroupsSidebar from "@/components/item-mygroups/mygroups-sidebar";
 import EmptyList from "@/components/emptyList";
 
 const MyItemsPage = () => {
-  const { isLoaded, myItemsInMT, items, loading, error } = useMyOffer();
+  const { isLoaded, items, loading, error } = useMyOffer();
 
   return (
     <>
@@ -32,28 +33,30 @@ const MyItemsPage = () => {
         }
       />
       <SectionWithSidebar name="myoffer" loading={loading}>
-        <StickyHeader>
-          <HeaderMyOffer />
-        </StickyHeader>
-        <SidebarGrid>
-          <Sidebar>
-            <MyGroupsSidebar />
-          </Sidebar>
-          <div>
-            <Container size="md">
-              <AddToOffer />
-              {items.map((itemRaw) => {
-                return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
-              })}
-              <EmptyList
-                visible={isLoaded && !(items?.length || 0) && !error}
-                message="EmptyList.myOffer"
-              />
+        <GotoTopContextProvider>
+          <StickyHeader>
+            <HeaderMyOffer />
+          </StickyHeader>
+          <SidebarGrid>
+            <Sidebar>
+              <MyGroupsSidebar />
+            </Sidebar>
+            <div>
+              <Container size="md">
+                <AddToOffer />
+                {items.map((itemRaw) => {
+                  return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
+                })}
+                <EmptyList
+                  visible={isLoaded && !(items?.length || 0) && !error}
+                  message="EmptyList.myOffer"
+                />
 
-              <ErrorAlert error={error} />
-            </Container>
-          </div>
-        </SidebarGrid>
+                <ErrorAlert error={error} />
+              </Container>
+            </div>
+          </SidebarGrid>
+        </GotoTopContextProvider>
       </SectionWithSidebar>
     </>
   );

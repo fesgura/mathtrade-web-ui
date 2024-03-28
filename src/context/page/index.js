@@ -1,10 +1,5 @@
 "use client";
-import {
-  createContext,
-  useState,
-  useCallback,
-  useMemo,
-} from "react";
+import { createContext, useState, useCallback, useMemo } from "react";
 import { useStore } from "@/store";
 
 export const PageContext = createContext({
@@ -69,7 +64,6 @@ export const PageContext = createContext({
   setPreviewWantGroup: () => {},
   showPreviewWantGroupModal: false,
   tooglePreviewWantGroupModal: () => {},
-
 });
 
 export const PageContextProvider = ({ children }) => {
