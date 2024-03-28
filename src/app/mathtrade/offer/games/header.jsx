@@ -45,10 +45,10 @@ const Header = () => {
                 { text: getI18Ntext("element.Name"), value: "name" },
                 { text: getI18Ntext("element.Value"), value: "value" },
                 { text: getI18Ntext("element.BGG.rank"), value: "rank" },
-                {
+                /* {
                   text: getI18Ntext("element.Language"),
                   value: "language",
-                },
+                }, */
                 {
                   text: getI18Ntext("element.BGG.dependency"),
                   value: "dependency",
