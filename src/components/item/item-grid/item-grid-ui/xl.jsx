@@ -57,6 +57,12 @@ const ItemXL = ({ onToggleExpanse }) => {
         </button>
       ) : null}
       <LoadingBox loading={loadingItem} />
+      <button
+        className="absolute -bottom-2 left-1/2 hover:opacity-100 text-white bg-gray-700 hover:bg-black transition-colors leading-none text-[9px] uppercase p-1 w-24 -ml-12 rounded-full"
+        onClick={onToggleExpanse}
+      >
+        <Icon /> <I18N id="minimize" />
+      </button>
     </div>
   );
 };

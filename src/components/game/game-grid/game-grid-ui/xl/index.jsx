@@ -3,7 +3,7 @@ import LinkExternal from "@/components/link-external";
 import BGGinfo from "@/components/bggInfo";
 import { GameContext } from "@/context/game";
 import { useContext } from "react";
-import { getI18Ntext } from "@/i18n";
+import I18N, { getI18Ntext } from "@/i18n";
 import Icon from "@/components/icon";
 import Value from "@/components/value";
 import WantButton from "@/components/want-button";
@@ -20,7 +20,7 @@ const GameGridXL = ({ onToggleExpanse }) => {
   /* end GAME CONTEXT */
 
   return (
-    <>
+    <div className="relative">
       <div
         className={clsx(
           "bg-gray-900 w-full mx-auto p-2 pr-9 relative transition-opacity",
@@ -85,7 +85,13 @@ const GameGridXL = ({ onToggleExpanse }) => {
         notGame={notGame}
         itemRaw={items[0]}
       />
-    </>
+      <button
+        className="absolute -bottom-2 left-1/2 hover:opacity-100 text-white bg-gray-700 hover:bg-black transition-colors leading-none text-[9px] uppercase p-1 w-24 -ml-12 rounded-full"
+        onClick={onToggleExpanse}
+      >
+        <Icon /> <I18N id="minimize" />
+      </button>
+    </div>
   );
 };
 

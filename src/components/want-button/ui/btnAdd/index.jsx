@@ -143,7 +143,7 @@ const BtnAdd = () => {
 
   if (!canI.want) {
     return (
-      <div className="text-center p-5">
+      <div className="text-center p-5 pb-9">
         <button
           className="rounded-full outline-none transition-colors inline-block w-auto px-7 py-3 text-xl shadow-md bg-gray-500 text-white opacity-30 cursor-not-allowed"
           disabled
@@ -158,7 +158,7 @@ const BtnAdd = () => {
   }
 
   return (
-    <div className="text-center p-5">
+    <div className="text-center p-5 pb-9">
       <ErrorAlert error={error} />
       {inOtherGroups ? (
         <div className="text-sm mb-3 text-red-500">
