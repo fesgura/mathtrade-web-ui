@@ -74,9 +74,20 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
 
     const typeNum = elements?.length > 1 ? 0 : elements[0].typeNum;
 
+    const isCombo = !typeNum;
+
+    const statusCombo = (() => {
+      if (isCombo) {
+        return elements.map(({ status }) => {
+          return status;
+        });
+      }
+      return null;
+    })();
+
     return {
       id,
-      isCombo: !typeNum,
+      isCombo,
       typeNum,
       //type: getI18Ntext(`element-type-badge-${typeNum}`),
       title,
@@ -86,6 +97,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
       publisherLink,
       language,
       status,
+      statusCombo,
       user: {
         avatar: user?.avatar || "",
         name: `${user?.first_name || ""} ${user?.last_name || ""}`,

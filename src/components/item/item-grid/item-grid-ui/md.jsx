@@ -26,6 +26,7 @@ const ItemMD = ({ onToggleExpanse }) => {
     publisherLink,
     language,
     status,
+    statusCombo,
     elements,
     user,
     commentsCount,
@@ -76,6 +77,14 @@ const ItemMD = ({ onToggleExpanse }) => {
               {title}
             </h3>
           </div>
+
+          {statusCombo ? (
+            <div className="flex gap-1 items-center py-2">
+              {statusCombo.map((st, k) => {
+                return <StatusBadge status={st} key={k} />;
+              })}
+            </div>
+          ) : null}
 
           {!isCombo && (
             <>
