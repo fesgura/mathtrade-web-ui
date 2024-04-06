@@ -37,22 +37,9 @@ const Header = () => {
             <OrderBy
               type="game"
               options={[
-                { text: getI18Ntext("element.Date"), value: "added_mt" },
-                {
-                  text: getI18Ntext("element.DateUpdate"),
-                  value: "last_update",
-                },
                 { text: getI18Ntext("element.Name"), value: "name" },
-                { text: getI18Ntext("element.Value"), value: "value" },
+                { text: getI18Ntext("element.Year"), value: "year_published" },
                 { text: getI18Ntext("element.BGG.rank"), value: "rank" },
-                /* {
-                  text: getI18Ntext("element.Language"),
-                  value: "language",
-                }, */
-                {
-                  text: getI18Ntext("element.BGG.dependency"),
-                  value: "dependency",
-                },
                 {
                   text: getI18Ntext("element.BGG.weight"),
                   value: "weight",

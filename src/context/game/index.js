@@ -23,8 +23,9 @@ export const GameContextProvider = ({ gameRaw, children }) => {
     if (!gameRaw) {
       return null;
     }
+    console.log('gameRaw',gameRaw)
     setShowAsIgnored(false);
-    const { bgg_id, name: title, thumbnail, items, ban_id, type } = gameRaw;
+    const { bgg_id,year_published:year, name: title, thumbnail, game_thumbnail, items, ban_id, type } = gameRaw;
 
     const notGame = type === 3 || bgg_id === 23953 || bgg_id < 0;
 
@@ -35,7 +36,8 @@ export const GameContextProvider = ({ gameRaw, children }) => {
         ? null
         : `https://boardgamegeek.com/boardgame/${bgg_id}/`,
       type: getI18Ntext(`element-type-badge-${notGame ? 3 : 1}`),
-      thumbnail,
+      thumbnail:game_thumbnail || thumbnail,
+      year,
       items,
       itemCount: items?.length || 1,
       ban_id,

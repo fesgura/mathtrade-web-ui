@@ -38,28 +38,14 @@ const Header = () => {
               type="item"
               options={[
                 { text: getI18Ntext("element.Date"), value: "added_mt" },
-                {
-                  text: getI18Ntext("element.DateUpdate"),
-                  value: "last_update",
-                },
                 { text: getI18Ntext("element.Name"), value: "name" },
                 { text: getI18Ntext("element.Value"), value: "value" },
-                { text: getI18Ntext("element.BGG.rank"), value: "rank" },
                 {
                   text: getI18Ntext("element.Language"),
                   value: "language",
                 },
-                {
-                  text: getI18Ntext("element.BGG.dependency"),
-                  value: "dependency",
-                },
+
                 { text: getI18Ntext("element.Status"), value: "status" },
-                {
-                  text: getI18Ntext("element.BGG.weight"),
-                  value: "weight",
-                },
-                { text: getI18Ntext("element.BGG.rating"), value: "rate" },
-                { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
               ]}
             />
           </div>

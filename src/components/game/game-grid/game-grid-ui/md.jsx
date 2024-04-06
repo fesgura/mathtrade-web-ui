@@ -23,6 +23,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
     titleLink,
     type,
     thumbnail,
+    year,
     items,
     itemCount,
     notGame,
@@ -70,7 +71,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
               onClick={onToggleExpanse}
             >
               <h3 className="text-lg font-bold cropped hover:opacity-70">
-                {title}
+                {`${title}${year ? ` (${year})` : ""}`}
               </h3>
             </div>
 

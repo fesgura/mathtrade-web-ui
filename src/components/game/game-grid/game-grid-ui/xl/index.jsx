@@ -16,8 +16,17 @@ const GameGridXL = ({ onToggleExpanse }) => {
   /* GAME CONTEXT **********************************************/
   const { game, gameRaw, showAsIgnored } = useContext(GameContext);
 
-  const { ban_id, bgg_id, title, titleLink, type, thumbnail, items, notGame } =
-    game;
+  const {
+    ban_id,
+    bgg_id,
+    title,
+    year,
+    titleLink,
+    type,
+    thumbnail,
+    items,
+    notGame,
+  } = game;
   /* end GAME CONTEXT */
 
   return (
@@ -46,7 +55,9 @@ const GameGridXL = ({ onToggleExpanse }) => {
               </div>
 
               <div>
-                <h3 className="text-lg font-bold mb-2">{title}</h3>
+                <h3 className="text-lg font-bold mb-2">{`${title}${
+                  year ? ` (${year})` : ""
+                }`}</h3>
                 {titleLink ? (
                   <LinkExternal
                     href={titleLink}

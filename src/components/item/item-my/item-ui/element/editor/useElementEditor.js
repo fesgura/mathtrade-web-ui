@@ -240,7 +240,8 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
           params,
         });
       } else {
-        createElement({ params });
+        console.log(params)
+       // createElement({ params });
       }
     },
   };
