@@ -16,6 +16,7 @@ export const extractBGGdataFromElement = (data) => {
     name: namesList,
     poll,
     statistics,
+    yearpublished,
   } = bggElement;
 
   // NAMES *******************************************************
@@ -236,6 +237,9 @@ export const extractBGGdataFromElement = (data) => {
     element: { bgg_id, thumbnail },
     game: {
       bgg_id,
+      year_published:
+        yearpublished && yearpublished.value ? yearpublished.value : null,
+      game_thumbnail: thumbnail,
       ...namesComp,
       type: typesPool[typeString] || 1,
       ...dependencyPoll,

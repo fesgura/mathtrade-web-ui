@@ -106,6 +106,8 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
               rate_votes: null,
               weight: "0",
               weight_votes: null,
+              year_published: null,
+              game_thumbnail: null,
             },
       versions: BGGinfo ? BGGinfo.versions : [],
     };
@@ -120,7 +122,6 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     setYear(BGGinfoClone.element?.year || "");
     setStatus(BGGinfoClone.element?.status || "");
     setImages(BGGinfoClone.element?.images || "");
-
     setComment(BGGinfoClone.element?.comment || "");
 
     return BGGinfoClone;
@@ -214,6 +215,8 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
       "max_playtime",
       "min_playtime",
       "playing_time",
+      "game_thumbnail",
+      "year_published",
     ],
     //
     versions: dataComplete.versions,
@@ -240,8 +243,7 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
           params,
         });
       } else {
-        console.log(params)
-       // createElement({ params });
+        createElement({ params });
       }
     },
   };
