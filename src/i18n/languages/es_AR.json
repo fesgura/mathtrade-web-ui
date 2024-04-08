@@ -177,7 +177,7 @@
   "dependencyType.max.0": "Ninguna: sin texto en juego",
   "dependencyType.max.1": "Pocos textos, fáciles de memorizar",
   "dependencyType.max.2": "Moderada: es necesaria una hoja de referencia",
-  "dependencyType.max.3s": "Uso extensivo de texto: se necesita conocer el idioma para poder jugar",
+  "dependencyType.max.3": "Uso extensivo de texto: se necesita conocer el idioma para poder jugar",
   "dependencyType.max.4": "Injugable en otro idioma",
   "dependencyType.min.0": "Ninguna",
   "dependencyType.min.1": "Poco texto",
@@ -491,6 +491,7 @@
   "notifications.message.COME": "$$$ editó su comentario en tu ejemplar \"$$$\":",
   "notifications.message.COMR": "$$$ respondió a tu comentario en el ejemplar \"$$$\":",
   "notifications.message.COMRE": "$$$ editó su respuesta a tu comentario en el ejemplar \"$$$\":",
+  "notifications.message.RI": "<strong>REPORTE DE EJEMPLAR:</strong><br/>$$$ reportó \"$$$\":",
   "notifications.message.MTC.close": "Te esperamos en el próximo MathTrade.",
   "notifications.message.MTC.final": "Terminó el MathTrade. Ya estan los resultados.",
   "notifications.message.MTC.geek-list": "¡Ya podés subir y publicar tus juegos para intercambiar!",
@@ -724,5 +725,10 @@
   "wantview.LastCommitmentDay": "Último compromiso, el día:",
   "wantview.NotCommitmentYet": "Todavía no has comprometido tus deseos.<br />Debes hacerlo para poder participar.",
   "wantview.RemoveItems": "Quitar",
-  "whatIsMathTrade": "¿Qué es el MathTrade?"
+  "whatIsMathTrade": "¿Qué es el MathTrade?",
+  "reportItem.btn": "Reportar ejemplar",
+  "report.Comment": "Comentario",
+  "reportItem.tooltip": "Si ves alguna información incorrecta en este ejemplar, por favor comunicalo a los administradores.",
+  "reportItem.help": "Si ves alguna información incorrecta en este ejemplar, por favor comunicalo a los administradores.",
+  "reportItem.success": "El ejemplar ha sido reportado.<br/>Muchas gracias."
 }

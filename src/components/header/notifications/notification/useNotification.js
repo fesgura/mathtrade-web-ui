@@ -59,6 +59,7 @@ const useNotification = (data, setNum, toggleMobile) => {
         case "COMR":
         case "COMRE":
         case "COMD":
+        case "RI":
           values.push(
             `${message?.user_first_name || ""} ${message?.user_last_name || ""}`
           );

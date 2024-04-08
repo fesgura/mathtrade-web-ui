@@ -99,6 +99,9 @@ const endpoints = {
   // FAQS
   GET_FAQS: "api/faqs/",
 
+  // REPORT
+  POST_REPORT: "api/reports/",
+
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/1/
   /*
