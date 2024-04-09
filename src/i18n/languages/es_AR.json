@@ -727,6 +727,7 @@
   "wantview.RemoveItems": "Quitar",
   "whatIsMathTrade": "¿Qué es el MathTrade?",
   "reportItem.btn": "Reportar ejemplar",
+  "reportItem.quit": "Eliminar reporte",
   "report.Comment": "Comentario",
   "reportItem.tooltip": "Si ves alguna información incorrecta en este ejemplar, por favor comunicalo a los administradores.",
   "reportItem.help": "Si ves alguna información incorrecta en este ejemplar, por favor comunicalo a los administradores.",

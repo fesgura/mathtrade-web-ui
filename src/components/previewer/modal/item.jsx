@@ -9,8 +9,18 @@ import ItemUI from "./ui";
 const ItemPreview = ({ id }) => {
   /* LOAD ITEM ***************************/
 
-  const urlParamsItem = useMemo(() => {
-    return [id || ""];
+  const { urlParamsItem, reported } = useMemo(() => {
+    if (!id) {
+      return {
+        urlParamsItem: [],
+        reported: false,
+      };
+    }
+    const idArr = `${id}`.split("___");
+    return {
+      urlParamsItem: [parseInt(idArr[0] || "0", 10)],
+      reported: idArr[1] && idArr[1] === "reported",
+    };
   }, [id]);
 
   const [, itemRaw, loading, error] = useFetch({
@@ -25,7 +35,7 @@ const ItemPreview = ({ id }) => {
   return (
     <div className="min-h-[240px]">
       {itemRaw ? (
-        <ItemContextProvider itemRaw={itemRaw}>
+        <ItemContextProvider itemRaw={{ ...itemRaw, reported }}>
           <ItemUI />
         </ItemContextProvider>
       ) : null}

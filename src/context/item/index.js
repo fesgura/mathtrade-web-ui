@@ -65,6 +65,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
       elements: elementsRaw,
       comments: commentsCount,
       ban_id,
+      reported
     } = itemLoaded;
 
     const elements = processElements(elementsRaw);
@@ -107,6 +108,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
       elements,
       commentsCount,
       ban_id,
+      reported
     };
   }, [itemLoaded, userId]);
 
