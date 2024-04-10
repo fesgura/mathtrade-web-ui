@@ -13,6 +13,7 @@ const useItems = () => {
     setPageType,
     setMyWants,
     setLoadingMyWants,
+    setFilterData,
   } = useContext(PageContext);
 
   useEffect(() => {
@@ -37,10 +38,12 @@ const useItems = () => {
   const afterLoad = useCallback(
     (newItems) => {
       setIsLoaded(true);
-      const { results: list, count } = newItems;
+      const { results: list, count, filters: newFilterData } = newItems;
+
       setItems({ list, count });
+      setFilterData(newFilterData || {});
     },
-    [setItems]
+    [setItems, setFilterData]
   );
   const [, , loading, error] = useFetch({
     endpoint: "GET_ITEMS_LIST",

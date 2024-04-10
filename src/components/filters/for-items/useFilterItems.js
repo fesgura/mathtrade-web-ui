@@ -1,7 +1,7 @@
 import { useStore, useOptions } from "@/store";
 import { useContext, useMemo, useCallback, useEffect } from "react";
 import { getI18Ntext } from "@/i18n";
-import { statusList } from "@/config/statusTypes";
+import { statusList as statusTypes } from "@/config/statusTypes";
 import { languagesOptions } from "@/config";
 import { dependencyOptions } from "@/config/dependencyTypes";
 import { formatLocations } from "@/utils";
@@ -10,9 +10,17 @@ import useFetch from "@/hooks/useFetch";
 
 const useFiltersItems = () => {
   /* PAGE CONTEXT **********************************************/
-  const { itemTags, users, setUsers, loadingUsers, setLoadingUsers } =
-    useContext(PageContext);
+  const {
+    itemTags,
+    users,
+    setUsers,
+    loadingUsers,
+    setLoadingUsers,
+    filterData,
+  } = useContext(PageContext);
   /* end PAGE CONTEXT */
+
+  console.log("filterData", filterData);
 
   /* USERS ****************************************/
 
@@ -74,20 +82,35 @@ const useFiltersItems = () => {
     });
   }, [itemTags]);
 
-  const { typeList, banOptions } = useMemo(() => {
+  const {
+    typeList,
+    banOptions,
+    dependencyList,
+    statusList,
+    languageList,
+    locationList,
+  } = useMemo(() => {
+    const locs = formatLocations(locations);
+    console.log("locs", locs);
     return {
       typeList: [
         {
           value: "1",
-          text: getI18Ntext("filter.Type.Game"),
+          text: `${getI18Ntext("filter.Type.Game")} (${
+            filterData?.type?.[1] || 0
+          })`,
         },
         {
           value: "2",
-          text: getI18Ntext("filter.Type.Expansion"),
+          text: `${getI18Ntext("filter.Type.Expansion")} (${
+            filterData?.type?.[2] || 0
+          })`,
         },
         {
           value: "3",
-          text: getI18Ntext("filter.Type.Other"),
+          text: `${getI18Ntext("filter.Type.Other")} (${
+            filterData?.type?.[3] || 0
+          })`,
         },
       ],
       banOptions: [
@@ -100,8 +123,62 @@ const useFiltersItems = () => {
           text: getI18Ntext("ban.btn-filter.show.item"),
         },
       ],
+      dependencyList: dependencyOptions
+        .map((dep) => {
+          const num = filterData?.dependency?.[dep.value] || 0;
+          if (!num) {
+            return null;
+          }
+          return {
+            ...dep,
+            text: `${dep.text} (${num})`,
+          };
+        })
+        .filter((v) => v !== null),
+      statusList: statusTypes
+        .map((st) => {
+          const num = filterData?.status?.[st.value] || 0;
+          if (!num) {
+            return null;
+          }
+          return {
+            ...st,
+            text: `${st.text} (${num})`,
+          };
+        })
+        .filter((v) => v !== null),
+      languageList: languagesOptions
+        .map((st) => {
+          const num = filterData?.language?.[st.value] || 0;
+          if (!num) {
+            return null;
+          }
+          return {
+            ...st,
+            text: `${st.text} (${num})`,
+          };
+        })
+        .filter((v) => v !== null),
+      locationList: locs
+        .map((st) => {
+          if (st?.type === "group") {
+            return st;
+          }
+
+          const num = filterData?.locations?.[st.value] || 0;
+
+          if (!num) {
+            return null;
+          }
+
+          return {
+            ...st,
+            text: `${st.text} (${num})`,
+          };
+        })
+        .filter((v) => v !== null),
     };
-  }, []);
+  }, [filterData, locations]);
 
   const userList = useMemo(() => {
     if (!users?.length) {
@@ -129,9 +206,9 @@ const useFiltersItems = () => {
     tagList,
     banOptions,
     statusList,
-    locationList: formatLocations(locations),
-    languageList: languagesOptions,
-    dependencyList: dependencyOptions,
+    locationList,
+    languageList,
+    dependencyList,
   };
 };
 

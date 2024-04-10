@@ -8,8 +8,6 @@ import {
 } from "@/components/form";
 import useFilterGames from "./useFilterGames";
 import I18N from "@/i18n";
-import Icon from "@/components/icon";
-import InnerButton from "@/components/button/inner-button";
 import BanUsers from "@/components/ban/users";
 
 const FiltersForGames = () => {
