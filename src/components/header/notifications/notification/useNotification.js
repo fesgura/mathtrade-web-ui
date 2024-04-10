@@ -68,7 +68,7 @@ const useNotification = (data, setNum, toggleMobile) => {
           linkFunction = message?.item_id
             ? () => {
                 toggleMobile();
-                setItemPreviewId(message?.item_id + (type === "RI" ? '___reported':''));
+                setItemPreviewId(message?.item_id);
                 setShowModalPreview(true);
               }
             : null;

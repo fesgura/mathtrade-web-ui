@@ -1,4 +1,4 @@
-import { useCallback, useState, useContext, useEffect } from "react";
+import { useContext } from "react";
 import { PageContext } from "@/context/page";
 import { ItemContext } from "@/context/item";
 import ReportButtonBtn from "./button";
@@ -19,10 +19,22 @@ const ReportButton = ({ className }) => {
   const { item } = useContext(ItemContext);
   const { id, isOwned, reported } = item;
 
-  return id && availablePages.indexOf(pageType) >= 0 && !isOwned ? (
-    <div className={className}>
-      {reported ? <QuitReport id={id} /> : <ReportButtonBtn id={id} />}
-    </div>
-  ) : null;
+  if (id && reported) {
+    return (
+      <div className={className}>
+        <QuitReport id={id} reported={reported} />
+      </div>
+    );
+  }
+
+  if (id && availablePages.indexOf(pageType) >= 0 && !isOwned) {
+    return (
+      <div className={className}>
+        <ReportButtonBtn id={id} />
+      </div>
+    );
+  }
+
+  return null;
 };
 export default ReportButton;
