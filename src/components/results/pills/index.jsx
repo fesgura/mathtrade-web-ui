@@ -20,7 +20,7 @@ const PillsResults = () => {
       <div className="flex gap-6">
         <div className="w-1/3">
           <Pill
-            value={MathTradeData?.games || 0}
+            value={MathTradeData?.games_count || 0}
             label="results.pill.game"
             color="game"
           />
@@ -28,7 +28,7 @@ const PillsResults = () => {
 
         <div className="w-1/3">
           <Pill
-            value={MathTradeData?.items || 0}
+            value={MathTradeData?.items_count || 0}
             label="results.pill.item"
             color="item"
           />

@@ -9,7 +9,6 @@ import {
 import useFilterGames from "./useFilterGames";
 import I18N from "@/i18n";
 import Icon from "@/components/icon";
-import InnerButton from "@/components/button/inner-button";
 import BanUsers from "@/components/ban/users";
 
 const FiltersForGames = () => {
@@ -40,7 +39,7 @@ const FiltersForGames = () => {
         <InputContainer className="mb-0">
           <Switch name="hide_my_user" data={data}>
             <div className="text-xs">
-              <I18N id="hideOwnItems.label" />
+              <I18N id="hideOwnGames.label" />
             </div>
           </Switch>
         </InputContainer>
@@ -50,7 +49,14 @@ const FiltersForGames = () => {
         <legend className="text-center px-2 text-xs text-gray-500 mb-3">
           <I18N id="Games" />
         </legend>
-
+        <InputContainer className="mb-1">
+          <Switch data={data} name="hide_wanted">
+            <div className="text-xs flex items-center gap-1">
+              <Icon type="heart" className="text-gray-600"/>
+              <I18N id="hideWanted.games.label" />
+            </div>
+          </Switch>
+        </InputContainer>
         <InputContainer>
           <Label text="ban.btn-filter.label.game" name="ignored" size="sm" />
           <Select

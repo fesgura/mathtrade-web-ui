@@ -64,6 +64,9 @@ export const PageContext = createContext({
   setPreviewWantGroup: () => {},
   showPreviewWantGroupModal: false,
   tooglePreviewWantGroupModal: () => {},
+  //
+  filterData: {},
+  setFilterData: () => {},
 });
 
 export const PageContextProvider = ({ children }) => {
@@ -144,6 +147,8 @@ export const PageContextProvider = ({ children }) => {
     setShowPreviewWantGroupModal((v) => !v);
   }, []);
 
+  const [filterData, setFilterData] = useState({});
+
   return (
     <PageContext.Provider
       value={{
@@ -206,6 +211,9 @@ export const PageContextProvider = ({ children }) => {
         showPreviewWantGroupModal,
         setShowPreviewWantGroupModal,
         tooglePreviewWantGroupModal,
+        //
+        filterData,
+        setFilterData,
       }}
     >
       {children}

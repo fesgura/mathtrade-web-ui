@@ -49,8 +49,12 @@ const useResults = () => {
     },
     [setMathTradeData]
   );
+  const params = useMemo(() => {
+    return { stats: true };
+  }, []);
   const [, , loadingMathTradeData] = useFetch({
     endpoint: "GET_MATHTRADE",
+    params,
     autoLoad: true,
     afterLoad: afterLoadMathTradeData,
   });

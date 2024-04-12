@@ -1,7 +1,9 @@
-export const formatLocations = (locationsFromAPI) => {
+export const formatLocations = (locationsFromAPI, filterLocations) => {
   const list = [];
 
   let currentProvince = "none";
+
+  const groupNums = {};
 
   if (locationsFromAPI) {
     locationsFromAPI.forEach(({ id, name, province }) => {
@@ -11,14 +13,31 @@ export const formatLocations = (locationsFromAPI) => {
           type: "group",
           value: province,
           text: province,
+          num: 0,
         });
+        groupNums[province] = 0;
       }
+
+      let num = 0;
+      if (filterLocations && filterLocations[id]) {
+        num = filterLocations[id];
+        groupNums[province] += num;
+      }
+
       list.push({
         value: id,
         text: name,
+        num,
       });
     });
   }
-
-  return list;
+  return list.map((st) => {
+    if (st?.type === "group") {
+      return {
+        ...st,
+        num: groupNums[st.text] || 0,
+      };
+    }
+    return st;
+  });
 };

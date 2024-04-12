@@ -5,8 +5,14 @@ import { PageContext } from "@/context/page";
 
 const useItems = () => {
   /* PAGE CONTEXT **********************************************/
-  const { games, setGames, setPageType, setMyWants, setLoadingMyWants } =
-    useContext(PageContext);
+  const {
+    games,
+    setGames,
+    setPageType,
+    setMyWants,
+    setLoadingMyWants,
+    setFilterData,
+  } = useContext(PageContext);
   useEffect(() => {
     setPageType("games");
   }, [setPageType]);
@@ -29,10 +35,12 @@ const useItems = () => {
   const afterLoad = useCallback(
     (newGames) => {
       setIsLoaded(true);
-      const { results: list, count } = newGames;
+      const { results: list, count, filters: newFilterData } = newGames;
+
       setGames({ list, count });
+      setFilterData(newFilterData || {});
     },
-    [setGames]
+    [setGames, setFilterData]
   );
   const [, , loading, error] = useFetch({
     endpoint: "GET_GAMES_LIST",
