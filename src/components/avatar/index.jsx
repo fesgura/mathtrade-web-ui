@@ -1,9 +1,11 @@
+import clsx from "clsx";
+
 const excluded = ["none", "N/A", ""];
 
-const Avatar = ({ avatar = null, first_name = "", width = 32, onClick }) => {
+const Avatar = ({ avatar = null, first_name = "", width = 32, onClick,className }) => {
   return avatar && excluded.indexOf(avatar || "") < 0 ? (
     <div
-      className="block rounded-full aspect-square shadow-[0_0_0_1px_rgba(150,150,150,0.5)] overflow-hidden"
+      className={clsx("block rounded-full aspect-square shadow-[0_0_0_1px_rgba(150,150,150,0.5)] overflow-hidden",className)}
       onClick={onClick}
       style={{ width }}
     >
