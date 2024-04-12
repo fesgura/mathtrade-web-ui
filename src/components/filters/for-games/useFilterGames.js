@@ -29,6 +29,12 @@ const useFilterGames = () => {
       filtersProc.ignored = "yes";
     }
 
+    const { wanted } = filtersProc;
+    delete filtersProc.wanted;
+    if (wanted === false) {
+      filtersProc.hide_wanted = true;
+    }
+
     return filtersProc;
   }, [filters]);
 

@@ -11,6 +11,7 @@ import useFilterItems from "./useFilterItems";
 import I18N from "@/i18n";
 import NewItemTag from "@/components/item-tags/new-item-tag";
 import BanUsers from "@/components/ban/users";
+import Icon from "@/components/icon";
 
 const FiltersForItems = () => {
   const {
@@ -49,38 +50,6 @@ const FiltersForItems = () => {
             data={data}
             name="tag"
             options={tagList}
-            /* size="sm"
-            multiple
-            unique
-            customRenderOption={(option) => {
-              const { text, color, count } = option;
-
-              return (
-                <div className="py-1">
-                  <div
-                    className="font-bold text-xs py-1 px-2 rounded-md"
-                    style={colorTagStyles(color)}
-                  >
-                    {text}
-                    {count > 0 ? <span> ({count})</span> : null}
-                  </div>
-                </div>
-              );
-            }}
-            customRenderTag={(option, closeButton) => {
-              const { value, text, color, count } = option;
-              return (
-                <div
-                  className="flex relative font-bold text-xs py-1 px-2 rounded-md"
-                  style={colorTagStyles(color)}
-                  key={value}
-                >
-                  {text}
-                  {count > 0 ? <span> ({count})</span> : null}
-                  {closeButton}
-                </div>
-              );
-            }} */
           />
           <NewItemTag />
         </InputContainer>
@@ -114,7 +83,14 @@ const FiltersForItems = () => {
         <legend className="text-center px-2 text-xs text-gray-500 mb-3">
           <I18N id="Items" />
         </legend>
-
+        <InputContainer className="mb-1">
+          <Switch data={data} name="hide_wanted">
+            <div className="text-xs flex items-center gap-1">
+              <Icon type="heart" className="text-gray-600"/>
+              <I18N id="hideWanted.items.label" />
+            </div>
+          </Switch>
+        </InputContainer>
         <InputContainer>
           <Label text="ban.btn-filter.label.item" name="ignored" size="sm" />
           <Select

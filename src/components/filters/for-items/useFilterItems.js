@@ -20,8 +20,6 @@ const useFiltersItems = () => {
   } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
-  console.log("filterData", filterData);
-
   /* USERS ****************************************/
 
   const beforeLoadUsers = useCallback(() => {
@@ -68,6 +66,12 @@ const useFiltersItems = () => {
       filtersProc.ignored = "yes";
     }
 
+    const { wanted } = filtersProc;
+    delete filtersProc.wanted;
+    if (wanted === false) {
+      filtersProc.hide_wanted = true;
+    }
+
     return filtersProc;
   }, [filters]);
 
@@ -90,8 +94,6 @@ const useFiltersItems = () => {
     languageList,
     locationList,
   } = useMemo(() => {
-    const locs = formatLocations(locations);
-    console.log("locs", locs);
     return {
       typeList: [
         {
@@ -159,21 +161,17 @@ const useFiltersItems = () => {
           };
         })
         .filter((v) => v !== null),
-      locationList: locs
+      locationList: formatLocations(locations, filterData?.locations)
         .map((st) => {
+          if (!st.num) {
+            return null;
+          }
           if (st?.type === "group") {
             return st;
           }
-
-          const num = filterData?.locations?.[st.value] || 0;
-
-          if (!num) {
-            return null;
-          }
-
           return {
             ...st,
-            text: `${st.text} (${num})`,
+            text: `${st.text} (${st.num})`,
           };
         })
         .filter((v) => v !== null),

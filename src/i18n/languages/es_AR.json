@@ -732,5 +732,7 @@
   "reportItem.tooltip": "Si ves alguna información incorrecta en este ejemplar, por favor comunicalo a los administradores.",
   "reportItem.help": "Si ves alguna información incorrecta en este ejemplar, por favor comunicalo a los administradores.",
   "reportItem.success": "El ejemplar ha sido reportado.<br/>Muchas gracias.",
-  "reportItem.title": "REPORTE DE EJEMPLAR:"
+  "reportItem.title": "REPORTE DE EJEMPLAR:",
+  "hideWanted.items.label": "Ocultar ejemplares deseados",
+  "hideWanted.games.label": "Ocultar juegos deseados"
 }

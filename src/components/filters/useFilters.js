@@ -45,8 +45,9 @@ const useFilters = ({ type }) => {
 
       const newFilters = {};
 
-      const { hide_my_user } = dataFromForm;
+      const { hide_my_user, hide_wanted } = dataFromForm;
       delete dataFromForm.hide_my_user;
+      delete dataFromForm.hide_wanted;
 
       Object.entries(dataFromForm).forEach(([key, value]) => {
         switch (typeof value) {
@@ -74,7 +75,10 @@ const useFilters = ({ type }) => {
       if (newFilters.ignored === "no") {
         newFilters.ignored = undefined;
       }
+      newFilters.wanted = hide_wanted === "true" ? false : undefined;
+
       gotoTop();
+
       updateFilters(
         {
           ...newFilters,
