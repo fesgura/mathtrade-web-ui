@@ -30,7 +30,7 @@ export default function MyAccount() {
             </h2>
             <ErrorAlert error={errorGetUser} />
             <Label text="form.Email" name="email" />
-            <div className="flex items-center mb-4 gap-4">
+            <div className="md:flex items-center mb-4 gap-4">
               <div className="grow">
                 <Output
                   data={userData}
@@ -39,8 +39,9 @@ export default function MyAccount() {
                   icon="email"
                 />
               </div>
-
-              <ChangePassword />
+              <div className="md:mt-0 mt-3">
+                <ChangePassword />
+              </div>
             </div>
 
             <Form validations={validations} onSubmit={onSubmit} showTopAlert>
