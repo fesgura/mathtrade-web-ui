@@ -1,5 +1,4 @@
 import { Form, InputContainer, Label, Input } from "@/components/form";
-import Icon from "@/components/icon";
 import I18N from "@/i18n";
 import ErrorAlert from "@/components/errorAlert";
 import { LoadingBox } from "@/components/loading";

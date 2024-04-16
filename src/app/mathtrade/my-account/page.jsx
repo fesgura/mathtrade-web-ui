@@ -7,6 +7,7 @@ import PageHeader from "@/components/pageHeader";
 import ErrorAlert from "@/components/errorAlert";
 import Button from "@/components/button";
 import useMyAccount from "./useMyAccount";
+import ChangePassword from "./changePassword";
 
 export default function MyAccount() {
   const {
@@ -28,15 +29,20 @@ export default function MyAccount() {
               <I18N id="register.AccountData" />
             </h2>
             <ErrorAlert error={errorGetUser} />
-            <InputContainer>
-              <Label text="form.Email" name="email" />
-              <Output
-                data={userData}
-                name="email"
-                ariaLabel="form.Email"
-                icon="email"
-              />
-            </InputContainer>
+            <Label text="form.Email" name="email" />
+            <div className="flex items-center mb-4 gap-4">
+              <div className="grow">
+                <Output
+                  data={userData}
+                  name="email"
+                  ariaLabel="form.Email"
+                  icon="email"
+                />
+              </div>
+
+              <ChangePassword />
+            </div>
+
             <Form validations={validations} onSubmit={onSubmit} showTopAlert>
               <fieldset>
                 <div className="grid md:grid-cols-2 gap-x-4">
