@@ -5,8 +5,8 @@ const endpoints = {
   PUT_PASSWORD: "api/users/change-password/",
   FORGOT_PASSWORD: "api/users/recovery-password/",
   GET_USERS: "api/users/",
-  GET_USER: "api/users/$[1]/",
-  PUT_USER: "api/users/$[1]/",
+  GET_USER: "api/users/",
+  PUT_USER: "api/users/",
 
   // Location
   GET_LOCATIONS: "api/locations/",

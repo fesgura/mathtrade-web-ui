@@ -1,43 +1,115 @@
 "use client";
+import { Form, InputContainer, Label, Input, Output } from "@/components/form";
+import I18N from "@/i18n";
 import SectionCommon from "@/components/sections/common";
 import Container from "@/components/container";
 import PageHeader from "@/components/pageHeader";
-import { useContext, useEffect } from "react";
-import { PageContext } from "@/context/page";
+import ErrorAlert from "@/components/errorAlert";
+import Button from "@/components/button";
+import useMyAccount from "./useMyAccount";
 
 export default function MyAccount() {
-  /* PAGE CONTEXT **********************************************/
-  const { setPageType } = useContext(PageContext);
-
-  useEffect(() => {
-    setPageType("myAccount");
-  }, [setPageType]);
-  /* end PAGE CONTEXT */
+  const {
+    userData,
+    loading,
+    errorGetUser,
+    errorPutUser,
+    validations,
+    onSubmit,
+  } = useMyAccount();
 
   return (
     <>
-      <PageHeader
-        title="title.MyAccount"
-        name="myAccount"
-        /*  description={
-          <>
-            <p className="text-sm max-w-5xl mx-auto">
-              <I18N id="MyCollection.page.explanation" />
-            </p>
-          </>
-        } */
-      />
-      <SectionCommon
-        //loading={loading}
-        //size="md"
-        title="title.MyWants"
-        /* description={
-          <>
-            <p className="text-sm max-w-5xl mx-auto">description</p>
-          </>
-        } */
-      >
-        <Container>Mi Cuenta(TODO)</Container>
+      <PageHeader title="title.MyAccount" name="myAccount" />
+      <SectionCommon loading={loading}>
+        <Container>
+          <section className="max-w-xl mx-auto pt-4 relative">
+            <h2 className="text-center pb-2 mb-7 font-bold block w-full border-b border-gray-300">
+              <I18N id="register.AccountData" />
+            </h2>
+            <ErrorAlert error={errorGetUser} />
+            <InputContainer>
+              <Label text="form.Email" name="email" />
+              <Output
+                data={userData}
+                name="email"
+                ariaLabel="form.Email"
+                icon="email"
+              />
+            </InputContainer>
+            <Form validations={validations} onSubmit={onSubmit} showTopAlert>
+              <fieldset>
+                <div className="grid md:grid-cols-2 gap-x-4">
+                  <div className="">
+                    <InputContainer validate="first_name">
+                      <Label text="form.FirstName" name="first_name" required />
+                      <Input
+                        data={userData}
+                        name="first_name"
+                        placeholder="form.FirstName.placeholder"
+                        ariaLabel="form.FirstName"
+                        icon="user"
+                      />
+                    </InputContainer>
+                  </div>
+                  <div className="">
+                    <InputContainer validate="last_name">
+                      <Label text="form.LastName" name="last_name" required />
+                      <Input
+                        data={userData}
+                        name="last_name"
+                        placeholder="form.LastName.placeholder"
+                        ariaLabel="form.LastName"
+                        icon="user"
+                      />
+                    </InputContainer>
+                  </div>
+                  <div className="">
+                    <InputContainer validate="phone">
+                      <Label text="form.Phone" name="phone" required />
+                      <Input
+                        data={userData}
+                        name="phone"
+                        type="tel"
+                        placeholder="form.Phone.placeholder"
+                        ariaLabel="form.Phone"
+                        icon="phone"
+                      />
+                    </InputContainer>
+                  </div>
+                  <div className="">
+                    <InputContainer>
+                      <Label text="form.Telegram.user" name="telegram" />
+                      <Input
+                        data={userData}
+                        name="telegram"
+                        placeholder="form.Telegram.user.placeholder"
+                        ariaLabel="form.Telegram.user"
+                        icon="telegram"
+                      />
+                    </InputContainer>
+                  </div>
+                </div>
+                <InputContainer>
+                  <Label text="form.BGGuser" name="bgg_user" />
+                  <Output
+                    data={userData}
+                    name="bgg_user"
+                    ariaLabel="form.BGGuser"
+                    icon="bgg"
+                  />
+                </InputContainer>
+              </fieldset>
+
+              <ErrorAlert error={errorPutUser} />
+              <div className="text-center py-5">
+                <Button ariaLabel="btn.SignUp">
+                  <I18N id="btn.Save" />
+                </Button>
+              </div>
+            </Form>
+          </section>
+        </Container>
       </SectionCommon>
     </>
   );
