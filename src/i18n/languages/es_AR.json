@@ -288,6 +288,7 @@
   "form.changePassword.help": "Por favor, ingresá contraseña actual, luego tu nueva contraseña.",
   "form.changePassword.login.help": "Por favor, cambia tu contraseña provisoria por una <strong>nueva contraseña</strong>.",
   "form.changePassword.title": "Cambiar contraseña",
+  "form.changePassword.success": "Tu contraseña se ha cambiado correctamente.",
   "form.error": "Por favor, completá los datos con error:",
   "game.item-num.1": "ejemplar ofrecido",
   "game.item-num.more": "ejemplares ofrecidos",

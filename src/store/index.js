@@ -77,6 +77,19 @@ export const useStore = create(
         set((state) => {
           return { [elementName]: data };
         }),
+      updateUser: (user) =>
+        set((state) => {
+          return {
+            ...state,
+            data: {
+              ...state.data,
+              user: {
+                ...state.data.user,
+                ...user,
+              },
+            },
+          };
+        }),
       clearStore: () => set({ ...STORE_DEFAULT }),
     }),
     { name: STORAGE_NAME }
