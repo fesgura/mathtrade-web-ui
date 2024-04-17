@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import BanUsersModal from "@/components/ban/users/modal";
 import GamesView from "./games";
 import ItemsView from "./items";
+import HelpContext from "@/components/help-context";
 
 const OfferPage = () => {
   const options = useOptions((state) => state.options);
@@ -40,7 +41,16 @@ const OfferPage = () => {
         onChange={setScreenOfferView}
       />
 
-      {screenOfferView === 0 ? <GamesView /> : <ItemsView />}
+      {screenOfferView === 0 ? (
+        <>
+          <div className="w-fit mx-auto">
+            <HelpContext id="advanceMeaning.items" />
+          </div>
+          <GamesView />
+        </>
+      ) : (
+        <ItemsView />
+      )}
       <BanUsersModal />
     </>
   );

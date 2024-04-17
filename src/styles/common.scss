@@ -114,3 +114,28 @@ p {
 .text-balance {
   text-wrap: balance;
 }
+
+.rich-text {
+  h1 {
+    font-weight: bold;
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  p {
+    margin-bottom: 1em;
+  }
+
+  b {
+    font-weight: bold;
+  }
+
+  .tyc-ul {
+    list-style: decimal;
+    padding-left: 1em;
+    li {
+      margin-bottom: 1em;
+      padding-left: 1em;
+    }
+  }
+}

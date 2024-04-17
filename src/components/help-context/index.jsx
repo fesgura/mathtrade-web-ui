@@ -26,7 +26,9 @@ const HelpContext = ({ id }) => {
     whileElementsMounted: autoUpdate,
   });
 
-  const click = useClick(context);
+  const click = useClick(context, {
+    event: "mousedown",
+  });
   const dismiss = useDismiss(context);
   const role = useRole(context);
 
@@ -43,6 +45,9 @@ const HelpContext = ({ id }) => {
         className="flex items-center"
         ref={refs.setReference}
         {...getReferenceProps()}
+        onClick={(e) => {
+          e.preventDefault();
+        }}
       >
         <div className="text-[10px] bg-white border border-orange-500 h-5 leading-4 text-orange-900 rounded-tl-full rounded-bl-full px-2 ">
           <I18N id={`helpcontext.title.${id}`} />

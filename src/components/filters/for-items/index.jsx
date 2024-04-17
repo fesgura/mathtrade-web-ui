@@ -12,6 +12,7 @@ import I18N from "@/i18n";
 import NewItemTag from "@/components/item-tags/new-item-tag";
 import BanUsers from "@/components/ban/users";
 import Icon from "@/components/icon";
+import HelpContext from "@/components/help-context";
 
 const FiltersForItems = () => {
   const {
@@ -45,12 +46,12 @@ const FiltersForItems = () => {
         </InputContainer>
 
         <InputContainer>
-          <Label text="filter.Tag" name="tag" size="sm" />
-          <TagSelector
-            data={data}
-            name="tag"
-            options={tagList}
-          />
+          <div className="flex items-center gap-2 mb-2">
+            <Label text="filter.Tag" name="tag" size="sm" />
+            <HelpContext id="whatIsTag" />
+          </div>
+
+          <TagSelector data={data} name="tag" options={tagList} />
           <NewItemTag />
         </InputContainer>
       </fieldset>
@@ -86,13 +87,16 @@ const FiltersForItems = () => {
         <InputContainer className="mb-1">
           <Switch data={data} name="hide_wanted">
             <div className="text-xs flex items-center gap-1">
-              <Icon type="heart" className="text-gray-600"/>
+              <Icon type="heart" className="text-gray-600" />
               <I18N id="hideWanted.items.label" />
             </div>
           </Switch>
         </InputContainer>
         <InputContainer>
-          <Label text="ban.btn-filter.label.item" name="ignored" size="sm" />
+          <div className="flex items-center gap-2 mb-2 pt-4">
+            <Label text="ban.btn-filter.label.item" name="ignored" size="sm" />
+            <HelpContext id="whatIsThis.ban.item" />
+          </div>
           <Select
             data={data}
             name="ignored"
@@ -107,7 +111,10 @@ const FiltersForItems = () => {
           <Select data={data} name="type" options={typeList} size="sm" />
         </InputContainer>
         <InputContainer>
-          <Label text="filter.Value" name="value" size="sm" />
+          <div className="flex items-center gap-2 mb-1 pt-2">
+            <Label text="filter.Value" name="value" size="sm" />
+            <HelpContext id="whatIsThis.value.item" />
+          </div>
           <RangeTwo data={data} name="value" />
         </InputContainer>
         <InputContainer>

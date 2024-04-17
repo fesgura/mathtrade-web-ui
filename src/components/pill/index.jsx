@@ -3,7 +3,12 @@ import clsx from "clsx";
 
 const Pill = ({ value, label, footer, className }) => {
   return (
-    <div className={clsx("text-white h-full p-4 rounded-xl",className)}>
+    <div
+      className={clsx(
+        "text-white h-full p-4 rounded-xl shadow-[0_1px_4px_rgba(0,0,0,0.3)]",
+        className
+      )}
+    >
       <div className="text-6xl font-bold mb-3">{value}</div>
       <div className="text-xl">
         <I18N id={label} />

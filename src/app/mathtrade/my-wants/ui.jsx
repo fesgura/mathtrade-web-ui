@@ -11,6 +11,7 @@ import ErrorAlert from "@/components/errorAlert";
 import Container from "@/components/container";
 import ModalPreviewerItem from "@/components/previewerItem/modal";
 import { GotoTopContextProvider } from "@/context/goto-top";
+import HelpContext from "@/components/help-context";
 
 export default function MyWantsUI() {
   const { screenView, setScreenView, loading, error } = useWants();
@@ -42,7 +43,16 @@ export default function MyWantsUI() {
           false
         )}
         <GotoTopContextProvider>
-          {screenView === 0 ? <Visual /> : <Grid />}
+          {screenView === 0 ? (
+            <>
+              <div className="w-fit mx-auto mb-4">
+                <HelpContext id="advanceMeaning.wants" />
+              </div>
+              <Visual />
+            </>
+          ) : (
+            <Grid />
+          )}
           <Footer />
         </GotoTopContextProvider>
       </SectionCommon>

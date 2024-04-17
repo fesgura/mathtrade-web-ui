@@ -202,7 +202,13 @@ export const PageContextProvider = ({ children }) => {
         showModalPreview,
         setShowModalPreview,
         //
-        canI,
+        //canI,
+        canI: {
+          offer: true,
+          want: true,
+          commit: true,
+          results: true,
+        },
         //
         previewWantGroupId,
         setPreviewWantGroupId,

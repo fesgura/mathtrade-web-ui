@@ -10,6 +10,7 @@ import I18N from "@/i18n";
 import useValueEditor from "./useValueEditor";
 import clsx from "clsx";
 import ErrorAlert from "@/components/errorAlert";
+import HelpContext from "@/components/help-context";
 
 const ValueEditor = ({
   value,
@@ -36,7 +37,10 @@ const ValueEditor = ({
           })}
         >
           <div className="p-2">
-            <Label text="filter.Value" name="value" size="sm" />
+            <div className="flex items-center gap-2 mb-1">
+              <Label text="filter.Value" name="value" size="sm" />
+              <HelpContext id="whatIsThis.value.item" />
+            </div>
             <Range
               name="value"
               initialValue={value}
