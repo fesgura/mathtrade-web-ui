@@ -6,6 +6,7 @@ import PageHeader from "@/components/pageHeader";
 import { linksToHelp } from "@/config/linksToHelp";
 import { useContext, useEffect } from "react";
 import { PageContext } from "@/context/page";
+import HomeContent from "./homeContent";
 
 export default function HomePage() {
   /* PAGE CONTEXT **********************************************/
@@ -51,9 +52,7 @@ export default function HomePage() {
           </>
         }
       >
-        <Container>
-          <p>Inicio (TODO)</p>
-        </Container>
+        <HomeContent />
       </SectionCommon>
     </>
   );
