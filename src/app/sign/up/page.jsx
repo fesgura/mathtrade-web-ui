@@ -16,6 +16,7 @@ import { LoadingBox } from "@/components/loading";
 import Question from "@/components/question";
 import Button from "@/components/button";
 import Alink from "@/components/link";
+import HelpContext from "@/components/help-context";
 
 const SignUpPage = () => {
   const {
@@ -144,7 +145,10 @@ const SignUpPage = () => {
                 error={errorBGG}
                 className="mb-1"
               >
-                <Label text="form.BGGuser" name="bgg_user" required />
+                <div className="flex items-center gap-2 mb-1">
+                  <Label text="form.BGGuser" name="bgg_user" required />
+                  <HelpContext id="forWhatIsThis.bgg_user" />
+                </div>
                 <Input
                   name="bgg_user"
                   placeholder="form.BGGuser.placeholder"
@@ -160,13 +164,14 @@ const SignUpPage = () => {
             <InputContainer validate="terms_acceptance" className="mb-6">
               <Checkbox name="terms_acceptance" required ariaLabel="title.TyC">
                 <I18N id="accept.TyC1" />
-                <Alink
+                <a
                   href={PUBLIC_ROUTES.TERMS_CONDITIONS.path}
                   target="_blank"
                   rel="noopener noreferrer"
+                  className="text-primary underline hover:text-primary-hover"
                 >
                   <I18N id="title.TyC" />
-                </Alink>
+                </a>
                 <I18N id="accept.TyC2" />
               </Checkbox>
             </InputContainer>

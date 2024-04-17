@@ -7,22 +7,26 @@ import clsx from "clsx";
 import useAddToOffer from "./useAddToOffer";
 import Link from "next/link";
 import { PRIVATE_ROUTES } from "@/config/routes";
+import HelpContext from "@/components/help-context";
 
 const AddToOffer = () => {
   const { options, loading, onPublish, setItemId, item_id } = useAddToOffer();
 
   return options.length ? (
     <div className="mb-4 pb-4 border-b border-gray-300">
-      <label htmlFor="addItem" className="block mb-1">
-        <I18N id="btn.AddToMathTrade" />{" "}
-        <Link
-          href={PRIVATE_ROUTES.MY_COLLECTION.path}
-          className="font-bold text-primary underline hover:text-primary/70"
-        >
-          <I18N id="title.MyCollection" />
-        </Link>
-        :
-      </label>
+      <div className="md:flex items-center mb-2 gap-5">
+        <label htmlFor="addItem" className="block md:mb-0 mb-2">
+          <I18N id="btn.AddToMathTrade" />{" "}
+          <Link
+            href={PRIVATE_ROUTES.MY_COLLECTION.path}
+            className="font-bold text-primary underline hover:text-primary/70"
+          >
+            <I18N id="title.MyCollection" />
+          </Link>
+          :
+        </label>
+        <HelpContext id="whyLoadFromMyCollection" />
+      </div>
       <div className="sm:flex gap-1">
         <div className="grow">
           <Select

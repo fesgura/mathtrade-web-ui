@@ -10,6 +10,7 @@ import useFilterGames from "./useFilterGames";
 import I18N from "@/i18n";
 import Icon from "@/components/icon";
 import BanUsers from "@/components/ban/users";
+import HelpContext from "@/components/help-context";
 
 const FiltersForGames = () => {
   const { data, typeList, banOptions, dependencyList } = useFilterGames();
@@ -52,13 +53,16 @@ const FiltersForGames = () => {
         <InputContainer className="mb-1">
           <Switch data={data} name="hide_wanted">
             <div className="text-xs flex items-center gap-1">
-              <Icon type="heart" className="text-gray-600"/>
+              <Icon type="heart" className="text-gray-600" />
               <I18N id="hideWanted.games.label" />
             </div>
           </Switch>
         </InputContainer>
         <InputContainer>
-          <Label text="ban.btn-filter.label.game" name="ignored" size="sm" />
+          <div className="flex items-center gap-2 mb-2 pt-4">
+            <Label text="ban.btn-filter.label.game" name="ignored" size="sm" />
+            <HelpContext id="whatIsThis.ban.game" />
+          </div>
           <Select
             data={data}
             name="ignored"

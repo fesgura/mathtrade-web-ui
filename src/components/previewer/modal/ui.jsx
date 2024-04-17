@@ -35,7 +35,6 @@ const ItemUI = () => {
         <UserBox />
       </div>
       <ItemComments className="pb-5" />
-      <ItemTagList />
       <LoadingBox loading={loadingItem} />
     </>
   );
