@@ -20,9 +20,20 @@ const HomeContent = () => {
       </div>
       <Timeline />
       <Videohelp />
-      <Status />
-      <Glossary />
-      <Iconshelp />
+      <h2 className="text-center font-bold text-2xl py-5">
+        <I18N id="quickhelp.title" />
+      </h2>
+      <div className="mb-4 bg-white p-5 rounded-xl shadow-lg">
+        <Glossary />
+      </div>
+      <div className="lg:flex gap-4">
+        <div className="mb-4 bg-white p-5 rounded-xl shadow-lg lg:w-2/3">
+          <Status />
+        </div>
+        <div className="mb-4 bg-white p-5 rounded-xl shadow-lg lg:w-1/3">
+          <Iconshelp />
+        </div>
+      </div>
     </Container>
   );
 };
