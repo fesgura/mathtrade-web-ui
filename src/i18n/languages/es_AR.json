@@ -751,5 +751,7 @@
   "reportItem.success": "El ejemplar ha sido reportado.<br/>Muchas gracias.",
   "reportItem.title": "REPORTE DE EJEMPLAR:",
   "hideWanted.items.label": "Ocultar ejemplares ya deseados",
-  "hideWanted.games.label": "Ocultar juegos ya deseados"
+  "hideWanted.games.label": "Ocultar juegos ya deseados",
+  "link.mtBGG": "Hilo del Math Trade en la BGG",
+  "link.mtTelegram": "Canal del Math Trade en Telegram"
 }

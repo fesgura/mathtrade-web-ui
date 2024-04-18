@@ -10,7 +10,7 @@ import Iconshelp from "./iconshelp";
 const HomeContent = () => {
   return (
     <Container>
-      <div className="rich-text text-center">
+      <div className="rich-text text-center pb-4">
         <p className="max-w-5xl mx-auto m-0">
           <I18N
             id="home.lead2"
