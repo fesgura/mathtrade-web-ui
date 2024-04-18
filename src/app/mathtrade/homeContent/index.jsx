@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { PageContext } from "@/context/page";
 import I18N from "@/i18n";
 import { linksToHelp } from "@/config/linksToHelp";
 import Container from "@/components/container";
@@ -8,17 +10,28 @@ import Glossary from "./glossary";
 import Iconshelp from "./iconshelp";
 
 const HomeContent = () => {
+  /* PAGE CONTEXT **********************************************/
+  const { mathtrade } = useContext(PageContext);
+  /* end PAGE CONTEXT */
   return (
     <Container>
-      <div className="rich-text text-center pb-4">
-        <p className="max-w-5xl mx-auto m-0">
-          <I18N
-            id="home.lead2"
-            values={[linksToHelp.video, linksToHelp.bgg, linksToHelp.telegram]}
-          />
-        </p>
-      </div>
-      <Timeline />
+      {mathtrade ? (
+        <>
+          <div className="rich-text text-center pb-4">
+            <p className="max-w-5xl mx-auto m-0">
+              <I18N
+                id="home.lead2"
+                values={[
+                  linksToHelp.video,
+                  linksToHelp.bgg,
+                  linksToHelp.telegram,
+                ]}
+              />
+            </p>
+          </div>
+          <Timeline />
+        </>
+      ) : null}
       <Videohelp />
       <h2 className="text-center font-bold text-2xl py-5">
         <I18N id="quickhelp.title" />

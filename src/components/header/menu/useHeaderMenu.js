@@ -1,5 +1,9 @@
 import { useCallback, useState, useEffect } from "react";
-import { MenuList, MenuListNotSignedToMathtrade } from "./config";
+import {
+  MenuList,
+  MenuListDefault,
+  MenuListNotSignedToMathtrade,
+} from "./config";
 import { usePathname } from "next/navigation";
 import { useStore } from "@/store";
 
@@ -23,7 +27,7 @@ const useHeaderMenu = () => {
         setMenuListOfItems(MenuListNotSignedToMathtrade);
       }
     } else {
-      setMenuListOfItems([]);
+      setMenuListOfItems(MenuListDefault);
     }
   }, [membership, mathtrade]);
 

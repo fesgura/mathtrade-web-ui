@@ -41,6 +41,7 @@ export const PageContext = createContext({
   setLoadingUsers: () => {},
   //
   mathTradeId: null,
+  membership: null,
   userId: "",
   //
   showBanUsers: false,
@@ -191,6 +192,7 @@ export const PageContextProvider = ({ children }) => {
         setLoadingUsers,
         //
         mathtrade,
+        membership,
         mathTradeId: mathtrade && mathtrade.id ? mathtrade.id : null,
         userId: user && user.id ? user.id : "",
         //
@@ -202,13 +204,13 @@ export const PageContextProvider = ({ children }) => {
         showModalPreview,
         setShowModalPreview,
         //
-        //canI,
-        canI: {
+        canI,
+        /* canI: {
           offer: true,
           want: true,
           commit: true,
           results: true,
-        },
+        }, */
         //
         previewWantGroupId,
         setPreviewWantGroupId,

@@ -50,6 +50,14 @@ export const MenuList = [
   },
 ];
 
+export const MenuListDefault = [
+  {
+    title: `menu.${PRIVATE_ROUTES.MY_COLLECTION.title}`,
+    path: PRIVATE_ROUTES.MY_COLLECTION.path,
+    name: "myCollection",
+  },
+];
+
 export const MenuListNotSignedToMathtrade = [
   {
     title: `menu.${PRIVATE_ROUTES.MY_COLLECTION.title}`,
