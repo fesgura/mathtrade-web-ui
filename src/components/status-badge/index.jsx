@@ -2,7 +2,7 @@ import { statusTypes } from "@/config/statusTypes";
 import { getI18Ntext } from "@/i18n";
 import clsx from "clsx";
 
-const StatusBadge = ({ status, block, min }) => {
+const StatusBadge = ({ status, block, min, noTooltip }) => {
   return status ? (
     <div
       className={clsx(
@@ -17,7 +17,7 @@ const StatusBadge = ({ status, block, min }) => {
       style={{
         backgroundColor: statusTypes[status]?.color || "#CCC",
       }}
-      data-tooltip={getI18Ntext(`statusType.desc.${status}`)}
+      data-tooltip={noTooltip ? null : getI18Ntext(`statusType.desc.${status}`)}
     >
       {statusTypes[status]?.text || ""}
     </div>

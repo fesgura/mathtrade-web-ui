@@ -15,7 +15,7 @@ import HelpButton from "./helpButton";
 
 const Header = () => {
   /* PAGE CONTEXT **********************************************/
-  const { mathtrade, pageType } = useContext(PageContext);
+  const { mathtrade, membership, pageType } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
   return (
@@ -43,16 +43,20 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-2">
             {mathtrade ? (
-              <div className="main-header_col">
-                <TimelineButton />
-              </div>
+              <>
+                <div className="main-header_col">
+                  <TimelineButton />
+                </div>
+                <div className="main-header_col">
+                  <NotificationsButton />
+                </div>
+                {membership ? (
+                  <div className="main-header_col">
+                    <CartButton />
+                  </div>
+                ) : null}
+              </>
             ) : null}
-            <div className="main-header_col">
-              <NotificationsButton />
-            </div>
-            <div className="main-header_col">
-              <CartButton />
-            </div>
             <div className="main-header_col">
               <HelpButton />
             </div>

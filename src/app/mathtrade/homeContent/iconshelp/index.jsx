@@ -24,7 +24,7 @@ const iconList = [
 const Iconshelp = () => {
   return (
     <>
-      <h3 className="font-bold text-lg mb-5 text-gray-500 underline">
+      <h3 className="font-bold text-lg mb-5 text-gray-500">
         <I18N id="quickhelp.icons" />
       </h3>
       <ul>
