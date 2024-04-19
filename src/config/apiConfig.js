@@ -1,6 +1,7 @@
-const baseURL = process.env.API_TEST_MODE
-  ? process.env.BASE_URL_TEST
-  : process.env.BASE_URL;
+const baseURL =
+  process.env.API_TEST_MODE === "yes"
+    ? process.env.BASE_URL_TEST
+    : process.env.BASE_URL;
 
 const apiConfig = {
   timeout: 300000, // 5 minutes

@@ -70,7 +70,7 @@ export const PageContext = createContext({
   setFilterData: () => {},
 });
 
-const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE;
+const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE === "yes";
 
 export const PageContextProvider = ({ children }) => {
   const { mathtrade, membership, user } = useStore((state) => state.data);
