@@ -8,7 +8,7 @@ export const photoUploaderConfig = (() => {
       format: "image/jpeg",
       quality: 0.8,
     },
-    urlBase: "", //process.env.BASE_URL_MEDIA,
+    urlBase: "",
     widthDefault: 600,
   };
 
