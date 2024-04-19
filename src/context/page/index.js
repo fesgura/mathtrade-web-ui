@@ -70,6 +70,8 @@ export const PageContext = createContext({
   setFilterData: () => {},
 });
 
+const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE;
+
 export const PageContextProvider = ({ children }) => {
   const { mathtrade, membership, user } = useStore((state) => state.data);
 
@@ -101,6 +103,14 @@ export const PageContextProvider = ({ children }) => {
   }, []);
 
   const canI = useMemo(() => {
+    if (CAN_I_TEST_MODE) {
+      return {
+        offer: true,
+        want: true,
+        commit: true,
+        results: true,
+      };
+    }
     if (!mathtrade || !membership) {
       return {
         offer: false,

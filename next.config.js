@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    //BASE_URL: "https://mathtrade-backend.fly.dev/api/", // TEST
+    CAN_I_TEST_MODE: false,
+    //
+    API_TEST_MODE: false,
+    BASE_URL_TEST: "https://mathtrade-backend.fly.dev/",
     BASE_URL: "https://api.mathtrade.com.ar/",
     //
     GOOGLE_RECAPTCHA_CLIENT_KEY: "6LeWcz8gAAAAAGgpOiINIJZSwsmKH-eMjtbQbFbF",
