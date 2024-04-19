@@ -11,7 +11,11 @@ import PrintTags from "@/components/results/printTags";
 export default function ResultsUI() {
   const { screenViewResults, setScreenViewResults, loading } = useResults();
 
-  const listContent = [<ResultsVisual />, <ResultsTable />, <PrintTags />];
+  const listContent = [
+    <ResultsVisual key={0} />,
+    <ResultsTable key={1} />,
+    <PrintTags key={2} />,
+  ];
 
   return (
     <>
