@@ -11,12 +11,6 @@ import PrintTags from "@/components/results/printTags";
 export default function ResultsUI() {
   const { screenViewResults, setScreenViewResults, loading } = useResults();
 
-  const listContent = [
-    <ResultsVisual key={0} />,
-    <ResultsTable key={1} />,
-    <PrintTags key={2} />,
-  ];
-
   return (
     <>
       <SectionCommon loading={loading}>
@@ -33,7 +27,13 @@ export default function ResultsUI() {
             onChange={setScreenViewResults}
           />
 
-          {listContent[screenViewResults]}
+          {screenViewResults === 0 ? (
+            <ResultsVisual />
+          ) : screenViewResults === 1 ? (
+            <ResultsTable />
+          ) : (
+            <PrintTags />
+          )}
         </Container>
       </SectionCommon>
     </>
