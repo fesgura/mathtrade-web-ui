@@ -379,6 +379,9 @@ const listIcons = {
       <path fill="currentColor" d="M11 7h2v7h-2z" />
     </>
   ),
+  download: (
+    <path fill="currentColor" d="M5 20h14v-2H5zM19 9h-4V3H9v6H5l7 7z" />
+  ),
 };
 
 export default listIcons;

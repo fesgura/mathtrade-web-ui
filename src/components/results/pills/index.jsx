@@ -17,8 +17,8 @@ const PillsResults = () => {
 
   return (
     <div className="max-w-[1100px] mx-auto mb-3">
-      <div className="flex gap-6">
-        <div className="w-1/3">
+      <div className="md:flex gap-6">
+        <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
             value={MathTradeData?.games_count || 0}
             label="results.pill.game"
@@ -26,7 +26,7 @@ const PillsResults = () => {
           />
         </div>
 
-        <div className="w-1/3">
+        <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
             value={MathTradeData?.items_count || 0}
             label="results.pill.item"
@@ -34,7 +34,7 @@ const PillsResults = () => {
             className="bg-sky-500"
           />
         </div>
-        <div className="w-1/3">
+        <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
             value={userParticipantsValues.count}
             label="results.pill.user.commit"

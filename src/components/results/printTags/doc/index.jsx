@@ -11,7 +11,7 @@ import {
 import I18N from "@/i18n";
 import Icon from "@/components/icon";
 import { PrintTagsContext } from "../context";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { canvasWidth } from "../config";
 
 const styles = StyleSheet.create({
@@ -47,30 +47,49 @@ const Doc = ({ pages }) => {
 const Viewer = () => {
   const { pages } = useContext(PrintTagsContext);
 
+  const [urlDownload, setUrlDownload] = useState(null);
+
+  console.log(urlDownload);
+
   return (
     <>
-      <div className="py-5">
+      <div className="py-5 text-center">
         <PDFDownloadLink
-          className="bg-primary text-white py-2 px-4 rounded-xl"
+          className="bg-primary text-white  py-3  px-7  text-2xl rounded-xl"
           document={<Doc pages={pages} />}
           fileName="etiquetas_para_imprimir.pdf"
         >
-          {({ blob, url, loading, error }) =>
-            loading ? (
+          {({ blob, url, loading, error }) => {
+            setUrlDownload(url);
+            return loading ? (
               <I18N id="results.tags.btn.loading" />
             ) : (
               <>
                 <Icon type="download" className="mr-1" />
                 <I18N id="results.tags.btn.download" />
               </>
-            )
-          }
+            );
+          }}
         </PDFDownloadLink>
+        {urlDownload ? (
+          <div className="pt-6 xl:hidden block">
+            <a
+              href={urlDownload}
+              className="text-primary hover:text-sky-900 underline"
+              target="_blank"
+            >
+              <I18N id="results.tags.btn.open" />
+              <Icon type="external-link" className="mr-1" />
+            </a>
+          </div>
+        ) : null}
       </div>
 
-      <PDFViewer width="100%" height={900} className="">
-        <Doc pages={pages} />
-      </PDFViewer>
+      <div className="xl:block hidden">
+        <PDFViewer width="100%" height={900}>
+          <Doc pages={pages} />
+        </PDFViewer>
+      </div>
     </>
   );
 };

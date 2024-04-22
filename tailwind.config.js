@@ -27,6 +27,7 @@ module.exports = {
     "border-want",
     "hidden",
     "block",
+    "md:inline",
   ],
   theme: {
     colors: {

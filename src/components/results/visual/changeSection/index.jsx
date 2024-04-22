@@ -17,13 +17,13 @@ const ChangeSection = ({ result }) => {
 
         <div className="flex flex-col gap-9">
           <div className="flex items-stretch gap-1">
-            <div className="w-20">
+            <div className="sm:w-20 w-10">
               <Arr1 />
             </div>
             <div>
               <ItemChange item={item_to} />
             </div>
-            <div className="w-20">
+            <div className="sm:w-20 w-10">
               <Arr2 />
             </div>
             <div>
@@ -33,13 +33,13 @@ const ChangeSection = ({ result }) => {
             </div>
           </div>
           <div className="flex items-stretch gap-1">
-            <div className="w-20">
+            <div className="sm:w-20 w-10">
               <Arr3 />
             </div>
             <div>
               <ItemChange item={item_from} />
             </div>
-            <div className="w-20">
+            <div className="sm:w-20 w-10">
               <Arr4 />
             </div>
             <div>
