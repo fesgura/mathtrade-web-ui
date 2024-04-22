@@ -35,12 +35,10 @@ const useItems = () => {
   const afterLoad = useCallback(
     (newGames) => {
       setIsLoaded(true);
-      const { results: list, count, filters: newFilterData } = newGames;
-
+      const { results: list, count } = newGames;
       setGames({ list, count });
-      setFilterData(newFilterData || {});
     },
-    [setGames, setFilterData]
+    [setGames]
   );
   const [, , loading, error] = useFetch({
     endpoint: "GET_GAMES_LIST",
@@ -51,6 +49,21 @@ const useItems = () => {
     afterLoad,
   });
   /* end FETCH */
+
+  /* FETCH FILTERS *************************************************/
+  const afterLoadFilters = useCallback(
+    (newFilterData) => {
+      setFilterData(newFilterData || {});
+    },
+    [setFilterData]
+  );
+  useFetch({
+    endpoint: "GET_FILTER_GAMES",
+    autoLoad: true,
+    initialState: {},
+    afterLoad: afterLoadFilters,
+  });
+  /* end FETCH FILTERS */
 
   /* MY WANTS *************************************************/
   const beforeLoadMyWants = useCallback(() => {

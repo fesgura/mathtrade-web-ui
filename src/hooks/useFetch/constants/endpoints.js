@@ -30,6 +30,10 @@ const endpoints = {
   GET_ITEM: "api/mathtrades/$[mathtradeId]/items/$[1]/",
   POST_VALUE_ITEMS: "api/item-values/",
 
+  // FILTERS
+  GET_FILTER_ITEMS: "api/mathtrades/$[mathtradeId]/item-filters/",
+  GET_FILTER_GAMES: "api/mathtrades/$[mathtradeId]/game-filters/",
+
   // Element
   PUT_ELEMENT: "api/elements/$[1]/",
   POST_ELEMENT: "api/elements/",

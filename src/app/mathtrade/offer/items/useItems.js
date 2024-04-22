@@ -38,12 +38,12 @@ const useItems = () => {
   const afterLoad = useCallback(
     (newItems) => {
       setIsLoaded(true);
-      const { results: list, count, filters: newFilterData } = newItems;
+      const { results: list, count } = newItems;
 
       setItems({ list, count });
-      setFilterData(newFilterData || {});
+      //  setFilterData(newFilterData || {});
     },
-    [setItems, setFilterData]
+    [setItems]
   );
   const [, , loading, error] = useFetch({
     endpoint: "GET_ITEMS_LIST",
@@ -55,6 +55,21 @@ const useItems = () => {
     reloadValue,
   });
   /* end FETCH */
+
+  /* FETCH FILTERS *************************************************/
+  const afterLoadFilters = useCallback(
+    (newFilterData) => {
+      setFilterData(newFilterData || {});
+    },
+    [setFilterData]
+  );
+  useFetch({
+    endpoint: "GET_FILTER_ITEMS",
+    autoLoad: true,
+    initialState: {},
+    afterLoad: afterLoadFilters,
+  });
+  /* end FETCH FILTERS */
 
   /* ITEM TAGS *********************************************/
   const afterLoadItemTags = useCallback(
