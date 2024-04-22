@@ -1,6 +1,5 @@
 import {
   Page,
-  Text,
   View,
   Document,
   StyleSheet,
@@ -12,15 +11,15 @@ import I18N from "@/i18n";
 import Icon from "@/components/icon";
 import { PrintTagsContext } from "../context";
 import { useContext, useState } from "react";
-import { canvasWidth } from "../config";
+import { dpi, padding, canvasWidth } from "../config";
 
 const styles = StyleSheet.create({
   section: {
     margin: 0,
-    padding: 5,
+    padding,
   },
   image: {
-    width: canvasWidth,
+    width: canvasWidth - 10,
   },
 });
 
@@ -31,7 +30,7 @@ const Doc = ({ pages }) => {
     <Document>
       {pages.map((src, k) => {
         return (
-          <Page size="A4" dpi={100} style={styles.page} key={k}>
+          <Page size="A4" dpi={dpi} style={styles.page} key={k}>
             <View style={styles.section}>
               {src ? <ImagePDF src={src} alt="" style={styles.image} /> : null}
             </View>
@@ -48,8 +47,6 @@ const Viewer = () => {
   const { pages } = useContext(PrintTagsContext);
 
   const [urlDownload, setUrlDownload] = useState(null);
-
-  console.log(urlDownload);
 
   return (
     <>

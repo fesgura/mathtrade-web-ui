@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 
 export const PrintTagsContext = createContext({
-  pages: ["asdss"],
+  pages: [],
   setPages: () => {},
 });
 

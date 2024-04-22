@@ -1,4 +1,5 @@
 import { cropWord } from "@/utils/text";
+import { dpi } from "../config";
 
 export const dataToTag = (data) => {
   if (!data.table_number || !data.show_label) {
@@ -23,11 +24,14 @@ export const dataToTag = (data) => {
 };
 
 ////////////////////////////
-const padding = 5;
-const paddingInt = 5;
-const paddingRect = 60;
-const heightRect = 100;
-const sideHex = 130;
+
+const K = Math.round(0.01 * dpi);
+
+const padding = 5 * K;
+const paddingInt = 5 * K;
+const paddingRect = 60 * K;
+const heightRect = 100 * K;
+const sideHex = 130 * K;
 
 export const drawTag = (data, ctx, width, height, x, y) => {
   const { id, altLocation, from, mesa, name, to, via } = data;
@@ -54,38 +58,38 @@ export const drawTag = (data, ctx, width, height, x, y) => {
   ctx.textAlign = "center";
   let yPos = y + padding + paddingInt;
   //
-  ctx.font = "60px Arial";
+  ctx.font = `${60 * K}px Arial`;
   ctx.fillText(id, centerX, yPos);
   //
-  yPos += 60;
-  ctx.font = "28px Arial";
+  yPos += 60 * K;
+  ctx.font = `${28 * K}px Arial`;
   const wTextName = ctx.measureText(name).width;
 
   if (wTextName > wQuad) {
-    ctx.font = "20px Arial";
+    ctx.font = `${20 * K}px Arial`;
   }
   ctx.fillText(name, centerX, yPos);
 
-  yPos += 45;
-  ctx.font = "20px Arial";
+  yPos += 45 * K;
+  ctx.font = `${20 * K}px Arial`;
   const fromComplete = "De: " + from;
   const wText = ctx.measureText(fromComplete).width;
 
   if (wText > wQuad) {
-    ctx.font = "14px Arial";
+    ctx.font = `${18 * K}px Arial`;
   }
   ctx.fillText(fromComplete, centerX, yPos);
 
-  yPos += 65;
-  ctx.font = "18px Arial";
+  yPos += 65 * K;
+  ctx.font = `${18 * K}px Arial`;
   const altLocationComplete = !via
     ? "Mandar a " + altLocation
     : "Mandar a CABA";
 
   ctx.fillText(altLocationComplete, centerX, yPos);
 
-  yPos += 35;
-  ctx.font = "90px Arial";
+  yPos += 35 * K;
+  ctx.font = `${90 * K}px Arial`;
 
   ctx.fillText(mesa, centerX, yPos);
 
@@ -94,32 +98,32 @@ export const drawTag = (data, ctx, width, height, x, y) => {
   if (!via) {
     ctx.strokeStyle = "#AAAAAA";
     ctx.beginPath();
-    ctx.moveTo(x + paddingRect, yPos - 10 + heightRect / 2);
-    ctx.lineTo(centerX - sideHex / 2, yPos - 10);
-    ctx.lineTo(centerX + sideHex / 2, yPos - 10);
-    ctx.lineTo(x + width - paddingRect, yPos - 10 + heightRect / 2);
-    ctx.lineTo(centerX + sideHex / 2, yPos - 10 + heightRect);
-    ctx.lineTo(centerX - sideHex / 2, yPos - 10 + heightRect);
-    ctx.lineTo(x + paddingRect, yPos - 10 + heightRect / 2);
+    ctx.moveTo(x + paddingRect, yPos - 10 * K + heightRect / 2);
+    ctx.lineTo(centerX - sideHex / 2, yPos - 10 * K);
+    ctx.lineTo(centerX + sideHex / 2, yPos - 10 * K);
+    ctx.lineTo(x + width - paddingRect, yPos - 10 * K + heightRect / 2);
+    ctx.lineTo(centerX + sideHex / 2, yPos - 10 * K + heightRect);
+    ctx.lineTo(centerX - sideHex / 2, yPos - 10 * K + heightRect);
+    ctx.lineTo(x + paddingRect, yPos - 10 * K + heightRect / 2);
     ctx.closePath();
     ctx.stroke();
   } else {
     ctx.strokeStyle = "#000000";
     ctx.strokeRect(
       x + paddingRect,
-      yPos - 10,
+      yPos - 10 * K,
       width - 2 * paddingRect,
       heightRect
     );
   }
 
   yPos += heightRect;
-  ctx.font = "20px Arial";
+  ctx.font = `${20 * K}px Arial`;
   const toComplete = "Para: " + to;
   const wTextTo = ctx.measureText(toComplete).width;
 
   if (wTextTo > wQuad) {
-    ctx.font = "14px Arial";
+    ctx.font = `${14 * K}px Arial`;
   }
   ctx.fillText(toComplete, centerX, yPos);
 
