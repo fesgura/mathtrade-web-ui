@@ -6,7 +6,7 @@ import ElementXSS from "@/components/element/xss";
 import Previewer from "@/components/previewer";
 import I18N from "@/i18n";
 
-const ItemContent = ({ bgg_id }) => {
+const ItemContent = ({ bgg_id, title }) => {
   const { item } = useContext(ItemContext);
 
   const { language, status, isCombo, elements } = item;
@@ -26,7 +26,7 @@ const ItemContent = ({ bgg_id }) => {
           </div>
           <div className="border-white/20 border-t">
             {elements.map((element, k) => {
-              if (element?.bgg_id === bgg_id) {
+              if (element?.bgg_id === bgg_id || element?.title === title) {
                 return null;
               }
               return <ElementXSS element={element} key={k} />;
@@ -38,10 +38,10 @@ const ItemContent = ({ bgg_id }) => {
   );
 };
 
-const ItemNoBGG = ({ itemRaw, bgg_id }) => {
+const ItemNoBGG = ({ itemRaw, bgg_id, title }) => {
   return (
     <ItemContextProvider itemRaw={itemRaw}>
-      <ItemContent bgg_id={bgg_id} />
+      <ItemContent bgg_id={bgg_id} title={title} />
     </ItemContextProvider>
   );
 };

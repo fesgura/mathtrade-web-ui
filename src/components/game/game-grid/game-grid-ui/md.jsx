@@ -87,7 +87,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
             ) : null}
 
             {notGame ? (
-              <ItemNoBGG itemRaw={items[0]} bgg_id={bgg_id} />
+              <ItemNoBGG itemRaw={items[0]} bgg_id={bgg_id} title={title} />
             ) : (
               <div className="py-3">
                 <div className="py-3 border-b border-t border-gray-700">
