@@ -5,8 +5,6 @@ export const formatLocations = (locationsFromAPI, filterLocations) => {
 
   const groupNums = {};
 
-  console.log("filterLocations", filterLocations);
-
   if (locationsFromAPI) {
     locationsFromAPI.forEach(({ id, name, province }) => {
       if (province !== currentProvince) {
