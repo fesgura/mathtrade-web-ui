@@ -94,27 +94,7 @@ const useFiltersItems = () => {
     languageList,
     locationList,
   } = useMemo(() => {
-    return {
-      typeList: [
-        {
-          value: "1",
-          text: `${getI18Ntext("filter.Type.Game")} (${
-            filterData?.type?.[1] || 0
-          })`,
-        },
-        {
-          value: "2",
-          text: `${getI18Ntext("filter.Type.Expansion")} (${
-            filterData?.type?.[2] || 0
-          })`,
-        },
-        {
-          value: "3",
-          text: `${getI18Ntext("filter.Type.Other")} (${
-            filterData?.type?.[3] || 0
-          })`,
-        },
-      ],
+    const o = {
       banOptions: [
         {
           value: "no",
@@ -125,32 +105,80 @@ const useFiltersItems = () => {
           text: getI18Ntext("ban.btn-filter.show.item"),
         },
       ],
-      dependencyList: dependencyOptions
-        .map((dep) => {
-          const num = filterData?.dependency?.[dep.value] || 0;
-          if (!num) {
-            return null;
-          }
-          return {
-            ...dep,
-            text: `${dep.text} (${num})`,
-          };
-        })
-        .filter((v) => v !== null),
-      statusList: statusTypes
-        .map((st) => {
-          const num = filterData?.status?.[st.value] || 0;
-          if (!num) {
-            return null;
-          }
-          return {
-            ...st,
-            text: `${st.text} (${num})`,
-          };
-        })
-        .filter((v) => v !== null),
-      languageList: languagesOptions
-        .map((st) => {
+    };
+
+    o.typeList = (() => {
+      const li = [
+        {
+          value: "1",
+          text: `${getI18Ntext("filter.Type.Game")}`,
+        },
+        {
+          value: "2",
+          text: `${getI18Ntext("filter.Type.Expansion")}`,
+        },
+        {
+          value: "3",
+          text: `${getI18Ntext("filter.Type.Other")}`,
+        },
+      ];
+      if (filterData?.type) {
+        return li
+          .map((elem) => {
+            const value = parseInt(elem.value, 10);
+            return {
+              ...elem,
+              text: elem.text + ` (${filterData?.type?.[value] || 0})`,
+              num: filterData?.type?.[value] || 0,
+            };
+          })
+          .filter(({ num }) => num > 0);
+      }
+      return li;
+    })();
+
+    o.dependencyList = (() => {
+      const li = [...dependencyOptions];
+      if (filterData?.dependency) {
+        return li
+          .map((dep) => {
+            const num = filterData?.dependency?.[dep.value] || 0;
+            if (!num) {
+              return null;
+            }
+            return {
+              ...dep,
+              text: `${dep.text} (${num})`,
+            };
+          })
+          .filter((v) => v !== null);
+      }
+      return li;
+    })();
+
+    o.statusList = (() => {
+      const li = [...statusTypes];
+      if (filterData?.status) {
+        return li
+          .map((st) => {
+            const num = filterData?.status?.[st.value] || 0;
+            if (!num) {
+              return null;
+            }
+            return {
+              ...st,
+              text: `${st.text} (${num})`,
+            };
+          })
+          .filter((v) => v !== null);
+      }
+      return li;
+    })();
+
+    o.languageList = (() => {
+      const li = [...languagesOptions];
+      if (filterData?.language) {
+        li.map((st) => {
           const num = filterData?.language?.[st.value] || 0;
           if (!num) {
             return null;
@@ -159,23 +187,34 @@ const useFiltersItems = () => {
             ...st,
             text: `${st.text} (${num})`,
           };
-        })
-        .filter((v) => v !== null),
-      locationList: formatLocations(locations, filterData?.locations)
-        .map((st) => {
-          if (!st.num) {
-            return null;
-          }
-          if (st?.type === "group") {
-            return st;
-          }
-          return {
-            ...st,
-            text: `${st.text} (${st.num})`,
-          };
-        })
-        .filter((v) => v !== null),
-    };
+        }).filter((v) => v !== null);
+      }
+      return li;
+    })();
+
+    o.locationList = (() => {
+      const li = formatLocations(locations, filterData?.locations);
+
+      if (filterData?.locations) {
+        return li
+          .map((st) => {
+            if (!st.num) {
+              return null;
+            }
+            if (st?.type === "group") {
+              return st;
+            }
+            return {
+              ...st,
+              text: `${st.text} (${st.num})`,
+            };
+          })
+          .filter((v) => v !== null);
+      }
+      return li;
+    })();
+
+    return o;
   }, [filterData, locations]);
 
   const userList = useMemo(() => {

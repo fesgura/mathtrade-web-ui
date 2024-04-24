@@ -39,50 +39,69 @@ const useFilterGames = () => {
   }, [filters]);
 
   const { typeList, banOptions, dependencyList } = useMemo(() => {
-    return {
-      typeList: [
-        {
-          value: "1",
-          text: `${getI18Ntext("filter.Type.Game")} (${
-            filterData?.type?.[1] || 0
-          })`,
-        },
-        {
-          value: "2",
-          text: `${getI18Ntext("filter.Type.Expansion")} (${
-            filterData?.type?.[2] || 0
-          })`,
-        },
-        {
-          value: "3",
-          text: `${getI18Ntext("filter.Type.Other")} (${
-            filterData?.type?.[3] || 0
-          })`,
-        },
-      ],
+    const o = {
       banOptions: [
         {
           value: "no",
-          text: getI18Ntext("ban.btn-filter.hide.game"),
+          text: getI18Ntext("ban.btn-filter.hide.item"),
         },
         {
           value: "yes",
-          text: getI18Ntext("ban.btn-filter.show.game"),
+          text: getI18Ntext("ban.btn-filter.show.item"),
         },
       ],
-      dependencyList: dependencyOptions
-        .map((dep) => {
-          const num = filterData?.dependency?.[dep.value] || 0;
-          if (!num) {
-            return null;
-          }
-          return {
-            ...dep,
-            text: `${dep.text} (${num})`,
-          };
-        })
-        .filter((v) => v !== null),
     };
+
+    o.typeList = (() => {
+      const li = [
+        {
+          value: "1",
+          text: `${getI18Ntext("filter.Type.Game")}`,
+        },
+        {
+          value: "2",
+          text: `${getI18Ntext("filter.Type.Expansion")}`,
+        },
+        {
+          value: "3",
+          text: `${getI18Ntext("filter.Type.Other")}`,
+        },
+      ];
+      if (filterData?.type) {
+        return li
+          .map((elem) => {
+            const value = parseInt(elem.value, 10);
+            return {
+              ...elem,
+              text: elem.text + ` (${filterData?.type?.[value] || 0})`,
+              num: filterData?.type?.[value] || 0,
+            };
+          })
+          .filter(({ num }) => num > 0);
+      }
+      return li;
+    })();
+
+    o.dependencyList = (() => {
+      const li = [...dependencyOptions];
+      if (filterData?.dependency) {
+        return li
+          .map((dep) => {
+            const num = filterData?.dependency?.[dep.value] || 0;
+            if (!num) {
+              return null;
+            }
+            return {
+              ...dep,
+              text: `${dep.text} (${num})`,
+            };
+          })
+          .filter((v) => v !== null);
+      }
+      return li;
+    })();
+
+    return o;
   }, [filterData]);
 
   return {

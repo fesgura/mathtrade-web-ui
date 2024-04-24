@@ -5,6 +5,8 @@ export const formatLocations = (locationsFromAPI, filterLocations) => {
 
   const groupNums = {};
 
+  console.log("filterLocations", filterLocations);
+
   if (locationsFromAPI) {
     locationsFromAPI.forEach(({ id, name, province }) => {
       if (province !== currentProvince) {
@@ -20,7 +22,7 @@ export const formatLocations = (locationsFromAPI, filterLocations) => {
 
       let num = 0;
       if (filterLocations && filterLocations[id]) {
-        num = filterLocations[id];
+        num = filterLocations[id]?.items || 0;
         groupNums[province] += num;
       }
 
