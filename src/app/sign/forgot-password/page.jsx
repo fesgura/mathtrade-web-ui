@@ -38,17 +38,6 @@ const ForgotPasswordPage = () => {
                   icon="email"
                 />
               </InputContainer>
-              <InputContainer validate="app_key" className="mb-4">
-                <Label text="form.KeyApp" name="app_key" required />{" "}
-                <Question text="question.app_key" />
-                <Input
-                  name="app_key"
-                  placeholder="********"
-                  noTranslatePlaceholder
-                  ariaLabel="form.KeyApp"
-                  icon="key"
-                />
-              </InputContainer>
             </fieldset>
             <ErrorAlert error={error} />
             <div className="text-center py-3">

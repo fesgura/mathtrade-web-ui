@@ -81,18 +81,7 @@ const SignUpPage = () => {
               </InputContainer>
               <p className="text-xs text-gray-500 text-center mb-5">
                 <I18N id="form.Email.help" />
-              </p>
-              <InputContainer validate="app_key">
-                <Label text="form.KeyApp" name="app_key" required />{" "}
-                <Question text="question.app_key" />
-                <Input
-                  name="app_key"
-                  placeholder="********"
-                  noTranslatePlaceholder
-                  ariaLabel="form.KeyApp"
-                  icon="key"
-                />
-              </InputContainer>
+              </p>             
             </fieldset>
             <fieldset>
               <legend className="text-center py-4 font-bold block w-full border-t border-t-gray-200">

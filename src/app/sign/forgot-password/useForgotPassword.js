@@ -50,7 +50,6 @@ const useForgotPassword = () => {
     step,
     validations: {
       target: ["required", "email"],
-      app_key: ["required"],
     },
     onSubmit,
     loading: loadingRecover || loadingRecaptcha,

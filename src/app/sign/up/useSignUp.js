@@ -80,7 +80,6 @@ const useSignUp = () => {
   return {
     validations: {
       email: ["required", "email"],
-      app_key: ["required"],
       first_name: ["required"],
       last_name: ["required"],
       phone: ["required", "phone"],
