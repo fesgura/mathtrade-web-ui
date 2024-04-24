@@ -40,14 +40,14 @@ const Milestone = ({ milestone }) => {
         })}
       />
       <div
-        className={clsx("md:w-1 md:h-7 w-6 h-1 md:mx-auto md:-mt-1 mt-2", {
+        className={clsx("md:w-1 md:h-7 w-6 h-1 md:mx-auto md:-mt-1 mt-2  -ml-1 rounded-full", {
           "bg-sky-600": color === 1,
           "bg-lime-600": color === 2,
           "bg-teal-600": color === 3,
           "bg-orange-600": color === 4,
         })}
       />
-      <div className="md:pl-0 pl-2">
+      <div className="md:pl-0 pl-2 md:pt-1 pt-0">
         <div
           className={clsx(
             "font-bold md:mb-2 md:block flex items-center gap-1 leading-none",
