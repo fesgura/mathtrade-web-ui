@@ -2,18 +2,13 @@
 import SectionCommon from "@/components/sections/common";
 import Container from "@/components/container";
 import PageHeader from "@/components/pageHeader";
-import { useContext, useEffect } from "react";
-import { PageContext } from "@/context/page";
+import useStats from "./useStats";
+import ErrorAlert from "@/components/errorAlert";
+import StatsUI from "./ui";
+//import I18N from "@/i18n";
 
 export default function Statistics() {
-  /* PAGE CONTEXT **********************************************/
-  const { setPageType } = useContext(PageContext);
-
-  useEffect(() => {
-    setPageType("stats");
-  }, [setPageType]);
-  /* end PAGE CONTEXT */
-
+  const { data, loading, error } = useStats();
   return (
     <>
       <PageHeader
@@ -27,10 +22,11 @@ export default function Statistics() {
           </>
         } */
       />
-      <SectionCommon
-      //loading={loading}
-      >
-        <Container>Estadísticas (TODO)</Container>
+      <SectionCommon loading={loading}>
+        <Container>
+          <ErrorAlert error={error} />
+          {data ? <StatsUI data={data} /> : null}
+        </Container>
       </SectionCommon>
     </>
   );

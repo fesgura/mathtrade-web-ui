@@ -1,4 +1,4 @@
-import { useContext, useCallback, useState, useEffect, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { ResultsContext } from "@/context/results";
 import Pill from "@/components/pill";
 import I18N from "@/i18n";
