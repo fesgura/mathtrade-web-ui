@@ -52,7 +52,7 @@ const useFetch = ({
         if (afterError) {
           afterError(errors);
         }
-        if (response?.status === 201) {
+        if (response?.status === 401) {
           signOutApi();
           clearStore();
         }
