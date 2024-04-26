@@ -65,7 +65,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
       elements: elementsRaw,
       comments: commentsCount,
       ban_id,
-      reported
+      reported,
     } = itemLoaded;
 
     const elements = processElements(elementsRaw);
@@ -79,9 +79,14 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
 
     const statusCombo = (() => {
       if (isCombo) {
-        return elements.map(({ status }) => {
-          return status;
+        const statusObj = {};
+
+        elements.forEach(({ status }) => {
+          statusObj[status] = true;
         });
+        return Object.keys(statusObj);
+
+        //return elements.map();
       }
       return null;
     })();
@@ -108,7 +113,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
       elements,
       commentsCount,
       ban_id,
-      reported
+      reported,
     };
   }, [itemLoaded, userId]);
 
