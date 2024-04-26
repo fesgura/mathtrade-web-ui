@@ -48,6 +48,17 @@ export const useOptions = create(
 
           return { [filterName]: newFilters };
         }),
+      clearOptions: () =>
+        set(() => {
+          return {
+            filters_item: {},
+            filters_game: {},
+            filters_wants: {},
+            filters_collection: {},
+            filters_myoffer: {},
+            options: {},
+          };
+        }),
       updateOptions: (data) =>
         set((state) => {
           const newOptions = {

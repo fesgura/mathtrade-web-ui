@@ -4,6 +4,7 @@ import { useContext, useCallback, useEffect, useMemo, useState } from "react";
 import { PageContext } from "@/context/page";
 import { formatLocations } from "@/utils";
 import { formatDateString } from "@/utils/dateUtils";
+import { useOptions } from "@/store";
 
 const selectLocationById = (locations, id) => {
   const item = locations ? locations.filter((loc) => loc.id === id) : [];
@@ -18,6 +19,11 @@ const useMyData = () => {
     setPageType("myData");
   }, [setPageType]);
   /* end PAGE CONTEXT */
+
+  /* OPTIONS */
+  const options = useOptions((state) => state.options);
+  const clearOptions = useOptions((state) => state.clearOptions);
+  /* end OPTIONS */
 
   const store = useStore((state) => state.data);
   const locations = useStore((state) => state.locations);
@@ -123,12 +129,13 @@ const useMyData = () => {
           params,
         });
       } else {
+        clearOptions();
         signInMathTrade({
           params,
         });
       }
     },
-    [editMemberMathTrade, signInMathTrade, membership]
+    [editMemberMathTrade, signInMathTrade, membership, clearOptions]
   );
   // END SUBMIT ***************************************
 
