@@ -24,6 +24,8 @@ const useItemsToOfferList = () => {
   /* end WANTGROUP CONTEXT **********************************************/
 
   // My Items in MathTrade ********************************************
+  const [myItemsLoaded, setMyItemsLoaded] = useState(false);
+
   const afterLoadMyItems = useCallback(
     (newMyItemsInMT) => {
       setMyItemsInMT_forWants(newMyItemsInMT);
@@ -38,10 +40,11 @@ const useItemsToOfferList = () => {
   });
 
   useEffect(() => {
-    if (!myItemsInMT_forWants.length) {
+    if (!myItemsLoaded && !myItemsInMT_forWants.length) {
       loadMyItemsInMT();
+      setMyItemsLoaded(true);
     }
-  }, [myItemsInMT_forWants, loadMyItemsInMT]);
+  }, [myItemsLoaded, myItemsInMT_forWants, loadMyItemsInMT]);
   // END My Items in MathTrade ********************************************
 
   // MY GROUPS ********************************************
