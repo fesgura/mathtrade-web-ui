@@ -30,7 +30,7 @@ const OfferPage = () => {
         description={
           <>
             <p className="text-sm max-w-5xl mx-auto">
-              <I18N id="Games.page.explanation" />
+              <I18N id="Offer.page.explanation" />
             </p>
           </>
         }
