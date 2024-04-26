@@ -54,7 +54,7 @@ const useItemsToOfferList = () => {
     },
     [setMyGroups_forWants]
   );
-  const [loadMyGropus, , loadingMyGropus, errorGropusMyGropus] = useFetch({
+  const [, , loadingMyGropus, errorGropusMyGropus] = useFetch({
     endpoint: "GET_MYITEM_GROUPS",
     initialState: [],
     afterLoad: afterLoadMyGroups,
