@@ -17,6 +17,8 @@ const Button = ({
   disabled,
   onClick,
 }) => {
+  const colorBtn = disabled ? "cancel" : color;
+
   const cl = clsx(
     "rounded-full outline-none transition-colors transition-opacity",
     {
@@ -27,10 +29,14 @@ const Button = ({
       "w-[100%]": block,
       //
     },
-    outline ? "" : `bg-${color}`,
-    outline ? `text-${color}` : "text-white",
-    outline ? `border border-${color}` : "",
-    outline ? `hover:bg-${color} hover:text-white` : "hover:opacity-75",
+    outline ? "" : `bg-${colorBtn}`,
+    outline ? `text-${colorBtn}` : "text-white",
+    outline ? `border border-${colorBtn}` : "",
+    disabled
+      ? ""
+      : outline
+      ? `hover:bg-${colorBtn} hover:text-white`
+      : "hover:opacity-75",
     sm ? "px-5 py-[2px] text-sm" : "px-7 py-3 text-lg",
     className
   );

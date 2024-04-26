@@ -117,6 +117,7 @@ const useMyData = () => {
   // SUBMIT ***************************************
   const onSubmit = useCallback(
     (params) => {
+      delete params.terms_acceptance;
       if (membership) {
         editMemberMathTrade({
           params,
@@ -138,6 +139,8 @@ const useMyData = () => {
     });
   }, [cancelMemberMathTrade, membership]);
   // END SIGN OUT ***************************************
+
+  const [acceptTyC, setAcceptTyC] = useState(false);
 
   return {
     validations: {
@@ -161,6 +164,8 @@ const useMyData = () => {
       errorSignInMathTrade ||
       errorEditMemberMathTrade ||
       errorCancelMemberMathTrade,
+    acceptTyC,
+    setAcceptTyC,
   };
 };
 export default useMyData;

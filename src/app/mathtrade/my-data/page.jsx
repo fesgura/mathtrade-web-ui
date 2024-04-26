@@ -1,7 +1,14 @@
 "use client";
 import I18N from "@/i18n";
 import useMyData from "./useMyData";
-import { Form, InputContainer, Label, Select, Switch } from "@/components/form";
+import {
+  Form,
+  InputContainer,
+  Label,
+  Select,
+  Switch,
+  Checkbox,
+} from "@/components/form";
 import Icon from "@/components/icon";
 import Question from "@/components/question";
 import Button from "@/components/button";
@@ -13,6 +20,7 @@ import { linksToHelp } from "@/config/linksToHelp";
 import Container from "@/components/container";
 import SectionCommon from "@/components/sections/common";
 import PageHeader from "@/components/pageHeader";
+import { PUBLIC_ROUTES } from "@/config";
 
 const MyDataPage = () => {
   const {
@@ -29,6 +37,8 @@ const MyDataPage = () => {
     onSignOut,
     loading,
     error,
+    acceptTyC,
+    setAcceptTyC,
   } = useMyData();
 
   return (
@@ -191,8 +201,36 @@ const MyDataPage = () => {
                   </InputContainer>
                 </div>
                 <ErrorAlert error={error} />
+
+                {isMembership ? null : (
+                  <div className="mb-1 pt-4">
+                    <Checkbox
+                      data={{ terms_acceptance: acceptTyC }}
+                      name="terms_acceptance"
+                      required
+                      ariaLabel="title.TyC"
+                      onChange={setAcceptTyC}
+                    >
+                      <I18N id="accept.TyC1" />
+                      <a
+                        href={PUBLIC_ROUTES.TERMS_CONDITIONS.path}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary underline hover:text-primary-hover"
+                      >
+                        <I18N id="title.TyC" />
+                      </a>
+                      <I18N id="accept.TyC2" />
+                    </Checkbox>
+                  </div>
+                )}
+
                 <div className="text-center pb-3 pt-4">
-                  <Button ariaLabel="btn.Save" className="px-5">
+                  <Button
+                    ariaLabel="btn.Save"
+                    className="px-5"
+                    disabled={!isMembership && !acceptTyC}
+                  >
                     <I18N
                       id={`MyData.btn.${
                         isMembership ? "UpdateData" : "SignToMathTrade"
