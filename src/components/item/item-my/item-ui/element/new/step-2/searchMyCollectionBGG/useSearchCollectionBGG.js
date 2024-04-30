@@ -25,7 +25,7 @@ const useSearchCollectionBGG = ({ setSearchResultBGG }) => {
       setWaitingBGG(true);
       return null;
     }
-    const pool = {};
+
     const newList = dataList.map((item) => {
       const name = `${item?.name["#text"] || ""} (${
         item?.yearpublished || ""
