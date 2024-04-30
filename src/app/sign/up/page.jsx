@@ -13,10 +13,11 @@ import { GOOGLE_RECAPTCHA_CLIENT_KEY } from "@/config";
 import { PUBLIC_ROUTES } from "@/config";
 import ErrorAlert from "@/components/errorAlert";
 import { LoadingBox } from "@/components/loading";
-import Question from "@/components/question";
 import Button from "@/components/button";
-import Alink from "@/components/link";
 import HelpContext from "@/components/help-context";
+import { rulebookPDFurl } from "@/config/rulebook";
+
+const baseURL = process.env.BASE_URL;
 
 const SignUpPage = () => {
   const {
@@ -81,7 +82,7 @@ const SignUpPage = () => {
               </InputContainer>
               <p className="text-xs text-gray-500 text-center mb-5">
                 <I18N id="form.Email.help" />
-              </p>             
+              </p>
             </fieldset>
             <fieldset>
               <legend className="text-center py-4 font-bold block w-full border-t border-t-gray-200">
@@ -162,6 +163,15 @@ const SignUpPage = () => {
                   <I18N id="title.TyC" />
                 </a>
                 <I18N id="accept.TyC2" />
+                <a
+                  href={baseURL + rulebookPDFurl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline hover:text-primary-hover"
+                >
+                  <I18N id="title.Rulebook" />
+                </a>
+                <I18N id="accept.TyC3" />
               </Checkbox>
             </InputContainer>
             <ErrorAlert error={errorRegister} />

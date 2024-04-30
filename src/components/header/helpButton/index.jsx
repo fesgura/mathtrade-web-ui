@@ -3,7 +3,10 @@ import { useCallback, useState } from "react";
 import HeadContent from "../head-content";
 import I18N from "@/i18n";
 import Link from "next/link";
-import { PRIVATE_ROUTES } from "@/config/routes";
+import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "@/config/routes";
+import { rulebookPDFurl } from "@/config/rulebook";
+
+const baseURL = process.env.BASE_URL;
 
 const HelpButton = () => {
   const [visibleMobile, setVisibleMobile] = useState(false);
@@ -30,6 +33,22 @@ const HelpButton = () => {
           >
             <I18N id="menu.Faqs" />
           </Link>
+          <a
+            href={PUBLIC_ROUTES.TERMS_CONDITIONS.path}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block leading-10 hover:bg-sky-200 text-center border-t"
+          >
+            <I18N id="title.TyC" />
+          </a>
+          <a
+            href={baseURL + rulebookPDFurl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block leading-10 hover:bg-sky-200 text-center border-t"
+          >
+            <I18N id="title.Rulebook" />
+          </a>
         </div>
       </HeadContent>
     </div>

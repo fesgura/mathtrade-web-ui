@@ -21,6 +21,9 @@ import Container from "@/components/container";
 import SectionCommon from "@/components/sections/common";
 import PageHeader from "@/components/pageHeader";
 import { PUBLIC_ROUTES } from "@/config";
+import { rulebookPDFurl } from "@/config/rulebook";
+
+const baseURL = process.env.BASE_URL;
 
 const MyDataPage = () => {
   const {
@@ -221,6 +224,15 @@ const MyDataPage = () => {
                         <I18N id="title.TyC" />
                       </a>
                       <I18N id="accept.TyC2" />
+                      <a
+                        href={baseURL + rulebookPDFurl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary underline hover:text-primary-hover"
+                      >
+                        <I18N id="title.Rulebook" />
+                      </a>
+                      <I18N id="accept.TyC3" />
                     </Checkbox>
                   </div>
                 )}
