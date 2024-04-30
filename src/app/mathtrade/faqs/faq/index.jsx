@@ -36,7 +36,15 @@ const Faq = ({ data }) => {
       </div>
       {open ? (
         <div className="animate-fadedown">
-          <div className="py-3 px-5">{answer}</div>
+          <div className="py-3 px-5">
+            {answer.map((anw, k) => {
+              return (
+                <p className="min-h-4" key={k}>
+                  {anw}
+                </p>
+              );
+            })}
+          </div>
           <div className={clsx({ "pt-4": images.length })}>
             {(images || []).map((src, k) => {
               return <img src={src} alt="" key={k} />;
