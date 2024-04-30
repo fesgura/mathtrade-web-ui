@@ -56,10 +56,14 @@ const useSearchBGG = ({ setSearchResultBGG }) => {
       }
     });
 
-    const newList = [];
+    const newListA = [];
     for (let idItem in pool) {
-      newList.push(pool[idItem]);
+      newListA.push(pool[idItem]);
     }
+
+    const newList = newListA.filter(({ indexPosition }) => {
+      return indexPosition >= 0;
+    });
 
     newList.sort((a, b) => {
       return a.indexPosition === b.indexPosition
@@ -70,6 +74,7 @@ const useSearchBGG = ({ setSearchResultBGG }) => {
         ? -1
         : 1;
     });
+    // setList(newList);
     setList(newList.slice(0, 15));
   }, []);
 
