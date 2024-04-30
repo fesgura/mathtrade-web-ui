@@ -340,6 +340,7 @@
   "itemComments.title.many": "$$$ Comentarios",
   "itemComments.title.none": "Sin comentarios",
   "itemComments.title.one": "1 Comentario",
+  "itemComments.titleAction": "Comentar ($$$)",
   "itemList.Tags.AddItemToTag": "Agregar ejemplar a etiqueta",
   "itemList.Tags.AddTag": "Agregar etiqueta",
   "itemList.Tags.Edit": "Editar",

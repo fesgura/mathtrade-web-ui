@@ -25,7 +25,7 @@ const ItemComments = ({ className }) => {
           onClick={toggleShowComments}
         >
           <strong className="text-xs block text-gray-600 leading-5">
-            <ItemCommentTitle />
+            <ItemCommentTitle forAction />
           </strong>
           <span
             className={clsx(
