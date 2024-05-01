@@ -529,6 +529,7 @@
   "notifications.message.WGA": "El juego que deseaste: \"$$$\", tiene nuevos ejemplares ofrecidos.",
   "notifications.message.WGC": "El juego que deseaste: \"$$$\", ha sido editado por la persona que lo ofrece.",
   "notifications.message.WGR": "El juego \"$$$\" ha sido eliminado de tus juegos deseados.",
+  "notifications.message.WGD": "El juego \"$$$\" ha sido eliminado de tus juegos deseados.",
   "offer.screen.games": "Juegos",
   "offer.screen.items": "Ejemplares (avanzado)",
   "orderBy.Descent": "Descendiente",
@@ -788,7 +789,7 @@
   "glossary.title.value": "Puntaje",
   "glossary.text.value": "Puedes asignarle puntaje a todos los ejemplares. Dicho puntaje es personal y sólo lo verás vos. Te puede ayudar a ordenar los ejemplares de acuerdo a tus preferencias, aunque no es necesario que lo uses.",
   "iconhelp.text.preview": "Visualizar un ejemplar en detalle.",
-  "iconhelp.text.timeline": "Calendario de eventos dle Math Trade.",
+  "iconhelp.text.timeline": "Calendario de eventos del Math Trade.",
   "iconhelp.text.notification": "Notificaciones.",
   "iconhelp.text.want": "Mis deseos."
 }
