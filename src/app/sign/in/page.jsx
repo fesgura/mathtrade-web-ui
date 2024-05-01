@@ -11,17 +11,7 @@ import ChangePassword from "./changePassword";
 import Button from "@/components/button";
 import Alink from "@/components/link";
 
-/*
-lwvaxyuinmpttxsmmv@tpwlb.com
-Enero1986
-
-lwvaxyuinmpttxsmmv@tpwlb.com
-
-pablo.david.cazorla@gmail.com
-Abril0204
-
-taco.GATO.1812
-*/
+const pausedSite = process.env.PAUSED_SITE;
 
 const SignInPage = () => {
   const {
@@ -84,8 +74,14 @@ const SignInPage = () => {
               </Alink>
             </div>
             <ErrorAlert error={error} />
+
+            {pausedSite === "yes" ? (
+              <div className="text-center text-teal-600 font-bold mb-5 border border-teal-600 rounded-lg p-3">
+                <I18N id="paused.site" />
+              </div>
+            ) : null}
             <div className="text-center mb-5">
-              <Button ariaLabel="btn.Enter">
+              <Button ariaLabel="btn.Enter" disabled={pausedSite === "yes"}>
                 <I18N id="btn.Enter" />
               </Button>
             </div>

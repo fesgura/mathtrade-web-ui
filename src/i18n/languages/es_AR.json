@@ -791,5 +791,6 @@
   "iconhelp.text.preview": "Visualizar un ejemplar en detalle.",
   "iconhelp.text.timeline": "Calendario de eventos del Math Trade.",
   "iconhelp.text.notification": "Notificaciones.",
-  "iconhelp.text.want": "Mis deseos."
+  "iconhelp.text.want": "Mis deseos.",
+  "paused.site": "Estamos trabajando en el sitio.<br />Muy pronto podrás ingresar nuevamente."
 }
