@@ -26,7 +26,7 @@ const MeetingAdressCard = ({ meetingAddress }) => {
 };
 
 const Milestone = ({ milestone }) => {
-  const { title, dateObj, hour, color, meetingAddress } = milestone;
+  const { title, dateObj, hour, color, meetingAddress, dayWeek } = milestone;
   const { day, month } = dateObj;
 
   return (
@@ -40,12 +40,15 @@ const Milestone = ({ milestone }) => {
         })}
       />
       <div
-        className={clsx("md:w-1 md:h-7 w-6 h-1 md:mx-auto md:-mt-1 mt-2  -ml-1 rounded-full", {
-          "bg-sky-600": color === 1,
-          "bg-lime-600": color === 2,
-          "bg-teal-600": color === 3,
-          "bg-orange-600": color === 4,
-        })}
+        className={clsx(
+          "md:w-1 md:h-7 w-6 h-1 md:mx-auto md:-mt-1 mt-2  -ml-1 rounded-full",
+          {
+            "bg-sky-600": color === 1,
+            "bg-lime-600": color === 2,
+            "bg-teal-600": color === 3,
+            "bg-orange-600": color === 4,
+          }
+        )}
       />
       <div className="md:pl-0 pl-2 md:pt-1 pt-0">
         <div
@@ -59,6 +62,9 @@ const Milestone = ({ milestone }) => {
             }
           )}
         >
+          <div className="text-xs">
+            <I18N id={`dayWeek.${dayWeek}`} />
+          </div>
           <div>{`${day}/${month}`}</div>
           <div className="text-xs">{`${hour}hs`}</div>
         </div>

@@ -5,7 +5,15 @@ export const formatDateString = (dateString) => {
   const date = new Date(dateString);
 
   if (!date || date.toString() === "Invalid Date") {
-    return { day: "", hour: "" };
+    return {
+      day: "",
+      hour: "",
+      dateObj: {
+        day: "-",
+        month: "-",
+      },
+      dayWeek: "",
+    };
   }
   // const m = moment(dateString);
   const arr = new Intl.DateTimeFormat("es-AR", {
@@ -18,6 +26,8 @@ export const formatDateString = (dateString) => {
     .format(date)
     .split(", ");
 
+  const dayWeek = date.getDay();
+
   const day = arr[0] || "-";
   const dateArr = day.split("/");
 
@@ -28,6 +38,7 @@ export const formatDateString = (dateString) => {
       day: dateArr[0] || "-",
       month: dateArr[1] || "-",
     },
+    dayWeek,
   };
 };
 
