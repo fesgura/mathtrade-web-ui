@@ -43,19 +43,17 @@ const Header = () => {
           </div>
           <div className="flex items-center gap-2">
             {mathtrade ? (
-              <>
-                <div className="main-header_col">
-                  <TimelineButton />
-                </div>
-                <div className="main-header_col">
-                  <NotificationsButton />
-                </div>
-                {membership ? (
-                  <div className="main-header_col">
-                    <CartButton />
-                  </div>
-                ) : null}
-              </>
+              <div className="main-header_col">
+                <TimelineButton />
+              </div>
+            ) : null}
+            <div className="main-header_col">
+              <NotificationsButton />
+            </div>
+            {mathtrade && membership ? (
+              <div className="main-header_col">
+                <CartButton />
+              </div>
             ) : null}
             <div className="main-header_col">
               <HelpButton />

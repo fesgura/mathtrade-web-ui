@@ -67,7 +67,7 @@ const useSearchBGG = ({ setSearchResultBGG }) => {
 
     newList.sort((a, b) => {
       return a.indexPosition === b.indexPosition
-        ? a.bgg_id < b.bgg_id
+        ? a.name.length < b.name.length
           ? -1
           : 1
         : a.indexPosition < b.indexPosition
