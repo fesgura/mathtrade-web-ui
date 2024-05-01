@@ -7,23 +7,36 @@ import I18N from "@/i18n";
 import ValueMini from "@/components/value/mini";
 
 const WantGroupUI = ({ wantGroup }) => {
-  const { name, type, tag, wants, bgg_id, value } = wantGroup;
+  const { name, type, tag, wants, bgg_id, value, availables } = wantGroup;
+
+  console.log(wantGroup);
 
   const elementsThumbnails = useMemo(() => {
-    if (!wants || !wants.length) {
-      return [];
+    if (wants && wants.length) {
+      return wants.map((item) => {
+        const { elements } = item;
+
+        return (
+          elements.filter((el) => {
+            return el.bgg_id === bgg_id;
+          })[0] || elements[0]
+        );
+      });
     }
 
-    return wants.map((item) => {
-      const { elements } = item;
+    if (availables && availables.length) {
+      return availables.map((item) => {
+        const { elements } = item;
 
-      return (
-        elements.filter((el) => {
-          return el.bgg_id === bgg_id;
-        })[0] || elements[0]
-      );
-    });
-  }, [wants, bgg_id]);
+        return (
+          elements.filter((el) => {
+            return el.bgg_id === bgg_id;
+          })[0] || elements[0]
+        );
+      });
+    }
+    return [];
+  }, [wants, availables, bgg_id]);
 
   const style = useMemo(() => {
     return type === "tag" ? colorTagStyles(tag?.color) : null;
