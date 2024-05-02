@@ -238,22 +238,23 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
       status: ["required"],
     },
     onSubmit: (params) => {
+      const data = {
+        ...params,
+        primary_name:
+          params.primary_name !== "none"
+            ? params.primary_name
+            : params.name || "none",
+        names: params.names !== "none" ? params.names : params.name || "none",
+        game_thumbnail:
+          params.game_thumbnail === "" ? "none" : params.thumbnail || "none",
+        year_published: params.year_published || params.year,
+      };
+
       if (element && element.elementRaw) {
         editElement({
-          params,
+          params: data,
         });
       } else {
-        const data = {
-          ...params,
-          primary_name:
-            params.primary_name !== "none"
-              ? params.primary_name
-              : params.name || "none",
-          names: params.names !== "none" ? params.names : params.name || "none",
-          game_thumbnail:
-            params.game_thumbnail === "" ? "none" : params.thumbnail || "none",
-          year_published: params.year_published || params.year,
-        };
         createElement({ params: data });
       }
     },
