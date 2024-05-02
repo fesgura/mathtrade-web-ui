@@ -44,7 +44,7 @@ export const GameContextProvider = ({ gameRaw, children }) => {
       titleLink: notGame
         ? null
         : `https://boardgamegeek.com/boardgame/${bgg_id}/`,
-      type: getI18Ntext(`element-type-badge-${notGame ? 3 : 1}`),
+      type: getI18Ntext(`element-type-badge-${notGame ? 3 : type}`),
       thumbnail: game_thumbnail || thumbnail,
       year,
       items,
