@@ -1,5 +1,17 @@
-export const formatLocations = (locationsFromAPI, filterLocations) => {
+const normalizeNumKeys = (arrData) => {
+  if (!arrData) {
+    return {};
+  }
+  return arrData.reduce((obj, loc) => {
+    obj[loc.id] = loc;
+    return obj;
+  }, {});
+};
+
+export const formatLocations = (locationsFromAPI, filterLocationsRaw) => {
   const list = [];
+
+  const filterLocations = normalizeNumKeys(filterLocationsRaw);
 
   let currentProvince = "none";
 
