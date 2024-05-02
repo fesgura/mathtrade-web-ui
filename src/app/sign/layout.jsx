@@ -2,7 +2,7 @@ import "../globals.css";
 import "@/styles/index.scss";
 import Logo from "@/components/logo";
 import PublicEnvironment from "@/environments/public";
-import WhatIsMathTrade from "./what-is-mt";
+//import WhatIsMathTrade from "./what-is-mt";
 import SliderSign from "@/components/slider-sign";
 
 export default function SignLayout({ children }) {
@@ -18,9 +18,9 @@ export default function SignLayout({ children }) {
       </section>
       <section className="relative bg-purple-900">
         <SliderSign />
-        <div className="relative p-4 lg:text-left text-center pb-20 z-50">
+        {/* <div className="relative p-4 lg:text-left text-center pb-20 z-50">
           <WhatIsMathTrade />
-        </div>
+        </div> */}
       </section>
     </main>
   );
