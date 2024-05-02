@@ -99,7 +99,7 @@ const useMyCollection = () => {
             return normalizeString(item.title).indexOf(keyLow) >= 0;
           });
         })()
-      : myCollection;
+      : [...myCollection];
 
     // ORDER
     const order = filters_collection?.order || "none";

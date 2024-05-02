@@ -12,6 +12,17 @@ export const getLanguageListText = (lang) => {
 };
 
 export const processElements = (elementsRaw) => {
+  if (!elementsRaw || !elementsRaw.length) {
+    return [
+      {
+        titleLink: "",
+        publisher: "",
+        publisherLink: "",
+        language: "",
+        status: "",
+      },
+    ];
+  }
   return elementsRaw.map((element) => {
     const { id, thumbnail, game, status, bgg_id } = element;
 
