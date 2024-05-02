@@ -42,6 +42,7 @@ const useNotifications = () => {
 
   useEffect(() => {
     let timer = setInterval(() => {
+      setList([]);
       setPage(1);
       getNotifications({
         params: {
