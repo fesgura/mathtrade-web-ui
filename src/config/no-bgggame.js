@@ -4,7 +4,7 @@ export const noBGGgame = {
     name: "",
     bgg_version_id: "other",
     type: 3,
-    thumbnail: "none",
+    thumbnail: "",
   },
   game: null,
   versions: null,

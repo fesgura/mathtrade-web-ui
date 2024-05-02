@@ -34,7 +34,7 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
   const [getBGGelements, , loadingBGG] = useFetchBGG({
     initialState: {
       game: null,
-      thumbnail: "none",
+      thumbnail: "",
       versions: [],
     },
     endpoint: "ELEMENT",
@@ -97,8 +97,8 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
           : {
               type: 3,
               bgg_id: noBGGgame.element.bgg_id,
-              primary_name: null,
-              names: null,
+              primary_name: "none",
+              names: "none",
               dependency: "0",
               dependency_votes: null,
               rank: "0",
@@ -107,7 +107,7 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
               weight: "0",
               weight_votes: null,
               year_published: null,
-              game_thumbnail: null,
+              game_thumbnail: "",
             },
       versions: BGGinfo ? BGGinfo.versions : [],
     };
@@ -243,7 +243,17 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
           params,
         });
       } else {
-        createElement({ params });
+        const data = {
+          ...params,
+          primary_name:
+            params.primary_name !== "none"
+              ? params.primary_name
+              : params.name || "none",
+          names: params.names !== "none" ? params.names : params.name || "none",
+          game_thumbnail:
+            params.game_thumbnail === "" ? "none" : params.thumbnail || "none",
+        };
+        createElement({ params: data });
       }
     },
   };

@@ -66,7 +66,7 @@ const useStepSearchBGG = ({ newBGGinfo, setnewBGGinfo }) => {
     endpoint: "ELEMENT",
     initialState: {
       game: null,
-      thumbnail: "none",
+      thumbnail: "",
       versions: [],
     },
     format: extractBGGdataFromElement,

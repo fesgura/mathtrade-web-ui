@@ -9,8 +9,6 @@ import ValueMini from "@/components/value/mini";
 const WantGroupUI = ({ wantGroup }) => {
   const { name, type, tag, wants, bgg_id, value, availables } = wantGroup;
 
-  console.log(wantGroup);
-
   const elementsThumbnails = useMemo(() => {
     if (wants && wants.length) {
       return wants.map((item) => {
