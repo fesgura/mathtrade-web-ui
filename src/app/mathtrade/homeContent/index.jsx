@@ -13,6 +13,7 @@ const HomeContent = () => {
   /* PAGE CONTEXT **********************************************/
   const { mathtrade } = useContext(PageContext);
   /* end PAGE CONTEXT */
+
   return (
     <Container>
       {mathtrade ? (
@@ -21,11 +22,7 @@ const HomeContent = () => {
             <p className="max-w-5xl mx-auto m-0">
               <I18N
                 id="home.lead2"
-                values={[
-                  linksToHelp.video,
-                  linksToHelp.bgg,
-                  linksToHelp.telegram,
-                ]}
+                values={[linksToHelp.video, linksToHelp.telegram]}
               />
             </p>
           </div>
