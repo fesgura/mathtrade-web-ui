@@ -14,6 +14,7 @@ const Textarea = ({
   data,
   onChange,
   rows,
+  maxlength,
 }) => {
   const [valueInput, setValueInput] = useState("");
 
@@ -48,6 +49,7 @@ const Textarea = ({
         }
       }}
       rows={rows || 2}
+      maxLength={maxlength}
     />
   );
 };

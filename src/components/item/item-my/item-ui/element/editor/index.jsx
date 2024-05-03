@@ -13,6 +13,7 @@ import {
   Textarea,
   Hidden,
 } from "@/components/form";
+import clsx from "clsx";
 import { languagesOptions } from "@/config";
 import { statusList } from "@/config/statusTypes";
 import StatusBadge from "@/components/status-badge";
@@ -21,6 +22,7 @@ import ErrorAlert from "@/components/errorAlert";
 import PhotoUploader from "@/components/photoUploader";
 import Icon from "@/components/icon";
 import PhotoGallery from "@/components/photoGallery";
+import { maxCharacters, charactersDanger } from "@/config/maxCharacters";
 
 const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
   const {
@@ -267,13 +269,27 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
             />
 
             <InputContainer>
-              <Label text="element.Comment" name="comment" />
+              <div className="flex items-center gap-2">
+                <Label text="element.Comment" name="comment" />
+                <span
+                  className={clsx("text-xs", {
+                    "text-gray-500":
+                      maxCharacters - comment.length > charactersDanger,
+                    "text-danger font-bold":
+                      maxCharacters - comment.length <= charactersDanger,
+                  })}
+                >
+                  ({` ${comment.length} / ${maxCharacters} `}
+                  <I18N id="itemComments.editor.label.add.adv" /> )
+                </span>
+              </div>
               <Textarea
                 data={{ comment }}
                 name="comment"
                 onChange={({ target }) => {
                   setComment(target.value);
                 }}
+                maxlength={maxCharacters}
               />
             </InputContainer>
             <ErrorAlert error={error} />

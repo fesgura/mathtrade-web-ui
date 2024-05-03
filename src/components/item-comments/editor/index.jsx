@@ -5,9 +5,7 @@ import useCommentEditor from "./useCommentEditor";
 import ErrorAlert from "@/components/errorAlert";
 import clsx from "clsx";
 import { LoadingBox } from "@/components/loading";
-
-const maxCharacters = 250;
-const charactersDanger = 15;
+import { maxCharacters, charactersDanger } from "@/config/maxCharacters";
 
 const CommentEditor = () => {
   const { content, setContent, validations, onSubmit, loading, errors } =
