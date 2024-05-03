@@ -5,7 +5,7 @@ import InnerButton from "@/components/button/inner-button";
 import Icon from "@/components/icon";
 import { useOptions } from "@/store";
 
-const HeaderMyOffer = () => {
+const HeaderMyOffer = ({ count }) => {
   /* FILTER OPTIONS **********************************************/
   const filters_myoffer = useOptions((state) => state.filters_myoffer);
   const updateFilters = useOptions((state) => state.updateFilters);
@@ -14,18 +14,26 @@ const HeaderMyOffer = () => {
   return (
     <div className="flex lg:justify-between justify-around items-center gap-1 py-3">
       <div className="flex-[0_0_auto]">
-        <SidebarToggleButton
-          className="font-bold rounded-md text-sm lg:px-5 px-3 py-2 transition-colors"
-          classNameNotHighlighted="text-primary bg-primary/10"
-          classNameHighlighted="font-bold text-white bg-primary rounded-md text-sm lg:px-5 px-3 py-2"
-        >
-          <InnerButton>
-            <Icon type="collection" />
-            <span className="lg:block hidden">
-              <I18N id="myGroups.groupHeader" />
-            </span>
-          </InnerButton>
-        </SidebarToggleButton>
+        <div className="md:flex items-center gap-4">
+          <SidebarToggleButton
+            className="font-bold rounded-md text-sm lg:px-5 px-3 py-2 transition-colors"
+            classNameNotHighlighted="text-primary bg-primary/10"
+            classNameHighlighted="font-bold text-white bg-primary rounded-md text-sm lg:px-5 px-3 py-2"
+          >
+            <InnerButton>
+              <Icon type="collection" />
+              <span className="lg:block hidden">
+                <I18N id="myGroups.groupHeader" />
+              </span>
+            </InnerButton>
+          </SidebarToggleButton>
+          <div className="md:text-xl text-xs font-bold italic text-gray-700 md:pt-0 pt-2">
+            <I18N
+              id={`itemCount.${count === 1 ? "one" : "many"}`}
+              values={[count]}
+            />
+          </div>
+        </div>
       </div>
 
       <div className="md:flex items-center gap-2 md:border-l-0 border-l border-gray-400 md:pl-0 pl-3">

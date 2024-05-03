@@ -70,8 +70,6 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
 
     const elements = processElements(elementsRaw);
 
-    console.log("elements", id, elements);
-
     const { titleLink, publisher, publisherLink, language, status } =
       elements[0];
 

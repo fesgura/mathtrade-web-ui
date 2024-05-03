@@ -10,7 +10,7 @@ import PageHeader from "@/components/pageHeader";
 import OrderBy from "@/components/orderBy";
 import StickyHeader from "@/components/sticky-header";
 import Container from "@/components/container";
-
+const count = 392;
 const MyCollectionPage = () => {
   const {
     items,
@@ -52,17 +52,21 @@ const MyCollectionPage = () => {
         <GotoTopContextProvider>
           <StickyHeader size="md">
             <div className="sm:flex items-center gap-2 py-3 justify-between">
-              <div>
-                <div className="flex items-center gap-1 md:pb-0 pb-3">
-                  <label className="block text-sm font-bold text-gray-500 whitespace-nowrap">
-                    <I18N id="filter.Search" />
-                  </label>
-                  <input
-                    type="text"
-                    placeholder={getI18Ntext("filter.Search")}
-                    value={filters_collection?.keyword || ""}
-                    onChange={searchText}
-                    className="border border-stroke rounded-md p-1 text-xs focus:outline-none"
+              <div className="flex items-center gap-1 md:pb-0 pb-3">
+                <label className="block text-sm font-bold text-gray-500 whitespace-nowrap">
+                  <I18N id="filter.Search" />
+                </label>
+                <input
+                  type="text"
+                  placeholder={getI18Ntext("filter.Search")}
+                  value={filters_collection?.keyword || ""}
+                  onChange={searchText}
+                  className="border border-stroke rounded-md p-1 text-xs focus:outline-none"
+                />
+                <div className="font-bold italic text-gray-700 pl-2">
+                  <I18N
+                    id={`itemCount.${items.length === 1 ? "one" : "many"}`}
+                    values={[items.length]}
                   />
                 </div>
               </div>

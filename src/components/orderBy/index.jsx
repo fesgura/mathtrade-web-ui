@@ -44,7 +44,12 @@ const OrderBy = ({ type = "item", options }) => {
         htmlFor={`orderbydesc-${idOrderBy}`}
         className="block text-sm font-bold text-gray-500 "
       >
-        <I18N id="orderBy.Descent" />
+        <span className="md:inline-block hidden">
+          <I18N id="orderBy.Descent" />
+        </span>
+        <span className="md:hidden inline-block">
+          <I18N id="orderBy.Descent.mobile" />
+        </span>
       </label>
     </div>
   );

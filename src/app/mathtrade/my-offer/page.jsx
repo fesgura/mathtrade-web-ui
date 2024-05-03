@@ -35,7 +35,7 @@ const MyItemsPage = () => {
       <SectionWithSidebar name="myoffer" loading={loading}>
         <GotoTopContextProvider>
           <StickyHeader>
-            <HeaderMyOffer />
+            <HeaderMyOffer count={items.length} />
           </StickyHeader>
           <SidebarGrid>
             <Sidebar>
