@@ -68,6 +68,9 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
       } else {
         setNoGame(true);
       }
+      if (element?.elementRaw?.bgg_version_id === "other") {
+        setNoGame(true);
+      }
     } else {
       setNoGame(newBGGinfo.element.bgg_id === noBGGgame.element.bgg_id);
     }
