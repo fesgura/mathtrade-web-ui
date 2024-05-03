@@ -9,6 +9,7 @@ import Status from "./status";
 import Glossary from "./glossary";
 import Iconshelp from "./iconshelp";
 import { instructPDFurl } from "@/config/rulebook";
+import Pills from "./pills";
 
 const baseURL = process.env.BASE_URL;
 
@@ -33,6 +34,7 @@ const HomeContent = () => {
               />
             </p>
           </div>
+          <Pills />
           <Timeline />
         </>
       ) : null}

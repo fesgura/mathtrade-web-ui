@@ -15,7 +15,7 @@ const PillsStats = ({ data }) => {
       <div className="md:flex gap-6">
         <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
-            value={data?.game_count || 0}
+            value={data?.games_count || 0}
             label="results.pill.game"
             className="bg-teal-500"
           />
@@ -23,7 +23,7 @@ const PillsStats = ({ data }) => {
 
         <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
-            value={data?.item_count || 0}
+            value={data?.items_count || 0}
             label="results.pill.item"
             color="item"
             className="bg-sky-500"
@@ -31,13 +31,13 @@ const PillsStats = ({ data }) => {
         </div>
         <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
-            value={data?.user_trading}
+            value={data?.users_trading}
             label="results.pill.user.commit"
             className="bg-orange-600"
             footer={
               <I18N
                 id="stats.pill.user.footer"
-                values={[data?.user_count || 0, percent]}
+                values={[data?.users_count || 0, percent]}
               />
             }
           />
