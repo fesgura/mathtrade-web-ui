@@ -22,7 +22,7 @@ const HomeContent = () => {
     <Container>
       {mathtrade ? (
         <>
-          <div className="rich-text text-center pb-4">
+          <div className="rich-text text-center">
             <p className="max-w-5xl mx-auto m-0">
               <I18N
                 id="home.lead2"
