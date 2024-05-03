@@ -4,7 +4,7 @@ import HeadContent from "../head-content";
 import I18N from "@/i18n";
 import Link from "next/link";
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "@/config/routes";
-import { rulebookPDFurl } from "@/config/rulebook";
+import { rulebookPDFurl, instructPDFurl } from "@/config/rulebook";
 
 const baseURL = process.env.BASE_URL;
 
@@ -33,6 +33,14 @@ const HelpButton = () => {
           >
             <I18N id="menu.Faqs" />
           </Link>
+          <a
+            href={baseURL + instructPDFurl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block leading-10 hover:bg-sky-200 text-center border-t"
+          >
+            <I18N id="title.Instruct" />
+          </a>
           <a
             href={PUBLIC_ROUTES.TERMS_CONDITIONS.path}
             target="_blank"

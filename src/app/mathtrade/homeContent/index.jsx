@@ -8,6 +8,9 @@ import Videohelp from "./videohelp";
 import Status from "./status";
 import Glossary from "./glossary";
 import Iconshelp from "./iconshelp";
+import { instructPDFurl } from "@/config/rulebook";
+
+const baseURL = process.env.BASE_URL;
 
 const HomeContent = () => {
   /* PAGE CONTEXT **********************************************/
@@ -22,7 +25,11 @@ const HomeContent = () => {
             <p className="max-w-5xl mx-auto m-0">
               <I18N
                 id="home.lead2"
-                values={[linksToHelp.video, linksToHelp.telegram]}
+                values={[
+                  linksToHelp.video,
+                  linksToHelp.telegram,
+                  baseURL + instructPDFurl,
+                ]}
               />
             </p>
           </div>
