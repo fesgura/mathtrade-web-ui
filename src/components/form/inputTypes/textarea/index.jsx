@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import { getI18Ntext } from "@/i18n";
-import Icon from "@/components/icon";
 import { useEffect, useState } from "react";
 
 const Textarea = ({

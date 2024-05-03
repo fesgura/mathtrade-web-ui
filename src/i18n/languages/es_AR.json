@@ -792,5 +792,9 @@
   "iconhelp.text.timeline": "Calendario de eventos del Math Trade.",
   "iconhelp.text.notification": "Notificaciones.",
   "iconhelp.text.want": "Mis deseos.",
-  "paused.site": "Estamos trabajando en el sitio.<br />Muy pronto podrás ingresar nuevamente."
+  "paused.site": "Estamos trabajando en el sitio.<br />Muy pronto podrás ingresar nuevamente.",
+  "gameCount.many": "$$$ Juegos",
+  "gameCount.one": "$$$ Juego",
+  "itemCount.many": "$$$ Ejemplares",
+  "itemCount.one": "$$$ Ejemplar"
 }

@@ -17,18 +17,26 @@ const Header = () => {
   return (
     <div className="flex lg:justify-between justify-around items-center gap-1 py-3">
       <div className="flex-[0_0_auto]">
-        <SidebarToggleButton
-          className="font-bold rounded-md text-sm lg:px-5 px-3 py-2 transition-colors"
-          classNameNotHighlighted="text-primary bg-primary/10"
-          classNameHighlighted="font-bold text-white bg-primary rounded-md text-sm lg:px-5 px-3 py-2"
-        >
-          <InnerButton>
-            <Icon type="filters" />
-            <span className="lg:block hidden">
-              <I18N id="btn.mobile.filter" />
-            </span>
-          </InnerButton>
-        </SidebarToggleButton>
+        <div className="md:flex items-center gap-4">
+          <SidebarToggleButton
+            className="font-bold rounded-md text-sm lg:px-5 px-3 py-2 transition-colors"
+            classNameNotHighlighted="text-primary bg-primary/10"
+            classNameHighlighted="font-bold text-white bg-primary rounded-md text-sm lg:px-5 px-3 py-2"
+          >
+            <InnerButton>
+              <Icon type="filters" />
+              <span className="lg:block hidden">
+                <I18N id="btn.mobile.filter" />
+              </span>
+            </InnerButton>
+          </SidebarToggleButton>
+          <div className="md:text-xl text-xs font-bold italic text-gray-700 md:pt-0 pt-2">
+            <I18N
+              id={`gameCount.${count === 1 ? "one" : "many"}`}
+              values={[count]}
+            />
+          </div>
+        </div>
       </div>
 
       <div className="flex-[0_0_0] lg:flex-[0_0_auto] border-l border-gray-300 pl-2 lg:border-l-0">
