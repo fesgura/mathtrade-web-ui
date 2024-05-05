@@ -249,7 +249,9 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
             : params.name || "none",
         names: params.names !== "none" ? params.names : params.name || "none",
         game_thumbnail:
-          params.game_thumbnail === "" ? "none" : params.thumbnail || "none",
+          !params?.game_thumbnail || params.game_thumbnail === "none"
+            ? params.thumbnail
+            : params?.game_thumbnail,
         year_published: params.year_published || params.year,
       };
 
