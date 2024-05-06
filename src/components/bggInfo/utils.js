@@ -49,7 +49,7 @@ const listDependencyTexts = (function () {
   };
 }; */
 const dependencyToData = (dependency) => {
-  if (dependency?.value?.length === 0) {
+  if (dependency.votes === "0|0|0|0|0") {
     return {
       dependency: getI18Ntext("NoData"),
       dependencyVotes: 0,
