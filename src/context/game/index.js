@@ -34,6 +34,7 @@ export const GameContextProvider = ({ gameRaw, children }) => {
       items,
       ban_id,
       type,
+      value,
     } = gameRaw;
 
     const notGame = type === 3 || bgg_id === 23953 || bgg_id < 0;
@@ -51,6 +52,7 @@ export const GameContextProvider = ({ gameRaw, children }) => {
       itemCount: items?.length || 1,
       ban_id,
       notGame,
+      value,
     };
   }, [gameRaw]);
 

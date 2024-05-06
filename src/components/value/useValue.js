@@ -32,22 +32,18 @@ const useValue = (type, itemIds, currentValue) => {
       setItemListId([id]);
     }
     if (type === "game") {
-      const { items } = game;
+      const { items, value: valueGame } = game;
 
-      const { itemListId_game, value_game } = items.reduce(
+      const { itemListId_game } = items.reduce(
         (obj, itm) => {
-          const { id, value: valueItem } = itm;
+          const { id } = itm;
           obj.itemListId_game.push(id);
-          if ((valueItem || 0) < obj.value_game) {
-            obj.value_game = valueItem || 0;
-          }
-
           return obj;
         },
-        { itemListId_game: [], value_game: 10 }
+        { itemListId_game: [] }
       );
 
-      setValue(value_game);
+      setValue(valueGame);
       setItemListId(itemListId_game);
     }
     if (type === "tag") {
