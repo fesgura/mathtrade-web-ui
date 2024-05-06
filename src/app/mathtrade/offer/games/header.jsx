@@ -46,6 +46,8 @@ const Header = () => {
               type="game"
               options={[
                 { text: getI18Ntext("element.Name"), value: "name" },
+                { text: getI18Ntext("element.Date"), value: "last_update" },
+                { text: getI18Ntext("element.Value"), value: "value" },
                 { text: getI18Ntext("element.Year"), value: "year_published" },
                 { text: getI18Ntext("element.BGG.rank"), value: "rank" },
                 {
