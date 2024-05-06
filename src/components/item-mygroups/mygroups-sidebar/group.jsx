@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { useMemo } from "react";
 import GroupEditor from "./editor";
 import Icon from "@/components/icon";
+import Value from "@/components/value";
 
 const GroupSidebar = ({ group, selected, selectGroup }) => {
   const { id, name, color, item_ids } = group;
@@ -27,7 +28,7 @@ const GroupSidebar = ({ group, selected, selectGroup }) => {
       className={clsx(
         "relative rounded-md shadow-md mb-2 border border-gray-300  transition-opacity",
         {
-          "hover:opacity-70": !selected,
+          // "hover:opacity-70": !selected,
         }
       )}
     >
@@ -56,7 +57,9 @@ const GroupSidebar = ({ group, selected, selectGroup }) => {
             selectGroup(id);
           }}
         >{`${name} (${item_ids.length})`}</div>
-        <div className="relative">
+
+        <div className="flex items-center gap-1">
+          <Value size="tag" type="group" groupId={id} />
           <button
             className="hover:bg-black/20 px-1 rounded-full"
             onClick={() => {

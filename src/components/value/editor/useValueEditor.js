@@ -1,13 +1,18 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useContext } from "react";
 import useFetch from "@/hooks/useFetch";
+import { PageContext } from "@/context/page";
 
 const useValueEditor = (
   intialValue,
   setValue,
   onClose,
   itemListId,
-  onChangeValue
+  onChangeValue,
+  type
 ) => {
+  /* PAGE CONTEXT **********************************************/
+  const { forceReloadPage } = useContext(PageContext);
+
   const currentValueRef = useRef(intialValue);
 
   const onChange = useCallback((v) => {
@@ -22,8 +27,11 @@ const useValueEditor = (
     if (onChangeValue) {
       onChangeValue(currentValueRef.current);
     }
+    if (type === "group") {
+      forceReloadPage();
+    }
     onClose();
-  }, [setValue, onChangeValue, onClose]);
+  }, [setValue, onChangeValue, onClose, type, forceReloadPage]);
 
   const [postValue, , loading, error] = useFetch({
     endpoint: "POST_VALUE_ITEMS",
