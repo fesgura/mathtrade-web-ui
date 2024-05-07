@@ -2,8 +2,21 @@ import { useMemo, useState, useContext, useCallback, useEffect } from "react";
 import { DateIntlFormat } from "@/utils/dateUtils";
 import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
+import { NotificationsContext } from "@/context/notifications";
 
-const useNotification = (data, setNum, toggleMobile) => {
+const useNotification = (data, type) => {
+  /* CONTEXT *************************************************/
+  const {
+    setItemNotifUnread,
+    //
+    setWantNotifUnread,
+    //
+    setAdminNotifUnread,
+    //
+    toggleMobile,
+  } = useContext(NotificationsContext);
+  /* end CONTEXT *************************************************/
+
   const {
     setItemPreviewId,
     setShowModalPreview,
@@ -93,12 +106,35 @@ const useNotification = (data, setNum, toggleMobile) => {
   /* FETCH *************************************************/
 
   const afterLoad = useCallback(() => {
-    setNum((oldNum) => {
-      const newNum = oldNum + (unreaded ? -1 : 1);
-      return newNum < 0 ? 0 : newNum;
-    });
+    if (type === "item") {
+      setItemNotifUnread((oldNum) => {
+        const newNum = oldNum + (unreaded ? -1 : 1);
+        return newNum < 0 ? 0 : newNum;
+      });
+    }
+    if (type === "want") {
+      setWantNotifUnread((oldNum) => {
+        const newNum = oldNum + (unreaded ? -1 : 1);
+        return newNum < 0 ? 0 : newNum;
+      });
+    }
+    if (type === "admin") {
+      setAdminNotifUnread((oldNum) => {
+        const newNum = oldNum + (unreaded ? -1 : 1);
+        return newNum < 0 ? 0 : newNum;
+      });
+    }
+
     setUnreaded((v) => !v);
-  }, [unreaded, setNum]);
+  }, [
+    unreaded,
+    type,
+    setItemNotifUnread,
+
+    setWantNotifUnread,
+
+    setAdminNotifUnread,
+  ]);
 
   const [setNotificationReaded, , loading] = useFetch({
     endpoint: "PUT_NOTIFICATION",
