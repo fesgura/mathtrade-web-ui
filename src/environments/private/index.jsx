@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { PUBLIC_ROUTES } from "@/config";
 import { isExpiredDate } from "@/utils";
 import { signInApi, signOutApi } from "@/hooks/useFetch/constants/api";
-import useLocations from "@/hooks/useLocations";
+
 import LoadingBalls from "@/components/loading/balls";
 
 const pausedSite = process.env.PAUSED_SITE;
@@ -14,8 +14,6 @@ const PrivateEnvironment = ({ children }) => {
   const store = useStore((state) => state.data);
   const clearStore = useStore((state) => state.clearStore);
   const [enabledRender, setEnabledRender] = useState(false);
-
-  useLocations();
 
   useEffect(() => {
     if (pausedSite === "yes") {

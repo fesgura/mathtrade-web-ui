@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useState, useCallback, useMemo } from "react";
+import useLocations from "@/hooks/useLocations";
 import { useStore } from "@/store";
 
 export const PageContext = createContext({
@@ -78,6 +79,8 @@ export const PageContext = createContext({
 const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE === "yes";
 
 export const PageContextProvider = ({ children }) => {
+  useLocations();
+
   const { mathtrade, membership, user } = useStore((state) => state.data);
 
   const [pageType, setPageType] = useState(null);
