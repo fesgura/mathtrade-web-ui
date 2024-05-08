@@ -18,6 +18,7 @@ const WantGroupLabelUI = ({ wantGroup }) => {
         {
           "bg-gray-900 text-white border-gray-700": type === "game",
           "bg-white border-gray-300": type === "item",
+          "shadow-[inset_0_0_0_3px_red]": !wants.length,
         }
       )}
       style={style}

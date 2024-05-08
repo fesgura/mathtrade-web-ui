@@ -801,5 +801,6 @@
   "gameCount.many": "$$$ Juegos",
   "gameCount.one": "$$$ Juego",
   "itemCount.many": "$$$ Ejemplares",
-  "itemCount.one": "$$$ Ejemplar"
+  "itemCount.one": "$$$ Ejemplar",
+  "noOptionsInWant": "Sin opciones elegidas (revisar)"
 }

@@ -40,15 +40,24 @@ const WantGroupUI = ({ wantGroup }) => {
     return type === "tag" ? colorTagStyles(tag?.color) : null;
   }, [type, tag]);
 
+  console.log("wants", wants);
+
   return (
     <div
-      className={clsx("sm:p-3 p-1 rounded-lg shadow-xl", {
+      className={clsx("sm:p-3 p-1 rounded-lg relative", {
         "bg-gray-900 text-white border-gray-700": type === "game",
         "bg-white border-gray-300": type === "item",
         //  "bg-teal-600 text-white border-gray-600": type === "tag",
+        "shadow-[inset_0_0_0_5px_red]": !wants.length,
+        "shadow-xl": wants.length,
       })}
       style={style}
     >
+      {!wants.length ? (
+        <div className="absolute top-0 left-0 w-full bg-red-600 text-white text-center z-50 rounded-lg py-1 px-2 text-sm">
+          <I18N id="noOptionsInWant" />
+        </div>
+      ) : null}
       <div className="rounded-lg border border-gray-400 relative">
         <Thumbnail
           elements={elementsThumbnails}
