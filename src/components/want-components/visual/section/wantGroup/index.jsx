@@ -40,8 +40,6 @@ const WantGroupUI = ({ wantGroup }) => {
     return type === "tag" ? colorTagStyles(tag?.color) : null;
   }, [type, tag]);
 
-  console.log("wants", wants);
-
   return (
     <div
       className={clsx("sm:p-3 p-1 rounded-lg relative", {
