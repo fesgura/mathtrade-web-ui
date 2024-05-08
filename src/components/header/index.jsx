@@ -12,57 +12,61 @@ import { PRIVATE_ROUTES } from "@/config/routes";
 import clsx from "clsx";
 import TimelineButton from "./timeline";
 import HelpButton from "./helpButton";
+import AdvCompromise from "./advCompromise";
 
 const Header = () => {
   /* PAGE CONTEXT **********************************************/
-  const { mathtrade, membership, pageType } = useContext(PageContext);
+  const { mathtrade, membership, pageType, canI } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
   return (
-    <nav
-      className={clsx(
-        "z-[999] w-full h-11 shadow-[0_1px_0_rgba(0,0,0,0.14)] bg-black p-0 left-0 top-0",
-        {
-          fixed: pageType !== "wants-grid",
-          absolute: pageType === "wants-grid",
-        }
-      )}
-    >
-      <Container>
-        <div className="flex items-center justify-between h-11">
-          <div className="flex items-center">
-            <Link
-              href={PRIVATE_ROUTES.HOME.path}
-              className="block h-11 w-11 p-1"
-            >
-              <LogoSVG />
-            </Link>
-            <div className="main-header_col">
-              <MainMenu />
+    <>
+      <nav
+        className={clsx(
+          "z-[999] w-full h-11 shadow-[0_1px_0_rgba(0,0,0,0.14)] bg-black p-0 left-0 top-0",
+          {
+            fixed: pageType !== "wants-grid",
+            absolute: pageType === "wants-grid",
+          }
+        )}
+      >
+        <Container>
+          <div className="flex items-center justify-between h-11">
+            <div className="flex items-center">
+              <Link
+                href={PRIVATE_ROUTES.HOME.path}
+                className="block h-11 w-11 p-1"
+              >
+                <LogoSVG />
+              </Link>
+              <div className="main-header_col">
+                <MainMenu />
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              {mathtrade ? (
+                <div className="main-header_col">
+                  <TimelineButton />
+                </div>
+              ) : null}
+              <div className="main-header_col">
+                <NotificationsButton />
+              </div>
+              {mathtrade && membership ? (
+                <div className="main-header_col">
+                  <CartButton />
+                </div>
+              ) : null}
+              <div className="main-header_col">
+                <HelpButton />
+              </div>
+              <AccountMenuButton />
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            {mathtrade ? (
-              <div className="main-header_col">
-                <TimelineButton />
-              </div>
-            ) : null}
-            <div className="main-header_col">
-              <NotificationsButton />
-            </div>
-            {mathtrade && membership ? (
-              <div className="main-header_col">
-                <CartButton />
-              </div>
-            ) : null}
-            <div className="main-header_col">
-              <HelpButton />
-            </div>
-            <AccountMenuButton />
-          </div>
-        </div>
-      </Container>
-    </nav>
+        </Container>
+      </nav>
+      {!canI.offer && canI.commit ? <AdvCompromise /> : null}
+    </>
   );
 };
 

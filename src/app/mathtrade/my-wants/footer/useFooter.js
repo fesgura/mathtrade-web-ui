@@ -10,7 +10,15 @@ const useFooter = () => {
   const { gotoTop } = useContext(GotoTopContext);
 
   /* PAGE CONTEXT **********************************************/
-  const { myWants, setMyWants, canI } = useContext(PageContext);
+  const {
+    myWants,
+    setMyWants,
+    canI,
+    mustConfirm,
+    setMustConfirm,
+    mustConfirmDate,
+    setMustConfirmDate,
+  } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
   /* MYWANTS CONTEXT **********************************************/
@@ -19,10 +27,6 @@ const useFooter = () => {
     setChanges,
     deletedWantgroupIds,
     setDeletedWantgroupIds,
-    mustConfirm,
-    setMustConfirm,
-    mustConfirmDate,
-    setMustConfirmDate,
     isLoadedWants,
   } = useContext(MyWantsContext);
   /* end MYWANTS CONTEXT **********************************************/

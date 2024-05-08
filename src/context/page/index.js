@@ -68,6 +68,11 @@ export const PageContext = createContext({
   //
   filterData: {},
   setFilterData: () => {},
+  //
+  mustConfirm: false,
+  setMustConfirm: () => {},
+  mustConfirmDate: null,
+  setMustConfirmDate: () => {},
 });
 
 const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE === "yes";
@@ -160,6 +165,9 @@ export const PageContextProvider = ({ children }) => {
 
   const [filterData, setFilterData] = useState({});
 
+  const [mustConfirm, setMustConfirm] = useState(false);
+  const [mustConfirmDate, setMustConfirmDate] = useState(null);
+
   return (
     <PageContext.Provider
       value={{
@@ -232,6 +240,10 @@ export const PageContextProvider = ({ children }) => {
         //
         filterData,
         setFilterData,
+        mustConfirm,
+        setMustConfirm,
+        mustConfirmDate,
+        setMustConfirmDate,
       }}
     >
       {children}

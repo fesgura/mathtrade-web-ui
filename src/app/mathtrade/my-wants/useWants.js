@@ -26,6 +26,8 @@ const useWants = () => {
     userId,
     myGroups_forWants,
     setMyGroups_forWants,
+    setMustConfirm,
+    setMustConfirmDate,
   } = useContext(PageContext);
   /* end PAGE CONTEXT **********************************************/
 
@@ -34,8 +36,6 @@ const useWants = () => {
     setMatchValues,
     setChanges,
     setDeletedWantgroupIds,
-    setMustConfirm,
-    setMustConfirmDate,
     setIsLoadedWants,
   } = useContext(MyWantsContext);
 

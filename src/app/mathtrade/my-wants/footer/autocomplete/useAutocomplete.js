@@ -8,16 +8,12 @@ import { GotoTopContext } from "@/context/goto-top";
 const useAutocomplete = () => {
   const { gotoTop } = useContext(GotoTopContext);
   /* PAGE CONTEXT **********************************************/
-  const { setMyWants, canI } = useContext(PageContext);
+  const { setMyWants, canI, setMustConfirm, setMustConfirmDate } =
+    useContext(PageContext);
   /* end PAGE CONTEXT */
 
   /* MYWANTS CONTEXT **********************************************/
-  const {
-    setChanges,
-    setDeletedWantgroupIds,
-    setMustConfirm,
-    setMustConfirmDate,
-  } = useContext(MyWantsContext);
+  const { setChanges, setDeletedWantgroupIds } = useContext(MyWantsContext);
   /* end MYWANTS CONTEXT **********************************************/
 
   const [isOpen, setIsOpen] = useState(false);

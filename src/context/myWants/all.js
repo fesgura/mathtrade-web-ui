@@ -13,11 +13,7 @@ export const MyWantsContext = createContext({
   setPreviewItemId: () => {},
   showPreviewItemModal: false,
   tooglePreviewItemModal: () => {},
-  //
-  mustConfirm: false,
-  setMustConfirm: () => {},
-  mustConfirmDate: null,
-  setMustConfirmDate: () => {},
+
   //
   isLoadedWants: false,
   setIsLoadedWants: () => {},
@@ -37,9 +33,6 @@ export const MyWantsContextProvider = ({ children }) => {
 
   const [isLoadedWants, setIsLoadedWants] = useState(false);
 
-  const [mustConfirm, setMustConfirm] = useState(false);
-  const [mustConfirmDate, setMustConfirmDate] = useState(null);
-
   return (
     <MyWantsContext.Provider
       value={{
@@ -55,11 +48,7 @@ export const MyWantsContextProvider = ({ children }) => {
         setPreviewItemId,
         showPreviewItemModal,
         tooglePreviewItemModal,
-        //
-        mustConfirm,
-        setMustConfirm,
-        mustConfirmDate,
-        setMustConfirmDate,
+
         //
         isLoadedWants,
         setIsLoadedWants,
