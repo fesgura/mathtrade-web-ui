@@ -47,10 +47,6 @@ const BtnQuickAdd = () => {
 
   const buttonRef = useRef(null);
 
-  /* WANTGROUP CONTEXT **********************************************/
-  const { groupWantList } = useContext(WantGroupContext);
-  /* end WANTGROUP CONTEXT */
-
   /* POST *************************************/
 
   const afterLoad = useCallback(
@@ -88,14 +84,10 @@ const BtnQuickAdd = () => {
   const postWant = useCallback(() => {
     let want_ids = [];
 
-    if (game) {
-      want_ids = Object.entries(groupWantList)
-        .filter((ent) => {
-          return ent[1];
-        })
-        .map(([key]) => {
-          return key;
-        });
+    if (game && game.items) {
+      want_ids = game.items.map((itm) => {
+        return itm.id;
+      });
     }
 
     if (item && item.id) {
@@ -116,7 +108,7 @@ const BtnQuickAdd = () => {
     }
 
     postMyWant({ params });
-  }, [item, game, tag, postMyWant, groupWantList]);
+  }, [item, game, tag, postMyWant]);
 
   const [modalOpen, setModalOpen] = useState(false);
 
