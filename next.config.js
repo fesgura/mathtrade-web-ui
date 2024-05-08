@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    PAUSED_SITE: "no",
+    PAUSED_SITE: "yes",
     CAN_I_TEST_MODE: "no",
     //
     API_TEST_MODE: "no",
