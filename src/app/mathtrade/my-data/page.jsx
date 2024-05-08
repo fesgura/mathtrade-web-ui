@@ -22,6 +22,7 @@ import SectionCommon from "@/components/sections/common";
 import PageHeader from "@/components/pageHeader";
 import { PUBLIC_ROUTES } from "@/config";
 import { rulebookPDFurl } from "@/config/rulebook";
+import Referral from "@/components/referral";
 
 const baseURL = process.env.BASE_URL;
 
@@ -42,6 +43,7 @@ const MyDataPage = () => {
     error,
     acceptTyC,
     setAcceptTyC,
+    canOut,
   } = useMyData();
 
   return (
@@ -85,109 +87,7 @@ const MyDataPage = () => {
                     />
                   </p>
                 </div>
-
-                {currentLocation && currentLocation.referral ? (
-                  <div className="text-center mb-4">
-                    {currentLocation.mandatory_attendance ? (
-                      <p className="mb-4 description">
-                        <I18N
-                          id="myData.help.AMBA"
-                          values={[meetingDay.day, meetingDay.hour]}
-                        />
-                        <br />
-                        <a
-                          href={meetingAddress.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="in-body"
-                        >
-                          {meetingAddress.name}
-                          <br />
-                          {`${meetingAddress.address}, ${meetingAddress.location}`}
-                          <Icon type="external-link" className="ml-1" />
-                        </a>
-                        <br />
-                        <br />
-                        <I18N
-                          id="myData.help.AMBA2"
-                          values={[
-                            `${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`,
-                          ]}
-                        />
-                      </p>
-                    ) : (
-                      <p className="mb-4">
-                        <I18N
-                          id="myData.help.noAMBA1"
-                          values={[currentLocation?.name]}
-                        />
-                        {currentLocation?.referral &&
-                        currentLocation?.referral?.first_name ? (
-                          <I18N
-                            id="myData.help.noAMBA2"
-                            values={[
-                              `${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`,
-                              currentLocation?.name,
-                            ]}
-                          />
-                        ) : null}
-                      </p>
-                    )}
-
-                    {currentLocation?.referral &&
-                    currentLocation?.referral?.first_name ? (
-                      <div
-                        className="bg-white  shadow-md rounded-lg  mb-4 p-4"
-                        //style={{ maxWidth: 500, margin: "0 auto 30px" }}
-                      >
-                        <div className="description">
-                          <h3 className="font-bold text-xl mb-3">{`${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`}</h3>
-
-                          <div className="referal-items">
-                            {currentLocation?.referral?.telegram ? (
-                              <div className="referal-item mb-2">
-                                <Icon type="telegram" className="mr-2" />
-                                <b>Telegram:</b>{" "}
-                                <a
-                                  href={`https://t.me/${currentLocation?.referral?.telegram}`}
-                                  target="_blank"
-                                >
-                                  {currentLocation?.referral?.telegram}
-                                </a>
-                              </div>
-                            ) : null}
-                            {currentLocation?.referral?.whatsapp ? (
-                              <div className="referal-item mb-2">
-                                <Icon type="whatsapp" className="mr-2" />
-                                <b>Whatsapp:</b>{" "}
-                                <a
-                                  href={`https://wa.me/${currentLocation?.referral?.whatsapp}`}
-                                  target="_blank"
-                                >
-                                  {currentLocation?.referral?.whatsapp}
-                                </a>
-                              </div>
-                            ) : null}
-                            {currentLocation?.referral?.email ? (
-                              <div className="referal-item">
-                                <Icon type="envelope" className="mr-2" />
-                                <b>Email:</b>{" "}
-                                <a
-                                  href={
-                                    "mailto:" + currentLocation?.referral?.email
-                                  }
-                                  target="_blank"
-                                >
-                                  {currentLocation?.referral?.email}
-                                </a>
-                              </div>
-                            ) : null}
-                          </div>
-                        </div>
-                      </div>
-                    ) : null}
-                  </div>
-                ) : null}
+                <Referral />
                 <div style={{ maxWidth: 300, margin: "0 auto" }}>
                   <InputContainer>
                     <Label text="MyData.InPerson" className="mb-2" />
@@ -251,7 +151,7 @@ const MyDataPage = () => {
                   </Button>
                 </div>
               </Form>
-              {isMembership ? (
+              {isMembership && canOut ? (
                 <div className="text-center pb-3 pt-3">
                   <ButtonAlert
                     className="text-danger text-sm hover:text-red-800"

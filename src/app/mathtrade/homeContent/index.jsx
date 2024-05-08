@@ -10,6 +10,7 @@ import Glossary from "./glossary";
 import Iconshelp from "./iconshelp";
 import { instructPDFurl } from "@/config/rulebook";
 import Pills from "./pills";
+import Referral from "@/components/referral";
 
 const baseURL = process.env.BASE_URL;
 
@@ -35,6 +36,7 @@ const HomeContent = () => {
             </p>
           </div>
           <Pills />
+          <Referral />
           <Timeline />
         </>
       ) : null}

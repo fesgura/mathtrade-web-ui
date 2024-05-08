@@ -13,7 +13,7 @@ const selectLocationById = (locations, id) => {
 
 const useMyData = () => {
   /* PAGE CONTEXT **********************************************/
-  const { setPageType } = useContext(PageContext);
+  const { setPageType, canI } = useContext(PageContext);
 
   useEffect(() => {
     setPageType("myData");
@@ -21,7 +21,6 @@ const useMyData = () => {
   /* end PAGE CONTEXT */
 
   /* OPTIONS */
-  const options = useOptions((state) => state.options);
   const clearOptions = useOptions((state) => state.clearOptions);
   /* end OPTIONS */
 
@@ -173,6 +172,7 @@ const useMyData = () => {
       errorCancelMemberMathTrade,
     acceptTyC,
     setAcceptTyC,
+    canOut: canI.offer,
   };
 };
 export default useMyData;
