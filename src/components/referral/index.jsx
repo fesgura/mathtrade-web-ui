@@ -2,15 +2,21 @@ import Icon from "../icon";
 import I18N from "@/i18n";
 import { useStore } from "@/store";
 import { useMemo } from "react";
+import { meetingAddress } from "@/config/meetingAddress";
+import { formatDateString } from "@/utils/dateUtils";
 
 const selectLocationById = (locations, id) => {
   const item = locations ? locations.filter((loc) => loc.id === id) : [];
   return item[0] || null;
 };
-
+//
 const Referral = () => {
   const { membership, mathtrade } = useStore((state) => state.data);
   const locations = useStore((state) => state.locations);
+
+  const meetingDay = useMemo(() => {
+    return formatDateString(mathtrade?.meeting_date || null);
+  }, [mathtrade]);
 
   const currentLocation = useMemo(() => {
     if (locations && locations.length && membership?.location) {
