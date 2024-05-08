@@ -38,7 +38,7 @@ const AdvCompromise = () => {
   // end MY USER ********************************************
 
   return mustConfirm ? (
-    <div className="bg-red-600 absolute top-11 left-0 w-full z-[998] text-white text-center p-1">
+    <div className="bg-red-600 absolute top-11 left-0 w-full z-[998] text-white text-center p-1 shadow-md">
       <I18N id="AdvCompromise" />
       <Link
         href={PRIVATE_ROUTES.WANTS.path}
