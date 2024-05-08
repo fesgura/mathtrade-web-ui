@@ -66,7 +66,7 @@ const Referral = () => {
 
       {currentLocation?.referral && currentLocation?.referral?.first_name ? (
         <div
-          className="bg-white  shadow-md rounded-lg  mb-4 p-4"
+          className="bg-white  shadow-md rounded-lg  mb-4 p-4 max-w-xl mx-auto"
           //style={{ maxWidth: 500, margin: "0 auto 30px" }}
         >
           <div className="description">
