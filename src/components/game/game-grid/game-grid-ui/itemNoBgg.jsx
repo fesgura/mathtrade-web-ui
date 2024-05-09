@@ -5,6 +5,7 @@ import StatusBadge from "@/components/status-badge";
 import ElementXSS from "@/components/element/xss";
 import Previewer from "@/components/previewer";
 import I18N from "@/i18n";
+import UserBox from "@/components/userBox";
 
 const ItemContent = ({ bgg_id, title }) => {
   const { item } = useContext(ItemContext);
@@ -16,13 +17,15 @@ const ItemContent = ({ bgg_id, title }) => {
       <div className="pt-3 flex items-center gap-3">
         <div className="text-sm text-purple-400 font-bold">{language}</div>
         <StatusBadge status={status} />
+        <Previewer className="rounded-full bg-primary w-6 sh-5" />
       </div>
-
+      <div className="pt-3 mb-1">
+        <UserBox toLeft />
+      </div>
       {isCombo ? (
         <div className="py-3 mb-2">
           <div className="text-xs mb-1">
-            <I18N id="combo-with" />:{" "}
-            <Previewer className="rounded-full bg-primary w-5 h-5" />
+            <I18N id="combo-with" />:
           </div>
           <div className="border-white/20 border-t">
             {elements.map((element, k) => {
