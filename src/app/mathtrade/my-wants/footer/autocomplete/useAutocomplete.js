@@ -28,19 +28,11 @@ const useAutocomplete = () => {
         setMyWants(updatedWants.want_groups);
         setChanges({});
         setDeletedWantgroupIds({});
-        setMustConfirm(false);
-        setMustConfirmDate(todayString());
+        setMustConfirm(true);
       }
       setIsOpen(false);
     },
-    [
-      gotoTop,
-      setMyWants,
-      setChanges,
-      setDeletedWantgroupIds,
-      setMustConfirm,
-      setMustConfirmDate,
-    ]
+    [gotoTop, setMyWants, setChanges, setDeletedWantgroupIds, setMustConfirm]
   );
 
   const [postAutocomplete, , loading, error] = useFetch({
