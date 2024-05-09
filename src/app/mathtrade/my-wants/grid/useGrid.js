@@ -26,7 +26,7 @@ const useGrid = () => {
   /* end MYWANTS CONTEXT **********************************************/
 
   /* GRID CONTEXT **********************************************/
-  const { setGroupsVisible } = useContext(GridContext);
+  const { setGroupsVisible, showNoOptionsAdv } = useContext(GridContext);
   /* end GRID CONTEXT **********************************************/
 
   /* FILTERS */
@@ -231,7 +231,14 @@ const useGrid = () => {
 
   const rootRef = useRef(null);
 
-  return { emptyWants, wantList, myItemList, readyToRender, rootRef };
+  return {
+    emptyWants,
+    wantList,
+    myItemList,
+    readyToRender,
+    rootRef,
+    showNoOptionsAdv,
+  };
 };
 
 export default useGrid;

@@ -9,8 +9,14 @@ import I18N from "@/i18n";
 const GridUI = () => {
   //  const cols = 15;
 
-  const { emptyWants, rootRef, readyToRender, wantList, myItemList } =
-    useGrid();
+  const {
+    emptyWants,
+    rootRef,
+    readyToRender,
+    wantList,
+    myItemList,
+    showNoOptionsAdv,
+  } = useGrid();
 
   if (emptyWants) {
     return (
@@ -34,18 +40,20 @@ const GridUI = () => {
                 {myItemList.map((myItem, k) => {
                   return k === 0 ? (
                     <th key={k} className="border-spacing-0 m-0 p-0 relative">
-                      <div className="border-b border-r border-gray-300 w-full absolute bottom-0 top-0">
-                        <div
-                          className="
+                      {showNoOptionsAdv ? (
+                        <div className="border-b border-r border-gray-300 w-full absolute bottom-0 top-0">
+                          <div
+                            className="
                         p-3 flex gap-1 justify-center items-center text-xs"
-                        >
-                          <div className="w-5 h-5 shadow-[inset_0_0_0_3px_red]"></div>
-                          <div className="">
-                            {"= "}
-                            <I18N id="noOptionsInWant" />
+                          >
+                            <div className="w-5 h-5 shadow-[inset_0_0_0_3px_red]"></div>
+                            <div className="">
+                              {"= "}
+                              <I18N id="noOptionsInWant" />
+                            </div>
                           </div>
                         </div>
-                      </div>
+                      ) : null}
                     </th>
                   ) : (
                     <th key={k} className="border-spacing-0 m-0 p-0">

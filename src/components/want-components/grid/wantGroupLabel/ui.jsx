@@ -1,11 +1,22 @@
+import { useContext, useEffect, useMemo, useState, useRef } from "react";
 import PreviewerWantGroup from "@/components/previewerWantGroup";
+import { GridContext } from "@/context/myWants/grid";
 import clsx from "clsx";
 import { colorTagStyles } from "@/utils/color";
-import { useMemo } from "react";
 import ValueMini from "@/components/value/mini";
 
 const WantGroupLabelUI = ({ wantGroup }) => {
+  /* GRID CONTEXT **********************************************/
+  const { setShowNoOptionsAdv } = useContext(GridContext);
+  /* end GRID CONTEXT **********************************************/
+
   const { name, type, tag, wants, value } = wantGroup;
+
+  useEffect(() => {
+    if (!wants.length) {
+      setShowNoOptionsAdv(true);
+    }
+  }, [wants, setShowNoOptionsAdv]);
 
   const style = useMemo(() => {
     return type === "tag" ? colorTagStyles(tag?.color) : null;
