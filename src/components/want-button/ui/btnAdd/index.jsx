@@ -26,6 +26,7 @@ const BtnAdd = () => {
     setNewMyWantsNum,
     setWantsNumPosition,
     canI,
+    setMustConfirm,
   } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
@@ -56,6 +57,7 @@ const BtnAdd = () => {
 
   const afterLoad = useCallback(
     (newWant) => {
+      setMustConfirm(true);
       setMyWants((oldMyWants) => {
         const oldMyWantsCopy = [...oldMyWants];
         oldMyWantsCopy.push({ ...newWant, isNewHot: true });
@@ -75,7 +77,7 @@ const BtnAdd = () => {
         });
       }, 750);
     },
-    [setMyWants, setNewMyWantsNum, setWantsNumPosition]
+    [setMyWants, setNewMyWantsNum, setWantsNumPosition, setMustConfirm]
   );
 
   const [postMyWant, , loading, error] = useFetch({

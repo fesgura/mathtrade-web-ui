@@ -10,7 +10,8 @@ import ErrorAlert from "@/components/errorAlert";
 
 const BtnQuickRemove = () => {
   /* PAGE CONTEXT **********************************************/
-  const { setMyWants, setNewMyWantsNum, canI } = useContext(PageContext);
+  const { setMyWants, setNewMyWantsNum, canI, setMustConfirm } =
+    useContext(PageContext);
   /* end PAGE CONTEXT */
 
   /* WANT CONTEXT **********************************************/
@@ -22,6 +23,7 @@ const BtnQuickRemove = () => {
   /* DELETE *************************************/
 
   const afterLoad = useCallback(() => {
+    setMustConfirm(true);
     setMyWants((oldMyWants) => {
       const oldMyWantsCopy = [...oldMyWants].filter((w) => w.id !== id);
       return oldMyWantsCopy;
@@ -29,7 +31,7 @@ const BtnQuickRemove = () => {
     setNewMyWantsNum((n) => {
       return Math.max(0, n - 1);
     });
-  }, [setMyWants, setNewMyWantsNum, id]);
+  }, [setMyWants, setNewMyWantsNum, id, setMustConfirm]);
 
   const urlParams = useMemo(() => {
     return [id];

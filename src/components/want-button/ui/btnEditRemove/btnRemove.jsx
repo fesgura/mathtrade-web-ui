@@ -10,7 +10,8 @@ import InnerButton from "@/components/button/inner-button";
 
 const BtnRemove = () => {
   /* PAGE CONTEXT **********************************************/
-  const { setMyWants, setNewMyWantsNum } = useContext(PageContext);
+  const { setMyWants, setNewMyWantsNum, setMustConfirm } =
+    useContext(PageContext);
   /* end PAGE CONTEXT */
 
   /* WANT CONTEXT **********************************************/
@@ -22,6 +23,7 @@ const BtnRemove = () => {
   /* DELETE *************************************/
 
   const afterLoad = useCallback(() => {
+    setMustConfirm(true);
     setMyWants((oldMyWants) => {
       const oldMyWantsCopy = [...oldMyWants].filter((w) => w.id !== id);
       return oldMyWantsCopy;
@@ -29,7 +31,7 @@ const BtnRemove = () => {
     setNewMyWantsNum((n) => {
       return Math.max(0, n - 1);
     });
-  }, [setMyWants, setNewMyWantsNum, id]);
+  }, [setMyWants, setNewMyWantsNum, id, setMustConfirm]);
 
   const urlParams = useMemo(() => {
     return [id];
