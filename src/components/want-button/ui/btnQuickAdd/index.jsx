@@ -28,6 +28,7 @@ const BtnQuickAdd = () => {
     setWantsNumPosition,
     canI,
     setMustConfirm,
+    userId,
   } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
@@ -87,9 +88,16 @@ const BtnQuickAdd = () => {
     let want_ids = [];
 
     if (game && game.items) {
-      want_ids = game.items.map((itm) => {
-        return itm.id;
-      });
+      want_ids = game.items
+        .filter(({ user }) => {
+          if (user && user.id) {
+            return user.id !== userId;
+          }
+          return true;
+        })
+        .map((itm) => {
+          return itm.id;
+        });
     }
 
     if (item && item.id) {
@@ -110,7 +118,7 @@ const BtnQuickAdd = () => {
     }
 
     postMyWant({ params });
-  }, [item, game, tag, postMyWant]);
+  }, [item, game, tag, postMyWant, userId]);
 
   const [modalOpen, setModalOpen] = useState(false);
 
