@@ -72,9 +72,9 @@
   "MyWants.Quad.loadMore": "Cargar más (quedan $$$)",
   "MyWants.btn.Commit.help": "Para participar, <b class=\"text-danger\">debés guardar todos los cambios que hayas realizado.</strong>",
   "MyWants.btn.Commit.help2": "Última vez guardado: <strong>$$$.</strong>",
-  "MyWants.btn.CommitChanges": "Comprometer deseos",
-  "MyWants.btn.Save": "Guardar deseos",
-  "MyWants.btn.SaveAndCommit": "Guardar y comprometer deseos",
+  "MyWants.btn.CommitChanges": "Comprometer cambios",
+  "MyWants.btn.Save": "Guardar cambios",
+  "MyWants.btn.SaveAndCommit": "Guardar y comprometer cambios",
   "MyWants.dup_protection.help": "¡Si DESACTIVÁS la \"Protección de duplicados\" corrés el riesgo de recibir dos o más juegos de este grupo! ¡Desactivalo SOLO SI SABÉS LO QUE ESTÁS HACIENDO!",
   "MyWants.dup_protection.no": "Protección de duplicados <strong>desactivada</strong>.",
   "MyWants.dup_protection.title.help": "¡CUIDADO!",
@@ -803,5 +803,5 @@
   "itemCount.many": "$$$ Ejemplares",
   "itemCount.one": "$$$ Ejemplar",
   "noOptionsInWant": "Sin opciones elegidas (revisar)",
-  "AdvCompromise": "¡Debés COMPROMETER TUS CAMBIOS! Para hacerlo, presioná <strong>\"Comprometer cambios\"</strong> en "
+  "AdvCompromise": "¡NO ESTÁS PARTICIPANDO!<br/>Para hacerlo, DEBÉS comprometer tus cambios desde el botón <strong>\"Comprometer cambios\"</strong> en "
 }
