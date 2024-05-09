@@ -15,7 +15,8 @@ import ErrorAlert from "@/components/errorAlert";
 
 const BtnEditRemove = () => {
   /* PAGE CONTEXT **********************************************/
-  const { loadingMyWants, setMyWants, canI } = useContext(PageContext);
+  const { loadingMyWants, setMyWants, canI, setMustConfirm } =
+    useContext(PageContext);
   /* end PAGE CONTEXT */
 
   /* ITEM CONTEXT **********************************************/
@@ -51,8 +52,10 @@ const BtnEditRemove = () => {
   /* end Success Alert **********************************************/
 
   /* PUT *************************************/
+
   const afterLoad = useCallback(
     (updatedWant) => {
+      setMustConfirm(true);
       setMyWants((oldMyWants) => {
         const oldMyWantsCopy = [...oldMyWants].filter((w) => {
           return w.id !== updatedWant.id;
@@ -63,7 +66,7 @@ const BtnEditRemove = () => {
 
       setShowSuccessAlert(true);
     },
-    [setMyWants]
+    [setMyWants, setMustConfirm]
   );
 
   const urlParams = useMemo(() => {

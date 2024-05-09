@@ -5,7 +5,7 @@ import useFetch from "@/hooks/useFetch";
 
 const useTag = (wantGroup) => {
   /* PAGE CONTEXT **********************************************/
-  const { setMyWants, canI } = useContext(PageContext);
+  const { setMyWants, canI, setMustConfirm } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
   const { title, colorStyle, items, itemIds, value } = useMemo(() => {
@@ -56,6 +56,7 @@ const useTag = (wantGroup) => {
   /* PUT *************************************/
   const afterLoad = useCallback(
     (updatedWant) => {
+      setMustConfirm(true);
       setShowSuccessAlert(true);
 
       setMyWants((oldMyWants) => {
@@ -67,7 +68,7 @@ const useTag = (wantGroup) => {
         return oldMyWantsCopy;
       });
     },
-    [setMyWants]
+    [setMyWants, setMustConfirm]
   );
 
   const urlParams = useMemo(() => {

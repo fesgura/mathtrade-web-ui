@@ -15,7 +15,8 @@ const RemoveButton = ({ wantGroup }) => {
   const { setDeletedWantgroupIds } = useContext(MyWantsContext);
 
   /* PAGE CONTEXT **********************************************/
-  const { setMyWants, tooglePreviewWantGroupModal } = useContext(PageContext);
+  const { setMyWants, tooglePreviewWantGroupModal, setMustConfirm } =
+    useContext(PageContext);
   /* end PAGE CONTEXT */
 
   const { id } = wantGroup;
@@ -23,6 +24,7 @@ const RemoveButton = ({ wantGroup }) => {
   /* DELETE *************************************/
 
   const afterLoad = useCallback(() => {
+    setMustConfirm(true);
     setMyWants((oldMyWants) => {
       const oldMyWantsCopy = [...oldMyWants].filter((w) => w.id !== id);
       return oldMyWantsCopy;
@@ -36,7 +38,13 @@ const RemoveButton = ({ wantGroup }) => {
     }
 
     tooglePreviewWantGroupModal();
-  }, [setMyWants, id, tooglePreviewWantGroupModal, setDeletedWantgroupIds]);
+  }, [
+    setMyWants,
+    id,
+    tooglePreviewWantGroupModal,
+    setDeletedWantgroupIds,
+    setMustConfirm,
+  ]);
 
   const urlParams = useMemo(() => {
     return [id];

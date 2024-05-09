@@ -5,7 +5,7 @@ import useFetch from "@/hooks/useFetch";
 
 const useGame = (wantGroup) => {
   /* PAGE CONTEXT **********************************************/
-  const { userId, setMyWants, canI } = useContext(PageContext);
+  const { userId, setMyWants, canI, setMustConfirm } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
   /* GAME CONTEXT **********************************************/
@@ -71,7 +71,7 @@ const useGame = (wantGroup) => {
   const afterLoad = useCallback(
     (updatedWant) => {
       setShowSuccessAlert(true);
-
+      setMustConfirm(true);
       setMyWants((oldMyWants) => {
         const oldMyWantsCopy = [...oldMyWants];
         const index = oldMyWantsCopy.findIndex((w) => w.id === updatedWant.id);
@@ -81,7 +81,7 @@ const useGame = (wantGroup) => {
         return oldMyWantsCopy;
       });
     },
-    [setMyWants]
+    [setMyWants, setMustConfirm]
   );
 
   const urlParams = useMemo(() => {
