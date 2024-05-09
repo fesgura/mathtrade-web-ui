@@ -9,6 +9,7 @@ import { LoadingBox } from "@/components/loading";
 
 const StatsUI = () => {
   const { data, loading, error } = useCurrentStats();
+
   return (
     <Container className="relative">
       {data ? (
