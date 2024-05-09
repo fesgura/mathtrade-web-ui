@@ -81,6 +81,7 @@ const useFooter = () => {
     const hasChanges =
       Object.keys(changes).length > 0 ||
       Object.keys(deletedWantgroupIds).length > 0;
+
     const enabledBtn = mustConfirm || hasChanges;
 
     return { onlyCommit: !hasChanges, enabledBtn, canCommit };
