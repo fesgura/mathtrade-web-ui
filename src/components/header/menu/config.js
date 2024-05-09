@@ -38,11 +38,11 @@ export const MenuList = [
     path: PRIVATE_ROUTES.RESULTS.path,
     name: "results",
   },
-  /*  {
+  {
     title: `menu.${PRIVATE_ROUTES.STATS.title}`,
     path: PRIVATE_ROUTES.STATS.path,
     name: "stats",
-  }, */
+  },
   {
     title: `menu.${PRIVATE_ROUTES.MY_DATA.title}`,
     path: PRIVATE_ROUTES.MY_DATA.path,

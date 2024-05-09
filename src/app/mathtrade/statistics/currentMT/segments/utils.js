@@ -8,7 +8,7 @@ export const segmentsToColumns = (segments) => {
       return a.item_segment < b.item_segment ? -1 : 1;
     })
     .map((seg) => {
-      return [`${seg.item_segment}\nejemplares`, seg.user_count];
+      return [`${seg.item_segment}\nejemplares`, seg.users_count];
     });
 
   return list;

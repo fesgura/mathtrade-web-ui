@@ -1,8 +1,22 @@
-import { useCallback, useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { useOptions } from "@/store";
 import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
 
 const useStats = () => {
+  /* SCREEN OPTIONS **********************************************/
+  const options = useOptions((state) => state.options);
+  const updateOptions = useOptions((state) => state.updateOptions);
+  const [screenViewStats, setScreenViewStats] = useState(
+    options?.screenViewStats || 0
+  );
+  useEffect(() => {
+    updateOptions({
+      screenViewStats,
+    });
+  }, [updateOptions, screenViewStats]);
+  /* end SCREEN OPTIONS **********************************************/
+
   /* PAGE CONTEXT **********************************************/
   const { setPageType } = useContext(PageContext);
 
@@ -19,11 +33,11 @@ const useStats = () => {
   const [, data, loading, error] = useFetch({
     endpoint: "GET_MATHTRADE_STATS",
     autoLoad: true,
-    format,
+    // format,
   });
   /* end FETCH */
 
-  return { data, loading, error };
+  return { data, loading, error, screenViewStats, setScreenViewStats };
 };
 
 export default useStats;

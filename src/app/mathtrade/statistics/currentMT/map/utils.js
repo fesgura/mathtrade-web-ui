@@ -1,9 +1,9 @@
 const defValues = {
   value: 0,
   percent: 0,
-  game_count: 0,
-  item_count: 0,
-  user_count: 0,
+  games_count: 0,
+  items_count: 0,
+  users_count: 0,
 };
 
 const userRegiones = [
@@ -36,20 +36,20 @@ const userRegiones = [
 export const locsToGraph = (stats) => {
   const pool = {};
 
-  let item_count_total = 0;
+  let items_count_total = 0;
 
   stats.locations.forEach((loc) => {
     if (!pool[loc.location.province]) {
       pool[loc.location.province] = {
-        game_count: 0,
-        item_count: 0,
-        user_count: 0,
+        games_count: 0,
+        items_count: 0,
+        users_count: 0,
       };
     }
-    pool[loc.location.province].game_count += loc.game_count;
-    pool[loc.location.province].item_count += loc.item_count;
-    pool[loc.location.province].user_count += loc.user_count;
-    item_count_total += loc.item_count;
+    pool[loc.location.province].games_count += loc.games_count;
+    pool[loc.location.province].items_count += loc.items_count;
+    pool[loc.location.province].users_count += loc.users_count;
+    items_count_total += loc.items_count;
   });
 
   const list = [];
@@ -61,14 +61,14 @@ export const locsToGraph = (stats) => {
     const { title } = reg;
     const d = pool[title] || {};
 
-    const item_count = d?.item_count || 0;
+    const items_count = d?.items_count || 0;
 
     let value = 0;
 
     if (title === "AMBA") {
       value = parseFloat((100 - valueTotal).toFixed(1));
     } else {
-      const p = (100 * item_count) / item_count_total;
+      const p = (100 * items_count) / items_count_total;
       value = parseFloat(p.toFixed(1));
       valueTotal += value;
     }

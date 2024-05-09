@@ -13,6 +13,7 @@ const Map = ({ data }) => {
         clearInterval(timer);
 
         const dataProvinces = locsToGraph(data);
+        
         var argMap = anychart.map();
 
         // Set geoData in JSON format.

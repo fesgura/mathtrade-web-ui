@@ -1,9 +1,9 @@
-import I18N, { getI18Ntext } from "@/i18n";
+import I18N from "@/i18n";
 import { urlBaseMedia, TradeMaximizerLinks } from "@/config/stats";
 import Icon from "@/components/icon";
 
 const Downloads = ({ stats }) => {
-  return (
+  return stats?.wants && stats?.results ? (
     <div className="bg-white px-5 py-4 rounded-xl shadow-xl">
       <h3 className="font-bold text-lg mb-5 text-gray-500 text-balance">
         <I18N id="stats.downloads.title" />
@@ -45,7 +45,7 @@ const Downloads = ({ stats }) => {
         </a>
       </p>
     </div>
-  );
+  ):null;
 };
 
 export default Downloads;

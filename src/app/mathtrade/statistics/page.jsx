@@ -1,32 +1,25 @@
 "use client";
+import Script from "next/script";
 import SectionCommon from "@/components/sections/common";
-import Container from "@/components/container";
 import PageHeader from "@/components/pageHeader";
 import useStats from "./useStats";
-import ErrorAlert from "@/components/errorAlert";
-import StatsUI from "./ui";
-//import I18N from "@/i18n";
+import StatsUI from "./currentMT";
+import Tabs from "@/components/tabs";
+import HistorialMT from "./historial";
 
 export default function Statistics() {
-  const { data, loading, error } = useStats();
+  const { screenViewStats, setScreenViewStats } = useStats();
   return (
     <>
-      <PageHeader
-        title="title.Stats"
-        name="stats"
-        /*   description={
-          <>
-            <p className="text-sm max-w-5xl mx-auto">
-              <I18N id="subtitle.Stats" />
-            </p>
-          </>
-        } */
-      />
-      <SectionCommon loading={loading}>
-        <Container>
-          <ErrorAlert error={error} />
-          {data ? <StatsUI data={data} /> : null}
-        </Container>
+      <Script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-bundle.min.js" />
+      <PageHeader title="title.Stats" name="stats" />
+      <SectionCommon>
+        <Tabs
+          list={["stats.screen.current", "stats.screen.historial"]}
+          value={screenViewStats}
+          onChange={setScreenViewStats}
+        />
+        {screenViewStats === 0 ? <StatsUI /> : <HistorialMT />}
       </SectionCommon>
     </>
   );

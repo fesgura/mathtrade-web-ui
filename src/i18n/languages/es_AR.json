@@ -656,7 +656,7 @@
   "stats.downloads.title": "¿Cómo se calculan los cambios?",
   "stats.map.label": "porcentajes",
   "stats.map.title": "Por provincias",
-  "stats.map.tooltipFormat": "{%item_count} ejemplares publicados ({%value}%)\n({%user_count} participantes)",
+  "stats.map.tooltipFormat": "{%games_count} juegos publicados ({%value}%)\n{%items_count} ejemplares publicados ({%value}%)\n({%users_count} participantes)",
   "stats.pill.game": "Juegos publicados",
   "stats.pill.item": "Ejemplares cambiados",
   "stats.pill.item.footer": "de $$$ ejemplares ($$$%).",
@@ -803,5 +803,7 @@
   "itemCount.many": "$$$ Ejemplares",
   "itemCount.one": "$$$ Ejemplar",
   "noOptionsInWant": "Sin opciones elegidas (revisar)",
-  "AdvCompromise": "¡NO ESTÁS PARTICIPANDO!<br/>Para hacerlo, DEBÉS comprometer tus cambios desde el botón <strong>\"Comprometer cambios\"</strong> en "
+  "AdvCompromise": "¡NO ESTÁS PARTICIPANDO!<br/>Para hacerlo, DEBÉS comprometer tus cambios desde el botón <strong>\"Comprometer cambios\"</strong> en ",
+  "stats.screen.current": "Actual",
+  "stats.screen.historial": "Historia del Math Trade"
 }
