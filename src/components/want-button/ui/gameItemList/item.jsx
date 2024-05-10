@@ -28,7 +28,6 @@ const ItemOfGame = ({ item }) => {
   return (
     <ItemXS
       itemRaw={item}
-      hideValue
       extraContent={
         <input
           type="checkbox"
