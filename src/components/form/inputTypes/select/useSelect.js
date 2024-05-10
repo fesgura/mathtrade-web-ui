@@ -85,7 +85,7 @@ const useSelect = (
     (optionValue, multiple, action, optionComplete) => {
       let newValueOutput = "";
       if (multiple) {
-        if (optionValue) {
+        if (optionValue !== undefined && optionValue !== null) {
           const indexInOptionsComplete = optionsComplete.findIndex(
             (o) => o.value === optionValue
           );
