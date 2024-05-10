@@ -1,4 +1,4 @@
-export const elementPerPage = 6;
+export const elementPerPage = 4;
 export const dpi = 200;
 const paddingMM = 5;
 export const padding = Math.round((paddingMM * dpi) / 25.4);

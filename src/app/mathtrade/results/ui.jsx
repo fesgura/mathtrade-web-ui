@@ -9,7 +9,8 @@ import ResultsTable from "@/components/results/table";
 import PrintTags from "@/components/results/printTags";
 
 export default function ResultsUI() {
-  const { screenViewResults, setScreenViewResults, loading } = useResults();
+  const { screenViewResults, setScreenViewResults, loading, MathTradeResults } =
+    useResults();
 
   return (
     <>
@@ -17,15 +18,17 @@ export default function ResultsUI() {
         <Container>
           <PillsResults />
           <UserSelector />
-          <Tabs
-            list={[
-              "results.screen.visual",
-              "results.screen.grid",
-              "results.screen.printTags",
-            ]}
-            value={screenViewResults}
-            onChange={setScreenViewResults}
-          />
+          {MathTradeResults ? (
+            <Tabs
+              list={[
+                "results.screen.visual",
+                "results.screen.grid",
+                "results.screen.printTags",
+              ]}
+              value={screenViewResults}
+              onChange={setScreenViewResults}
+            />
+          ) : null}
 
           {screenViewResults === 0 ? (
             <ResultsVisual />

@@ -5,16 +5,9 @@ import { useOptions } from "@/store";
 
 const useResults = () => {
   /* SCREEN OPTIONS **********************************************/
-  const options = useOptions((state) => state.options);
-  const updateOptions = useOptions((state) => state.updateOptions);
-  const [screenViewResults, setScreenViewResults] = useState(
-    options?.screenViewResults || 0
-  );
-  useEffect(() => {
-    updateOptions({
-      screenViewResults,
-    });
-  }, [updateOptions, screenViewResults]);
+
+  const [screenViewResults, setScreenViewResults] = useState(0);
+
   /* end SCREEN OPTIONS **********************************************/
 
   /* RESULTS CONTEXT *****************************************/
@@ -24,7 +17,12 @@ const useResults = () => {
     currentUserId,
     setMathTradeData,
     setMathTradeResults,
+    MathTradeResults,
   } = useContext(ResultsContext);
+
+  useEffect(() => {
+    setScreenViewResults(0);
+  }, [currentUser]);
   /* end RESULTS CONTEXT *****************************************/
 
   /* GET USERS *************************************************/
@@ -83,6 +81,7 @@ const useResults = () => {
   // end GET USERS ********************************************
 
   return {
+    MathTradeResults,
     screenViewResults,
     setScreenViewResults,
     loading: loadingUsers || loadingMathTradeData || loadingMTresults,

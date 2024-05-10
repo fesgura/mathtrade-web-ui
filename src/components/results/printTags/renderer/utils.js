@@ -1,5 +1,5 @@
 import { cropWord } from "@/utils/text";
-import { dpi } from "../config";
+import { dpi, elementPerPage } from "../config";
 
 export const dataToTag = (data) => {
   if (!data.table_number || !data.show_label) {
@@ -43,8 +43,9 @@ export const drawTag = (data, ctx, width, height, x, y) => {
   ctx.save();
 
   ctx.lineWidth = 1;
-  ctx.strokeStyle = "#888888";
-
+  ctx.strokeStyle = "#666";
+  ctx.fillStyle = "#FFFFFF";
+  ctx.fillRect(x + padding, y + padding, wQuad, hQuad);
   ctx.strokeRect(x + padding, y + padding, wQuad, hQuad);
   ctx.beginPath();
   ctx.moveTo(x + padding, y + padding);
@@ -53,6 +54,8 @@ export const drawTag = (data, ctx, width, height, x, y) => {
   ctx.lineTo(x + padding, y + hQuad);
   ctx.lineTo(x + padding, y + padding);
   ctx.clip();
+
+  ctx.fillStyle = "#000000";
 
   ctx.textBaseline = "top";
   ctx.textAlign = "center";
@@ -80,7 +83,7 @@ export const drawTag = (data, ctx, width, height, x, y) => {
   }
   ctx.fillText(fromComplete, centerX, yPos);
 
-  yPos += 65 * K;
+  yPos += 40 * K;
   ctx.font = `${18 * K}px Arial`;
   const altLocationComplete = !via
     ? "Mandar a " + altLocation
@@ -127,5 +130,103 @@ export const drawTag = (data, ctx, width, height, x, y) => {
   }
   ctx.fillText(toComplete, centerX, yPos);
 
+  if (elementPerPage === 4) {
+    // DOBLEZ
+    yPos += 58 * K;
+    let xD = x + padding;
+    const lD = 8 * K;
+    const eD = 6 * K;
+    ctx.strokeStyle = "#AAAAAA";
+    ctx.lineWidth = 4;
+    while (xD < x + width) {
+      ctx.beginPath();
+      ctx.moveTo(xD, yPos);
+      ctx.lineTo(xD + lD, yPos);
+      ctx.closePath();
+      ctx.stroke();
+      xD += lD + eD;
+    }
+
+    // doblar
+    ctx.fillStyle = "#888888";
+    ctx.textAlign = "left";
+    ctx.font = `${7 * K}px Arial`;
+    ctx.fillText("DOBLAR POR AQUÍ", x + padding + 10, yPos - 7 * K - 2);
+    ctx.fillStyle = "#000000";
+
+    // ID
+    yPos += 38 * K;
+    ctx.textAlign = "left";
+    ctx.font = `${50 * K}px Arial`;
+    ctx.fillText(id, x + padding + 20, yPos);
+
+    // NAME
+    ctx.font = `${19 * K}px Arial`;
+    const wTextNameB = ctx.measureText(name).width;
+    const wTextNameB_x = padding + 20 + 275;
+
+    if (wTextNameB > wQuad - wTextNameB_x) {
+      ctx.font = `${14 * K}px Arial`;
+    }
+    ctx.fillText(name, x + wTextNameB_x, yPos + 20);
+    // De:
+    yPos += 50 * K;
+    ctx.textAlign = "center";
+    ctx.font = `${13 * K}px Arial`;
+    const fromCompleteB = "De: " + from;
+    const wTextB = ctx.measureText(fromCompleteB).width;
+    if (wTextB > wQuad) {
+      ctx.font = `${11 * K}px Arial`;
+    }
+    ctx.fillText(fromCompleteB, centerX, yPos);
+    //Mandar a:
+    yPos += 22 * K;
+    ctx.font = `${13 * K}px Arial`;
+    const altLocationCompleteB = !via
+      ? "Mandar a " + altLocation
+      : "Mandar a CABA";
+    ctx.fillText(altLocationCompleteB, centerX, yPos);
+
+    //Mesa:
+    yPos += 16 * K;
+    ctx.font = `${60 * K}px Arial`;
+    ctx.fillText(mesa, centerX, yPos);
+
+    // cuadro:
+    yPos += 8 * K;
+    const heightRectB = 56 * K;
+    ctx.lineWidth = 2;
+    if (!via) {
+      ctx.strokeStyle = "#AAAAAA";
+      ctx.beginPath();
+      ctx.moveTo(x + paddingRect, yPos - 10 * K + heightRectB / 2);
+      ctx.lineTo(centerX - sideHex / 2, yPos - 10 * K);
+      ctx.lineTo(centerX + sideHex / 2, yPos - 10 * K);
+      ctx.lineTo(x + width - paddingRect, yPos - 10 * K + heightRectB / 2);
+      ctx.lineTo(centerX + sideHex / 2, yPos - 10 * K + heightRectB);
+      ctx.lineTo(centerX - sideHex / 2, yPos - 10 * K + heightRectB);
+      ctx.lineTo(x + paddingRect, yPos - 10 * K + heightRectB / 2);
+      ctx.closePath();
+      ctx.stroke();
+    } else {
+      ctx.strokeStyle = "#000000";
+      ctx.strokeRect(
+        x + paddingRect,
+        yPos - 10 * K,
+        width - 2 * paddingRect,
+        heightRectB
+      );
+    }
+    // a quien:
+    yPos += heightRectB;
+    ctx.font = `${14 * K}px Arial`;
+    const toCompleteB = "Para: " + to;
+    const wTextToB = ctx.measureText(toComplete).width;
+
+    if (wTextToB > wQuad) {
+      ctx.font = `${11 * K}px Arial`;
+    }
+    ctx.fillText(toCompleteB, centerX, yPos);
+  }
   ctx.restore();
 };
