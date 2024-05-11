@@ -10,7 +10,7 @@ const orders = {
   item: 2,
 };
 
-const useVisual = () => {
+const useWantToItem = () => {
   /* PAGE CONTEXT **********************************************/
   const { setPageType, myWants, myItemsInMT_forWants } =
     useContext(PageContext);
@@ -161,4 +161,4 @@ const useVisual = () => {
   return { isLoadedWants, myWants, wantList, myItemList, readyToRender };
 };
 
-export default useVisual;
+export default useWantToItem;

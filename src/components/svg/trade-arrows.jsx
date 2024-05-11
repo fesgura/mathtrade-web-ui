@@ -1,4 +1,6 @@
-const TradeArrows = () => {
+import clsx from "clsx";
+
+const TradeArrows = ({ inverted }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -7,6 +9,7 @@ const TradeArrows = () => {
       strokeMiterlimit="2"
       clipRule="evenodd"
       viewBox="0 0 73 70"
+      className={clsx({ "rotate-180": inverted })}
     >
       <path
         fill="#00B86B"

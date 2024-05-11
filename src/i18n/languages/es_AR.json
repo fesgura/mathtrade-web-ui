@@ -805,5 +805,9 @@
   "noOptionsInWant": "Sin opciones elegidas (revisar)",
   "AdvCompromise": "¡NO ESTÁS PARTICIPANDO!<br/>Para hacerlo, DEBÉS comprometer tus cambios desde el botón <strong>\"Comprometer cambios\"</strong> en ",
   "stats.screen.current": "Actual",
-  "stats.screen.historial": "Historia del Math Trade"
+  "stats.screen.historial": "Historia del Math Trade",
+  "screenViewOffer.tab.0": "Recibo",
+  "screenViewOffer.tab.1": "Ofrezco",
+  "notOfferedVisual": "No has ofrecido ningún ejemplar.",
+  "notOfferedVisual2": "No has ofrecido este ejemplar aún."
 }

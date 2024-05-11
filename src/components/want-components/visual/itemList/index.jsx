@@ -19,7 +19,7 @@ const ItemList = ({ wantGroup, myItemList }) => {
     <>
       {!itemsAdded.length ? (
         <h4 className="mb-5 italic text-gray-500">
-          No has ofrecido ningún ejemplar.
+          <I18N id="notOfferedVisual" />
         </h4>
       ) : null}
       <div className="flex flex-wrap gap-5">

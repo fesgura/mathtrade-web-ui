@@ -1,29 +1,75 @@
+import { useState, useEffect } from "react";
+import { useOptions } from "@/store";
+import WantToItem from "./want-to-item";
+import ItemToWant from "./item-to-want";
+import clsx from "clsx";
 import Container from "@/components/container";
-import useVisual from "./useVisual";
-import VisualSection from "@/components/want-components/visual/section";
-import EmptyList from "@/components/emptyList";
+import TradeArrows from "@/components/svg/trade-arrows";
+import I18N from "@/i18n";
+
+const TabVisual = ({ screenViewOffer, setScreenViewOffer, val }) => {
+  return (
+    <button
+      className={clsx(
+        "py-1 px-3 border rounded-tl-lg rounded-tr-lg font-bold flex items-center gap-1",
+        {
+          "border border-b-gray-400 text-gray-500": screenViewOffer !== val,
+          "border-gray-400 border-b-transparent": screenViewOffer === val,
+        }
+      )}
+      onClick={() => {
+        setScreenViewOffer(val);
+      }}
+    >
+      <div className="">
+        <I18N id={`screenViewOffer.tab.${val}`} />
+      </div>
+      <div className="w-4">
+        <TradeArrows inverted={val} />
+      </div>
+      <div className="">
+        <I18N id={`screenViewOffer.tab.${val === 0 ? 1 : 0}`} />
+      </div>
+    </button>
+  );
+};
 
 const Visual = () => {
-  const { isLoadedWants, myWants, wantList, myItemList, readyToRender } =
-    useVisual();
+  /* SCREEN OPTIONS **********************************************/
+  const options = useOptions((state) => state.options);
+  const updateOptions = useOptions((state) => state.updateOptions);
+  const [screenViewOffer, setScreenViewOffer] = useState(
+    options?.screenViewOffer || 0
+  );
+  useEffect(() => {
+    updateOptions({
+      screenViewOffer,
+    });
+  }, [updateOptions, screenViewOffer]);
+  /* end SCREEN OPTIONS **********************************************/
 
-  return readyToRender ? (
-    <Container>
-      {wantList.map((wantGroup) => {
-        return (
-          <VisualSection
-            wantGroup={wantGroup}
-            myItemList={myItemList}
-            key={wantGroup.id}
-          />
-        );
-      })}
-      <EmptyList
-        visible={isLoadedWants && !(myWants?.length || 0)}
-        message="MyWants.EmptyList"
-      />
-    </Container>
-  ) : null;
+  return (
+    <div className="pt-3">
+      <Container>
+        <menu className="flex justify-center items-end mb-4">
+          <div className="border-b border-gray-400 grow" />
+          {[0, 1].map((k) => {
+            return (
+              <TabVisual
+                key={k}
+                val={k}
+                screenViewOffer={screenViewOffer}
+                setScreenViewOffer={setScreenViewOffer}
+              />
+            );
+          })}
+          <div className="border-b border-gray-400 grow" />
+        </menu>
+      </Container>
+
+      {screenViewOffer === 0 ? <WantToItem /> : <ItemToWant />}
+    </div>
+  );
 };
 
 export default Visual;
