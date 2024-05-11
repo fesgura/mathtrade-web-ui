@@ -6,7 +6,7 @@ import ValueMini from "@/components/value/mini";
 
 const ItemVisual2UI = () => {
   const { item } = useContext(ItemContext);
-  const { id, title, elements, value } = item;
+  const { title, elements, value } = item;
 
   return (
     <div className="sm:p-3 p-1 rounded-lg relative bg-white border-gray-300 shadow-xl">
@@ -21,7 +21,7 @@ const ItemVisual2UI = () => {
       </div>
       <div className="text-center px-2 sm:pt-3 pt-1 sm:w-52 w-24 cursor-default">
         <h4 className="text-xs font-bold cropped" title={title}>
-          {title} ({id})
+          {title}
         </h4>
       </div>
     </div>
