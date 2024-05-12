@@ -7,8 +7,16 @@ import ValueMini from "@/components/value/mini";
 import useWantGroup from "./useWantGroup";
 
 const WantGroupVisual2 = ({ wantGroup, itemId, toAdd }) => {
-  const { elementsThumbnails, style, name, type, value, onToggle, canIwant } =
-    useWantGroup(wantGroup, itemId);
+  const {
+    elementsThumbnails,
+    style,
+    name,
+    type,
+    game_type,
+    value,
+    onToggle,
+    canIwant,
+  } = useWantGroup(wantGroup, itemId);
 
   return (
     <div
@@ -53,6 +61,9 @@ const WantGroupVisual2 = ({ wantGroup, itemId, toAdd }) => {
         >
           {name}
         </h4>
+        <p className="uppercase text-[9px] font-bold opacity-50">
+          <I18N id={`cart.wantGroup.type.${type}.${game_type || 1}`} />
+        </p>
       </div>
       {!toAdd && canIwant ? (
         <button

@@ -7,7 +7,8 @@ import I18N from "@/i18n";
 import ValueMini from "@/components/value/mini";
 
 const WantGroupUI = ({ wantGroup }) => {
-  const { name, type, tag, wants, bgg_id, value, availables } = wantGroup;
+  const { name, type, game_type, tag, wants, bgg_id, value, availables } =
+    wantGroup;
 
   const elementsThumbnails = useMemo(() => {
     if (wants && wants.length) {
@@ -73,7 +74,7 @@ const WantGroupUI = ({ wantGroup }) => {
           {`${name}${type === "tag" ? ` (${wants.length})` : ""}`}
         </h4>
         <p className="uppercase text-[9px] font-bold opacity-50">
-          <I18N id={`cart.wantGroup.type.${type}`} />
+          <I18N id={`cart.wantGroup.type.${type}.${game_type || 1}`} />
         </p>
       </div>
     </div>

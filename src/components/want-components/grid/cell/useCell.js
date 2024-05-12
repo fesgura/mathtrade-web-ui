@@ -45,6 +45,12 @@ const useCell = (wantGroup, myItem) => {
     };
   }, [wantGroup, myItem, matchValues, changes]);
 
+  console.log(wantGroup, myItem);
+
+  const title = useMemo(() => {
+    return `${wantGroup?.name || ""}\n↓↑\n${myItem?.title || ""}`;
+  }, [wantGroup, myItem]);
+
   const onClick = useCallback(() => {
     let itemsToChange = [];
     let valueToChange = !value;
@@ -70,7 +76,7 @@ const useCell = (wantGroup, myItem) => {
     setChanges /*, setMatchValues*/,
   ]);
 
-  return { value, isIndeterminate, onClick, color, canIwant: canI.want };
+  return { value, isIndeterminate, onClick, color, canIwant: canI.want, title };
 };
 
 export default useCell;

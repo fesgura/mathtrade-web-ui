@@ -8,6 +8,7 @@ const CellUI = ({ wantGroup, myItem }) => {
     onClick,
     color: backgroundColor,
     canIwant,
+    title,
   } = useCell(wantGroup, myItem);
 
   return (
@@ -26,6 +27,7 @@ const CellUI = ({ wantGroup, myItem }) => {
               : " bg-white border-gray-400 text-white")
           }
           onClick={onClick}
+          title={title}
         >
           <Icon type={isIndeterminate ? "minus" : "check"} />
         </button>
@@ -40,6 +42,7 @@ const CellUI = ({ wantGroup, myItem }) => {
               : " bg-white border-gray-400 text-white")
           }
           disabled
+          title={title}
         >
           <Icon type={isIndeterminate ? "minus" : "check"} />
         </button>
