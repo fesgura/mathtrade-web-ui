@@ -42,16 +42,6 @@ const ItemXSUI = ({ className, extraContent, dark, hideUser, hideValue }) => {
               </h3>
             </div>
 
-            {!isCombo && (
-              <>
-                <div className="max-w-[200px]" data-tooltip={language}>
-                  <div className="text-xs cropped_1">{language}</div>
-                </div>
-                <div className="max-w-[120px]">
-                  <StatusBadge status={status} min />
-                </div>
-              </>
-            )}
             <div className="max-w-[200px]" data-tooltip={language}>
               <div className="text-xs cropped_1">{language}</div>
             </div>
