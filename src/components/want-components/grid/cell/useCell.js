@@ -45,8 +45,6 @@ const useCell = (wantGroup, myItem) => {
     };
   }, [wantGroup, myItem, matchValues, changes]);
 
-  console.log(wantGroup, myItem);
-
   const title = useMemo(() => {
     return `${wantGroup?.name || ""}\n↓↑\n${myItem?.title || ""}`;
   }, [wantGroup, myItem]);
