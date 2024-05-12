@@ -10,7 +10,8 @@ import ValueMini from "@/components/value/mini";
 const ItemXSUI = ({ className, extraContent, dark, hideUser, hideValue }) => {
   const { item } = useContext(ItemContext);
 
-  const { isCombo, title, status, language, elements, value } = item;
+  const { isCombo, title, status, statusCombo, language, elements, value } =
+    item;
 
   return (
     <div
@@ -51,6 +52,20 @@ const ItemXSUI = ({ className, extraContent, dark, hideUser, hideValue }) => {
                 </div>
               </>
             )}
+            <div className="max-w-[200px]" data-tooltip={language}>
+              <div className="text-xs cropped_1">{language}</div>
+            </div>
+            <div className="max-w-[120px]">
+              {statusCombo ? (
+                <>
+                  {statusCombo.map((st, k) => {
+                    return <StatusBadge status={st} key={k} min />;
+                  })}
+                </>
+              ) : (
+                <StatusBadge status={status} min />
+              )}
+            </div>
 
             {!hideUser ? (
               <div>
