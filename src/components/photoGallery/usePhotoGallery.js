@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-const usePhotoGallery = ({ images, setImages }) => {
+const usePhotoGallery = ({ images, setImages, extended }) => {
   const [list, setList] = useState([]);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const usePhotoGallery = ({ images, setImages }) => {
     return typeof setImages === "function";
   }, [setImages]);
 
-  const [showImages, setShowImages] = useState(false);
+  const [showImages, setShowImages] = useState(extended || false);
 
   const toggleShowImages = () => {
     setShowImages((v) => !v);

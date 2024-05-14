@@ -138,6 +138,14 @@ p {
       color: #005e83;
     }
   }
+  ul {
+    list-style: inside disc;
+    margin-bottom: 1em;
+  }
+  em {
+    font-weight: bold;
+    font-style: italic;
+  }
 
   .tyc-ul {
     list-style: decimal;

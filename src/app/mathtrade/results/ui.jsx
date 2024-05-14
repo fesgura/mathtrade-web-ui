@@ -7,6 +7,7 @@ import Tabs from "@/components/tabs";
 import ResultsVisual from "@/components/results/visual";
 import ResultsTable from "@/components/results/table";
 import PrintTags from "@/components/results/printTags";
+import PaymentInfo from "@/components/results/paymentInfo";
 
 export default function ResultsUI() {
   const { screenViewResults, setScreenViewResults, loading, MathTradeResults } =
@@ -24,6 +25,7 @@ export default function ResultsUI() {
                 "results.screen.visual",
                 "results.screen.grid",
                 "results.screen.printTags",
+                "results.screen.payment",
               ]}
               value={screenViewResults}
               onChange={setScreenViewResults}
@@ -34,8 +36,10 @@ export default function ResultsUI() {
             <ResultsVisual />
           ) : screenViewResults === 1 ? (
             <ResultsTable />
-          ) : (
+          ) : screenViewResults === 2 ? (
             <PrintTags />
+          ) : (
+            <PaymentInfo />
           )}
         </Container>
       </SectionCommon>

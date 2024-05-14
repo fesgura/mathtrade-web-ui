@@ -5,7 +5,7 @@ import Container from "../container";
 const Tabs = ({ list, onChange, value }) => {
   return (
     <Container>
-      <menu className="flex justify-center text-2xl border-b border-gray-300 mb-4">
+      <menu className="flex justify-center flex-wrap text-2xl border-b border-gray-300 mb-4">
         {list?.map((name, k) => {
           return (
             <button

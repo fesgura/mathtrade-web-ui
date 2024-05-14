@@ -8,7 +8,15 @@ import PhotoUploader from "../photoUploader";
 
 // "border-t border-gray-300 pt-2"
 
-const PhotoGallery = ({ images, setImages, className }) => {
+const PhotoGallery = ({
+  images,
+  setImages,
+  className,
+  title = "photoGallery.editElement.title",
+  subtitle = "photoGallery.editElement.subtitle",
+  max = 4,
+  extended,
+}) => {
   const {
     editable,
     list,
@@ -20,37 +28,41 @@ const PhotoGallery = ({ images, setImages, className }) => {
     onLoadImage,
     prevImage,
     nextImage,
-  } = usePhotoGallery({ images, setImages });
+  } = usePhotoGallery({ images, setImages, extended });
 
   return list.length || editable ? (
     <>
       <div className={className}>
         <h3
-          className="flex items-center cursor-pointer px-2 h-5 w-fit"
-          onClick={toggleShowImages}
+          className={clsx("flex items-center h-5 w-fit", {
+            "cursor-pointer px-2": !extended,
+          })}
+          onClick={extended ? () => {} : toggleShowImages}
         >
           <strong className="uppercase text-xs block text-gray-500 leading-5">
-            <I18N id="photoGallery.editElement.title" />
+            <I18N id={title} />
           </strong>
           {editable ? (
             <span className="text-xs block pl-1 italic text-gray-400 leading-5">
-              <I18N id="photoGallery.editElement.subtitle" />
+              <I18N id={subtitle} />
             </span>
           ) : (
             <span className="text-xs block text-gray-400 leading-5 pl-1">
               ({list.length})
             </span>
           )}
-          <span
-            className={clsx(
-              "text-xl block leading-none text-gray-600 transition-transform relative top-[-1px]",
-              {
-                "rotate-90": showImages,
-              }
-            )}
-          >
-            <Icon type="chevron-right" />
-          </span>
+          {extended ? null : (
+            <span
+              className={clsx(
+                "text-xl block leading-none text-gray-600 transition-transform relative top-[-1px]",
+                {
+                  "rotate-90": showImages,
+                }
+              )}
+            >
+              <Icon type="chevron-right" />
+            </span>
+          )}
         </h3>
         {showImages && (
           <div className="flex gap-3 flex-wrap pt-3 animate-fadedown">
@@ -66,7 +78,7 @@ const PhotoGallery = ({ images, setImages, className }) => {
                 />
               );
             })}
-            {editable && list.length < 4 ? (
+            {editable && list.length < max ? (
               <div className="relative shadow border p-1 rounded-md">
                 <PhotoUploader
                   className="w-[120px] h-[120px] text-6xl bg-gray-100 text-gray-300 hover:text-gray-500 hover:bg-gray-200 transition-colors"
