@@ -54,11 +54,8 @@ const TagSelector = ({ name, data, loading, options }) => {
   return (
     <>
       <div className="relative text-sm">
-        <button
-          className="text-left block w-full border border-stroke rounded-md  pl-3 pr-6 py-1 shadow-sm transition"
-          onClick={(e) => {
-            e.preventDefault();
-          }}
+        <div
+          className="text-left block w-full border border-stroke rounded-md  pl-3 pr-6 py-1 shadow-sm transition cursor-pointer"          
           onFocus={() => {
             setFocus(true);
           }}
@@ -73,7 +70,7 @@ const TagSelector = ({ name, data, loading, options }) => {
           <div className="absolute top-[50%] translate-y-[-50%] right-2 cursor-pointer">
             <Icon type={loading ? "loading" : "chevron-down"} />
           </div>
-        </button>
+        </div>
         <div
           className={clsx(
             "absolute z-[999] bg-white w-full top-[99%] shadow-[0_6px_20px_rgba(5,66,93,0.1),0_26px_40px_rgba(8,52,82,0.1)] max-h-60 py-2 overflow-y-auto animate-fadedown p-1",

@@ -38,16 +38,15 @@ const HelpContext = ({ id }) => {
     dismiss,
     role,
   ]);
+ 
 
   return (
     <>
-      <button
-        className="flex items-center"
+      <div
+        className="flex items-center cursor-pointer"
         ref={refs.setReference}
         {...getReferenceProps()}
-        onClick={(e) => {
-          e.preventDefault();
-        }}
+        
       >
         <div className="text-[10px] bg-white border border-orange-500 h-5 leading-4 text-orange-900 rounded-tl-full rounded-bl-full px-2 ">
           <I18N id={`helpcontext.title.${id}`} />
@@ -55,7 +54,7 @@ const HelpContext = ({ id }) => {
         <div className="bg-orange-500 rounded-tr-full rounded-br-full border border-orange-500 text-white text-[15px] h-5 w-5 leading-none pr-1">
           <Icon type="help3" />
         </div>
-      </button>
+      </div>
       {isOpen && (
         <FloatingFocusManager context={context} modal={false}>
           <div
