@@ -34,7 +34,7 @@ const GridUI = () => {
         ref={rootRef}
       >
         {readyToRender ? (
-          <table>
+          <table className="grid-table">
             <thead className="sticky z-50 top-0 bg-white">
               <tr className="border-spacing-0">
                 {myItemList.map((myItem, k) => {
@@ -71,7 +71,7 @@ const GridUI = () => {
                 return (
                   <tr
                     key={wantGroup.id}
-                    className="border-spacing-0 hover:bg-red-600/50"
+                    className="border-spacing-0"
                   >
                     {myItemList.map((myItem, k) => {
                       return k === 0 ? (

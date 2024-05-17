@@ -1,3 +1,9 @@
+/* .grid-table {
+  //
+  tbody {
+    overflow: hidden;
+  }
+} */
 .td-cell {
   position: relative;
   &:hover::after {
@@ -6,8 +12,19 @@
     height: 10000px;
     left: 0;
     position: absolute;
-    top: -5000px;
+    bottom: 0px;
     width: 100%;
+    z-index: -1;
+  }
+
+  &:hover::before {
+    background-color: rgb(220 38 38 / 0.5);
+    content: "";
+    width: 10000px;
+    right: 0;
+    position: absolute;
+    bottom: 0px;
+    height: 100%;
     z-index: -1;
   }
 }
