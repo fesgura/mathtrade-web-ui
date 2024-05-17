@@ -54,10 +54,13 @@ const TagSelector = ({ name, data, loading, options }) => {
   return (
     <>
       <div className="relative text-sm">
-        <div
+        <div tabIndex="-3"
           className="text-left block w-full border border-stroke rounded-md  pl-3 pr-6 py-1 shadow-sm transition cursor-pointer"          
           onFocus={() => {
             setFocus(true);
+          }}
+          onClick={(e)=>{
+         //   e.stopPropagation();
           }}
           onBlur={() => {
             setTimeout(() => {
