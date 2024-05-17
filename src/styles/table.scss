@@ -1,0 +1,13 @@
+.td-cell {
+  position: relative;
+  &:hover::after {
+    background-color: rgb(220 38 38 / 0.5);
+    content: "";
+    height: 10000px;
+    left: 0;
+    position: absolute;
+    top: -5000px;
+    width: 100%;
+    z-index: -1;
+  }
+}

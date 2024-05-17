@@ -71,7 +71,7 @@ const GridUI = () => {
                 return (
                   <tr
                     key={wantGroup.id}
-                    className="border-spacing-0 hover:bg-gray-200"
+                    className="border-spacing-0 hover:bg-red-600/50"
                   >
                     {myItemList.map((myItem, k) => {
                       return k === 0 ? (

@@ -20,7 +20,7 @@ const Cell = ({ rootRef, wantGroup, myItem }) => {
   }, [myItem, groupsVisible]);
 
   return (
-    <td className="border-spacing-0 m-0 p-0" ref={targetRef}>
+    <td className="border-spacing-0 m-0 p-0 td-cell" ref={targetRef}>
       {!hidden && visible ? (
         <CellUI wantGroup={wantGroup} myItem={myItem} />
       ) : null}
