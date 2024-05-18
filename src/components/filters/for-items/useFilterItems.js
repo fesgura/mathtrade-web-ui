@@ -45,8 +45,6 @@ const useFiltersItems = () => {
   const filters = useOptions((state) => state.filters_item);
   const locations = useStore((state) => state.locations);
 
-  console.log("filters", filters);
-
   const filtersProcessed = useMemo(() => {
     const filtersProc = {
       ...filters,
@@ -225,7 +223,6 @@ const useFiltersItems = () => {
         };
       });
   }, [users]);
-  console.log("filtersProcessed", filtersProcessed);
 
   return {
     data: filtersProcessed,
