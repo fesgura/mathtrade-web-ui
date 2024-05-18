@@ -35,6 +35,10 @@ const useFilterGames = () => {
       filtersProc.hide_wanted = true;
     }
 
+    if (filters.dependency) {
+      filtersProc.dependency = filters.dependency.join(",");
+    }
+
     return filtersProc;
   }, [filters]);
 

@@ -90,7 +90,9 @@ const useSelect = (
             (o) => o.value === optionValue
           );
           const newOptionsComplete = [...optionsComplete];
+          // if (newOptionsComplete[indexInOptionsComplete] !== undefined) {
           newOptionsComplete[indexInOptionsComplete].chosen = action === "add";
+          //  }
 
           setOptionsComplete(newOptionsComplete);
 
