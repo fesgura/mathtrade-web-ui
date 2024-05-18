@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { useStore, useOptions } from "@/store";
 import { SidebarContext } from "@/context/sidebar";
 import { GotoTopContext } from "@/context/goto-top";
@@ -37,6 +37,15 @@ const useFilters = ({ type }) => {
   const { user } = useStore((state) => state.data);
 
   const [enabledRender, setEnabledRender] = useState(true);
+
+  /*************************/
+  const [tabOpSelected, setTabOpSelected] = useState(0);
+  useEffect(() => {
+    if (type !== "item") {
+      setTabOpSelected(0);
+    }
+  }, [type]);
+  /*************************/
 
   return {
     enabledRender,
@@ -97,6 +106,8 @@ const useFilters = ({ type }) => {
       hide_my_user: "boolean",
     },
     clearFilters,
+    tabOpSelected,
+    setTabOpSelected,
   };
 };
 

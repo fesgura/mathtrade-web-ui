@@ -5,7 +5,6 @@ import {
   Input,
   RangeTwo,
   Switch,
-  TagSelector,
 } from "@/components/form";
 import useFilterItems from "./useFilterItems";
 import I18N from "@/i18n";
@@ -13,6 +12,7 @@ import NewItemTag from "@/components/item-tags/new-item-tag";
 import BanUsers from "@/components/ban/users";
 import Icon from "@/components/icon";
 import HelpContext from "@/components/help-context";
+import CurrentTag from "../tag-selector/currentTag";
 
 const FiltersForItems = () => {
   const {
@@ -21,7 +21,6 @@ const FiltersForItems = () => {
     loadingUserList,
     typeList,
     banOptions,
-    tagList,
     statusList,
     locationList,
     languageList,
@@ -31,6 +30,7 @@ const FiltersForItems = () => {
   return (
     <>
       <fieldset>
+        <CurrentTag />
         <InputContainer>
           <Label text="filter.Search" name="keyword" size="sm" />
           <Input
@@ -43,16 +43,6 @@ const FiltersForItems = () => {
             icon="search"
             size="sm"
           />
-        </InputContainer>
-
-        <InputContainer>
-          <div className="flex items-center gap-2 mb-2">
-            <Label text="filter.Tag" name="tag" size="sm" />
-            <HelpContext id="whatIsTag" />
-          </div>
-
-          <TagSelector data={data} name="tag" options={tagList} />
-          <NewItemTag />
         </InputContainer>
       </fieldset>
 

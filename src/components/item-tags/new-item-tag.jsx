@@ -18,7 +18,7 @@ const NewItemTag = () => {
     <div className="text-center pt-2">
       <a
         href="/"
-        className="text-primary underline hover:text-sky-700"
+        className="text-primary underline font-bold hover:text-sky-700"
         onClick={(e) => {
           e.preventDefault();
           setVisibleEdit(true);

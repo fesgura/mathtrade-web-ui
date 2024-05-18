@@ -10,14 +10,8 @@ import useFetch from "@/hooks/useFetch";
 
 const useFiltersItems = () => {
   /* PAGE CONTEXT **********************************************/
-  const {
-    itemTags,
-    users,
-    setUsers,
-    loadingUsers,
-    setLoadingUsers,
-    filterData,
-  } = useContext(PageContext);
+  const { users, setUsers, loadingUsers, setLoadingUsers, filterData } =
+    useContext(PageContext);
   /* end PAGE CONTEXT */
 
   /* USERS ****************************************/
@@ -74,17 +68,6 @@ const useFiltersItems = () => {
 
     return filtersProc;
   }, [filters]);
-
-  const tagList = useMemo(() => {
-    return itemTags?.map((tag) => {
-      return {
-        value: tag.id,
-        text: tag.name,
-        color: tag.color,
-        count: tag.items.length,
-      };
-    });
-  }, [itemTags]);
 
   const {
     typeList,
@@ -240,7 +223,6 @@ const useFiltersItems = () => {
     userList,
     loadingUserList: loadingUsers,
     typeList,
-    tagList,
     banOptions,
     statusList,
     locationList,

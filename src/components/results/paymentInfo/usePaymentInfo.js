@@ -67,8 +67,6 @@ const usePaymentInfo = () => {
     });
   };
 
-  console.log(images);
-
   return {
     text,
     images,
