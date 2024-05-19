@@ -12,6 +12,7 @@ import Header from "./header";
 import ItemTagHeader from "@/components/item-tags/item-tag-header";
 import ErrorAlert from "@/components/errorAlert";
 import EmptyList from "@/components/emptyList";
+import Footer from "./footer";
 
 const ItemsView = () => {
   const { isLoaded, items, expandedItem, setExpandedItem, loading, error } =
@@ -48,6 +49,7 @@ const ItemsView = () => {
               />
               <ErrorAlert error={error} className="mt-3" />
             </div>
+            <Footer />
           </div>
         </SidebarGrid>
       </GotoTopContextProvider>

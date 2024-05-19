@@ -60,7 +60,7 @@ const Header = () => {
           <div className=" border-r border-gray-300 pr-2 mr-2">
             <PageSize type="item" />
           </div>
-          <div className=" ">
+          <div>
             <Pagination type="item" count={count} />
           </div>
         </div>

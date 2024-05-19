@@ -10,6 +10,7 @@ import Header from "./header";
 import ErrorAlert from "@/components/errorAlert";
 import GameGrid from "@/components/game/game-grid";
 import EmptyList from "@/components/emptyList";
+import Footer from "./footer";
 
 const GamesView = () => {
   const { isLoaded, games, expandedGame, setExpandedGame, loading, error } =
@@ -43,6 +44,7 @@ const GamesView = () => {
               message="EmptyList.games"
             />
             <ErrorAlert error={error} className="mt-3" />
+            <Footer />
           </div>
         </SidebarGrid>
       </GotoTopContextProvider>
