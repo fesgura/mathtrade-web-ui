@@ -1,10 +1,19 @@
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import Pill from "@/components/pill";
 import useFetch from "@/hooks/useFetch";
-import { LoadingBox } from "@/components/loading";
+import { useOptions } from "@/store";
 
 const Pills = () => {
-  const [mathTradeData, setMathTradeData] = useState({});
+  const options = useOptions((state) => state.options);
+  const updateOptions = useOptions((state) => state.updateOptions);
+  const [mathTradeData, setMathTradeData] = useState(
+    options?.mathTradeDataPills || {}
+  );
+  useEffect(() => {
+    updateOptions({
+      mathTradeDataPills: mathTradeData,
+    });
+  }, [updateOptions, mathTradeData]);
 
   // GET MathTradeData ********************************************
   const afterLoadMathTradeData = useCallback((newMathTradeData) => {
@@ -13,7 +22,7 @@ const Pills = () => {
   const params = useMemo(() => {
     return { stats: true };
   }, []);
-  const [, , loading] = useFetch({
+  useFetch({
     endpoint: "GET_MATHTRADE",
     params,
     autoLoad: true,
@@ -48,7 +57,6 @@ const Pills = () => {
           />
         </div>
       </div>
-      <LoadingBox loading={loading} min transparent />
     </div>
   );
 };
