@@ -42,11 +42,11 @@ const ItemContent = ({ bgg_id, title }) => {
 };
 
 const ItemNoBGG = ({ itemRaw, bgg_id, title }) => {
-  return (
+  return itemRaw ? (
     <ItemContextProvider itemRaw={itemRaw}>
       <ItemContent bgg_id={bgg_id} title={title} />
     </ItemContextProvider>
-  );
+  ) : null;
 };
 
 export default ItemNoBGG;
