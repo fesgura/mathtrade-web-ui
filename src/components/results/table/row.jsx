@@ -23,11 +23,11 @@ const ItemChangeUI = () => {
 };
 
 const ItemChange = ({ item }) => {
-  return (
+  return item ? (
     <ItemContextProvider itemRaw={item}>
       <ItemChangeUI />
     </ItemContextProvider>
-  );
+  ) : null;
 };
 
 const UserChange = ({ user }) => {

@@ -48,7 +48,7 @@ const Viewer = () => {
 
   const [urlDownload, setUrlDownload] = useState(null);
 
-  return (
+  return pages.length ? (
     <>
       <div className="py-5 text-center">
         <PDFDownloadLink
@@ -88,6 +88,10 @@ const Viewer = () => {
         </PDFViewer>
       </div>
     </>
+  ) : (
+    <div className="text-center py-4 text-xl">
+      <I18N id="results.tags.notags" />
+    </div>
   );
 };
 
