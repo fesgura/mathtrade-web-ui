@@ -20,15 +20,17 @@ const useHeaderMenu = () => {
   }, []);
 
   useEffect(() => {
+    let list = [];
     if (mathtrade) {
       if (membership) {
-        setMenuListOfItems(MenuList);
+        list = MenuList;
       } else {
-        setMenuListOfItems(MenuListNotSignedToMathtrade);
+        list = MenuListNotSignedToMathtrade;
       }
     } else {
-      setMenuListOfItems(MenuListDefault);
+      list = MenuListDefault;
     }
+    setMenuListOfItems(list.filter((item) => !item.disabled));
   }, [membership, mathtrade]);
 
   return {
