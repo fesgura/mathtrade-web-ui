@@ -20,7 +20,16 @@ const UserSelector = () => {
       })
 
       .map((user) => {
-        const { id: value, first_name, last_name, location, trades } = user;
+        const {
+          id: value,
+          first_name,
+          last_name,
+          location,
+          commitment,
+          trades: tradesPre,
+        } = user;
+
+        const trades = commitment ? tradesPre : 0;
 
         return {
           value,
