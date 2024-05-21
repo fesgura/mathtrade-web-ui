@@ -15,7 +15,7 @@ const STORE_DEFAULT = {
   locations: null,
 };
 
-const STORAGE_NAME = "MT_ARG_STORE";
+const STORAGE_NAME = "MT_ARG_STORE_B";
 const OPTIONS_NAME = "MT_ARG_OPTIONS";
 
 export const DAYS_EXPIRE_TOKEN = 1;
