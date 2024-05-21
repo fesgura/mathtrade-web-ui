@@ -638,6 +638,7 @@
   "results.tags.btn.loading": "Cargando...",
   "results.tags.title": "Etiquetas",
   "results.tags.notags": " Muy pronto verás aquí las etiquetas que debes imprimir para pegar en tus paquetes.",
+  "results.tags.nopayments": " Muy pronto verás aquí la información de los pagos para el envío de tus paquetes.",
   "results.text1": "¡Aquí está el listado de los intercambios que conseguiste!",
   "results.text2": "También podés consultar los intercambios de los otros participantes.",
   "results.userTable.commitment.no": "<strong>No está participando.</strong><br/>Para hacerlo debe <strong>\"Guardar y comprometer cambios\"</strong> desde<br/>",

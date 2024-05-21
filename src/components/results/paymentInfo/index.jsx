@@ -18,7 +18,8 @@ const PaymentInfo = () => {
     handleClickSendImages,
     successSend,
   } = usePaymentInfo();
-  return (
+
+  return text ? (
     <div className="bg-white rounded-xl shadow-xl max-w-3xl mx-auto">
       <div className="relative px-5 py-4">
         <div className="mb-9 rich-text">
@@ -52,7 +53,9 @@ const PaymentInfo = () => {
         <LoadingBox loading={loading} />
       </div>
     </div>
-  );
+  ):(  <div className="text-center py-4 text-xl">
+  <I18N id="results.tags.nopayments" />
+</div>);
 };
 
 export default PaymentInfo;
