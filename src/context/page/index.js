@@ -225,7 +225,10 @@ export const PageContextProvider = ({ children }) => {
         showModalPreview,
         setShowModalPreview,
         //
-        canI,
+        canI: {
+          ...canI,
+          results: false,
+        },
         /* canI: {
           offer: true,
           want: true,
