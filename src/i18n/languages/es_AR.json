@@ -826,5 +826,7 @@
   "votacion.description": "Selecciona la opción que más te gusta",
   "votacion.description.voted": "Ya elegiste una opción, ahora tenés que esperar los resultados.",
   "votacion.btn": "Enviar opción",
-  "votacion.btn.success": "Elección enviada correctamente."
+  "votacion.btn.success": "Elección enviada correctamente.",
+  "votacion.results.title": "Resultados de la votación",
+  "votacion.results.description": "Esto es lo que votaron los participantes."
 }
