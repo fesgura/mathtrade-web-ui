@@ -21,6 +21,16 @@ const HomeContent = () => {
 
   return (
     <Container>
+      <div className="text-center py-10 border-b border-gray-600 mb-10">
+        <a
+          href="https://api.mathtrade.com.ar/media/Comunicado-MT.pdf"
+          target="_blank"
+          rel="noreferrer"
+          className="text-white font-bold text-xl py-2 px-9 rounded-lg bg-primary hover:bg-sky-900 block w-fit mx-auto"
+        >
+          Descargar Comunicado del Math Trade
+        </a>
+      </div>
       {mathtrade ? (
         <>
           <div className="rich-text text-center">
