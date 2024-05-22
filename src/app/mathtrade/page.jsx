@@ -6,6 +6,7 @@ import PageHeader from "@/components/pageHeader";
 import { useContext, useEffect } from "react";
 import { PageContext } from "@/context/page";
 import HomeContent from "./homeContent";
+import Votacion from "./homeContent/votacion";
 
 export default function HomePage() {
   /* PAGE CONTEXT **********************************************/
@@ -42,7 +43,8 @@ export default function HomePage() {
           </>
         }
       >
-        <HomeContent />
+       {/*  <HomeContent /> */}
+       <Votacion/>
       </SectionCommon>
     </>
   );

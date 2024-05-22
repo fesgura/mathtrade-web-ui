@@ -821,5 +821,10 @@
   "photo.payment.title": "Comprobantes de pago",
   "photo.payment.subtitle": "(máx. 2 imágenes)",
   "payment.btn": "Enviar comprobante/s de pago",
-  "payment.btn.success": "Comprobante/s enviados correctamente."
+  "payment.btn.success": "Comprobante/s enviados correctamente.",
+  "votacion.title": "Votación",
+  "votacion.description": "Selecciona la opción que más te gusta",
+  "votacion.description.voted": "Ya elegiste una opción, ahora tenés que esperar los resultados.",
+  "votacion.btn": "Enviar opción",
+  "votacion.btn.success": "Elección enviada correctamente."
 }
