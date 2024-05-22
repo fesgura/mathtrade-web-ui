@@ -34,7 +34,7 @@ const LabelOpt = ({ opt, onChange, value, disabled }) => {
         })}
       >
         <div className="font-bold">{question}</div>
-        {description ? <div className="">{description}</div> : null}
+        {description ? <div className="text-balance">{description}</div> : null}
       </div>
     </label>
   );
@@ -59,7 +59,7 @@ const VotacionForm = () => {
         <h3 className="font-bold text-xl mb-5  text-balance">
           <I18N id="votacion.title" />
         </h3>
-        <p className="mb-7">
+        <p className="mb-7 text-balance">
           <I18N
             id={voted ? "votacion.description.voted" : "votacion.description"}
           />
