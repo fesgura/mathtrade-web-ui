@@ -39,7 +39,6 @@ const Options = () => {
   /* end COMMIT CHANGES ************************/
 
   const onClick = useCallback(() => {
-    console.log("value", value.trim());
     if (value.trim() !== "AUTOEXCLUIRME") {
       setShowError(true);
       return;
