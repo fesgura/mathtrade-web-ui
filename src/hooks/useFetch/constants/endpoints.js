@@ -119,6 +119,11 @@ const endpoints = {
   
   
   */
+
+  // VOTACION
+  GET_VOTACION: "api/surveys/",
+  POST_VOTACION: "api/surveys/answers/",
+  GET_VOTACION_RESULTS: "api/surveys/results/",
 };
 
 export default endpoints;

@@ -821,5 +821,12 @@
   "photo.payment.title": "Comprobantes de pago",
   "photo.payment.subtitle": "(máx. 2 imágenes)",
   "payment.btn": "Enviar comprobante/s de pago",
-  "payment.btn.success": "Comprobante/s enviados correctamente."
+  "payment.btn.success": "Comprobante/s enviados correctamente.",
+  "votacion.title": "Votación 23 de mayo",
+  "votacion.description": "Haciéndonos eco de las diversas posturas que se presentaron en el grupo de Telegram respecto a cuál es la solución precisa, nuestra conclusión es que la decisión final debe ser alcanzada de manera colectiva mediante una consulta vinculante para todos los usuarios activos del Math Trade 2024.<br/><br/>Cada usuario deberá ingresar en la web para participar de la votación <strong>durante el 23 de mayo</strong>.<br/>La elección de cada usuario será anónima y tendrán una sola oportunidad de voto entre las siguientes <strong>tres opciones:</strong>",
+  "votacion.description.voted": "Ya elegiste una opción, ahora tenés que esperar los resultados.",
+  "votacion.btn": "Enviar opción",
+  "votacion.btn.success": "Elección enviada correctamente.",
+  "votacion.results.title": "Resultados de la votación",
+  "votacion.results.description": "Esto es lo que votaron los participantes."
 }

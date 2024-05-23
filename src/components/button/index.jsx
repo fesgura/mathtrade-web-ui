@@ -8,6 +8,7 @@ const Button = ({
   color = "primary",
   block,
   sm,
+  lg,
   children,
   className,
   href = "",
@@ -37,7 +38,11 @@ const Button = ({
       : outline
       ? `hover:bg-${colorBtn} hover:text-white`
       : "hover:opacity-75",
-    sm ? "px-5 py-[2px] text-sm" : "px-7 py-3 text-lg",
+    sm
+      ? "px-5 py-[2px] text-sm"
+      : lg
+      ? "px-10 py-3 text-xl"
+      : "px-7 py-3 text-lg",
     className
   );
 
