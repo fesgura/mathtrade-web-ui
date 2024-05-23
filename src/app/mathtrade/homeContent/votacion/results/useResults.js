@@ -4,7 +4,11 @@ import I18N, { getI18Ntext } from "@/i18n";
 
 const useResults = () => {
   const format = useCallback((d) => {
-    return d.map(({ question, answers_count }) => [question, answers_count]);
+    console.log(d);
+    return d.map(({ question, answers_count, description }) => [
+      question + description,
+      answers_count,
+    ]);
   }, []);
   const [, data, loading, error] = useFetch({
     endpoint: "GET_VOTACION_RESULTS",

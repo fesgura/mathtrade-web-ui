@@ -5,6 +5,7 @@ import I18N from "@/i18n";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
 import SuccessAlert from "@/components/successAlert";
+import { useState } from "react";
 
 const LabelOpt = ({ opt, onChange, value, disabled }) => {
   const { id, question, description } = opt;
@@ -40,7 +41,7 @@ const LabelOpt = ({ opt, onChange, value, disabled }) => {
   );
 };
 
-const VotacionForm = () => {
+const VotacionForm = ({ setShowResultes }) => {
   const {
     voted,
     disabled,
@@ -53,12 +54,39 @@ const VotacionForm = () => {
     submit,
     showSuccess,
   } = useVotacion();
+
+  const [showpass, setShowPass] = useState(false);
+  const [pass, setPass] = useState("");
+
   return (
     <div className="relative">
       <div className="text-center">
-        <h3 className="font-bold text-xl mb-5  text-balance">
+        <h3
+          className="font-bold text-xl mb-5  text-balance"
+          onDoubleClick={() => setShowPass(true)}
+        >
           <I18N id="votacion.title" />
         </h3>
+        {showpass ? (
+          <div className="w-64 text-center mx-auto p-4 border-2 border-gray-200 rounded-lg mb-5">
+            <input
+              type="text"
+              className="w-full p-2 border-2 border-gray-200 rounded-lg mb-4"
+              placeholder="Contraseña"
+              onChange={(e) => setPass(e.target.value)}
+            />
+            <button
+              onClick={() => {
+                if (pass === process.env.KEY_RESULTS) {
+                  setShowResultes(true);
+                }
+              }}
+              className="py-1 px-4 bg-primary text-white rounded-lg"
+            >
+              Ver
+            </button>
+          </div>
+        ) : null}
         <div className="text-center pb-4">
           <a
             href="https://api.mathtrade.com.ar/media/Comunicado-MT.pdf"
