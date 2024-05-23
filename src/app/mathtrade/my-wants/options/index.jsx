@@ -12,6 +12,16 @@ import useFetch from "@/hooks/useFetch";
 import { LoadingBox } from "@/components/loading";
 
 const Options = () => {
+  const [enabledRender, setEnabledRender] = useState(false);
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setEnabledRender(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const [isOpen, setIsOpen] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
@@ -47,7 +57,7 @@ const Options = () => {
     commitChanges({ params: { commit: false } });
   }, [commitChanges, value]);
 
-  return (
+  return enabledRender ? (
     <>
       <Container>
         {mustConfirm ? (
@@ -121,7 +131,7 @@ const Options = () => {
         </div>
       </Modal>
     </>
-  );
+  ) : null;
 };
 
 export default Options;
