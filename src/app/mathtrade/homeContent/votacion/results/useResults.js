@@ -9,6 +9,8 @@ export const colores = [
 
 const useResults = () => {
   const format = useCallback((d) => {
+    console.log(d);
+
     const { data, descriptions, count } = d.reduce(
       (obj, { question, answers_count, description }) => {
         obj.data.push([question, answers_count]);

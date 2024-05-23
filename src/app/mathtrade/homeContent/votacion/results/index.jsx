@@ -9,6 +9,7 @@ import { colores } from "./useResults";
 
 const Results = () => {
   const { graphRef, loading, error, count, descriptions } = useResults();
+  console.log(descriptions);
 
   return (
     <>
