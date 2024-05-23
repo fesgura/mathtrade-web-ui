@@ -10,8 +10,14 @@ const useVotacion = () => {
     if (!options || !options.length) {
       return [];
     }
-    const voted =
-      typeof options[0].voted !== "undefined" ? options[0].voted : true;
+    let voted = false;
+    options.forEach(({ id, voted: opVoted }) => {
+      if (opVoted) {
+        voted = true;
+        setValue(`${id}`);
+      }
+    });
+
     setDisabled(voted);
     setVoted(voted);
     return options;
