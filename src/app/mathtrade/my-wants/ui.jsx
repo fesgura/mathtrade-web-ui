@@ -12,6 +12,7 @@ import Container from "@/components/container";
 import ModalPreviewerItem from "@/components/previewerItem/modal";
 import { GotoTopContextProvider } from "@/context/goto-top";
 import HelpContext from "@/components/help-context";
+import Options from "./options";
 
 export default function MyWantsUI() {
   const { screenView, setScreenView, loading, error } = useWants();
@@ -30,6 +31,7 @@ export default function MyWantsUI() {
         }
       />
       <SectionCommon loading={loading}>
+        <Options />
         <Tabs
           list={["want.screen.visual", "want.screen.grid"]}
           value={screenView}

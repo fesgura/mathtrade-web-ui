@@ -828,5 +828,13 @@
   "votacion.btn": "Enviar opción",
   "votacion.btn.success": "Elección enviada correctamente.",
   "votacion.results.title": "Resultados de la votación",
-  "votacion.results.description": "Esto es lo que votaron los participantes."
+  "votacion.results.description": "Esto es lo que votaron los participantes.",
+  "autoexcluir.description": "Declaro que <strong>he revisado a conciencia mis deseos</strong> en el Math Trade y <strong>quiero autoexcluirme de participar</strong>.<br/>Esto no conllevará ninguna penalización a futuro.",
+  "autoexcluir.btn.1": "Deseo <strong>autoexcluirme</strong> de este Math Trade",
+  "autoexcluir.explanation": "Escribí en el campo de abajo la palabra <strong>AUTOEXCLUIRME</strong> con letras mayúsculas. Luego presioná el <strong>botón rojo</strong> de abajo para <strong>autoexcluirte de este Math Trade</strong>.<br/><br/><strong>Esta decisión es irreversible.</strong>",
+  "autoexcluir.placeholder": "Escribí la palabra AUTOEXCLUIRME",
+  "autoexcluir.placeholder.error": "Debés escribír la palabra AUTOEXCLUIRME.",
+  "autoexcluir.btn": "Sí, autoexcluirme",
+  "autoexcluir.success": "Te has autoexcluido de este Math Trade.",
+  "autoexcluir.out": "No estas participando en este Math Trade.<br/>Tus ejemplares NO serán intercambiados."
 }

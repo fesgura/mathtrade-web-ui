@@ -35,7 +35,7 @@ export const MenuList = [
     title: `menu.${PRIVATE_ROUTES.WANTS.title}`,
     path: PRIVATE_ROUTES.WANTS.path,
     name: "myWants",
-    disabled: true,
+    //disabled: true,
   },
   {
     title: `menu.${PRIVATE_ROUTES.RESULTS.title}`,
