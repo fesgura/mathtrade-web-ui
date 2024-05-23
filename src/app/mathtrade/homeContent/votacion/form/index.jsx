@@ -59,6 +59,16 @@ const VotacionForm = () => {
         <h3 className="font-bold text-xl mb-5  text-balance">
           <I18N id="votacion.title" />
         </h3>
+        <div className="text-center pb-4">
+          <a
+            href="https://api.mathtrade.com.ar/media/Comunicado-MT.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="text-white font-bold  py-1 px-9 rounded-lg bg-primary hover:bg-sky-900 block w-fit mx-auto"
+          >
+            Descargar Comunicado del Math Trade
+          </a>
+        </div>
         <p className="mb-7 text-balance">
           <I18N
             id={voted ? "votacion.description.voted" : "votacion.description"}
