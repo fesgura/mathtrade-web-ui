@@ -3,7 +3,6 @@ import Script from "next/script";
 import I18N from "@/i18n";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
-import SuccessAlert from "@/components/successAlert";
 import useResults from "./useResults";
 import { colores } from "./useResults";
 
