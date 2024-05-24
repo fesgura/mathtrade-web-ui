@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    KEY_RESULTS: "avocado.toast",
     PAUSED_SITE: "no",
     CAN_I_TEST_MODE: "no",
     //
