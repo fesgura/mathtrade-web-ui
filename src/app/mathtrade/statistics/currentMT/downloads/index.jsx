@@ -21,7 +21,7 @@ const Downloads = ({ stats }) => {
       </div>
       <p className="mb-4">
         <a
-          href={urlBaseMedia + stats?.wants}
+          href={ stats?.wants}
           className="bg-primary block text-white py-2 px-6 text-lg text-center w-fit mx-auto rounded-full hover:opacity-80"
           download
           target="_blank"
@@ -35,7 +35,7 @@ const Downloads = ({ stats }) => {
       </p>
       <p className="mb-4">
         <a
-          href={urlBaseMedia + stats?.results}
+          href={stats?.results}
           className="bg-primary block text-white py-2 px-6 text-lg text-center w-fit mx-auto rounded-full hover:opacity-80"
           download
           target="_blank"
