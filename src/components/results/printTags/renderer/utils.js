@@ -6,10 +6,12 @@ export const dataToTag = (data) => {
     return null;
   }
 
-  const { table_number, via_meeting, user, item_to, member_to } = data;
+  const { table_number, via_meeting, user, item_to, member_to,assigned_trade_code } = data;
+
+  const id = String(assigned_trade_code || 0). padStart(4, '0');
 
   return {
-    id: item_to ? item_to?.id : "-",
+    id,
     name: item_to ? cropWord(item_to?.title, 40) : "-",
     from: `${user.first_name} ${user.last_name} (${user.location.name})`, //"LOLCESE (Córdoba)",
     to: member_to
@@ -91,15 +93,15 @@ export const drawTag = (data, ctx, width, height, x, y) => {
 
   ctx.fillText(altLocationComplete, centerX, yPos);
 
-  yPos += 35 * K;
-  ctx.font = `${90 * K}px Arial`;
+  yPos += 40 * K;
+  ctx.font = `${80 * K}px Arial`;
 
   ctx.fillText(mesa, centerX, yPos);
 
   ctx.lineWidth = 2;
 
   if (!via) {
-    ctx.strokeStyle = "#AAAAAA";
+    ctx.strokeStyle = "#888888";
     ctx.beginPath();
     ctx.moveTo(x + paddingRect, yPos - 10 * K + heightRect / 2);
     ctx.lineTo(centerX - sideHex / 2, yPos - 10 * K);
@@ -136,7 +138,7 @@ export const drawTag = (data, ctx, width, height, x, y) => {
     let xD = x + padding;
     const lD = 8 * K;
     const eD = 6 * K;
-    ctx.strokeStyle = "#AAAAAA";
+    ctx.strokeStyle = "#666666";
     ctx.lineWidth = 4;
     while (xD < x + width) {
       ctx.beginPath();
@@ -148,7 +150,7 @@ export const drawTag = (data, ctx, width, height, x, y) => {
     }
 
     // doblar
-    ctx.fillStyle = "#888888";
+    ctx.fillStyle = "#444444";
     ctx.textAlign = "left";
     ctx.font = `${7 * K}px Arial`;
     ctx.fillText("DOBLAR POR AQUÍ", x + padding + 10, yPos - 7 * K - 2);
