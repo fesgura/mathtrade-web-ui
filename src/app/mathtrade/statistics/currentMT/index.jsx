@@ -22,7 +22,7 @@ const StatsUI = () => {
             </div>
             <div className="lg:w-2/3">
               <Segments stats={data} />
-              <Downloads stats={data} />
+              <Downloads />
             </div>
           </div>
         </>

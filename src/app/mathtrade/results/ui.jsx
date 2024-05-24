@@ -8,6 +8,7 @@ import ResultsVisual from "@/components/results/visual";
 import ResultsTable from "@/components/results/table";
 import PrintTags from "@/components/results/printTags";
 import PaymentInfo from "@/components/results/paymentInfo";
+import Downloads from "../statistics/currentMT/downloads";
 
 export default function ResultsUI() {
   const { screenViewResults, setScreenViewResults, loading, MathTradeResults } =
@@ -18,6 +19,10 @@ export default function ResultsUI() {
       <SectionCommon loading={loading}>
         <Container>
           <PillsResults />
+          <div className="max-w-[1100px] mx-auto mb-5 pt-3">
+            <Downloads accordion />
+          </div>
+
           <UserSelector />
           {MathTradeResults ? (
             <Tabs

@@ -1,13 +1,25 @@
 import I18N from "@/i18n";
-import { urlBaseMedia, TradeMaximizerLinks } from "@/config/stats";
+import { TradeMaximizerLinks } from "@/config/stats";
 import Icon from "@/components/icon";
+import useFetch from "@/hooks/useFetch";
+import { LoadingBox } from "@/components/loading";
+import clsx from "clsx";
+import { useState } from "react";
+import ErrorAlert from "@/components/errorAlert";
 
-const Downloads = ({ stats }) => {
-  return stats?.wants && stats?.results ? (
-    <div className="bg-white px-5 py-4 rounded-xl shadow-xl">
-      <h3 className="font-bold text-lg mb-5 text-gray-500 text-balance">
-        <I18N id="stats.downloads.title" />
-      </h3>
+const ContentDownload = () => {
+  /* FETCH *************************************************/
+
+  const [, stats, loading, error] = useFetch({
+    endpoint: "GET_MATHTRADE_STATS",
+    autoLoad: true,
+    // format,
+  });
+  /* end FETCH */
+  return error ? (
+    <ErrorAlert error />
+  ) : (
+    <div className="pt-4 relative">
       <div className="rich-text">
         <p className="text-balance">
           <I18N
@@ -21,7 +33,7 @@ const Downloads = ({ stats }) => {
       </div>
       <p className="mb-4">
         <a
-          href={ stats?.wants}
+          href={stats?.wants}
           className="bg-primary block text-white py-2 px-6 text-lg text-center w-fit mx-auto rounded-full hover:opacity-80"
           download
           target="_blank"
@@ -44,8 +56,41 @@ const Downloads = ({ stats }) => {
           <I18N id="stats.downloads.btn.results" />
         </a>
       </p>
+      <LoadingBox loading={loading} />
     </div>
-  ):null;
+  );
+};
+
+const Downloads = ({ accordion }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="bg-white px-5 py-4 rounded-xl shadow-xl">
+      <h3
+        className={clsx("font-bold text-lg text-gray-500 text-balance", {
+          "cursor-pointer": accordion,
+        })}
+        onClick={
+          accordion
+            ? () => {
+                setIsOpen((v) => !v);
+              }
+            : null
+        }
+      >
+        {accordion ? (
+          <Icon
+            type="chevron-right"
+            className={clsx("text-3xl transition-transform", {
+              "rotate-90": isOpen,
+            })}
+          />
+        ) : null}
+        <I18N id="stats.downloads.title" />
+      </h3>
+      {!isOpen && accordion ? null : <ContentDownload />}
+    </div>
+  );
 };
 
 export default Downloads;

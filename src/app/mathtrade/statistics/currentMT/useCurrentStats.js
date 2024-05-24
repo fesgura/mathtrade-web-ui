@@ -12,9 +12,6 @@ const useCurrentStats = () => {
   /* end PAGE CONTEXT */
 
   /* FETCH *************************************************/
-  const format = useCallback((d) => {
-    return d[0];
-  }, []);
 
   const [, data, loading, error] = useFetch({
     endpoint: "GET_MATHTRADE_STATS",
