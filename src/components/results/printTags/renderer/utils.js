@@ -2,7 +2,8 @@ import { cropWord } from "@/utils/text";
 import { dpi, elementPerPage } from "../config";
 
 export const dataToTag = (data) => {
-  if (!data.table_number || !data.show_label) {
+  if (!data.table_number || 
+    !data.show_label) {
     return null;
   }
 

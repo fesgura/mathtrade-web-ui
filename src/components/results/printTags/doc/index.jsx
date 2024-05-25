@@ -12,6 +12,7 @@ import Icon from "@/components/icon";
 import { PrintTagsContext } from "../context";
 import { useContext, useState } from "react";
 import { dpi, padding, canvasWidth } from "../config";
+import Tutorial from "../tutorial";
 
 const styles = StyleSheet.create({
   section: {
@@ -51,6 +52,7 @@ const Viewer = () => {
   return pages.length ? (
     <>
       <div className="py-5 text-center">
+        <Tutorial />
         <PDFDownloadLink
           className="bg-primary text-white  py-3  px-7  text-2xl rounded-xl"
           document={<Doc pages={pages} />}

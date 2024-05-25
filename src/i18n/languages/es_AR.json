@@ -836,5 +836,10 @@
   "autoexcluir.placeholder.error": "Debés escribír la palabra AUTOEXCLUIRME.",
   "autoexcluir.btn": "Sí, autoexcluirme",
   "autoexcluir.success": "Te has autoexcluido de este Math Trade.",
-  "autoexcluir.out": "No estas participando en este Math Trade.<br/>Tus ejemplares NO serán intercambiados."
+  "autoexcluir.out": "No estas participando en este Math Trade.<br/>Tus ejemplares NO serán intercambiados.",
+  "tutorial.tags.title": "¿Cómo se utilizan las etiquetas?",
+  "tutorial.tags.item.1": "Envolvé tu juego en <strong>film transparente</strong> (de esos que se usan para fiambres, quesos, viandas, etc.), de manera que los organizadores <strong>puedan ver claramente de qué juego se trata</strong>.",
+  "tutorial.tags.item.2": "Imprimí las etiquetas en hoja A4 en blanco y negro, y luego <strong>recortá cuidadosamente cada etiqueta</strong> (sin cortar ningún dato importante).",
+  "tutorial.tags.item.3": "Doblá cada etiqueta por la línea punteada que dice <strong>\"DOBLAR POR AQUÍ\"</strong>.",
+  "tutorial.tags.item.4": "Pegá la etiqueta en el juego correspondiente <strong>encima del film</strong>, de manera que la etiqueta se vea tanto <strong>desde la parte superior como desde el costado del juego</strong>."
 }
