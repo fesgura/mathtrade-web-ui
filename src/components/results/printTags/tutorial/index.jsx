@@ -33,8 +33,8 @@ const Item = ({ item }) => {
       <Image
         src={item.img}
         alt=""
-        width={300}
-        height={300}
+        width={450}
+        height={260}
         className="rounded-xl w-full shadow-lg border border-gray-400"
       />
       <p className="pt-3 text-balance text-sm">
@@ -55,7 +55,7 @@ const Content = () => {
 };
 
 const Tutorial = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="pb-8 text-left">
       <div className="bg-white px-5 py-4 rounded-xl shadow-xl">
