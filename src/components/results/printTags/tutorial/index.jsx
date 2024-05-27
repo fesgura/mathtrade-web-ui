@@ -29,7 +29,7 @@ const items = [
 
 const Item = ({ item }) => {
   return (
-    <div className="lg:w-1/4 md:w-1/2 sm:w-full px-4">
+    <div className="lg:w-1/4 md:w-1/2 sm:w-full px-4 pb-5">
       <Image
         src={item.img}
         alt=""
@@ -37,7 +37,7 @@ const Item = ({ item }) => {
         height={260}
         className="rounded-xl w-full shadow-lg border border-gray-400"
       />
-      <p className="pt-3 text-balance text-sm">
+      <p className="pt-2 text-balance text-sm px-1">
         <I18N id={`tutorial.tags.item.${item.text}`} />
       </p>
     </div>
