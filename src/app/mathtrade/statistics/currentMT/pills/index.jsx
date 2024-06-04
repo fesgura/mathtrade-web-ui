@@ -3,14 +3,21 @@ import Pill from "@/components/pill";
 import I18N from "@/i18n";
 
 const PillsStats = ({ data }) => {
-  const percent = useMemo(() => {
-    if (!data?.user_trading) {
-      return 0;
+  const { percentUsers, percentItems } = useMemo(() => {
+    if (!data?.users_count || !data?.items_count) {
+      return {
+        percentUsers: 0,
+        percentItems: 0,
+      };
     }
-    return (
-      (100 * (data?.user_trading || 0)) /
-      (data?.user_count || 0)
-    ).toFixed(0);
+    const percentUsers =
+      (100 * (data?.users_trading || 0)) / (data?.users_count || 0);
+    const percentItems =
+      (100 * (data?.item_trades || 0)) / (data?.items_count || 0).toFixed(1);
+    return {
+      percentUsers,
+      percentItems,
+    };
   }, [data]);
 
   return (
@@ -26,10 +33,16 @@ const PillsStats = ({ data }) => {
 
         <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
-            value={data?.items_count || 0}
-            label="results.pill.item"
+            value={data?.item_trades || 0}
+            label="stats.pill.item"
             color="item"
             className="bg-sky-500"
+            footer={
+              <I18N
+                id="stats.pill.item.footer"
+                values={[data?.items_count || 0, percentItems.toFixed(2)]}
+              />
+            }
           />
         </div>
         <div className="md:w-1/3 md:mb-0 mb-6">
@@ -41,7 +54,7 @@ const PillsStats = ({ data }) => {
               footer={
                 <I18N
                   id="stats.pill.user.footer"
-                  values={[data?.users_count || 0, percent]}
+                  values={[data?.users_count || 0, percentUsers.toFixed(2)]}
                 />
               }
             />

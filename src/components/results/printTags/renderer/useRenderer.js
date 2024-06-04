@@ -12,7 +12,6 @@ const useRenderer = () => {
   const { setPages } = useContext(PrintTagsContext);
 
   const list = useMemo(() => {
-    console.log(MathTradeResults)
     if (!MathTradeResults || !MathTradeResults.length) {
       return [];
     }
