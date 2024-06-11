@@ -25,6 +25,10 @@ const PaymentInfo = () => {
         <div className="mb-9 rich-text">
           <ReactMarkdown>{text}</ReactMarkdown>
         </div>
+        <div className="text-center text-red-600 text-xl font-bold mb-5 text-balance">
+          Recordá que tenés que subir la imagen del comprobante de pago para que
+          sepamos que ya pagaste.
+        </div>
         <div className="w-fit mx-auto">
           <PhotoGallery
             images={images}
@@ -53,9 +57,11 @@ const PaymentInfo = () => {
         <LoadingBox loading={loading} />
       </div>
     </div>
-  ):(  <div className="text-center py-4 text-xl">
-  <I18N id="results.tags.nopayments" />
-</div>);
+  ) : (
+    <div className="text-center py-4 text-xl">
+      <I18N id="results.tags.nopayments" />
+    </div>
+  );
 };
 
 export default PaymentInfo;
