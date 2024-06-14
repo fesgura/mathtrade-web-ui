@@ -54,8 +54,8 @@ const Content = () => {
   );
 };
 
-const Tutorial = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const Tutorial = ({ startOpen = false }) => {
+  const [isOpen, setIsOpen] = useState(startOpen);
   return (
     <div className="pb-8 text-left">
       <div className="bg-white px-5 py-4 rounded-xl shadow-xl">
