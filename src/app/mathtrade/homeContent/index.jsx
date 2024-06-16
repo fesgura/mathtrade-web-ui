@@ -11,8 +11,6 @@ import Iconshelp from "./iconshelp";
 import { instructPDFurl } from "@/config/rulebook";
 import Pills from "./pills";
 import Referral from "@/components/referral";
-import PaymentInfo from "@/components/results/paymentInfo";
-import Tutorial from "@/components/results/printTags/tutorial";
 
 const baseURL = process.env.BASE_URL;
 
@@ -23,10 +21,6 @@ const HomeContent = () => {
 
   return (
     <Container>
-      <div className="mb-6">
-        <Tutorial startOpen />
-      </div>
-
       {mathtrade ? (
         <>
           <div className="rich-text text-center">

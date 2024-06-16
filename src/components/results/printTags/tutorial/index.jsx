@@ -36,6 +36,7 @@ const Item = ({ item }) => {
         width={450}
         height={260}
         className="rounded-xl w-full shadow-lg border border-gray-400"
+        priority
       />
       <p className="pt-2 text-balance text-sm px-1">
         <I18N id={`tutorial.tags.item.${item.text}`} />

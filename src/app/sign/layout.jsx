@@ -1,7 +1,6 @@
 import "../globals.css";
 import "@/styles/index.scss";
 import Logo from "@/components/logo";
-import PublicEnvironment from "@/environments/public";
 //import WhatIsMathTrade from "./what-is-mt";
 import SliderSign from "@/components/slider-sign";
 
@@ -12,7 +11,7 @@ export default function SignLayout({ children }) {
         <div className="p-4">
           <Logo />
           <article className="relative bg-white rounded-xl shadow-xl px-11 py-7 sm:w-[450px]">
-            <PublicEnvironment>{children}</PublicEnvironment>
+            {children}
           </article>
         </div>
       </section>

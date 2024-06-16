@@ -40,6 +40,7 @@ const SliderSign = () => {
   return (
     <div className="absolute top-0 left-0 bg-black opacity-50  shadow-[inset_2px_0_10px_rgba(0,0,0,0.2)] hidden lg:block w-full h-full overflow-hidden">
       {list.map((f, k) => {
+        // console.log(f);
         return (
           <Image
             key={k}
@@ -53,6 +54,9 @@ const SliderSign = () => {
                 "z-10 opacity-0": k !== step && k !== prev,
               }
             )}
+            priority
+            width={f.width}
+            height={f.height}
           />
         );
       })}

@@ -21,7 +21,7 @@ export const PUBLIC_ROUTES = {
   },
 };
 
-const privateRoot = "/mathtrade";
+export const privateRoot = "/mathtrade";
 
 export const PRIVATE_ROUTES = {
   DEFAULT: {

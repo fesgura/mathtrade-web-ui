@@ -1,11 +1,17 @@
+"use client";
 import { useState, useCallback } from "react";
 import useFetch from "@/hooks/useFetch";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { GOOGLE_RECAPTCHA_SIGNIN_ID } from "@/config";
-import { useStore, DAYS_EXPIRE_TOKEN } from "@/store";
+import { useStore } from "@/store";
+import { COOKIE_AUTH_TOKEN, DAYS_EXPIRE_TOKEN } from "@/config/apiConfig";
+import { useRouter } from "next/navigation";
+import { setCookie } from "@/utils/cookies";
+import { PRIVATE_ROUTES } from "@/config/routes";
 
 const useSignIn = () => {
   const updateStore = useStore((state) => state.updateStore);
+  const router = useRouter();
 
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [loadingRecaptcha, setLoadingRecaptcha] = useState(false);
@@ -22,20 +28,18 @@ const useSignIn = () => {
         setChangePasswordRequiredToken(token);
       } else {
         // LOGIN
-        const d = new Date();
-
         updateStore("data", {
           user,
           mathtrade: mathtrade || null,
           membership: membership || null,
-          auth: {
-            expires: d.getTime() + Math.round(86400000 * DAYS_EXPIRE_TOKEN),
-            token,
-          },
         });
+        setCookie(COOKIE_AUTH_TOKEN, token, DAYS_EXPIRE_TOKEN);
+
+        router.push(PRIVATE_ROUTES.DEFAULT.path);
       }
     },
-    [updateStore]
+    [updateStore, router]
+    //[updateStore]
   );
 
   const [login, , loadingLogin, errorLogin] = useFetch({

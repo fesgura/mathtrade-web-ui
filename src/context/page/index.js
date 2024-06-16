@@ -2,6 +2,7 @@
 import { createContext, useState, useCallback, useMemo } from "react";
 import useLocations from "@/hooks/useLocations";
 import { useStore } from "@/store";
+import useLoginApi from "./useLoginApi";
 
 export const PageContext = createContext({
   pageType: null,
@@ -78,9 +79,7 @@ export const PageContext = createContext({
 
 const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE === "yes";
 
-export const PageContextProvider = ({ children }) => {
-  useLocations();
-
+const PageContextProvider = ({ children }) => {
   const { mathtrade, membership, user } = useStore((state) => state.data);
 
   const [pageType, setPageType] = useState(null);
@@ -171,6 +170,11 @@ export const PageContextProvider = ({ children }) => {
   const [mustConfirm, setMustConfirm] = useState(false);
   const [mustConfirmDate, setMustConfirmDate] = useState(null);
 
+  // TRY TO LOGIN API ************************************************/
+  const enableRender = useLoginApi();
+
+  useLocations(enableRender);
+
   return (
     <PageContext.Provider
       value={{
@@ -249,7 +253,9 @@ export const PageContextProvider = ({ children }) => {
         setMustConfirmDate,
       }}
     >
-      {children}
+      {enableRender && children}
     </PageContext.Provider>
   );
 };
+
+export default PageContextProvider;
