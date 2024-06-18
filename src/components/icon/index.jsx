@@ -1,3 +1,4 @@
+"use client";
 import listIcons from "./list";
 import clsx from "clsx";
 

@@ -1,3 +1,4 @@
+"use client";
 import { useCallback, useContext, useEffect } from "react";
 import { PageContext } from "@/context/page";
 import Modal from "@/components/modal";

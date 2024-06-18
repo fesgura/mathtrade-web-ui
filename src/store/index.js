@@ -6,19 +6,13 @@ const STORE_DEFAULT = {
     user: null,
     mathtrade: null,
     membership: null,
-    auth: {
-      expires: 0,
-      token: null,
-    },
     lang: "es",
   },
   locations: null,
 };
 
-const STORAGE_NAME = "MT_ARG_STORE_B";
+const STORAGE_NAME = "MT_ARG_STORE_C";
 const OPTIONS_NAME = "MT_ARG_OPTIONS";
-
-export const DAYS_EXPIRE_TOKEN = 1;
 
 export const useOptions = create(
   persist(

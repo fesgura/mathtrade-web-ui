@@ -78,9 +78,7 @@ export const PageContext = createContext({
 
 const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE === "yes";
 
-export const PageContextProvider = ({ children }) => {
-  useLocations();
-
+const PageContextProvider = ({ children }) => {
   const { mathtrade, membership, user } = useStore((state) => state.data);
 
   const [pageType, setPageType] = useState(null);
@@ -171,6 +169,8 @@ export const PageContextProvider = ({ children }) => {
   const [mustConfirm, setMustConfirm] = useState(false);
   const [mustConfirmDate, setMustConfirmDate] = useState(null);
 
+  useLocations();
+
   return (
     <PageContext.Provider
       value={{
@@ -253,3 +253,5 @@ export const PageContextProvider = ({ children }) => {
     </PageContext.Provider>
   );
 };
+
+export default PageContextProvider;

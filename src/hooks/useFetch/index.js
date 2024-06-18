@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { callToAPI } from "./utils";
 import { useStore } from "@/store";
-import { signOutApi } from "@/hooks/useFetch/constants/api";
+import useSignOut from "../useSignOut";
 
 const useFetch = ({
   initialState,
@@ -18,7 +18,7 @@ const useFetch = ({
   autoLoad,
   reloadValue,
 }) => {
-  const clearStore = useStore((state) => state.clearStore);
+  const signOut = useSignOut();
   const { mathtrade } = useStore((state) => state.data);
 
   const [data, setData] = useState(initialState || null);
@@ -53,8 +53,7 @@ const useFetch = ({
           afterError(errors);
         }
         if (response?.status === 401) {
-          signOutApi();
-          clearStore();
+          signOut();
         }
       } else {
         const jsonData = format ? format(responseData) : responseData;
@@ -74,7 +73,7 @@ const useFetch = ({
       afterError,
       defaultUrlParams,
       mathtrade,
-      clearStore,
+      signOut,
     ]
   );
 

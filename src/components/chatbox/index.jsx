@@ -1,6 +1,6 @@
+"use client";
 import { useContext, useEffect } from "react";
 import { PageContext } from "@/context/page";
-import I18N from "@/i18n";
 
 const ChatBoxButton = () => {
   /* PAGE CONTEXT **********************************************/

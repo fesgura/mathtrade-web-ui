@@ -53,6 +53,9 @@ const SliderSign = () => {
                 "z-10 opacity-0": k !== step && k !== prev,
               }
             )}
+            priority
+            width={f.width}
+            height={f.height}
           />
         );
       })}

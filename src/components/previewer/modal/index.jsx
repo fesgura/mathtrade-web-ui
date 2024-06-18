@@ -1,3 +1,4 @@
+"use client";
 import { useCallback, useContext } from "react";
 import Modal from "@/components/modal";
 import I18N from "@/i18n";

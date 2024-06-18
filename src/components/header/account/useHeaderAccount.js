@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { useStore } from "@/store";
-import { signOutApi } from "@/hooks/useFetch/constants/api";
+import useSignOut from "@/hooks/useSignOut";
 
 const useHeaderAccount = () => {
   const [show, setShow] = useState(false);
@@ -10,12 +9,7 @@ const useHeaderAccount = () => {
     setVisibleMobile((v) => !v);
   }, []);
 
-  const clearStore = useStore((state) => state.clearStore);
-
-  const signOut = useCallback(() => {
-    signOutApi();
-    clearStore();
-  }, [clearStore]);
+  const signOut = useSignOut();
 
   useEffect(() => {
     setShow(true);

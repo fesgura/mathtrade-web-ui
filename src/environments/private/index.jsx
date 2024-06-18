@@ -1,37 +1,31 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useStore } from "@/store";
-import { redirect } from "next/navigation";
-import { PUBLIC_ROUTES } from "@/config";
-import { isExpiredDate } from "@/utils";
-import { signInApi, signOutApi } from "@/hooks/useFetch/constants/api";
+import { createContext, useState, useEffect } from "react";
+import { signInApi } from "@/hooks/useFetch/constants/api";
 
-import LoadingBalls from "@/components/loading/balls";
-
-const pausedSite = process.env.PAUSED_SITE;
+export const PrivateEnvironmentContext = createContext({
+  enableRenderPrivateEnvironment: false,
+  setEnableRenderPrivateEnvironment: () => {},
+});
 
 const PrivateEnvironment = ({ children }) => {
-  const store = useStore((state) => state.data);
-  const clearStore = useStore((state) => state.clearStore);
-  const [enabledRender, setEnabledRender] = useState(false);
+  const [enableRenderPrivateEnvironment, setEnableRenderPrivateEnvironment] =
+    useState(false);
 
   useEffect(() => {
-    if (pausedSite === "yes") {
-      signOutApi();
-      clearStore();
-      redirect(PUBLIC_ROUTES.DEFAULT.path);
-    } else {
-      const notLogged = !store.auth.token || isExpiredDate(store.auth.expires);
-      if (notLogged) {
-        redirect(PUBLIC_ROUTES.DEFAULT.path);
-      } else {
-        signInApi(store?.auth?.token || "");
-        setEnabledRender(true);
-      }
-    }
-  }, [store, clearStore]);
+    signInApi();
+    setEnableRenderPrivateEnvironment(true);
+  }, []);
 
-  return enabledRender ? children : <LoadingBalls />;
+  return (
+    <PrivateEnvironmentContext.Provider
+      value={{
+        enableRenderPrivateEnvironment,
+        setEnableRenderPrivateEnvironment,
+      }}
+    >
+      {enableRenderPrivateEnvironment ? children : null}
+    </PrivateEnvironmentContext.Provider>
+  );
 };
 
 export default PrivateEnvironment;

@@ -12,4 +12,8 @@ const apiConfig = {
   },
 };
 
+export const DAYS_EXPIRE_TOKEN = 7;
+
+export const COOKIE_AUTH_TOKEN = "auth_token_mt";
+
 export default apiConfig;
