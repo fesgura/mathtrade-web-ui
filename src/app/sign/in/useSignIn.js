@@ -5,13 +5,15 @@ import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { GOOGLE_RECAPTCHA_SIGNIN_ID } from "@/config";
 import { useStore } from "@/store";
 import { COOKIE_AUTH_TOKEN, DAYS_EXPIRE_TOKEN } from "@/config/apiConfig";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { setCookie } from "@/utils/cookies";
 import { PRIVATE_ROUTES } from "@/config/routes";
 
 const useSignIn = () => {
   const updateStore = useStore((state) => state.updateStore);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
 
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [loadingRecaptcha, setLoadingRecaptcha] = useState(false);
@@ -35,10 +37,10 @@ const useSignIn = () => {
         });
         setCookie(COOKIE_AUTH_TOKEN, token, DAYS_EXPIRE_TOKEN);
 
-        router.push(PRIVATE_ROUTES.DEFAULT.path);
+        router.push(redirectUrl || PRIVATE_ROUTES.DEFAULT.path);
       }
     },
-    [updateStore, router]
+    [updateStore, router, redirectUrl]
     //[updateStore]
   );
 

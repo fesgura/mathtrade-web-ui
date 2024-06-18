@@ -2,7 +2,6 @@
 import { createContext, useState, useCallback, useMemo } from "react";
 import useLocations from "@/hooks/useLocations";
 import { useStore } from "@/store";
-import useLoginApi from "./useLoginApi";
 
 export const PageContext = createContext({
   pageType: null,
@@ -170,10 +169,7 @@ const PageContextProvider = ({ children }) => {
   const [mustConfirm, setMustConfirm] = useState(false);
   const [mustConfirmDate, setMustConfirmDate] = useState(null);
 
-  // TRY TO LOGIN API ************************************************/
-  const enableRender = useLoginApi();
-
-  useLocations(enableRender);
+  useLocations();
 
   return (
     <PageContext.Provider
@@ -253,7 +249,7 @@ const PageContextProvider = ({ children }) => {
         setMustConfirmDate,
       }}
     >
-      {enableRender && children}
+      {children}
     </PageContext.Provider>
   );
 };

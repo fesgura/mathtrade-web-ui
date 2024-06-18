@@ -1,8 +1,8 @@
 import { useStore } from "@/store";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import useFetch from "@/hooks/useFetch";
 
-const useLocations = (enableRender) => {
+const useLocations = () => {
   const updateStore = useStore((state) => state.updateStore);
 
   const afterLoad = useCallback(
@@ -12,17 +12,12 @@ const useLocations = (enableRender) => {
     [updateStore]
   );
 
-  const [getLocations] = useFetch({
+  useFetch({
     endpoint: "GET_LOCATIONS",
     initialState: [],
     afterLoad,
+    autoLoad: true,
   });
-
-  useEffect(() => {
-    if (enableRender) {
-      getLocations();
-    }
-  }, [enableRender, getLocations]);
 };
 
 export default useLocations;

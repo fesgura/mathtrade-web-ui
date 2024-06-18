@@ -1,20 +1,26 @@
 import { useStore } from "@/store";
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 import { signOutApi } from "./useFetch/constants/api";
 import { removeCookie } from "@/utils/cookies";
 import { COOKIE_AUTH_TOKEN } from "@/config/apiConfig";
 import { useRouter } from "next/navigation";
 import { PRIVATE_ROUTES } from "@/config/routes";
+import { PrivateEnvironmentContext } from "@/environments/private";
 
 const useSignOut = () => {
+  const { setEnableRenderPrivateEnvironment } = useContext(
+    PrivateEnvironmentContext
+  );
+
   const clearStore = useStore((state) => state.clearStore);
   const router = useRouter();
 
   return useCallback(() => {
+    setEnableRenderPrivateEnvironment(false);
     signOutApi();
     clearStore();
     removeCookie(COOKIE_AUTH_TOKEN);
     router.push(PRIVATE_ROUTES.DEFAULT.path);
-  }, [clearStore, router]);
+  }, [setEnableRenderPrivateEnvironment, clearStore, router]);
 };
 export default useSignOut;

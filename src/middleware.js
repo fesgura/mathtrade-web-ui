@@ -8,14 +8,20 @@ export async function middleware(request) {
 
     if (!token) {
       return NextResponse.redirect(
-        new URL(PUBLIC_ROUTES.DEFAULT.path, request.url)
+        new URL(
+          PUBLIC_ROUTES.DEFAULT.path + "?redirect=" + request.url,
+          request.url
+        )
       );
     }
 
     return NextResponse.next();
   } catch (e) {
     return NextResponse.redirect(
-      new URL(PUBLIC_ROUTES.DEFAULT.path, request.url)
+      new URL(
+        PUBLIC_ROUTES.DEFAULT.path + "?redirect=" + request.url,
+        request.url
+      )
     );
   }
 }
