@@ -21,6 +21,22 @@ const HomeContent = () => {
 
   return (
     <Container>
+      <div className="border-b border-gray-400 py-5 mb-5">
+        <div className="text-center max-w-4xl mx-auto">
+          <h2 className="text-2xl font-bold py-5">
+            Sanciones
+          </h2>
+          <p className="text-balance mb-3">Finalizó el decimoquinto Math Trade, una vez más con la tranquilidad de una <strong>tarea cumplida</strong> y la felicidad que el MT reparte ya en las casas de cada jugón y jugona.</p>
+          <p className="text-balance mb-3">Ya están disponibles las <strong>sanciones</strong> a quienes tuvieron algún <strong>incumplimiento de las reglas del Math Trade</strong>.<br/>Podés consultarlas aquí:</p>
+
+
+          
+          <p className="text-balance">
+            <a className="text-primary underline hover:text-sky-800 px-6 py-2 font-bold" href="https://api.mathtrade.com.ar/media/cierre_sanciones_MT.pdf" target="_blank" rel="noreferrer">
+            Sanciones (PDF)</a>
+          </p>
+        </div>
+      </div>
       {mathtrade ? (
         <>
           <div className="rich-text text-center">
