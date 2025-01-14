@@ -1,0 +1,88 @@
+"use client";
+import Container from "@/components/container";
+import PageHeader from "@/components/pageHeader";
+import SectionCommon from "@/components/sections/common";
+import { Form, InputContainer, Input } from "@/components/form";
+import Button from "@/components/button";
+import I18N from "@/i18n";
+import useReferral from "./useReferral";
+import ErrorAlert from "@/components/errorAlert";
+import ShareText from "@/components/shareText";
+
+export default function ReferralToRegister() {
+  const { validations, onSubmit, loading, error, code, url } = useReferral();
+  return (
+    <>
+      <PageHeader title="title.referNewUserPage" name="referral" />
+      <SectionCommon>
+        <Container>
+          <section className="max-w-2xl mx-auto pt-4 pb-12 relative">
+            <h3 className="text-center pb-2 text-2xl text-balance">
+              <I18N id="referral.page.subtitle" />
+            </h3>
+            <p className="text-center pb-2 mb-7 xtext-2xl text-balance">
+              <I18N id="referral.page.subtitle2" />
+            </p>
+            <ol className="list-decimal list-outside text-balance pl-4">
+              <li className="mb-5">
+                <I18N id="referral.page.step1" />
+              </li>
+              <li className="mb-6">
+                <div className="mb-2">
+                  <I18N id="referral.page.step2" />
+                </div>
+                <Form
+                  validations={validations}
+                  //formatTypes={formatTypes}
+                  onSubmit={onSubmit}
+                  className="flex items-start gap-2"
+                >
+                  <div className="grow">
+                    <InputContainer validate="referred" className="mb-0">
+                      <Input
+                        name="referred"
+                        type="email"
+                        placeholder="form.Email.placeholder"
+                        ariaLabel="form.Email"
+                        icon={loading ? "loading" : "email"}
+                        disabled={loading}
+                      />
+                    </InputContainer>
+                  </div>
+
+                  <Button
+                    ariaLabel="btn.SignUp"
+                    className="rounded-md"
+                    disabled={loading}
+                  >
+                    <I18N id="btn.generateReferralCode" />
+                  </Button>
+                </Form>
+                <ErrorAlert error={error} className="mt-3" />
+              </li>
+              {code.length ? (
+                <li className="mb-5">
+                  <div className="mb-5">
+                    <div className="mb-2">
+                      <I18N id="referral.page.step3a" />
+                    </div>
+                    <ShareText title="share.referral.title.url" url={url} />
+                  </div>
+                  <div className="">
+                    <div className="mb-2">
+                      <I18N id="referral.page.step3b" />
+                    </div>
+                    <ShareText title="share.referral.title" text={code} />
+                  </div>
+                </li>
+              ) : null}
+              <li>
+                <I18N id="referral.page.step4" />
+              </li>
+            </ol>
+          </section>
+        </Container>
+      </SectionCommon>
+    </>
+  );
+}

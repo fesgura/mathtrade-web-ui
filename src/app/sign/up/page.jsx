@@ -28,6 +28,7 @@ const SignUpPage = () => {
     errorRegister,
     errorBGG,
     isSuccess,
+    dataInitial,
   } = useSignUp();
 
   return (
@@ -72,16 +73,29 @@ const SignUpPage = () => {
               <InputContainer validate="email" className="mb-1">
                 <Label text="form.Email" name="email" required />
                 <Input
+                  data={dataInitial}
                   name="email"
                   type="email"
                   placeholder="form.Email.placeholder"
-                  autocomplete="username"
                   ariaLabel="form.Email"
                   icon="email"
                 />
               </InputContainer>
               <p className="text-xs text-gray-500 text-center mb-5">
                 <I18N id="form.Email.help" />
+              </p>
+              <InputContainer validate="referral_code" className="mb-1">
+                <Label text="form.ReferralCode" name="referral_code" required />
+                <Input
+                  data={dataInitial}
+                  name="referral_code"
+                  placeholder="form.ReferralCode.placeholder"
+                  ariaLabel="form.ReferralCode"
+                  icon="password"
+                />
+              </InputContainer>
+              <p className="text-xs text-gray-500 text-center mb-5">
+                <I18N id="form.ReferralCode.help" />
               </p>
             </fieldset>
             <fieldset>

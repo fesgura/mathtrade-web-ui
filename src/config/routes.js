@@ -80,6 +80,10 @@ export const PRIVATE_ROUTES = {
     title: "myAccount",
     path: privateRoot + "/my-account",
   },
+  REFERRAL: {
+    title: "referral",
+    path: privateRoot + "/referral",
+  },
   FAQS: {
     title: "faqs",
     path: privateRoot + "/faqs",

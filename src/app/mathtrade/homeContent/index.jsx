@@ -21,7 +21,7 @@ const HomeContent = () => {
 
   return (
     <Container>
-      <div className="border-b border-gray-400 py-5 mb-5">
+      {/* <div className="border-b border-gray-400 py-5 mb-5">
         <div className="text-center max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold py-5">
             Sanciones
@@ -36,7 +36,7 @@ const HomeContent = () => {
             Sanciones (PDF)</a>
           </p>
         </div>
-      </div>
+      </div> */}
       {mathtrade ? (
         <>
           <div className="rich-text text-center">

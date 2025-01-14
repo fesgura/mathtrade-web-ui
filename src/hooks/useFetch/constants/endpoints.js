@@ -7,6 +7,7 @@ const endpoints = {
   GET_USERS: "api/users/",
   GET_USER: "api/users/",
   PUT_USER: "api/users/",
+  POST_REFERRAL: "api/users/referral/",
 
   // Location
   GET_LOCATIONS: "api/locations/",

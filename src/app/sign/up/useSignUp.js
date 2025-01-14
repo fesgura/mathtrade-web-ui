@@ -1,10 +1,11 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import fetchBGG from "@/hooks/useFetchBGG/fetchBGG";
 import useFetch from "@/hooks/useFetch";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { GOOGLE_RECAPTCHA_SIGNUP_ID } from "@/config";
 
 const useSignUp = () => {
+  const [dataInitial, setDataInitial] = useState({});
   const [loading, setLoading] = useState(false);
   const [errorBGG, setErrorBGG] = useState(false);
   const [isSuccess, set_isSuccess] = useState(false);
@@ -77,8 +78,18 @@ const useSignUp = () => {
     [executeRecaptcha, createUser]
   );
 
+  useEffect(() => {
+    let params = new URLSearchParams(
+      decodeURIComponent(window.location.search)
+    );
+    const referral_code = params.get("code") ?? "";
+    const email = params.get("referred") ?? "";
+    setDataInitial({ referral_code, email });
+  }, []);
+
   return {
     validations: {
+      referral_code: ["required"],
       email: ["required", "email"],
       first_name: ["required"],
       last_name: ["required"],
@@ -94,6 +105,7 @@ const useSignUp = () => {
     errorRegister: errorRegister || errorRecaptcha,
     errorBGG: errorBGG ? "form.BGGuser.error" : null,
     isSuccess,
+    dataInitial,
   };
 };
 
