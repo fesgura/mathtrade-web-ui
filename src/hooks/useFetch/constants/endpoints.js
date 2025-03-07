@@ -12,10 +12,16 @@ const endpoints = {
   // Location
   GET_LOCATIONS: "api/locations/",
 
-  // COLLECTION
+  // COLLECTION (OLD)
   GET_MYCOLLECTION_ITEMS: "api/items/",
   EDIT_MYCOLLECTION_ITEM: "api/items/$[1]/",
   DELETE_MYCOLLECTION_ITEM: "api/items/$[1]/",
+
+  // COLLECTION (NEW)
+  GET_MYCOLLECTION_ELEMENTS: "api/elements/",
+  POST_MYCOLLECTION_ELEMENTS: "api/elements/",
+  PUT_MYCOLLECTION_ELEMENT: "api/elements/$[1]/",
+  DELETE_MYCOLLECTION_ELEMENT: "api/elements/$[1]/",
 
   // MYITEMS
   GET_MYITEMS: "api/mathtrades/$[mathtradeId]/user-items/",

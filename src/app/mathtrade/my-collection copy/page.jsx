@@ -3,25 +3,25 @@ import useMyCollection from "./useMyCollection";
 import { GotoTopContextProvider } from "@/context/goto-top";
 import SectionCommon from "@/components/sections/common";
 import ErrorAlert from "@/components/errorAlert";
-//import ItemMy from "@/components/item/item-my";
-//import NewItem from "@/components/item/item-my/new-item";
-import ElementWrapper from "@/components/element/elementMy/elementWrapper";
-import ElementMy from "@/components/element/elementMy";
-import NewElement from "@/components/element/newElement";
+import ItemMy from "@/components/item/item-my";
+import NewItem from "@/components/item/item-my/new-item";
 import I18N, { getI18Ntext } from "@/i18n";
 import PageHeader from "@/components/pageHeader";
 import OrderBy from "@/components/orderBy";
 import StickyHeader from "@/components/sticky-header";
 import Container from "@/components/container";
-
+const count = 392;
 const MyCollectionPage = () => {
   const {
-    elementList,
+    items,
+    optionsOrder,
     loading,
     error,
     filters_collection,
+    updateFilters,
+    isLoadedItems,
+    myCollection,
     searchText,
-    optionsOrder,
   } = useMyCollection();
 
   return (
@@ -65,10 +65,8 @@ const MyCollectionPage = () => {
                 />
                 <div className="font-bold italic text-gray-700 pl-2">
                   <I18N
-                    id={`itemCount.${
-                      elementList.length === 1 ? "one" : "many"
-                    }`}
-                    values={[elementList.length]}
+                    id={`itemCount.${items.length === 1 ? "one" : "many"}`}
+                    values={[items.length]}
                   />
                 </div>
               </div>
@@ -79,16 +77,16 @@ const MyCollectionPage = () => {
             </div>
           </StickyHeader>
           <Container size="md">
-            {elementList.map((element) => {
-              return (
-                <ElementWrapper key={element.id}>
-                  <ElementMy element={element} />
-                </ElementWrapper>
-              );
+            {items.length >= 2 ? <NewItem /> : null}
+            {!myCollection?.length && isLoadedItems ? (
+              <p className="text-center text-balance text-xl py-6 mb-4">
+                <I18N id="myCollection.notItemsMessage" />
+              </p>
+            ) : null}
+            {items.map((itemRaw) => {
+              return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
             })}
-            <ElementWrapper>
-              <NewElement />
-            </ElementWrapper>
+            <NewItem />
             <ErrorAlert error={error} />
           </Container>
         </GotoTopContextProvider>

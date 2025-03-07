@@ -147,7 +147,7 @@
   "btn.Enter": "Ingresar",
   "btn.Hide": "Ocultar",
   "btn.HideThisText": "Ocultar este texto",
-  "btn.MyCollection.addNewItem": "<strong>Cargar nuevo ejemplar</strong>",
+  "btn.MyCollection.addNewItem": "<strong>Nuevo ejemplar</strong>",
   "btn.MyCollection.addNewItemCantEdit": "<strong>Cargar nuevo ejemplar</strong> (para futuros Math Trades)",
   "btn.MyCollection.addNewItemForCombo": "<strong>Agregar otro ejemplar</strong> (para crear un <strong>combo</strong>)",
   "btn.MyCollection.addNewItemForComboCantEdit": "<strong>Agregar otro ejemplar</strong> (para crear un <strong>combo</strong>, en futuros Math Trades)",
