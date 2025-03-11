@@ -4,7 +4,7 @@ import Avatar from "@/components/avatar";
 import { useMemo, useContext } from "react";
 import { ItemContext } from "@/context/item";
 
-const UserBox = ({ userForce, avatarWidth = 20, toLeft, toCenter }) => {
+const UserBox = ({ userForce, avatarWidth = 24, toLeft, toCenter }) => {
   /* ITEM CONTEXT **********************************************/
   const { item } = useContext(ItemContext);
   const { user: userDefault } = item;
@@ -40,7 +40,7 @@ const UserBox = ({ userForce, avatarWidth = 20, toLeft, toCenter }) => {
         })}
       >
         <div
-          className={clsx("text-[11px] font-bold leading-[1] opacity-80", {
+          className={clsx("text-[11px] font-bold leading-tight", {
             "text-right": !toLeft && !toCenter,
             "text-center": toCenter,
           })}
@@ -48,7 +48,7 @@ const UserBox = ({ userForce, avatarWidth = 20, toLeft, toCenter }) => {
           {user?.name}
         </div>
         <div
-          className={clsx("text-[11px] leading-[1] opacity-70", {
+          className={clsx("text-[11px] leading-tight opacity-90", {
             "text-right": !toLeft && !toCenter,
             "text-center": toCenter,
           })}

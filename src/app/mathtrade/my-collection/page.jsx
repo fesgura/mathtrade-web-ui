@@ -5,8 +5,8 @@ import SectionCommon from "@/components/sections/common";
 import ErrorAlert from "@/components/errorAlert";
 //import ItemMy from "@/components/item/item-my";
 //import NewItem from "@/components/item/item-my/new-item";
-import ElementWrapper from "@/components/element/elementMy/elementWrapper";
-import ElementMy from "@/components/element/elementMy";
+import ElementWrapperOuter from "@/components/element/elementCollection/elementWrapperOuter";
+import ElementCollection from "@/components/element/elementCollection";
 import NewElement from "@/components/element/newElement";
 import I18N, { getI18Ntext } from "@/i18n";
 import PageHeader from "@/components/pageHeader";
@@ -79,16 +79,17 @@ const MyCollectionPage = () => {
             </div>
           </StickyHeader>
           <Container size="md">
+            <ElementWrapperOuter>
+              <NewElement />
+            </ElementWrapperOuter>
             {elementList.map((element) => {
               return (
-                <ElementWrapper key={element.id}>
-                  <ElementMy element={element} />
-                </ElementWrapper>
+                <ElementWrapperOuter key={element.id}>
+                  <ElementCollection element={{ element }} />
+                </ElementWrapperOuter>
               );
             })}
-            <ElementWrapper>
-              <NewElement />
-            </ElementWrapper>
+
             <ErrorAlert error={error} />
           </Container>
         </GotoTopContextProvider>

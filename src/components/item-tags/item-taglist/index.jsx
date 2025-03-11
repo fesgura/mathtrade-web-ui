@@ -16,9 +16,10 @@ const ItemTagList = () => {
   } = useItemTagList();
 
   return isOwned ? null : (
-    <div className="flex flex-wrap items-center gap-1 pb-3">
+    <div className="flex flex-wrap items-center gap-1">
       {tagCollection.current.map((tag) => {
         const { id, color, name, items } = tag;
+
         return (
           <div
             className="flex flex-nowrap  relative font-bold text-xs py-[2px] px-2 rounded-md"

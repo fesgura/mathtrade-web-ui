@@ -14,6 +14,8 @@ export const PageContext = createContext({
   games: [],
   setGames: () => {},
   myCollection: [],
+  myCollectionFiltered: [],
+  myCollectionList: [],
   setMyCollection: () => {},
   myCollectionBGGids: [],
   setMyCollectionBGGids: () => {},
@@ -171,6 +173,31 @@ const PageContextProvider = ({ children }) => {
 
   useLocations();
 
+  /* CollectionFILTERED ********************************************/
+  const { myCollectionFiltered, myCollectionList } = useMemo(() => {
+    const listElementIds = myItemsInMT.reduce((arr, { elements }) => {
+      elements.forEach((element) => {
+        arr.push(`${element.element.id}`);
+      });
+      return arr;
+    }, []);
+
+    const collFilter = myCollection.filter((element) => {
+      return listElementIds.indexOf(`${element.id}`) < 0;
+    });
+
+    const collFilterList = collFilter.map(({ name: text, id, thumbnail }) => {
+      return { text, value: `${id}`, thumbnail };
+    });
+
+    return {
+      myCollectionFiltered: collFilter,
+      myCollectionList: collFilterList,
+    };
+  }, [myCollection, myItemsInMT]);
+
+  /* end CollectionFILTERED ********************************************/
+
   return (
     <PageContext.Provider
       value={{
@@ -185,6 +212,8 @@ const PageContextProvider = ({ children }) => {
         games,
         setGames,
         myCollection,
+        myCollectionFiltered,
+        myCollectionList,
         setMyCollection,
         myCollectionBGGids,
         setMyCollectionBGGids,

@@ -32,8 +32,6 @@ const useReferral = () => {
     return baseUrl;
   }, [code, referred]);
 
-  console.log(url);
-
   return {
     validations: {
       referred: ["required", "email"],

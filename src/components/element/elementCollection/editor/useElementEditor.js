@@ -1,11 +1,4 @@
-import {
-  useMemo,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-  useCallback,
-} from "react";
+import { useMemo, useContext, useEffect, useState, useCallback } from "react";
 import useFetch from "@/hooks/useFetch";
 import useFetchBGG from "@/hooks/useFetchBGG";
 import { extractBGGdataFromElement } from "@/utils/bgg";
@@ -13,8 +6,9 @@ import { photoUploaderConfig } from "@/config/photoUploader";
 import { noBGGgame } from "@/config/no-bgggame";
 import { PageContext } from "@/context/page";
 import { ItemContext } from "@/context/item";
+import { ElementContext } from "@/context/element";
 
-const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
+const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
   // PAGE CONTEXT *************************************/
   const { forceReloadPage } = useContext(PageContext);
   // end PAGE CONTEXT *************************************/
@@ -24,6 +18,10 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
 
   const itemId = item && item.id ? item.id : null;
   // end ITEM CONTEXT *************************************/
+
+  // ELEMENT CONTEXT *************************************/
+  const { element } = useContext(ElementContext);
+  // end ELEMENT CONTEXT *************************************/
 
   const [BGGinfo, setBGGinfo] = useState(newBGGinfo);
 
@@ -52,16 +50,14 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
   const [language, setLanguage] = useState("");
   const [publisher, setPublisher] = useState("");
   const [year, setYear] = useState("");
-  const [status, setStatus] = useState("");
-  const [images, setImages] = useState("");
   ///////////////////////////////////////////
 
   useEffect(() => {
     if (!newBGGinfo) {
       //edit
-      if (`${element.elementRaw.game.bgg_id}` !== noBGGgame.element.bgg_id) {
+      if (`${element.game.bgg_id}` !== noBGGgame.element.bgg_id) {
         getBGGelements({
-          id: element.elementRaw.game.bgg_id,
+          id: element.game.bgg_id,
           versions: 1,
           stats: 1,
         });
@@ -77,15 +73,11 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [element, newBGGinfo]);
 
-  const [comment, setComment] = useState("");
-
   const dataComplete = useMemo(() => {
     const elementClone = {
-      ...(element && element.elementRaw
-        ? element.elementRaw
-        : {
-            comment: null,
-          }),
+      ...(element //&& element.elementRaw
+        ? element //.elementRaw
+        : {}),
     };
     delete elementClone.game;
 
@@ -120,12 +112,9 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     setBgg_version_id(
       `${BGGinfoClone.element?.bgg_version_id || ""}`.toLowerCase()
     );
-    setLanguage(BGGinfoClone.element?.language || "");
+    setLanguage(BGGinfoClone.element?.languageRaw || "");
     setPublisher(BGGinfoClone.element?.publisher || "");
     setYear(BGGinfoClone.element?.year || "");
-    setStatus(BGGinfoClone.element?.status || "");
-    setImages(BGGinfoClone.element?.images || "");
-    setComment(BGGinfoClone.element?.comment || "");
 
     return BGGinfoClone;
   }, [BGGinfo, element]);
@@ -181,20 +170,14 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     language,
     publisher,
     year,
-    status,
-    images,
     setName,
     setThumbnail,
     setBgg_version_id,
     setLanguage,
     setPublisher,
     setYear,
-    setStatus,
-    setImages,
     //
     game: dataComplete.game,
-    comment,
-    setComment,
     item_id: itemId || null,
     hiddenInputs: [
       "type",
@@ -233,7 +216,6 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
       language: ["required"],
       publisher: ["required"],
       year: ["required"],
-      status: ["required"],
     },
     onSubmit: (params) => {
       const data = {
@@ -249,8 +231,6 @@ const useElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
             : params?.game_thumbnail,
         year_published: params.year_published || params.year,
       };
-
-      console.log("element params", element, JSON.stringify(data));
 
       if (element && element.elementRaw) {
         editElement({

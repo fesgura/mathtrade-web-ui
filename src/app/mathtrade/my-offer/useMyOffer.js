@@ -26,6 +26,22 @@ const useMyOffer = () => {
   const filters_myoffer = useOptions((state) => state.filters_myoffer);
   /* end FILTER OPTIONS *********************************************/
 
+  // My Collection ********************************************
+  const afterLoadMyCollection = useCallback(
+    (elements) => {
+      setMyCollection(elements);
+    },
+    [setMyCollection]
+  );
+
+  const [, , loadingMyCollection, errorMyCollection] = useFetch({
+    endpoint: "GET_MYCOLLECTION_ELEMENTS",
+    initialState: [],
+    afterLoad: afterLoadMyCollection,
+    autoLoad: true,
+  });
+  // END My Collection ********************************************
+
   // My Items in MathTrade ********************************************
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -46,23 +62,6 @@ const useMyOffer = () => {
   });
   // END My Items in MathTrade ********************************************
 
-  // My Collection ********************************************
-  const afterLoadMyCollection = useCallback(
-    (itemsInMyCollection) => {
-      setMyCollection(itemsInMyCollection);
-    },
-    [setMyCollection]
-  );
-
-  const [, , loadingMyCollection, errorMyCollection] = useFetch({
-    endpoint: "GET_MYCOLLECTION_ITEMS",
-    initialState: [],
-    afterLoad: afterLoadMyCollection,
-    autoLoad: true,
-    reloadValue,
-  });
-  // END My Collection ********************************************
-
   // MY GROUPS ********************************************
   const afterLoadMyGroups = useCallback(
     (newGroups) => {
@@ -75,9 +74,8 @@ const useMyOffer = () => {
     initialState: [],
     afterLoad: afterLoadMyGroups,
     autoLoad: true,
-    reloadValue,
+    // reloadValue,
   });
-
   // end MY GROUPS ********************************************
 
   // Order Items ********************************************

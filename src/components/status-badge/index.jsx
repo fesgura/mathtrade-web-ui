@@ -1,25 +1,38 @@
 import { statusTypes } from "@/config/statusTypes";
 import { getI18Ntext } from "@/i18n";
 import clsx from "clsx";
+import Icon from "@/components/icon";
 
-const StatusBadge = ({ status, block, min, noTooltip }) => {
+const StatusBadge = ({ status, block, min, noTooltip, type }) => {
   return status ? (
     <div
       className={clsx(
-        "text-white px-2 font-bold uppercase rounded-sm cursor-default text-nowrap text-center",
+        "text-white font-bold uppercase rounded-sm cursor-default text-nowrap text-center flex items-center w-fit",
         {
           "text-[10px]": !min,
           "text-[8px] block": min,
-          "inline-block": !min && !block,
           block,
         }
       )}
       style={{
-        backgroundColor: statusTypes[status]?.color || "#CCC",
+        backgroundColor: statusTypes[status]?.color || "#666",
       }}
       data-tooltip={noTooltip ? null : getI18Ntext(`statusType.desc.${status}`)}
     >
-      {statusTypes[status]?.text || ""}
+      <div
+        className={clsx("rounded-l-sm px-1 border-r border-white/30", {
+          "bg-item-900": type === "box",
+          "bg-black": type !== "box",
+        })}
+      >
+        <Icon type={`status-${type === "box" ? "box" : "components"}`} />
+      </div>
+
+      <div className="px-1">
+        {min
+          ? statusTypes[status]?.min || "ND"
+          : statusTypes[status]?.text || "No Data"}
+      </div>
     </div>
   ) : null;
 };

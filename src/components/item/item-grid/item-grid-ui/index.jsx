@@ -1,13 +1,16 @@
 import clsx from "clsx";
 import useItemGrid from "./useItemGrid";
+import I18N, { getI18Ntext } from "@/i18n";
+import BanButton from "@/components/ban/button";
+import Value from "@/components/value";
+import ItemTagList from "@/components/item-tags/item-taglist";
 import ItemMD from "./md";
 import ItemXL from "./xl";
+import Icon from "@/components/icon";
 
 const ItemGridUI = ({ expanded, setExpanded }) => {
-  const { itemNode, isExpanded, onToggleExpanse } = useItemGrid(
-    expanded,
-    setExpanded
-  );
+  const { isCombo, ban_id, itemNode, isExpanded, onToggleExpanse } =
+    useItemGrid(expanded, setExpanded);
 
   return (
     <article
@@ -17,11 +20,14 @@ const ItemGridUI = ({ expanded, setExpanded }) => {
       ref={itemNode}
     >
       <div
-        className={clsx("transition-all relative mx-auto", {
-          "w-[230px] h-full hover:shadow-[0_2px_10px_rgba(0,0,0,0.3)] shadow-[0_2px_10px_rgba(0,0,0,0.1)] ":
-            !isExpanded,
-          "bg-white shadow-xl w-full duration-700 max-w-5xl": isExpanded,
-        })}
+        className={clsx(
+          "transition-all relative mx-auto bg-item-200 rounded-md border border-item-300",
+          {
+            "w-[230px] h-full hover:shadow-[0_2px_16px_rgba(0,0,0,0.3)] shadow-[0_1px_8px_rgba(0,0,0,0.3)] ":
+              !isExpanded,
+            "shadow-xl w-full duration-700 max-w-5xl": isExpanded,
+          }
+        )}
       >
         {!isExpanded ? (
           <ItemMD onToggleExpanse={onToggleExpanse} />

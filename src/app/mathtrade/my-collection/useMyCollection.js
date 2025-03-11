@@ -15,8 +15,8 @@ const useMyCollection = () => {
     reloadValue,
     //myCollection,
     //setMyCollection,
-    //myItemsInMT,
-    //setMyItemsInMT,
+    myItemsInMT,
+    setMyItemsInMT,
     setMyCollectionBGGids,
     //mathTradeId,
   } = useContext(PageContext);
@@ -29,15 +29,47 @@ const useMyCollection = () => {
   /* FILTER OPTIONS **********************************************/
   const filters_collection = useOptions((state) => state.filters_collection);
   const updateFilters = useOptions((state) => state.updateFilters);
+
+  useEffect(() => {
+    if (Object.keys(filters_collection).length <= 0) {
+      updateFilters({ order: "-created_date", page: 1 }, "collection");
+    }
+  }, [filters_collection, updateFilters]);
   /* end FILTER OPTIONS *********************************************/
+
+  // My Items in MathTrade ********************************************
+
+  const afterLoadMyItems = useCallback(
+    (newMyItemsInMT) => {
+      setMyItemsInMT(newMyItemsInMT);
+    },
+    [setMyItemsInMT]
+  );
+
+  const [, , loadingMyItemsInMT, errorMyItemsInMT] = useFetch({
+    endpoint: "GET_MYITEMS",
+    afterLoad: afterLoadMyItems,
+    autoLoad: true,
+  });
+
+  const elementIdListOffered = useMemo(() => {
+    return myItemsInMT.reduce((arr, { elements }) => {
+      elements.forEach(({ element }) => {
+        arr.push(`${element.id}`);
+      });
+      return arr;
+    }, []);
+  }, [myItemsInMT]);
+
+  // END My Items in MathTrade ********************************************
 
   // My Collection ********************************************
 
-  const [elementsInCollection, setElementsInCollection] = useState([]);
+  const [elementsInCollectionRaw, setElementsInCollectionRaw] = useState([]);
 
   const afterLoadMyCollection = useCallback(
     (elements) => {
-      setElementsInCollection(elements);
+      setElementsInCollectionRaw(elements);
       //
       const newMyCollectionBGGids = elements.reduce((arr, { game }) => {
         if (game && game.bgg_id) {
@@ -51,13 +83,30 @@ const useMyCollection = () => {
     [setMyCollectionBGGids]
   );
 
-  const [, , loading, error] = useFetch({
+  const [, , loadingCollection, errorCollection] = useFetch({
     endpoint: "GET_MYCOLLECTION_ELEMENTS",
     initialState: [],
     afterLoad: afterLoadMyCollection,
     autoLoad: true,
     reloadValue,
   });
+
+  const elementsInCollection = useMemo(() => {
+    if (
+      elementsInCollectionRaw.length === 0 ||
+      elementIdListOffered.length === 0
+    ) {
+      return elementsInCollectionRaw;
+    }
+
+    return elementsInCollectionRaw.map((element) => {
+      const elementOffered = elementIdListOffered.indexOf(`${element.id}`) >= 0;
+      return {
+        ...element,
+        offered: elementOffered,
+      };
+    });
+  }, [elementsInCollectionRaw, elementIdListOffered]);
 
   const elementList = useMemo(() => {
     // SEARCH
@@ -84,6 +133,10 @@ const useMyCollection = () => {
     const dir = order.indexOf("-") === 0 ? -1 : 1;
     const key = order.indexOf("-") === 0 ? order.substring(1) : order;
 
+    return [...elementFiltered].sort((a, b) => {
+      return a[key] < b[key] ? -1 * dir : dir;
+    });
+
     // if (key === "offered") {
     //   const offereds = [];
     //   const notOffereds = [];
@@ -103,10 +156,6 @@ const useMyCollection = () => {
     //     return notOffereds.concat(offereds);
     //   }
     // }
-
-    return [...elementFiltered].sort((a, b) => {
-      return a[key] < b[key] ? -1 * dir : dir;
-    });
   }, [elementsInCollection, filters_collection]);
 
   // END My Collection ********************************************
@@ -124,8 +173,8 @@ const useMyCollection = () => {
 
   const optionsOrder = useMemo(() => {
     const list = [
-      { text: getI18Ntext("element.Date"), value: "none" },
-      { text: getI18Ntext("element.Name"), value: "title" },
+      { text: getI18Ntext("element.Date"), value: "created_date" },
+      { text: getI18Ntext("element.Name"), value: "name" },
       { text: getI18Ntext("element.Value"), value: "value" },
     ];
 
@@ -141,8 +190,8 @@ const useMyCollection = () => {
 
   return {
     elementList,
-    loading,
-    error,
+    loading: loadingMyItemsInMT || loadingCollection,
+    error: errorMyItemsInMT || errorCollection,
     filters_collection,
     searchText,
     optionsOrder,

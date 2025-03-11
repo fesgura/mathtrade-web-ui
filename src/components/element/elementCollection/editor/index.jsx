@@ -10,21 +10,15 @@ import {
   InputContainer,
   Label,
   Select,
-  Textarea,
   Hidden,
 } from "@/components/form";
-import clsx from "clsx";
 import { languagesOptions } from "@/config";
-import { statusList } from "@/config/statusTypes";
-import StatusBadge from "@/components/status-badge";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
 import PhotoUploader from "@/components/photoUploader";
 import Icon from "@/components/icon";
-import PhotoGallery from "@/components/photoGallery";
-import { maxCharacters, charactersDanger } from "@/config/maxCharacters";
 
-const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
+const ElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
   const {
     loading,
     error,
@@ -36,20 +30,14 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     language,
     publisher,
     year,
-    status,
-    images,
     setName,
     setThumbnail,
     setBgg_version_id,
     setLanguage,
     setPublisher,
     setYear,
-    setStatus,
-    setImages,
     //
     game,
-    comment,
-    setComment,
     item_id,
     hiddenInputs,
     //
@@ -65,7 +53,6 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
     validations,
     onSubmit,
   } = useElementEditor({
-    element,
     newBGGinfo,
     toggleEditingMode,
   });
@@ -85,9 +72,7 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
                 className="rounded-lg w-52"
               />
             </InputContainer>
-            {/* <div className="text-center text-xs text-red-600 text-balance">
-            
-          </div> */}
+
             <div className="px-3">
               <PhotoUploader
                 className=" border border-gray-300 text-gray-500 rounded-full block w-full p-1 hover:bg-primary hover:text-white hover:border-primary transition-colors"
@@ -232,71 +217,10 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
               </>
             ) : null}
 
-            {/* <>
-              <hr className="mb-3" />
-              <div className="md:flex gap-5">
-                <div>
-                  <div className="md:w-60">
-                    <InputContainer validate="status">
-                      <Label text="element.Status" name="status" required />
-                      <Select
-                        data={{ status }}
-                        name="status"
-                        icon="status"
-                        options={statusList}
-                        onChange={setStatus}
-                      />
-                    </InputContainer>
-                  </div>
-                </div>
-                <div className="md:pt-6 md:pb-0 pb-5">
-                  {status ? (
-                    <>
-                      <StatusBadge status={status} />
-                      <p className="text-xs pt-1 text-gray-600 mb-2">
-                        <I18N id={`statusType.desc.${status}`} />
-                      </p>
-                    </>
-                  ) : null}
-                </div>
-              </div>
-              <hr className="mb-3 border-gray-300" />
-              <PhotoGallery
-                images={images}
-                setImages={setImages}
-                className="mb-3 border-b border-gray-300 pb-3"
-              />
-              <Hidden data={{ images }} name="images" />
-              <InputContainer>
-                <div className="flex items-center gap-2">
-                  <Label text="element.Comment" name="comment" />
-                  <span
-                    className={clsx("text-xs", {
-                      "text-gray-500":
-                        maxCharacters - comment.length > charactersDanger,
-                      "text-danger font-bold":
-                        maxCharacters - comment.length <= charactersDanger,
-                    })}
-                  >
-                    ({` ${comment.length} / ${maxCharacters} `}
-                    <I18N id="itemComments.editor.label.add.adv" /> )
-                  </span>
-                </div>
-                <Textarea
-                  data={{ comment }}
-                  name="comment"
-                  onChange={({ target }) => {
-                    setComment(target.value);
-                  }}
-                  maxlength={maxCharacters}
-                />
-              </InputContainer>
-            </> */}
-
             <ErrorAlert error={error} />
             <div className="flex items-center justify-center gap-4 pt-2 pb-5">
               <button
-                className="border border-gray-300 text-gray-400 font-bold text-lg px-6 py-1 rounded-full hover:bg-gray-400 hover:text-white transition-colors"
+                className="border border-gray-200 text-gray-400 font-bold text-lg px-6 py-1 rounded-full hover:bg-gray-400 hover:text-white transition-colors"
                 onClick={(e) => {
                   e.preventDefault();
                   onCancel();
@@ -306,7 +230,7 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
               </button>
               <button
                 type="submit"
-                className=" text-white bg-primary font-bold text-lg px-8 py-2 rounded-full hover:bg-sky-700 hover:text-white transition-colors"
+                className=" text-white bg-primary font-bold text-lg px-6 py-1 rounded-full hover:bg-sky-700 hover:text-white transition-colors"
               >
                 <I18N id="btn.Save" />
               </button>
@@ -321,39 +245,3 @@ const ElementEditor = ({ element, newBGGinfo, toggleEditingMode }) => {
 };
 
 export default ElementEditor;
-
-/*
-
-
-# api/elements/
-
-## POST|PUT:
-    {
-        'type': "", 
-        'bgg_id': 0, 
-        'bgg_version_id': 0, 
-        'thumbnail': "url", 
-        'name': "", 
-        'primary_name': "", 
-        'names': "one,two" 
-        'language': "", 
-        'publisher': "", 
-        'year': "", 
-        'dependency': "",
-        'dependency_votes': "0,1,2,3", 
-        'rank': "", 
-        'rate': "", 
-        'rate_votes': "0,1,2,3", 
-        'weight': "", 
-        'weight_votes': "0,1,2,3", 
-        'status': "", 
-        'comment': "", 
-        'item_id': 0, 
-        'images': "utl1,url2",
-    }
-
-
-# api/items/
-
-
-*/

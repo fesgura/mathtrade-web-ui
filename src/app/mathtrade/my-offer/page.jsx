@@ -12,9 +12,10 @@ import SectionWithSidebar, {
   Sidebar,
 } from "@/components/sections/with-sidebar";
 import HeaderMyOffer from "./header";
-import AddToOffer from "./add-to-offer";
+//import AddToOffer from "./add-to-offer";
 import MyGroupsSidebar from "@/components/item-mygroups/mygroups-sidebar";
 import EmptyList from "@/components/emptyList";
+import NewItem from "@/components/item/item-my/new-item";
 
 const MyItemsPage = () => {
   const { isLoaded, items, loading, error } = useMyOffer();
@@ -43,7 +44,7 @@ const MyItemsPage = () => {
             </Sidebar>
             <div>
               <Container size="md">
-                <AddToOffer />
+                <NewItem />
                 {items.map((itemRaw) => {
                   return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
                 })}

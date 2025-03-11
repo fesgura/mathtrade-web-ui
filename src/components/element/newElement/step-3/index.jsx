@@ -1,7 +1,7 @@
 import InnerButton from "@/components/button/inner-button";
 import Icon from "@/components/icon";
 import I18N from "@/i18n";
-import ElementEditor from "../../editor";
+import ElementEditor from "../../elementCollection/editor";
 import { noBGGgame } from "@/config/no-bgggame";
 
 const NewElementStep3 = ({ setStep, newBGGinfo }) => {

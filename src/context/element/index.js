@@ -1,7 +1,10 @@
-import { useCallback, useMemo, useState } from "react";
-import I18N, { getI18Ntext } from "@/i18n";
-import ElementView from "./elementView";
-import ElementEditor from "../editor";
+"use client";
+import { createContext, useMemo } from "react";
+import { getI18Ntext } from "@/i18n";
+
+export const ElementContext = createContext({
+  element: null,
+});
 
 const getLanguageListText = (lang) => {
   if (!lang) {
@@ -15,8 +18,17 @@ const getLanguageListText = (lang) => {
     .join(", ");
 };
 
-const ElementMy = ({ element }) => {
-  const elementAdapted = useMemo(() => {
+export const ElementContextProvider = ({ elementRaw, children }) => {
+  const element = useMemo(() => {
+    const {
+      id: math_element_id,
+      element: elementOriginal,
+      box_status,
+      component_status,
+      comment,
+      images,
+    } = elementRaw;
+
     const {
       id,
       name: title,
@@ -26,7 +38,7 @@ const ElementMy = ({ element }) => {
       publisher,
       year,
       language,
-    } = element;
+    } = elementOriginal;
 
     const type = getI18Ntext(`element-type-badge-${game?.type || 1}`);
     const notGame = game?.bgg_id === 23953 || game?.bgg_id < 0;
@@ -40,35 +52,35 @@ const ElementMy = ({ element }) => {
       titleLink: notGame
         ? null
         : `https://boardgamegeek.com/boardgame/${game?.bgg_id}/`,
+      bgg_version_id,
+      year,
       publisher: publisher && year ? `${publisher} (${year})` : null,
       publisherLink:
         bgg_version_id && bgg_version_id === "other"
           ? null
           : `https://boardgamegeek.com/boardgameversion/${bgg_version_id}/`,
       language: getLanguageListText(language),
-      elementRaw: element,
+      languageRaw: language,
+      elementRaw,
       notGame,
+      extraData: {
+        box_status,
+        component_status,
+        comment,
+        images,
+      },
+      math_element_id: math_element_id || null,
+      offered: elementOriginal?.offered || null,
     };
-  }, [element]);
+  }, [elementRaw]);
 
-  // EDITING MODE *************************************/
-  const [editingMode, setEditingMode] = useState(false);
-  const toggleEditingMode = useCallback(() => {
-    setEditingMode((v) => !v);
-  }, []);
-  // end EDITING MODE *************************************/
-
-  return editingMode ? (
-    <ElementEditor
-      element={elementAdapted}
-      toggleEditingMode={toggleEditingMode}
-    />
-  ) : (
-    <ElementView
-      element={elementAdapted}
-      toggleEditingMode={toggleEditingMode}
-      //isEditable={isEditable}
-    />
+  return (
+    <ElementContext.Provider
+      value={{
+        element,
+      }}
+    >
+      {children}
+    </ElementContext.Provider>
   );
 };
-export default ElementMy;

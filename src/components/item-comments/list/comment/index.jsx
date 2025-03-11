@@ -37,16 +37,16 @@ const Comment = ({ comment, myUserId, isLast }) => {
           })}
         >
           <div
-            className={clsx("relative rounded-lg", {
-              "bg-primary/20": !isMyUser,
-              "bg-teal-500/30": isMyUser,
+            className={clsx("relative rounded-lg border", {
+              "bg-sky-200 border-sky-400": !isMyUser,
+              "bg-teal-200 border-teal-400": isMyUser,
               "opacity-50": loading,
             })}
           >
             <div
               className={clsx("absolute w-0 h-0 border-8 border-transparent", {
-                "border-r-primary/20 -left-4 top-3": !isMyUser,
-                "border-l-teal-500/30 -right-4 bottom-3": isMyUser,
+                "border-r-sky-400 -left-4 top-3": !isMyUser,
+                "border-l-teal-400 -right-4 bottom-3": isMyUser,
               })}
             />
 

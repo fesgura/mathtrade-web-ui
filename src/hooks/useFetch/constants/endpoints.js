@@ -25,6 +25,11 @@ const endpoints = {
 
   // MYITEMS
   GET_MYITEMS: "api/mathtrades/$[mathtradeId]/user-items/",
+  POST_MYITEM: "api/mathtrades/$[mathtradeId]/user-elements/",
+  PUT_MYITEM: "api/mathtrades/$[mathtradeId]/user-elements/$[1]/",
+  DELETE_MYITEM_ELEMENT: "api/mathtrades/$[mathtradeId]/user-elements/$[1]/",
+  DELETE_MYITEM: "api/mathtrades/$[mathtradeId]/user-items/$[1]/",
+
   GET_MYITEM_GROUPS: "api/mathtrades/$[mathtradeId]/user-item-groups/",
   POST_MYITEM_GROUPS: "api/mathtrades/$[mathtradeId]/user-item-groups/",
   PUT_MYITEM_GROUPS: "api/mathtrades/$[mathtradeId]/user-item-groups/$[1]/",

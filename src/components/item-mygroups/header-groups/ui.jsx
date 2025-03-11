@@ -18,7 +18,7 @@ const MyGroupsInItemUI = ({ className }) => {
   return (
     <div className={className}>
       <div
-        className={clsx("relative w-fit", {
+        className={clsx("relative w-fit h-[22px]", {
           "opacity-50": loading,
         })}
       >
@@ -31,12 +31,13 @@ const MyGroupsInItemUI = ({ className }) => {
               setVisible(false);
             }, 180);
           }}
+          className="h-[22px] block"
         >
           {groupAdded ? (
             <GroupBadge group={groupAdded} isSelected />
           ) : (
-            <div className="flex items-center gap-1 border border-gray-200 text-gray-400 w-fit pr-2 pl-1 rounded-sm">
-              <Icon type="plus" className="leading-5" />
+            <div className="flex items-center gap-1 text-gray-800 w-fit pr-2 pl-1 rounded-md shadow-[0_0_1px_1px_rgba(0,0,0,.2)]">
+              <Icon type="plus" className="leading-5 h-[20px]" />
               <div className="whitespace-nowrap text-[12px] sfont-bold leading-5">
                 <I18N id="myItems.AddToGroup" />
               </div>

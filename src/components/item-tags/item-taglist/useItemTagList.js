@@ -59,7 +59,7 @@ const useItemTagList = () => {
 
     if (itemId && itemTags.length) {
       itemTags.forEach((t) => {
-        if (t.items.indexOf(itemId) >= 0) {
+        if (t.items.map((tId) => `${tId}`).indexOf(`${itemId}`) >= 0) {
           current.push(t);
         } else {
           options.push(t);
