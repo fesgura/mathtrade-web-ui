@@ -40,6 +40,10 @@ export const PRIVATE_ROUTES = {
     title: "myOffer",
     path: privateRoot + "/my-offer",
   },
+  MY_OFFER_PREVIOUS_MATHTRADES: {
+    title: "myOfferPreviousMathtrades",
+    path: privateRoot + "/my-offer/previous-mathtrades",
+  },
   /* GAMES: {
     title: "games",
     path: privateRoot + "/games",

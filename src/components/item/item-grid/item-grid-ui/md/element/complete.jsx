@@ -16,7 +16,6 @@ const ElementComplete = ({ onToggleExpanse }) => {
     publisher,
     publisherLink,
     language,
-    notGame,
     extraData,
   } = element;
 

@@ -5,6 +5,7 @@ const STORE_DEFAULT = {
   data: {
     user: null,
     mathtrade: null,
+    mathtrade_history: [],
     membership: null,
     lang: "es",
   },

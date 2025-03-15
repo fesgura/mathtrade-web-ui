@@ -13,7 +13,7 @@ import BanButton from "@/components/ban/button";
 import clsx from "clsx";
 import ItemGridHeader from "../item-grid-header";
 
-const ItemXL = ({ onToggleExpanse }) => {
+const ItemXL = ({ onToggleExpanse, hideWant }) => {
   /* ITEM CONTEXT **********************************************/
   const { item, loadingItem, showAsIgnored } = useContext(ItemContext);
   const { ban_id, isCombo, elements } = item;
@@ -48,15 +48,17 @@ const ItemXL = ({ onToggleExpanse }) => {
         <ItemComments className="pb-5" rightContent={<UserBox />} />
       </div>
 
-      {ban_id ? null : <WantButton contextSize="xl" />}
+      {ban_id || hideWant ? null : <WantButton contextSize="xl" />}
 
       <LoadingBox loading={loadingItem} />
-      <button
-        className="absolute -bottom-2 left-1/2 hover:opacity-100 text-white bg-gray-700 hover:bg-black transition-colors leading-none text-[9px] uppercase p-1 w-24 -ml-12 rounded-full"
-        onClick={onToggleExpanse}
-      >
-        <Icon /> <I18N id="minimize" />
-      </button>
+      {onToggleExpanse ? (
+        <button
+          className="absolute -bottom-2 left-1/2 hover:opacity-100 text-white bg-gray-700 hover:bg-black transition-colors leading-none text-[9px] uppercase p-1 w-24 -ml-12 rounded-full"
+          onClick={onToggleExpanse}
+        >
+          <Icon /> <I18N id="minimize" />
+        </button>
+      ) : null}
     </div>
   );
 };

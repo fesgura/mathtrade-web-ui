@@ -28,8 +28,6 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
     offered,
   } = element;
 
-  console.log(offered);
-
   return (
     <div className="relative flex md:gap-6 gap-3">
       {offered ? (

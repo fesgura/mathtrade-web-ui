@@ -3,7 +3,6 @@ import { LoadingBox } from "@/components/loading";
 import { ItemContextProvider } from "@/context/item";
 import useFetch from "@/hooks/useFetch";
 import { useMemo } from "react";
-import ItemXL from "@/components/item/item-grid/item-grid-ui/xl";
 import ItemUI from "./ui";
 
 const ItemPreview = ({ id }) => {
