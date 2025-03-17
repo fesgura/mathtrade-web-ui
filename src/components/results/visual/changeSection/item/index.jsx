@@ -1,31 +1,19 @@
 import { useContext } from "react";
 import { ItemContext, ItemContextProvider } from "@/context/item";
-import Thumbnail from "@/components/thumbnail";
-import Previewer from "@/components/previewer";
+import I18N from "@/i18n";
+import Element from "./element";
 
 const ItemChangeUI = () => {
   const { item } = useContext(ItemContext);
-  const { title, elements } = item;
+  const { isCombo, elements } = item;
   return (
-    <div className="relative rounded-lg bg-white shadow-xl">
-      <div className=" border-b border-gray-300 relative">
-        <Thumbnail
-          elements={elements || []}
-          className="rounded-tl-lg rounded-tr-lg sm:w-32 w-16"
-        />
-
-        <div className="absolute bg-primary text-white sm:bottom-1 bottom-0 sm:right-1 right-0 rounded-full">
-          <Previewer />
-        </div>
-      </div>
-      <div className="text-center p-1 sm:w-32 w-16">
-        <h4
-          className="text-[10px] leading-3 font-bold cropped cursor-default"
-          title={title}
-        >
-          {title}
-        </h4>
-      </div>
+    <div className="relative rounded-lg bg-item-200 border border-item-300 p-1 shadow-xl">
+      <Element element={elements[0]} />
+      {!isCombo ? (
+        <h3 className="uppercase text-[10px] font-bold text-gray-700 text-center leading-none p-1">
+          <I18N id="element-type-badge-0" />
+        </h3>
+      ) : null}
     </div>
   );
 };

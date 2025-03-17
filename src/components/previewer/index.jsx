@@ -5,7 +5,7 @@ import { ItemContext } from "@/context/item";
 import { PageContext } from "@/context/page";
 import clsx from "clsx";
 
-const Previewer = ({ notooltip, className = "w-7 h-7" }) => {
+const Previewer = ({ itemId, notooltip, className = "w-7 h-7" }) => {
   const { item } = useContext(ItemContext);
   const { setItemPreviewId, setShowModalPreview } = useContext(PageContext);
 
@@ -14,8 +14,9 @@ const Previewer = ({ notooltip, className = "w-7 h-7" }) => {
       <button
         className={clsx("hover:text-white hover:bg-primary", className)}
         onClick={() => {
-          if (item && item.id) {
-            setItemPreviewId(item.id);
+          const id = itemId || item?.id;
+          if (id) {
+            setItemPreviewId(id);
             setShowModalPreview(true);
           }
         }}

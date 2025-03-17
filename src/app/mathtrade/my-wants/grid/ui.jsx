@@ -69,14 +69,11 @@ const GridUI = () => {
                   return null;
                 } */
                 return (
-                  <tr
-                    key={wantGroup.id}
-                    className="border-spacing-0"
-                  >
+                  <tr key={wantGroup.id} className="border-spacing-0">
                     {myItemList.map((myItem, k) => {
                       return k === 0 ? (
                         <td
-                          className="border-spacing-0 m-0 p-0 sticky left-0"
+                          className="border-spacing-0 m-0 p-0 sticky z-40 left-0"
                           key={k}
                         >
                           <WantGroupLabel

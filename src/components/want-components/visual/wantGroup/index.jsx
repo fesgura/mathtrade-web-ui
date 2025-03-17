@@ -43,8 +43,6 @@ const WantGroupUI = ({ wantGroup }) => {
     return [elementThumb];
   }, [type, wants, availables, bgg_id]);
 
-  console.log("wantGroup", wantGroup);
-
   const style = useMemo(() => {
     return type === "tag" ? colorTagStyles(tag?.color) : null;
   }, [type, tag]);

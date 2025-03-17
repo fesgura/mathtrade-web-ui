@@ -32,6 +32,10 @@ export const PRIVATE_ROUTES = {
     title: "home",
     path: privateRoot + "/",
   },
+  MY_COLLECTION: {
+    title: "myCollection",
+    path: privateRoot + "/my-collection",
+  },
   // SIGN_IN_MATHTRADE: {
   //   title: "signInMathtrade",
   //   path: "/sign-in-mathtrade",
@@ -76,10 +80,7 @@ export const PRIVATE_ROUTES = {
     title: "SignToMathTrade",
     path: privateRoot + "/my-data",
   },
-  MY_COLLECTION: {
-    title: "myCollection",
-    path: privateRoot + "/my-collection",
-  },
+
   MY_ACCOUNT: {
     title: "myAccount",
     path: privateRoot + "/my-account",

@@ -10,7 +10,10 @@ const ItemChangeUI = () => {
 
   return (
     <div className="flex items-center gap-2">
-      <Thumbnail elements={elements || []} className="w-6 rounded-md" />
+      <Thumbnail
+        elements={[elements?.[0]?.element]}
+        className="w-6 rounded-md"
+      />
       <h4
         className="text-[10px] leading-3 font-bold cropped cursor-default"
         title={title}
