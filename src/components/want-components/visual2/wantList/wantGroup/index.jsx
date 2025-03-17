@@ -8,6 +8,7 @@ import useWantGroup from "./useWantGroup";
 
 const WantGroupVisual2 = ({ wantGroup, itemId, toAdd }) => {
   const {
+    isCombo,
     elementsThumbnails,
     style,
     name,
@@ -20,9 +21,10 @@ const WantGroupVisual2 = ({ wantGroup, itemId, toAdd }) => {
 
   return (
     <div
-      className={clsx("relative rounded-lg", {
-        "bg-gray-900 text-white border-gray-700": type === "game",
-        "bg-white border-gray-300": type === "item",
+      className={clsx("relative rounded-lg border", {
+        "bg-gray-900 text-white border-gray-400": type === "game",
+        "border-gray-400": type === "tag",
+        "bg-item-200 border-item-300": type === "item",
         "shadow-xl": !toAdd,
         "border border-gray-300": toAdd,
       })}
@@ -55,15 +57,22 @@ const WantGroupVisual2 = ({ wantGroup, itemId, toAdd }) => {
         </div>
       </div>
       <div className="text-center p-1 sm:w-32 w-16">
-        <h4
-          className="text-[10px] leading-3 font-bold cropped cursor-default"
-          title={name}
+        <div
+          className={clsx({
+            "bg-white rounded-lg p-1 border border-gray-300": type === "item",
+          })}
         >
-          {name}
-        </h4>
-        <p className="uppercase text-[9px] font-bold opacity-50">
-          <I18N id={`cart.wantGroup.type.${type}.${game_type || 1}`} />
-        </p>
+          <h4
+            className="text-[10px] leading-3 font-bold cropped cursor-default"
+            title={name}
+          >
+            {name}
+          </h4>
+          <p className="uppercase text-[9px] font-bold opacity-50">
+            <I18N id={`cart.wantGroup.type.${type}.${game_type || 1}`} />
+            {isCombo ? ` - ${getI18Ntext("element-type-badge-0")}` : null}
+          </p>
+        </div>
       </div>
       {!toAdd && canIwant ? (
         <button

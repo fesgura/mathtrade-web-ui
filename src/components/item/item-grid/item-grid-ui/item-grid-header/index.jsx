@@ -5,7 +5,7 @@ import BanButton from "@/components/ban/button";
 import Value from "@/components/value";
 import ItemTagList from "@/components/item-tags/item-taglist";
 
-const ItemGridHeader = ({ isExpanded, onToggleExpanse }) => {
+const ItemGridHeader = ({ onChangeValue }) => {
   const { item } = useContext(ItemContext);
   const { isCombo, ban_id } = item;
 
@@ -15,7 +15,9 @@ const ItemGridHeader = ({ isExpanded, onToggleExpanse }) => {
         {ban_id ? null : <ItemTagList />}
         <div className="flex items-center gap-1">
           <BanButton size="xl" type="item" />
-          {ban_id ? null : <Value size="xl" type="item" />}
+          {ban_id ? null : (
+            <Value size="xl" type="item" onChange={onChangeValue} />
+          )}
         </div>
       </div>
       {isCombo ? (

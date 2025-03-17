@@ -41,12 +41,14 @@ const GameUI = ({ wantGroup }) => {
     <>
       <div className="bg-gray-900 w-full mx-auto p-3 pr-9 relative">
         <div className="flex gap-6 h-full">
-          <div className="relative lg:w-52 w-28 lg:h-52 h-28">
+          <div className="relative lg:w-52 w-24">
             <Thumbnail
               elements={[{ thumbnail }]}
-              className="rounded-lg lg:w-52 w-28"
+              className="rounded-t-lg lg:w-52 w-24"
             />
-            <Value size="md" type="game" onChange={onChangeValue} />
+            <div className="bg-black rounded-b-lg flex items-center justify-end gap-2 p-2">
+              <Value size="md" type="game" onChange={onChangeValue} />
+            </div>
           </div>
           <div className="text-white grow">
             <div>

@@ -3,7 +3,7 @@ import { PageContext } from "@/context/page";
 import { MyWantsContext } from "@/context/myWants/all";
 
 const useItem = (item, wantGroupId) => {
-  const { id, title, elements, value } = item;
+  const { id } = item;
 
   /* PAGE CONTEXT **********************************************/
   const { canI } = useContext(PageContext);
@@ -24,7 +24,7 @@ const useItem = (item, wantGroupId) => {
     [setChanges, wantGroupId, id]
   );
 
-  return { id, title, elements, value, onToggle, canIwant: canI.want };
+  return { onToggle, canIwant: canI.want };
 };
 
 export default useItem;

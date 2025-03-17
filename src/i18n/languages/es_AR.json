@@ -877,5 +877,6 @@
   "title.DeleteItem": "¿Eliminar ítem?",
   "element.Offered": "Ofrecido",
   "myOfferPreviousMathtrades.page.link": "Agregar ítems desde Math Trades anteriores",
-  "new": "Nuevo"
+  "new": "Nuevo",
+  "item.xElementsTotal": "$$$ elementos en total"
 }

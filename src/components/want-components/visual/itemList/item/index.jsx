@@ -1,58 +1,54 @@
-import Thumbnail from "@/components/thumbnail";
-import PreviewerItem from "@/components/previewerItem";
+import useItem from "./useItem";
+import { ItemContextProvider } from "@/context/item";
+import { useContext } from "react";
+import { ItemContext } from "@/context/item";
+import Previewer from "@/components/previewer";
 import ValueMini from "@/components/value/mini";
 import Icon from "@/components/icon";
 import I18N, { getI18Ntext } from "@/i18n";
 import clsx from "clsx";
-import useItem from "./useItem";
+import Element from "./element";
 
-const ItemToOffer = ({ item, toAdd, wantGroupId }) => {
-  const { id, title, elements, value, onToggle, canIwant } = useItem(
-    item,
-    wantGroupId
-  );
+const ItemUI = ({ toAdd, onToggle, canIwant }) => {
+  const { item } = useContext(ItemContext);
+
+  const { id, elements, value, isCombo } = item;
 
   return (
     <div
-      className={clsx("relative rounded-lg bg-white", {
-        "shadow-xl": !toAdd,
-        "border border-gray-300": toAdd,
-      })}
+      className={clsx(
+        "relative rounded-lg bg-item-200 border border-item-300 sm:w-32 w-16 p-1",
+        {
+          "shadow-xl": !toAdd,
+          "border border-gray-300": toAdd,
+        }
+      )}
     >
-      <div className=" border-b border-gray-300 relative">
-        <Thumbnail
-          elements={elements || []}
-          className="rounded-tl-lg rounded-tr-lg sm:w-32 w-16"
-        />
-        {toAdd ? (
-          <button
-            className="absolute top-0 left-0 w-full h-full bg-black/60 text-white rounded-tl-lg rounded-tr-lg text-5xl opacity-0 hover:opacity-100 transition-opacity"
-            title={getI18Ntext("btn.Add")}
-            onClick={() => {
-              onToggle(true);
-            }}
-          >
-            <Icon type="plus" />
-            <div className="uppercase text-xs font-bold leading-none">
-              <I18N id="btn.Add" />
+      {elements[0] ? (
+        <Element element={elements[0]} toAdd={toAdd} onToggle={onToggle} />
+      ) : null}
+
+      <div className="flex items-center gap-1 pt-1 justify-between">
+        <div className="">
+          {isCombo ? (
+            <div className="uppercase text-[10px] font-bold text-gray-700">
+              <I18N id="element-type-badge-0" />
             </div>
-          </button>
-        ) : null}
-        <div className="absolute bg-primary text-white sm:bottom-1 bottom-0 sm:left-1 left-0 rounded-full">
-          <PreviewerItem itemId={id} className="rounded-full" />
+          ) : (
+            " "
+          )}
         </div>
-        <div className="absolute sm:bottom-1 bottom-0 sm:right-1 right-0">
+        <div className="flex items-center gap-1">
           <ValueMini currentValue={value} />
+          <div className="">
+            <Previewer
+              itemId={id}
+              className="bg-primary text-white rounded-full text-sm  w-5 h-5 leading-none"
+            />
+          </div>
         </div>
       </div>
-      <div className="text-center p-1 sm:w-32 w-16">
-        <h4
-          className="text-[10px] leading-3 font-bold cropped cursor-default"
-          title={title}
-        >
-          {title}
-        </h4>
-      </div>
+
       {!toAdd && canIwant ? (
         <button
           className="-top-1 -right-1 absolute w-4 h-4 rounded-full bg-danger text-white text-sm leading-none"
@@ -65,6 +61,16 @@ const ItemToOffer = ({ item, toAdd, wantGroupId }) => {
         </button>
       ) : null}
     </div>
+  );
+};
+
+const ItemToOffer = ({ item, toAdd, wantGroupId }) => {
+  const { onToggle, canIwant } = useItem(item, wantGroupId);
+
+  return (
+    <ItemContextProvider itemRaw={item}>
+      <ItemUI toAdd={toAdd} onToggle={onToggle} canIwant={canIwant} />
+    </ItemContextProvider>
   );
 };
 

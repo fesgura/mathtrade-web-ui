@@ -29,7 +29,7 @@ const Modal = ({
             )}
           >
             <button
-              className="absolute top-2 right-2 w-8 h-8 leading-none text-center bg-white/60 text-[gray] rounded-full transition-[color] duration-[0.1s] text-xl"
+              className="absolute z-50 top-2 right-2 w-8 h-8 leading-none text-center bg-white/60 text-[gray] rounded-full transition-[color] duration-[0.1s] text-xl"
               onClick={onClose}
             >
               <Icon />

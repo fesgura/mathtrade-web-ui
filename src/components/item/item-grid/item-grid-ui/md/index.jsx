@@ -6,6 +6,7 @@ import ItemCommentTitle from "@/components/item-comments/title";
 import WantButton from "@/components/want-button";
 import ElementMD from "./element";
 import ItemGridHeader from "../item-grid-header";
+import I18N from "@/i18n";
 
 const ItemMD = ({ onToggleExpanse }) => {
   const { item, showAsIgnored } = useContext(ItemContext);
@@ -24,7 +25,10 @@ const ItemMD = ({ onToggleExpanse }) => {
       <div>
         <ItemGridHeader />
         <div className="flex flex-col gap-2 mb-3">
-          {elements.map((element) => {
+          {elements.map((element, k) => {
+            if (k >= 4) {
+              return null;
+            }
             return (
               <ElementMD
                 key={element.id}
@@ -34,6 +38,16 @@ const ItemMD = ({ onToggleExpanse }) => {
               />
             );
           })}
+          {elements.length >= 4 ? (
+            <div className="text-center">
+              <button
+                className="text-primary font-bold text-xs underline hover:text-sky-700"
+                onClick={onToggleExpanse}
+              >
+                <I18N id="item.xElementsTotal" values={[elements.length]} />
+              </button>
+            </div>
+          ) : null}
         </div>
 
         <div className="flex items-center justify-between gap-3">
