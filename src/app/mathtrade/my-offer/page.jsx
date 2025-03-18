@@ -16,9 +16,17 @@ import HeaderMyOffer from "./header";
 import MyGroupsSidebar from "@/components/item-mygroups/mygroups-sidebar";
 import EmptyList from "@/components/emptyList";
 import NewItem from "@/components/item/item-my/new-item";
+import ItemsPreviousMT from "@/components/itemsPreviousMT";
 
 const MyItemsPage = () => {
-  const { isLoaded, items, loading, error } = useMyOffer();
+  const {
+    isLoaded,
+    items,
+    loading,
+    error,
+    itemsPreviousMTvisible,
+    setItemsPreviousMTvisible,
+  } = useMyOffer();
 
   return (
     <>
@@ -44,7 +52,9 @@ const MyItemsPage = () => {
             </Sidebar>
             <div>
               <Container size="md">
-                <NewItem />
+                <NewItem
+                  setItemsPreviousMTvisible={setItemsPreviousMTvisible}
+                />
                 {items.map((itemRaw) => {
                   return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
                 })}
@@ -59,6 +69,10 @@ const MyItemsPage = () => {
           </SidebarGrid>
         </GotoTopContextProvider>
       </SectionWithSidebar>
+      <ItemsPreviousMT
+        itemsPreviousMTvisible={itemsPreviousMTvisible}
+        setItemsPreviousMTvisible={setItemsPreviousMTvisible}
+      />
     </>
   );
 };

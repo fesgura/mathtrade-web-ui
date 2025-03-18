@@ -1,19 +1,12 @@
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import I18N, { getI18Ntext } from "@/i18n";
-import { PRIVATE_ROUTES } from "@/config/routes";
 import OrderBy from "@/components/orderBy";
 import { SidebarToggleButton } from "@/components/sections/with-sidebar";
 import InnerButton from "@/components/button/inner-button";
 import Icon from "@/components/icon";
 import { useOptions } from "@/store";
-import { PageContext } from "@/context/page";
-import Link from "next/link";
 
 const HeaderMyOffer = ({ count }) => {
-  /* PAGE CONTEXT **********************************************/
-  const { mathtrade_history } = useContext(PageContext);
-  /* end PAGE CONTEXT *********************************************/
-
   /* FILTER OPTIONS **********************************************/
   const filters_myoffer = useOptions((state) => state.filters_myoffer);
   const updateFilters = useOptions((state) => state.updateFilters);
@@ -81,17 +74,6 @@ const HeaderMyOffer = ({ count }) => {
               { text: getI18Ntext("element.Value"), value: "value" },
             ]}
           />
-        </div>
-        <div>
-          <Link
-            href={PRIVATE_ROUTES.MY_OFFER_PREVIOUS_MATHTRADES.path}
-            className="text-xs text-balance w-40 grid place-items-center text-center leading-tight border border-primary rounded-md p-1 text-sky-700  transition-colors hover:bg-primary hover:text-white relative"
-          >
-            <I18N id="myOfferPreviousMathtrades.page.link" />
-            <span className="absolute -top-2 -right-2 block text-[9px] font-bold bg-red-600 text-white px-2 uppercase rounded-sm">
-              <I18N id="new" />
-            </span>
-          </Link>
         </div>
       </div>
     </div>

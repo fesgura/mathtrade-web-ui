@@ -16,10 +16,10 @@ const newItemData = {
   owner: true,
 };
 
-const NewItem = () => {
+const NewItem = ({ setItemsPreviousMTvisible }) => {
   return (
     <ItemContextProvider itemRaw={{ ...newItemData }}>
-      <NewItemUI />
+      <NewItemUI setItemsPreviousMTvisible={setItemsPreviousMTvisible} />
     </ItemContextProvider>
   );
 };

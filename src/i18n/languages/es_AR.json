@@ -881,7 +881,7 @@
   "btn.DeleteItem": "Eliminar ítem",
   "title.DeleteItem": "¿Eliminar ítem?",
   "element.Offered": "Ofrecido",
-  "myOfferPreviousMathtrades.page.link": "Agregar ítems desde Math Trades anteriores",
+  "myOfferPreviousMathtrades.page.link": "<b><u>OFERTAR</u></b> ítems desde Math Trades anteriores",
   "new": "Nuevo",
   "item.xElementsTotal": "$$$ elementos en total",
   "addItemToItem.noElements": "Para <b><u>OFERTAR</u> un nuevo ítem</b>, primero debes añadir elementos a tu "
