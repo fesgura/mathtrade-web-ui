@@ -32,8 +32,12 @@ const useMyData = () => {
   const [currentLocation, setCurrentLocation] = useState(null);
   const [currentEventAttendance, setCurrentEventAttendance] = useState(null);
 
-  const meetingDay = useMemo(() => {
-    return formatDateString(mathtrade?.meeting_date || null);
+  const { mathtradeName, meetingDay } = useMemo(() => {
+    console.log(mathtrade);
+    return {
+      mathtradeName: mathtrade?.name || "Math Trade",
+      meetingDay: formatDateString(mathtrade?.meeting_date || null),
+    };
   }, [mathtrade]);
 
   useEffect(() => {
@@ -152,6 +156,7 @@ const useMyData = () => {
     validations: {
       location: ["required"],
     },
+    mathtradeName,
     meetingDay,
     isMathtrade: mathtrade !== null,
     isMembership: membership !== null,

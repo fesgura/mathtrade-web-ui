@@ -1,7 +1,4 @@
 import Thumbnail from "@/components/thumbnail";
-import LinkExternal from "@/components/link-external";
-import Icon from "@/components/icon";
-import I18N, { getI18Ntext } from "@/i18n";
 import StatusBadge from "@/components/status-badge";
 import { ElementContext } from "@/context/element";
 import { useContext } from "react";
@@ -10,7 +7,7 @@ import clsx from "clsx";
 const ElementXSUI = ({ isCombo }) => {
   const { element } = useContext(ElementContext);
 
-  const { type, title, language, extraData } = element;
+  const { title, language, extraData } = element;
 
   const { box_status, component_status } = extraData;
 

@@ -5,8 +5,8 @@ const NewElement = ({ element, onCancel }) => {
     <ElementMyItem
       element={{
         element,
-        box_status: "MB",
-        component_status: "MB",
+        box_status: "",
+        component_status: "",
         comment: "",
         images: "",
       }}

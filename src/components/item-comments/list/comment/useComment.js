@@ -9,8 +9,8 @@ const useComment = ({ comment, myUserId }) => {
   const { id: itemId } = item;
   /* end ITEM CONTEXT */
 
-  const [upvotes, setUpvotes] = useState(comment?.upvotes || 0);
-  const [downvotes, setDownvotes] = useState(comment?.downvotes || 0);
+  // const [upvotes, setUpvotes] = useState(comment?.upvotes || 0);
+  // const [downvotes, setDownvotes] = useState(comment?.downvotes || 0);
 
   const urlParams = useMemo(() => {
     return [itemId, comment.id];
@@ -26,7 +26,7 @@ const useComment = ({ comment, myUserId }) => {
     urlParams,
     afterLoad: afterLoadDelete,
   });
-
+  /*
   const afterLoadVote = useCallback(({ upvotes, downvotes }) => {
     setUpvotes(upvotes);
     setDownvotes(downvotes);
@@ -44,7 +44,7 @@ const useComment = ({ comment, myUserId }) => {
       params: { vote },
     });
   };
-
+*/
   const data = useMemo(() => {
     const { content, date, user } = comment;
 
@@ -63,11 +63,11 @@ const useComment = ({ comment, myUserId }) => {
 
   return {
     ...data,
-    upvotes,
-    downvotes,
+    // upvotes,
+    // downvotes,
     deleteComment,
-    loading: loadingDel || loadingVote,
-    setVote,
+    loading: loadingDel, // || loadingVote,
+    // setVote,
   };
 };
 

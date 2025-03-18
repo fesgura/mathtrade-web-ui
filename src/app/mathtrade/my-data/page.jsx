@@ -29,6 +29,7 @@ const baseURL = process.env.BASE_URL;
 const MyDataPage = () => {
   const {
     validations,
+    mathtradeName,
     meetingDay,
     isMathtrade,
     isMembership,
@@ -59,6 +60,9 @@ const MyDataPage = () => {
         <Container>
           {isMathtrade ? (
             <section className="max-w-lg mx-auto py-8 relative">
+              <h2 className=" text-balance text-center font-bold mb-5 text-3xl text-gray-600">
+                🎊 {mathtradeName} 🎉
+              </h2>
               <p className="text-center mb-6">
                 <I18N
                   id={`MyData.${

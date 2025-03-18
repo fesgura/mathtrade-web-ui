@@ -8,13 +8,13 @@ const Comment = ({ comment, myUserId, isLast }) => {
   const {
     content,
     date,
-    downvotes,
-    upvotes,
+    // downvotes,
+    //upvotes,
     user,
     isMyUser,
     deleteComment,
     loading,
-    setVote,
+    // setVote,
   } = useComment({
     comment,
     myUserId,
@@ -55,7 +55,7 @@ const Comment = ({ comment, myUserId, isLast }) => {
               <div className="flex  items-center justify-between gap-3 text-xs">
                 <div className="jk">{date}</div>
                 <div className="flex gap-3 items-center">
-                  <button
+                  {/* <button
                     className="hover:opacity-50 transition-opacity"
                     onClick={() => {
                       setVote("upvote");
@@ -74,7 +74,7 @@ const Comment = ({ comment, myUserId, isLast }) => {
                   >
                     <Icon type="thumbDown" className="text-gray-600" />{" "}
                     <span className="text-gray-400 font-bold">{downvotes}</span>
-                  </button>
+                  </button> */}
                   {isMyUser && isLast && (
                     <button
                       className="text-danger font-bold border border-danger/30 px-2 rounded-full hover:bg-danger hover:text-white transition-colors"

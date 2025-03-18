@@ -870,7 +870,11 @@
   "removeElementFromItem.btn": "Remover ejemplar de este ítem",
   "editElementInItem.btn": "Editar información",
   "addElementToItem": "Agregar ejemplar",
-  "addElementToItem.create.title": "Agregar ejemplar de tu colección para <b>crear un nuevo ítem</b>",
+  "addElementToItem.create.title.1": "Agregar ejemplar de tu ",
+  "addElementToItem.collection": "colección",
+  "addElementToItem.create.title.2": " para <b><u>OFERTAR</u> un nuevo ítem</b>",
+  "addElementToItem.addCombo.title.1": "Agregar ejemplar de tu ",
+  "addElementToItem.addCombo.title.2": " para formar <b>combo</b>",
   "addElementToItem.addCombo.title": "Agregar ejemplar para formar <b>combo</b>",
   "btn.AddToItem": "Agregar a ítem",
   "btn.CreateItem": "Crear ítem",
@@ -879,5 +883,6 @@
   "element.Offered": "Ofrecido",
   "myOfferPreviousMathtrades.page.link": "Agregar ítems desde Math Trades anteriores",
   "new": "Nuevo",
-  "item.xElementsTotal": "$$$ elementos en total"
+  "item.xElementsTotal": "$$$ elementos en total",
+  "addItemToItem.noElements": "Para <b><u>OFERTAR</u> un nuevo ítem</b>, primero debes añadir elementos a tu "
 }

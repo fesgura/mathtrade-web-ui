@@ -3,6 +3,8 @@ import AddElementToMyItemSelector from "./selector";
 import NewElement from "./newElement";
 import I18N from "@/i18n";
 import clsx from "clsx";
+import Link from "next/link";
+import { PRIVATE_ROUTES } from "@/config/routes";
 
 const AddElementToMyItem = ({ startOpen }) => {
   const {
@@ -32,7 +34,16 @@ const AddElementToMyItem = ({ startOpen }) => {
             })}
           >
             <I18N
-              id={`addElementToItem.${itemId ? "addCombo" : "create"}.title`}
+              id={`addElementToItem.${itemId ? "addCombo" : "create"}.title.1`}
+            />
+            <Link
+              href={PRIVATE_ROUTES.MY_COLLECTION.path}
+              className="text-primary font-bold underline hover:text-sky-700"
+            >
+              <I18N id="addElementToItem.collection" />
+            </Link>
+            <I18N
+              id={`addElementToItem.${itemId ? "addCombo" : "create"}.title.2`}
             />
             :
           </h2>
