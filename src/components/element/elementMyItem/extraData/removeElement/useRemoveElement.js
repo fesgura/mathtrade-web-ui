@@ -33,7 +33,7 @@ const useRemoveElement = () => {
 
   const removeElement = useCallback(() => {
     deleteElement({
-      urlParams: [element?.math_id || ""],
+      urlParams: [element?.math_element_id || ""],
     });
   }, [deleteElement, element]);
 

@@ -33,7 +33,6 @@ const useMyData = () => {
   const [currentEventAttendance, setCurrentEventAttendance] = useState(null);
 
   const { mathtradeName, meetingDay } = useMemo(() => {
-    console.log(mathtrade);
     return {
       mathtradeName: mathtrade?.name || "Math Trade",
       meetingDay: formatDateString(mathtrade?.meeting_date || null),

@@ -1,4 +1,8 @@
-import { statusTypes } from "@/config/statusTypes";
+import {
+  statusTypes,
+  validStatusKeys,
+  invalidStatusKey,
+} from "@/config/statusTypes";
 import { getI18Ntext } from "@/i18n";
 import clsx from "clsx";
 import Icon from "@/components/icon";
@@ -15,7 +19,8 @@ const StatusBadge = ({ status, block, min, noTooltip, type }) => {
         }
       )}
       style={{
-        backgroundColor: statusTypes[status]?.color || "#666",
+        backgroundColor:
+          statusTypes[status]?.color || statusTypes[invalidStatusKey].color,
       }}
       data-tooltip={noTooltip ? null : getI18Ntext(`statusType.desc.${status}`)}
     >
@@ -30,8 +35,8 @@ const StatusBadge = ({ status, block, min, noTooltip, type }) => {
 
       <div className="px-1">
         {min
-          ? statusTypes[status]?.min || "ND"
-          : statusTypes[status]?.text || "No Data"}
+          ? statusTypes[status]?.min || statusTypes[invalidStatusKey].min
+          : statusTypes[status]?.text || statusTypes[invalidStatusKey].text}
       </div>
     </div>
   ) : null;

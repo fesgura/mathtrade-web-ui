@@ -22,10 +22,6 @@ const useMyOffer = () => {
   }, [setPageType]);
   /* end PAGE CONTEXT *********************************************/
 
-  /* ITEMS PREVIOUS MATHTRADES **********************************************/
-  const [itemsPreviousMTvisible, setItemsPreviousMTvisible] = useState(false);
-  /* end ITEMS PREVIOUS MATHTRADES **********************************************/
-
   /* FILTER OPTIONS **********************************************/
   const filters_myoffer = useOptions((state) => state.filters_myoffer);
   /* end FILTER OPTIONS *********************************************/
@@ -136,8 +132,6 @@ const useMyOffer = () => {
     items,
     loading: loadingMyItemsInMT || loadingMyCollection || loadingMyGropus,
     error: errorMyItemsInMT || errorMyCollection || errorGropusMyGropus,
-    itemsPreviousMTvisible,
-    setItemsPreviousMTvisible,
   };
 };
 

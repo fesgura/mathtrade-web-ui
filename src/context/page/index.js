@@ -9,8 +9,6 @@ export const PageContext = createContext({
   reloadValue: 1,
   forceReloadPage: () => {},
   //
-  mathtrade_history: [],
-  //
   items: { list: [], count: 0 },
   setItems: () => {},
   games: [],
@@ -83,9 +81,7 @@ export const PageContext = createContext({
 const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE === "yes";
 
 const PageContextProvider = ({ children }) => {
-  const { mathtrade, mathtrade_history, membership, user } = useStore(
-    (state) => state.data
-  );
+  const { mathtrade, membership, user } = useStore((state) => state.data);
 
   const [pageType, setPageType] = useState(null);
   const [items, setItems] = useState({ list: [], count: 0 });
@@ -210,8 +206,6 @@ const PageContextProvider = ({ children }) => {
         //
         reloadValue,
         forceReloadPage,
-        //
-        mathtrade_history,
         //
         items,
         setItems,

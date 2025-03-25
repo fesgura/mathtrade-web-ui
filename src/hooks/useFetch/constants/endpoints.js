@@ -30,6 +30,9 @@ const endpoints = {
   DELETE_MYITEM_ELEMENT: "api/mathtrades/$[mathtradeId]/user-elements/$[1]/",
   DELETE_MYITEM: "api/mathtrades/$[mathtradeId]/user-items/$[1]/",
 
+  // ITEMS PREVIOUS MT
+  POST_ITEM_PREVIOUSMT: "api/mathtrades/$[mathtradeId]/user-item-copy/",
+
   GET_MYITEM_GROUPS: "api/mathtrades/$[mathtradeId]/user-item-groups/",
   POST_MYITEM_GROUPS: "api/mathtrades/$[mathtradeId]/user-item-groups/",
   PUT_MYITEM_GROUPS: "api/mathtrades/$[mathtradeId]/user-item-groups/$[1]/",
@@ -40,7 +43,8 @@ const endpoints = {
   // ITEMS
   GET_ITEMS_LIST: "api/mathtrades/$[mathtradeId]/items/",
   GET_ITEM: "api/mathtrades/$[mathtradeId]/items/$[1]/",
-  POST_VALUE_ITEMS: "api/item-values/",
+
+  POST_VALUE_ITEMS: "api/mathtrades/$[mathtradeId]/item-values/",
 
   // FILTERS
   GET_FILTER_ITEMS: "api/mathtrades/$[mathtradeId]/item-filters/",

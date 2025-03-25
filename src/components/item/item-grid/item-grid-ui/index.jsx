@@ -1,16 +1,13 @@
 import clsx from "clsx";
 import useItemGrid from "./useItemGrid";
-import I18N, { getI18Ntext } from "@/i18n";
-import BanButton from "@/components/ban/button";
-import Value from "@/components/value";
-import ItemTagList from "@/components/item-tags/item-taglist";
 import ItemMD from "./md";
 import ItemXL from "./xl";
-import Icon from "@/components/icon";
 
 const ItemGridUI = ({ expanded, setExpanded }) => {
-  const { isCombo, ban_id, itemNode, isExpanded, onToggleExpanse } =
-    useItemGrid(expanded, setExpanded);
+  const { itemNode, isExpanded, onToggleExpanse } = useItemGrid(
+    expanded,
+    setExpanded
+  );
 
   return (
     <article

@@ -9,7 +9,6 @@ import Grid from "./grid";
 import Footer from "./footer";
 import ErrorAlert from "@/components/errorAlert";
 import Container from "@/components/container";
-import ModalPreviewerItem from "@/components/previewerItem/modal";
 import { GotoTopContextProvider } from "@/context/goto-top";
 import HelpContext from "@/components/help-context";
 
@@ -30,7 +29,6 @@ export default function MyWantsUI() {
         }
       />
       <SectionCommon loading={loading}>
-   
         <Tabs
           list={["want.screen.visual", "want.screen.grid"]}
           value={screenView}
@@ -57,8 +55,6 @@ export default function MyWantsUI() {
           <Footer />
         </GotoTopContextProvider>
       </SectionCommon>
-
-      <ModalPreviewerItem />
     </>
   );
 }

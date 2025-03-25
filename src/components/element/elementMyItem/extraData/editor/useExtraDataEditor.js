@@ -2,6 +2,7 @@ import { useCallback, useContext, useState } from "react";
 import { PageContext } from "@/context/page";
 import { ItemContext } from "@/context/item";
 import { ElementContext } from "@/context/element";
+import { useOptions } from "@/store";
 import useFetch from "@/hooks/useFetch";
 
 const useExtraDataEditor = (onCancel, toggleEditingMode) => {
@@ -18,6 +19,10 @@ const useExtraDataEditor = (onCancel, toggleEditingMode) => {
   const { extraData } = element;
   /* end ELEMENT CONTEXT **************************** */
 
+  /* FILTER OPTIONS **********************************************/
+  const updateFilters = useOptions((state) => state.updateFilters);
+  /* end FILTER OPTIONS *********************************************/
+
   const [box_status, setBoxStatus] = useState(extraData?.box_status || "");
   const [component_status, setComponentStatus] = useState(
     extraData?.component_status || ""
@@ -28,10 +33,16 @@ const useExtraDataEditor = (onCancel, toggleEditingMode) => {
   /* POST **************************************************/
 
   const afterLoad = useCallback(() => {
+    updateFilters(
+      {
+        keyword: undefined,
+      },
+      "myoffer"
+    );
     forceReloadPage();
     if (onCancel) onCancel();
     toggleEditingMode();
-  }, [forceReloadPage, onCancel, toggleEditingMode]);
+  }, [updateFilters, forceReloadPage, onCancel, toggleEditingMode]);
 
   const [postElement, , loadingPost, errorPost] = useFetch({
     endpoint: "POST_MYITEM",

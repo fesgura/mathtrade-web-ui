@@ -688,6 +688,8 @@
   "statusType.MB": "Muy bueno",
   "statusType.MU": "Muy usado",
   "statusType.NU": "Nuevo",
+  "statusType.CP": "Revisar",
+  "statusType.desc.CP": "<b>Debes especificar el estado</b> de la caja y/o componentes este elemento para que pueda mostrarse entre los <b>juegos ofrecidos</b>.",
   "statusType.desc.BU": "Caja y componentes en estado aceptable, sin marcas en los componentes secretos, la caja puede tener marcas importantes de desgaste.",
   "statusType.desc.CC": "Se aplica a juegos de campaña en los que se modifican permanentemente algunos elementos y no puede ser jugado nuevamente como si fuera nuevo.",
   "statusType.desc.CE": "Si a través del envoltorio se ve algún defecto, especificarlo.",
@@ -881,8 +883,14 @@
   "btn.DeleteItem": "Eliminar ítem",
   "title.DeleteItem": "¿Eliminar ítem?",
   "element.Offered": "Ofrecido",
-  "myOfferPreviousMathtrades.page.link": "<b><u>OFERTAR</u></b> ítems desde Math Trades anteriores",
+  "myOfferPreviousMathtrades.page.link": "<b><u>OFERTAR</u></b> ítems desde tu último Math Trade.",
   "new": "Nuevo",
   "item.xElementsTotal": "$$$ elementos en total",
-  "addItemToItem.noElements": "Para <b><u>OFERTAR</u> un nuevo ítem</b>, primero debes añadir elementos a tu "
+  "addItemToItem.noElements": "Para <b><u>OFERTAR</u> un nuevo ítem</b>, primero debes añadir elementos a tu ",
+  "previousMT.items.title": "Tus ítems en el último Math Trade",
+  "addItemPreviousMT.btn": "<b><u>OFERTAR</u></b> este ítem en el Math Trade actual",
+  "404.title": "Error 404",
+  "404.message": "Esta página no está disponible.",
+  "404.link": "Continuar a la página de inicio",
+  "MyData.MathTrade.CommingSoon": "Pronto tendremos un nuevo Math Trade.<br/>Quedate atento/a a las novedades por las redes sociales, Telegram, etc. o visitando con frecuencia nuestro sitio web."
 }

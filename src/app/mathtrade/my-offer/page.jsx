@@ -7,6 +7,7 @@ import StickyHeader from "@/components/sticky-header";
 import Container from "@/components/container";
 import PageHeader from "@/components/pageHeader";
 import { GotoTopContextProvider } from "@/context/goto-top";
+import { ItemPreviousMTContextProvider } from "@/context/itemPreviousMT";
 import SectionWithSidebar, {
   SidebarGrid,
   Sidebar,
@@ -19,14 +20,7 @@ import NewItem from "@/components/item/item-my/new-item";
 import ItemsPreviousMT from "@/components/itemsPreviousMT";
 
 const MyItemsPage = () => {
-  const {
-    isLoaded,
-    items,
-    loading,
-    error,
-    itemsPreviousMTvisible,
-    setItemsPreviousMTvisible,
-  } = useMyOffer();
+  const { isLoaded, items, loading, error } = useMyOffer();
 
   return (
     <>
@@ -41,38 +35,35 @@ const MyItemsPage = () => {
           </>
         }
       />
-      <SectionWithSidebar name="myoffer" loading={loading}>
-        <GotoTopContextProvider>
-          <StickyHeader>
-            <HeaderMyOffer count={items.length} />
-          </StickyHeader>
-          <SidebarGrid>
-            <Sidebar>
-              <MyGroupsSidebar />
-            </Sidebar>
-            <div>
-              <Container size="md">
-                <NewItem
-                  setItemsPreviousMTvisible={setItemsPreviousMTvisible}
-                />
-                {items.map((itemRaw) => {
-                  return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
-                })}
-                <EmptyList
-                  visible={isLoaded && !(items?.length || 0) && !error}
-                  message="EmptyList.myOffer"
-                />
+      <ItemPreviousMTContextProvider>
+        <SectionWithSidebar name="myoffer" loading={loading}>
+          <GotoTopContextProvider>
+            <StickyHeader>
+              <HeaderMyOffer count={items.length} />
+            </StickyHeader>
+            <SidebarGrid>
+              <Sidebar>
+                <MyGroupsSidebar />
+              </Sidebar>
+              <div>
+                <Container size="md">
+                  <NewItem />
+                  {items.map((itemRaw) => {
+                    return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
+                  })}
+                  <EmptyList
+                    visible={isLoaded && !(items?.length || 0) && !error}
+                    message="EmptyList.myOffer"
+                  />
 
-                <ErrorAlert error={error} />
-              </Container>
-            </div>
-          </SidebarGrid>
-        </GotoTopContextProvider>
-      </SectionWithSidebar>
-      <ItemsPreviousMT
-        itemsPreviousMTvisible={itemsPreviousMTvisible}
-        setItemsPreviousMTvisible={setItemsPreviousMTvisible}
-      />
+                  <ErrorAlert error={error} />
+                </Container>
+              </div>
+            </SidebarGrid>
+          </GotoTopContextProvider>
+        </SectionWithSidebar>
+        <ItemsPreviousMT />
+      </ItemPreviousMTContextProvider>
     </>
   );
 };

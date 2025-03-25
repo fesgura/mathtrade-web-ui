@@ -3,7 +3,7 @@ import I18N, { getI18Ntext } from "@/i18n";
 import clsx from "clsx";
 import useNotification from "./useNotification";
 
-const Notification = ({ data, type }) => {
+const Notification = ({ data, type, noMembership }) => {
   const {
     unreaded,
     toggleReaded,
@@ -14,7 +14,7 @@ const Notification = ({ data, type }) => {
     linkFunction,
     linkText,
     loading,
-  } = useNotification(data, type);
+  } = useNotification(data, type, noMembership);
 
   return (
     <div className="border-b border-gray-300">

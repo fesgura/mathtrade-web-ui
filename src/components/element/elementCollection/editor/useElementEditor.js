@@ -7,6 +7,7 @@ import { noBGGgame } from "@/config/no-bgggame";
 import { PageContext } from "@/context/page";
 import { ItemContext } from "@/context/item";
 import { ElementContext } from "@/context/element";
+import { useOptions } from "@/store";
 
 const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
   // PAGE CONTEXT *************************************/
@@ -22,6 +23,10 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
   // ELEMENT CONTEXT *************************************/
   const { element } = useContext(ElementContext);
   // end ELEMENT CONTEXT *************************************/
+
+  /* FILTER OPTIONS **********************************************/
+  const updateFilters = useOptions((state) => state.updateFilters);
+  /* end FILTER OPTIONS *********************************************/
 
   const [BGGinfo, setBGGinfo] = useState(newBGGinfo);
 
@@ -133,9 +138,15 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
     if (itemId) {
       reloadItem();
     } else {
+      updateFilters(
+        {
+          keyword: undefined,
+        },
+        "collection"
+      );
       forceReloadPage();
     }
-  }, [toggleEditingMode, itemId, forceReloadPage, reloadItem]);
+  }, [updateFilters, toggleEditingMode, itemId, forceReloadPage, reloadItem]);
 
   const [createElement, , loadingCreateElement, errorCreateElement] = useFetch({
     endpoint: "POST_MYCOLLECTION_ELEMENTS",

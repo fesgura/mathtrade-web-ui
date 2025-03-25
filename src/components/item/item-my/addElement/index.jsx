@@ -5,6 +5,7 @@ import I18N from "@/i18n";
 import clsx from "clsx";
 import Link from "next/link";
 import { PRIVATE_ROUTES } from "@/config/routes";
+import AddFromPreviousMTBtn from "../addFromPreviousMtBtn";
 
 const AddElementToMyItem = ({ startOpen }) => {
   const {
@@ -19,7 +20,7 @@ const AddElementToMyItem = ({ startOpen }) => {
     onCancel,
   } = useAddElement(startOpen);
 
-  return myCollectionList.length ? (
+  return (
     <>
       {isOpen ? (
         <div
@@ -50,12 +51,17 @@ const AddElementToMyItem = ({ startOpen }) => {
           {selectedElement ? (
             <NewElement element={selectedElement} onCancel={onCancel} />
           ) : (
-            <AddElementToMyItemSelector
-              myCollectionList={myCollectionList}
-              selectedElementId={selectedElementId}
-              setSelectedElementId={setSelectedElementId}
-              addElement={addElement}
-            />
+            <div className="flex items-end">
+              <div className="grow">
+                <AddElementToMyItemSelector
+                  myCollectionList={myCollectionList}
+                  selectedElementId={selectedElementId}
+                  setSelectedElementId={setSelectedElementId}
+                  addElement={addElement}
+                />
+              </div>
+              {itemId ? null : <AddFromPreviousMTBtn />}
+            </div>
           )}
         </div>
       ) : (
@@ -71,6 +77,6 @@ const AddElementToMyItem = ({ startOpen }) => {
         </div>
       )}
     </>
-  ) : null;
+  );
 };
 export default AddElementToMyItem;

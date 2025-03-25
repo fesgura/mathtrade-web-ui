@@ -2,22 +2,27 @@ export const PUBLIC_ROUTES = {
   DEFAULT: {
     title: "signIn",
     path: "/sign/in",
+    enabled: "always",
   },
   SIGN_IN: {
     title: "signIn",
     path: "/sign/in",
+    enabled: "always",
   },
   REGISTER: {
     title: "signUp",
     path: "/sign/up",
+    enabled: "always",
   },
   FORGOT_PASSWORD: {
     title: "forgotPassword",
     path: "/sign/forgot-password",
+    enabled: "always",
   },
   TERMS_CONDITIONS: {
     title: "termsConditions",
     path: "/terms-conditions",
+    enabled: "always",
   },
 };
 
@@ -26,71 +31,68 @@ export const privateRoot = "/mathtrade";
 export const PRIVATE_ROUTES = {
   DEFAULT: {
     title: "home",
-    path: privateRoot + "/",
+    path: privateRoot,
+    enabled: "always",
   },
   HOME: {
     title: "home",
-    path: privateRoot + "/",
+    path: privateRoot,
+    enabled: "always",
   },
   MY_COLLECTION: {
     title: "myCollection",
     path: privateRoot + "/my-collection",
+    enabled: "always",
   },
-  // SIGN_IN_MATHTRADE: {
-  //   title: "signInMathtrade",
-  //   path: "/sign-in-mathtrade",
-  // },
   MY_OFFER: {
     title: "myOffer",
     path: privateRoot + "/my-offer",
+    enabled: "onlyForMembers",
   },
-  MY_OFFER_PREVIOUS_MATHTRADES: {
-    title: "myOfferPreviousMathtrades",
-    path: privateRoot + "/my-offer/previous-mathtrades",
-  },
-  /* GAMES: {
-    title: "games",
-    path: privateRoot + "/games",
-  },
-  ITEMS: {
-    title: "items",
-    path: privateRoot + "/items",
-  }, */
   OFFER: {
     title: "offerGames",
     path: privateRoot + "/offer",
+    enabled: "onlyForMembers",
   },
   WANTS: {
     title: "wants",
     path: privateRoot + "/my-wants",
+    enabled: "onlyForMembers",
   },
   RESULTS: {
     title: "results",
     path: privateRoot + "/results",
+    enabled: "onlyForMembers",
   },
   STATS: {
     title: "statistics",
     path: privateRoot + "/statistics",
+    enabled: "onlyForMembers",
   },
   MY_DATA: {
     title: "myData",
     path: privateRoot + "/my-data",
+    enabled: "always",
   },
   SIGN_TO_MATHTRADE: {
     title: "SignToMathTrade",
     path: privateRoot + "/my-data",
+    enabled: "always",
   },
 
   MY_ACCOUNT: {
     title: "myAccount",
     path: privateRoot + "/my-account",
+    enabled: "always",
   },
   REFERRAL: {
     title: "referral",
     path: privateRoot + "/referral",
+    enabled: "always",
   },
   FAQS: {
     title: "faqs",
     path: privateRoot + "/faqs",
+    enabled: "always",
   },
 };
