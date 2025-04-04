@@ -8,7 +8,7 @@ import Icon from "@/components/icon";
 import { LoadingBox } from "@/components/loading";
 
 const HeaderItem = () => {
-  const { deleteItem, loading, isCombo } = useItemHeader();
+  const { deleteItem, loading, isCombo, canIoffer } = useItemHeader();
 
   return (
     <>
@@ -18,16 +18,18 @@ const HeaderItem = () => {
             <MyGroupsInItem className="" />
             <Value size="xl" type="item" />
           </div>
-          <ButtonAlert
-            className="text-danger font-bold text-xs hover:text-red-900 transition-colors"
-            title="title.DeleteItem"
-            onClick={deleteItem}
-          >
-            <InnerButton>
-              <Icon type="trash" />
-              <I18N id="btn.DeleteItem" />
-            </InnerButton>
-          </ButtonAlert>
+          {canIoffer ? (
+            <ButtonAlert
+              className="text-danger font-bold text-xs hover:text-red-900 transition-colors"
+              title="title.DeleteItem"
+              onClick={deleteItem}
+            >
+              <InnerButton>
+                <Icon type="trash" />
+                <I18N id="btn.DeleteItem" />
+              </InnerButton>
+            </ButtonAlert>
+          ) : null}
         </div>
         {isCombo ? (
           <h3 className="uppercase text-sm font-bold text-gray-900 border-t border-gray-400 border-dotted leading-none mt-2 pt-2">

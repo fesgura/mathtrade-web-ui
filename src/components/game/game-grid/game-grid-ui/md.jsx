@@ -58,8 +58,9 @@ const GameGridMD = ({ onToggleExpanse }) => {
               </div>
             </div>
           </div>
-          <div className="bg-black rounded-b-lg flex items-center justify-end gap-2 p-2">
+          <div className="bg-black rounded-b-lg flex items-center justify-end gap-3 p-2">
             <BanButton size="md" type="game" />
+            <div className="w-[1px] h-4 bg-gray-400"></div>
             {ban_id ? null : <Value size="md" type="game" />}
           </div>
         </div>

@@ -11,41 +11,13 @@ const useItemsToOfferList = () => {
   /* end OPTIONS */
 
   /* PAGE CONTEXT **********************************************/
-  const {
-    myItemsInMT_forWants,
-    setMyItemsInMT_forWants,
-    myGroups_forWants,
-    setMyGroups_forWants,
-  } = useContext(PageContext);
+  const { myItemsInMT_forWants, myGroups_forWants, setMyGroups_forWants } =
+    useContext(PageContext);
   /* end PAGE CONTEXT *********************************************/
 
   /* WANTGROUP CONTEXT **********************************************/
   const { wantGroup, setItemsOfferList } = useContext(WantGroupContext);
   /* end WANTGROUP CONTEXT **********************************************/
-
-  // My Items in MathTrade ********************************************
-  const [myItemsLoaded, setMyItemsLoaded] = useState(false);
-
-  const afterLoadMyItems = useCallback(
-    (newMyItemsInMT) => {
-      setMyItemsInMT_forWants(newMyItemsInMT);
-    },
-    [setMyItemsInMT_forWants]
-  );
-
-  const [loadMyItemsInMT, , loadingMyItemsInMT, errorMyItemsInMT] = useFetch({
-    endpoint: "GET_MYITEMS",
-    initialState: [],
-    afterLoad: afterLoadMyItems,
-  });
-
-  useEffect(() => {
-    if (!myItemsLoaded && !myItemsInMT_forWants.length) {
-      loadMyItemsInMT();
-      setMyItemsLoaded(true);
-    }
-  }, [myItemsLoaded, myItemsInMT_forWants, loadMyItemsInMT]);
-  // END My Items in MathTrade ********************************************
 
   // MY GROUPS ********************************************
   const afterLoadMyGroups = useCallback(
@@ -130,8 +102,8 @@ const useItemsToOfferList = () => {
 
   return {
     list,
-    loading: loadingMyItemsInMT || loadingMyGropus,
-    error: errorMyItemsInMT || errorGropusMyGropus,
+    loading: loadingMyGropus,
+    error: errorGropusMyGropus,
     showAll,
     toggleShowAll,
   };

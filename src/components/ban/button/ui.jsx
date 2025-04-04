@@ -10,11 +10,13 @@ const BanButtonUI = ({ className, type = "item" }) => {
       <div data-tooltip={getI18Ntext(ban_id ? "unban" : `ban.${type}`)}>
         <button
           className={clsx(
-            "font-normal cursor-pointer  w-[21px] h-[21px] transition-colors rounded-full leading-none block",
+            "font-normal cursor-pointer  h-[21px] transition-colors rounded-full leading-none block",
             {
-              " text-gray-500 hover:text-red-600 active:bg-red-600 active:text-white":
+              "text-gray-600": type === "item",
+              "text-white": type === "game",
+              "hover:text-red-600 active:text-red-600":
                 !showAsIgnored && !ban_id,
-              "bg-red-600 text-white": showAsIgnored || ban_id,
+              "text-red-600": showAsIgnored || ban_id,
             }
           )}
           onClick={onClick}

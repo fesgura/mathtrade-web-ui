@@ -7,9 +7,11 @@ import BtnQuickRemove from "./btnQuickRemove";
 import BtnQuickAdd from "./btnQuickAdd";
 import GameItemList from "./gameItemList";
 import I18N from "@/i18n";
+import clsx from "clsx";
 
 const WantButtonUI = ({ contextSize }) => {
-  const { isOwner, contextType, wantGroup } = useContext(WantGroupContext);
+  const { isOwner, contextType, wantGroup, isSameBGGId } =
+    useContext(WantGroupContext);
 
   return isOwner ? (
     contextSize === "md" ? (
@@ -17,6 +19,14 @@ const WantButtonUI = ({ contextSize }) => {
         <I18N id={`want.owner.${contextType}`} />
       </div>
     ) : null
+  ) : isSameBGGId ? (
+    <div
+      className={clsx("text-center font-bold text-balance text-xs opacity-80", {
+        "p-3 pb-5": contextType === "game",
+      })}
+    >
+      <I18N id={`isSameBGGId.${contextType}`} />
+    </div>
   ) : (
     <>
       {contextSize === "xl" && contextType === "game" ? <GameItemList /> : null}

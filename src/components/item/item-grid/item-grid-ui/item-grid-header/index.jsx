@@ -7,16 +7,25 @@ import ItemTagList from "@/components/item-tags/item-taglist";
 
 const ItemGridHeader = ({ onChangeValue }) => {
   const { item } = useContext(ItemContext);
-  const { isCombo, ban_id } = item;
+  const { isCombo, ban_id, isOwned } = item;
 
   return (
     <header className="mb-2">
       <div className="flex items-start justify-between gap-3">
-        {ban_id ? null : <ItemTagList />}
-        <div className="flex items-center gap-1">
+        {ban_id ? (
+          <div />
+        ) : (
+          <div>
+            <ItemTagList />
+          </div>
+        )}
+        <div className="flex items-center gap-3">
           <BanButton size="xl" type="item" />
           {ban_id ? null : (
-            <Value size="xl" type="item" onChange={onChangeValue} />
+            <>
+              {isOwned ? null : <div className="w-[1px] h-4 bg-gray-400"></div>}
+              <Value size="xl" type="item" onChange={onChangeValue} />
+            </>
           )}
         </div>
       </div>

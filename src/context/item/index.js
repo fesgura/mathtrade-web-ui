@@ -22,7 +22,8 @@ export const ItemContext = createContext({
 
 export const ItemContextProvider = ({ itemRaw, children }) => {
   /* PAGE CONTEXT **********************************************/
-  const { myWants /*, userId*/ } = useContext(PageContext);
+  const { myWants, myItemsInMT_forWants /*, userId*/ } =
+    useContext(PageContext);
   /* end PAGE CONTEXT */
 
   const [itemLoaded, setItemLoaded] = useState(itemRaw);
@@ -74,6 +75,29 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
 
     const isCombo = elements?.length > 1;
 
+    const isSameBGGId = (() => {
+      let isFoundedBGGId = false;
+
+      if (owner) {
+        return false;
+      }
+
+      const bggIdList = elements.map(({ element }) => {
+        return `${element?.game?.bgg_id}`;
+      });
+
+      myItemsInMT_forWants.forEach(({ elements }) => {
+        elements.forEach(({ element }) => {
+          const bggId = `${element?.game?.bgg_id}`;
+          if (bggIdList.includes(bggId)) {
+            isFoundedBGGId = true;
+          }
+        });
+      });
+
+      return isFoundedBGGId;
+    })();
+
     return {
       id,
       title,
@@ -92,17 +116,9 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
         name: `${user?.first_name || ""} ${user?.last_name || ""}`,
         locationId: user?.location || "none",
       },
-      // DEPRECATED
-      typeNum: 1,
-      titleLink: "",
-      publisher: "",
-      publisherLink: "",
-      language: "",
-      status: "",
-      statusCombo: "",
-      // end DEPRECATED
+      isSameBGGId,
     };
-  }, [itemLoaded]);
+  }, [itemLoaded, myItemsInMT_forWants]);
 
   /* end ITEM ***************************/
 

@@ -2,21 +2,18 @@ import { useContext } from "react";
 import { ItemContext } from "@/context/item";
 import ElementComplete from "@/components/element/elementComplete";
 import I18N, { getI18Ntext } from "@/i18n";
-import Value from "@/components/value";
 import WantButton from "@/components/want-button";
 import ItemComments from "@/components/item-comments";
 import UserBox from "@/components/userBox";
-import ItemTagList from "@/components/item-tags/item-taglist";
 import Icon from "@/components/icon";
 import { LoadingBox } from "@/components/loading";
-import BanButton from "@/components/ban/button";
 import clsx from "clsx";
 import ItemGridHeader from "../item-grid-header";
 
 const ItemXL = ({ onToggleExpanse, hideWant, onChangeValue }) => {
   /* ITEM CONTEXT **********************************************/
   const { item, loadingItem, showAsIgnored } = useContext(ItemContext);
-  const { ban_id, isCombo, elements } = item;
+  const { ban_id, elements } = item;
   /* end ITEM CONTEXT */
 
   return (

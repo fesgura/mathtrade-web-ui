@@ -892,5 +892,8 @@
   "404.title": "Error 404",
   "404.message": "Esta página no está disponible.",
   "404.link": "Continuar a la página de inicio",
-  "MyData.MathTrade.CommingSoon": "Pronto tendremos un nuevo Math Trade.<br/>Quedate atento/a a las novedades por las redes sociales, Telegram, etc. o visitando con frecuencia nuestro sitio web."
+  "MyData.MathTrade.CommingSoon": "Pronto tendremos un nuevo Math Trade.<br/>Quedate atento/a a las novedades por las redes sociales, Telegram, etc. o visitando con frecuencia nuestro sitio web.",
+  "isSameBGGId.game": "Ya tenés este juego.<br/>No podés desearlo.",
+  "isSameBGGId.item": "Ya tenés este juego.<br/>No podés desearlo.",
+  "isSameBGGId.tag": "Ya tenés alguno de los juegos en esta etiqueta.<br/>No podés desearla."
 }

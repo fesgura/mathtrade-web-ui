@@ -5,7 +5,7 @@ import useFetch from "@/hooks/useFetch";
 
 const useItemHeader = () => {
   /* PAGE CONTEXT **************************** */
-  const { forceReloadPage } = useContext(PageContext);
+  const { forceReloadPage, canI } = useContext(PageContext);
   /* end PAGE CONTEXT **************************** */
 
   /* ITEM CONTEXT **********************************************/
@@ -33,7 +33,7 @@ const useItemHeader = () => {
     });
   }, [deleteItemApi, item]);
 
-  return { deleteItem, loading, isCombo };
+  return { deleteItem, loading, isCombo, canIoffer: canI.offer };
 };
 
 export default useItemHeader;

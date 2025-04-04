@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import { PageContext } from "@/context/page";
 import { ItemContextProvider } from "@/context/item";
 import NewItemUI from "./ui";
 
@@ -17,10 +19,13 @@ const newItemData = {
 };
 
 const NewItem = () => {
-  return (
+  /* PAGE CONTEXT **********************************************/
+  const { canI } = useContext(PageContext);
+  /* end PAGE CONTEXT **********************************************/
+  return canI.offer ? (
     <ItemContextProvider itemRaw={{ ...newItemData }}>
       <NewItemUI />
     </ItemContextProvider>
-  );
+  ) : null;
 };
 export default NewItem;

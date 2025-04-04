@@ -6,7 +6,6 @@ import { useContext } from "react";
 import I18N, { getI18Ntext } from "@/i18n";
 import Icon from "@/components/icon";
 import Value from "@/components/value";
-import WantButton from "@/components/want-button";
 import BanButton from "@/components/ban/button";
 import clsx from "clsx";
 import WantButtonGame from "../wantButtonGame";
@@ -45,8 +44,9 @@ const GameGridXL = ({ onToggleExpanse }) => {
               elements={[{ thumbnail }]}
               className="rounded-t-lg lg:w-52 w-24"
             />
-            <div className="bg-black rounded-b-lg flex items-center justify-end gap-2 p-2">
+            <div className="bg-black rounded-b-lg flex items-center justify-end gap-3 p-2">
               <BanButton size="md" type="game" />
+              <div className="w-[1px] h-4 bg-gray-400"></div>
               {ban_id ? null : <Value size="md" type="game" />}
             </div>
           </div>

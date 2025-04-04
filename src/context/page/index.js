@@ -141,7 +141,8 @@ const PageContextProvider = ({ children }) => {
     }, {});
 
     const offer = $now >= $dates.start_date && $now < $dates.frezze_geek_date;
-    const want = $now >= $dates.start_date && $now < $dates.frezze_wants_date;
+    const want =
+      $now >= $dates.frezze_geek_date && $now < $dates.frezze_wants_date;
     const commit =
       $now >= $dates.frezze_geek_date && $now < $dates.frezze_wants_date;
     const results =

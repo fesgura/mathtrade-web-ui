@@ -11,7 +11,7 @@ const useItemTagList = () => {
   /* ITEM CONTEXT **********************************************/
   const { item } = useContext(ItemContext);
 
-  const { id: itemId, isOwned } = item;
+  const { id: itemId, isOwned, isSameBGGId } = item;
   /* end ITEM CONTEXT */
 
   const afterLoadItemTags = useCallback(
@@ -20,6 +20,8 @@ const useItemTagList = () => {
         return {
           ...tag,
           id: `${tag?.id || i}`,
+          itemsComplete: tag.items,
+          items: tag.items.map(({ id }) => id),
         };
       });
       setItemTags(tags);
@@ -71,6 +73,7 @@ const useItemTagList = () => {
 
   return {
     isOwned,
+    isSameBGGId,
     itemId,
     tagCollection,
     updateTag,

@@ -1,14 +1,17 @@
-import { useContext, useCallback, useMemo } from "react";
+import { useContext, useCallback, useMemo, useState } from "react";
 import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
 import { DateIntlFormat } from "@/utils/dateUtils";
 import I18N from "@/i18n";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import Link from "next/link";
+import Icon from "@/components/icon";
 
 const AdvCompromise = () => {
+  const [showAdvice, setShowAdvice] = useState(true);
+
   /* PAGE CONTEXT **********************************************/
-  const { mustConfirm, setMustConfirm, setMustConfirmDate, userId } =
+  const { mustConfirm, setMustConfirm, setMustConfirmDate, userId, canI } =
     useContext(PageContext);
   /* end PAGE CONTEXT **********************************************/
 
@@ -37,7 +40,7 @@ const AdvCompromise = () => {
   });
   // end MY USER ********************************************
 
-  return mustConfirm ? (
+  return showAdvice && mustConfirm && !canI.offer && canI.commit ? (
     <div className="bg-red-600 relative top-11 left-0 w-full z-[998] text-white text-center p-2 border-t-2 border-b-2 border-red-400 shadow-md">
       <I18N id="AdvCompromise" />
       <Link
@@ -47,6 +50,14 @@ const AdvCompromise = () => {
         <I18N id={`menu.${PRIVATE_ROUTES.WANTS.title}`} />
       </Link>
       .
+      <button
+        className="absolute top-0 right-0 w-6 h-6"
+        onClick={() => {
+          setShowAdvice(false);
+        }}
+      >
+        <Icon />
+      </button>
     </div>
   ) : null;
 };

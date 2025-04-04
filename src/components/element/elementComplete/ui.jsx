@@ -3,10 +3,6 @@ import Thumbnail from "@/components/thumbnail";
 import LinkExternal from "@/components/link-external";
 import Icon from "@/components/icon";
 import I18N from "@/i18n";
-import ButtonAlert from "@/components/buttonAlert";
-import InnerButton from "@/components/button/inner-button";
-import { LoadingBox } from "@/components/loading";
-import ErrorAlert from "@/components/errorAlert";
 import StatusBadge from "@/components/status-badge";
 import PhotoGallery from "@/components/photoGallery";
 import ElementWrapperInside from "../elementCollection/elementWrapperInside";
@@ -85,7 +81,6 @@ const ElementCompleteUI = () => {
                 <div className="text-[10px] opacity-90 leading-none">
                   <I18N id="status.label.box" />
                 </div>
-                <StatusBadge status={box_status || ""} type="box" />
               </div>
               <div className="flex flex-col gap-1">
                 <div className="text-[10px] opacity-90  leading-none">

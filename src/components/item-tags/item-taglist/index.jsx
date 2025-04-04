@@ -7,6 +7,7 @@ import AddTag from "./addTag";
 const ItemTagList = () => {
   const {
     isOwned,
+    isSameBGGId,
     itemId,
     tagCollection,
     updateTag,
@@ -15,7 +16,7 @@ const ItemTagList = () => {
     canIwant,
   } = useItemTagList();
 
-  return isOwned ? null : (
+  return isOwned || isSameBGGId ? null : (
     <div className="flex flex-wrap items-center gap-1">
       {tagCollection.current.map((tag) => {
         const { id, color, name, items } = tag;

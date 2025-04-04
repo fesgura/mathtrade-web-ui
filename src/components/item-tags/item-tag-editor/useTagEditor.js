@@ -33,6 +33,8 @@ const useTagEditor = (tag, onClose) => {
         return {
           ...tag,
           id: `${tag?.id || i}`,
+          itemsComplete: tag.items,
+          items: tag.items.map(({ id }) => id),
         };
       });
       setItemTags(tags);
