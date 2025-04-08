@@ -49,7 +49,7 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* <div className="grow flex items-center justify-center gap-3">
+          <div className="grow flex items-center justify-center gap-3">
             <button
               className={clsx(
                 "rounded-full outline-none transition-colors inline-block w-auto lg:px-7 px-2 py-2 lg:text-lg text-sm  shadow-md ",
@@ -91,7 +91,7 @@ const Footer = () => {
                 )}
               </div>
             ) : null}
-          </div> */}
+          </div>
         </div>
       )}
       <LoadingBox loading={loading} />

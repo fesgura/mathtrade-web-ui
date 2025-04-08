@@ -74,7 +74,7 @@ const useFooter = () => {
   /* end POST CHANGES ************************/
 
   const { onlyCommit, enabledBtn, canCommit } = useMemo(() => {
-    if (!canI.want) {
+    if (!canI.want && !canI.commit) {
       return { onlyCommit: true, enabledBtn: false, canCommit: false };
     }
     const canCommit = canI.commit;

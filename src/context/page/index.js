@@ -1,5 +1,11 @@
 "use client";
-import { createContext, useState, useCallback, useMemo } from "react";
+import {
+  createContext,
+  useState,
+  useCallback,
+  useMemo,
+  useEffect,
+} from "react";
 import useLocations from "@/hooks/useLocations";
 import { useStore } from "@/store";
 
@@ -144,7 +150,7 @@ const PageContextProvider = ({ children }) => {
     const want =
       $now >= $dates.frezze_geek_date && $now < $dates.frezze_wants_date;
     const commit =
-      $now >= $dates.frezze_geek_date && $now < $dates.frezze_wants_date;
+      $now >= $dates.frezze_geek_date && $now < $dates.show_results_date;
     const results =
       $now >= $dates.show_results_date &&
       (mathtrade.status === "pre-final" || mathtrade.status === "final");
@@ -173,6 +179,13 @@ const PageContextProvider = ({ children }) => {
   const [mustConfirmDate, setMustConfirmDate] = useState(null);
 
   useLocations();
+
+  // useEffect(() => {
+  //   if (membership) {
+  //     setMustConfirm(membership?.isCommitted);
+  //     setMustConfirmDate(membership?.commitment);
+  //   }
+  // }, [membership]);
 
   /* CollectionFILTERED ********************************************/
   const { myCollectionFiltered, myCollectionList } = useMemo(() => {
