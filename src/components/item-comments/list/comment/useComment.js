@@ -46,17 +46,17 @@ const useComment = ({ comment, myUserId }) => {
   };
 */
   const data = useMemo(() => {
-    const { content, date, user } = comment;
+    const { content, date, membership } = comment;
 
     return {
       content,
       date: DateIntlFormat(date),
-      isMyUser: myUserId === user.id,
+      isMyUser: myUserId === membership.id,
       user: {
-        name: `${user.first_name} ${user.last_name}`,
-        avatar: user?.avatar || "",
-        customLocation: user?.location?.name || null,
-        locationId: user?.locationId || "",
+        name: `${membership.first_name} ${membership.last_name}`,
+        avatar: membership?.avatar || "",
+        customLocation: membership?.location?.name || null,
+        locationId: membership?.locationId || "",
       },
     };
   }, [comment, myUserId]);

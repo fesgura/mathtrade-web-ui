@@ -81,6 +81,7 @@ const ElementCompleteUI = () => {
                 <div className="text-[10px] opacity-90 leading-none">
                   <I18N id="status.label.box" />
                 </div>
+                <StatusBadge status={box_status || ""} type="box" />
               </div>
               <div className="flex flex-col gap-1">
                 <div className="text-[10px] opacity-90  leading-none">
