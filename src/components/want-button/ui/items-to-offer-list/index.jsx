@@ -17,7 +17,7 @@ const ItemToOfferList = () => {
       <div className="flex items-center justify-between pt-3 pb-3">
         <div className="lg:px-1 px-2">
           <h3 className="font-bold">
-            Ofrezco a cambio los siguientes ejemplares:
+            <I18N id="itemsToOfferInWants.title" />
           </h3>
           <p
             className={clsx("text-xs italic", {
@@ -25,7 +25,7 @@ const ItemToOfferList = () => {
               "text-gray-700": isItem,
             })}
           >
-            (Podrás editar esta lista en cualquier momento.)
+            <I18N id="itemsToOfferInWants.subtitle" />
           </p>
         </div>
         <DupProtection />

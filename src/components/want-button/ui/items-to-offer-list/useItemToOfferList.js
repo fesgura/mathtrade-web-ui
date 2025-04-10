@@ -20,8 +20,6 @@ const useItemsToOfferList = () => {
     useContext(WantGroupContext);
   /* end WANTGROUP CONTEXT **********************************************/
 
-  console.log(contextType);
-
   // MY GROUPS ********************************************
   const afterLoadMyGroups = useCallback(
     (newGroups) => {
