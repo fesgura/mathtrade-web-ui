@@ -17,6 +17,8 @@ import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
 import PhotoUploader from "@/components/photoUploader";
 import Icon from "@/components/icon";
+import { boxSizesOptions } from "@/config/boxSizes";
+import BoxSize from "@/components/boxSize";
 
 const ElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
   const {
@@ -27,12 +29,14 @@ const ElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
     name,
     thumbnail,
     bgg_version_id,
+    box_size,
     language,
     publisher,
     year,
     setName,
     setThumbnail,
     setBgg_version_id,
+    setBox_size,
     setLanguage,
     setPublisher,
     setYear,
@@ -216,6 +220,25 @@ const ElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
                 </div>
               </>
             ) : null}
+
+            <div className="flex flex-wrap items-center gap-5 mb-5">
+              <div className="w-[240px]">
+                <InputContainer validate="box_size">
+                  <Label text="boxSizes.title" name="box_size" required />
+                  <Select
+                    data={{ box_size }}
+                    name="box_size"
+                    options={boxSizesOptions}
+                    icon="status-box"
+                    translateOptions
+                    onChange={setBox_size}
+                  />
+                </InputContainer>
+              </div>
+              <div className="">
+                <BoxSize value={box_size} />
+              </div>
+            </div>
 
             <ErrorAlert error={error} />
             <div className="flex items-center justify-center gap-4 pt-2 pb-5">

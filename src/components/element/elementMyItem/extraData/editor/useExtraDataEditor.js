@@ -16,12 +16,15 @@ const useExtraDataEditor = (onCancel, toggleEditingMode) => {
 
   /* ELEMENT CONTEXT **************************** */
   const { element } = useContext(ElementContext);
-  const { extraData } = element;
+  const { extraData, game } = element;
+
   /* end ELEMENT CONTEXT **************************** */
 
   /* FILTER OPTIONS **********************************************/
   const updateFilters = useOptions((state) => state.updateFilters);
   /* end FILTER OPTIONS *********************************************/
+
+  const [box_size, setBox_size] = useState(game?.box_size || "");
 
   const [box_status, setBoxStatus] = useState(extraData?.box_status || "");
   const [component_status, setComponentStatus] = useState(
@@ -83,10 +86,13 @@ const useExtraDataEditor = (onCancel, toggleEditingMode) => {
 
   return {
     validations: {
+      box_size: ["required"],
       box_status: ["required"],
       component_status: ["required"],
     },
     element_id: element?.id || null,
+    box_size,
+    setBox_size,
     math_item: item?.id || null,
     box_status,
     setBoxStatus,

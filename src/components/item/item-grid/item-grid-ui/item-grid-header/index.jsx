@@ -23,14 +23,14 @@ const ItemGridHeader = ({ onChangeValue }) => {
           <BanButton size="xl" type="item" />
           {ban_id ? null : (
             <>
-              {isOwned ? null : <div className="w-[1px] h-4 bg-gray-400"></div>}
+              {isOwned ? null : <div className="w-[1px] h-4 bg-gray-500"></div>}
               <Value size="xl" type="item" onChange={onChangeValue} />
             </>
           )}
         </div>
       </div>
       {isCombo ? (
-        <h3 className="uppercase text-sm font-bold text-gray-900 border-t border-gray-400 border-dotted leading-none mt-2 pt-2">
+        <h3 className="uppercase text-sm font-bold text-gray-900 border-t border-gray-500 border-dotted leading-none mt-2 pt-2">
           <I18N id="element-type-badge-0" />
         </h3>
       ) : null}

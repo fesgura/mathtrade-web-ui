@@ -31,6 +31,7 @@ const endpoints = {
   DELETE_MYITEM: "api/mathtrades/$[mathtradeId]/user-items/$[1]/",
 
   // ITEMS PREVIOUS MT
+  GET_MYITEMS_PREVIOUSMT: "api/mathtrades/$[mathtradeId]/user-items/",
   POST_ITEM_PREVIOUSMT: "api/mathtrades/$[mathtradeId]/user-item-copy/",
 
   GET_MYITEM_GROUPS: "api/mathtrades/$[mathtradeId]/user-item-groups/",

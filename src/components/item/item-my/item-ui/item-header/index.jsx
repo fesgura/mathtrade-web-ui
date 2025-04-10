@@ -20,7 +20,7 @@ const HeaderItem = () => {
           </div>
           {canIoffer ? (
             <ButtonAlert
-              className="text-danger font-bold text-xs hover:text-red-900 transition-colors"
+              className="text-red-700 font-bold text-xs hover:text-red-900 transition-colors"
               title="title.DeleteItem"
               onClick={deleteItem}
             >

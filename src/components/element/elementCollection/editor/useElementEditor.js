@@ -52,6 +52,7 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
   const [name, setName] = useState("");
   const [thumbnail, setThumbnail] = useState("");
   const [bgg_version_id, setBgg_version_id] = useState("");
+  const [box_size, setBox_size] = useState("");
   const [language, setLanguage] = useState("");
   const [publisher, setPublisher] = useState("");
   const [year, setYear] = useState("");
@@ -84,6 +85,8 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
         ? element //.elementRaw
         : {}),
     };
+    const box_size = elementClone.game?.box_size || "";
+
     delete elementClone.game;
 
     const BGGinfoClone = {
@@ -112,11 +115,12 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
       versions: BGGinfo ? BGGinfo.versions : [],
     };
 
-    setName(BGGinfoClone.element?.name || "");
+    setName(BGGinfoClone.element?.title || BGGinfoClone.element?.name || "");
     setThumbnail(BGGinfoClone.element?.thumbnail || "");
     setBgg_version_id(
       `${BGGinfoClone.element?.bgg_version_id || ""}`.toLowerCase()
     );
+    setBox_size(box_size);
     setLanguage(BGGinfoClone.element?.languageRaw || "");
     setPublisher(BGGinfoClone.element?.publisher || "");
     setYear(BGGinfoClone.element?.year || "");
@@ -156,17 +160,9 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
 
   // EDIT ELEMENT
 
-  const urlParams = useMemo(() => {
-    if (element && element.elementRaw) {
-      return [element.elementRaw.id];
-    }
-    return [];
-  }, [element]);
-
   const [editElement, , loadingEditElement, errorEditElement] = useFetch({
     endpoint: "PUT_MYCOLLECTION_ELEMENT",
     method: "PUT",
-    urlParams,
     afterLoad: afterLoadCreateEdit,
   });
 
@@ -178,12 +174,14 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
     name,
     thumbnail,
     bgg_version_id,
+    box_size,
     language,
     publisher,
     year,
     setName,
     setThumbnail,
     setBgg_version_id,
+    setBox_size,
     setLanguage,
     setPublisher,
     setYear,
@@ -209,6 +207,7 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
       "playing_time",
       "game_thumbnail",
       "year_published",
+      "box_size",
     ],
     //
     versions: dataComplete.versions,
@@ -227,6 +226,7 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
       language: ["required"],
       publisher: ["required"],
       year: ["required"],
+      box_size: ["required"],
     },
     onSubmit: (params) => {
       const data = {
@@ -246,6 +246,7 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
       if (element && element.elementRaw) {
         editElement({
           params: data,
+          urlParams: [element.id],
         });
       } else {
         createElement({ params: data });

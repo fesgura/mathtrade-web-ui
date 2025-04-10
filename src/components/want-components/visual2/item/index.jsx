@@ -4,13 +4,19 @@ import Previewer from "@/components/previewer";
 import ValueMini from "@/components/value/mini";
 import I18N from "@/i18n";
 import Element from "./element";
+import clsx from "clsx";
 
 const ItemVisual2UI = () => {
   const { item } = useContext(ItemContext);
   const { id, elements, value, isCombo } = item;
 
   return (
-    <div className="rounded-lg bg-item-200 border border-item-300 sm:w-52 w-24 p-2 shadow-xl">
+    <div
+      className={clsx("rounded-lg border sm:w-52 w-24 p-2 shadow-xl", {
+        "bg-item-200 border-item-300": !isCombo,
+        "bg-item-300 border-item-400": isCombo,
+      })}
+    >
       {elements[0] ? <Element element={elements[0]} /> : null}
 
       <div className="flex items-center gap-1 pt-1 justify-between">

@@ -6,6 +6,8 @@ import StatusBadge from "@/components/status-badge";
 import clsx from "clsx";
 import { maxCharacters, charactersDanger } from "@/config/maxCharacters";
 import useExtraDataEditor from "./useExtraDataEditor";
+import BoxSize from "@/components/boxSize";
+import { boxSizesOptions } from "@/config/boxSizes";
 
 import {
   Form,
@@ -23,6 +25,8 @@ const ExtraDataEditor = ({ toggleEditingMode, onCancel, forAddElement }) => {
   const {
     validations,
     element_id,
+    box_size,
+    setBox_size,
     math_item,
     box_status,
     setBoxStatus,
@@ -41,6 +45,30 @@ const ExtraDataEditor = ({ toggleEditingMode, onCancel, forAddElement }) => {
   return (
     <Form validations={validations} onSubmit={onSubmit}>
       <Hidden data={{ element_id }} name="element_id" />
+
+      <div className="md:flex items-center gap-4 mb-5">
+        <div>
+          <div className="md:w-60">
+            <InputContainer validate="box_size">
+              <Label text="boxSizes.title" name="box_size" required />
+              <Select
+                data={{ box_size }}
+                name="box_size"
+                options={boxSizesOptions}
+                icon="status-box"
+                translateOptions
+                onChange={setBox_size}
+                size="sm"
+              />
+            </InputContainer>
+          </div>
+        </div>
+
+        <div className="">
+          <BoxSize value={box_size} />
+        </div>
+      </div>
+
       <div className="md:flex gap-4 mb-5">
         <div>
           <div className="md:w-60">

@@ -25,7 +25,7 @@ const useItemListPreviousMT = () => {
   );
 
   const [getItems, , loading, error] = useFetch({
-    endpoint: "GET_MYITEMS",
+    endpoint: "GET_MYITEMS_PREVIOUSMT",
     initialState: [],
     afterLoad,
   });
@@ -36,7 +36,9 @@ const useItemListPreviousMT = () => {
       setKeyword("");
       setItemsIdAdded([]);
       getItems({
-        mathtradeId: mathTradePrevious?.id || 0,
+        params: {
+          "prev-math-id": mathTradePrevious?.id || 0,
+        },
       });
     }
   }, [setKeyword, setItemsIdAdded, getItems, mathTradePrevious]);

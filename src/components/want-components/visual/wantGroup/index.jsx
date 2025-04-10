@@ -51,7 +51,8 @@ const WantGroupUI = ({ wantGroup }) => {
     <div
       className={clsx("sm:p-3 p-1 border rounded-lg relative", {
         "bg-gray-900 text-white border-gray-700": type === "game",
-        "bg-item-200 border-item-300": type === "item",
+        "bg-item-200 border-item-300": type === "item" && !isCombo,
+        "bg-item-300 border-item-400": type === "item" && isCombo,
         //  "bg-teal-600 text-white border-gray-600": type === "tag",
         "shadow-[inset_0_0_0_5px_red]": !wants.length,
         "shadow-xl": wants.length,

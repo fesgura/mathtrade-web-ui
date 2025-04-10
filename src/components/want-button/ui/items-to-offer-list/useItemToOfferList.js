@@ -16,8 +16,11 @@ const useItemsToOfferList = () => {
   /* end PAGE CONTEXT *********************************************/
 
   /* WANTGROUP CONTEXT **********************************************/
-  const { wantGroup, setItemsOfferList } = useContext(WantGroupContext);
+  const { wantGroup, contextType, setItemsOfferList } =
+    useContext(WantGroupContext);
   /* end WANTGROUP CONTEXT **********************************************/
+
+  console.log(contextType);
 
   // MY GROUPS ********************************************
   const afterLoadMyGroups = useCallback(
@@ -101,6 +104,7 @@ const useItemsToOfferList = () => {
   }, [updateOptions, showAll]);
 
   return {
+    isItem: contextType === "item",
     list,
     loading: loadingMyGropus,
     error: errorGropusMyGropus,

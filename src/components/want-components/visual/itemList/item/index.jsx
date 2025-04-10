@@ -16,13 +16,12 @@ const ItemUI = ({ toAdd, onToggle, canIwant }) => {
 
   return (
     <div
-      className={clsx(
-        "relative rounded-lg bg-item-200 border border-item-300 sm:w-32 w-16 p-1",
-        {
-          "shadow-xl": !toAdd,
-          "border border-gray-300": toAdd,
-        }
-      )}
+      className={clsx("relative rounded-lg border sm:w-32 w-16 p-1", {
+        "shadow-xl": !toAdd,
+        "border border-gray-300": toAdd,
+        "bg-item-200 border-item-300": !isCombo,
+        "bg-item-300 border-item-400": isCombo,
+      })}
     >
       {elements[0] ? (
         <Element element={elements[0]} toAdd={toAdd} onToggle={onToggle} />

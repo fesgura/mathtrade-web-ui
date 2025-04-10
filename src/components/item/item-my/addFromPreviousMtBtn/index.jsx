@@ -12,7 +12,7 @@ const AddFromPreviousMTBtn = () => {
       </div>
       <div className="">
         <button
-          className="text-[12px] text-balance w-40 h-12 grid place-items-center text-center rounded-md p-1 bg-primary/10 border border-primary/30 text-sky-900  transition-colors hover:bg-primary hover:text-white relative"
+          className="text-[12px] text-balance w-40 h-12 grid place-items-center text-center rounded-md p-1 bg-sky-700 border text-white  transition-colors hover:bg-sky-900 relative"
           onClick={onOpen}
         >
           <I18N id="myOfferPreviousMathtrades.page.link" />

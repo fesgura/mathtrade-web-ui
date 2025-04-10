@@ -883,7 +883,7 @@
   "btn.DeleteItem": "Eliminar ítem",
   "title.DeleteItem": "¿Eliminar ítem?",
   "element.Offered": "Ofrecido",
-  "myOfferPreviousMathtrades.page.link": "<b><u>OFERTAR</u></b> ítems desde tu último Math Trade.",
+  "myOfferPreviousMathtrades.page.link": "<b>OFERTAR</b> ítems desde tu último Math Trade.",
   "new": "Nuevo",
   "item.xElementsTotal": "$$$ elementos en total",
   "addItemToItem.noElements": "Para <b><u>OFERTAR</u> un nuevo ítem</b>, primero debes añadir elementos a tu ",
@@ -895,5 +895,15 @@
   "MyData.MathTrade.CommingSoon": "Pronto tendremos un nuevo Math Trade.<br/>Quedate atento/a a las novedades por las redes sociales, Telegram, etc. o visitando con frecuencia nuestro sitio web.",
   "isSameBGGId.game": "Ya tenés este juego.<br/>No podés desearlo.",
   "isSameBGGId.item": "Ya tenés este juego.<br/>No podés desearlo.",
-  "isSameBGGId.tag": "Ya tenés alguno de los juegos en esta etiqueta.<br/>No podés desearla."
+  "isSameBGGId.tag": "Ya tenés alguno de los juegos en esta etiqueta.<br/>No podés desearla.",
+  "boxSizes.title": "Tamaño de caja",
+  "boxSizes.description": "Cúanto mide aproximadamente la caja del juego.",
+  "boxSizes.title.small": "Pequeña",
+  "boxSizes.description.small": "Menor a $$$ cm (Ej: caja igual o menor a $$$×$$$×$$$ cm).",
+  "boxSizes.title.medium": "Mediana",
+  "boxSizes.description.medium": "Entorno a los $$$ cm (Ej: caja igual o menor a $$$×$$$×$$$ cm).",
+  "boxSizes.title.normal": "Clásica",
+  "boxSizes.description.normal": "La típica caja de $$$ cm.",
+  "boxSizes.title.large": "Grande",
+  "boxSizes.description.large": "Mayor a los $$$ cm clásicos (Ej: caja de $$$×$$$×$$$ cm)."
 }

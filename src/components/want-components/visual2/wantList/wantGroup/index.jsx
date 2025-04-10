@@ -24,7 +24,8 @@ const WantGroupVisual2 = ({ wantGroup, itemId, toAdd }) => {
       className={clsx("relative rounded-lg border", {
         "bg-gray-900 text-white border-gray-400": type === "game",
         "border-gray-400": type === "tag",
-        "bg-item-200 border-item-300": type === "item",
+        "bg-item-200 border-item-300": type === "item" && !isCombo,
+        "bg-item-300 border-item-400": type === "item" && isCombo,
         "shadow-xl": !toAdd,
         "border border-gray-300": toAdd,
       })}

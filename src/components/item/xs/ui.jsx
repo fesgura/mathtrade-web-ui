@@ -17,7 +17,11 @@ const ItemXSUI = ({ className, extraContent, dark, hideUser, hideValue }) => {
   return (
     <div
       className={clsx(
-        "flex lg:items-center gap-3 border min-h-[30px] bg-item-200 border-item-700/60 shadow text-black",
+        "flex lg:items-center gap-3 border border-item-700/60 min-h-[30px] shadow text-black",
+        {
+          "bg-item-200": !isCombo,
+          "bg-item-300": isCombo,
+        },
         className
       )}
     >
