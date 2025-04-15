@@ -123,6 +123,7 @@ const PageContextProvider = ({ children }) => {
         want: true,
         commit: true,
         results: true,
+        pageType,
       };
     }
     if (!mathtrade || !membership) {
@@ -131,6 +132,7 @@ const PageContextProvider = ({ children }) => {
         want: false,
         commit: false,
         results: false,
+        pageType,
       };
     }
     const $now = new Date().getTime();
@@ -150,10 +152,14 @@ const PageContextProvider = ({ children }) => {
     const want =
       $now >= $dates.frezze_geek_date && $now < $dates.frezze_wants_date;
     const commit =
-      $now >= $dates.frezze_geek_date && $now < $dates.show_results_date;
+      $now >= $dates.frezze_wants_date &&
+      $now < $dates.show_results_date &&
+      mathtrade.status === "commit";
     const results =
       $now >= $dates.show_results_date &&
       (mathtrade.status === "pre-final" || mathtrade.status === "final");
+
+    console.log(mathtrade.status);
 
     return {
       offer,

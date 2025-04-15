@@ -115,7 +115,10 @@ const useWants = () => {
       if (typeof user.commitment !== "undefined") {
         setMustConfirm(!user.commitment);
       }
-      if (typeof user.commitment_datetime !== "undefined") {
+      if (
+        typeof user.commitment_datetime !== "undefined" &&
+        user.commitment_datetime !== null
+      ) {
         setMustConfirmDate(DateIntlFormat(user.commitment_datetime));
       }
     },

@@ -72,7 +72,7 @@
   "MyWants.Quad.loadMore": "Cargar más (quedan $$$)",
   "MyWants.btn.Commit.help": "Para participar, <b class=\"text-danger\">debés guardar todos los cambios que hayas realizado.</strong>",
   "MyWants.btn.Commit.help2": "Última vez guardado: <strong>$$$.</strong>",
-  "MyWants.btn.CommitChanges": "Comprometer cambios",
+  "MyWants.btn.CommitChanges": "Comprometer deseos",
   "MyWants.btn.Save": "Guardar cambios",
   "MyWants.btn.SaveAndCommit": "Guardar y comprometer cambios",
   "MyWants.dup_protection.help": "¡Si DESACTIVÁS la \"Protección de duplicados\" corrés el riesgo de recibir dos o más juegos de este grupo! ¡Desactivalo SOLO SI SABÉS LO QUE ESTÁS HACIENDO!",
@@ -780,7 +780,7 @@
   "wants.SeeAll": "Ver todos mis deseos",
   "wantview.InchangeOf": "A cambio de",
   "wantview.IwantToReceive": "Quiero recibir",
-  "wantview.LastCommitmentDay": "Último compromiso, el día:",
+  "wantview.LastCommitmentDay": "Comprometido el día:",
   "wantview.NotCommitmentYet": "Todavía no has comprometido tus deseos.<br />Debés hacerlo para poder participar.",
   "wantview.RemoveItems": "Quitar",
   "whatIsMathTrade": "¿Qué es el Math Trade?",
@@ -907,5 +907,11 @@
   "boxSizes.title.normal": "Clásica",
   "boxSizes.description.normal": "La típica caja de $$$ cm.",
   "boxSizes.title.large": "Grande",
-  "boxSizes.description.large": "Mayor a los $$$ cm clásicos (Ej: caja de $$$×$$$×$$$ cm)."
+  "boxSizes.description.large": "Mayor a los $$$ cm clásicos (Ej: caja de $$$×$$$×$$$ cm).",
+  "confirm.modal.title": "¿Comprometés tus deseos para participar en este Math Trade?",
+  "confirm.modal.p1": "Para participar en este Math Trade, <strong>DEBÉS</strong> comprometer los deseos que has configurado.",
+  "confirm.modal.p2": "(Te hemos enviado un email con el listado de todos los deseos claramente expresados.)",
+  "confirm.modal.p3": "Si tenés absoluta seguridad de que estás de acuerdo con estos deseos, presioná el botón de abajo <strong>\"Confirmar deseos\"</strong>.<br/>Esta decisión es <strong>IRREVERSIBLE</strong>.",
+  "confirm.modal.p4": "Si no lo hacés, no te preocupes: no participarás en los intrecambios para este Math Trade, y no tendrás ninguna consecuencia por ello (tus juegos son tuyos, y es tu decisión).",
+  "confirm.modal.btn": "Sí, COMPROMETER DESEOS Y PARTICIPAR"
 }

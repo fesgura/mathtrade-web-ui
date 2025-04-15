@@ -5,16 +5,18 @@ import clsx from "clsx";
 import SearchForm from "./search";
 import AutocompleteButton from "./autocomplete";
 import { LoadingBox } from "@/components/loading";
+import ConfirmChangesModal from "./confirmChangesModal";
 
 const Footer = () => {
   const {
     emptyWants,
-    onlyCommit,
+    buttonFor,
     enabledBtn,
     onClick,
     loading,
     mustConfirmDate,
-    canCommit,
+    showCommitChangesModal,
+    toggleCommitChangesModal,
   } = useFooter();
 
   if (emptyWants) {
@@ -55,28 +57,24 @@ const Footer = () => {
                 "rounded-full outline-none transition-colors inline-block w-auto lg:px-7 px-2 py-2 lg:text-lg text-sm  shadow-md ",
                 {
                   "bg-danger text-white hover:opacity-75":
-                    enabledBtn && canCommit,
+                    enabledBtn && buttonFor === "commit",
                   "bg-want text-white hover:opacity-75":
-                    enabledBtn && !canCommit,
+                    enabledBtn && buttonFor === "want",
                   "bg-gray-300 text-gray-400": !enabledBtn,
                 }
               )}
               onClick={onClick}
               disabled={!enabledBtn}
             >
-              {canCommit ? (
-                <I18N
-                  id={`MyWants.btn.${
-                    onlyCommit ? "CommitChanges" : "SaveAndCommit"
-                  }`}
-                />
-              ) : (
-                <I18N id="MyWants.btn.Save" />
-              )}
+              <I18N
+                id={`MyWants.btn.${
+                  buttonFor === "commit" ? "CommitChanges" : "Save"
+                }`}
+              />
             </button>
-            {canCommit ? (
+            {buttonFor === "commit" ? (
               <div className="text-xs text-center text-gray-800">
-                {mustConfirmDate ? (
+                {mustConfirmDate && mustConfirmDate !== "-" ? (
                   <>
                     <div className="">
                       <I18N id="wantview.LastCommitmentDay" />
@@ -95,6 +93,10 @@ const Footer = () => {
         </div>
       )}
       <LoadingBox loading={loading} />
+      <ConfirmChangesModal
+        isOpen={showCommitChangesModal}
+        onClose={toggleCommitChangesModal}
+      />
     </>
   );
 };

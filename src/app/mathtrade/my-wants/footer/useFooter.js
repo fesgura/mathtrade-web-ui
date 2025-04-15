@@ -1,24 +1,17 @@
-import { useCallback, useContext, useEffect, useState, useMemo } from "react";
+import { useCallback, useContext, useState, useMemo } from "react";
 import { PageContext } from "@/context/page";
 import { MyWantsContext } from "@/context/myWants/all";
 import useFetch from "@/hooks/useFetch";
 import { processChanges } from "./utils";
-import { todayString } from "@/utils/dateUtils";
+
 import { GotoTopContext } from "@/context/goto-top";
 
 const useFooter = () => {
   const { gotoTop } = useContext(GotoTopContext);
 
   /* PAGE CONTEXT **********************************************/
-  const {
-    myWants,
-    setMyWants,
-    canI,
-    mustConfirm,
-    setMustConfirm,
-    mustConfirmDate,
-    setMustConfirmDate,
-  } = useContext(PageContext);
+  const { myWants, setMyWants, canI, mustConfirm, mustConfirmDate } =
+    useContext(PageContext);
   /* end PAGE CONTEXT */
 
   /* MYWANTS CONTEXT **********************************************/
@@ -31,18 +24,12 @@ const useFooter = () => {
   } = useContext(MyWantsContext);
   /* end MYWANTS CONTEXT **********************************************/
 
-  /* COMMIT CHANGES ************************/
-  const afterLoadCommit = useCallback(() => {
-    setMustConfirm(false);
-    setMustConfirmDate(todayString());
-  }, [setMustConfirm, setMustConfirmDate]);
-
-  const [commitChanges, , loadingCommit, errorCommit] = useFetch({
-    endpoint: "COMMIT_CHANGES",
-    method: "POST",
-    afterLoad: afterLoadCommit,
-  });
-  /* end COMMIT CHANGES ************************/
+  /* COMMIT CHANGES MODAL ************************/
+  const [showCommitChangesModal, setShowCommitChangesModal] = useState(false);
+  const toggleCommitChangesModal = useCallback(() => {
+    setShowCommitChangesModal((v) => !v);
+  }, []);
+  /* end COMMIT CHANGES MODAL ************************/
 
   /* POST CHANGES ************************/
   const afterLoadPost = useCallback(
@@ -52,19 +39,9 @@ const useFooter = () => {
         gotoTop();
         setChanges({});
         setDeletedWantgroupIds({});
-        //commitChanges({ params: {} });
-        setMustConfirm(false);
-        setMustConfirmDate(todayString());
       }
     },
-    [
-      gotoTop,
-      setMyWants,
-      setChanges,
-      setDeletedWantgroupIds,
-      setMustConfirm,
-      setMustConfirmDate,
-    ]
+    [gotoTop, setMyWants, setChanges, setDeletedWantgroupIds]
   );
   const [postAllChanges, , loadingPost, errorPost] = useFetch({
     endpoint: "PUT_MYWANTS_BATCH",
@@ -73,31 +50,34 @@ const useFooter = () => {
   });
   /* end POST CHANGES ************************/
 
-  const { onlyCommit, enabledBtn, canCommit } = useMemo(() => {
-    if (!canI.want && !canI.commit) {
-      return { onlyCommit: true, enabledBtn: false, canCommit: false };
+  const { buttonFor, enabledBtn } = useMemo(() => {
+    if (canI.want) {
+      return {
+        buttonFor: "want",
+        enabledBtn:
+          Object.keys(changes).length > 0 ||
+          Object.keys(deletedWantgroupIds).length > 0,
+      };
     }
-    const canCommit = canI.commit;
-    const hasChanges =
-      Object.keys(changes).length > 0 ||
-      Object.keys(deletedWantgroupIds).length > 0;
-
-    const enabledBtn = mustConfirm || hasChanges;
-
-    return { onlyCommit: !hasChanges, enabledBtn, canCommit };
+    if (canI.commit) {
+      return { buttonFor: "commit", enabledBtn: mustConfirm };
+    }
+    return { buttonFor: "none", enabledBtn: false };
   }, [changes, deletedWantgroupIds, canI, mustConfirm]);
 
   const onClick = useCallback(() => {
-    if (onlyCommit) {
-      commitChanges({ params: {} });
-    } else {
+    if (buttonFor === "commit") {
+      toggleCommitChangesModal();
+    }
+
+    if (buttonFor === "want") {
       const want_groups = processChanges(myWants, changes);
 
       if (want_groups.length) {
         postAllChanges({ params: { want_groups } });
       }
     }
-  }, [commitChanges, onlyCommit, postAllChanges, myWants, changes]);
+  }, [buttonFor, postAllChanges, myWants, changes, toggleCommitChangesModal]);
 
   const emptyWants = useMemo(() => {
     return (isLoadedWants && !myWants.length) || false;
@@ -105,13 +85,14 @@ const useFooter = () => {
 
   return {
     emptyWants,
-    onlyCommit,
+    buttonFor,
     enabledBtn,
     onClick,
-    loading: loadingPost || loadingCommit,
-    error: errorPost || errorCommit,
+    loading: loadingPost,
+    error: errorPost,
     mustConfirmDate,
-    canCommit,
+    showCommitChangesModal,
+    toggleCommitChangesModal,
   };
 };
 
