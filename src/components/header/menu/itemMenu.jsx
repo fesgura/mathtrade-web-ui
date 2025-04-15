@@ -99,7 +99,7 @@ const ItemMenu = ({ menuItem, currentPath, setVisibleMobileMenu }) => {
   ) : (
     <Link
       href={path}
-      className={clsx("lg:text-white block text-sm hover:bg-sky-400/30 ", {
+      className={clsx("lg:text-white  block text-sm hover:bg-sky-400/30 ", {
         "bg-red-600/70": active === "myOffer",
         "bg-sky-700/90": active === "items",
         "bg-orange-600/80": active === "offer",
@@ -107,7 +107,7 @@ const ItemMenu = ({ menuItem, currentPath, setVisibleMobileMenu }) => {
         "bg-teal-600/70": active === "results",
         "bg-yellow-600/80": active === "stats",
         "bg-sky-600/70": active === "myData",
-        "leading-9 py-1 px-5": !special,
+        "lg:rounded-t leading-9 py-1 px-5": !special,
         "bg-sky-400/50 py-1 px-5 mx-1 rounded-full text-xs font-bold": special,
       })}
       onClick={() => {

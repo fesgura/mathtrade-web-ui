@@ -10,9 +10,12 @@ import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
 import BoxSize from "@/components/boxSize";
 import { ElementContext } from "@/context/element";
-import { useContext } from "react";
+import { PageContext } from "@/context/page";
+import { useContext, useMemo } from "react";
 
 const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
+  const { canI } = useContext(PageContext);
+
   const { element } = useContext(ElementContext);
 
   const { deleteElement, loading, error } = useDeleteElement(element);
@@ -28,6 +31,16 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
     notGame,
     offered,
   } = element;
+
+  const showEdition = useMemo(() => {
+    if (insideItem) {
+      return false;
+    }
+    if (offered && !canI.offer) {
+      return false;
+    }
+    return true;
+  }, [insideItem, canI, offered]);
 
   return (
     <div className="relative flex md:gap-6 gap-3">
@@ -87,7 +100,7 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
         {/* <div className="border-t text-gray-500 pt-4 flex justify-between items-center">
        
         </div> */}
-        {insideItem ? null : (
+        {showEdition ? (
           <div className="flex items-center gap-1 border-t text-gray-500 pt-3">
             <button
               className="bg-primary text-white px-5 py-1 rounded-full font-bold text-sm hover:bg-sky-800  transition-colors"
@@ -98,7 +111,6 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
                 <I18N id="element.Edit" />
               </InnerButton>
             </button>
-
             <ButtonAlert
               className="text-danger font-bold px-5 py-1 text-sm hover:text-red-900 transition-colors"
               title="Delete.Element"
@@ -110,7 +122,7 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
               </InnerButton>
             </ButtonAlert>
           </div>
-        )}
+        ) : null}
         <ErrorAlert error={error} className="mt-3 mb-0" />
         {extraContent || null}
       </div>
