@@ -25,7 +25,7 @@ const useConfirmChanges = (onClose) => {
   /* end COMMIT CHANGES ************************/
 
   const onCommitChanges = useCallback(() => {
-    commitChanges({ params: {} });
+    commitChanges({ params: { commit: true } });
   }, [commitChanges]);
 
   return { onCommitChanges, loading, error };
