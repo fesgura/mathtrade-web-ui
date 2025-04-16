@@ -16,7 +16,7 @@ const useExtraDataEditor = (onCancel, toggleEditingMode) => {
 
   /* ELEMENT CONTEXT **************************** */
   const { element } = useContext(ElementContext);
-  const { extraData, game } = element;
+  const { extraData, box_size: box_size_original } = element;
 
   /* end ELEMENT CONTEXT **************************** */
 
@@ -24,7 +24,7 @@ const useExtraDataEditor = (onCancel, toggleEditingMode) => {
   const updateFilters = useOptions((state) => state.updateFilters);
   /* end FILTER OPTIONS *********************************************/
 
-  const [box_size, setBox_size] = useState(game?.box_size || "");
+  const [box_size, setBox_size] = useState(box_size_original);
 
   const [box_status, setBoxStatus] = useState(extraData?.box_status || "");
   const [component_status, setComponentStatus] = useState(

@@ -85,7 +85,7 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
         ? element //.elementRaw
         : {}),
     };
-    const box_size = elementClone.game?.box_size || "";
+    const box_size = elementClone?.box_size || "";
 
     delete elementClone.game;
 

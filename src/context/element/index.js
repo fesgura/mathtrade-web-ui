@@ -38,6 +38,7 @@ export const ElementContextProvider = ({ elementRaw, children }) => {
       publisher,
       year,
       language,
+      box_size,
     } = elementOriginal;
 
     const type = getI18Ntext(`element-type-badge-${game?.type || 1}`);
@@ -71,6 +72,7 @@ export const ElementContextProvider = ({ elementRaw, children }) => {
       },
       math_element_id: math_element_id || null,
       offered: elementOriginal?.offered || null,
+      box_size,
     };
   }, [elementRaw]);
 

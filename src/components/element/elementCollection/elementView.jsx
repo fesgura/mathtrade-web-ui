@@ -30,6 +30,7 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
     language,
     notGame,
     offered,
+    box_size,
   } = element;
 
   const showEdition = useMemo(() => {
@@ -90,9 +91,9 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
             </div>
             <div className="text-sm text-purple-950 font-bold ">{language}</div>
           </div>
-          {game?.box_size ? (
+          {box_size ? (
             <div className="flex gap-3 items-center">
-              <BoxSize value={game.box_size} />
+              <BoxSize value={box_size} />
             </div>
           ) : null}
         </div>
