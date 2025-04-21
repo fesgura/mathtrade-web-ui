@@ -175,7 +175,6 @@ const useMyCollection = () => {
     const list = [
       { text: getI18Ntext("element.Date"), value: "created_date" },
       { text: getI18Ntext("element.Name"), value: "name" },
-      { text: getI18Ntext("element.Value"), value: "value" },
     ];
 
     // if (mathTradeId) {
