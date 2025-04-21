@@ -121,7 +121,8 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
       `${BGGinfoClone.element?.bgg_version_id || ""}`.toLowerCase()
     );
     setBox_size(box_size);
-    setLanguage(BGGinfoClone.element?.languageRaw || "");
+    console.log("BGGinfoClone", BGGinfoClone);
+    setLanguage(BGGinfoClone.element?.language || "");
     setPublisher(BGGinfoClone.element?.publisher || "");
     setYear(BGGinfoClone.element?.year || "");
 
