@@ -1,13 +1,21 @@
 import {
-  statusTypes,
-  validStatusKeys,
-  invalidStatusKey,
+  boxStatusTypes,
+  componentsStatusTypes,
+  INVALID_STATUS_KEY,
 } from "@/config/statusTypes";
 import { getI18Ntext } from "@/i18n";
 import clsx from "clsx";
 import Icon from "@/components/icon";
+import { useMemo } from "react";
 
 const StatusBadge = ({ status, block, min, noTooltip, type }) => {
+  const statusTypes = useMemo(() => {
+    if (type === "box") {
+      return boxStatusTypes;
+    }
+    return componentsStatusTypes;
+  }, [type]);
+
   return status ? (
     <div
       className={clsx(
@@ -20,7 +28,7 @@ const StatusBadge = ({ status, block, min, noTooltip, type }) => {
       )}
       style={{
         backgroundColor:
-          statusTypes[status]?.color || statusTypes[invalidStatusKey].color,
+          statusTypes[status]?.color || statusTypes[INVALID_STATUS_KEY].color,
       }}
       data-tooltip={noTooltip ? null : getI18Ntext(`statusType.desc.${status}`)}
     >
@@ -35,8 +43,8 @@ const StatusBadge = ({ status, block, min, noTooltip, type }) => {
 
       <div className="px-1">
         {min
-          ? statusTypes[status]?.min || statusTypes[invalidStatusKey].min
-          : statusTypes[status]?.text || statusTypes[invalidStatusKey].text}
+          ? statusTypes[status]?.min || statusTypes[INVALID_STATUS_KEY].min
+          : statusTypes[status]?.text || statusTypes[INVALID_STATUS_KEY].text}
       </div>
     </div>
   ) : null;

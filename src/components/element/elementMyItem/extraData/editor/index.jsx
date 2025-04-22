@@ -1,7 +1,7 @@
 import I18N from "@/i18n";
 import PhotoGallery from "@/components/photoGallery";
 import ErrorAlert from "@/components/errorAlert";
-import { statusList } from "@/config/statusTypes";
+import { boxStatusList, componentsStatusList } from "@/config/statusTypes";
 import StatusBadge from "@/components/status-badge";
 import clsx from "clsx";
 import { maxCharacters, charactersDanger } from "@/config/maxCharacters";
@@ -78,7 +78,7 @@ const ExtraDataEditor = ({ toggleEditingMode, onCancel, forAddElement }) => {
                 data={{ box_status }}
                 name="box_status"
                 icon="status-box"
-                options={statusList}
+                options={boxStatusList}
                 onChange={setBoxStatus}
                 size="sm"
               />
@@ -109,7 +109,7 @@ const ExtraDataEditor = ({ toggleEditingMode, onCancel, forAddElement }) => {
                 data={{ component_status }}
                 name="component_status"
                 icon="status-components"
-                options={statusList}
+                options={componentsStatusList}
                 onChange={setComponentStatus}
                 size="sm"
               />

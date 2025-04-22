@@ -6,7 +6,7 @@ import PhotoGallery from "@/components/photoGallery";
 import Icon from "@/components/icon";
 import InnerButton from "@/components/button/inner-button";
 import { ElementContext } from "@/context/element";
-import { validStatusKeys } from "@/config/statusTypes";
+import { INVALID_STATUS_KEY } from "@/config/statusTypes";
 
 const ExtraDataView = ({ toggleEditingMode }) => {
   /* PAGE CONTEXT **********************************************/
@@ -33,8 +33,8 @@ const ExtraDataView = ({ toggleEditingMode }) => {
           <StatusBadge status={component_status || ""} />
         </div>
       </div>
-      {!validStatusKeys.includes(box_status) ||
-      !validStatusKeys.includes(component_status) ? (
+      {box_status === INVALID_STATUS_KEY ||
+      component_status === INVALID_STATUS_KEY ? (
         <div className="pt-2 text-sm text-balance leading-tight text-red-700">
           <I18N id="statusType.desc.CP" />
         </div>

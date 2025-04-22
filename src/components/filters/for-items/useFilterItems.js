@@ -1,7 +1,7 @@
 import { useStore, useOptions } from "@/store";
 import { useContext, useMemo, useCallback, useEffect } from "react";
 import { getI18Ntext } from "@/i18n";
-import { statusList as statusTypes } from "@/config/statusTypes";
+//import { statusList as statusTypes } from "@/config/statusTypes";
 import { languagesOptions } from "@/config";
 import { dependencyOptions } from "@/config/dependencyTypes";
 import { formatLocations } from "@/utils";
@@ -145,7 +145,9 @@ const useFiltersItems = () => {
       return li;
     })();
 
-    o.statusList = (() => {
+    o.statusList = [];
+    /*
+    (() => {
       const li = [...statusTypes];
       if (filterData?.status) {
         return li
@@ -163,6 +165,7 @@ const useFiltersItems = () => {
       }
       return li;
     })();
+    */
 
     o.languageList = (() => {
       const li = [...languagesOptions];

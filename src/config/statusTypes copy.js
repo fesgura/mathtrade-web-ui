@@ -4,12 +4,12 @@ const COLORS = {
   MB: "rgb(0, 59, 221)",
   BU: "rgb(99, 96, 90)",
   CP: "rgb(200, 0, 0)",
-  NO: "rgb(160, 100, 20)",
+  NO: "rgb(0, 0, 0)",
 };
 
 const DEFAULT_STATUS_KEYS = ["MB", "BU"];
 const EMPTY_BOX_STATUS_KEY = "NO";
-export const INVALID_STATUS_KEY = "CP";
+const INVALID_STATUS_KEY = "CP";
 
 // BOX
 const BOX_STATUS_KEYS = [
@@ -24,7 +24,7 @@ export const boxStatusTypes = BOX_STATUS_KEYS.map((key) => {
     text: getI18Ntext(`statusType.box.${key}`),
     color: COLORS[key],
     min: key,
-    enabledForOptions: !INVALID_STATUS_KEY.includes(key),
+    enabledForOptions: validStatusKeys.includes(key),
   };
 }).reduce((obj, st) => {
   obj[st.key] = st;
@@ -49,7 +49,7 @@ export const componentsStatusTypes = COMPONENT_STATUS_KEYS.map((key) => {
     text: getI18Ntext(`statusType.components.${key}`),
     color: COLORS[key],
     min: key,
-    enabledForOptions: !INVALID_STATUS_KEY.includes(key),
+    enabledForOptions: validStatusKeys.includes(key),
   };
 }).reduce((obj, st) => {
   obj[st.key] = st;
