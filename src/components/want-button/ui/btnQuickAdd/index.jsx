@@ -6,7 +6,6 @@ import {
   useMemo,
   useRef,
 } from "react";
-import { WantGroupContext } from "@/context/wantGroup";
 import { PageContext } from "@/context/page";
 import { ItemContext } from "@/context/item";
 import { GameContext } from "@/context/game";
@@ -18,6 +17,7 @@ import Icon from "@/components/icon";
 import I18N from "@/i18n";
 import ErrorAlert from "@/components/errorAlert";
 import Modal from "@/components/modal";
+import HelpContext from "@/components/help-context";
 
 const BtnQuickAdd = () => {
   /* PAGE CONTEXT **********************************************/
@@ -135,6 +135,9 @@ const BtnQuickAdd = () => {
             <I18N id="btn.Want.Iwant" />
           </InnerButton>
         </button>
+        <div className="w-fit mx-auto pt-2">
+          <HelpContext id="whyCantWant" />
+        </div>
       </div>
     );
   }

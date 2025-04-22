@@ -318,6 +318,9 @@
   "group.dragger.help": "Arrastrá y soltá el ejemplar sobre un grupo de la izquierda para agregar a un grupo.",
   "help.menu": "Ayuda",
   "help.title": "Ayuda",
+
+  "helpcontext.title.whyCantWant": "¿Por que no puedo desear esto?",
+  "helpcontext.answer.whyCantWant": "Sólo podrás desear ejemplares y juegos durante la etapa de <strong>\"Deseos\"</strong>: luego de que se hayan cargado todos los juegos ofrecidos, y antes de que se procesen los intercambios.",
   "helpcontext.title.howToAddToGroup": "¿Cómo agregar a un grupo?",
   "helpcontext.answer.howToAddToGroup": "Para <strong>agregar</strong> un ejemplar a un grupo, hacé click en el botón <strong>\"+ Agregar a grupo\"</strong> que se encuentra cerca del nombre del ejemplar.",
   "helpcontext.title.whyLoadFromMyCollection": "¿Por qué desde Mi Colección?",
