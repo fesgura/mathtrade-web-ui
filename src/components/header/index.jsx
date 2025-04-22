@@ -52,7 +52,7 @@ const Header = () => {
               <div className="main-header_col">
                 <NotificationsButton />
               </div>
-              {mathtrade && membership ? (
+              {mathtrade && membership && canI.want ? (
                 <div className="main-header_col">
                   <CartButton />
                 </div>
