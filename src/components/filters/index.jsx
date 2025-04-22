@@ -67,7 +67,7 @@ const Filters = ({ type = "item" }) => {
 
       {tabOpSelected === 0 ? (
         <Form onSubmit={onSubmit} formatTypes={formatTypes}>
-          <div className="lg:h-[calc(100vh-250px)] overflow-x-hidden overflow-y-scroll p-5 scrollbar">
+          <div className="lg:h-[calc(100vh-298px)] overflow-x-hidden overflow-y-scroll p-5 scrollbar">
             {enabledRender ? (
               type === "item" ? (
                 <FiltersForItems />

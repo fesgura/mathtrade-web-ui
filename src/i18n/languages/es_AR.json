@@ -256,6 +256,8 @@
   "filter.Search": "Buscar",
   "filter.Search.placeholder": "Escribí alguna palabra...",
   "filter.Status": "Estado",
+  "filter.box.Status": "Estado de la caja",
+  "filter.components.Status": "Estado de los componentes",
   "filter.Tag": "Etiqueta",
   "filter.Title": "Filtros",
   "filter.Type": "Tipo",
