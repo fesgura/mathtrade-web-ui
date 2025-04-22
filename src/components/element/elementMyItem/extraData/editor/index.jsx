@@ -90,7 +90,7 @@ const ExtraDataEditor = ({ toggleEditingMode, onCancel, forAddElement }) => {
             <div className="flex flex-col">
               <StatusBadge status={box_status} type="box" />
               <p className="text-xs text-gray-600">
-                <I18N id={`statusType.desc.${box_status}`} />
+                <I18N id={`statusType.box.desc.${box_status}`} />
               </p>
             </div>
           ) : null}
@@ -121,7 +121,7 @@ const ExtraDataEditor = ({ toggleEditingMode, onCancel, forAddElement }) => {
             <div className="flex flex-col">
               <StatusBadge status={component_status} />
               <p className="text-xs text-gray-600">
-                <I18N id={`statusType.desc.${component_status}`} />
+                <I18N id={`statusType.components.desc.${component_status}`} />
               </p>
             </div>
           ) : null}

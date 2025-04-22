@@ -36,7 +36,7 @@ const ExtraDataView = ({ toggleEditingMode }) => {
       {box_status === INVALID_STATUS_KEY ||
       component_status === INVALID_STATUS_KEY ? (
         <div className="pt-2 text-sm text-balance leading-tight text-red-700">
-          <I18N id="statusType.desc.CP" />
+          <I18N id="statusType.components.desc.CP" />
         </div>
       ) : null}
 

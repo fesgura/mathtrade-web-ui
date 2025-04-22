@@ -30,7 +30,15 @@ const StatusBadge = ({ status, block, min, noTooltip, type }) => {
         backgroundColor:
           statusTypes[status]?.color || statusTypes[INVALID_STATUS_KEY].color,
       }}
-      data-tooltip={noTooltip ? null : getI18Ntext(`statusType.desc.${status}`)}
+      data-tooltip={
+        noTooltip
+          ? null
+          : getI18Ntext(
+              `statusType.${
+                type === "box" ? "box" : "components"
+              }.desc.${status}`
+            )
+      }
     >
       <div
         className={clsx("rounded-l-sm px-1 border-r border-white/30", {
