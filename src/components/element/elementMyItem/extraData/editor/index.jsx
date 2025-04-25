@@ -18,6 +18,43 @@ import {
   Hidden,
 } from "@/components/form";
 import { LoadingBox } from "@/components/loading";
+import RadioList from "@/components/form/inputTypes/radioList";
+import Question from "@/components/question";
+
+const boxSizesOptionsList = boxSizesOptions.map((option) => {
+  const { value } = option;
+  return { value, text: <BoxSize value={value} /> };
+});
+
+const boxStatusOptionsList = boxStatusList.map((option) => {
+  const { value } = option;
+  return {
+    value,
+    text: (
+      <div>
+        <StatusBadge status={value} type="box" />
+        <p className="text-xs text-gray-600">
+          <I18N id={`statusType.box.desc.${value}`} />
+        </p>
+      </div>
+    ),
+  };
+});
+
+const componentsStatusOptionsList = componentsStatusList.map((option) => {
+  const { value } = option;
+  return {
+    value,
+    text: (
+      <div>
+        <StatusBadge status={value} />
+        <p className="text-xs text-gray-600">
+          <I18N id={`statusType.components.desc.${value}`} />
+        </p>
+      </div>
+    ),
+  };
+});
 
 const ExtraDataEditor = ({ toggleEditingMode, onCancel, forAddElement }) => {
   /***********************/
@@ -46,86 +83,54 @@ const ExtraDataEditor = ({ toggleEditingMode, onCancel, forAddElement }) => {
     <Form validations={validations} onSubmit={onSubmit}>
       <Hidden data={{ element_id }} name="element_id" />
 
-      <div className="md:flex items-center gap-4 mb-5">
-        <div>
-          <div className="md:w-60">
-            <InputContainer validate="box_size">
-              <Label text="boxSizes.title" name="box_size" required />
-              <Select
-                data={{ box_size }}
-                name="box_size"
-                options={boxSizesOptions}
-                icon="status-box"
-                translateOptions
-                onChange={setBox_size}
-                size="sm"
-              />
-            </InputContainer>
+      <div className="border-b border-gray-400 pb-2 mb-3">
+        <InputContainer validate="box_size">
+          <div className="flex items-center gap-1 mb-3">
+            <Label text="boxSizes.title" name="box_size" required />
+            <Question text="boxSizes.description" />
           </div>
-        </div>
 
-        <div className="">
-          <BoxSize value={box_size} />
-        </div>
+          <RadioList
+            name="box_size"
+            data={{ box_size }}
+            options={boxSizesOptionsList}
+            onChange={setBox_size}
+          />
+        </InputContainer>
       </div>
 
-      <div className="md:flex gap-4 mb-5">
-        <div>
-          <div className="md:w-60">
-            <InputContainer validate="box_status">
-              <Label text="element.BoxStatus" name="box_status" required />
-              <Select
-                data={{ box_status }}
-                name="box_status"
-                icon="status-box"
-                options={boxStatusList}
-                onChange={setBoxStatus}
-                size="sm"
-              />
-            </InputContainer>
-          </div>
-        </div>
-        <div className="md:pt-7 md:pb-0">
-          {box_status ? (
-            <div className="flex flex-col">
-              <StatusBadge status={box_status} type="box" />
-              <p className="text-xs text-gray-600">
-                <I18N id={`statusType.box.desc.${box_status}`} />
-              </p>
-            </div>
-          ) : null}
-        </div>
+      <div className="border-b border-gray-400 pb-2 mb-3">
+        <InputContainer validate="box_status">
+          <Label
+            text="element.BoxStatus"
+            name="box_status"
+            required
+            className="mb-3"
+          />
+          <RadioList
+            name="box_status"
+            data={{ box_status }}
+            options={boxStatusOptionsList}
+            onChange={setBoxStatus}
+          />
+        </InputContainer>
       </div>
-      <div className="md:flex gap-4  mb-5">
-        <div>
-          <div className="md:w-60">
-            <InputContainer validate="component_status">
-              <Label
-                text="element.ComponentsStatus"
-                name="component_status"
-                required
-              />
-              <Select
-                data={{ component_status }}
-                name="component_status"
-                icon="status-components"
-                options={componentsStatusList}
-                onChange={setComponentStatus}
-                size="sm"
-              />
-            </InputContainer>
-          </div>
-        </div>
-        <div className="md:pt-7 md:pb-0">
-          {component_status ? (
-            <div className="flex flex-col">
-              <StatusBadge status={component_status} />
-              <p className="text-xs text-gray-600">
-                <I18N id={`statusType.components.desc.${component_status}`} />
-              </p>
-            </div>
-          ) : null}
-        </div>
+      <div className="border-b border-gray-400 pb-2 mb-3">
+        <InputContainer validate="component_status">
+          <Label
+            text="element.ComponentsStatus"
+            name="component_status"
+            required
+            className="mb-3"
+          />
+
+          <RadioList
+            name="component_status"
+            data={{ component_status }}
+            options={componentsStatusOptionsList}
+            onChange={setComponentStatus}
+          />
+        </InputContainer>
       </div>
       <InputContainer className="mb-5">
         <div className="flex items-center gap-2">

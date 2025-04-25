@@ -19,6 +19,13 @@ import PhotoUploader from "@/components/photoUploader";
 import Icon from "@/components/icon";
 import { boxSizesOptions } from "@/config/boxSizes";
 import BoxSize from "@/components/boxSize";
+import RadioList from "@/components/form/inputTypes/radioList";
+import Question from "@/components/question";
+
+const boxSizesOptionsList = boxSizesOptions.map((option) => {
+  const { value } = option;
+  return { value, text: <BoxSize value={value} /> };
+});
 
 const ElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
   const {
@@ -221,23 +228,20 @@ const ElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
               </>
             ) : null}
 
-            <div className="flex flex-wrap items-center gap-5 mb-5">
-              <div className="w-[240px]">
-                <InputContainer validate="box_size">
+            <div className="mb-5">
+              <InputContainer validate="box_size">
+                <div className="flex items-center gap-1 mb-3">
                   <Label text="boxSizes.title" name="box_size" required />
-                  <Select
-                    data={{ box_size }}
-                    name="box_size"
-                    options={boxSizesOptions}
-                    icon="status-box"
-                    translateOptions
-                    onChange={setBox_size}
-                  />
-                </InputContainer>
-              </div>
-              <div className="">
-                <BoxSize value={box_size} />
-              </div>
+                  <Question text="boxSizes.description" />
+                </div>
+
+                <RadioList
+                  name="box_size"
+                  data={{ box_size }}
+                  options={boxSizesOptionsList}
+                  onChange={setBox_size}
+                />
+              </InputContainer>
             </div>
 
             <ErrorAlert error={error} />

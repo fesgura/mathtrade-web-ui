@@ -914,5 +914,6 @@
   "confirm.modal.p3": "Si tenés absoluta seguridad de que estás de acuerdo con estos deseos, presioná el botón de abajo <strong>\"Confirmar deseos\"</strong>.<br/>Esta decisión es <strong>IRREVERSIBLE</strong>.",
   "confirm.modal.p4": "Si no lo hacés, no te preocupes: no participarás en los intrecambios para este Math Trade, y no tendrás ninguna consecuencia por ello (tus juegos son tuyos, y es tu decisión).",
   "confirm.modal.btn": "Sí, COMPROMETER DESEOS Y PARTICIPAR",
-  "WaitFinishOffer": "Muy pronto podrás ver y editar tus deseos, una vez que haya terminado el proceso de ofertas."
+  "WaitFinishOffer": "Muy pronto podrás ver y editar tus deseos, una vez que haya terminado el proceso de ofertas.",
+  "error.item.offer.notFound": "Este ejemplar se ha cargado <strong>de manera incorrecta</strong>.<br />Por favor, contacta con el administrador del sitio para informar este error con esta información:"
 }

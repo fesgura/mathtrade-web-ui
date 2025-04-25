@@ -3,17 +3,9 @@ import I18N, { getI18Ntext } from "@/i18n";
 import { boxSizesValues } from "@/config/boxSizes";
 import { useMemo } from "react";
 
-const BoxSize = ({ value }) => {
-  const boxSize = useMemo(() => {
-    return boxSizesValues[value] || null;
-  }, [value]);
-
-  return boxSize ? (
-    <div>
-      <BGGinfoLabel
-        label="boxSizes.title"
-        question={getI18Ntext("boxSizes.description")}
-      />
+const BoxSizeComp = ({ boxSize }) => {
+  return (
+    <>
       <div className="font-bold text-sm">
         <I18N id={boxSize.text} />
       </div>
@@ -28,8 +20,35 @@ const BoxSize = ({ value }) => {
           ]}
         />
       </div>
+    </>
+  );
+};
+
+const BoxSize = ({ value, isComplete }) => {
+  const boxSize = useMemo(() => {
+    return boxSizesValues[value] || null;
+  }, [value]);
+
+  if (!boxSize) {
+    return null;
+  }
+
+  if (isComplete) {
+    return (
+      <div>
+        <BGGinfoLabel
+          label="boxSizes.title"
+          question={getI18Ntext("boxSizes.description")}
+        />
+        <BoxSizeComp boxSize={boxSize} />
+      </div>
+    );
+  }
+  return (
+    <div>
+      <BoxSizeComp boxSize={boxSize} />
     </div>
-  ) : null;
+  );
 };
 
 export default BoxSize;

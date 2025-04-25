@@ -93,7 +93,7 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
           </div>
           {box_size ? (
             <div className="flex gap-3 items-center">
-              <BoxSize value={box_size} />
+              <BoxSize value={box_size} isComplete />
             </div>
           ) : null}
         </div>
