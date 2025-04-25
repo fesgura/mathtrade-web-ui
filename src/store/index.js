@@ -11,8 +11,8 @@ const STORE_DEFAULT = {
   locations: null,
 };
 
-const STORAGE_NAME = "MT_ARG_STORE_W";
-const OPTIONS_NAME = "MT_ARG_OPTIONS_W";
+const STORAGE_NAME = "MT_ARG_STORE_Wz";
+const OPTIONS_NAME = "MT_ARG_OPTIONS_Wz";
 
 export const useOptions = create(
   persist(
