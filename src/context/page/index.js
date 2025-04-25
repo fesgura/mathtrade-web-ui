@@ -1,13 +1,8 @@
 "use client";
-import {
-  createContext,
-  useState,
-  useCallback,
-  useMemo,
-  useEffect,
-} from "react";
+import { createContext, useState, useCallback, useMemo } from "react";
 import useLocations from "@/hooks/useLocations";
 import { useStore } from "@/store";
+import { NEW_USER_OFFER_LIMIT } from "@/config/newUserOfferLimit";
 
 export const PageContext = createContext({
   pageType: null,
@@ -62,6 +57,7 @@ export const PageContext = createContext({
   setShowModalPreview: () => {},
   //
   canI: {
+    sign: false,
     offer: false,
     want: false,
     commit: false,
@@ -82,12 +78,15 @@ export const PageContext = createContext({
   setMustConfirm: () => {},
   mustConfirmDate: null,
   setMustConfirmDate: () => {},
+  isNewUser: false,
 });
 
 const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE === "yes";
 
 const PageContextProvider = ({ children }) => {
-  const { mathtrade, membership, user } = useStore((state) => state.data);
+  const { mathtrade, membership, user, mathtrade_history } = useStore(
+    (state) => state.data
+  );
 
   const [pageType, setPageType] = useState(null);
   const [items, setItems] = useState({ list: [], count: 0 });
@@ -119,6 +118,7 @@ const PageContextProvider = ({ children }) => {
   const canI = useMemo(() => {
     if (CAN_I_TEST_MODE) {
       return {
+        sign: true,
         offer: true,
         want: true,
         commit: true,
@@ -126,8 +126,9 @@ const PageContextProvider = ({ children }) => {
         pageType,
       };
     }
-    if (!mathtrade || !membership) {
+    if (!mathtrade) {
       return {
+        sign: false,
         offer: false,
         want: false,
         commit: false,
@@ -137,6 +138,7 @@ const PageContextProvider = ({ children }) => {
     }
     if (mathtrade.status === "freeze") {
       return {
+        sign: false,
         offer: false,
         want: false,
         commit: false,
@@ -167,7 +169,19 @@ const PageContextProvider = ({ children }) => {
       $now >= $dates.show_results_date &&
       (mathtrade.status === "pre-final" || mathtrade.status === "final");
 
+    if (!membership) {
+      return {
+        sign: offer,
+        offer: false,
+        want: false,
+        commit: false,
+        results: false,
+        pageType,
+      };
+    }
+
     return {
+      sign: false,
       offer,
       want,
       commit,
@@ -191,13 +205,6 @@ const PageContextProvider = ({ children }) => {
   const [mustConfirmDate, setMustConfirmDate] = useState(null);
 
   useLocations();
-
-  // useEffect(() => {
-  //   if (membership) {
-  //     setMustConfirm(membership?.isCommitted);
-  //     setMustConfirmDate(membership?.commitment);
-  //   }
-  // }, [membership]);
 
   /* CollectionFILTERED ********************************************/
   const { myCollectionFiltered, myCollectionList } = useMemo(() => {
@@ -223,6 +230,10 @@ const PageContextProvider = ({ children }) => {
   }, [myCollection, myItemsInMT]);
 
   /* end CollectionFILTERED ********************************************/
+
+  const isNewUser = useMemo(() => {
+    return NEW_USER_OFFER_LIMIT && mathtrade_history.length === 0;
+  }, [mathtrade_history]);
 
   return (
     <PageContext.Provider
@@ -302,6 +313,8 @@ const PageContextProvider = ({ children }) => {
         setMustConfirm,
         mustConfirmDate,
         setMustConfirmDate,
+        //
+        isNewUser,
       }}
     >
       {children}

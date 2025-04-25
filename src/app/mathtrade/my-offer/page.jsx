@@ -18,9 +18,10 @@ import MyGroupsSidebar from "@/components/item-mygroups/mygroups-sidebar";
 import EmptyList from "@/components/emptyList";
 import NewItem from "@/components/item/item-my/new-item";
 import ItemsPreviousMT from "@/components/itemsPreviousMT";
+import NewUserOfferAlert from "@/components/NewUserOfferAlert";
 
 const MyItemsPage = () => {
-  const { isLoaded, items, loading, error } = useMyOffer();
+  const { isLoaded, items, loading, error, canAddNewElement } = useMyOffer();
 
   return (
     <>
@@ -47,7 +48,8 @@ const MyItemsPage = () => {
               </Sidebar>
               <div>
                 <Container size="md">
-                  <NewItem />
+                  <NewUserOfferAlert />
+                  {canAddNewElement && <NewItem />}
                   {items.map((itemRaw) => {
                     return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
                   })}

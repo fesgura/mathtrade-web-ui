@@ -3,6 +3,7 @@ import { useCallback, useContext, useMemo, useEffect, useState } from "react";
 import { PageContext } from "@/context/page";
 import { useOptions } from "@/store";
 import { normalizeString } from "@/utils";
+import { NEW_USER_OFFER_LIMIT } from "@/config/newUserOfferLimit";
 
 const useMyOffer = () => {
   /* PAGE CONTEXT **********************************************/
@@ -15,6 +16,8 @@ const useMyOffer = () => {
     setMyCollection,
     myGroups,
     setMyGroups,
+    //
+    isNewUser,
   } = useContext(PageContext);
 
   useEffect(() => {
@@ -132,6 +135,9 @@ const useMyOffer = () => {
     items,
     loading: loadingMyItemsInMT || loadingMyCollection || loadingMyGropus,
     error: errorMyItemsInMT || errorMyCollection || errorGropusMyGropus,
+    canAddNewElement: !isNewUser
+      ? true
+      : myItemsInMT.length < NEW_USER_OFFER_LIMIT,
   };
 };
 

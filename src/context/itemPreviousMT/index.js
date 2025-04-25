@@ -23,7 +23,7 @@ export const ItemPreviousMTContext = createContext({
 });
 
 export const ItemPreviousMTContextProvider = ({ children }) => {
-  const { forceReloadPage, myItemsInMT } = useContext(PageContext);
+  const { forceReloadPage } = useContext(PageContext);
 
   const { mathtrade_history } = useStore((state) => state.data);
 

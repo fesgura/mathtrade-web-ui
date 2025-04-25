@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useState, useEffect, useContext } from "react";
 import {
   MenuList,
   MenuListDefault,
@@ -6,8 +6,11 @@ import {
 } from "./config";
 import { usePathname } from "next/navigation";
 import { useStore } from "@/store";
+import { PageContext } from "@/context/page";
 
 const useHeaderMenu = () => {
+  const { canI } = useContext(PageContext);
+
   const { membership, mathtrade } = useStore((state) => state.data);
 
   const currentPath = usePathname();
@@ -25,13 +28,15 @@ const useHeaderMenu = () => {
       if (membership) {
         list = MenuList;
       } else {
-        list = MenuListNotSignedToMathtrade;
+        if (canI.sign) {
+          list = MenuListNotSignedToMathtrade;
+        }
       }
     } else {
       list = MenuListDefault;
     }
     setMenuListOfItems(list.filter((item) => !item.disabled));
-  }, [membership, mathtrade]);
+  }, [membership, mathtrade, canI]);
 
   return {
     visibleMobileMenu,

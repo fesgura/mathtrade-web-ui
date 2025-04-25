@@ -915,5 +915,7 @@
   "confirm.modal.p4": "Si no lo hacés, no te preocupes: no participarás en los intrecambios para este Math Trade, y no tendrás ninguna consecuencia por ello (tus juegos son tuyos, y es tu decisión).",
   "confirm.modal.btn": "Sí, COMPROMETER DESEOS Y PARTICIPAR",
   "WaitFinishOffer": "Muy pronto podrás ver y editar tus deseos, una vez que haya terminado el proceso de ofertas.",
-  "error.item.offer.notFound": "Este ejemplar se ha cargado <strong>de manera incorrecta</strong>.<br />Por favor, contacta con el administrador del sitio para informar este error con esta información:"
+  "error.item.offer.notFound": "Este ejemplar se ha cargado <strong>de manera incorrecta</strong>.<br />Por favor, contacta con el administrador del sitio para informar este error con esta información:",
+  "NewUserOfferAlert.text1": "Este es <strong>tu primer Math Trade</strong>, por lo que hemos limitado a <strong>$$$ ($$$)</strong> la cantidad de ejemplares que <strong>podrás ofrecer</strong>.",
+  "NewUserOfferAlert.text2": "(Hacemos esto para limitar al máximo los errores y problemas a la hora de intercambiar tus juegos.)"
 }
