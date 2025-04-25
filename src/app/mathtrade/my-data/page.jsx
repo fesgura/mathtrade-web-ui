@@ -9,13 +9,11 @@ import {
   Switch,
   Checkbox,
 } from "@/components/form";
-import Icon from "@/components/icon";
 import Question from "@/components/question";
 import Button from "@/components/button";
 import ButtonAlert from "@/components/buttonAlert";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
-import { meetingAddress } from "@/config/meetingAddress";
 import { linksToHelp } from "@/config/linksToHelp";
 import Container from "@/components/container";
 import SectionCommon from "@/components/sections/common";
