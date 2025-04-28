@@ -38,7 +38,6 @@ const HelpContext = ({ id }) => {
     dismiss,
     role,
   ]);
- 
 
   return (
     <>
@@ -46,7 +45,6 @@ const HelpContext = ({ id }) => {
         className="flex items-center cursor-pointer"
         ref={refs.setReference}
         {...getReferenceProps()}
-        
       >
         <div className="text-[10px] bg-white border border-orange-500 h-5 leading-4 text-orange-900 rounded-tl-full rounded-bl-full px-2 ">
           <I18N id={`helpcontext.title.${id}`} />
@@ -69,7 +67,7 @@ const HelpContext = ({ id }) => {
               </div>
             </div>
 
-            <div className="bg-white border border-orange-600 px-3 pb-2 rounded-tr-md rounded-br-md text-sm leading-6">
+            <div className="bg-white border border-orange-600 px-3 pb-2 rounded-tr-md rounded-br-md text-sm leading-6 text-gray-900">
               <div className="font-bold border-b border-gray-300 py-1 mb-2 text-gray-600 italic">
                 <I18N id={`helpcontext.title.${id}`} />
               </div>
