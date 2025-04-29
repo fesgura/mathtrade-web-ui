@@ -32,7 +32,7 @@ const useUserBanRow = (user, userBans, setUserBans) => {
       delete oldUserBansCopy[id];
       return oldUserBansCopy;
     });
-  }, [user]);
+  }, [user, setUserBans]);
 
   const [unbanUser, , loadingUnBan] = useFetch({
     endpoint: "DELETE_BAN",
