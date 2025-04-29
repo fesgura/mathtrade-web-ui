@@ -17,6 +17,12 @@ export const MyWantsContext = createContext({
   //
   isLoadedWants: false,
   setIsLoadedWants: () => {},
+  //
+  acceptChecksCommit: {
+    accept_1: false,
+    accept_2: false,
+  },
+  setAcceptChecksCommit: () => {},
 });
 
 export const MyWantsContextProvider = ({ children }) => {
@@ -32,6 +38,11 @@ export const MyWantsContextProvider = ({ children }) => {
   }, []);
 
   const [isLoadedWants, setIsLoadedWants] = useState(false);
+
+  const [acceptChecksCommit, setAcceptChecksCommit] = useState({
+    accept_1: false,
+    accept_2: false,
+  });
 
   return (
     <MyWantsContext.Provider
@@ -52,6 +63,9 @@ export const MyWantsContextProvider = ({ children }) => {
         //
         isLoadedWants,
         setIsLoadedWants,
+        //
+        acceptChecksCommit,
+        setAcceptChecksCommit,
       }}
     >
       {children}

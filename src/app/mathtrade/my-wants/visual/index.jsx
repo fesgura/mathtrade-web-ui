@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useOptions } from "@/store";
 import WantToItem from "./want-to-item";
 import ItemToWant from "./item-to-want";
@@ -6,6 +6,7 @@ import clsx from "clsx";
 import Container from "@/components/container";
 import TradeArrows from "@/components/svg/trade-arrows";
 import I18N from "@/i18n";
+import { GotoTopContext } from "@/context/goto-top";
 
 const TabVisual = ({ screenViewOffer, setScreenViewOffer, val }) => {
   return (
@@ -46,7 +47,19 @@ const Visual = () => {
       screenViewOffer,
     });
   }, [updateOptions, screenViewOffer]);
+
   /* end SCREEN OPTIONS **********************************************/
+
+  const { gotoTop } = useContext(GotoTopContext);
+
+  const changeScreenViewOffer = () => {
+    gotoTop();
+    setTimeout(() => {
+      setScreenViewOffer((s) => {
+        return s === 0 ? 1 : 0;
+      });
+    }, 950);
+  };
 
   return (
     <div className="pt-3">
@@ -67,7 +80,11 @@ const Visual = () => {
         </menu>
       </Container>
 
-      {screenViewOffer === 0 ? <WantToItem /> : <ItemToWant />}
+      {screenViewOffer === 0 ? (
+        <WantToItem changeScreenViewOffer={changeScreenViewOffer} />
+      ) : (
+        <ItemToWant changeScreenViewOffer={changeScreenViewOffer} />
+      )}
     </div>
   );
 };

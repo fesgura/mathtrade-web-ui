@@ -152,7 +152,7 @@ const PageContextProvider = ({ children }) => {
       "start_date",
       "frezze_geek_date",
       "frezze_wants_date",
-      "frezze_commit_date",
+      // "frezze_commit_date",
       "meeting_date",
       "show_results_date",
     ].reduce((obj, dateName) => {
@@ -163,8 +163,8 @@ const PageContextProvider = ({ children }) => {
     const offer = $now >= $dates.start_date && $now < $dates.frezze_geek_date;
     const want =
       $now >= $dates.frezze_geek_date && $now < $dates.frezze_wants_date;
-    const commit =
-      $now >= $dates.frezze_wants_date && $now < $dates.frezze_commit_date;
+    const commit = want;
+    // $now >= $dates.frezze_wants_date && $now < $dates.frezze_commit_date;
     const results =
       $now >= $dates.show_results_date &&
       (mathtrade.status === "pre-final" || mathtrade.status === "final");

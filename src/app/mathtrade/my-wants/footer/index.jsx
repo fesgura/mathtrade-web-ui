@@ -5,19 +5,9 @@ import clsx from "clsx";
 import SearchForm from "./search";
 import AutocompleteButton from "./autocomplete";
 import { LoadingBox } from "@/components/loading";
-import ConfirmChangesModal from "./confirmChangesModal";
 
 const Footer = () => {
-  const {
-    emptyWants,
-    buttonFor,
-    enabledBtn,
-    onClick,
-    loading,
-    mustConfirmDate,
-    showCommitChangesModal,
-    toggleCommitChangesModal,
-  } = useFooter();
+  const { emptyWants, enabledBtn, onClick, loading } = useFooter();
 
   if (emptyWants) {
     return null;
@@ -51,52 +41,24 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="grow flex items-center justify-center gap-3">
+          <div className="flex items-center justify-center gap-3">
             <button
               className={clsx(
                 "rounded-full outline-none transition-colors inline-block w-auto lg:px-7 px-2 py-2 lg:text-lg text-sm  shadow-md ",
                 {
-                  "bg-danger text-white hover:opacity-75":
-                    enabledBtn && buttonFor === "commit",
-                  "bg-want text-white hover:opacity-75":
-                    enabledBtn && buttonFor === "want",
+                  "bg-want text-white hover:opacity-75": enabledBtn,
                   "bg-gray-300 text-gray-400": !enabledBtn,
                 }
               )}
               onClick={onClick}
               disabled={!enabledBtn}
             >
-              <I18N
-                id={`MyWants.btn.${
-                  buttonFor === "commit" ? "CommitChanges" : "Save"
-                }`}
-              />
+              <I18N id="MyWants.btn.Save" />
             </button>
-            {buttonFor === "commit" ? (
-              <div className="text-xs text-center text-gray-800">
-                {mustConfirmDate && mustConfirmDate !== "-" ? (
-                  <>
-                    <div className="">
-                      <I18N id="wantview.LastCommitmentDay" />
-                    </div>
-
-                    <strong>{mustConfirmDate}</strong>
-                  </>
-                ) : (
-                  <div className="text-danger font-bold">
-                    <I18N id="wantview.NotCommitmentYet" />
-                  </div>
-                )}
-              </div>
-            ) : null}
           </div>
         </div>
       )}
       <LoadingBox loading={loading} />
-      <ConfirmChangesModal
-        isOpen={showCommitChangesModal}
-        onClose={toggleCommitChangesModal}
-      />
     </>
   );
 };

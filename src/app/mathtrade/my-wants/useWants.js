@@ -21,10 +21,8 @@ const useWants = () => {
   const {
     myWants,
     setMyWants,
-    myItemsInMT_forWants,
     setMyItemsInMT_forWants,
     userId,
-    myGroups_forWants,
     setMyGroups_forWants,
     setMustConfirm,
     setMustConfirmDate,

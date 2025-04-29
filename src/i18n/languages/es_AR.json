@@ -917,5 +917,13 @@
   "WaitFinishOffer": "Muy pronto podrás ver y editar tus deseos, una vez que haya terminado el proceso de ofertas.",
   "error.item.offer.notFound": "Este ejemplar se ha cargado <strong>de manera incorrecta</strong>.<br />Por favor, contacta con el administrador del sitio para informar este error con esta información:",
   "NewUserOfferAlert.text1": "Este es <strong>tu primer Math Trade</strong>, por lo que hemos limitado a <strong>$$$ ($$$)</strong> la cantidad de ejemplares que <strong>podrás ofrecer</strong>.",
-  "NewUserOfferAlert.text2": "(Hacemos esto para limitar al máximo los errores y problemas a la hora de intercambiar tus juegos.)"
+  "NewUserOfferAlert.text2": "(Hacemos esto para limitar al máximo los errores y problemas a la hora de intercambiar tus juegos.)",
+  "CommitHeaderGrid.text": "Para comprometer tus cambios, debes revisar la lista VISUAL completa, scrolleando hasta abajo.",
+  "CommitHeader.text": "No comprometiste en tiempo y forma tus cambios,<br/>por lo que <strong>NO ESTÁS PARTICIPANDO en este Math Trade</strong>.",
+  "CommitHeaderVisual.text": " Para comprometer tus cambios, debes revisar esta lista hasta el final.<br />En la parte inferior encontrarás una casilla que DEBES marcara para comprometer tus cambios.",
+  "CommitFooterVisual.text1": "He revisado los datos precedentes expresados en esta <strong>Lista de Deseos</strong>.<br />Acepto que los datos consignados son correctos, y acepto recibir un email a mi casilla de correos con esta lista a modo de  <u>documentación</u>, tanto para mí como para la organización del Math Trade.",
+  "CommitFooterVisual.text2": "<strong>Por favor:</strong> para continuar ahora revisa también la lista en la vista",
+  "CommitFooterVisual.op.text1": "Ofrezco-Recibo",
+  "CommitFooterVisual.op.text2": "Recibo-Ofrezco",
+  "btn.CommitChanges": "Comprometer mis cambios"
 }
