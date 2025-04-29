@@ -61,7 +61,10 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
   useEffect(() => {
     if (!newBGGinfo) {
       //edit
-      if (`${element.game.bgg_id}` !== noBGGgame.element.bgg_id) {
+      if (
+        element.game.bgg_id > 0 &&
+        `${element.game.bgg_id}` !== noBGGgame.element.bgg_id
+      ) {
         getBGGelements({
           id: element.game.bgg_id,
           versions: 1,
@@ -70,7 +73,7 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
       } else {
         setNoGame(true);
       }
-      if (element?.elementRaw?.bgg_version_id === "other") {
+      if (element?.bgg_version_id === "other") {
         setNoGame(true);
       }
     } else {
