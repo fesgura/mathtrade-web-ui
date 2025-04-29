@@ -19,6 +19,7 @@ const useMyCollection = () => {
     setMyItemsInMT,
     setMyCollectionBGGids,
     //mathTradeId,
+    canI,
   } = useContext(PageContext);
 
   useEffect(() => {
@@ -194,6 +195,7 @@ const useMyCollection = () => {
     filters_collection,
     searchText,
     optionsOrder,
+    canI,
   };
 };
 

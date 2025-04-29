@@ -23,6 +23,7 @@ const MyCollectionPage = () => {
     filters_collection,
     searchText,
     optionsOrder,
+    canI,
   } = useMyCollection();
 
   return (
@@ -72,9 +73,11 @@ const MyCollectionPage = () => {
                     values={[elementList.length]}
                   />
                 </div>
-                <div className="lg:pl-2">
-                  <HelpContext id="howToOfferCollection" />
-                </div>
+                {canI.offer ? (
+                  <div className="lg:pl-2">
+                    <HelpContext id="howToOfferCollection" />
+                  </div>
+                ) : null}
               </div>
 
               <div>
