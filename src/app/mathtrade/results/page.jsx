@@ -3,9 +3,11 @@ import PageHeader from "@/components/pageHeader";
 import I18N from "@/i18n";
 import { ResultsContextProvider } from "@/context/results";
 import ResultsUI from "./ui";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { PageContext } from "@/context/page";
 import Container from "@/components/container";
+import Tabs from "@/components/tabs";
+import UserTable from "@/components/results/userTable";
 
 export default function Results() {
   /* PAGE CONTEXT **********************************************/
@@ -15,6 +17,8 @@ export default function Results() {
     setPageType("results");
   }, [setPageType]);
   /* end PAGE CONTEXT */
+
+  const [tabView, setTabView] = useState(0);
 
   return (
     <>
@@ -32,15 +36,28 @@ export default function Results() {
           </>
         }
       />
-      {canI.results ? (
-        <ResultsContextProvider>
-          <ResultsUI />
-        </ResultsContextProvider>
+      <Tabs
+        list={["results.tab.results", "results.tab.users"]}
+        value={tabView}
+        onChange={setTabView}
+      />
+      {tabView === 0 ? (
+        <div className="">
+          {canI.results ? (
+            <ResultsContextProvider>
+              <ResultsUI />
+            </ResultsContextProvider>
+          ) : (
+            <Container>
+              <p className="text-center text-balance text-2xl py-5">
+                <I18N id="results.NotResultsYet.help" />
+              </p>
+            </Container>
+          )}
+        </div>
       ) : (
         <Container>
-          <p className="text-center text-balance text-2xl py-5">
-            <I18N id="results.NotResultsYet.help" />
-          </p>
+          <UserTable />
         </Container>
       )}
     </>

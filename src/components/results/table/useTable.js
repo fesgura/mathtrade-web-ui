@@ -1,4 +1,4 @@
-import { useContext, useCallback, useState, useEffect, useMemo } from "react";
+import { useContext, useState, useMemo } from "react";
 import { ResultsContext } from "@/context/results";
 import { normalizeString } from "@/utils";
 

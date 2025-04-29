@@ -640,6 +640,8 @@
   "results.pill.item": "Ejemplares publicados",
   "results.pill.user": "Participantes",
   "results.pill.user.commit": "Participantes comprometieron sus cambios<br/>y participan del Math Trade",
+  "results.tab.results": "Resultados",
+  "results.tab.users": "Usuarios participantes",
   "results.screen.grid": "Tabla",
   "results.screen.visual": "Visual",
   "results.screen.printTags": "Etiquetas <span class=\"md:inline hidden\">para imprimir</span>",
@@ -929,5 +931,9 @@
   "CommitFooterVisual.text2": "<strong>Por favor:</strong> para continuar ahora revisa también la lista en la vista",
   "CommitFooterVisual.op.text1": "Ofrezco-Recibo",
   "CommitFooterVisual.op.text2": "Recibo-Ofrezco",
-  "btn.CommitChanges": "Comprometer mis cambios"
+  "btn.CommitChanges": "Comprometer mis cambios",
+  "result.userTable.name": "Nombre",
+  "result.userTable.location": "Ubicación",
+  "result.userTable.commitment_datetime": "Fecha de compromiso",
+  "result.userTable.commitment": "¿Comprometió?"
 }

@@ -1,7 +1,6 @@
 import I18N from "@/i18n";
 import Icon from "@/components/icon";
 import clsx from "clsx";
-import ErrorAlert from "@/components/errorAlert";
 import Search from "./search";
 import useTable from "./useTable";
 import Row from "./row";
