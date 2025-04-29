@@ -88,11 +88,7 @@ const SignInContent = () => {
             <ErrorAlert error={error} />
 
             <div className="text-center mb-5">
-              <Button
-                ariaLabel="btn.Enter"
-                //disabled={pausedSite === "yes"}
-                disabled
-              >
+              <Button ariaLabel="btn.Enter" disabled={pausedSite === "yes"}>
                 <I18N id="btn.Enter" />
               </Button>
             </div>

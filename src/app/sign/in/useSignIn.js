@@ -57,7 +57,6 @@ const useSignIn = () => {
     endpoint: "LOGIN",
     afterLoad,
   });
-  /*
   const onSubmit = useCallback(
     async (userdata) => {
       if (!executeRecaptcha) {
@@ -83,9 +82,6 @@ const useSignIn = () => {
     },
     [executeRecaptcha, login]
   );
-  */
-
-  const onSubmit = () => {};
 
   return {
     validations: {
