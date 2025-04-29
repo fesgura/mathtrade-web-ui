@@ -19,6 +19,8 @@ import { rulebookPDFurl } from "@/config/rulebook";
 
 const baseURL = process.env.BASE_URL;
 
+const pausedSite = process.env.PAUSED_SITE;
+
 const SignUpPage = () => {
   const {
     validations,
@@ -30,8 +32,6 @@ const SignUpPage = () => {
     isSuccess,
     dataInitial,
   } = useSignUp();
-
-  const pausedSite = process.env.PAUSED_SITE;
 
   return (
     <div className="pt-xs-5 pb-xs-4 px-xs-6 p-4">

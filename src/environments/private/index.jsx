@@ -5,6 +5,9 @@ import { usePathname } from "next/navigation";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import { useStore } from "@/store";
 import Card404 from "@/components/card404";
+import useSignOut from "@/hooks/useSignOut";
+
+const pausedSite = process.env.PAUSED_SITE;
 
 const privateRoutesEnabled = Object.values(PRIVATE_ROUTES).reduce(
   (obj, { path, enabled }) => {
@@ -25,12 +28,18 @@ const PrivateEnvironment = ({ children }) => {
   const [enableRenderPrivateEnvironment, setEnableRenderPrivateEnvironment] =
     useState(false);
 
+  const signOut = useSignOut();
+
   const currentPath = usePathname();
 
   useEffect(() => {
-    signInApi();
-    setEnableRenderPrivateEnvironment(true);
-  }, []);
+    if (pausedSite !== "yes") {
+      signInApi();
+      setEnableRenderPrivateEnvironment(true);
+    } else {
+      signOut();
+    }
+  }, [signOut]);
 
   const enableToShow = useMemo(() => {
     const enabled =
