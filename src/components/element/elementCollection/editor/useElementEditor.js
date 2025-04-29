@@ -122,7 +122,7 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
     );
     setBox_size(box_size);
 
-    setLanguage(BGGinfoClone.element?.language || "");
+    setLanguage(BGGinfoClone.element?.languageRaw || "");
     setPublisher(BGGinfoClone.element?.publisher || "");
     setYear(BGGinfoClone.element?.year || "");
 
