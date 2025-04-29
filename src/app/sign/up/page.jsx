@@ -31,6 +31,8 @@ const SignUpPage = () => {
     dataInitial,
   } = useSignUp();
 
+  const pausedSite = process.env.PAUSED_SITE;
+
   return (
     <div className="pt-xs-5 pb-xs-4 px-xs-6 p-4">
       {isSuccess ? (
@@ -59,7 +61,11 @@ const SignUpPage = () => {
               <I18N id="register.Subtitle" />
             </p>
           </div>
-
+          {pausedSite === "yes" ? (
+            <div className="text-center text-teal-600 font-bold mb-5 border border-teal-600 rounded-lg p-3">
+              <I18N id="paused.site" />
+            </div>
+          ) : null}
           <Form
             validations={validations}
             formatTypes={formatTypes}
@@ -79,6 +85,7 @@ const SignUpPage = () => {
                   placeholder="form.Email.placeholder"
                   ariaLabel="form.Email"
                   icon="email"
+                  disabled={pausedSite === "yes"}
                 />
               </InputContainer>
               <p className="text-xs text-gray-500 text-center mb-5">
@@ -92,6 +99,7 @@ const SignUpPage = () => {
                   placeholder="form.ReferralCode.placeholder"
                   ariaLabel="form.ReferralCode"
                   icon="password"
+                  disabled={pausedSite === "yes"}
                 />
               </InputContainer>
               <p className="text-xs text-gray-500 text-center mb-5">
@@ -109,6 +117,7 @@ const SignUpPage = () => {
                   placeholder="form.FirstName.placeholder"
                   ariaLabel="form.FirstName"
                   icon="user"
+                  disabled={pausedSite === "yes"}
                 />
               </InputContainer>
               <InputContainer validate="last_name">
@@ -118,6 +127,7 @@ const SignUpPage = () => {
                   placeholder="form.LastName.placeholder"
                   ariaLabel="form.LastName"
                   icon="user"
+                  disabled={pausedSite === "yes"}
                 />
               </InputContainer>
               <InputContainer validate="phone">
@@ -128,6 +138,7 @@ const SignUpPage = () => {
                   placeholder="form.Phone.placeholder"
                   ariaLabel="form.Phone"
                   icon="phone"
+                  disabled={pausedSite === "yes"}
                 />
               </InputContainer>
               <InputContainer>
@@ -137,6 +148,7 @@ const SignUpPage = () => {
                   placeholder="form.Telegram.user.placeholder"
                   ariaLabel="form.Telegram.user"
                   icon="telegram"
+                  disabled={pausedSite === "yes"}
                 />
               </InputContainer>
             </fieldset>
@@ -158,6 +170,7 @@ const SignUpPage = () => {
                   placeholder="form.BGGuser.placeholder"
                   ariaLabel="form.BGGuser"
                   icon="bgg"
+                  disabled={pausedSite === "yes"}
                 />
               </InputContainer>
               <p className="text-xs text-gray-500 text-center mb-5">
@@ -166,7 +179,12 @@ const SignUpPage = () => {
             </fieldset>
             <hr className="mb-5" />
             <InputContainer validate="terms_acceptance" className="mb-6">
-              <Checkbox name="terms_acceptance" required ariaLabel="title.TyC">
+              <Checkbox
+                name="terms_acceptance"
+                required
+                ariaLabel="title.TyC"
+                disabled={pausedSite === "yes"}
+              >
                 <I18N id="accept.TyC1" />
                 <a
                   href={PUBLIC_ROUTES.TERMS_CONDITIONS.path}
@@ -190,7 +208,7 @@ const SignUpPage = () => {
             </InputContainer>
             <ErrorAlert error={errorRegister} />
             <div className="text-center mb-5">
-              <Button ariaLabel="btn.SignUp">
+              <Button ariaLabel="btn.SignUp" disabled={pausedSite === "yes"}>
                 <I18N id="btn.SignUp" />
               </Button>
             </div>

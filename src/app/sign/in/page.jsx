@@ -43,6 +43,11 @@ const SignInContent = () => {
               <I18N id="sign.instruction" />
             </p>
           </div>
+          {pausedSite === "yes" ? (
+            <div className="text-center text-teal-600 font-bold mb-5 border border-teal-600 rounded-lg p-3">
+              <I18N id="paused.site" />
+            </div>
+          ) : null}
           <Form validations={validations} onSubmit={onSubmit}>
             <fieldset>
               <InputContainer validate="email">
@@ -54,6 +59,7 @@ const SignInContent = () => {
                   autocomplete="username"
                   ariaLabel="form.Email"
                   icon="email"
+                  disabled={pausedSite === "yes"}
                 />
               </InputContainer>
               <InputContainer validate="password" className="mb-0">
@@ -66,21 +72,21 @@ const SignInContent = () => {
                   autocomplete="password"
                   ariaLabel="form.Password"
                   icon="password"
+                  disabled={pausedSite === "yes"}
                 />
               </InputContainer>
             </fieldset>
-            <div className="text-center pt-1 mb-6 text-xs">
-              <Alink href={PUBLIC_ROUTES.FORGOT_PASSWORD.path}>
-                <I18N id="sign.ForgotPassword" />
-              </Alink>
-            </div>
+            {
+              <div className="text-center pt-1 mb-6 text-xs">
+                {pausedSite !== "yes" ? (
+                  <Alink href={PUBLIC_ROUTES.FORGOT_PASSWORD.path}>
+                    <I18N id="sign.ForgotPassword" />
+                  </Alink>
+                ) : null}
+              </div>
+            }
             <ErrorAlert error={error} />
 
-            {pausedSite === "yes" ? (
-              <div className="text-center text-teal-600 font-bold mb-5 border border-teal-600 rounded-lg p-3">
-                <I18N id="paused.site" />
-              </div>
-            ) : null}
             <div className="text-center mb-5">
               <Button ariaLabel="btn.Enter" disabled={pausedSite === "yes"}>
                 <I18N id="btn.Enter" />
@@ -88,21 +94,23 @@ const SignInContent = () => {
             </div>
           </Form>
           <hr className="my-5" />
-          <div className="text-center">
-            <p className="text-gray-500 text-xs mb-4">
-              <I18N id="sign.IfDontCreateAccount" />
-            </p>
-            <Button
-              tag="link"
-              outline
-              sm
-              color="secondary"
-              href={PUBLIC_ROUTES.REGISTER.path}
-              ariaLabel="btn.Register"
-            >
-              <I18N id="btn.Register" />
-            </Button>
-          </div>
+          {pausedSite !== "yes" ? (
+            <div className="text-center">
+              <p className="text-gray-500 text-xs mb-4">
+                <I18N id="sign.IfDontCreateAccount" />
+              </p>
+              <Button
+                tag="link"
+                outline
+                sm
+                color="secondary"
+                href={PUBLIC_ROUTES.REGISTER.path}
+                ariaLabel="btn.Register"
+              >
+                <I18N id="btn.Register" />
+              </Button>
+            </div>
+          ) : null}
           <LoadingBox loading={loading} />
         </>
       )}
