@@ -13,6 +13,7 @@ import PageHeader from "@/components/pageHeader";
 import OrderBy from "@/components/orderBy";
 import StickyHeader from "@/components/sticky-header";
 import Container from "@/components/container";
+import HelpContext from "@/components/help-context";
 
 const MyCollectionPage = () => {
   const {
@@ -52,7 +53,7 @@ const MyCollectionPage = () => {
         <GotoTopContextProvider>
           <StickyHeader size="md">
             <div className="sm:flex items-center gap-2 py-3 justify-between">
-              <div className="flex items-center gap-1 md:pb-0 pb-3">
+              <div className="flex flex-wrap items-center gap-1 md:pb-0 pb-3">
                 <label className="block text-sm font-bold text-gray-500 whitespace-nowrap">
                   <I18N id="filter.Search" />
                 </label>
@@ -70,6 +71,9 @@ const MyCollectionPage = () => {
                     }`}
                     values={[elementList.length]}
                   />
+                </div>
+                <div className="lg:pl-2">
+                  <HelpContext id="howToOfferCollection" />
                 </div>
               </div>
 
