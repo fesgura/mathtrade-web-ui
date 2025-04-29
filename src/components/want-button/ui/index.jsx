@@ -8,6 +8,7 @@ import BtnQuickAdd from "./btnQuickAdd";
 import GameItemList from "./gameItemList";
 import I18N from "@/i18n";
 import clsx from "clsx";
+import HelpContext from "@/components/help-context";
 
 const WantButtonUI = ({ contextSize }) => {
   const { isOwner, contextType, wantGroup, isSameBGGId } =
@@ -20,13 +21,21 @@ const WantButtonUI = ({ contextSize }) => {
       </div>
     ) : null
   ) : isSameBGGId ? (
-    <div
-      className={clsx("text-center font-bold text-balance text-xs opacity-80", {
-        "p-3 pb-5": contextType === "game",
-      })}
-    >
-      <I18N id={`isSameBGGId.${contextType}`} />
-    </div>
+    <>
+      <div
+        className={clsx(
+          "text-center font-bold text-balance text-xs opacity-80",
+          {
+            "p-3": contextType === "game",
+          }
+        )}
+      >
+        <I18N id={`isSameBGGId.${contextType}`} />
+      </div>
+      <div className="flex justify-center">
+        <HelpContext id="isSameBGGId" />
+      </div>
+    </>
   ) : (
     <>
       {contextSize === "xl" && contextType === "game" ? <GameItemList /> : null}

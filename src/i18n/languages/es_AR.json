@@ -319,6 +319,8 @@
   "help.menu": "Ayuda",
   "help.title": "Ayuda",
 
+  "helpcontext.title.isSameBGGId": "¿Por qué no puedo desearlo?",
+  "helpcontext.answer.isSameBGGId": "No podés desear un juego que ya tenés y que estás ofreciendo.<br/>No importa si buscas cambiar el idioma, la edición, etc.<br/>Desde la organización ya no permitimos este tipo de intercambios.",
   "helpcontext.title.howToOfferCollection": "¿Cómo ofrezco mis juegos?",
   "helpcontext.answer.howToOfferCollection": "Tu Colección es solamente una ludoteca virtual en la que guardas tus juegos.<br/>Si querés ofrecer un juego, tenés que ir a la pestaña \"Yo ofrezco\" y publicar allí los juegos de tu Colección que desees ofrecer en este Math Trade.",
   "helpcontext.title.whyCantWant": "¿Por que no puedo desear esto?",
