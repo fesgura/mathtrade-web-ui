@@ -172,10 +172,10 @@ const PageContextProvider = ({ children }) => {
     if (!membership) {
       return {
         sign: offer,
-        offer: false,
-        want: false,
-        commit: false,
-        results: false,
+        offer,
+        want,
+        commit,
+        results,
         pageType,
       };
     }
