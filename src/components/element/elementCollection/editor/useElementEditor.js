@@ -62,6 +62,7 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
     if (!newBGGinfo) {
       //edit
       if (
+        element?.type !== "Fuera de la BGG" &&
         element.game.bgg_id > 0 &&
         `${element.game.bgg_id}` !== noBGGgame.element.bgg_id
       ) {
