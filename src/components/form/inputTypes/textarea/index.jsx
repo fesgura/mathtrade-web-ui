@@ -14,6 +14,7 @@ const Textarea = ({
   onChange,
   rows,
   maxlength,
+  className,
 }) => {
   const [valueInput, setValueInput] = useState("");
 
@@ -30,7 +31,8 @@ const Textarea = ({
           "p-3 text-base": size === "md",
           "p-2 text-sm": size === "sm",
           "bg-gray-200 text-gray-500": disabled || disabledInput,
-        }
+        },
+        className
       )}
       placeholder={
         placeholder

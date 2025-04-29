@@ -24,7 +24,14 @@ const useSignIn = () => {
 
   const afterLoad = useCallback(
     (data) => {
-      const { user, token, mathtrade, membership, change_required } = data;
+      const {
+        user,
+        token,
+        mathtrade,
+        mathtrade_history,
+        membership,
+        change_required,
+      } = data;
 
       if (change_required) {
         setChangePasswordRequiredToken(token);
@@ -33,6 +40,7 @@ const useSignIn = () => {
         updateStore("data", {
           user,
           mathtrade: mathtrade || null,
+          mathtrade_history: mathtrade_history || [],
           membership: membership || null,
         });
         setCookie(COOKIE_AUTH_TOKEN, token, DAYS_EXPIRE_TOKEN);

@@ -9,7 +9,7 @@ import ErrorAlert from "@/components/errorAlert";
 import I18N from "@/i18n";
 
 const ItemToOfferList = () => {
-  const { list, loading, error, showAll, toggleShowAll } =
+  const { isItem, list, loading, error, showAll, toggleShowAll } =
     useItemsToOfferList();
 
   return (
@@ -17,10 +17,15 @@ const ItemToOfferList = () => {
       <div className="flex items-center justify-between pt-3 pb-3">
         <div className="lg:px-1 px-2">
           <h3 className="font-bold">
-            Ofrezco a cambio los siguientes ejemplares:
+            <I18N id="itemsToOfferInWants.title" />
           </h3>
-          <p className="text-xs italic text-gray-400">
-            (Podrás editar esta lista en cualquier momento.)
+          <p
+            className={clsx("text-xs italic", {
+              "text-gray-400": !isItem,
+              "text-gray-700": isItem,
+            })}
+          >
+            <I18N id="itemsToOfferInWants.subtitle" />
           </p>
         </div>
         <DupProtection />
@@ -29,9 +34,11 @@ const ItemToOfferList = () => {
       <div className="relative ">
         <div
           className={clsx(
-            "p-2 overflow-x-hidden overflow-y-auto scrollbar min-h-[200px]",
+            "p-2 overflow-x-hidden overflow-y-auto scrollbar min-h-[200px] bg-white border",
             {
-              "border h-64": !showAll,
+              "h-64": !showAll,
+              "border-gray-300": !isItem,
+              "border-gray-400": isItem,
             }
           )}
         >
@@ -47,9 +54,17 @@ const ItemToOfferList = () => {
         </div>
         <LoadingBox loading={loading} min />
       </div>
-      <div className="text-center border-b-2 border-dashed border-gray-200 h-3 mt-2 mb-5">
+      <div
+        className={clsx("text-center border-b-2 border-dashed h-3 mt-2 mb-5", {
+          "border-gray-400": !isItem,
+          "border-gray-500": isItem,
+        })}
+      >
         <button
-          className="text-gray-400 h-6 bg-white px-2"
+          className={clsx("px-2", {
+            "text-gray-500 bg-white": !isItem,
+            "text-gray-800 bg-item-200": isItem,
+          })}
           onClick={toggleShowAll}
         >
           <Icon type={`arrow-${showAll ? "up" : "down"}`} />

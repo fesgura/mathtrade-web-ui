@@ -1,12 +1,16 @@
 import { PRIVATE_ROUTES } from "@/config/routes";
 
-export const MenuList = [
+export const MenuListDefault = [
   {
     title: `menu.${PRIVATE_ROUTES.MY_COLLECTION.title}`,
     path: PRIVATE_ROUTES.MY_COLLECTION.path,
     name: "myCollection",
-    // disabled: true,
+    special: true,
   },
+];
+
+export const MenuList = [
+  ...MenuListDefault,
   {
     title: `menu.${PRIVATE_ROUTES.MY_OFFER.title}`,
     path: PRIVATE_ROUTES.MY_OFFER.path,
@@ -57,24 +61,12 @@ export const MenuList = [
   },
 ];
 
-export const MenuListDefault = [
-  // {
-  //   title: `menu.${PRIVATE_ROUTES.MY_COLLECTION.title}`,
-  //   path: PRIVATE_ROUTES.MY_COLLECTION.path,
-  //   name: "myCollection",
-  // },
-];
-
 export const MenuListNotSignedToMathtrade = [
-  // {
-  //   title: `menu.${PRIVATE_ROUTES.MY_COLLECTION.title}`,
-  //   path: PRIVATE_ROUTES.MY_COLLECTION.path,
-  //   name: "myCollection",
-  // },
-  // {
-  //   title: `menu.${PRIVATE_ROUTES.SIGN_TO_MATHTRADE.title}`,
-  //   path: PRIVATE_ROUTES.SIGN_TO_MATHTRADE.path,
-  //   icon: "star",
-  //   name: "myData",
-  // },
+  ...MenuListDefault,
+  {
+    title: `menu.${PRIVATE_ROUTES.SIGN_TO_MATHTRADE.title}`,
+    path: PRIVATE_ROUTES.SIGN_TO_MATHTRADE.path,
+    icon: "star",
+    name: "myData",
+  },
 ];

@@ -2,6 +2,7 @@ import { GridContextProvider } from "@/context/myWants/grid";
 import GridUI from "./ui";
 import { useEffect, useState } from "react";
 import I18N from "@/i18n";
+import CommitHeaderGrid from "@/components/want-components/commit/headers/header-grid";
 
 const enabledUseOfGrid_limit = 1200;
 
@@ -18,6 +19,7 @@ const Grid = () => {
 
   return (
     <GridContextProvider>
+      <CommitHeaderGrid />
       {enabledUseOfGrid === "pending" ? null : enabledUseOfGrid === "yes" ? (
         <GridUI />
       ) : (

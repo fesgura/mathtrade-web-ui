@@ -36,7 +36,7 @@ const Milestone = ({ milestone }) => {
           <div className="text-center rounded-md shadow-[0_1px_6px_rgba(0,0,0,0.4)] bg-secondary/10">
             <div
               className={clsx(
-                " text-white font-bold py-2 px-2 rounded-tl-md rounded-tr-md",
+                "text-white font-bold py-2 px-2 rounded-tl-md rounded-tr-md",
                 {
                   "bg-sky-500": color === 1,
                   "bg-want": color === 2,
@@ -45,7 +45,7 @@ const Milestone = ({ milestone }) => {
                 }
               )}
             >{`${day}/${month}`}</div>
-            <div className="text-xs p-1 font-bold">{`${hour}hs`}</div>
+            <div className="text-xs p-1 font-bold">{`${hour}`}</div>
           </div>
         </div>
 

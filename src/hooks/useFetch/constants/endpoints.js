@@ -7,17 +7,33 @@ const endpoints = {
   GET_USERS: "api/users/",
   GET_USER: "api/users/",
   PUT_USER: "api/users/",
+  POST_REFERRAL: "api/users/referral/",
 
   // Location
   GET_LOCATIONS: "api/locations/",
 
-  // COLLECTION
+  // COLLECTION (OLD)
   GET_MYCOLLECTION_ITEMS: "api/items/",
   EDIT_MYCOLLECTION_ITEM: "api/items/$[1]/",
   DELETE_MYCOLLECTION_ITEM: "api/items/$[1]/",
 
+  // COLLECTION (NEW)
+  GET_MYCOLLECTION_ELEMENTS: "api/elements/",
+  POST_MYCOLLECTION_ELEMENTS: "api/elements/",
+  PUT_MYCOLLECTION_ELEMENT: "api/elements/$[1]/",
+  DELETE_MYCOLLECTION_ELEMENT: "api/elements/$[1]/",
+
   // MYITEMS
   GET_MYITEMS: "api/mathtrades/$[mathtradeId]/user-items/",
+  POST_MYITEM: "api/mathtrades/$[mathtradeId]/user-elements/",
+  PUT_MYITEM: "api/mathtrades/$[mathtradeId]/user-elements/$[1]/",
+  DELETE_MYITEM_ELEMENT: "api/mathtrades/$[mathtradeId]/user-elements/$[1]/",
+  DELETE_MYITEM: "api/mathtrades/$[mathtradeId]/user-items/$[1]/",
+
+  // ITEMS PREVIOUS MT
+  GET_MYITEMS_PREVIOUSMT: "api/mathtrades/$[mathtradeId]/user-items/",
+  POST_ITEM_PREVIOUSMT: "api/mathtrades/$[mathtradeId]/user-item-copy/",
+
   GET_MYITEM_GROUPS: "api/mathtrades/$[mathtradeId]/user-item-groups/",
   POST_MYITEM_GROUPS: "api/mathtrades/$[mathtradeId]/user-item-groups/",
   PUT_MYITEM_GROUPS: "api/mathtrades/$[mathtradeId]/user-item-groups/$[1]/",
@@ -28,7 +44,8 @@ const endpoints = {
   // ITEMS
   GET_ITEMS_LIST: "api/mathtrades/$[mathtradeId]/items/",
   GET_ITEM: "api/mathtrades/$[mathtradeId]/items/$[1]/",
-  POST_VALUE_ITEMS: "api/item-values/",
+
+  POST_VALUE_ITEMS: "api/mathtrades/$[mathtradeId]/item-values/",
 
   // FILTERS
   GET_FILTER_ITEMS: "api/mathtrades/$[mathtradeId]/item-filters/",

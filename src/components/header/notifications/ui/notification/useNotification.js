@@ -4,7 +4,7 @@ import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
 import { NotificationsContext } from "@/context/notifications";
 
-const useNotification = (data, type) => {
+const useNotification = (data, type, noMembership) => {
   /* CONTEXT *************************************************/
   const {
     setItemNotifUnread,
@@ -93,8 +93,16 @@ const useNotification = (data, type) => {
 
       const messageText = `notifications.message.${type}${suffix}`;
 
-      return { date, body, messageText, values, linkFunction, linkText };
+      return {
+        date,
+        body,
+        messageText,
+        values,
+        linkFunction: noMembership ? null : linkFunction,
+        linkText,
+      };
     }, [
+      noMembership,
       data,
       setItemPreviewId,
       setShowModalPreview,

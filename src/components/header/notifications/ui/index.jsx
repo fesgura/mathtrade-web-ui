@@ -50,28 +50,41 @@ const NotificationsButton = () => {
     //
     visibleMobile,
     toggleMobile,
+    //
+    membership,
   } = useContext(NotificationsContext);
   /* end CONTEXT *************************************************/
 
   const { tabList, num } = useMemo(() => {
+    const tabsAdmin = [
+      {
+        name: "admin",
+        num: adminNotifUnread,
+      },
+    ];
+
+    if (membership) {
+      return {
+        tabList: [
+          {
+            name: "item",
+            num: itemNotifUnread,
+          },
+          {
+            name: "want",
+            num: wantNotifUnread,
+          },
+          ...tabsAdmin,
+        ],
+        num: itemNotifUnread + wantNotifUnread + adminNotifUnread,
+      };
+    }
+
     return {
-      tabList: [
-        {
-          name: "item",
-          num: itemNotifUnread,
-        },
-        {
-          name: "want",
-          num: wantNotifUnread,
-        },
-        {
-          name: "admin",
-          num: adminNotifUnread,
-        },
-      ],
-      num: itemNotifUnread + wantNotifUnread + adminNotifUnread,
+      tabList: tabsAdmin,
+      num: adminNotifUnread,
     };
-  }, [itemNotifUnread, wantNotifUnread, adminNotifUnread]);
+  }, [membership, itemNotifUnread, wantNotifUnread, adminNotifUnread]);
 
   const { setNotificationsBulkReaded, loading } = useBulkReadNotifications();
 
@@ -121,15 +134,19 @@ const NotificationsButton = () => {
             </div>
           </div>
           {!loading ? (
-            <>
-              {tabSelected === 0 ? (
-                <List type="item" />
-              ) : tabSelected === 1 ? (
-                <List type="want" />
-              ) : (
-                <List type="admin" />
-              )}
-            </>
+            membership ? (
+              <>
+                {tabSelected === 0 ? (
+                  <List type="item" />
+                ) : tabSelected === 1 ? (
+                  <List type="want" />
+                ) : (
+                  <List type="admin" />
+                )}
+              </>
+            ) : (
+              <List type="admin" noMembership />
+            )
           ) : (
             <LoadingBox loading />
           )}

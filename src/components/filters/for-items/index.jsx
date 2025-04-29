@@ -21,7 +21,8 @@ const FiltersForItems = () => {
     loadingUserList,
     typeList,
     banOptions,
-    statusList,
+    statusBoxOptions,
+    statusComponentsOptions,
     locationList,
     languageList,
     dependencyList,
@@ -108,12 +109,22 @@ const FiltersForItems = () => {
           <RangeTwo data={data} name="value" />
         </InputContainer>
         <InputContainer>
-          <Label text="filter.Status" name="status" size="sm" />
+          <Label text="filter.box.Status" name="status" size="sm" />
           <Select
             data={data}
-            name="status"
-            options={statusList}
-            multiple
+            name="box_status"
+            options={statusBoxOptions}
+            //multiple
+            size="sm"
+          />
+        </InputContainer>
+        <InputContainer>
+          <Label text="filter.components.Status" name="status" size="sm" />
+          <Select
+            data={data}
+            name="component_status"
+            options={statusComponentsOptions}
+            //multiple
             size="sm"
           />
         </InputContainer>

@@ -5,14 +5,15 @@ const STORE_DEFAULT = {
   data: {
     user: null,
     mathtrade: null,
+    mathtrade_history: [],
     membership: null,
     lang: "es",
   },
   locations: null,
 };
 
-const STORAGE_NAME = "MT_ARG_STORE_Wz";
-const OPTIONS_NAME = "MT_ARG_OPTIONS_Wz";
+const STORAGE_NAME = "MT_ARG_STORE_D25";
+const OPTIONS_NAME = "MT_ARG_OPTIONS_D25";
 
 export const useOptions = create(
   persist(

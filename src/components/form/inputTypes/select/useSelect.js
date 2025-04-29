@@ -7,7 +7,8 @@ const useSelect = (
   defaultValue,
   multiple,
   translateOptions,
-  onChange
+  onChange,
+  startFocus
 ) => {
   const [visiblePad, setVisible] = useState(false);
   const [optionsComplete, setOptionsComplete] = useState([]);
@@ -17,6 +18,12 @@ const useSelect = (
   const [valueOutput, setValueOutput] = useState("");
 
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (startFocus) {
+      inputRef.current.focus();
+    }
+  }, [startFocus]);
 
   useEffect(() => {
     if (options.length) {

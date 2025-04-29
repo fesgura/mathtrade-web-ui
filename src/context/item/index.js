@@ -7,7 +7,6 @@ import {
   useCallback,
   useEffect,
 } from "react";
-import { processElements } from "./utils";
 import useFetch from "@/hooks/useFetch";
 import { PageContext } from "@/context/page";
 
@@ -23,7 +22,8 @@ export const ItemContext = createContext({
 
 export const ItemContextProvider = ({ itemRaw, children }) => {
   /* PAGE CONTEXT **********************************************/
-  const { myWants, userId } = useContext(PageContext);
+  const { myWants, myItemsInMT_forWants /*, userId*/ } =
+    useContext(PageContext);
   /* end PAGE CONTEXT */
 
   const [itemLoaded, setItemLoaded] = useState(itemRaw);
@@ -52,6 +52,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
 
   /* end RELOAD ITEM ***************************/
 
+  /* ITEM ***************************/
   const item = useMemo(() => {
     setShowAsIgnored(false);
     if (!itemLoaded) {
@@ -60,73 +61,77 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
     const {
       id,
       title,
-      user,
+      membership: user,
+      copies,
+      elements,
       value,
-      elements: elementsRaw,
+      owner,
+      group,
+      tags,
       comments: commentsCount,
       ban_id,
       reported,
     } = itemLoaded;
 
-    const elements = processElements(elementsRaw);
+    const isCombo = elements?.length > 1;
 
-    const { titleLink, publisher, publisherLink, language, status } =
-      elements[0];
+    const isSameBGGId = (() => {
+      let isFoundedBGGId = false;
 
-    const typeNum = elements?.length > 1 ? 0 : elements[0].typeNum;
-
-    const isCombo = !typeNum;
-
-    const statusCombo = (() => {
-      if (isCombo) {
-        const statusObj = {};
-
-        elements.forEach(({ status }) => {
-          statusObj[status] = true;
-        });
-        return Object.keys(statusObj);
-
-        //return elements.map();
+      if (owner) {
+        return false;
       }
-      return null;
+
+      const bggIdList = elements.map(({ element }) => {
+        return `${element?.game?.bgg_id}`;
+      });
+
+      myItemsInMT_forWants.forEach(({ elements }) => {
+        elements.forEach(({ element }) => {
+          const bggId = `${element?.game?.bgg_id}`;
+          if (bggIdList.includes(bggId)) {
+            isFoundedBGGId = true;
+          }
+        });
+      });
+
+      return isFoundedBGGId;
     })();
 
     return {
       id,
-      isCombo,
-      typeNum,
-      //type: getI18Ntext(`element-type-badge-${typeNum}`),
       title,
-      titleLink,
+      copies,
+      elements,
       value,
-      publisher,
-      publisherLink,
-      language,
-      status,
-      statusCombo,
+      isOwned: owner || false, //: user.id === userId,
+      group,
+      tags,
+      commentsCount,
+      ban_id,
+      reported,
+      isCombo,
       user: {
         avatar: user?.avatar || "",
         name: `${user?.first_name || ""} ${user?.last_name || ""}`,
         locationId: user?.location || "none",
       },
-      isOwned: user.id === userId,
-      elements,
-      commentsCount,
-      ban_id,
-      reported,
+      isSameBGGId,
     };
-  }, [itemLoaded, userId]);
+  }, [itemLoaded, myItemsInMT_forWants]);
+
+  /* end ITEM ***************************/
 
   const { wantGroup, otherWantGroups } = useMemo(() => {
-    if (!myWants.length || itemRaw?.user?.id === userId) {
+    if (!myWants.length || itemLoaded?.owner /*itemRaw?.user?.id === userId*/) {
       return { wantGroup: null, otherWantGroups: [] };
     }
 
     const wantsFiltered = myWants.filter((w) => {
-      if (w.wants && w.wants.length && itemRaw?.id) {
+      if (w.wants && w.wants.length && itemLoaded?.id) {
         return (
           w.wants.filter((itm) => {
-            return itm.id === itemRaw.id;
+            return itm.id === itemLoaded.id;
           }).length > 0
         );
       }
@@ -144,7 +149,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
     });
 
     return { wantGroup, otherWantGroups };
-  }, [itemRaw, myWants, userId]);
+  }, [itemLoaded, myWants]);
 
   return (
     <ItemContext.Provider

@@ -3,6 +3,7 @@ import { useCallback, useContext, useMemo, useEffect, useState } from "react";
 import { PageContext } from "@/context/page";
 import { useOptions } from "@/store";
 import { normalizeString } from "@/utils";
+import { NEW_USER_OFFER_LIMIT } from "@/config/newUserOfferLimit";
 
 const useMyOffer = () => {
   /* PAGE CONTEXT **********************************************/
@@ -15,6 +16,8 @@ const useMyOffer = () => {
     setMyCollection,
     myGroups,
     setMyGroups,
+    //
+    isNewUser,
   } = useContext(PageContext);
 
   useEffect(() => {
@@ -25,6 +28,22 @@ const useMyOffer = () => {
   /* FILTER OPTIONS **********************************************/
   const filters_myoffer = useOptions((state) => state.filters_myoffer);
   /* end FILTER OPTIONS *********************************************/
+
+  // My Collection ********************************************
+  const afterLoadMyCollection = useCallback(
+    (elements) => {
+      setMyCollection(elements);
+    },
+    [setMyCollection]
+  );
+
+  const [, , loadingMyCollection, errorMyCollection] = useFetch({
+    endpoint: "GET_MYCOLLECTION_ELEMENTS",
+    initialState: [],
+    afterLoad: afterLoadMyCollection,
+    autoLoad: true,
+  });
+  // END My Collection ********************************************
 
   // My Items in MathTrade ********************************************
 
@@ -46,23 +65,6 @@ const useMyOffer = () => {
   });
   // END My Items in MathTrade ********************************************
 
-  // My Collection ********************************************
-  const afterLoadMyCollection = useCallback(
-    (itemsInMyCollection) => {
-      setMyCollection(itemsInMyCollection);
-    },
-    [setMyCollection]
-  );
-
-  const [, , loadingMyCollection, errorMyCollection] = useFetch({
-    endpoint: "GET_MYCOLLECTION_ITEMS",
-    initialState: [],
-    afterLoad: afterLoadMyCollection,
-    autoLoad: true,
-    reloadValue,
-  });
-  // END My Collection ********************************************
-
   // MY GROUPS ********************************************
   const afterLoadMyGroups = useCallback(
     (newGroups) => {
@@ -75,9 +77,8 @@ const useMyOffer = () => {
     initialState: [],
     afterLoad: afterLoadMyGroups,
     autoLoad: true,
-    reloadValue,
+    // reloadValue,
   });
-
   // end MY GROUPS ********************************************
 
   // Order Items ********************************************
@@ -134,6 +135,9 @@ const useMyOffer = () => {
     items,
     loading: loadingMyItemsInMT || loadingMyCollection || loadingMyGropus,
     error: errorMyItemsInMT || errorMyCollection || errorGropusMyGropus,
+    canAddNewElement: !isNewUser
+      ? true
+      : myItemsInMT.length < NEW_USER_OFFER_LIMIT,
   };
 };
 

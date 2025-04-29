@@ -9,8 +9,8 @@ const useComment = ({ comment, myUserId }) => {
   const { id: itemId } = item;
   /* end ITEM CONTEXT */
 
-  const [upvotes, setUpvotes] = useState(comment?.upvotes || 0);
-  const [downvotes, setDownvotes] = useState(comment?.downvotes || 0);
+  // const [upvotes, setUpvotes] = useState(comment?.upvotes || 0);
+  // const [downvotes, setDownvotes] = useState(comment?.downvotes || 0);
 
   const urlParams = useMemo(() => {
     return [itemId, comment.id];
@@ -26,7 +26,7 @@ const useComment = ({ comment, myUserId }) => {
     urlParams,
     afterLoad: afterLoadDelete,
   });
-
+  /*
   const afterLoadVote = useCallback(({ upvotes, downvotes }) => {
     setUpvotes(upvotes);
     setDownvotes(downvotes);
@@ -44,30 +44,30 @@ const useComment = ({ comment, myUserId }) => {
       params: { vote },
     });
   };
-
+*/
   const data = useMemo(() => {
-    const { content, date, user } = comment;
+    const { content, date, membership } = comment;
 
     return {
       content,
       date: DateIntlFormat(date),
-      isMyUser: myUserId === user.id,
+      isMyUser: myUserId === membership.id,
       user: {
-        name: `${user.first_name} ${user.last_name}`,
-        avatar: user?.avatar || "",
-        customLocation: user?.location?.name || null,
-        locationId: user?.locationId || "",
+        name: `${membership.first_name} ${membership.last_name}`,
+        avatar: membership?.avatar || "",
+        customLocation: membership?.location?.name || null,
+        locationId: membership?.locationId || "",
       },
     };
   }, [comment, myUserId]);
 
   return {
     ...data,
-    upvotes,
-    downvotes,
+    // upvotes,
+    // downvotes,
     deleteComment,
-    loading: loadingDel || loadingVote,
-    setVote,
+    loading: loadingDel, // || loadingVote,
+    // setVote,
   };
 };
 

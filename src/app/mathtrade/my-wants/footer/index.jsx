@@ -7,15 +7,7 @@ import AutocompleteButton from "./autocomplete";
 import { LoadingBox } from "@/components/loading";
 
 const Footer = () => {
-  const {
-    emptyWants,
-    onlyCommit,
-    enabledBtn,
-    onClick,
-    loading,
-    mustConfirmDate,
-    canCommit,
-  } = useFooter();
+  const { emptyWants, enabledBtn, onClick, loading } = useFooter();
 
   if (emptyWants) {
     return null;
@@ -49,49 +41,21 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* <div className="grow flex items-center justify-center gap-3">
+          <div className="flex items-center justify-center gap-3">
             <button
               className={clsx(
                 "rounded-full outline-none transition-colors inline-block w-auto lg:px-7 px-2 py-2 lg:text-lg text-sm  shadow-md ",
                 {
-                  "bg-danger text-white hover:opacity-75":
-                    enabledBtn && canCommit,
-                  "bg-want text-white hover:opacity-75":
-                    enabledBtn && !canCommit,
+                  "bg-want text-white hover:opacity-75": enabledBtn,
                   "bg-gray-300 text-gray-400": !enabledBtn,
                 }
               )}
               onClick={onClick}
               disabled={!enabledBtn}
             >
-              {canCommit ? (
-                <I18N
-                  id={`MyWants.btn.${
-                    onlyCommit ? "CommitChanges" : "SaveAndCommit"
-                  }`}
-                />
-              ) : (
-                <I18N id="MyWants.btn.Save" />
-              )}
+              <I18N id="MyWants.btn.Save" />
             </button>
-            {canCommit ? (
-              <div className="text-xs text-center text-gray-800">
-                {mustConfirmDate ? (
-                  <>
-                    <div className="">
-                      <I18N id="wantview.LastCommitmentDay" />
-                    </div>
-
-                    <strong>{mustConfirmDate}</strong>
-                  </>
-                ) : (
-                  <div className="text-danger font-bold">
-                    <I18N id="wantview.NotCommitmentYet" />
-                  </div>
-                )}
-              </div>
-            ) : null}
-          </div> */}
+          </div>
         </div>
       )}
       <LoadingBox loading={loading} />

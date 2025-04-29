@@ -21,10 +21,8 @@ const useWants = () => {
   const {
     myWants,
     setMyWants,
-    myItemsInMT_forWants,
     setMyItemsInMT_forWants,
     userId,
-    myGroups_forWants,
     setMyGroups_forWants,
     setMustConfirm,
     setMustConfirmDate,
@@ -115,7 +113,10 @@ const useWants = () => {
       if (typeof user.commitment !== "undefined") {
         setMustConfirm(!user.commitment);
       }
-      if (typeof user.commitment_datetime !== "undefined") {
+      if (
+        typeof user.commitment_datetime !== "undefined" &&
+        user.commitment_datetime !== null
+      ) {
         setMustConfirmDate(DateIntlFormat(user.commitment_datetime));
       }
     },

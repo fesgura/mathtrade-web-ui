@@ -15,14 +15,7 @@ import {
   FloatingFocusManager,
 } from "@floating-ui/react";
 
-const Value = ({
-  size = "xl",
-  type,
-  onChange,
-  itemIds,
-  currentValue,
-  groupId,
-}) => {
+const Value = ({ type, onChange, itemIds, currentValue, groupId }) => {
   const { isOpen, setIsOpen, backgroundColor, value, setValue, itemListId } =
     useValue(type, itemIds, currentValue, groupId);
 
@@ -49,20 +42,9 @@ const Value = ({
   ]);
 
   return (
-    <div
-      className={clsx("w-fit", {
-        "absolute bottom-0 right-0": size === "md",
-        relative: size !== "md",
-      })}
-    >
+    <div className={clsx("w-fit relative")}>
       <button
-        className={clsx(
-          "text-white font-normal flex items-center gap-1  cursor-pointer py-1 px-2 focus:outline-none transition-colors",
-          {
-            "rounded-tl-lg rounded-br-lg": size === "md",
-            "rounded-xl": size === "xl" || size === "tag",
-          }
-        )}
+        className="text-white font-normal flex items-center gap-1  cursor-pointer py-1 px-2 focus:outline-none transition-colors rounded-xl"
         style={{ backgroundColor }}
         /* onClick={() => {
           setIsOpen((v) => !v);

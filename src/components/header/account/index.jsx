@@ -36,11 +36,19 @@ const AccountMenuButton = () => {
           <nav className="text-gray-900 border-t pt-1">
             <Link
               href={PRIVATE_ROUTES.MY_ACCOUNT.path}
-              className="block leading-10 hover:bg-sky-200"
+              className="flex items-center justify-center gap-1 leading-10 hover:bg-sky-200"
               onClick={toggleMobile}
             >
-              <Icon type="user" className="mr-1" />
+              <Icon type="user" />
               <I18N id="title.MyAccount" />
+            </Link>
+            <Link
+              href={PRIVATE_ROUTES.REFERRAL.path}
+              className="flex items-center justify-center gap-1 leading-10 hover:bg-sky-200"
+              onClick={toggleMobile}
+            >
+              <Icon type="newUser" />
+              <I18N id="title.referNewUserPage" />
             </Link>
             <button
               href="/"

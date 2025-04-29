@@ -17,7 +17,7 @@ $left-diff: $top-diff;
   animation-duration: 0.2s;
 
   &.transparent {
-    background-color: rgba($bg-body, 0.6);
+    background-color: transparent;
   }
 
   &.min {

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import I18N, { getI18Ntext } from "@/i18n";
 import OrderBy from "@/components/orderBy";
 import { SidebarToggleButton } from "@/components/sections/with-sidebar";
@@ -9,6 +10,12 @@ const HeaderMyOffer = ({ count }) => {
   /* FILTER OPTIONS **********************************************/
   const filters_myoffer = useOptions((state) => state.filters_myoffer);
   const updateFilters = useOptions((state) => state.updateFilters);
+
+  useEffect(() => {
+    if (Object.keys(filters_myoffer).length <= 0) {
+      updateFilters({ order: "-added_mt", page: 1 }, "myoffer");
+    }
+  }, [filters_myoffer, updateFilters]);
   /* end FILTER OPTIONS *********************************************/
 
   return (

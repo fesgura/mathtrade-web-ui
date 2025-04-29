@@ -1,6 +1,6 @@
 export const meetingAddress = {
-  name: "Punto de Partida Café",
-  address: "Nazca 2893",
-  location: "Villa del Parque, CABA",
-  url: "https://goo.gl/maps/NXa9Zhg51FMSpjvC6",
+  name: "Lugar a confirmar",
+  address: "en Palermo",
+  location: "CABA",
+  url: "https://maps.app.goo.gl/cLScKpcn8FhNA1H6A",
 };

@@ -1,11 +1,4 @@
-import {
-  InputContainer,
-  Select,
-  Label,
-  Input,
-  Range,
-  Switch,
-} from "@/components/form";
+import { Label, Range } from "@/components/form";
 import I18N from "@/i18n";
 import useValueEditor from "./useValueEditor";
 import clsx from "clsx";

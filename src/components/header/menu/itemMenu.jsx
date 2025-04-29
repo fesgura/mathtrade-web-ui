@@ -11,7 +11,7 @@ const IconInMenu = ({ icon }) => {
 };
 
 const ItemMenu = ({ menuItem, currentPath, setVisibleMobileMenu }) => {
-  const { title, path, icon, subMenu, name } = menuItem;
+  const { title, path, icon, subMenu, name, special } = menuItem;
 
   const { active, isSubmenu } = useMemo(() => {
     const { path, subMenu, name } = menuItem;
@@ -44,10 +44,11 @@ const ItemMenu = ({ menuItem, currentPath, setVisibleMobileMenu }) => {
       <span
         className={clsx(
           "lg:text-white block text-sm leading-9 py-1 px-5 cursor-pointer",
+
           {
             "bg-red-600/70": isSubmenu && active === "myOffer",
             "bg-sky-700/80": isSubmenu && active === "items",
-            "bg-orange-600/80": isSubmenu && active === "games",
+            "bg-orange-600/80": isSubmenu && active === "offer",
             "bg-want/70": isSubmenu && active === "myWants",
             "bg-teal-600/70": isSubmenu && active === "results",
             "bg-yellow-600/70": isSubmenu && active === "stats",
@@ -98,18 +99,17 @@ const ItemMenu = ({ menuItem, currentPath, setVisibleMobileMenu }) => {
   ) : (
     <Link
       href={path}
-      className={clsx(
-        "lg:text-white block text-sm leading-9 py-1 px-5 hover:bg-sky-400/40",
-        {
-          "bg-red-600/70": active === "myOffer",
-          "bg-sky-700/90": active === "items",
-          "bg-orange-600/80": active === "games",
-          "bg-want/70": active === "myWants",
-          "bg-teal-600/70": active === "results",
-          "bg-yellow-600/80": active === "stats",
-          "bg-sky-600/70": active === "myData",
-        }
-      )}
+      className={clsx("lg:text-white  block text-sm hover:bg-sky-400/30 ", {
+        "bg-red-600/70": active === "myOffer",
+        "bg-sky-700/90": active === "items",
+        "bg-orange-600/80": active === "offer",
+        "bg-want/70": active === "myWants",
+        "bg-teal-600/70": active === "results",
+        "bg-yellow-600/80": active === "stats",
+        "bg-sky-600/70": active === "myData",
+        "lg:rounded-t leading-9 py-1 px-5": !special,
+        "bg-sky-400/50 py-1 px-5 mx-1 rounded-full text-xs font-bold": special,
+      })}
       onClick={() => {
         setVisibleMobileMenu(false);
       }}

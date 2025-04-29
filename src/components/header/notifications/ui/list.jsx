@@ -3,7 +3,7 @@ import Notification from "./notification";
 import { LoadingBox } from "@/components/loading";
 import I18N from "@/i18n";
 
-const List = ({ type }) => {
+const List = ({ type, noMembership }) => {
   const { list, loading, showLoadMore, loadMore } = useNotifications(type);
 
   return (
@@ -14,6 +14,7 @@ const List = ({ type }) => {
             key={`${data.id}-${k}`}
             data={data}
             type={type}
+            noMembership={noMembership}
             // toggleMobile={toggleMobile}
           />
         );

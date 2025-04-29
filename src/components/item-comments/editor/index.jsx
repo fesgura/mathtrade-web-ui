@@ -15,10 +15,15 @@ const CommentEditor = () => {
     <div className="relative pt-3 md:pl-4">
       <Form validations={validations} onSubmit={onSubmit}>
         <div className="flex items-center gap-2">
-          <Label text="itemComments.editor.label.add" name="comment" required />
+          <Label
+            text="itemComments.editor.label.add"
+            name="comment"
+            required
+            className="text-black"
+          />
           <span
             className={clsx("text-xs", {
-              "text-gray-500":
+              "text-gray-900":
                 maxCharacters - content.length > charactersDanger,
               "text-danger font-bold":
                 maxCharacters - content.length <= charactersDanger,
@@ -46,12 +51,12 @@ const CommentEditor = () => {
             </InputContainer>
           </div>
           <div
-            className="h"
+            className="h-12"
             data-tooltip={getI18Ntext("itemComments.title.add")}
             data-placement="left"
           >
             <button
-              className="bg-primary h-12 w-12 rounded-full text-white text-2xl"
+              className="bg-primary h-12 w-12 rounded-full text-white text-2xl grid place-items-center"
               disabled={loading}
             >
               <Icon type="send" />

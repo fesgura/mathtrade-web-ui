@@ -20,6 +20,8 @@ const useWantGroup = (wantGroup, itemId) => {
     availables,
   } = wantGroup;
 
+  const isCombo = type === "item" && wants?.[0].elements.length > 1;
+
   const elementsThumbnails = useMemo(() => {
     if (wants && wants.length) {
       return wants.map((item) => {
@@ -28,7 +30,7 @@ const useWantGroup = (wantGroup, itemId) => {
         return (
           elements.filter((el) => {
             return el.bgg_id === bgg_id;
-          })[0] || elements[0]
+          })[0]?.element || elements[0].element
         );
       });
     }
@@ -40,7 +42,7 @@ const useWantGroup = (wantGroup, itemId) => {
         return (
           elements.filter((el) => {
             return el.bgg_id === bgg_id;
-          })[0] || elements[0]
+          })[0].element || elements[0].element
         );
       });
     }
@@ -69,6 +71,7 @@ const useWantGroup = (wantGroup, itemId) => {
   );
 
   return {
+    isCombo,
     elementsThumbnails,
     style,
     name,

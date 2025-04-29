@@ -7,7 +7,7 @@ const GroupBadge = ({ group, isSelected, onAdd }) => {
   return (
     <div
       className={clsx(
-        "rounded-sm shadow-md flex items-center gap-1 cursor-pointer",
+        "rounded-md shadow-[0_0_1px_1px_rgba(0,0,0,.2)] flex items-center gap-1 cursor-pointer h-[22px]",
         {
           "pl-3 pr-1": isSelected,
           "px-3": !isSelected,
@@ -20,9 +20,9 @@ const GroupBadge = ({ group, isSelected, onAdd }) => {
         }
       }}
     >
-      <div className="whitespace-nowrap uppercase text-[10px] font-bold leading-5 cursor-pointer">{`${name} (${item_ids.length})`}</div>
+      <div className="whitespace-nowrap uppercase text-[10px] font-bold cursor-pointer">{`${name} (${item_ids.length})`}</div>
       {isSelected ? (
-        <div className=" text-xl leading-5">
+        <div className="leading-[18px] text-xl">
           <Icon type="arrow-down" />
         </div>
       ) : null}

@@ -1,7 +1,7 @@
 import { useStore, useOptions } from "@/store";
 import { useContext, useMemo, useCallback, useEffect } from "react";
 import { getI18Ntext } from "@/i18n";
-import { statusList as statusTypes } from "@/config/statusTypes";
+import { boxStatusList, componentsStatusList } from "@/config/statusTypes";
 import { languagesOptions } from "@/config";
 import { dependencyOptions } from "@/config/dependencyTypes";
 import { formatLocations } from "@/utils";
@@ -79,7 +79,8 @@ const useFiltersItems = () => {
     typeList,
     banOptions,
     dependencyList,
-    statusList,
+    statusBoxOptions,
+    statusComponentsOptions,
     languageList,
     locationList,
   } = useMemo(() => {
@@ -145,12 +146,12 @@ const useFiltersItems = () => {
       return li;
     })();
 
-    o.statusList = (() => {
-      const li = [...statusTypes];
-      if (filterData?.status) {
+    o.statusBoxOptions = (() => {
+      const li = [...boxStatusList];
+      if (filterData?.box_status) {
         return li
           .map((st) => {
-            const num = filterData?.status?.[st.value] || 0;
+            const num = filterData?.box_status?.[st.value] || 0;
             if (!num) {
               return null;
             }
@@ -163,6 +164,27 @@ const useFiltersItems = () => {
       }
       return li;
     })();
+    o.statusComponentsOptions = (() => {
+      const li = [...componentsStatusList];
+      if (filterData?.component_status) {
+        return li
+          .map((st) => {
+            const num = filterData?.component_status?.[st.value] || 0;
+            if (!num) {
+              return null;
+            }
+            return {
+              ...st,
+              text: `${st.text} (${num})`,
+            };
+          })
+          .filter((v) => v !== null);
+      }
+      return li;
+    })();
+    /*
+
+    */
 
     o.languageList = (() => {
       const li = [...languagesOptions];
@@ -230,7 +252,8 @@ const useFiltersItems = () => {
     loadingUserList: loadingUsers,
     typeList,
     banOptions,
-    statusList,
+    statusBoxOptions,
+    statusComponentsOptions,
     locationList,
     languageList,
     dependencyList,

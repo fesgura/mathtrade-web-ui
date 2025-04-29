@@ -1,4 +1,5 @@
-import { createContext, useState, useCallback } from "react";
+import { createContext, useState, useCallback, useContext } from "react";
+import { PageContext } from "../page";
 
 export const NotificationsContext = createContext({
   itemNotifUnread: 0,
@@ -12,9 +13,13 @@ export const NotificationsContext = createContext({
   //
   visibleMobile: false,
   toggleMobile: () => {},
+  //
+  membership: null,
 });
 
 export const NotificationsContextProvider = ({ children }) => {
+  const { membership } = useContext(PageContext);
+
   const [itemNotifUnread, setItemNotifUnread] = useState(0);
   //
   const [wantNotifUnread, setWantNotifUnread] = useState(0);
@@ -41,6 +46,8 @@ export const NotificationsContextProvider = ({ children }) => {
         //
         visibleMobile,
         toggleMobile,
+        //
+        membership,
       }}
     >
       {children}

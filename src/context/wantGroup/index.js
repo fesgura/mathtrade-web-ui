@@ -22,7 +22,7 @@ export const WantGroupContext = createContext({
 // contextType = item, game, tag
 export const WantGroupContextProvider = ({ contextType, children }) => {
   /* PAGE CONTEXT **********************************************/
-  const { userId } = useContext(PageContext);
+  const { userId, myItemsInMT_forWants } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
   /* ITEM CONTEXT **********************************************/
@@ -34,7 +34,8 @@ export const WantGroupContextProvider = ({ contextType, children }) => {
   /* end GAME CONTEXT */
 
   /* TAG CONTEXT **********************************************/
-  const { wantGroup: wantGroupTag } = useContext(TagContext);
+
+  const { tag, wantGroup: wantGroupTag } = useContext(TagContext);
   /* end TAG CONTEXT */
 
   /* Want Group **********************************************/
@@ -81,6 +82,41 @@ export const WantGroupContextProvider = ({ contextType, children }) => {
     return false;
   }, [item, game, userId]);
 
+  const isSameBGGId = useMemo(() => {
+    let isFoundedBGGId = false;
+
+    let bggIdList = [];
+    if (contextType === "game") {
+      bggIdList = [`${game?.bgg_id}`];
+    }
+
+    if (contextType === "item") {
+      item?.elements.forEach(({ element }) => {
+        const bggId = `${element?.game?.bgg_id}`;
+        bggIdList.push(bggId);
+      });
+    }
+
+    if (contextType === "tag") {
+      tag?.itemsComplete?.forEach(({ elements }) => {
+        elements.forEach(({ bgg_id }) => {
+          bggIdList.push(`${bgg_id}`);
+        });
+      });
+    }
+
+    myItemsInMT_forWants.forEach(({ elements }) => {
+      elements.forEach(({ element }) => {
+        const bggId = `${element?.game?.bgg_id}`;
+        if (bggIdList.includes(bggId)) {
+          isFoundedBGGId = true;
+        }
+      });
+    });
+
+    return isFoundedBGGId;
+  }, [contextType, game, item, tag, myItemsInMT_forWants]);
+
   return (
     <WantGroupContext.Provider
       value={{
@@ -95,6 +131,7 @@ export const WantGroupContextProvider = ({ contextType, children }) => {
         ownList,
         setOwnList,
         isOwner,
+        isSameBGGId,
       }}
     >
       {children}

@@ -4,10 +4,10 @@ import MyGroupsInItemUI from "./ui";
 
 const MyGroupsInItem = ({ className }) => {
   /* PAGE CONTEXT **********************************************/
-  const { pageType } = useContext(PageContext);
+  const { pageType, myGroups } = useContext(PageContext);
   /* end PAGE CONTEXT *********************************************/
 
-  return pageType === "myOffer" ? (
+  return pageType === "myOffer" && myGroups.length ? (
     <MyGroupsInItemUI className={className} />
   ) : null;
 };

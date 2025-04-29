@@ -1,26 +1,15 @@
 "use client";
 import I18N from "@/i18n";
 import PageHeader from "@/components/pageHeader";
-import { useOptions } from "@/store";
 import Tabs from "@/components/tabs";
-import { useEffect, useState } from "react";
 import BanUsersModal from "@/components/ban/users/modal";
 import GamesView from "./games";
 import ItemsView from "./items";
 import HelpContext from "@/components/help-context";
+import useOffer from "./useOffer";
 
 const OfferPage = () => {
-  const options = useOptions((state) => state.options);
-  const updateOptions = useOptions((state) => state.updateOptions);
-  const [screenOfferView, setScreenOfferView] = useState(
-    options?.screenOfferView || 0
-  );
-
-  useEffect(() => {
-    updateOptions({
-      screenOfferView,
-    });
-  }, [updateOptions, screenOfferView]);
+  const { screenOfferView, setScreenOfferView } = useOffer();
 
   return (
     <>

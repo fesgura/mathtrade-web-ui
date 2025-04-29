@@ -4,7 +4,7 @@ import ItemMD from "./md";
 import ItemXL from "./xl";
 
 const ItemGridUI = ({ expanded, setExpanded }) => {
-  const { itemNode, isExpanded, onToggleExpanse } = useItemGrid(
+  const { itemNode, isExpanded, isCombo, onToggleExpanse } = useItemGrid(
     expanded,
     setExpanded
   );
@@ -17,10 +17,12 @@ const ItemGridUI = ({ expanded, setExpanded }) => {
       ref={itemNode}
     >
       <div
-        className={clsx("transition-all relative mx-auto", {
-          "w-[230px] h-full hover:shadow-[0_2px_10px_rgba(0,0,0,0.3)] shadow-[0_2px_10px_rgba(0,0,0,0.1)] ":
+        className={clsx("transition-all relative mx-auto border", {
+          "w-[230px] h-full hover:shadow-[0_1px_8px_rgba(0,0,0,0.3)] shadow-[0_3px_16px_rgba(0,0,0,0.5)] ":
             !isExpanded,
-          "bg-white shadow-xl w-full duration-700 max-w-5xl": isExpanded,
+          "shadow-xl w-full duration-700 max-w-5xl": isExpanded,
+          "bg-item-200 border-item-300": !isCombo,
+          "bg-item-300 border-item-400": isCombo,
         })}
       >
         {!isExpanded ? (

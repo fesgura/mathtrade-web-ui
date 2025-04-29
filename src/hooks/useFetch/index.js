@@ -31,7 +31,12 @@ const useFetch = ({
 
   const getData = useCallback(
     async (props) => {
-      const { urlParams, params } = { urlParams: [], params: null, ...props };
+      const { urlParams, params, mathtradeId } = {
+        urlParams: [],
+        params: null,
+        mathtradeId: null,
+        ...props,
+      };
 
       if (beforeLoad) beforeLoad();
       setErrorMessage(null);
@@ -43,7 +48,7 @@ const useFetch = ({
         path,
         urlParams: defaultUrlParams.concat(urlParams),
         params,
-        mathtradeId: mathtrade?.id || 0,
+        mathtradeId: mathtradeId || mathtrade?.id || 0,
       });
       setLoading(false);
 

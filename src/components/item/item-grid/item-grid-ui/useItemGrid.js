@@ -3,12 +3,13 @@ import { ItemContext } from "@/context/item";
 
 const useItemGrid = (expanded, setExpanded) => {
   const { item } = useContext(ItemContext);
+  const { id: itemId, isCombo, ban_id } = item;
 
   const itemNode = useRef(null);
 
   const isExpanded = useMemo(() => {
-    return expanded === item.id;
-  }, [expanded, item.id]);
+    return expanded === itemId;
+  }, [expanded, itemId]);
 
   const onToggleExpanse = useCallback(() => {
     if (isExpanded) {
@@ -17,22 +18,22 @@ const useItemGrid = (expanded, setExpanded) => {
         itemNode.current.scrollIntoView({
           behavior: "smooth",
           block: "center", //"start" | "center" | "end" | "nearest";
-          //      inline: "start" | "center" | "end" | "nearest";
         });
       }, 200);
     } else {
-      setExpanded(item.id);
+      setExpanded(itemId);
       setTimeout(() => {
         itemNode.current.scrollIntoView({
           behavior: "smooth",
           block: "start", //"start" | "center" | "end" | "nearest";
-          //      inline: "start" | "center" | "end" | "nearest";
         });
       }, 200);
     }
-  }, [isExpanded, setExpanded, item.id]);
+  }, [isExpanded, setExpanded, itemId]);
 
   return {
+    isCombo,
+    ban_id,
     itemNode,
     isExpanded,
     onToggleExpanse,

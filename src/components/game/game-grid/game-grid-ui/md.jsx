@@ -40,24 +40,29 @@ const GameGridMD = ({ onToggleExpanse }) => {
       )}
     >
       <div className="flex gap-4 h-full">
-        <div className="relative lg:w-52 w-24 lg:h-52 h-24">
-          <Thumbnail
-            elements={[{ thumbnail }]}
-            className="rounded-lg lg:w-52 w-24"
-          />
-          <div
-            className="absolute top-0 left-0 w-full h-full bg-black/40 rounded-lg grid place-content-center backdrop-blur-sm cursor-pointer opacity-0 hover:opacity-100 transition-opacity"
-            onClick={onToggleExpanse}
-          >
-            <div className="text-center text-white">
-              <Icon type="plus" className="text-5xl" />
-              <div className="font-bold uppercase text-xs">
-                <I18N id="Enlarge" />
+        <div className="lg:w-52 w-24">
+          <div className="relative">
+            <Thumbnail
+              elements={[{ thumbnail }]}
+              className="rounded-t-lg lg:w-52 w-24"
+            />
+            <div
+              className="absolute top-0 left-0 w-full h-full bg-black/40 rounded-t-lg grid place-content-center backdrop-blur-sm cursor-pointer opacity-0 hover:opacity-100 transition-opacity"
+              onClick={onToggleExpanse}
+            >
+              <div className="text-center text-white">
+                <Icon type="plus" className="text-5xl" />
+                <div className="font-bold uppercase text-xs">
+                  <I18N id="Enlarge" />
+                </div>
               </div>
             </div>
           </div>
-          {ban_id ? null : <Value size="md" type="game" />}
-          <BanButton size="md" type="game" />
+          <div className="bg-black rounded-b-lg flex items-center justify-end gap-3 p-2">
+            <BanButton size="md" type="game" />
+            <div className="w-[1px] h-4 bg-gray-400"></div>
+            {ban_id ? null : <Value size="md" type="game" />}
+          </div>
         </div>
         <div className="text-white flex flex-col h-full justify-between">
           <div>

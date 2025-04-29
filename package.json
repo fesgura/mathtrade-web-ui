@@ -13,6 +13,7 @@
     "@react-pdf/renderer": "^3.4.2",
     "apisauce": "3.0.1",
     "clsx": "2.0.0",
+    "copy-text-to-clipboard": "^3.2.0",
     "next": "^14.0.3",
     "qs": "6.11.2",
     "react": "18",

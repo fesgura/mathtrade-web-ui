@@ -21,6 +21,8 @@ const Select = ({
   customRenderTag,
   onMouseOverOption,
   onMouseOut,
+  noBorder,
+  startFocus,
 }) => {
   const {
     placeholder,
@@ -41,7 +43,8 @@ const Select = ({
     data[name] || "",
     multiple,
     translateOptions,
-    onChange
+    onChange,
+    startFocus
   );
 
   return (
@@ -62,7 +65,7 @@ const Select = ({
       <div className="relative w-full">
         <div
           className={clsx(
-            "input block w-full border border-stroke rounded-md  pl-3 pr-6 shadow-sm transition",
+            "input block w-full  border-stroke rounded-md  pl-3 pr-6 shadow-sm transition",
             {
               "border-primary shadow-[0_0_6px_theme(colors.primary)]":
                 visiblePad,
@@ -72,6 +75,7 @@ const Select = ({
               "bg-gray-200 cursor-not-allowed": disabled || disabledInput,
               "py-3": size === "md",
               "py-2 text-sm": size === "sm",
+              border: !noBorder,
             }
           )}
         >

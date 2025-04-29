@@ -2,6 +2,7 @@
 import { createContext, useState, useCallback, useMemo } from "react";
 import useLocations from "@/hooks/useLocations";
 import { useStore } from "@/store";
+import { NEW_USER_OFFER_LIMIT } from "@/config/newUserOfferLimit";
 
 export const PageContext = createContext({
   pageType: null,
@@ -14,6 +15,8 @@ export const PageContext = createContext({
   games: [],
   setGames: () => {},
   myCollection: [],
+  myCollectionFiltered: [],
+  myCollectionList: [],
   setMyCollection: () => {},
   myCollectionBGGids: [],
   setMyCollectionBGGids: () => {},
@@ -54,6 +57,7 @@ export const PageContext = createContext({
   setShowModalPreview: () => {},
   //
   canI: {
+    sign: false,
     offer: false,
     want: false,
     commit: false,
@@ -74,12 +78,15 @@ export const PageContext = createContext({
   setMustConfirm: () => {},
   mustConfirmDate: null,
   setMustConfirmDate: () => {},
+  isNewUser: false,
 });
 
 const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE === "yes";
 
 const PageContextProvider = ({ children }) => {
-  const { mathtrade, membership, user } = useStore((state) => state.data);
+  const { mathtrade, membership, user, mathtrade_history } = useStore(
+    (state) => state.data
+  );
 
   const [pageType, setPageType] = useState(null);
   const [items, setItems] = useState({ list: [], count: 0 });
@@ -111,18 +118,32 @@ const PageContextProvider = ({ children }) => {
   const canI = useMemo(() => {
     if (CAN_I_TEST_MODE) {
       return {
+        sign: true,
         offer: true,
         want: true,
         commit: true,
         results: true,
+        pageType,
       };
     }
-    if (!mathtrade || !membership) {
+    if (!mathtrade) {
       return {
+        sign: false,
         offer: false,
         want: false,
         commit: false,
         results: false,
+        pageType,
+      };
+    }
+    if (mathtrade.status === "freeze") {
+      return {
+        sign: false,
+        offer: false,
+        want: false,
+        commit: false,
+        results: false,
+        pageType,
       };
     }
     const $now = new Date().getTime();
@@ -131,6 +152,7 @@ const PageContextProvider = ({ children }) => {
       "start_date",
       "frezze_geek_date",
       "frezze_wants_date",
+      // "frezze_commit_date",
       "meeting_date",
       "show_results_date",
     ].reduce((obj, dateName) => {
@@ -139,14 +161,27 @@ const PageContextProvider = ({ children }) => {
     }, {});
 
     const offer = $now >= $dates.start_date && $now < $dates.frezze_geek_date;
-    const want = $now >= $dates.start_date && $now < $dates.frezze_wants_date;
-    const commit =
+    const want =
       $now >= $dates.frezze_geek_date && $now < $dates.frezze_wants_date;
+    const commit = want;
+    // $now >= $dates.frezze_wants_date && $now < $dates.frezze_commit_date;
     const results =
       $now >= $dates.show_results_date &&
       (mathtrade.status === "pre-final" || mathtrade.status === "final");
 
+    if (!membership) {
+      return {
+        sign: offer,
+        offer,
+        want,
+        commit,
+        results,
+        pageType,
+      };
+    }
+
     return {
+      sign: false,
       offer,
       want,
       commit,
@@ -171,6 +206,35 @@ const PageContextProvider = ({ children }) => {
 
   useLocations();
 
+  /* CollectionFILTERED ********************************************/
+  const { myCollectionFiltered, myCollectionList } = useMemo(() => {
+    const listElementIds = myItemsInMT.reduce((arr, { elements }) => {
+      elements.forEach((element) => {
+        arr.push(`${element.element.id}`);
+      });
+      return arr;
+    }, []);
+
+    const collFilter = myCollection.filter((element) => {
+      return listElementIds.indexOf(`${element.id}`) < 0;
+    });
+
+    const collFilterList = collFilter.map(({ name: text, id, thumbnail }) => {
+      return { text, value: `${id}`, thumbnail };
+    });
+
+    return {
+      myCollectionFiltered: collFilter,
+      myCollectionList: collFilterList,
+    };
+  }, [myCollection, myItemsInMT]);
+
+  /* end CollectionFILTERED ********************************************/
+
+  const isNewUser = useMemo(() => {
+    return NEW_USER_OFFER_LIMIT && mathtrade_history.length === 0;
+  }, [mathtrade_history]);
+
   return (
     <PageContext.Provider
       value={{
@@ -185,6 +249,8 @@ const PageContextProvider = ({ children }) => {
         games,
         setGames,
         myCollection,
+        myCollectionFiltered,
+        myCollectionList,
         setMyCollection,
         myCollectionBGGids,
         setMyCollectionBGGids,
@@ -247,6 +313,8 @@ const PageContextProvider = ({ children }) => {
         setMustConfirm,
         mustConfirmDate,
         setMustConfirmDate,
+        //
+        isNewUser,
       }}
     >
       {children}

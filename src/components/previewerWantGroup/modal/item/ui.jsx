@@ -8,6 +8,7 @@ import ItemComments from "@/components/item-comments";
 import UserBox from "@/components/userBox";
 import ItemTagList from "@/components/item-tags/item-taglist";
 import { LoadingBox } from "@/components/loading";
+import ItemXL from "@/components/item/item-grid/item-grid-ui/xl";
 
 const ItemUI = ({ wantGroup }) => {
   /* PAGE CONTEXT **********************************************/
@@ -35,6 +36,22 @@ const ItemUI = ({ wantGroup }) => {
 
   return (
     <>
+      <div className="bg-item-200 rounded-md border border-item-300 shadow-xl w-full mb-2">
+        <ItemXL hideWant onChangeValue={onChangeValue} />
+      </div>
+      <LoadingBox loading={loadingItem} />
+    </>
+  );
+};
+
+export default ItemUI;
+
+/*
+
+
+
+
+<>
       {isCombo ? (
         <h3 className="pb-3 flex gap-2">
           <div className="uppercase text-sm font-bold text-gray-900 ">
@@ -52,7 +69,15 @@ const ItemUI = ({ wantGroup }) => {
       <ItemComments className="pb-5" />
       <LoadingBox loading={loadingItem} />
     </>
-  );
-};
 
-export default ItemUI;
+
+
+
+
+
+
+
+
+
+
+*/

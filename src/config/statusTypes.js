@@ -1,47 +1,66 @@
 import { getI18Ntext } from "@/i18n";
 
-const statusKeys = [
-  //  "CE",
-  "NU",
-  //  "CN",
-  // "EX",
-  "MB",
-  "BU",
-  //  "MU",
-  //  "CC",
-  // "IN"
-];
-
-const colors = {
-  //CE: "rgb(223, 152, 0)",
-  NU: "rgb(221, 0, 173)",
-  // CN: "rgb(140, 0, 233)",
-  // EX: "rgb(0, 196, 42)",
+const COLORS = {
   MB: "rgb(0, 59, 221)",
   BU: "rgb(99, 96, 90)",
-  // MU: "rgb(66, 65, 65)",
-  // CC: "rgb(161, 102, 34)",
-  // IN: "rgb(158, 2, 2)",
+  CP: "rgb(200, 0, 0)",
+  NO: "rgb(160, 100, 20)",
 };
 
-export const statusTypes = (function () {
-  const o = {};
-  statusKeys.forEach((st) => {
-    o[st] = {
-      text: getI18Ntext(`statusType.${st}`),
-      color: colors[st],
+const DEFAULT_STATUS_KEYS = ["MB", "BU"];
+const EMPTY_BOX_STATUS_KEY = "NO";
+export const INVALID_STATUS_KEY = "CP";
+
+// BOX
+const BOX_STATUS_KEYS = [
+  ...DEFAULT_STATUS_KEYS,
+  EMPTY_BOX_STATUS_KEY,
+  INVALID_STATUS_KEY,
+];
+
+export const boxStatusTypes = BOX_STATUS_KEYS.map((key) => {
+  return {
+    key,
+    text: getI18Ntext(`statusType.box.${key}`),
+    color: COLORS[key],
+    min: key,
+    enabledForOptions: !INVALID_STATUS_KEY.includes(key),
+  };
+}).reduce((obj, st) => {
+  obj[st.key] = st;
+  return obj;
+}, {});
+
+export const boxStatusList = Object.values(boxStatusTypes)
+  .filter((st) => st.enabledForOptions)
+  .map((st) => {
+    return {
+      text: st.text,
+      value: st.key,
     };
   });
-  return o;
-})();
 
-export const statusList = (() => {
-  const list = [];
-  for (let i in statusTypes) {
-    list.push({
-      text: statusTypes[i].text,
-      value: i,
-    });
-  }
-  return list;
-})();
+// COMPONENTS
+const COMPONENT_STATUS_KEYS = [...DEFAULT_STATUS_KEYS, INVALID_STATUS_KEY];
+
+export const componentsStatusTypes = COMPONENT_STATUS_KEYS.map((key) => {
+  return {
+    key,
+    text: getI18Ntext(`statusType.components.${key}`),
+    color: COLORS[key],
+    min: key,
+    enabledForOptions: !INVALID_STATUS_KEY.includes(key),
+  };
+}).reduce((obj, st) => {
+  obj[st.key] = st;
+  return obj;
+}, {});
+
+export const componentsStatusList = Object.values(componentsStatusTypes)
+  .filter((st) => st.enabledForOptions)
+  .map((st) => {
+    return {
+      text: st.text,
+      value: st.key,
+    };
+  });

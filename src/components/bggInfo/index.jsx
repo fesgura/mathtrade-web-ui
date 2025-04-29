@@ -1,27 +1,7 @@
-import I18N, { getI18Ntext } from "@/i18n";
+import { getI18Ntext } from "@/i18n";
 import useBGGdata from "./useBGGdata";
-import Question from "../question";
-import clsx from "clsx";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
-
-const BGGinfoLabel = ({ label, question, children, contextFor }) => {
-  return (
-    <div className="j">
-      <div className="whitespace-nowrap leading-none">
-        <span
-          className={clsx("text-[10px] mr-1", {
-            "opacity-60": contextFor === "black",
-            "opacity-90": contextFor !== "black",
-          })}
-        >
-          <I18N id={label} />
-        </span>
-        <Question text={question} noTranslate />
-      </div>
-      {children}
-    </div>
-  );
-};
+import BGGinfoLabel from "./bggInfoLabel";
 
 const BGGinfo = ({ game, contextFor = "black", className }) => {
   const {

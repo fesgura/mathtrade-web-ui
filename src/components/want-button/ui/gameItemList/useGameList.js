@@ -28,7 +28,7 @@ const useGameList = () => {
       });
 
       items.forEach((itm) => {
-        if (itm?.user?.id === userId) {
+        if (itm?.membership?.id === userId) {
           newGroupWantList[itm?.id || "_"] = false;
           newOwnList[itm?.id || "_"] = true;
         } else {
@@ -37,7 +37,7 @@ const useGameList = () => {
       });
     } else {
       items.forEach((itm) => {
-        if (itm?.user?.id === userId) {
+        if (itm?.membership?.id === userId) {
           newGroupWantList[itm?.id || "_"] = false;
           newOwnList[itm?.id || "_"] = true;
         } else {
