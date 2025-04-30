@@ -38,6 +38,7 @@ const ResultsVisual = () => {
         /* if (k > 5) {
           return null;
         } */
+
         return <ChangeSection result={result} key={result.id} />;
       })}
     </div>

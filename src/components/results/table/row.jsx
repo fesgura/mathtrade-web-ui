@@ -52,7 +52,7 @@ const UserChange = ({ user }) => {
 };
 
 const Row = ({ result }) => {
-  const { item_to, member_to, item_from, member_from } = result;
+  const { item_to, membership_to, item_from, membership_from } = result;
 
   return (
     <tr className="hover:bg-primary/20 border-b border-gray-300">
@@ -60,13 +60,13 @@ const Row = ({ result }) => {
         <ItemChange item={item_to} />
       </td>
       <td className="py-1 px-3 border-r-2 border-gray-300">
-        <UserChange user={member_to} />
+        <UserChange user={membership_to} />
       </td>
       <td className="py-1 px-3">
         <ItemChange item={item_from} />
       </td>
       <td className="py-1 px-3">
-        <UserChange user={member_from} />
+        <UserChange user={membership_from} />
       </td>
     </tr>
   );
