@@ -8,16 +8,19 @@ import Icon from "@/components/icon";
 import { LoadingBox } from "@/components/loading";
 
 const HeaderItem = () => {
-  const { deleteItem, loading, isCombo, canIoffer } = useItemHeader();
+  const { deleteItem, loading, isCombo, canIoffer, elementsLength } =
+    useItemHeader();
 
   return (
     <>
       <header className="mb-2">
         <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
-            <MyGroupsInItem className="" />
-            <Value size="xl" type="item" />
-          </div>
+          {elementsLength > 0 ? (
+            <div className="flex items-center gap-3">
+              <MyGroupsInItem className="" />
+              <Value size="xl" type="item" />
+            </div>
+          ) : null}
           {canIoffer ? (
             <ButtonAlert
               className="text-red-700 font-bold text-xs hover:text-red-900 transition-colors"

@@ -27,7 +27,7 @@ const ItemUI = () => {
         }
       )}
     >
-      {elements.length ? <HeaderItem /> : null}
+      <HeaderItem />
       <div className="flex flex-col gap-3">
         {elements.length ? (
           elements.map((element) => {
