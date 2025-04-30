@@ -7,7 +7,7 @@ import CommitFooter from "@/components/want-components/commit/footer";
 
 const ItemToWant = ({ changeScreenViewOffer }) => {
   const { isLoadedWants, myList, readyToRender } = useItemToWant();
-
+  console.log("asds");
   return readyToRender ? (
     <Container>
       <CommitHeaderVisual />

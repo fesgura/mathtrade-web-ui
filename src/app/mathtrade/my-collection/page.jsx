@@ -53,8 +53,8 @@ const MyCollectionPage = () => {
       >
         <GotoTopContextProvider>
           <StickyHeader size="md">
-            <div className="sm:flex items-center gap-2 py-3 justify-between">
-              <div className="flex flex-wrap items-center gap-1 md:pb-0 pb-3">
+            <div className="flex sm:flex-row flex-col items-center sm:gap-3 py-3 justify-between">
+              <div className="flex flex-wrap items-center sm:justify-normal justify-center gap-3 md:pb-0 pb-3">
                 <label className="block text-sm font-bold text-gray-500 whitespace-nowrap">
                   <I18N id="filter.Search" />
                 </label>
@@ -65,7 +65,7 @@ const MyCollectionPage = () => {
                   onChange={searchText}
                   className="border border-stroke rounded-md p-1 text-xs focus:outline-none"
                 />
-                <div className="font-bold italic text-gray-700 pl-2">
+                <div className="font-bold italic text-gray-700">
                   <I18N
                     id={`itemCount.${
                       elementList.length === 1 ? "one" : "many"
@@ -74,7 +74,7 @@ const MyCollectionPage = () => {
                   />
                 </div>
                 {canI.offer ? (
-                  <div className="lg:pl-2">
+                  <div className="">
                     <HelpContext id="howToOfferCollection" />
                   </div>
                 ) : null}

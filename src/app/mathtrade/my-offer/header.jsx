@@ -19,9 +19,9 @@ const HeaderMyOffer = ({ count }) => {
   /* end FILTER OPTIONS *********************************************/
 
   return (
-    <div className="flex lg:justify-between justify-around items-center gap-1 py-3">
+    <div className="flex md:justify-between sjustify-around items-center gap-1 py-3">
       <div className="flex-[0_0_auto]">
-        <div className="md:flex items-center gap-4">
+        <div className="sm:flex  items-center gap-4">
           <SidebarToggleButton
             className="font-bold rounded-md text-sm lg:px-5 px-3 py-2 transition-colors"
             classNameNotHighlighted="text-primary bg-primary/10"

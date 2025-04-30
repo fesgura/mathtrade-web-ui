@@ -5,6 +5,8 @@ import I18N from "@/i18n";
 const CommitHeaderVisual = () => {
   const { mustConfirm, mustConfirmDate, canI } = useContext(PageContext);
 
+  console.log(mustConfirm, mustConfirmDate, canI);
+
   if (mustConfirm && !canI.commit) {
     return (
       <div className="max-w-3xl mx-auto text-center text-balance pb-5 text-gray-700">

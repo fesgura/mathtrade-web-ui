@@ -35,7 +35,7 @@ const CommitFooter = ({ acceptNum, changeScreenViewOffer }) => {
         </label>
         {acceptChecksCommit[`accept_${acceptNum}`] &&
           !acceptChecksCommit[`accept_${acceptNum === "1" ? "2" : "1"}`] && (
-            <p className="text-center py-3 border-2 border-primary">
+            <p className="text-center py-3 border-2 border-primary text-balance">
               <I18N id="CommitFooterVisual.text2" />{" "}
               <strong
                 className="underline text-primary cursor-pointer"

@@ -51,16 +51,21 @@ const AddElementToMyItemSelector = ({
       </div>
 
       <button
-        className={clsx(" rounded-r-md text-white font-bold px-6 py-3", {
-          "bg-primary": selectedElementId,
-          "bg-gray-300": !selectedElementId,
-        })}
+        className={clsx(
+          " rounded-r-md text-white font-bold sm:px-6 px-3 py-3 sm:text-base text-2xl",
+          {
+            "bg-primary": selectedElementId,
+            "bg-gray-300": !selectedElementId,
+          }
+        )}
         disabled={!selectedElementId}
         onClick={addElement}
       >
         <InnerButton>
           <Icon type="plus" />
-          <I18N id="addElementToItem" />
+          <span className="sm:block hidden">
+            <I18N id="addElementToItem" />
+          </span>
         </InnerButton>
       </button>
     </div>

@@ -29,10 +29,13 @@ const AddElementToMyItem = ({ startOpen }) => {
           })}
         >
           <h2
-            className={clsx("text-gray-900", {
-              "mb-1": !selectedElement,
-              "mb-2": selectedElement,
-            })}
+            className={clsx(
+              "text-gray-900 text-balance sm:text-left text-center",
+              {
+                "mb-1": !selectedElement,
+                "mb-2": selectedElement,
+              }
+            )}
           >
             <I18N
               id={`addElementToItem.${itemId ? "addCombo" : "create"}.title.1`}
@@ -51,8 +54,8 @@ const AddElementToMyItem = ({ startOpen }) => {
           {selectedElement ? (
             <NewElement element={selectedElement} onCancel={onCancel} />
           ) : (
-            <div className="flex items-end">
-              <div className="grow">
+            <div className="flex md:flex-row flex-col md:items-end items-center md:gap-0 gap-5">
+              <div className="grow w-full">
                 <AddElementToMyItemSelector
                   myCollectionList={myCollectionList}
                   selectedElementId={selectedElementId}

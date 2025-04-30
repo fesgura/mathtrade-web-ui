@@ -30,7 +30,7 @@ const ItemUI = ({ afterAddItem }) => {
         <ErrorAlert error={error} />
         <div className="flex justify-center">
           <button
-            className="bg-primary text-white py-1 px-5 rounded-full shadow-md transition-colors hover:bg-sky-700"
+            className="bg-primary text-white py-1 px-5 rounded-full shadow-md transition-colors hover:bg-sky-700 text-balance"
             onClick={addToMT}
           >
             <I18N id="addItemPreviousMT.btn" />

@@ -7,7 +7,7 @@ const AddFromPreviousMTBtn = () => {
 
   return mathTradePrevious ? (
     <div className="flex items-center">
-      <div className="px-4">
+      <div className="px-4 md:block hidden">
         <div className="w-[2px] h-12 bg-gray-400 rotate-12"></div>
       </div>
       <div className="">
