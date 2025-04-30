@@ -46,8 +46,6 @@ const BoxSize = ({ value, isComplete }) => {
     };
   }, [value]);
 
-  console.log(value, boxSize);
-
   if (!boxSize) {
     return null;
   }

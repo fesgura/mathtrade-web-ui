@@ -68,8 +68,6 @@ export const boxSizesValues = Object.values(boxSizes).reduce((obj, v) => {
   return obj;
 }, {});
 
-console.log(boxSizesValues);
-
 export const boxSizesOptions = Object.values(boxSizes)
   .filter(({ isOption }) => isOption)
   .map((v) => ({
