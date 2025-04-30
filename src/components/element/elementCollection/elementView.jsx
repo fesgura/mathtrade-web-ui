@@ -44,7 +44,7 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
   }, [insideItem, canI, offered]);
 
   return (
-    <div className="relative flex md:gap-6 gap-3">
+    <div className="relative flex sm:flex-row flex-col  md:gap-6 gap-3">
       {offered ? (
         <div className="absolute  -right-4 uppercase font-bold bg-item-500 text-white text-[10px] px-3 py-[2px] rounded-l-full shadow-[0_1px_3px_rgba(0,0,0,0.3)]">
           <I18N id="element.Offered" />

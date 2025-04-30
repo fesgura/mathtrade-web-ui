@@ -9,8 +9,8 @@ const useItemHeader = () => {
   /* end PAGE CONTEXT **************************** */
 
   /* ITEM CONTEXT **********************************************/
-  const { item, elements } = useContext(ItemContext);
-  const { isCombo } = item;
+  const { item } = useContext(ItemContext);
+  const { isCombo, elements } = item;
   /* end ITEM CONTEXT **********************************************/
 
   /* DELETE **************************************************/

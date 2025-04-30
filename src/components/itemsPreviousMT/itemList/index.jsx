@@ -19,12 +19,12 @@ const ItemList = () => {
 
   return (
     <section className="min-h-80">
-      <header className="pb-2 mb-4 border-b border-gray-300 flex items-end justify-between gap-3">
-        <div>
-          <h2 className="font-bold text-2xl">
+      <header className="pb-2 mb-4 border-b border-gray-300 sm:flex items-end justify-between gap-3">
+        <div className="sm:mb-0 mb-5">
+          <h2 className="font-bold text-2xl text-balance">
             <I18N id="previousMT.items.title" />
           </h2>
-          <h3 className="font-bold text-gray-400">{title}</h3>
+          <h3 className="font-bold text-gray-400 text-balance">{title}</h3>
         </div>
 
         <div className="flex items-center gap-1">

@@ -28,7 +28,7 @@ const ElementCompleteUI = () => {
 
   return (
     <ElementWrapperInside>
-      <div className="relative flex md:gap-6 gap-3">
+      <div className="relative flex sm:flex-row flex-col md:gap-6 gap-3">
         <div className="relative lg:w-52 w-24 lg:h-52 h-24 rounded-lg shadow-[0_0_2px_1px_rgba(0,0,0,0.2)]">
           <Thumbnail elements={[element]} className="rounded-lg lg:w-52 w-24" />
         </div>
