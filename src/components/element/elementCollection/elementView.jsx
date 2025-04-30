@@ -91,11 +91,9 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
             </div>
             <div className="text-sm text-purple-950 font-bold ">{language}</div>
           </div>
-          {box_size ? (
-            <div className="flex gap-3 items-center">
-              <BoxSize value={box_size} isComplete />
-            </div>
-          ) : null}
+          <div className="flex gap-3 items-center">
+            <BoxSize value={box_size} isComplete />
+          </div>
         </div>
 
         {/* <div className="border-t text-gray-500 pt-4 flex justify-between items-center">

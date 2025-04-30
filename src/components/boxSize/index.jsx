@@ -1,15 +1,25 @@
 import BGGinfoLabel from "../bggInfo/bggInfoLabel";
 import I18N, { getI18Ntext } from "@/i18n";
-import { boxSizesValues } from "@/config/boxSizes";
+import { boxSizesValues, boxSizeIdToReview } from "@/config/boxSizes";
 import { useMemo } from "react";
+import clsx from "clsx";
 
-const BoxSizeComp = ({ boxSize }) => {
+const BoxSizeComp = ({ boxSize, toReview }) => {
   return (
     <>
-      <div className="font-bold text-sm">
+      <div
+        className={clsx("font-bold text-sm", {
+          "text-red-700": toReview,
+        })}
+      >
         <I18N id={boxSize.text} />
       </div>
-      <div className="text-[10px] italic text-gray-500 text-balance">
+      <div
+        className={clsx("text-[10px] text-balance", {
+          "italic text-gray-500": !toReview,
+          "text-red-700": toReview,
+        })}
+      >
         <I18N
           id={boxSize.description}
           values={[
@@ -25,8 +35,15 @@ const BoxSizeComp = ({ boxSize }) => {
 };
 
 const BoxSize = ({ value, isComplete }) => {
-  const boxSize = useMemo(() => {
-    return boxSizesValues[value] || null;
+  const { val, boxSize } = useMemo(() => {
+    const val =
+      typeof value === "undefined" || value === null
+        ? boxSizeIdToReview
+        : value;
+    return {
+      val,
+      boxSize: boxSizesValues[val],
+    };
   }, [value]);
 
   if (!boxSize) {
@@ -40,13 +57,19 @@ const BoxSize = ({ value, isComplete }) => {
           label="boxSizes.title"
           question={getI18Ntext("boxSizes.description")}
         />
-        <BoxSizeComp boxSize={boxSize} />
+        <BoxSizeComp
+          boxSize={boxSize}
+          toReview={`${val}` === `${boxSizeIdToReview}`}
+        />
       </div>
     );
   }
   return (
     <div>
-      <BoxSizeComp boxSize={boxSize} />
+      <BoxSizeComp
+        boxSize={boxSize}
+        toReview={`${val}` === `${boxSizeIdToReview}`}
+      />
     </div>
   );
 };

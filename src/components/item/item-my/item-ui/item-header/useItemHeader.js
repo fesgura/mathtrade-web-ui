@@ -9,7 +9,7 @@ const useItemHeader = () => {
   /* end PAGE CONTEXT **************************** */
 
   /* ITEM CONTEXT **********************************************/
-  const { item } = useContext(ItemContext);
+  const { item, elements } = useContext(ItemContext);
   const { isCombo } = item;
   /* end ITEM CONTEXT **********************************************/
 
@@ -33,7 +33,13 @@ const useItemHeader = () => {
     });
   }, [deleteItemApi, item]);
 
-  return { deleteItem, loading, isCombo, canIoffer: canI.offer };
+  return {
+    deleteItem,
+    loading,
+    isCombo,
+    canIoffer: canI.offer,
+    elementsLength: elements?.length,
+  };
 };
 
 export default useItemHeader;
