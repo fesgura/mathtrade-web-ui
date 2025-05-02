@@ -2,14 +2,16 @@ import Thumbnail from "@/components/thumbnail";
 import LinkExternal from "@/components/link-external";
 import BGGinfo from "@/components/bggInfo";
 import { GameContext } from "@/context/game";
-import { useContext } from "react";
+import { useContext, lazy } from "react";
 import I18N, { getI18Ntext } from "@/i18n";
 import Icon from "@/components/icon";
 import Value from "@/components/value";
 import BanButton from "@/components/ban/button";
 import clsx from "clsx";
-import WantButtonGame from "../wantButtonGame";
 import ItemNoBGG from "../itemNoBgg";
+import Dynamic from "@/components/dynamic";
+
+const WantButtonGame = lazy(() => import("../wantButtonGame"));
 
 const GameGridXL = ({ onToggleExpanse }) => {
   /* GAME CONTEXT **********************************************/
@@ -93,12 +95,15 @@ const GameGridXL = ({ onToggleExpanse }) => {
           </div>
         </button>
       </div>
-      <WantButtonGame
-        ban_id={ban_id}
-        contextSize="xl"
-        notGame={notGame}
-        itemRaw={items[0]}
-      />
+
+      <Dynamic h={700}>
+        <WantButtonGame
+          ban_id={ban_id}
+          contextSize="xl"
+          notGame={notGame}
+          itemRaw={items[0]}
+        />
+      </Dynamic>
       <button
         className="absolute -bottom-2 left-1/2 hover:opacity-100 text-white bg-gray-700 hover:bg-black transition-colors leading-none text-[9px] uppercase p-1 w-24 -ml-12 rounded-full"
         onClick={onToggleExpanse}

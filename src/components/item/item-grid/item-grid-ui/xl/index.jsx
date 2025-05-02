@@ -1,14 +1,16 @@
-import { useContext } from "react";
+import { useContext, lazy } from "react";
 import { ItemContext } from "@/context/item";
 import ElementComplete from "@/components/element/elementComplete";
 import I18N, { getI18Ntext } from "@/i18n";
-import WantButton from "@/components/want-button";
 import ItemComments from "@/components/item-comments";
 import UserBox from "@/components/userBox";
 import Icon from "@/components/icon";
 import { LoadingBox } from "@/components/loading";
 import clsx from "clsx";
 import ItemGridHeader from "../item-grid-header";
+import Dynamic from "@/components/dynamic";
+
+const WantButton = lazy(() => import("@/components/want-button"));
 
 const ItemXL = ({ onToggleExpanse, hideWant, onChangeValue }) => {
   /* ITEM CONTEXT **********************************************/
@@ -45,7 +47,11 @@ const ItemXL = ({ onToggleExpanse, hideWant, onChangeValue }) => {
         <ItemComments className="pb-5" rightContent={<UserBox />} />
       </div>
 
-      {ban_id || hideWant ? null : <WantButton contextSize="xl" />}
+      {ban_id || hideWant ? null : (
+        <Dynamic h={700}>
+          <WantButton contextSize="xl" />
+        </Dynamic>
+      )}
 
       <LoadingBox loading={loadingItem} />
       {onToggleExpanse ? (

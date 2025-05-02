@@ -2,12 +2,15 @@
 import PageHeader from "@/components/pageHeader";
 import I18N from "@/i18n";
 import { ResultsContextProvider } from "@/context/results";
-import ResultsUI from "./ui";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, lazy } from "react";
 import { PageContext } from "@/context/page";
 import Container from "@/components/container";
 import Tabs from "@/components/tabs";
-import UserTable from "@/components/results/userTable";
+//import UserTable from "@/components/results/userTable";
+import Dynamic from "@/components/dynamic";
+
+const ResultsUI = lazy(() => import("./ui"));
+const UserTable = lazy(() => import("@/components/results/userTable"));
 
 export default function Results() {
   /* PAGE CONTEXT **********************************************/
@@ -45,7 +48,9 @@ export default function Results() {
         <div className="">
           {canI.results ? (
             <ResultsContextProvider>
-              <ResultsUI />
+              <Dynamic>
+                <ResultsUI />
+              </Dynamic>
             </ResultsContextProvider>
           ) : (
             <Container>
@@ -57,7 +62,9 @@ export default function Results() {
         </div>
       ) : (
         <Container>
-          <UserTable />
+          <Dynamic>
+            <UserTable />
+          </Dynamic>
         </Container>
       )}
     </>

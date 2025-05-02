@@ -1,11 +1,13 @@
-import { useContext } from "react";
+import { useContext, lazy } from "react";
 import { PageContext } from "@/context/page";
 import { ItemContext } from "@/context/item";
 import ElementMyItem from "@/components/element/elementMyItem";
 import HeaderItem from "./item-header";
-import AddElementToMyItem from "../addElement";
+import Dynamic from "@/components/dynamic";
 import clsx from "clsx";
 import I18N from "@/i18n";
+
+const AddElementToMyItem = lazy(() => import("../addElement"));
 
 const ItemUI = () => {
   /* PAGE CONTEXT **********************************************/
@@ -39,7 +41,11 @@ const ItemUI = () => {
             <br /> <strong>Item Id: {id}</strong>
           </div>
         )}
-        {canI.offer && elements.length ? <AddElementToMyItem /> : null}
+        {canI.offer && elements.length ? (
+          <Dynamic h={100}>
+            <AddElementToMyItem />
+          </Dynamic>
+        ) : null}
       </div>
     </article>
   );

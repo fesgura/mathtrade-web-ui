@@ -112,8 +112,8 @@ const useGrid = () => {
   }, [myWants, filters]);
 
   /* MYITEMLIST **********************************************/
-  const myItemList = useMemo(() => {
-    const [groupObj, newGroupsVisible] = myGroups_forWants.reduce(
+  const { myItemList, newGroupsVisible } = useMemo(() => {
+    const [groupObj, newGroupsVis] = myGroups_forWants.reduce(
       (arr, group) => {
         const { id, name, color, item_ids } = group;
         if (item_ids.length) {
@@ -201,16 +201,13 @@ const useGrid = () => {
         });
       });
 
-    if (setGroupsVisible) setGroupsVisible(newGroupsVisible);
+    //
 
-    return [""].concat(allItemsInGroups.concat(allItemsAlone));
-  }, [
-    myGroups_forWants,
-    myItemsInMT_forWants,
-    setGroupsVisible,
-    filters,
-    mostOfferedItemsObj,
-  ]);
+    return {
+      myItemList: [""].concat(allItemsInGroups.concat(allItemsAlone)),
+      newGroupsVisible: newGroupsVis,
+    };
+  }, [myGroups_forWants, myItemsInMT_forWants, filters, mostOfferedItemsObj]);
   /* end MYITEMLIST **********************************************/
 
   /* READY TO RENDER **********************************************/
@@ -230,6 +227,12 @@ const useGrid = () => {
   }, [isLoadedWants, myWants]);
 
   const rootRef = useRef(null);
+
+  useEffect(() => {
+    if (setGroupsVisible && newGroupsVisible) {
+      setGroupsVisible(newGroupsVisible);
+    }
+  }, [setGroupsVisible, newGroupsVisible]);
 
   return {
     emptyWants,

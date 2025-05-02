@@ -1,7 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, lazy } from "react";
 import ElementView from "./elementView";
-import ElementEditor from "./editor";
 import { ElementContextProvider } from "@/context/element";
+
+import Dynamic from "@/components/dynamic";
+
+const ElementEditor = lazy(() => import("./editor"));
 
 const ElementCollection = ({ element, insideItem, extraContent }) => {
   // EDITING MODE *************************************/
@@ -14,7 +17,9 @@ const ElementCollection = ({ element, insideItem, extraContent }) => {
   return (
     <ElementContextProvider elementRaw={element}>
       {editingMode ? (
-        <ElementEditor toggleEditingMode={toggleEditingMode} />
+        <Dynamic h={600}>
+          <ElementEditor toggleEditingMode={toggleEditingMode} />
+        </Dynamic>
       ) : (
         <ElementView
           toggleEditingMode={toggleEditingMode}
