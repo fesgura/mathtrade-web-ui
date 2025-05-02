@@ -67,7 +67,7 @@ const MyCollectionPage = () => {
                 />
                 <div className="font-bold italic text-gray-700">
                   <I18N
-                    id={`itemCount.${
+                    id={`elementCount.${
                       elementList.length === 1 ? "one" : "many"
                     }`}
                     values={[elementList.length]}

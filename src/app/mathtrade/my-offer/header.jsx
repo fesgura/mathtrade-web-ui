@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { PageContext } from "@/context/page";
 import I18N, { getI18Ntext } from "@/i18n";
 import OrderBy from "@/components/orderBy";
 import { SidebarToggleButton } from "@/components/sections/with-sidebar";
@@ -18,6 +19,10 @@ const HeaderMyOffer = ({ count }) => {
   }, [filters_myoffer, updateFilters]);
   /* end FILTER OPTIONS *********************************************/
 
+  /* PAGE CONTEXT **********************************************/
+  const { myGroups } = useContext(PageContext);
+  /* end PAGE CONTEXT *********************************************/
+
   return (
     <div className="flex md:justify-between sjustify-around items-center gap-1 py-3">
       <div className="flex-[0_0_auto]">
@@ -30,7 +35,8 @@ const HeaderMyOffer = ({ count }) => {
             <InnerButton>
               <Icon type="collection" />
               <span className="lg:block hidden">
-                <I18N id="myGroups.groupHeader" />
+                <I18N id="myGroups.groupHeader" />{" "}
+                {myGroups.length > 0 ? ` (${myGroups.length})` : ""}
               </span>
             </InnerButton>
           </SidebarToggleButton>
