@@ -187,7 +187,7 @@ const ElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
                     options={languagesOptions}
                     icon="language"
                     multiple
-                    disabledInput={bgg_version_id !== "other"}
+                    //disabledInput={bgg_version_id !== "other"}
                     onChange={setLanguage}
                   />
                 </InputContainer>
