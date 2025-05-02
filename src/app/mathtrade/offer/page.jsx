@@ -1,12 +1,15 @@
 "use client";
+import { lazy } from "react";
 import I18N from "@/i18n";
 import PageHeader from "@/components/pageHeader";
 import Tabs from "@/components/tabs";
 import BanUsersModal from "@/components/ban/users/modal";
-import GamesView from "./games";
-import ItemsView from "./items";
 import HelpContext from "@/components/help-context";
 import useOffer from "./useOffer";
+import Dynamic from "@/components/dynamic";
+
+const GamesView = lazy(() => import("./games"));
+const ItemsView = lazy(() => import("./items"));
 
 const OfferPage = () => {
   const { screenOfferView, setScreenOfferView } = useOffer();
@@ -35,10 +38,14 @@ const OfferPage = () => {
           <div className="w-fit mx-auto">
             <HelpContext id="advanceMeaning.items" />
           </div>
-          <GamesView />
+          <Dynamic h={600}>
+            <GamesView />
+          </Dynamic>
         </>
       ) : (
-        <ItemsView />
+        <Dynamic h={600}>
+          <ItemsView />
+        </Dynamic>
       )}
       <BanUsersModal />
     </>

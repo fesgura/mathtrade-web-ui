@@ -1,14 +1,17 @@
 "use client";
+import { lazy } from "react";
 import SectionCommon from "@/components/sections/common";
 import useWants from "./useWants";
 import Tabs from "@/components/tabs";
 import Visual from "./visual";
-import Grid from "./grid";
 import Footer from "./footer";
 import ErrorAlert from "@/components/errorAlert";
 import Container from "@/components/container";
 import { GotoTopContextProvider } from "@/context/goto-top";
 import HelpContext from "@/components/help-context";
+import Dynamic from "@/components/dynamic";
+
+const Grid = lazy(() => import("./grid"));
 
 export default function MyWantsUI() {
   const { screenView, setScreenView, loading, error } = useWants();
@@ -37,7 +40,9 @@ export default function MyWantsUI() {
               <Visual />
             </>
           ) : (
-            <Grid />
+            <Dynamic h={800}>
+              <Grid />
+            </Dynamic>
           )}
           <Footer />
         </GotoTopContextProvider>

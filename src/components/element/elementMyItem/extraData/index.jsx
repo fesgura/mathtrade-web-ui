@@ -1,7 +1,9 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, lazy } from "react";
 import ExtraDataView from "./view";
-import ExtraDataEditor from "./editor";
 import RemoveElement from "./removeElement";
+import Dynamic from "@/components/dynamic";
+
+const ExtraDataEditor = lazy(() => import("./editor"));
 
 const ElementMyItemExtraData = ({ forAddElement, onCancel }) => {
   // EDITING MODE *************************************/
@@ -15,11 +17,13 @@ const ElementMyItemExtraData = ({ forAddElement, onCancel }) => {
     <>
       <div className="border border-gray-300 p-3 rounded-lg bg-gray-100 relative">
         {editingMode ? (
-          <ExtraDataEditor
-            toggleEditingMode={toggleEditingMode}
-            onCancel={onCancel}
-            forAddElement={forAddElement}
-          />
+          <Dynamic h={600}>
+            <ExtraDataEditor
+              toggleEditingMode={toggleEditingMode}
+              onCancel={onCancel}
+              forAddElement={forAddElement}
+            />
+          </Dynamic>
         ) : (
           <ExtraDataView toggleEditingMode={toggleEditingMode} />
         )}

@@ -2,11 +2,9 @@ import { useContext } from "react";
 import { PageContext } from "@/context/page";
 import I18N, { getI18Ntext } from "@/i18n";
 import Pagination from "@/components/pagination";
-import Icon from "@/components/icon";
-import InnerButton from "@/components/button/inner-button";
-import { SidebarToggleButton } from "@/components/sections/with-sidebar";
 import OrderBy from "@/components/orderBy";
 import PageSize from "@/components/page-size";
+import FilterToggleButton from "@/components/filters/filterToggleButton";
 
 const Header = () => {
   /* PAGE CONTEXT **********************************************/
@@ -18,18 +16,8 @@ const Header = () => {
     <div className="flex lg:justify-between justify-around items-center gap-1 py-3">
       <div className="flex-[0_0_auto]">
         <div className="md:flex items-center gap-4">
-          <SidebarToggleButton
-            className="font-bold rounded-md text-sm lg:px-5 px-3 py-2 transition-colors"
-            classNameNotHighlighted="text-primary bg-primary/10"
-            classNameHighlighted="font-bold text-white bg-primary rounded-md text-sm lg:px-5 px-3 py-2"
-          >
-            <InnerButton>
-              <Icon type="filters" />
-              <span className="lg:block hidden">
-                <I18N id="btn.mobile.filter" />
-              </span>
-            </InnerButton>
-          </SidebarToggleButton>
+          <FilterToggleButton type="item" />
+
           <div className="md:text-xl text-xs font-bold italic text-gray-700 md:pt-0 pt-2">
             <I18N
               id={`itemCount.${count === 1 ? "one" : "many"}`}

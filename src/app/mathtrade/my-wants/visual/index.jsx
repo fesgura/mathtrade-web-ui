@@ -1,12 +1,14 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, lazy } from "react";
 import { useOptions } from "@/store";
-import WantToItem from "./want-to-item";
-import ItemToWant from "./item-to-want";
 import clsx from "clsx";
 import Container from "@/components/container";
 import TradeArrows from "@/components/svg/trade-arrows";
 import I18N from "@/i18n";
 import { GotoTopContext } from "@/context/goto-top";
+import Dynamic from "@/components/dynamic";
+
+const WantToItem = lazy(() => import("./want-to-item"));
+const ItemToWant = lazy(() => import("./item-to-want"));
 
 const TabVisual = ({ screenViewOffer, setScreenViewOffer, val }) => {
   return (
@@ -81,9 +83,13 @@ const Visual = () => {
       </Container>
 
       {screenViewOffer === 0 ? (
-        <WantToItem changeScreenViewOffer={changeScreenViewOffer} />
+        <Dynamic h={800}>
+          <WantToItem changeScreenViewOffer={changeScreenViewOffer} />
+        </Dynamic>
       ) : (
-        <ItemToWant changeScreenViewOffer={changeScreenViewOffer} />
+        <Dynamic h={800}>
+          <ItemToWant changeScreenViewOffer={changeScreenViewOffer} />
+        </Dynamic>
       )}
     </div>
   );
