@@ -10,7 +10,7 @@ import { LoadingBox } from "@/components/loading";
 import clsx from "clsx";
 import ItemGridHeader from "../item-grid-header";
 
-const ItemXL = ({ onToggleExpanse, hideWant, onChangeValue }) => {
+const ItemXL = ({ onToggleExpanse, hideWant, hideTags, onChangeValue }) => {
   /* ITEM CONTEXT **********************************************/
   const { item, loadingItem, showAsIgnored } = useContext(ItemContext);
   const { ban_id, elements } = item;
@@ -24,7 +24,7 @@ const ItemXL = ({ onToggleExpanse, hideWant, onChangeValue }) => {
     >
       <div className="pt-2 px-3 pb-3">
         <div className="pr-6">
-          <ItemGridHeader onChangeValue={onChangeValue} />
+          <ItemGridHeader onChangeValue={onChangeValue} hideTags={hideTags} />
           {onToggleExpanse ? (
             <button
               className="absolute top-1 right-1 aspect-square w-7 opacity-50 hover:opacity-100"
