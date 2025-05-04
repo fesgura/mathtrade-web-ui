@@ -1,11 +1,7 @@
 import { useCallback, useContext } from "react";
 import { PageContext } from "@/context/page";
 import { ItemContext } from "@/context/item";
-import ElementXL from "@/components/element/xl";
-import I18N from "@/i18n";
-import Value from "@/components/value";
-import ItemComments from "@/components/item-comments";
-import { LoadingBox } from "@/components/loading";
+import ItemXL from "@/components/item/item-grid/item-grid-ui/xl";
 
 const ItemUI = () => {
   /* PAGE CONTEXT **********************************************/
@@ -34,30 +30,9 @@ const ItemUI = () => {
   );
 
   return (
-    <>
-      {isCombo ? (
-        <h3 className="pb-3 flex gap-2">
-          <div className="uppercase text-sm font-bold text-gray-900 ">
-            <I18N id="element-type-badge-0" />
-          </div>
-          <Value size="xl" type="item" onChange={onChangeValue} />
-        </h3>
-      ) : null}
-      {elements.map((element) => {
-        return (
-          <ElementXL
-            key={element.id}
-            element={element}
-            onChangeValue={onChangeValue}
-          />
-        );
-      })}
-      <div className="py-4 border-t border-gray-300 border-dotted">
-        <ItemComments className="pb-5" />
-      </div>
-
-      <LoadingBox loading={loadingItem} />
-    </>
+    <div className="bg-item-200 rounded-md border border-item-300 shadow-xl w-full">
+      <ItemXL hideWant hideTags onChangeValue={onChangeValue} />
+    </div>
   );
 };
 

@@ -2,6 +2,7 @@
 import MyWantsUI from "./ui";
 import { MyWantsContextProvider } from "@/context/myWants/all";
 import { PageContext } from "@/context/page";
+import ModalPreviewerItemWant from "@/components/previewerItem/modal";
 import PageHeader from "@/components/pageHeader";
 import I18N from "@/i18n";
 import { useContext } from "react";
@@ -32,6 +33,7 @@ export default function MyWants() {
       ) : (
         <MyWantsContextProvider>
           <MyWantsUI />
+          <ModalPreviewerItemWant />
         </MyWantsContextProvider>
       )}
     </>

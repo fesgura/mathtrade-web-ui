@@ -5,7 +5,6 @@ import ElementMyItem from "@/components/element/elementMyItem";
 import HeaderItem from "./item-header";
 import Dynamic from "@/components/dynamic";
 import clsx from "clsx";
-import I18N from "@/i18n";
 
 const AddElementToMyItem = lazy(() => import("../addElement"));
 
@@ -31,16 +30,9 @@ const ItemUI = () => {
     >
       <HeaderItem />
       <div className="flex flex-col gap-3">
-        {elements.length ? (
-          elements.map((element) => {
-            return <ElementMyItem key={element.id} element={element} />;
-          })
-        ) : (
-          <div className="text-center p-3 text-balance text-red-800">
-            <I18N id="error.item.offer.notFound" />
-            <br /> <strong>Item Id: {id}</strong>
-          </div>
-        )}
+        {elements.map((element) => {
+          return <ElementMyItem key={element.id} element={element} />;
+        })}
         {canI.offer && elements.length ? (
           <Dynamic h={100}>
             <AddElementToMyItem />

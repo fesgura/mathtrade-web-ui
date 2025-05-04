@@ -1,4 +1,4 @@
-import Previewer from "@/components/previewer";
+import PreviewerItem from "@/components/previewerItem";
 import ValueMini from "@/components/value/mini";
 import { colorTagStyles } from "@/utils/color";
 
@@ -16,7 +16,7 @@ const Item = ({ myItem }) => {
         </h4>
         <div className="flex items-center gap-1 pr-1">
           <div className="rotate-90">
-            <Previewer itemId={id} notooltip />
+            <PreviewerItem itemId={id} notooltip />
           </div>
           <div className="rotate-90">
             <ValueMini currentValue={value} />

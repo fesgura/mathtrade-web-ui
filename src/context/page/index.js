@@ -182,10 +182,10 @@ const PageContextProvider = ({ children }) => {
 
     return {
       sign: false,
-      offer: true,
-      want: false,
-      commit: false,
-      results: false,
+      offer,
+      want,
+      commit,
+      results,
       pageType,
     };
   }, [mathtrade, membership, pageType]);

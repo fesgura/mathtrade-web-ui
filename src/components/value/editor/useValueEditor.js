@@ -1,6 +1,7 @@
 import { useCallback, useRef, useContext } from "react";
 import useFetch from "@/hooks/useFetch";
 import { PageContext } from "@/context/page";
+import { ItemContext } from "@/context/item";
 
 const useValueEditor = (
   intialValue,
@@ -11,7 +12,7 @@ const useValueEditor = (
   type
 ) => {
   /* PAGE CONTEXT **********************************************/
-  const { forceReloadPage } = useContext(PageContext);
+  const { forceReloadPage, pageType } = useContext(PageContext);
 
   const currentValueRef = useRef(intialValue);
 
@@ -20,6 +21,10 @@ const useValueEditor = (
   }, []);
 
   ////////////////////////////////////////
+
+  /* ITEM CONTEXT **************************/
+  const { reloadItem } = useContext(ItemContext);
+  /* end ITEM CONTEXT **************************/
 
   /* POST VALUE ************************************************/
   const afterLoad = useCallback(() => {
@@ -30,8 +35,22 @@ const useValueEditor = (
     if (type === "group") {
       forceReloadPage();
     }
+    if (
+      (reloadItem && pageType === "wants-visual") ||
+      pageType === "wants-grid"
+    ) {
+      reloadItem();
+    }
     onClose();
-  }, [setValue, onChangeValue, onClose, type, forceReloadPage]);
+  }, [
+    setValue,
+    onChangeValue,
+    onClose,
+    type,
+    forceReloadPage,
+    pageType,
+    reloadItem,
+  ]);
 
   const [postValue, , loading, error] = useFetch({
     endpoint: "POST_VALUE_ITEMS",
