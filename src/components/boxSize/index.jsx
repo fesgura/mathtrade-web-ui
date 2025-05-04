@@ -15,19 +15,14 @@ const BoxSizeComp = ({ boxSize, toReview }) => {
         <I18N id={boxSize.text} />
       </div>
       <div
-        className={clsx("text-[10px] text-balance", {
+        className={clsx("text-[12px] text-balance", {
           "italic text-gray-500": !toReview,
           "text-red-700": toReview,
         })}
       >
         <I18N
           id={boxSize.description}
-          values={[
-            boxSize.limitTextDescription,
-            boxSize.maxWidth,
-            boxSize.maxLarge,
-            boxSize.maxHeight,
-          ]}
+          values={[boxSize.valueA, boxSize.valueB]}
         />
       </div>
     </>
