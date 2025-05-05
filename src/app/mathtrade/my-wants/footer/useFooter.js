@@ -10,7 +10,8 @@ const useFooter = () => {
   const { gotoTop } = useContext(GotoTopContext);
 
   /* PAGE CONTEXT **********************************************/
-  const { myWants, setMyWants, canI } = useContext(PageContext);
+  const { myWants, setMyWants, canI, setMustConfirm, setMustConfirmDate } =
+    useContext(PageContext);
   /* end PAGE CONTEXT */
 
   /* MYWANTS CONTEXT **********************************************/
@@ -31,9 +32,18 @@ const useFooter = () => {
         gotoTop();
         setChanges({});
         setDeletedWantgroupIds({});
+        setMustConfirm(true);
+        setMustConfirmDate(null);
       }
     },
-    [gotoTop, setMyWants, setChanges, setDeletedWantgroupIds]
+    [
+      gotoTop,
+      setMyWants,
+      setChanges,
+      setDeletedWantgroupIds,
+      setMustConfirm,
+      setMustConfirmDate,
+    ]
   );
   const [postAllChanges, , loadingPost, errorPost] = useFetch({
     endpoint: "PUT_MYWANTS_BATCH",
