@@ -10,7 +10,7 @@ import {
 import I18N from "@/i18n";
 import Icon from "@/components/icon";
 import { PrintTagsContext } from "../context";
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { dpi, padding, canvasWidth } from "../config";
 import Tutorial from "../tutorial";
 
@@ -49,6 +49,10 @@ const Viewer = () => {
 
   const [urlDownload, setUrlDownload] = useState(null);
 
+  const changeUrlDownload = useCallback((url) => {
+    setUrlDownload(url);
+  }, []);
+
   return pages.length ? (
     <>
       <div className="py-5 text-center">
@@ -59,7 +63,7 @@ const Viewer = () => {
           fileName="etiquetas_para_imprimir.pdf"
         >
           {({ blob, url, loading, error }) => {
-            setUrlDownload(url);
+            changeUrlDownload(url);
             return loading ? (
               <I18N id="results.tags.btn.loading" />
             ) : (
