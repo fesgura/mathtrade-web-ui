@@ -1,21 +1,22 @@
 import { useContext, useCallback, useState, useEffect, useMemo } from "react";
 import { ResultsContext } from "@/context/results";
+import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
-import { useOptions } from "@/store";
 
 const useResults = () => {
   /* SCREEN OPTIONS **********************************************/
-
   const [screenViewResults, setScreenViewResults] = useState(0);
-
   /* end SCREEN OPTIONS **********************************************/
+
+  /* PAGE CONTEXT *****************************************/
+  const { updateMathtrade } = useContext(PageContext);
+  /* end PAGE CONTEXT *****************************************/
 
   /* RESULTS CONTEXT *****************************************/
   const {
     currentUser,
     setUserList,
     currentUserId,
-    setMathTradeData,
     setMathTradeResults,
     MathTradeResults,
   } = useContext(ResultsContext);
@@ -40,12 +41,12 @@ const useResults = () => {
   });
   // end GET USERS ********************************************
 
-  // GET MathTradeData ********************************************
+  // UPDATE MathTrade ********************************************
   const afterLoadMathTradeData = useCallback(
     (newMathTradeData) => {
-      setMathTradeData(newMathTradeData);
+      updateMathtrade(newMathTradeData);
     },
-    [setMathTradeData]
+    [updateMathtrade]
   );
   const params = useMemo(() => {
     return { stats: true };
@@ -56,7 +57,7 @@ const useResults = () => {
     autoLoad: true,
     afterLoad: afterLoadMathTradeData,
   });
-  // end GET MathTradeData ********************************************
+  // end UPDATE MathTradeData ********************************************
 
   /* GET USERS *************************************************/
   const afterLoadMTresults = useCallback(

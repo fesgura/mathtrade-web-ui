@@ -7,9 +7,7 @@ export const ResultsContext = createContext({
   currentUser: null,
   currentUserId: null,
   setCurrentUserId: () => {},
-  //
-  MathTradeData: null,
-  setMathTradeData: () => {},
+
   //
   MathTradeResults: null,
   setMathTradeResults: () => {},
@@ -22,7 +20,6 @@ export const ResultsContextProvider = ({ children }) => {
 
   const [userList, setUserList] = useState([]);
   const [currentUserId, setCurrentUserId] = useState(userId);
-  const [MathTradeData, setMathTradeData] = useState(null);
   const [MathTradeResults, setMathTradeResults] = useState(null);
 
   const currentUser = useMemo(() => {
@@ -41,9 +38,7 @@ export const ResultsContextProvider = ({ children }) => {
         currentUser,
         currentUserId,
         setCurrentUserId,
-        //
-        MathTradeData,
-        setMathTradeData,
+
         //
         MathTradeResults,
         setMathTradeResults,

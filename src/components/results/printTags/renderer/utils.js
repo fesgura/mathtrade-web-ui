@@ -2,14 +2,20 @@ import { cropWord } from "@/utils/text";
 import { dpi, elementPerPage } from "../config";
 
 export const dataToTag = (data) => {
-  if (!data.table_number || 
-    !data.show_label) {
+  if (!data.table_number || !data.show_label) {
     return null;
   }
 
-  const { table_number, via_meeting, user, item_to, member_to,assigned_trade_code } = data;
+  const {
+    table_number,
+    via_meeting,
+    membership: user,
+    item_to,
+    membership_to: member_to,
+    assigned_trade_code,
+  } = data;
 
-  const id = String(assigned_trade_code || 0). padStart(4, '0');
+  const id = String(assigned_trade_code || 0).padStart(4, "0");
 
   return {
     id,

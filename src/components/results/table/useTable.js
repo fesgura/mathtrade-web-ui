@@ -4,7 +4,7 @@ import { normalizeString } from "@/utils";
 
 const useTable = () => {
   /* RESULTS CONTEXT *****************************************/
-  const { currentUser, MathTradeResults } = useContext(ResultsContext);
+  const { MathTradeResults } = useContext(ResultsContext);
   /* end RESULTS CONTEXT *****************************************/
 
   const [searchValue, setSearchValue] = useState("");

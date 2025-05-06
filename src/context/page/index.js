@@ -5,6 +5,7 @@ import { useStore } from "@/store";
 import { NEW_USER_OFFER_LIMIT } from "@/config/newUserOfferLimit";
 
 export const PageContext = createContext({
+  updateMathtrade: () => {},
   pageType: null,
   setPageType: () => {},
   reloadValue: 1,
@@ -84,9 +85,12 @@ export const PageContext = createContext({
 const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE === "yes";
 
 const PageContextProvider = ({ children }) => {
-  const { mathtrade, membership, user, mathtrade_history } = useStore(
-    (state) => state.data
-  );
+  const {
+    mathtrade: mathtradeStored,
+    membership,
+    user,
+    mathtrade_history,
+  } = useStore((state) => state.data);
 
   const [pageType, setPageType] = useState(null);
   const [items, setItems] = useState({ list: [], count: 0 });
@@ -114,6 +118,12 @@ const PageContextProvider = ({ children }) => {
   const forceReloadPage = useCallback(() => {
     setReload(Date.now());
   }, []);
+
+  const [mathtradeUpdated, updateMathtrade] = useState({});
+
+  const mathtrade = useMemo(() => {
+    return { ...mathtradeStored, ...mathtradeUpdated };
+  }, [mathtradeStored, mathtradeUpdated]);
 
   const canI = useMemo(() => {
     if (CAN_I_TEST_MODE) {
@@ -238,6 +248,7 @@ const PageContextProvider = ({ children }) => {
   return (
     <PageContext.Provider
       value={{
+        updateMathtrade,
         pageType,
         setPageType,
         //
