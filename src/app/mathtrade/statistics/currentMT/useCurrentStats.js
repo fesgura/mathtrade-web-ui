@@ -20,6 +20,8 @@ const useCurrentStats = () => {
   });
   /* end FETCH */
 
+  console.log(data);
+
   return { data, loading, error };
 };
 

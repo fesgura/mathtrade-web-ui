@@ -1,24 +1,20 @@
-import { useMemo, useState, useCallback, useEffect } from "react";
+import { useMemo, useCallback, useContext } from "react";
+import { PageContext } from "@/context/page";
 import Pill from "@/components/pill";
 import useFetch from "@/hooks/useFetch";
-import { useOptions } from "@/store";
 
 const Pills = () => {
-  const options = useOptions((state) => state.options);
-  const updateOptions = useOptions((state) => state.updateOptions);
-  const [mathTradeData, setMathTradeData] = useState(
-    options?.mathTradeDataPills || {}
-  );
-  useEffect(() => {
-    updateOptions({
-      mathTradeDataPills: mathTradeData,
-    });
-  }, [updateOptions, mathTradeData]);
+  /* PAGE CONTEXT *****************************************/
+  const { mathtrade, updateMathtrade } = useContext(PageContext);
+  /* end PAGE CONTEXT *****************************************/
 
   // GET MathTradeData ********************************************
-  const afterLoadMathTradeData = useCallback((newMathTradeData) => {
-    setMathTradeData(newMathTradeData);
-  }, []);
+  const afterLoadMathTradeData = useCallback(
+    (newMathTradeData) => {
+      updateMathtrade(newMathTradeData);
+    },
+    [updateMathtrade]
+  );
   const params = useMemo(() => {
     return { stats: true };
   }, []);
@@ -35,7 +31,7 @@ const Pills = () => {
       <div className="md:flex gap-6">
         <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
-            value={mathTradeData?.games_count || "-"}
+            value={mathtrade?.games_count || "-"}
             label="results.pill.game"
             className="bg-teal-500"
           />
@@ -43,7 +39,7 @@ const Pills = () => {
 
         <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
-            value={mathTradeData?.items_count || "-"}
+            value={mathtrade?.items_count || "-"}
             label="results.pill.item"
             color="item"
             className="bg-sky-500"
@@ -51,7 +47,7 @@ const Pills = () => {
         </div>
         <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
-            value={mathTradeData?.users_count || "-"}
+            value={mathtrade?.users_count || "-"}
             label="results.pill.user"
             className="bg-orange-600"
           />

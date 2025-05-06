@@ -1,11 +1,16 @@
 import { useContext, useMemo } from "react";
 import { ResultsContext } from "@/context/results";
+import { PageContext } from "@/context/page";
 import Pill from "@/components/pill";
 import I18N from "@/i18n";
 
 const PillsResults = () => {
+  /* PAGE CONTEXT *****************************************/
+  const { mathtrade } = useContext(PageContext);
+  /* end PAGE CONTEXT *****************************************/
+
   /* RESULTS CONTEXT *****************************************/
-  const { userList, MathTradeData } = useContext(ResultsContext);
+  const { userList } = useContext(ResultsContext);
   /* end RESULTS CONTEXT *****************************************/
 
   const userParticipantsValues = useMemo(() => {
@@ -20,7 +25,7 @@ const PillsResults = () => {
       <div className="md:flex gap-6">
         <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
-            value={MathTradeData?.games_count || 0}
+            value={mathtrade?.games_count || 0}
             label="results.pill.game"
             className="bg-teal-500"
           />
@@ -28,7 +33,7 @@ const PillsResults = () => {
 
         <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
-            value={MathTradeData?.items_count || 0}
+            value={mathtrade?.items_count || 0}
             label="results.pill.item"
             color="item"
             className="bg-sky-500"
