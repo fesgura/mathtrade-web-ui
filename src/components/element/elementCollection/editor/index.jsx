@@ -2,7 +2,6 @@ import InnerButton from "@/components/button/inner-button";
 import I18N from "@/i18n";
 import useElementEditor from "./useElementEditor";
 import Thumbnail from "@/components/thumbnail";
-import LinkExternal from "@/components/link-external";
 import BGGinfo from "@/components/bggInfo";
 import {
   Form,
@@ -21,6 +20,7 @@ import { boxSizesOptions } from "@/config/boxSizes";
 import BoxSize from "@/components/boxSize";
 import RadioList from "@/components/form/inputTypes/radioList";
 import Question from "@/components/question";
+import BGGlink from "@/components/bggInfo/bggLink";
 
 const boxSizesOptionsList = boxSizesOptions.map((option) => {
   const { value } = option;
@@ -105,14 +105,12 @@ const ElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
                   <div className="uppercase text-[10px] font-bold text-gray-400">
                     <I18N id={`element-type-badge-${game?.type || 1}`} />
                   </div>
-                  <h3 className="text-lg font-bold">
-                    <LinkExternal
+                  <div className="flex gap-2 items-center">
+                    <h3 className="text-lg font-bold">{name}</h3>
+                    <BGGlink
                       href={`https://boardgamegeek.com/boardgame/${game.bgg_id}/`}
-                      tooltip="element.BGG.OpenGameInBGG"
-                    >
-                      {name}
-                    </LinkExternal>
-                  </h3>
+                    />
+                  </div>
                 </div>
                 <div className="py-3">
                   <div className="pb-5 border-b border-gray-300">

@@ -37,7 +37,7 @@ module.exports = {
       secondary: "#d0637c",
       danger: "#d9512f",
       bgg: "#ff5100",
-      bggback: "#3f3a60",
+      bggback: "#59518b", //"#3f3a60",
       want: "#00b86b",
       success: "#06d6a0",
       warning: "#ffd166",

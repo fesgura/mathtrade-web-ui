@@ -11,8 +11,8 @@ const BGGlink = ({ href }) => {
         className="flex items-center bg-bggback rounded-md gap-1 pl-1 hover:shadow-lg hover:opacity-90 transition-all duration-200 ease-in-out"
       >
         <Icon type="bgg-full" className="text-bgg " />
-        <div className="text-white font-bold pr-1 text-sm">BGG</div>
-        <div className="bg-bgg text-white rounded-r-md text-center w-6">
+        <div className="text-white font-bold pr-1 text-xs">BGG</div>
+        <div className="bg-bgg text-white rounded-r-md text-center w-6 text-sm p-[2px]">
           <Icon type="external-link" />
         </div>
       </a>

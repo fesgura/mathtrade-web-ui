@@ -55,17 +55,10 @@ const GameUI = ({ wantGroup }) => {
               <div className="uppercase text-[10px] font-bold opacity-70">
                 {type}
               </div>
-              <div
-                className="w-fit"
-                data-tooltip={getI18Ntext("element.BGG.OpenGameInBGG")}
-              >
-                <h3 className="text-lg font-bold cropped">
-                  <LinkExternal href={titleLink}>{title}</LinkExternal>
-                </h3>
-              </div>
+              <h3 className="text-lg font-bold cropped">{title}</h3>
               <div className="py-3">
                 <div className="py-3 border-b border-t border-gray-700">
-                  <BGGinfo game={gameRaw} />
+                  <BGGinfo game={gameRaw} bggLink={titleLink} />
                 </div>
               </div>
             </div>
