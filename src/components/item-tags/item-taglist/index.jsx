@@ -13,7 +13,7 @@ const ItemTagList = () => {
     updateTag,
     loadingUpdateTag,
     loadingTags,
-    canIwant,
+    canIEdit,
   } = useItemTagList();
 
   return isOwned || isSameBGGId ? null : (
@@ -29,7 +29,7 @@ const ItemTagList = () => {
           >
             <div className="whitespace-nowrap">{name}</div>
 
-            {canIwant ? (
+            {canIEdit ? (
               <button
                 className="text-right cursor-pointer w-5 relative top-[-1px]"
                 onClick={() => {
@@ -53,7 +53,7 @@ const ItemTagList = () => {
           </div>
         );
       })}
-      {canIwant ? (
+      {canIEdit ? (
         <AddTag
           updateTag={updateTag}
           options={tagCollection.options}

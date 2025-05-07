@@ -2,8 +2,9 @@ import { getI18Ntext } from "@/i18n";
 import useBGGdata from "./useBGGdata";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
 import BGGinfoLabel from "./bggInfoLabel";
+import BGGlink from "./bggLink";
 
-const BGGinfo = ({ game, contextFor = "black", className }) => {
+const BGGinfo = ({ game, contextFor = "black", className, bggLink }) => {
   const {
     isInBGG,
     rate,
@@ -56,6 +57,7 @@ const BGGinfo = ({ game, contextFor = "black", className }) => {
           >
             <div className="text-xs">{dependency}</div>
           </BGGinfoLabel>
+          {bggLink ? <BGGlink href={bggLink} /> : null}
         </div>
       </div>
     )

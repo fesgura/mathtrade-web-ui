@@ -21,7 +21,7 @@ const ItemUI = () => {
   return (
     <article
       className={clsx(
-        "relative h-full rounded-md shadow-[0_1px_8px_rgba(0,0,0,0.3)] mb-6 p-3 border",
+        "relative h-full rounded-lg shadow-md hover:shadow-[0_3px_16px_rgba(0,0,0,0.25)] mb-6 p-3 border transition-shadow",
         {
           "bg-item-200 border-item-300": !isCombo,
           "bg-item-300 border-item-400": isCombo,

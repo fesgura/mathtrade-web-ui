@@ -16,11 +16,13 @@ const GameGridUI = ({ expanded, setExpanded }) => {
       ref={gameNode}
     >
       <div
-        className={clsx("transition-all relative mx-auto", {
-          "sm:w-[516px] h-full shadow-[0_2px_10px_rgba(0,0,0,0.3)] ":
-            !isExpanded,
-          "bg-white shadow-xl w-full duration-700 max-w-5xl": isExpanded,
-        })}
+        className={clsx(
+          "transition-all relative mx-auto hover:shadow-[0_3px_16px_rgba(0,0,0,0.25)] shadow-md",
+          {
+            "sm:max-w-[680px] h-full rounded-lg": !isExpanded,
+            "bg-white shadow-xl w-full duration-700 max-w-5xl": isExpanded,
+          }
+        )}
       >
         {!isExpanded ? (
           <GameGridMD onToggleExpanse={onToggleExpanse} />

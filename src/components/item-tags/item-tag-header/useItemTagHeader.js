@@ -5,7 +5,7 @@ import { PageContext } from "@/context/page";
 
 const useItemTagHeader = () => {
   /* PAGE CONTEXT **********************************************/
-  const { forceReloadPage } = useContext(PageContext);
+  const { forceReloadPage, canI } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
   /* TAG CONTEXT **********************************************/
@@ -33,6 +33,7 @@ const useItemTagHeader = () => {
     visibleEdit,
     setVisibleEdit,
     onChangeValue,
+    canIEdit: canI.offer || canI.want,
   };
 };
 export default useItemTagHeader;

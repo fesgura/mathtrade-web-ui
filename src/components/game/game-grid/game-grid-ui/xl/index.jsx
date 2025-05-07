@@ -1,5 +1,4 @@
 import Thumbnail from "@/components/thumbnail";
-import LinkExternal from "@/components/link-external";
 import BGGinfo from "@/components/bggInfo";
 import { GameContext } from "@/context/game";
 import { useContext, lazy } from "react";
@@ -34,7 +33,7 @@ const GameGridXL = ({ onToggleExpanse }) => {
     <div className="relative">
       <div
         className={clsx(
-          "bg-gray-900 w-full mx-auto p-2 pr-9 relative transition-opacity",
+          "bg-gray-900 w-full mx-auto p-2 pr-9 relative transition-opacity rounded-t-lg",
           {
             "opacity-30": showAsIgnored,
           }
@@ -62,16 +61,6 @@ const GameGridXL = ({ onToggleExpanse }) => {
                 <h3 className="text-lg font-bold mb-2">{`${title}${
                   year ? ` (${year})` : ""
                 }`}</h3>
-                {titleLink ? (
-                  <LinkExternal
-                    href={titleLink}
-                    className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
-                    tooltip="element.BGG.OpenGameInBGG"
-                  >
-                    BGG
-                    <Icon type="external-link" />
-                  </LinkExternal>
-                ) : null}
               </div>
 
               {notGame ? (
@@ -79,7 +68,7 @@ const GameGridXL = ({ onToggleExpanse }) => {
               ) : (
                 <div className="py-3">
                   <div className="py-3 border-b border-t border-gray-700">
-                    <BGGinfo game={gameRaw} />
+                    <BGGinfo game={gameRaw} bggLink={titleLink} />
                   </div>
                 </div>
               )}

@@ -13,6 +13,7 @@ const MyGroupsInItemUI = ({ className }) => {
     onAdd,
     onDelete,
     loading,
+    canIEdit,
   } = useHeaderGroups();
 
   return (
@@ -31,20 +32,22 @@ const MyGroupsInItemUI = ({ className }) => {
               setVisible(false);
             }, 180);
           }}
-          className="h-[22px] block"
+          className={clsx("h-[22px] block", {
+            "cursor-default": !canIEdit,
+          })}
         >
           {groupAdded ? (
-            <GroupBadge group={groupAdded} isSelected />
-          ) : (
+            <GroupBadge group={groupAdded} isSelected canIEdit={canIEdit} />
+          ) : canIEdit ? (
             <div className="flex items-center gap-1 text-gray-800 w-fit pr-2 pl-1 rounded-md shadow-[0_0_1px_1px_rgba(0,0,0,.2)]">
               <Icon type="plus" className="leading-5 h-[20px]" />
               <div className="whitespace-nowrap text-[12px] sfont-bold leading-5">
                 <I18N id="myItems.AddToGroup" />
               </div>
             </div>
-          )}
+          ) : null}
         </button>
-        {visible && (
+        {visible && canIEdit && (
           <div className="animate-fadedown absolute z-50 bg-white shadow-[0_3px_8px_rgba(0,0,0,0.3)] border border-gray-300 min-w-full pt-2">
             {groupAdded ? (
               <div className="p-1">

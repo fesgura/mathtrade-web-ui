@@ -9,6 +9,7 @@ import SearchMyCollectionBGG from "./searchMyCollectionBGG";
 import useStepSearchBGG from "./useStepSearchBGG";
 import LinkExternal from "@/components/link-external";
 import { LoadingBox } from "@/components/loading";
+import BGGlink from "@/components/bggInfo/bggLink";
 
 const LabelNav = ({ selected, children, onClick }) => {
   return (
@@ -103,14 +104,10 @@ const NewElementStep2 = ({ setStep, newBGGinfo, setnewBGGinfo }) => {
                 <div className="uppercase text-[10px] font-bold text-gray-400">
                   {elementToShow.type}
                 </div>
-                <h3 className="text-lg font-bold">
-                  <LinkExternal
-                    href={elementToShow.titleLink}
-                    tooltip="element.BGG.OpenGameInBGG"
-                  >
-                    {elementToShow.title}
-                  </LinkExternal>
-                </h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-lg font-bold">{elementToShow.title}</h3>
+                  <BGGlink href={elementToShow.titleLink} />
+                </div>
               </div>
               <div className="py-3">
                 <div className="pb-5 border-b border-gray-300">
