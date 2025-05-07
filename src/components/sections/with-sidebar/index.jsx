@@ -35,7 +35,7 @@ export const Sidebar = ({ children }) => {
       >
         <Icon />
       </button>
-      <div className="bg-white lg:sticky lg:top-28 lg:h-[calc(100vh-120px)] lg:shadow-lg lg:overflow-y-auto overflow-x-hidden sidebar-aside-inner z-[999]">
+      <div className="bg-white lg:sticky lg:top-28 lg:h-[calc(100vh-120px)] lg:shadow-lg lg:overflow-y-auto overflow-x-hidden sidebar-aside-inner z-[999] rounded-lg">
         {visibleSidebar ? children : null}
       </div>
     </aside>

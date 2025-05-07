@@ -5,7 +5,7 @@ import useFetch from "@/hooks/useFetch";
 
 const useHeaderGroups = () => {
   /* PAGE CONTEXT **********************************************/
-  const { myGroups, setMyGroups } = useContext(PageContext);
+  const { myGroups, setMyGroups, canI } = useContext(PageContext);
   /* end PAGE CONTEXT *********************************************/
 
   /* ITEM CONTEXT **********************************************/
@@ -111,6 +111,7 @@ const useHeaderGroups = () => {
     onAdd,
     onDelete,
     loading,
+    canIEdit: canI.want || canI.offer,
   };
 };
 

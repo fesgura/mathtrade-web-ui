@@ -4,7 +4,7 @@ import { useOptions } from "@/store";
 
 const useMyGroupsSidebar = () => {
   /* PAGE CONTEXT **********************************************/
-  const { myGroups } = useContext(PageContext);
+  const { myGroups, canI } = useContext(PageContext);
   /* end PAGE CONTEXT *********************************************/
 
   /* FILTER OPTIONS **********************************************/
@@ -23,6 +23,7 @@ const useMyGroupsSidebar = () => {
     myGroups,
     groupSelected: filters_myoffer?.groupId || null,
     selectGroup,
+    canIEdit: canI.offer || canI.want,
   };
 };
 

@@ -33,7 +33,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
   return (
     <div
       className={clsx(
-        "bg-gray-900 h-full sm:w-[516px] mx-auto lg:p-3 p-2 transition-opacity",
+        "bg-gray-900 h-full  rounded-lg mx-auto lg:p-3 p-2 transition-opacity",
         {
           "opacity-30": showAsIgnored,
         }

@@ -4,7 +4,7 @@ import useTagSelector from "./useTagSelector";
 import NewItemTag from "@/components/item-tags/new-item-tag";
 
 const TagSelector = () => {
-  const { tagList, tagSelected, selectTag } = useTagSelector();
+  const { tagList, tagSelected, selectTag, canIEdit } = useTagSelector();
   return (
     <div className="overflow-x-hidden overflow-y-scroll px-5 pb-6 scrollbar">
       <div className="py-3">
@@ -22,7 +22,7 @@ const TagSelector = () => {
           />
         );
       })}
-      <NewItemTag />
+      {canIEdit ? <NewItemTag /> : null}
     </div>
   );
 };

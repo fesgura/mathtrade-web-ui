@@ -18,7 +18,7 @@ const ItemGridUI = ({ expanded, setExpanded }) => {
     >
       <div
         className={clsx("transition-all relative mx-auto border", {
-          "w-[230px] h-full hover:shadow-[0_1px_8px_rgba(0,0,0,0.3)] shadow-[0_3px_16px_rgba(0,0,0,0.5)] ":
+          "w-[230px] h-full shadow-md hover:shadow-[0_3px_16px_rgba(0,0,0,0.25)] rounded-lg":
             !isExpanded,
           "shadow-xl w-full duration-700 max-w-5xl": isExpanded,
           "bg-item-200 border-item-300": !isCombo,

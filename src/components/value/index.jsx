@@ -16,8 +16,15 @@ import {
 } from "@floating-ui/react";
 
 const Value = ({ type, onChange, itemIds, currentValue, groupId }) => {
-  const { isOpen, setIsOpen, backgroundColor, value, setValue, itemListId } =
-    useValue(type, itemIds, currentValue, groupId);
+  const {
+    isOpen,
+    setIsOpen,
+    backgroundColor,
+    value,
+    setValue,
+    itemListId,
+    canIEdit,
+  } = useValue(type, itemIds, currentValue, groupId);
 
   const { refs, floatingStyles, context } = useFloating({
     // placement: "top",
@@ -44,7 +51,12 @@ const Value = ({ type, onChange, itemIds, currentValue, groupId }) => {
   return (
     <div className={clsx("w-fit relative")}>
       <button
-        className="text-white font-normal flex items-center gap-1  cursor-pointer py-1 px-2 focus:outline-none transition-colors rounded-xl"
+        className={clsx(
+          "text-white font-normal flex items-center gap-1 py-1 px-2 focus:outline-none transition-colors rounded-xl",
+          {
+            "cursor-default": !canIEdit,
+          }
+        )}
         style={{ backgroundColor }}
         /* onClick={() => {
           setIsOpen((v) => !v);
@@ -63,7 +75,7 @@ const Value = ({ type, onChange, itemIds, currentValue, groupId }) => {
         </div>
       </button>
 
-      {isOpen ? (
+      {isOpen && canIEdit ? (
         <FloatingFocusManager context={context} modal={false}>
           <div
             ref={refs.setFloating}

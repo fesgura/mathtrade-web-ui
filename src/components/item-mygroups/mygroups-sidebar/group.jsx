@@ -6,7 +6,7 @@ import GroupEditor from "./editor";
 import Icon from "@/components/icon";
 import Value from "@/components/value";
 
-const GroupSidebar = ({ group, selected, selectGroup }) => {
+const GroupSidebar = ({ group, selected, selectGroup, canIEdit }) => {
   const { id, name, color, item_ids } = group;
 
   const [visibleEdit, setVisibleEdit] = useState(false);
@@ -60,14 +60,16 @@ const GroupSidebar = ({ group, selected, selectGroup }) => {
 
         <div className="flex items-center gap-1">
           <Value size="tag" type="group" groupId={id} />
-          <button
-            className="hover:bg-black/20 px-1 rounded-full"
-            onClick={() => {
-              setVisibleEdit(true);
-            }}
-          >
-            <Icon type="edit" />
-          </button>
+          {canIEdit && (
+            <button
+              className="hover:bg-black/20 px-1 rounded-full"
+              onClick={() => {
+                setVisibleEdit(true);
+              }}
+            >
+              <Icon type="edit" />
+            </button>
+          )}
         </div>
       </div>
     </div>

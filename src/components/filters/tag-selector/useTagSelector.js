@@ -10,7 +10,7 @@ const useTagSelector = () => {
 
   /* PAGE CONTEXT **********************************************/
   const { gotoTop } = useContext(GotoTopContext);
-  const { itemTags } = useContext(PageContext);
+  const { itemTags, canI } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
   const tagList = useMemo(() => {
@@ -64,7 +64,7 @@ const useTagSelector = () => {
     [filters_item, updateFilters, tagSelected, gotoTop]
   );
 
-  return { tagList, tagSelected, selectTag };
+  return { tagList, tagSelected, selectTag, canIEdit: canI.offer || canI.want };
 };
 
 export default useTagSelector;

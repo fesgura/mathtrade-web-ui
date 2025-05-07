@@ -17,6 +17,7 @@ const ItemTagHeaderUI = () => {
     visibleEdit,
     setVisibleEdit,
     onChangeValue,
+    canIEdit,
   } = useItemTagHeader();
 
   return showingBans ? null : (
@@ -39,16 +40,18 @@ const ItemTagHeaderUI = () => {
             <div>
               <WantButton contextSize="md" />
             </div>
-            <div>
-              <button
-                className="bg-black/20 hover:bg-black/70 rounded-full px-2 aspect-square"
-                onClick={() => {
-                  setVisibleEdit((v) => !v);
-                }}
-              >
-                <Icon type="edit" />
-              </button>
-            </div>
+            {canIEdit ? (
+              <div>
+                <button
+                  className="bg-black/20 hover:bg-black/70 rounded-full px-2 aspect-square"
+                  onClick={() => {
+                    setVisibleEdit((v) => !v);
+                  }}
+                >
+                  <Icon type="edit" />
+                </button>
+              </div>
+            ) : null}
           </div>
           {visibleEdit && (
             <div className="max-w-[280px] animate-fadedown">

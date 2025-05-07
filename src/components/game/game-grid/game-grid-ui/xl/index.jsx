@@ -34,7 +34,7 @@ const GameGridXL = ({ onToggleExpanse }) => {
     <div className="relative">
       <div
         className={clsx(
-          "bg-gray-900 w-full mx-auto p-2 pr-9 relative transition-opacity",
+          "bg-gray-900 w-full mx-auto p-2 pr-9 relative transition-opacity rounded-t-lg",
           {
             "opacity-30": showAsIgnored,
           }

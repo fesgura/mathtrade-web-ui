@@ -19,7 +19,7 @@ const useValue = (type, itemIds, currentValue, groupId) => {
   /* end TAG CONTEXT **************************/
 
   /* PAGE CONTEXT **********************************************/
-  const { myGroups, myItemsInMT } = useContext(PageContext);
+  const { myGroups, myItemsInMT, canI } = useContext(PageContext);
 
   /* end PAGE CONTEXT **************************/
 
@@ -104,7 +104,15 @@ const useValue = (type, itemIds, currentValue, groupId) => {
     return valueToColor(value);
   }, [value]);
 
-  return { isOpen, setIsOpen, backgroundColor, value, setValue, itemListId };
+  return {
+    isOpen,
+    setIsOpen,
+    backgroundColor,
+    value,
+    setValue,
+    itemListId,
+    canIEdit: canI.offer || canI.want,
+  };
 };
 
 export default useValue;

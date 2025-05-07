@@ -79,7 +79,7 @@ const useItemTagList = () => {
     updateTag,
     loadingUpdateTag,
     loadingTags,
-    canIwant: canI.want,
+    canIEdit: canI.want || canI.offer,
   };
 };
 

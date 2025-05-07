@@ -6,7 +6,8 @@ import I18N from "@/i18n";
 import HelpContext from "@/components/help-context";
 
 const MyGroupsSidebar = () => {
-  const { myGroups, groupSelected, selectGroup } = useMyGroupsSidebar();
+  const { myGroups, groupSelected, selectGroup, canIEdit } =
+    useMyGroupsSidebar();
 
   return (
     <div className="p-3">
@@ -41,10 +42,11 @@ const MyGroupsSidebar = () => {
             group={group}
             selected={groupSelected === group.id}
             selectGroup={selectGroup}
+            canIEdit={canIEdit}
           />
         );
       })}
-      <NewGroup />
+      {canIEdit && <NewGroup />}
     </div>
   );
 };
