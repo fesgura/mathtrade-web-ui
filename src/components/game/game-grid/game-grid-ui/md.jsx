@@ -80,17 +80,6 @@ const GameGridMD = ({ onToggleExpanse }) => {
               </h3>
             </div>
 
-            {titleLink ? (
-              <LinkExternal
-                href={titleLink}
-                className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
-                tooltip="element.BGG.OpenGameInBGG"
-              >
-                BGG
-                <Icon type="external-link" />
-              </LinkExternal>
-            ) : null}
-
             {notGame ? (
               <ItemNoBGG
                 itemRaw={items[0] || null}
@@ -100,7 +89,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
             ) : (
               <div className="py-3">
                 <div className="py-3 border-b border-t border-gray-700">
-                  <BGGinfo game={gameRaw} />
+                  <BGGinfo game={gameRaw} bggLink={titleLink} />
                 </div>
               </div>
             )}

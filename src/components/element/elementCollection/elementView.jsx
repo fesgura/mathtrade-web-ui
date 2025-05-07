@@ -62,22 +62,18 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
             <h3 className="text-lg font-bold">{title}</h3>
           </div>
         </div>
-        {titleLink ? (
-          <LinkExternal
-            href={titleLink}
-            className="flex items-center gap-1 w-fit leading-none text-bgg text-xs mb-3"
-            tooltip="element.BGG.OpenGameInBGG"
-          >
-            BGG
-            <Icon type="external-link" />
-          </LinkExternal>
-        ) : (
+        {titleLink ? null : (
           <div className="italic text-gray-500 font-bold text-xs mb-3">
             <I18N id="element-type-badge-3" />
           </div>
         )}
         {notGame ? null : (
-          <BGGinfo game={game} contextFor="element" className=" mb-3" />
+          <BGGinfo
+            game={game}
+            contextFor="element"
+            className=" mb-3"
+            bggLink={titleLink}
+          />
         )}
         <div className="pt-1 flex flex-wrap gap-4 items-start mb-3">
           <div>
