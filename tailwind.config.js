@@ -82,7 +82,7 @@ module.exports = {
         main: "24px",
       },
       boxShadow: {
-        main: "0 2px 16px rgba(0, 0, 0, 0.4)",
+        main: "0 2px 16px rgba(0, 0, 0, 0.15)",
       },
       keyframes: {
         fadein: {
