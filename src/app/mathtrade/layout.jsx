@@ -7,6 +7,7 @@ import ModalPreviewerWantGroup from "@/components/previewerWantGroup/modal";
 import ChatBoxButton from "@/components/chatbox";
 import Script from "next/script";
 import dynamic from "next/dynamic";
+import Wrapper from "@/components/wrapper";
 
 const PrivateEnvironmentNoSSR = dynamic(
   () => import("@/environments/private"),
@@ -22,9 +23,9 @@ export default function MathTradeLayout({ children }) {
       <PrivateEnvironmentNoSSR>
         <PageContextProvider>
           <Header />
-          <div className="relative w-full min-h-screen pt-11 pb-11">
+          <div className="relative w-full min-h-screen pt-11 pb-16">
             <a id="a-top" />
-            <main className="relative pb-4">{children}</main>
+            <main className="relative py-main">{children}</main>
             <Footer />
           </div>
           <ModalPreviewerWantGroup />

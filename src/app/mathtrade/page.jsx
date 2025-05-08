@@ -43,7 +43,6 @@ export default function HomePage() {
         }
       >
         <HomeContent />
-     
       </SectionCommon>
     </>
   );
