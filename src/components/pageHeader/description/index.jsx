@@ -9,30 +9,31 @@ const PageHeaderDescription = ({ description, name, noHideDescription }) => {
 
   return invisible ? (
     <button
-      className="text-white pr-4 text-xs mt-3 opacity-50 hover:underline hover:opacity-100 transition-opacity"
+      className="border border-white/30 text-white rounded-full text-sm pl-5 pr-3 py-1 block relative top-3  mt-4"
       onClick={toggleInvisible}
     >
       <InnerButton>
-        <Icon type="arrow-down" /> <I18N id="ReadMore" />
+        <I18N id="ReadMore" />
+        <Icon type="arrow-down" />
       </InnerButton>
     </button>
   ) : (
     <div
-      className={clsx(
-        "relative text-white leading-9 description w-fit mx-auto mt-4 ",
-        {
-          "animate-fadedown border-b border-white/20": !noHideDescription,
-        }
-      )}
+      className={clsx("relative text-white mt-4 text-xl text-balance", {
+        "animate-fadedown": !noHideDescription,
+      })}
     >
       {description}
 
       {!noHideDescription ? (
         <button
-          className="bg-gray-800 text-white rounded-full text-xs px-5 py-1 block mx-auto relative top-3"
+          className="bg-gray-800/60 text-white rounded-full text-sm pl-5 pr-3 py-1 block relative top-3 mt-4"
           onClick={toggleInvisible}
         >
-          <I18N id="btn.HideThisText" />
+          <InnerButton>
+            <I18N id="btn.HideThisText" />
+            <Icon type="arrow-up" />
+          </InnerButton>
         </button>
       ) : null}
     </div>

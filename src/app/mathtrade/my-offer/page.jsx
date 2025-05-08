@@ -29,12 +29,11 @@ const MyItemsPage = () => {
         title="title.MyItems"
         name="myOffer"
         description={
-          <>
-            <p className="text-sm max-w-5xl mx-auto">
-              <I18N id="MyItems.page.explanation" />
-            </p>
-          </>
+          <p>
+            <I18N id="MyItems.page.explanation" />
+          </p>
         }
+        bgImg="10"
       />
       <ItemPreviousMTContextProvider>
         <SectionWithSidebar name="myoffer" loading={loading}>

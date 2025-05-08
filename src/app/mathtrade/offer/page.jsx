@@ -21,12 +21,11 @@ const OfferPage = () => {
         title="title.OfferGames"
         name="games"
         description={
-          <>
-            <p className="text-sm max-w-5xl mx-auto">
-              <I18N id="Offer.page.explanation" />
-            </p>
-          </>
+          <p>
+            <I18N id="Offer.page.explanation" />
+          </p>
         }
+        bgImg="3"
       />
       <Wrapper className="mb-1">
         <div className="bg-colorMain rounded-t-main shadow-main">

@@ -46,8 +46,8 @@ const ItemMenu = ({ menuItem, currentPath, setVisibleMobileMenu }) => {
           "lg:text-white block text-sm leading-9 py-1 px-5 cursor-pointer",
 
           {
-            "bg-red-600/70": isSubmenu && active === "myOffer",
-            "bg-sky-700/80": isSubmenu && active === "items",
+            "bg-sky-600/70": isSubmenu && active === "myOffer",
+            "bg-red-700/80": isSubmenu && active === "items",
             "bg-orange-600/80": isSubmenu && active === "offer",
             "bg-want/70": isSubmenu && active === "myWants",
             "bg-teal-600/70": isSubmenu && active === "results",
@@ -100,14 +100,14 @@ const ItemMenu = ({ menuItem, currentPath, setVisibleMobileMenu }) => {
     <Link
       href={path}
       className={clsx("lg:text-white  block text-sm hover:bg-sky-400/30 ", {
-        "bg-red-600/70": active === "myOffer",
-        "bg-sky-700/90": active === "items",
+        "bg-sky-600/70": active === "myOffer",
+        "bg-red-700/90": active === "items",
         "bg-orange-600/80": active === "offer",
         "bg-want/70": active === "myWants",
         "bg-teal-600/70": active === "results",
-        "bg-yellow-600/80": active === "stats",
-        "bg-sky-600/70": active === "myData",
-        "lg:rounded-t leading-9 py-1 px-5": !special,
+        "bg-purple-900/80": active === "stats",
+        "bg-sky-700/70": active === "myData",
+        "leading-9 py-1 px-5": !special,
         "bg-sky-400/50 py-1 px-5 mx-1 rounded-full text-xs font-bold": special,
       })}
       onClick={() => {

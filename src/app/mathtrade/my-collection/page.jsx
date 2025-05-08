@@ -32,12 +32,11 @@ const MyCollectionPage = () => {
         title="title.MyCollection"
         name="myCollection"
         description={
-          <>
-            <p className="text-sm max-w-5xl mx-auto">
-              <I18N id="MyCollection.page.explanation" />
-            </p>
-          </>
+          <p>
+            <I18N id="MyCollection.page.explanation" />
+          </p>
         }
+        bgImg="4"
       />
       <SectionCommon
         loading={loading}

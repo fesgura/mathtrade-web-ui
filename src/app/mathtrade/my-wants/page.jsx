@@ -17,12 +17,11 @@ export default function MyWants() {
         title="title.MyWants"
         name="myWants"
         description={
-          <>
-            <p className="text-sm max-w-5xl mx-auto">
-              <I18N id="Items.page.explanation" />
-            </p>
-          </>
+          <p>
+            <I18N id="Items.page.explanation" />
+          </p>
         }
+        bgImg="8"
       />
       {canI.offer ? (
         <Container>

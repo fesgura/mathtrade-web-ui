@@ -31,14 +31,15 @@ export default function Results() {
         name="results"
         description={
           <>
-            <p className="text-sm max-w-5xl mx-auto mb-4">
+            <p className="mb-4">
               <I18N id="results.text1" />
             </p>
-            <p className="text-sm max-w-5xl mx-auto">
+            <p>
               <I18N id="results.text2" />
             </p>
           </>
         }
+        bgImg="2"
       />
       <Wrapper className="mb-1">
         <div className="bg-colorMain rounded-t-main shadow-main">

@@ -13,7 +13,7 @@ export default function Statistics() {
   return (
     <>
       <Script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-bundle.min.js" />
-      <PageHeader title="title.Stats" name="stats" />
+      <PageHeader title="title.Stats" name="stats" bgImg="9" />
       <Wrapper className="mb-1">
         <div className="bg-colorMain rounded-t-main shadow-main">
           <Tabs
