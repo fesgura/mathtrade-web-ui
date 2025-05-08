@@ -1,7 +1,7 @@
 body {
   max-width: 100% !important;
   overflow-x: hidden !important;
-  overflow-y: auto !important;
+  overflow-y: scroll !important;
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -11,18 +11,11 @@ body,
   background-color: $bg-body;
 }
 
-.want-footer {
-  background-color: $bg-body;
-}
-
 .is-invalid {
   .input,
   .input-icon {
     border-color: #d00;
   }
-}
-.container {
-  max-width: 1420px;
 }
 
 .description {
@@ -107,7 +100,7 @@ p {
 }
 
 .h-mygrid {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 90px);
 }
 
 .visual-section-want {
@@ -158,4 +151,13 @@ p {
       padding-left: 1em;
     }
   }
+}
+
+.wrapper {
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.big-shadow {
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
 }

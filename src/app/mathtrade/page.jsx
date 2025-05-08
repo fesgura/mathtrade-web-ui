@@ -2,10 +2,13 @@
 import I18N from "@/i18n";
 import SectionCommon from "@/components/sections/common";
 import PageHeader from "@/components/pageHeader";
-
+import { linksToHelp } from "@/config/linksToHelp";
 import { useContext, useEffect } from "react";
 import { PageContext } from "@/context/page";
 import HomeContent from "./homeContent";
+import { instructPDFurl } from "@/config/rulebook";
+
+const baseURL = process.env.BASE_URL;
 
 export default function HomePage() {
   /* PAGE CONTEXT **********************************************/
@@ -21,12 +24,20 @@ export default function HomePage() {
       <PageHeader
         title="home.lead"
         name="home"
-        /* noHideDescription
         description={
           <>
-            
+            <p className="max-w-5xl mx-auto m-0">
+              <I18N
+                id="home.lead2"
+                values={[
+                  linksToHelp.video,
+                  linksToHelp.telegram,
+                  baseURL + instructPDFurl,
+                ]}
+              />
+            </p>
           </>
-        } */
+        }
       />
       <SectionCommon
         // loading={loading}
@@ -43,7 +54,6 @@ export default function HomePage() {
         }
       >
         <HomeContent />
-     
       </SectionCommon>
     </>
   );

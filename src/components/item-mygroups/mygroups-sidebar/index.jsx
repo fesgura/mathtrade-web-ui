@@ -15,7 +15,7 @@ const MyGroupsSidebar = () => {
         <h3 className="font-bold text-xl ">
           <I18N id="myGroups.groupHeader" />
         </h3>
-        <HelpContext id="howToAddToGroup" />
+        {canIEdit && <HelpContext id="howToAddToGroup" />}
       </div>
 
       <div

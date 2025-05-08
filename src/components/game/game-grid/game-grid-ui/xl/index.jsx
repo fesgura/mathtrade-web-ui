@@ -39,11 +39,19 @@ const GameGridXL = ({ onToggleExpanse }) => {
           }
         )}
       >
-        <div className="flex gap-6 h-full">
+        <picture className="absolute top-0 left-0 w-full h-full rounded-lg overflow-hidden opacity-30">
+          <img
+            src={thumbnail}
+            alt=""
+            className="w-full h-full object-cover blur-[3px] scale-110"
+          />
+          <div className="absolute bg-gradient-to-b from-gray-900/0 from-10% via-gray-900 to-gray-900  top-0 left-0 w-full h-full"></div>
+        </picture>
+        <div className="flex gap-6 h-full relative">
           <div className="lg:w-52 w-24">
             <Thumbnail
               elements={[{ thumbnail }]}
-              className="rounded-t-lg lg:w-52 w-24"
+              className="rounded-t-lg lg:w-52 w-24 shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
             />
             <div className="bg-black rounded-b-lg flex items-center justify-end gap-3 p-2">
               <BanButton size="md" type="game" />

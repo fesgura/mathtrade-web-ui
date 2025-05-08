@@ -44,6 +44,7 @@ module.exports = {
       stroke: "#bbc6ce",
       logo: "#28a1bc",
       cancel: "#999",
+      colorMain: "#eaeaea",
       item: {
         50: "#faf7f2",
         100: "#f2eee2",
@@ -74,6 +75,15 @@ module.exports = {
     },
 
     extend: {
+      borderRadius: {
+        main: "16px",
+      },
+      spacing: {
+        main: "24px",
+      },
+      boxShadow: {
+        main: "0 2px 16px rgba(0, 0, 0, 0.15)",
+      },
       keyframes: {
         fadein: {
           "0%": { opacity: 0 },

@@ -9,11 +9,9 @@ const Footer = () => {
   const { count } = items;
   /* end PAGE CONTEXT */
   return (
-    <Container>
-      <div className="pt-8 flex justify-end">
-        <Pagination type="item" count={count} />
-      </div>
-    </Container>
+    <div className="py-3 md:px-8 px-3 flex justify-end border-t border-gray-300">
+      <Pagination type="item" count={count} />
+    </div>
   );
 };
 export default Footer;

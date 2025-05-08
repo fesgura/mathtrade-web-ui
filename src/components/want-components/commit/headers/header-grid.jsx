@@ -7,7 +7,7 @@ const CommitHeaderGrid = () => {
 
   if (mustConfirm && !canI.commit) {
     return (
-      <div className="max-w-3xl mx-auto text-center text-balance pb-5 text-gray-700">
+      <div className="max-w-3xl mx-auto text-center text-balance text-gray-700">
         <I18N id="CommitHeader.text" />
       </div>
     );
@@ -15,7 +15,7 @@ const CommitHeaderGrid = () => {
 
   if (mustConfirm && canI.commit) {
     return (
-      <div className="max-w-3xl mx-auto text-center text-balance pb-5 font-bold ">
+      <div className="max-w-3xl mx-auto text-center text-balance font-bold ">
         <div className="text-danger">
           <I18N id="CommitHeaderGrid.text" />
         </div>
@@ -25,7 +25,7 @@ const CommitHeaderGrid = () => {
 
   if (mustConfirmDate && mustConfirmDate !== "-") {
     return (
-      <div className="max-w-3xl mx-auto text-center text-balance pb-5">
+      <div className="max-w-3xl mx-auto text-center text-balance">
         <div className="">
           <I18N id="wantview.LastCommitmentDay" />
         </div>

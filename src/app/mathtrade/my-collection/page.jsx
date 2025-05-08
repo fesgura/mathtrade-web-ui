@@ -32,12 +32,11 @@ const MyCollectionPage = () => {
         title="title.MyCollection"
         name="myCollection"
         description={
-          <>
-            <p className="text-sm max-w-5xl mx-auto">
-              <I18N id="MyCollection.page.explanation" />
-            </p>
-          </>
+          <p>
+            <I18N id="MyCollection.page.explanation" />
+          </p>
         }
+        bgImg="4"
       />
       <SectionCommon
         loading={loading}
@@ -53,7 +52,7 @@ const MyCollectionPage = () => {
       >
         <GotoTopContextProvider>
           <StickyHeader size="md">
-            <div className="flex sm:flex-row flex-col items-center sm:gap-3 py-3 justify-between">
+            <div className="flex sm:flex-row flex-col items-center sm:gap-3 py-3 md:px-8 px-3 justify-between bg-colorMain rounded-t-main">
               <div className="flex flex-wrap items-center sm:justify-normal justify-center gap-3 md:pb-0 pb-3">
                 <label className="block text-sm font-bold text-gray-500 whitespace-nowrap">
                   <I18N id="filter.Search" />
@@ -85,20 +84,23 @@ const MyCollectionPage = () => {
               </div>
             </div>
           </StickyHeader>
-          <Container size="md">
-            <ElementWrapperOuter>
-              <NewElement />
-            </ElementWrapperOuter>
-            {elementList.map((element) => {
-              return (
-                <ElementWrapperOuter key={element.id}>
-                  <ElementCollection element={{ element }} />
-                </ElementWrapperOuter>
-              );
-            })}
 
-            <ErrorAlert error={error} />
-          </Container>
+          <div className="md:px-7 px-3 py-7">
+            <div className="max-w-[860px] mx-auto">
+              <ElementWrapperOuter>
+                <NewElement />
+              </ElementWrapperOuter>
+              {elementList.map((element) => {
+                return (
+                  <ElementWrapperOuter key={element.id}>
+                    <ElementCollection element={{ element }} />
+                  </ElementWrapperOuter>
+                );
+              })}
+
+              <ErrorAlert error={error} />
+            </div>
+          </div>
         </GotoTopContextProvider>
       </SectionCommon>
     </>

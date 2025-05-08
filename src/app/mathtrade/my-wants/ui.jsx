@@ -10,6 +10,8 @@ import Container from "@/components/container";
 import { GotoTopContextProvider } from "@/context/goto-top";
 import HelpContext from "@/components/help-context";
 import Dynamic from "@/components/dynamic";
+import Wrapper from "@/components/wrapper";
+import { LoadingBox } from "@/components/loading";
 
 const Grid = lazy(() => import("./grid"));
 
@@ -18,25 +20,27 @@ export default function MyWantsUI() {
 
   return (
     <>
-      <SectionCommon loading={loading}>
-        <Tabs
-          list={["want.screen.visual", "want.screen.grid"]}
-          value={screenView}
-          onChange={setScreenView}
-        />
+      <div className="relative">
+        <Wrapper className="mb-1">
+          <div className="bg-colorMain rounded-t-main shadow-main">
+            <Tabs
+              list={["want.screen.visual", "want.screen.grid"]}
+              value={screenView}
+              onChange={setScreenView}
+            />
+          </div>
+        </Wrapper>
         {error ? (
-          <Container>
+          <Wrapper className="mb-1">
             <ErrorAlert error={error} />
-          </Container>
-        ) : (
-          false
-        )}
+          </Wrapper>
+        ) : null}
         <GotoTopContextProvider>
           {screenView === 0 ? (
             <>
-              <div className="w-fit mx-auto mb-4">
-                <HelpContext id="advanceMeaning.wants" />
-              </div>
+              {/* <div className="w-fit mx-auto mb-4">
+              <HelpContext id="advanceMeaning.wants" />
+            </div> */}
               <Visual />
             </>
           ) : (
@@ -46,7 +50,8 @@ export default function MyWantsUI() {
           )}
           <Footer />
         </GotoTopContextProvider>
-      </SectionCommon>
+        <LoadingBox loading={loading} transparent />
+      </div>
     </>
   );
 }

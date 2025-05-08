@@ -13,7 +13,7 @@ export default function ReferralToRegister() {
   const { validations, onSubmit, loading, error, code, url } = useReferral();
   return (
     <>
-      <PageHeader title="title.referNewUserPage" name="referral" />
+      <PageHeader title="title.referNewUserPage" name="referral" bgImg="5" />
       <SectionCommon>
         <Container>
           <section className="max-w-2xl mx-auto pt-4 pb-12 relative">

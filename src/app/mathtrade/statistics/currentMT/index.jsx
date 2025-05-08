@@ -11,7 +11,7 @@ const StatsUI = () => {
   const { data, loading, error } = useCurrentStats();
 
   return (
-    <Container className="relative">
+    <div className="relative">
       {data ? (
         <>
           <ErrorAlert error={error} />
@@ -26,9 +26,11 @@ const StatsUI = () => {
             </div>
           </div>
         </>
-      ) : null}
+      ) : (
+        <div className="min-h-[400px]" />
+      )}
       <LoadingBox loading={loading} transparent />
-    </Container>
+    </div>
   );
 };
 

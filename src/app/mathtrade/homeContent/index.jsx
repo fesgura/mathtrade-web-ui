@@ -20,7 +20,7 @@ const HomeContent = () => {
   /* end PAGE CONTEXT */
 
   return (
-    <Container>
+    <div className="px-8 pt-8 pb-5">
       {/* <div className="border-b border-gray-400 py-5 mb-5">
         <div className="text-center max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold py-5">
@@ -39,18 +39,6 @@ const HomeContent = () => {
       </div> */}
       {mathtrade ? (
         <>
-          <div className="rich-text text-center">
-            <p className="max-w-5xl mx-auto m-0">
-              <I18N
-                id="home.lead2"
-                values={[
-                  linksToHelp.video,
-                  linksToHelp.telegram,
-                  baseURL + instructPDFurl,
-                ]}
-              />
-            </p>
-          </div>
           <Pills />
           <Referral />
           <Timeline />
@@ -71,7 +59,7 @@ const HomeContent = () => {
           <Iconshelp />
         </div>
       </div>
-    </Container>
+    </div>
   );
 };
 

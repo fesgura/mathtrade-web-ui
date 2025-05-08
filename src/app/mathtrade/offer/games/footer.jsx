@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { PageContext } from "@/context/page";
 import Pagination from "@/components/pagination";
-import Container from "@/components/container";
 
 const Footer = () => {
   /* PAGE CONTEXT **********************************************/
@@ -9,11 +8,9 @@ const Footer = () => {
   const { count } = games;
   /* end PAGE CONTEXT */
   return (
-    <Container>
-      <div className="pt-6 flex justify-end">
-        <Pagination type="game" count={count} />
-      </div>
-    </Container>
+    <div className="py-3 md:px-8 px-3 flex justify-end border-t border-gray-300">
+      <Pagination type="game" count={count} />
+    </div>
   );
 };
 export default Footer;

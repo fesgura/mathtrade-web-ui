@@ -7,6 +7,7 @@ import BanUsersModal from "@/components/ban/users/modal";
 import HelpContext from "@/components/help-context";
 import useOffer from "./useOffer";
 import Dynamic from "@/components/dynamic";
+import Wrapper from "@/components/wrapper";
 
 const GamesView = lazy(() => import("./games"));
 const ItemsView = lazy(() => import("./items"));
@@ -20,24 +21,27 @@ const OfferPage = () => {
         title="title.OfferGames"
         name="games"
         description={
-          <>
-            <p className="text-sm max-w-5xl mx-auto">
-              <I18N id="Offer.page.explanation" />
-            </p>
-          </>
+          <p>
+            <I18N id="Offer.page.explanation" />
+          </p>
         }
+        bgImg="3"
       />
-      <Tabs
-        list={["offer.screen.games", "offer.screen.items"]}
-        value={screenOfferView}
-        onChange={setScreenOfferView}
-      />
+      <Wrapper className="mb-1">
+        <div className="bg-colorMain rounded-t-main shadow-main">
+          <Tabs
+            list={["offer.screen.games", "offer.screen.items"]}
+            value={screenOfferView}
+            onChange={setScreenOfferView}
+          />
+        </div>
+      </Wrapper>
 
       {screenOfferView === 0 ? (
         <>
-          <div className="w-fit mx-auto">
+          {/* <div className="w-fit mx-auto">
             <HelpContext id="advanceMeaning.items" />
-          </div>
+          </div> */}
           <Dynamic h={600}>
             <GamesView />
           </Dynamic>

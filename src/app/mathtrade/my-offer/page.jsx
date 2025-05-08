@@ -29,37 +29,38 @@ const MyItemsPage = () => {
         title="title.MyItems"
         name="myOffer"
         description={
-          <>
-            <p className="text-sm max-w-5xl mx-auto">
-              <I18N id="MyItems.page.explanation" />
-            </p>
-          </>
+          <p>
+            <I18N id="MyItems.page.explanation" />
+          </p>
         }
+        bgImg="10"
       />
       <ItemPreviousMTContextProvider>
         <SectionWithSidebar name="myoffer" loading={loading}>
           <GotoTopContextProvider>
-            <StickyHeader>
-              <HeaderMyOffer count={items.length} />
-            </StickyHeader>
             <SidebarGrid>
               <Sidebar>
                 <MyGroupsSidebar />
               </Sidebar>
               <div>
-                <Container size="md">
-                  <NewUserOfferAlert />
-                  {canAddNewElement && <NewItem />}
-                  {items.map((itemRaw) => {
-                    return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
-                  })}
-                  <EmptyList
-                    visible={isLoaded && !(items?.length || 0) && !error}
-                    message="EmptyList.myOffer"
-                  />
+                <StickyHeader>
+                  <HeaderMyOffer count={items.length} />
+                </StickyHeader>
+                <div className="md:px-7 px-3 py-7">
+                  <div className="max-w-[860px] mx-auto">
+                    <NewUserOfferAlert />
+                    {canAddNewElement && <NewItem />}
+                    {items.map((itemRaw) => {
+                      return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
+                    })}
+                    <EmptyList
+                      visible={isLoaded && !(items?.length || 0) && !error}
+                      message="EmptyList.myOffer"
+                    />
 
-                  <ErrorAlert error={error} />
-                </Container>
+                    <ErrorAlert error={error} />
+                  </div>
+                </div>
               </div>
             </SidebarGrid>
           </GotoTopContextProvider>

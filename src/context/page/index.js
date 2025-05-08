@@ -192,9 +192,9 @@ const PageContextProvider = ({ children }) => {
 
     return {
       sign: false,
-      offer,
+      offer: false,
       want,
-      commit,
+      commit: true,
       results,
       pageType,
     };

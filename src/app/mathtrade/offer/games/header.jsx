@@ -13,7 +13,7 @@ const Header = () => {
   /* end PAGE CONTEXT */
 
   return (
-    <div className="flex lg:justify-between justify-around items-center gap-1 py-3">
+    <div className="flex lg:justify-between justify-around items-center gap-1 py-2 md:px-8 px-3 bg-colorMain">
       <div className="flex-[0_0_auto]">
         <div className="md:flex items-center gap-4">
           <FilterToggleButton type="game" />
