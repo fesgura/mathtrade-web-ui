@@ -9,7 +9,7 @@ const ItemToWant = ({ changeScreenViewOffer }) => {
   const { isLoadedWants, myList, readyToRender } = useItemToWant();
 
   return readyToRender ? (
-    <Container>
+    <div className="md:px-8 px-3">
       <CommitHeaderVisual />
       {myList.map((item) => {
         return <VisualSection2 key={item.id} item={item} />;
@@ -22,7 +22,7 @@ const ItemToWant = ({ changeScreenViewOffer }) => {
         visible={isLoadedWants && !(myList?.length || 0)}
         message="MyWants.EmptyList"
       />
-    </Container>
+    </div>
   ) : null;
 };
 

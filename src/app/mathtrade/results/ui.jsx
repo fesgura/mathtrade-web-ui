@@ -1,5 +1,3 @@
-import SectionCommon from "@/components/sections/common";
-import Container from "@/components/container";
 import useResults from "./useResults";
 import PillsResults from "@/components/results/pills";
 import UserSelector from "@/components/results/userSelector";
@@ -16,15 +14,15 @@ export default function ResultsUI() {
 
   return (
     <>
-      <SectionCommon loading={loading}>
-        <Container>
-          <PillsResults />
-          <div className="max-w-[1100px] mx-auto mb-5 pt-3">
-            <Downloads accordion />
-          </div>
+      <div loading={loading}>
+        <PillsResults />
+        <div className="max-w-[1100px] mx-auto mb-5 pt-3">
+          <Downloads accordion />
+        </div>
 
-          <UserSelector />
-          {MathTradeResults ? (
+        <UserSelector />
+        {MathTradeResults ? (
+          <div className="border-b border-gray-400/50">
             <Tabs
               list={[
                 "results.screen.visual",
@@ -35,19 +33,19 @@ export default function ResultsUI() {
               value={screenViewResults}
               onChange={setScreenViewResults}
             />
-          ) : null}
+          </div>
+        ) : null}
 
-          {screenViewResults === 0 ? (
-            <ResultsVisual />
-          ) : screenViewResults === 1 ? (
-            <ResultsTable />
-          ) : screenViewResults === 2 ? (
-            <PrintTags />
-          ) : (
-            <PaymentInfo />
-          )}
-        </Container>
-      </SectionCommon>
+        {screenViewResults === 0 ? (
+          <ResultsVisual />
+        ) : screenViewResults === 1 ? (
+          <ResultsTable />
+        ) : screenViewResults === 2 ? (
+          <PrintTags />
+        ) : (
+          <PaymentInfo />
+        )}
+      </div>
     </>
   );
 }

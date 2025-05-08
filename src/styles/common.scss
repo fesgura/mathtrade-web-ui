@@ -1,7 +1,7 @@
 body {
   max-width: 100% !important;
   overflow-x: hidden !important;
-  overflow-y: auto !important;
+  overflow-y: scroll !important;
   margin: 0 !important;
   padding: 0 !important;
 }
@@ -100,7 +100,7 @@ p {
 }
 
 .h-mygrid {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 90px);
 }
 
 .visual-section-want {

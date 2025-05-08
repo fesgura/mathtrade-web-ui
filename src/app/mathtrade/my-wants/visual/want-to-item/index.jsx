@@ -11,7 +11,7 @@ const WantToItem = ({ changeScreenViewOffer }) => {
     useWantToItem();
 
   return readyToRender ? (
-    <Container>
+    <div className="md:px-8 px-3">
       <CommitHeaderVisual />
       {wantList.map((wantGroup) => {
         return (
@@ -30,7 +30,7 @@ const WantToItem = ({ changeScreenViewOffer }) => {
         visible={isLoadedWants && !(myWants?.length || 0)}
         message="MyWants.EmptyList"
       />
-    </Container>
+    </div>
   ) : null;
 };
 

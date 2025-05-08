@@ -37,7 +37,7 @@ const SearchForm = () => {
             onChange={({ target }) => {
               setValue(target.value);
             }}
-            className="border border-stroke rounded-tl-md rounded-bl-md pl-1 pr-5 text-xs focus:outline-none"
+            className="border border-gray-400 rounded-tl-md rounded-bl-md pl-1 pr-5 text-xs focus:outline-none"
           />
         </div>
         <div>

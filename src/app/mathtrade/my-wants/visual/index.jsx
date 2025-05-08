@@ -6,6 +6,7 @@ import TradeArrows from "@/components/svg/trade-arrows";
 import I18N from "@/i18n";
 import { GotoTopContext } from "@/context/goto-top";
 import Dynamic from "@/components/dynamic";
+import SectionCommon from "@/components/sections/common";
 
 const WantToItem = lazy(() => import("./want-to-item"));
 const ItemToWant = lazy(() => import("./item-to-want"));
@@ -16,8 +17,8 @@ const TabVisual = ({ screenViewOffer, setScreenViewOffer, val }) => {
       className={clsx(
         "py-1 px-3 border rounded-tl-lg rounded-tr-lg font-bold flex items-center gap-1",
         {
-          "border border-b-gray-400 text-gray-500": screenViewOffer !== val,
-          "border-gray-400 border-b-transparent": screenViewOffer === val,
+          "border border-b-gray-400/50 text-gray-500": screenViewOffer !== val,
+          "border-gray-400/50 border-b-transparent": screenViewOffer === val,
         }
       )}
       onClick={() => {
@@ -64,23 +65,21 @@ const Visual = () => {
   };
 
   return (
-    <div className="pt-3">
-      <Container>
-        <menu className="flex justify-center items-end mb-4">
-          <div className="border-b border-gray-400 grow" />
-          {[0, 1].map((k) => {
-            return (
-              <TabVisual
-                key={k}
-                val={k}
-                screenViewOffer={screenViewOffer}
-                setScreenViewOffer={setScreenViewOffer}
-              />
-            );
-          })}
-          <div className="border-b border-gray-400 grow" />
-        </menu>
-      </Container>
+    <SectionCommon topNotRounded>
+      <menu className="flex justify-center items-end mb-4 pt-6">
+        <div className="border-b border-gray-400/50 grow" />
+        {[0, 1].map((k) => {
+          return (
+            <TabVisual
+              key={k}
+              val={k}
+              screenViewOffer={screenViewOffer}
+              setScreenViewOffer={setScreenViewOffer}
+            />
+          );
+        })}
+        <div className="border-b border-gray-400/50 grow" />
+      </menu>
 
       {screenViewOffer === 0 ? (
         <Dynamic h={800}>
@@ -91,7 +90,7 @@ const Visual = () => {
           <ItemToWant changeScreenViewOffer={changeScreenViewOffer} />
         </Dynamic>
       )}
-    </div>
+    </SectionCommon>
   );
 };
 

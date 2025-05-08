@@ -21,7 +21,7 @@ const PillsStats = ({ data }) => {
   }, [data]);
 
   return (
-    <div className="mx-auto mb-7 pt-4">
+    <div className="mx-auto mb-7">
       <div className="md:flex gap-6">
         <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill
