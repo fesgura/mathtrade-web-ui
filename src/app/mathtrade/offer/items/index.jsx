@@ -19,18 +19,18 @@ const ItemsView = () => {
     useItems();
 
   return (
-    <SectionWithSidebar name="items" loading={loading}>
+    <SectionWithSidebar name="items" loading={loading} topNotRounded>
       <GotoTopContextProvider>
-        <StickyHeader>
-          <Header />
-        </StickyHeader>
         <SidebarGrid>
-          <Sidebar>
+          <Sidebar topNotRounded>
             <Filters type="item" />
           </Sidebar>
           <div>
+            <StickyHeader>
+              <Header />
+            </StickyHeader>
             <ItemTagHeader />
-            <div>
+            <div className="md:px-7 px-3 py-7">
               <div className="item-grid">
                 {items.list.map((itemRaw) => {
                   return (
@@ -49,9 +49,9 @@ const ItemsView = () => {
               />
               <ErrorAlert error={error} className="mt-3" />
             </div>
-            <Footer />
           </div>
         </SidebarGrid>
+        <Footer />
       </GotoTopContextProvider>
     </SectionWithSidebar>
   );

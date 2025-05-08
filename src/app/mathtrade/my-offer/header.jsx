@@ -24,7 +24,7 @@ const HeaderMyOffer = ({ count }) => {
   /* end PAGE CONTEXT *********************************************/
 
   return (
-    <div className="flex md:justify-between sjustify-around items-center gap-1 py-3">
+    <div className="flex md:justify-between sjustify-around items-center gap-1 py-2 md:px-8 px-3 rounded-t-main bg-colorMain">
       <div className="flex-[0_0_auto]">
         <div className="sm:flex  items-center gap-4">
           <SidebarToggleButton

@@ -4,23 +4,22 @@ import clsx from "clsx";
 import Icon from "../../icon";
 import { useContext } from "react";
 import { SidebarContext, SidebarContextProvider } from "@/context/sidebar";
+import Wrapper from "@/components/wrapper";
 
 export const SidebarGrid = ({ className, children }) => {
   const { visibleSidebar } = useContext(SidebarContext);
   return (
-    <Container>
-      <div
-        className={clsx("container-with-sidebar", className, {
-          visibleSidebar,
-        })}
-      >
-        {children}
-      </div>
-    </Container>
+    <div
+      className={clsx("container-with-sidebar", className, {
+        visibleSidebar,
+      })}
+    >
+      {children}
+    </div>
   );
 };
 
-export const Sidebar = ({ children }) => {
+export const Sidebar = ({ children, topNotRounded }) => {
   const { visibleSidebar, hideSidebar } = useContext(SidebarContext);
 
   return (
@@ -35,7 +34,14 @@ export const Sidebar = ({ children }) => {
       >
         <Icon />
       </button>
-      <div className="bg-white lg:sticky lg:top-28 lg:h-[calc(100vh-120px)] lg:shadow-lg lg:overflow-y-auto overflow-x-hidden sidebar-aside-inner z-[999] rounded-lg">
+      <div
+        className={clsx(
+          "bg-white lg:sticky lg:top-11 lg:h-[calc(100vh-44px)] lg:shadow-lg lg:overflow-y-auto overflow-x-hidden sidebar-aside-inner z-[999]",
+          {
+            "lg:rounded-tl-main": !topNotRounded,
+          }
+        )}
+      >
         {visibleSidebar ? children : null}
       </div>
     </aside>
@@ -64,13 +70,30 @@ export const SidebarToggleButton = ({
   );
 };
 
-const SectionWithSidebar = ({ name, className, loading, children }) => {
+const SectionWithSidebar = ({
+  name,
+  className,
+  loading,
+  children,
+  topNotRounded,
+}) => {
   return (
     <SidebarContextProvider name={name}>
-      <section className={clsx("relative", className)}>
-        {children}
-        <LoadingBox loading={loading} transparent />
-      </section>
+      <Wrapper>
+        <section
+          className={clsx(
+            "relative bg-colorMain shadow-main",
+            {
+              "rounded-b-main": topNotRounded,
+              "rounded-main": !topNotRounded,
+            },
+            className
+          )}
+        >
+          {children}
+          <LoadingBox loading={loading} transparent />
+        </section>
+      </Wrapper>
     </SidebarContextProvider>
   );
 };

@@ -17,36 +17,39 @@ const GamesView = () => {
     useGames();
 
   return (
-    <SectionWithSidebar name="games" className="py-4" loading={loading}>
+    <SectionWithSidebar name="games" loading={loading} topNotRounded>
       <GotoTopContextProvider>
-        <StickyHeader>
-          <Header />
-        </StickyHeader>
         <SidebarGrid>
-          <Sidebar>
+          <Sidebar topNotRounded>
             <Filters type="game" />
           </Sidebar>
           <div>
-            <div className="game-grid">
-              {games.list.map((gameRaw) => {
-                return (
-                  <GameGrid
-                    key={gameRaw.bgg_id}
-                    gameRaw={gameRaw}
-                    expanded={expandedGame}
-                    setExpanded={setExpandedGame}
-                  />
-                );
-              })}
+            <StickyHeader>
+              <Header />
+            </StickyHeader>
+
+            <div className="md:px-7 px-3 py-7">
+              <div className="game-grid">
+                {games.list.map((gameRaw) => {
+                  return (
+                    <GameGrid
+                      key={gameRaw.bgg_id}
+                      gameRaw={gameRaw}
+                      expanded={expandedGame}
+                      setExpanded={setExpandedGame}
+                    />
+                  );
+                })}
+              </div>
+              <EmptyList
+                visible={isLoaded && !(games?.list?.length || 0) && !error}
+                message="EmptyList.games"
+              />
+              <ErrorAlert error={error} className="mt-3" />
             </div>
-            <EmptyList
-              visible={isLoaded && !(games?.list?.length || 0) && !error}
-              message="EmptyList.games"
-            />
-            <ErrorAlert error={error} className="mt-3" />
-            <Footer />
           </div>
         </SidebarGrid>
+        <Footer />
       </GotoTopContextProvider>
     </SectionWithSidebar>
   );

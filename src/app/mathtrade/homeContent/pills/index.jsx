@@ -27,7 +27,7 @@ const Pills = () => {
   // end GET MathTradeData ********************************************
 
   return (
-    <div className="max-w-[1200px] mx-auto p-3 relative">
+    <div className="max-w-[1200px] mx-auto mb-6 relative">
       <div className="md:flex gap-6">
         <div className="md:w-1/3 md:mb-0 mb-6">
           <Pill

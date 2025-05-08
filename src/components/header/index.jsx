@@ -22,7 +22,7 @@ const Header = () => {
   return (
     <>
       <nav
-        className={clsx("z-[999] w-full left-0 top-0", {
+        className={clsx("z-[9999] w-full left-0 top-0", {
           fixed: pageType !== "wants-grid",
           absolute: pageType === "wants-grid",
         })}

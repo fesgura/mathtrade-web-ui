@@ -44,7 +44,7 @@ module.exports = {
       stroke: "#bbc6ce",
       logo: "#28a1bc",
       cancel: "#999",
-      colorMain: "#e7e7ec",
+      colorMain: "#eaeaea",
       item: {
         50: "#faf7f2",
         100: "#f2eee2",
