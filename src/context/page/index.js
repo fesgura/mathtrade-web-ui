@@ -194,8 +194,8 @@ const PageContextProvider = ({ children }) => {
     return {
       sign: false,
       offer,
-      want: true,
-      commit: true,
+      want,
+      commit,
       results,
       pageType,
     };
