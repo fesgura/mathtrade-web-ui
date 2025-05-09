@@ -12,7 +12,7 @@ export default function SignLayout({ children }) {
       </section>
       <section className="flex flex-col items-center justify-center relative min-h-screen">
         <div className="p-4">
-          <div className="md:h-[130px] h-[60px] relative z-10">
+          <div className="md:h-[130px] h-[60px] relative z-[110]">
             <LogoBig />
           </div>
 
