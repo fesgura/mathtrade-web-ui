@@ -75,7 +75,7 @@ const FiltersForItems = () => {
         <legend className="text-center px-2 text-xs text-gray-500 mb-3">
           <I18N id="Items" />
         </legend>
-        <InputContainer className="mb-1">
+        <InputContainer className="mb-3">
           <Switch data={data} name="hide_wanted">
             <div className="text-xs flex items-center gap-1">
               <Icon type="heart" className="text-gray-600" />
@@ -83,6 +83,18 @@ const FiltersForItems = () => {
             </div>
           </Switch>
         </InputContainer>
+        <div className="border-t border-b py-3 border-gray-400 mb-1">
+          <InputContainer className="mb-1">
+            <Switch data={data} name="wantable">
+              <div className="text-xs flex items-center gap-1">
+                <Icon type="eye-hide" className="text-gray-600" />
+                <I18N id="wantAble.items.label" />
+              </div>
+            </Switch>
+          </InputContainer>
+          <HelpContext id="wantAble" />
+        </div>
+
         <InputContainer>
           <div className="flex items-center gap-2 mb-2 pt-4">
             <Label text="ban.btn-filter.label.item" name="ignored" size="sm" />

@@ -95,6 +95,7 @@ export const extractBGGdataFromElement = (data) => {
   const stats = (() => {
     let rank = NO_RANK_VALUE;
     let rate = null;
+    let geek_rate = null;
     let rate_votes = null;
     let weight = null;
     let weight_votes = null;
@@ -127,6 +128,9 @@ export const extractBGGdataFromElement = (data) => {
       if (ratings.usersrated) {
         rate_votes = ratings.usersrated.value;
       }
+      if (ratings.bayesaverage) {
+        geek_rate = ratings.bayesaverage.value;
+      }
       // weight
       if (ratings.averageweight) {
         weight = ratings.averageweight.value;
@@ -137,7 +141,7 @@ export const extractBGGdataFromElement = (data) => {
       }
     }
 
-    return { rank, rate, rate_votes, weight, weight_votes };
+    return { rank, rate, rate_votes, geek_rate, weight, weight_votes };
   })();
 
   // players

@@ -8,6 +8,7 @@ import ChatBoxButton from "@/components/chatbox";
 import Script from "next/script";
 import dynamic from "next/dynamic";
 import Wrapper from "@/components/wrapper";
+import EarlyPayPopup from "@/components/earlyPayPopup";
 
 const PrivateEnvironmentNoSSR = dynamic(
   () => import("@/environments/private"),
@@ -30,6 +31,7 @@ export default function MathTradeLayout({ children }) {
           </div>
           <ModalPreviewerWantGroup />
           <ModalPreviewer />
+          <EarlyPayPopup />
           <ChatBoxButton />
         </PageContextProvider>
       </PrivateEnvironmentNoSSR>

@@ -65,6 +65,12 @@ const useFiltersItems = () => {
     if (wanted === false) {
       filtersProc.hide_wanted = true;
     }
+    const { wantable } = filtersProc;
+    delete filtersProc.wantable;
+    if (wantable === "true") {
+      filtersProc.wantable = true;
+    }
+
     if (filters.dependency) {
       filtersProc.dependency = filters.dependency.join(",");
     }

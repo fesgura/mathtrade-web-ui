@@ -6,6 +6,7 @@ import I18N from "@/i18n";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import Link from "next/link";
 import Icon from "@/components/icon";
+import Wrapper from "@/components/wrapper";
 
 const AdvCompromise = () => {
   const [showAdvice, setShowAdvice] = useState(true);
@@ -41,24 +42,26 @@ const AdvCompromise = () => {
   // end MY USER ********************************************
 
   return showAdvice && mustConfirm && !canI.offer && canI.commit ? (
-    <div className="bg-red-600 relative top-11 left-0 w-full z-[998] text-white text-center p-2 border-t-2 border-b-2 border-red-400 shadow-md">
-      <I18N id="AdvCompromise" />
-      <Link
-        href={PRIVATE_ROUTES.WANTS.path}
-        className="underline hover:opacity-75"
-      >
-        <I18N id={`menu.${PRIVATE_ROUTES.WANTS.title}`} />
-      </Link>
-      .
-      <button
-        className="absolute top-0 right-0 w-6 h-6"
-        onClick={() => {
-          setShowAdvice(false);
-        }}
-      >
-        <Icon />
-      </button>
-    </div>
+    <Wrapper className="mt-main">
+      <div className="bg-red-600 relative top-11 left-0 w-full z-[998] text-white text-center p-2 shadow-main rounded-main">
+        <I18N id="AdvCompromise" />
+        <Link
+          href={PRIVATE_ROUTES.WANTS.path}
+          className="underline hover:opacity-75"
+        >
+          <I18N id={`menu.${PRIVATE_ROUTES.WANTS.title}`} />
+        </Link>
+        .
+        <button
+          className="absolute top-1 right-1 w-6 h-6"
+          onClick={() => {
+            setShowAdvice(false);
+          }}
+        >
+          <Icon />
+        </button>
+      </div>
+    </Wrapper>
   ) : null;
 };
 

@@ -161,3 +161,16 @@ p {
 .big-shadow {
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
 }
+
+.slide-img {
+  animation: slide-img-anim 40s linear infinite;
+}
+
+@keyframes slide-img-anim {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.5);
+  }
+}

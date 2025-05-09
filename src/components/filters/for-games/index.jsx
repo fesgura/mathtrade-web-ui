@@ -58,6 +58,18 @@ const FiltersForGames = () => {
             </div>
           </Switch>
         </InputContainer>
+        <div className="border-t border-b py-3 border-gray-400 mb-1">
+          <InputContainer className="mb-1">
+            <Switch data={data} name="wantable">
+              <div className="text-xs flex items-center gap-1">
+                <Icon type="eye-hide" className="text-gray-600" />
+                <I18N id="wantAble.games.label" />
+              </div>
+            </Switch>
+          </InputContainer>
+          <HelpContext id="wantAble" />
+        </div>
+
         <InputContainer>
           <div className="flex items-center gap-2 mb-2 pt-4">
             <Label text="ban.btn-filter.label.game" name="ignored" size="sm" />

@@ -5,10 +5,14 @@ import I18N from "@/i18n";
 import CommitButton from "./commitButton";
 
 const CommitFooter = ({ acceptNum, changeScreenViewOffer }) => {
-  const { mustConfirm } = useContext(PageContext);
+  const { mustConfirm, isUserEarlyPay } = useContext(PageContext);
 
   const { acceptChecksCommit, setAcceptChecksCommit } =
     useContext(MyWantsContext);
+
+  if (isUserEarlyPay) {
+    return null;
+  }
 
   return mustConfirm ? (
     <div className="border-t-2 border-gray-300 py-10">

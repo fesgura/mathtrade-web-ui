@@ -2,7 +2,6 @@
 const nextConfig = {
   env: {
     PAUSED_SITE: "yes",
-    CAN_I_TEST_MODE: "no",
     //
     API_TEST_MODE: "no",
     BASE_URL_TEST: "https://mathtrade-backend.fly.dev/",
