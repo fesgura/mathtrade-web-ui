@@ -337,10 +337,14 @@
   "helpcontext.answer.whatIsTag": "Las <strong>etiquetas</strong> te permiten agrupar ejemplares. Estos agrupamientos pueden ser <strong>deseados</strong> luego como grupo completo, ya sea porque deseas <strong>todos</strong> o <strong>solo uno</strong> de esos ejemplares.",
   "helpcontext.title.whatIsThis.ban.item": "¿Qué es esto?",
   "helpcontext.answer.whatIsThis.ban.item": "Puedes <strong>ocultar</strong> del listado aquellos ejemplares que <strong>no te interesan</strong>, y que definitivamente no vas a desear.",
+
+  "helpcontext.title.wantAble": "¿Qué es esto?",
+  "helpcontext.answer.wantAble": "No podés desear juegos con el mismo <i>bgg_id</i> que los que vos ofreces.<br/>Una buena idea es directamente <strong>ocultar esos juegos</strong>.",
+
   "helpcontext.title.whatIsThis.ban.game": "¿Qué es esto?",
-  "helpcontext.answer.whatIsThis.ban.game": "Puedes <strong>ocultar</strong> del listado aquellos juegos que <strong>no te interesan</strong>, y que definitivamente no vas a desear.",
+  "helpcontext.answer.whatIsThis.ban.game": "Podés <strong>ocultar</strong> del listado aquellos juegos que <strong>no te interesan</strong>, y que definitivamente no vas a desear.",
   "helpcontext.title.whatIsThis.value.item": "¿Qué es esto?",
-  "helpcontext.answer.whatIsThis.value.item": "Puedes asignarle <strong>puntaje</strong> a todos los ejemplares. Dicho puntaje <strong>es personal</strong> y <strong>sólo lo verás vos</strong>.<br/>Te puede ayudar a ordenar los ejemplares de acuerdo a tus preferencias, aunque no es necesario que lo uses.",
+  "helpcontext.answer.whatIsThis.value.item": "Podés asignarle <strong>puntaje</strong> a todos los ejemplares. Dicho puntaje <strong>es personal</strong> y <strong>sólo lo verás vos</strong>.<br/>Te puede ayudar a ordenar los ejemplares de acuerdo a tus preferencias, aunque no es necesario que lo uses.",
   "helpcontext.title.forWhatIsThis.bgg_user": "¿Para qué es esto?",
   "helpcontext.answer.forWhatIsThis.bgg_user": "<strong>-</strong> Tu <strong>usuario de la BGG</strong> nos permite identificarte más fácilmente.<br/><strong>-</strong> Con tu usuario, vas a poder <strong>cargar</strong> juegos directamente <strong>desde tu colección de la BGG</strong>.<br/><strong>-</strong> Tu usuario va a mostrar la <strong>imagen personal</strong> que tengas cargada en la BGG.",
   "hide.password.eye": "Ocultar contraseña",
@@ -802,6 +806,10 @@
   "result.table.member_from": "Recibo de",
   "hideWanted.items.label": "Ocultar ejemplares ya deseados",
   "hideWanted.games.label": "Ocultar juegos ya deseados",
+
+  "wantAble.items.label": "Ocultar ejemplares que <strong>no puedo desear</strong>.",
+  "wantAble.games.label": "Ocultar juegos que <strong>no puedo desear</strong>.",
+
   "link.mtBGG": "Hilo del Math Trade en la BGG",
   "link.mtTelegram": "Canal del Math Trade en Telegram",
   "quickhelp.title": "Ayuda rápida",

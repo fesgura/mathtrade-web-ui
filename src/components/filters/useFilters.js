@@ -54,7 +54,7 @@ const useFilters = ({ type }) => {
 
       const newFilters = {};
 
-      const { hide_my_user, hide_wanted } = dataFromForm;
+      const { hide_my_user, hide_wanted, wantable } = dataFromForm;
       delete dataFromForm.hide_my_user;
       delete dataFromForm.hide_wanted;
 
@@ -85,6 +85,8 @@ const useFilters = ({ type }) => {
         newFilters.ignored = undefined;
       }
       newFilters.wanted = hide_wanted === "true" ? false : undefined;
+
+      newFilters.wantable = wantable === "true" ? "true" : undefined;
 
       gotoTop();
 
