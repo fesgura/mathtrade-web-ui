@@ -83,8 +83,6 @@ export const PageContext = createContext({
   isUserEarlyPay: false,
 });
 
-const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE === "yes";
-
 const PageContextProvider = ({ children }) => {
   const {
     mathtrade: mathtradeStored,
@@ -127,16 +125,6 @@ const PageContextProvider = ({ children }) => {
   }, [mathtradeStored, mathtradeUpdated]);
 
   const canI = useMemo(() => {
-    if (CAN_I_TEST_MODE) {
-      return {
-        sign: true,
-        offer: true,
-        want: true,
-        commit: true,
-        results: true,
-        pageType,
-      };
-    }
     if (!mathtrade) {
       return {
         sign: false,
@@ -150,10 +138,10 @@ const PageContextProvider = ({ children }) => {
     if (mathtrade.status === "freeze") {
       return {
         sign: false,
-        offer,
-        want,
-        commit,
-        results,
+        offer: false,
+        want: false,
+        commit: false,
+        results: false,
         pageType,
       };
     }

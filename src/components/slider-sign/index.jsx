@@ -38,7 +38,7 @@ const SliderSign = () => {
   }, [last]);
 
   return (
-    <div className="absolute top-0 left-0 bg-black opacity-50  shadow-[inset_2px_0_10px_rgba(0,0,0,0.2)] hidden lg:block w-full h-full overflow-hidden">
+    <div className="absolute top-0 left-0 bg-black opacity-30  shadow-[inset_2px_0_10px_rgba(0,0,0,0.2)]  w-full h-full overflow-hidden">
       {list.map((f, k) => {
         return (
           <Image
@@ -48,8 +48,8 @@ const SliderSign = () => {
             className={clsx(
               "absolute top-0 left-0 object-cover w-full h-full block transition-opacity duration-700",
               {
-                "z-40 opacity-100": k === step,
-                "z-30 opacity-100": k === prev,
+                "z-40 opacity-100 slide-img": k === step,
+                "z-30 opacity-100 slide-img": k === prev,
                 "z-10 opacity-0": k !== step && k !== prev,
               }
             )}

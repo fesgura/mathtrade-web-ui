@@ -1,25 +1,25 @@
 import "../globals.css";
 import "@/styles/index.scss";
-import Logo from "@/components/logo";
+import { LogoBig } from "@/components/logo";
 //import WhatIsMathTrade from "./what-is-mt";
 import SliderSign from "@/components/slider-sign";
 
 export default function SignLayout({ children }) {
   return (
-    <main className="lg:grid lg:grid-cols-2 min-h-screen">
-      <section className="flex flex-col items-center justify-center">
+    <main className="min-h-screen">
+      <section className="fixed top-0 left-0 w-full h-full bg-purple-900">
+        <SliderSign />
+      </section>
+      <section className="flex flex-col items-center justify-center relative min-h-screen">
         <div className="p-4">
-          <Logo />
-          <article className="relative bg-white rounded-xl shadow-xl px-11 py-7 sm:w-[450px]">
+          <div className="md:h-[130px] h-[60px] relative z-10">
+            <LogoBig />
+          </div>
+
+          <article className="relative bg-white rounded-xl shadow-xl md:px-11 px-4 md:pt-20 pt-12 pb-7 sm:w-[450px]">
             {children}
           </article>
         </div>
-      </section>
-      <section className="relative bg-purple-900">
-        <SliderSign />
-        {/* <div className="relative p-4 lg:text-left text-center pb-20 z-50">
-          <WhatIsMathTrade />
-        </div> */}
       </section>
     </main>
   );
