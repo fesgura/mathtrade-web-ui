@@ -931,8 +931,9 @@
   "NewUserOfferAlert.text1": "Este es <strong>tu primer Math Trade</strong>, por lo que hemos limitado a <strong>$$$ ($$$)</strong> la cantidad de ejemplares que <strong>podrás ofrecer</strong>.",
   "NewUserOfferAlert.text2": "(Hacemos esto para limitar al máximo los errores y problemas a la hora de intercambiar tus juegos.)",
   "CommitHeaderGrid.text": "Para comprometer tus cambios, debes revisar la lista VISUAL completa, scrolleando hasta abajo.",
-  "CommitHeader.text": "No comprometiste en tiempo y forma tus cambios,<br/>por lo que <strong>NO ESTÁS PARTICIPANDO en este Math Trade</strong>.",
+  "CommitHeader.text": "No comprometiste en tiempo y forma tus cambios,<br/>por lo que <strong>NO ESTÁS PARTICIPANDO en este Math Trade</strong>.<br/><br/><strong>No recibirás ningún juego, ni tendrás que enviar ninguno.</strong>",
   "CommitHeaderVisual.text": " Para comprometer tus cambios, debes revisar esta lista hasta el final.<br />En la parte inferior encontrarás una casilla que DEBES marcara para comprometer tus cambios.",
+  "CommitHeaderVisual.isUserEarlyPay": "IMPORTANTE:<br/>No estás participando.",
   "CommitFooterVisual.text1": "He revisado los datos precedentes expresados en esta <strong>Lista de Deseos</strong>.<br />Acepto que los datos consignados son correctos, y acepto recibir un email a mi casilla de correos con esta lista a modo de  <u>documentación</u>, tanto para mí como para la organización del Math Trade.",
   "CommitFooterVisual.text2": "<strong>Por favor:</strong> para continuar ahora revisa también la lista en la vista",
   "CommitFooterVisual.op.text1": "Ofrezco-Recibo",
@@ -941,5 +942,8 @@
   "result.userTable.name": "Nombre",
   "result.userTable.location": "Ubicación",
   "result.userTable.commitment_datetime": "Fecha de compromiso",
-  "result.userTable.commitment": "¿Comprometió?"
+  "result.userTable.commitment": "¿Comprometió?",
+  "EarlyPay.text.1": "Debido a que en el último Math Trade <strong>no pagaste en término</strong> los gastos para el funcionamiento del mismo (y otro usuario tuvo que adelantar el dinero para cubrirlo); para este Math Trade, antes de poder <strong>comprometer</strong> tus deseos <strong>vas a tener que adelantar un monto de $ $$$</strong>.",
+  "EarlyPay.text.2": "Luego de descontar tu parte de los gastos del Math Trade, <strong>el monto restante te será devuelto</strong>.",
+  "EarlyPay.text.3": "Por favor, ponete en contacto con la organización para concretar este pago."
 }

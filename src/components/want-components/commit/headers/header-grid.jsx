@@ -1,9 +1,13 @@
 import { PageContext } from "@/context/page";
-import { useContext } from "react";
+import { useContext, lazy } from "react";
 import I18N from "@/i18n";
+import Dynamic from "@/components/dynamic";
+
+const EarlyPayMessage = lazy(() => import("./earlyPayMessage"));
 
 const CommitHeaderGrid = () => {
-  const { mustConfirm, mustConfirmDate, canI } = useContext(PageContext);
+  const { mustConfirm, mustConfirmDate, canI, isUserEarlyPay } =
+    useContext(PageContext);
 
   if (mustConfirm && !canI.commit) {
     return (
@@ -14,7 +18,11 @@ const CommitHeaderGrid = () => {
   }
 
   if (mustConfirm && canI.commit) {
-    return (
+    return isUserEarlyPay ? (
+      <Dynamic h={400}>
+        <EarlyPayMessage />
+      </Dynamic>
+    ) : (
       <div className="max-w-3xl mx-auto text-center text-balance font-bold ">
         <div className="text-danger">
           <I18N id="CommitHeaderGrid.text" />

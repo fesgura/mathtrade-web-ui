@@ -7,6 +7,7 @@ const Modal = ({
   children,
   className = "py-7 px-5 w-full",
   size = "lg",
+  canNotClose,
 }) => {
   return isOpen ? (
     <>
@@ -15,7 +16,7 @@ const Modal = ({
         <div className="w-full min-h-full flex flex-col justify-center relative sm:p-2.5">
           <div
             className="absolute w-full h-full backdrop-blur-sm bg-[rgba(213,220,226,0.7)] left-0 top-0 sm:block hidden animate-dialog-in"
-            onClick={onClose}
+            onClick={canNotClose ? null : onClose}
           />
           <article
             className={clsx(
@@ -28,12 +29,14 @@ const Modal = ({
               }
             )}
           >
-            <button
-              className="absolute z-50 top-2 right-2 w-8 h-8 leading-none text-center bg-white/60 text-[gray] rounded-full transition-[color] duration-[0.1s] text-xl"
-              onClick={onClose}
-            >
-              <Icon />
-            </button>
+            {canNotClose ? null : (
+              <button
+                className="absolute z-50 top-2 right-2 w-8 h-8 leading-none text-center bg-white/60 text-[gray] rounded-full transition-[color] duration-[0.1s] text-xl"
+                onClick={onClose}
+              >
+                <Icon />
+              </button>
+            )}
             <div className={className}>{children}</div>
           </article>
         </div>

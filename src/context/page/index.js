@@ -80,6 +80,7 @@ export const PageContext = createContext({
   mustConfirmDate: null,
   setMustConfirmDate: () => {},
   isNewUser: false,
+  isUserEarlyPay: false,
 });
 
 const CAN_I_TEST_MODE = process.env.CAN_I_TEST_MODE === "yes";
@@ -149,10 +150,10 @@ const PageContextProvider = ({ children }) => {
     if (mathtrade.status === "freeze") {
       return {
         sign: false,
-        offer: false,
-        want: false,
-        commit: false,
-        results: false,
+        offer,
+        want,
+        commit,
+        results,
         pageType,
       };
     }
@@ -192,13 +193,15 @@ const PageContextProvider = ({ children }) => {
 
     return {
       sign: false,
-      offer: false,
-      want,
+      offer,
+      want: true,
       commit: true,
       results,
       pageType,
     };
   }, [mathtrade, membership, pageType]);
+
+  //
 
   //
   const [previewWantGroupId, setPreviewWantGroupId] = useState(null);
@@ -244,6 +247,10 @@ const PageContextProvider = ({ children }) => {
   const isNewUser = useMemo(() => {
     return NEW_USER_OFFER_LIMIT && mathtrade_history.length === 0;
   }, [mathtrade_history]);
+
+  const isUserEarlyPay = useMemo(() => {
+    return user?.comment && user.comment.indexOf("early-pay") >= 0;
+  }, [user]);
 
   return (
     <PageContext.Provider
@@ -326,6 +333,7 @@ const PageContextProvider = ({ children }) => {
         setMustConfirmDate,
         //
         isNewUser,
+        isUserEarlyPay,
       }}
     >
       {children}
