@@ -59,7 +59,7 @@ const useFiltersItems = () => {
     } else {
       filtersProc.ignored = "yes";
     }
-    console.log(filtersProc);
+
     const { wanted } = filtersProc;
     delete filtersProc.wanted;
     if (wanted === false) {
