@@ -15,7 +15,7 @@ const TermConditionsPage = () => {
               <I18N id="title.TyC" />
             </h1>
             <p>
-              Bienvenides al Math Trade Argentina 2023, el mejor del mundo. Te
+              Bienvenides al Math Trade Argentina 2025, el mejor del mundo. Te
               agradecemos por sumarte y hacer una comunidad argentina de juegos
               de mesa cada vez más grande.
             </p>
