@@ -1,14 +1,12 @@
 "use client";
 import { lazy } from "react";
-import SectionCommon from "@/components/sections/common";
 import useWants from "./useWants";
 import Tabs from "@/components/tabs";
 import Visual from "./visual";
 import Footer from "./footer";
 import ErrorAlert from "@/components/errorAlert";
-import Container from "@/components/container";
 import { GotoTopContextProvider } from "@/context/goto-top";
-import HelpContext from "@/components/help-context";
+// import HelpContext from "@/components/help-context";
 import Dynamic from "@/components/dynamic";
 import Wrapper from "@/components/wrapper";
 import { LoadingBox } from "@/components/loading";

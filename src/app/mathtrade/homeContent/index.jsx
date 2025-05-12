@@ -2,7 +2,6 @@ import { useContext } from "react";
 import { PageContext } from "@/context/page";
 import I18N from "@/i18n";
 //import { linksToHelp } from "@/config/linksToHelp";
-//import Container from "@/components/container";
 import Timeline from "./timeline";
 import Videohelp from "./videohelp";
 import Status from "./status";

@@ -1,8 +1,6 @@
-import Container from "@/components/container";
 import useWantToItem from "./useWantToItem";
 import VisualSection from "@/components/want-components/visual";
 import EmptyList from "@/components/emptyList";
-import { Checkbox } from "@/components/form";
 import CommitHeaderVisual from "@/components/want-components/commit/headers/header-visual";
 import CommitFooter from "@/components/want-components/commit/footer";
 

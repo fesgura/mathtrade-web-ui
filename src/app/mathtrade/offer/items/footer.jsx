@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { PageContext } from "@/context/page";
 import Pagination from "@/components/pagination";
-import Container from "@/components/container";
 
 const Footer = () => {
   /* PAGE CONTEXT **********************************************/

@@ -1,7 +1,6 @@
 "use client";
 import { useContext } from "react";
 import { PageContext } from "@/context/page";
-import Container from "../container";
 import Wrapper from "../wrapper";
 
 const Footer = () => {

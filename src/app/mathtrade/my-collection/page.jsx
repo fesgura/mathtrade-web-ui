@@ -12,7 +12,6 @@ import I18N, { getI18Ntext } from "@/i18n";
 import PageHeader from "@/components/pageHeader";
 import OrderBy from "@/components/orderBy";
 import StickyHeader from "@/components/sticky-header";
-import Container from "@/components/container";
 import HelpContext from "@/components/help-context";
 
 const MyCollectionPage = () => {

@@ -1,4 +1,3 @@
-import Container from "@/components/container";
 import useItemToWant from "./useItemToWant";
 import VisualSection2 from "@/components/want-components/visual2";
 import EmptyList from "@/components/emptyList";

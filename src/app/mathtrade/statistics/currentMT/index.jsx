@@ -3,7 +3,6 @@ import Map from "./map";
 import Segments from "./segments";
 import Downloads from "./downloads";
 import useCurrentStats from "./useCurrentStats";
-import Container from "@/components/container";
 import ErrorAlert from "@/components/errorAlert";
 import { LoadingBox } from "@/components/loading";
 

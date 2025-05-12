@@ -2,7 +2,6 @@ import useGrid from "./useGrid";
 import WantGroupLabel from "@/components/want-components/grid/wantGroupLabel";
 import MyItemLabel from "@/components/want-components/grid/myItemLabel";
 import Cell from "@/components/want-components/grid/cell";
-import Container from "@/components/container";
 import EmptyList from "@/components/emptyList";
 import I18N from "@/i18n";
 
@@ -19,11 +18,7 @@ const GridUI = () => {
   } = useGrid();
 
   if (emptyWants) {
-    return (
-      <Container>
-        <EmptyList visible message="MyWants.EmptyList" />
-      </Container>
-    );
+    return <EmptyList visible message="MyWants.EmptyList" />;
   }
 
   return (

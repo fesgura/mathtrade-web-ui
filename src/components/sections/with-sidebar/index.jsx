@@ -1,4 +1,3 @@
-import Container from "@/components/container";
 import { LoadingBox } from "@/components/loading";
 import clsx from "clsx";
 import Icon from "../../icon";

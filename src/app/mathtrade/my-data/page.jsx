@@ -15,7 +15,6 @@ import ButtonAlert from "@/components/buttonAlert";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
 import { linksToHelp } from "@/config/linksToHelp";
-import Container from "@/components/container";
 import SectionCommon from "@/components/sections/common";
 import PageHeader from "@/components/pageHeader";
 import { PUBLIC_ROUTES } from "@/config";
@@ -56,7 +55,7 @@ const MyDataPage = () => {
         title={isMembership ? "title.MyData" : "title.SignToMathTrade"}
         loading={loading}
       >
-        <Container>
+        <div className="py-8">
           {isMathtrade ? (
             <section className="max-w-lg mx-auto py-8 relative">
               <h2 className=" text-balance text-center font-bold mb-5 text-3xl text-gray-600">
@@ -174,7 +173,7 @@ const MyDataPage = () => {
               </p>
             </div>
           )}
-        </Container>
+        </div>
       </SectionCommon>
     </>
   );

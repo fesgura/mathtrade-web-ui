@@ -4,7 +4,6 @@ import ErrorAlert from "@/components/errorAlert";
 import ItemMy from "@/components/item/item-my";
 import I18N from "@/i18n";
 import StickyHeader from "@/components/sticky-header";
-import Container from "@/components/container";
 import PageHeader from "@/components/pageHeader";
 import { GotoTopContextProvider } from "@/context/goto-top";
 import { ItemPreviousMTContextProvider } from "@/context/itemPreviousMT";

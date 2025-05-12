@@ -6,7 +6,6 @@ import ModalPreviewerItemWant from "@/components/previewerItem/modal";
 import PageHeader from "@/components/pageHeader";
 import I18N from "@/i18n";
 import { useContext } from "react";
-import Container from "@/components/container";
 
 export default function MyWants() {
   const { canI } = useContext(PageContext);
@@ -24,11 +23,9 @@ export default function MyWants() {
         bgImg="8"
       />
       {canI.offer ? (
-        <Container>
-          <div className="text-center italic font-bold text-xl text-gray-600 py-4">
-            <I18N id="WaitFinishOffer" />
-          </div>
-        </Container>
+        <div className="text-center italic font-bold text-xl text-gray-600 py-4">
+          <I18N id="WaitFinishOffer" />
+        </div>
       ) : (
         <MyWantsContextProvider>
           <MyWantsUI />

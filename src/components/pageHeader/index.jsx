@@ -78,7 +78,7 @@ const PageHeader = ({
     <Wrapper>
       <header
         className={clsx(
-          "bg-gradient-to-bl overflow-hidden relative mb-main shadow-main rounded-main",
+          "bg-gradient-to-bl overflow-hidden relative mb-main shadow-main rounded-main md:pt-0 pt-5 md:pb-0 pb-7",
           {
             "from-sky-700 to-purple-700": name === "home",
             "from-orange-600 to-purple-900": name === "games",
@@ -105,7 +105,7 @@ const PageHeader = ({
           }}
         />
         <div className=" lg:py-10 py-4 px-[10%] relative">
-          <h1 className="text-white lg:text-6xl font-bold text-2xl text-balance">
+          <h1 className="text-white lg:text-6xl font-bold text-4xl text-balance">
             <I18N id={title} />
           </h1>
           {description ? (

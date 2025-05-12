@@ -1,13 +1,12 @@
 "use client";
 import SectionCommon from "@/components/sections/common";
-import Container from "@/components/container";
 import PageHeader from "@/components/pageHeader";
 import { useContext, useEffect } from "react";
 import { PageContext } from "@/context/page";
 import useFaqs from "./useFaqs";
 import Faq from "./faq";
 import ErrorAlert from "@/components/errorAlert";
-import I18N, { getI18Ntext } from "@/i18n";
+import { getI18Ntext } from "@/i18n";
 
 export default function MyAccount() {
   /* PAGE CONTEXT **********************************************/

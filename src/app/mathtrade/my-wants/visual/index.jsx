@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext, lazy } from "react";
 import { useOptions } from "@/store";
 import clsx from "clsx";
-import Container from "@/components/container";
 import TradeArrows from "@/components/svg/trade-arrows";
 import I18N from "@/i18n";
 import { GotoTopContext } from "@/context/goto-top";

@@ -1,6 +1,5 @@
 import I18N from "@/i18n";
 import clsx from "clsx";
-import Container from "../container";
 
 const Tabs = ({ list, onChange, value }) => {
   return (
