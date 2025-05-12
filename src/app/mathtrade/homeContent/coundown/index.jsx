@@ -80,7 +80,9 @@ const CountdownMathtrade = () => {
           </p>
           <p className="text-6xl italic text-sky-700 mb-7">
             {data.days
-              ? `${data.days} ${getI18Ntext("countdown.days")} y `
+              ? `${data.days} ${getI18Ntext(
+                  `countdown.day${data.days > 1 ? "s" : ""}`
+                )} y `
               : null}
             {!data.hours ? null : `${data.hours}:`}
             {!data.hours && !data.minutes

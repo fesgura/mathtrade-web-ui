@@ -957,6 +957,7 @@
   "EarlyPay.text.2": "Luego de descontar tu parte de los gastos del Math Trade, <strong>el monto restante te será devuelto</strong>.",
   "EarlyPay.text.3": "Por favor, ponete en contacto con la organización para concretar este pago.",
   "countdown.text1": "Faltan...",
+  "countdown.day": "día",
   "countdown.days": "días",
   "countdown.hours": "horas",
   "countdown.minutes": "minutos",
