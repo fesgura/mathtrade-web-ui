@@ -24,7 +24,7 @@ export default function MyAccount() {
     <>
       <PageHeader title="title.Faqs" name="faqs" />
       <SectionCommon loading={loading}>
-        <Container>
+        <div className="py-8">
           <div className="mx-auto max-w-4xl">
             <div className="text-center mb-6">
               <input
@@ -44,7 +44,7 @@ export default function MyAccount() {
               })}
             </div>
           </div>
-        </Container>
+        </div>
       </SectionCommon>
     </>
   );
