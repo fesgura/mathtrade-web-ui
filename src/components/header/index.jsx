@@ -42,7 +42,7 @@ const Header = () => {
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                {mathtrade ? (
+                {mathtrade && Object.keys(mathtrade).length > 0 ? (
                   <div className="main-header_col">
                     <TimelineButton />
                   </div>
@@ -50,7 +50,10 @@ const Header = () => {
                 <div className="main-header_col">
                   <NotificationsButton />
                 </div>
-                {mathtrade && membership && canI.want ? (
+                {mathtrade &&
+                Object.keys(mathtrade).length > 0 &&
+                membership &&
+                canI.want ? (
                   <div className="main-header_col">
                     <CartButton />
                   </div>

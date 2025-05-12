@@ -1,18 +1,19 @@
 import { useContext } from "react";
 import { PageContext } from "@/context/page";
 import I18N from "@/i18n";
-import { linksToHelp } from "@/config/linksToHelp";
-import Container from "@/components/container";
+//import { linksToHelp } from "@/config/linksToHelp";
+//import Container from "@/components/container";
 import Timeline from "./timeline";
 import Videohelp from "./videohelp";
 import Status from "./status";
 import Glossary from "./glossary";
 import Iconshelp from "./iconshelp";
-import { instructPDFurl } from "@/config/rulebook";
+//import { instructPDFurl } from "@/config/rulebook";
 import Pills from "./pills";
 import Referral from "@/components/referral";
+import CountdownMathtrade from "./coundown";
 
-const baseURL = process.env.BASE_URL;
+//const baseURL = process.env.BASE_URL;
 
 const HomeContent = () => {
   /* PAGE CONTEXT **********************************************/
@@ -37,13 +38,15 @@ const HomeContent = () => {
           </p>
         </div>
       </div> */}
-      {mathtrade ? (
+      {mathtrade && Object.keys(mathtrade).length > 0 ? (
         <>
           <Pills />
           <Referral />
           <Timeline />
         </>
-      ) : null}
+      ) : (
+        <CountdownMathtrade />
+      )}
       <Videohelp />
       <h2 className="text-center font-bold text-2xl py-5">
         <I18N id="quickhelp.title" />

@@ -955,5 +955,14 @@
   "result.userTable.commitment": "¿Comprometió?",
   "EarlyPay.text.1": "Debido a que en el último Math Trade <strong>no pagaste en término</strong> los gastos para el funcionamiento del mismo (y otro usuario tuvo que adelantar el dinero para cubrirlo); para este Math Trade, antes de poder <strong>comprometer</strong> tus deseos <strong>vas a tener que adelantar un monto de $ $$$</strong>.",
   "EarlyPay.text.2": "Luego de descontar tu parte de los gastos del Math Trade, <strong>el monto restante te será devuelto</strong>.",
-  "EarlyPay.text.3": "Por favor, ponete en contacto con la organización para concretar este pago."
+  "EarlyPay.text.3": "Por favor, ponete en contacto con la organización para concretar este pago.",
+  "countdown.text1": "Faltan...",
+  "countdown.days": "días",
+  "countdown.hours": "horas",
+  "countdown.minutes": "minutos",
+  "countdown.seconds": "segundos",
+  "countdown.text2": "...para que arranque el <strong>MEJOR MATH TRADE DEL MUNDO</strong>.",
+  "countdown.text3": "¡Arranca ahora el Math Trade!",
+  "countdown.text4": "Volvé a loguearte para empezar:",
+  "countdown.btn-signout": "Volver a loguearse"
 }
