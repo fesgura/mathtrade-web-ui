@@ -13,7 +13,7 @@ const useReferral = () => {
   ///////////////////////////////
 
   const afterLoadDataReferrals = useCallback((dataReferrals) => {
-    setReferralsCount(dataReferrals?.length || REFERRAL_LIMIT);
+    setReferralsCount(dataReferrals.length);
     setIsLoaded(true);
   }, []);
 
