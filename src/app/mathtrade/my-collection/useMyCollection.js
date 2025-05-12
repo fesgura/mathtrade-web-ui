@@ -11,6 +11,7 @@ const useMyCollection = () => {
 
   /* PAGE CONTEXT **********************************************/
   const {
+    mathTradeId,
     setPageType,
     reloadValue,
     //myCollection,
@@ -50,7 +51,7 @@ const useMyCollection = () => {
   const [, , loadingMyItemsInMT, errorMyItemsInMT] = useFetch({
     endpoint: "GET_MYITEMS",
     afterLoad: afterLoadMyItems,
-    autoLoad: true,
+    autoLoad: mathTradeId !== null,
   });
 
   const elementIdListOffered = useMemo(() => {
