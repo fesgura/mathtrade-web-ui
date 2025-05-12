@@ -82,6 +82,11 @@ export const extractBGGdataFromElement = (data) => {
           dependency: most || "0",
           dependency_votes: txt.substring(1),
         };
+      } else {
+        return {
+          dependency: "0",
+          dependency_votes: "0|0|0|0|0",
+        };
       }
     } else {
       return {
@@ -94,11 +99,11 @@ export const extractBGGdataFromElement = (data) => {
   // STATISTIC
   const stats = (() => {
     let rank = NO_RANK_VALUE;
-    let rate = null;
-    let geek_rate = null;
-    let rate_votes = null;
-    let weight = null;
-    let weight_votes = null;
+    let rate = "0";
+    let geek_rate = "0";
+    let rate_votes = "0";
+    let weight = "0";
+    let weight_votes = "0";
     //
     if (statistics && statistics.ratings) {
       const { ratings } = statistics;
