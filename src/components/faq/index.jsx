@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import Icon from "@/components/icon";
+import I18N from "@/i18n";
 import clsx from "clsx";
 import { useState } from "react";
 
-const Faq = ({ data }) => {
+const Faq = ({ data, translate }) => {
   const { question, answer, images } = data;
 
   const [open, setOpen] = useState(false);
@@ -31,7 +32,9 @@ const Faq = ({ data }) => {
               })}
             />
           </div>
-          <div className="font-bold">{question}</div>
+          <div className="font-bold">
+            {translate ? <I18N id={question} /> : question}
+          </div>
         </div>
       </div>
       {open ? (
@@ -39,17 +42,19 @@ const Faq = ({ data }) => {
           <div className="py-3 px-5">
             {answer.map((anw, k) => {
               return (
-                <p className="min-h-4" key={k}>
-                  {anw}
+                <p className="min-h-4 text-balance" key={k}>
+                  {translate ? <I18N id={anw} /> : anw}
                 </p>
               );
             })}
           </div>
-          <div className={clsx({ "pt-4": images.length })}>
-            {(images || []).map((src, k) => {
-              return <img src={src} alt="" key={k} />;
-            })}
-          </div>
+          {images ? (
+            <div className={clsx({ "pt-4": images.length })}>
+              {(images || []).map((src, k) => {
+                return <img src={src} alt="" key={k} />;
+              })}
+            </div>
+          ) : null}
         </div>
       ) : null}
     </div>

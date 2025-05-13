@@ -4,7 +4,7 @@ import PageHeader from "@/components/pageHeader";
 import { useContext, useEffect } from "react";
 import { PageContext } from "@/context/page";
 import useFaqs from "./useFaqs";
-import Faq from "./faq";
+import Faq from "@/components/faq";
 import ErrorAlert from "@/components/errorAlert";
 import { getI18Ntext } from "@/i18n";
 

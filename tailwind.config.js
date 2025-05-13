@@ -28,6 +28,7 @@ module.exports = {
     "hidden",
     "block",
     "md:inline",
+    "text-orange-700",
   ],
   theme: {
     colors: {

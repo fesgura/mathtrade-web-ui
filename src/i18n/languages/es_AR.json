@@ -966,5 +966,7 @@
   "countdown.text2": "...para que arranque el <strong>MEJOR MATH TRADE DEL MUNDO</strong>.",
   "countdown.text3": "¡Arranca ahora el Math Trade!",
   "countdown.text4": "Volvé a loguearte para empezar:",
-  "countdown.btn-signout": "Volver a loguearse"
+  "countdown.btn-signout": "Volver a loguearse",
+  "collectionFaq.question": "<u class=\"text-orange-700\">Ayuda</u> : ¿Qué es <i>\"Mi ludoteca\"</i>? ¿En qué se diferencia de <i>\"Yo ofrezco\"</i> en el Math Trade?",
+  "collectionFaq.answer.1": "Tu ludoteca es tu <strong>espacio personal y privado</strong>, en el que subís los juegos que te interesa ofrecer (o no) en el Math Trade.<br/>Trasciende este Math Trade, y si conservas tus juegos vas a poder ofrecerlos en Math Trades futuros.<br/><br/>Los <strong>únicos datos que te pedimos</strong> aquí son el nombre, edición, idioma y tamaño de caja.<br/>Nada más; <i>(no nos importa el estado de tus juegos, porque son tuyos y no los estás ofreciendo desde aquí)</i>.<br/><br/>Una vez que el Math Trade esté habilitado para <strong>ofrecer</strong>, vas a tener que ir a <i>\"Yo ofrezco\"</i> para ofertar tus artículos<br/><strong>Ahí sí</strong> que te vamos a pedir <strong>estados de caja y componentes, descripción, fotos,</strong> etc. y te pediremos absoluta <strong>responsabilidad</strong> sobre los datos que cargues."
 }

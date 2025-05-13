@@ -13,6 +13,12 @@ import PageHeader from "@/components/pageHeader";
 import OrderBy from "@/components/orderBy";
 import StickyHeader from "@/components/sticky-header";
 import HelpContext from "@/components/help-context";
+import Faq from "@/components/faq";
+
+const collectionFaq = {
+  question: "collectionFaq.question",
+  answer: ["collectionFaq.answer.1"],
+};
 
 const MyCollectionPage = () => {
   const {
@@ -86,6 +92,7 @@ const MyCollectionPage = () => {
 
           <div className="md:px-7 px-3 py-7">
             <div className="max-w-[860px] mx-auto">
+              <Faq data={collectionFaq} translate />
               <ElementWrapperOuter>
                 <NewElement />
               </ElementWrapperOuter>
