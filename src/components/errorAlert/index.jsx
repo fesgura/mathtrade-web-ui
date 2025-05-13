@@ -1,7 +1,7 @@
 import I18N from "@/i18n";
 import clsx from "clsx";
 
-const ErrorAlert = ({ error, className }) => {
+const ErrorAlert = ({ error, errorMessage, className }) => {
   return error ? (
     <div
       className={clsx(
@@ -9,7 +9,15 @@ const ErrorAlert = ({ error, className }) => {
         className
       )}
     >
-      <I18N id={typeof error === "string" ? error : "error.General"} />
+      <I18N
+        id={
+          errorMessage
+            ? errorMessage
+            : typeof error === "string"
+            ? error
+            : "error.General"
+        }
+      />
     </div>
   ) : null;
 };
