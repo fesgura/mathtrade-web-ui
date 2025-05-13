@@ -9,7 +9,8 @@ import I18N from "@/i18n";
 const ReferredUI = lazy(() => import("./ui"));
 
 export default function ReferralToRegister() {
-  const { isNewUser } = useContext(PageContext);
+  // const { isNewUser } = useContext(PageContext);
+  const isNewUser = false;
   return (
     <>
       <PageHeader title="title.referNewUserPage" name="referral" bgImg="5" />
