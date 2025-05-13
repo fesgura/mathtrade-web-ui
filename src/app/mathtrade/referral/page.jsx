@@ -9,6 +9,7 @@ import ErrorAlert from "@/components/errorAlert";
 import ShareText from "@/components/shareText";
 import { LoadingBox } from "@/components/loading";
 import { REFERRAL_LIMIT } from "@/config/referral";
+import { DateIntlFormat } from "@/utils/dateUtils";
 
 export default function ReferralToRegister() {
   const {
@@ -21,6 +22,7 @@ export default function ReferralToRegister() {
     referralsCount,
     disabled,
     isLoaded,
+    referralList,
   } = useReferral();
   return (
     <>
@@ -42,6 +44,40 @@ export default function ReferralToRegister() {
                 <p className="text-sm italic opacity-70">
                   <I18N id="referral.page.limit2" values={[REFERRAL_LIMIT]} />
                 </p>
+                <div className="w-full overflow-auto">
+                  <table className="w-full mt-5 text-sm">
+                    <thead>
+                      <tr className="text-left">
+                        <th className="py-2 pr-4">Email</th>
+                        <th className="py-2 pr-4">Código</th>
+                        <th className="py-2 pr-4">Fecha de uso</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {referralList.map((referral) => (
+                        <tr
+                          key={referral.referred}
+                          className="text-left border-t border-gray-400"
+                        >
+                          <td className="py-2 pr-4">
+                            <a
+                              href={`mailto:${referral.referred}`}
+                              className="text-primary underline font-bold hover:text-sky-800"
+                            >
+                              {referral.referred}
+                            </a>
+                          </td>
+                          <td className="py-2 pr-4 font-bold">
+                            {referral.code}
+                          </td>
+                          <td className="py-2 pr-4">
+                            {DateIntlFormat(referral.used)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
               {disabled ? null : (
                 <>

@@ -8,12 +8,12 @@ const useReferral = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const [referralsCount, setReferralsCount] = useState(REFERRAL_LIMIT);
+  const [referralList, setReferralList] = useState([]);
 
   ///////////////////////////////
 
   const afterLoadDataReferrals = useCallback((dataReferrals) => {
-    setReferralsCount(dataReferrals.length);
+    setReferralList(dataReferrals);
     setIsLoaded(true);
   }, []);
 
@@ -29,11 +29,14 @@ const useReferral = () => {
     afterError: afterErrorDataReferrals,
   });
 
-  const afterLoad = useCallback(({ code: newCode, referred: newReferred }) => {
+  const afterLoad = useCallback((d) => {
+    const { code: newCode, referred: newReferred } = d;
     setCode(newCode);
     setReferred(newReferred);
-    setReferralsCount((oldCount) => {
-      return oldCount + 1;
+    setReferralList((oldList) => {
+      const newList = [...oldList];
+      newList.push(d);
+      return newList;
     });
   }, []);
 
@@ -68,9 +71,10 @@ const useReferral = () => {
     error: errorPostReferral || errorDataReferrals,
     code,
     url,
-    referralsCount,
-    disabled: referralsCount >= REFERRAL_LIMIT,
+    referralsCount: referralList.length,
+    disabled: referralList.length >= REFERRAL_LIMIT,
     isLoaded,
+    referralList,
   };
 };
 export default useReferral;
