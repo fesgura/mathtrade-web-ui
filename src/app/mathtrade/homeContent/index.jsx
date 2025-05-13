@@ -11,6 +11,7 @@ import Iconshelp from "./iconshelp";
 import Pills from "./pills";
 import Referral from "@/components/referral";
 import CountdownMathtrade from "./coundown";
+import ReferralInvite from "./referralInvite";
 
 //const baseURL = process.env.BASE_URL;
 
@@ -46,6 +47,7 @@ const HomeContent = () => {
       ) : (
         <CountdownMathtrade />
       )}
+      <ReferralInvite />
       <Videohelp />
       <h2 className="text-center font-bold text-2xl py-5">
         <I18N id="quickhelp.title" />

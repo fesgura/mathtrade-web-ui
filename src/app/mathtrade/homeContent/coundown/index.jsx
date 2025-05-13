@@ -75,7 +75,7 @@ const CountdownMathtrade = () => {
         </div>
       ) : (
         <>
-          <p className="text-2xl mb-7">
+          <p className="text-2xl mb-4">
             <I18N id="countdown.text1" />
           </p>
           <p className="text-6xl italic text-sky-700 mb-7">
