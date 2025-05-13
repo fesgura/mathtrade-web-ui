@@ -30,14 +30,7 @@ export const ItemPreviousMTContextProvider = ({ children }) => {
   const [openModal, setOpenModal] = useState(false);
 
   const mathTradePrevious = useMemo(() => {
-    let mtPrevious = null;
-    mathtrade_history.forEach((mt) => {
-      if (!mtPrevious && mt.item_count > 0) {
-        mtPrevious = { ...mt };
-      }
-    });
-
-    return mtPrevious;
+    return mathtrade_history?.[0] ?? null;
   }, [mathtrade_history]);
 
   const [keyword, setKeyword] = useState("");

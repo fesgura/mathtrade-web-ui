@@ -6,7 +6,7 @@ const newItemData = {
   title: "",
   membership: null,
   copies: 1,
-  elements: [],
+  elements: [{}],
   value: null,
   group: null,
   tags: [],
