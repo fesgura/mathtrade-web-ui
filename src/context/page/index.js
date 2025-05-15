@@ -59,6 +59,7 @@ export const PageContext = createContext({
   //
   canI: {
     sign: false,
+    invite: false,
     offer: false,
     want: false,
     commit: false,
@@ -128,6 +129,7 @@ const PageContextProvider = ({ children }) => {
     if (!mathtrade) {
       return {
         sign: false,
+        invite: false,
         offer: false,
         want: false,
         commit: false,
@@ -138,6 +140,7 @@ const PageContextProvider = ({ children }) => {
     if (mathtrade.status === "freeze") {
       return {
         sign: false,
+        invite: false,
         offer: false,
         want: false,
         commit: false,
@@ -171,6 +174,7 @@ const PageContextProvider = ({ children }) => {
     if (!membership) {
       return {
         sign: offer,
+        invite: offer,
         offer,
         want,
         commit,
@@ -181,6 +185,7 @@ const PageContextProvider = ({ children }) => {
 
     return {
       sign: false,
+      invite: offer,
       offer,
       want,
       commit,
