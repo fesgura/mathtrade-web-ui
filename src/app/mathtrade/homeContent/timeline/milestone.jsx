@@ -25,14 +25,14 @@ const MeetingAdressCard = ({ meetingAddress }) => {
   );
 };
 
-const Milestone = ({ milestone }) => {
+const Milestone = ({ milestone, position }) => {
   const { title, dateObj, hour, color, meetingAddress, dayWeek } = milestone;
   const { day, month } = dateObj;
 
   return (
-    <div className="md:px-5 md:w-1/5 md:-mt-3 md:mb-0 md:ml-0 -ml-3 mb-6 md:text-center md:block flex">
+    <div className="milestone" style={{ left: `${position}%` }}>
       <div
-        className={clsx("w-5 h-5 rounded-full md:mx-auto", {
+        className={clsx("w-5 h-5 rounded-full mx-auto", {
           "bg-sky-600": color === 1,
           "bg-lime-600": color === 2,
           "bg-teal-600": color === 3,
@@ -40,27 +40,21 @@ const Milestone = ({ milestone }) => {
         })}
       />
       <div
-        className={clsx(
-          "md:w-1 md:h-7 w-6 h-1 md:mx-auto md:-mt-1 mt-2  -ml-1 rounded-full",
-          {
-            "bg-sky-600": color === 1,
-            "bg-lime-600": color === 2,
-            "bg-teal-600": color === 3,
-            "bg-orange-600": color === 4,
-          }
-        )}
+        className={clsx("w-1 h-7 mx-auto -mt-1  rounded-full", {
+          "bg-sky-600": color === 1,
+          "bg-lime-600": color === 2,
+          "bg-teal-600": color === 3,
+          "bg-orange-600": color === 4,
+        })}
       />
-      <div className="md:pl-0 pl-2 md:pt-1 pt-0">
+      <div className="pl-0 pt-1">
         <div
-          className={clsx(
-            "font-bold md:mb-2 md:block flex items-center gap-1 leading-none",
-            {
-              "text-sky-700": color === 1,
-              "text-lime-700": color === 2,
-              "text-teal-700": color === 3,
-              "text-orange-700": color === 4,
-            }
-          )}
+          className={clsx("font-bold mb-2 block leading-none", {
+            "text-sky-700": color === 1,
+            "text-lime-700": color === 2,
+            "text-teal-700": color === 3,
+            "text-orange-700": color === 4,
+          })}
         >
           <div className="text-xs">
             <I18N id={`dayWeek.${dayWeek}`} />

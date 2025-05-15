@@ -3,9 +3,13 @@ import Link from "next/link";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import I18N from "@/i18n";
 import { REFERRAL_LIMIT } from "@/config/referral";
+import { useContext } from "react";
+import { PageContext } from "@/context/page";
 
 const ReferralInvite = () => {
-  return (
+  const { canI } = useContext(PageContext);
+
+  return canI.invite ? (
     <div className="px-7 text-center py-5 border-t border-gray-400 max-w-4xl mx-auto">
       <p className="text-xl mb-5">
         <I18N id="referral.invite.text1" values={[REFERRAL_LIMIT]} />
@@ -20,7 +24,7 @@ const ReferralInvite = () => {
         </Link>
       </p>
     </div>
-  );
+  ) : null;
 };
 
 export default ReferralInvite;

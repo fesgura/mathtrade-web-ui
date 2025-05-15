@@ -1,19 +1,90 @@
 import useTimeline from "@/hooks/useTimeline";
 import Milestone from "./milestone";
 import I18N from "@/i18n";
+import { useEffect, useMemo, useState } from "react";
+import CountDown from "@/components/countdown";
+import useCountDown from "@/hooks/useCountDown";
 
 const Timeline = () => {
   const { milestones } = useTimeline();
 
+  const [dateLimit, setDateLimit] = useState(null);
+  const [clockXposition, setClockXposition] = useState(-1);
+
+  const dataCountdown = useCountDown(dateLimit);
+  const { finished } = dataCountdown;
+
+  useEffect(() => {
+    const d = new Date();
+    const todayStr =
+      d.toISOString().split("T")[0] +
+      "T" +
+      d.toTimeString().split(" ")[0] +
+      "-03:00";
+
+    if (
+      todayStr < milestones[milestones.length - 1].dateRaw &&
+      todayStr > milestones[0].dateRaw
+    ) {
+      let isSet = false;
+      milestones.forEach((milestone, k) => {
+        if (milestone.dateRaw > todayStr && !isSet) {
+          isSet = true;
+          setDateLimit(milestone.dateRaw);
+          setClockXposition(k - 1);
+        }
+      });
+    }
+  }, [milestones, finished]);
+
+  const deltaPosition = useMemo(() => {
+    if (milestones.length - 1 <= 0) {
+      return 0;
+    }
+
+    return 100 / (milestones.length - 1);
+  }, [milestones]);
+
   return (
     <div className="md:py-8">
-      <h4 className="font-bold md:text-center text-xl mb-8 md:pl-0 pl-2">
+      <h4 className="font-bold md:text-center text-xl mb-3 md:pl-0 pl-2">
         <I18N id="timeline.header" />
       </h4>
-      <div className="md:flex justify-center max-w-5xl md:mx-auto ml-4 md:border-t-2 md:border-l-0 border-l-2 border-gray-400 border-dotted">
-        {milestones.map((milestone, k) => {
-          return <Milestone key={k} milestone={milestone} />;
-        })}
+      <div className="overflow-auto w-full">
+        <div className="timeline-wrap">
+          <div className="timeline">
+            <div className="timeline-bar">
+              {clockXposition >= 0 && !finished ? (
+                <div
+                  className="timeline-bar-inner"
+                  style={{
+                    left: `${clockXposition * deltaPosition}%`,
+                    width: `${deltaPosition}%`,
+                  }}
+                >
+                  <div className="clock">
+                    <div className="text-xs">
+                      La siguiente etapa empieza en:
+                    </div>
+                    <div className="font-bold leading-tight">
+                      <CountDown data={dataCountdown} />
+                    </div>
+                    <div className="clock-arrow"></div>
+                  </div>
+                </div>
+              ) : null}
+            </div>
+            {milestones.map((milestone, k) => {
+              return (
+                <Milestone
+                  key={k}
+                  milestone={milestone}
+                  position={k * deltaPosition}
+                />
+              );
+            })}
+          </div>
+        </div>
       </div>
     </div>
   );
