@@ -7,7 +7,6 @@ import useReferral from "./useReferral";
 import ErrorAlert from "@/components/errorAlert";
 import ShareText from "@/components/shareText";
 import { LoadingBox } from "@/components/loading";
-import { REFERRAL_LIMIT } from "@/config/referral";
 import { DateIntlFormat } from "@/utils/dateUtils";
 
 const ReferredUI = () => {
@@ -22,7 +21,10 @@ const ReferredUI = () => {
     disabled,
     isLoaded,
     referralList,
+    referring_limit,
+    referrer,
   } = useReferral();
+
   return (
     <div className="relative min-h-96">
       {isLoaded && (
@@ -34,11 +36,18 @@ const ReferredUI = () => {
             <p className="mb-2">
               <I18N
                 id="referral.page.limit1"
-                values={[referralsCount, REFERRAL_LIMIT]}
+                values={[referralsCount, referring_limit]}
               />
             </p>
             <p className="text-sm italic opacity-70">
-              <I18N id="referral.page.limit2" values={[REFERRAL_LIMIT]} />
+              {referrer ? (
+                <I18N
+                  id="referral.page.limit3"
+                  values={[referrer?.name || "ciudad", referring_limit]}
+                />
+              ) : (
+                <I18N id="referral.page.limit2" values={[referring_limit]} />
+              )}
             </p>
             {referralsCount > 0 ? (
               <>

@@ -884,6 +884,7 @@
   "referral.page.subtitle2": "Si quieres invitar a un amigo/a al Math Trade, puedes hacerlo aquí.",
   "referral.page.limit1": "Invitaste a <strong>$$$ de $$$ participantes</strong>.",
   "referral.page.limit2": "(Solo podés invitar hasta $$$ participantes por Math Trade).",
+  "referral.page.limit3": "(En tu calidad de Representante de $$$, podés invitar hasta $$$ participantes por Math Trade).",
   "referral.page.step1": "Pídele a tu amigo/a su <b>email</b> (el mismo que deberá usar para registrarse).",
   "referral.page.step2": "Ingresá el email aquí y genera un <b>código de acceso</b> de uso único:",
   "referral.page.step3a": "<b>Copia el código de acceso</b> y/o envíaselo a tu amigo/a para que se registre.",

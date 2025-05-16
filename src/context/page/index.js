@@ -3,6 +3,7 @@ import { createContext, useState, useCallback, useMemo } from "react";
 import useLocations from "@/hooks/useLocations";
 import { useStore } from "@/store";
 import { NEW_USER_OFFER_LIMIT } from "@/config/newUserOfferLimit";
+import { REFERRAL_LIMIT } from "@/config/referral";
 
 export const PageContext = createContext({
   updateMathtrade: () => {},
@@ -82,6 +83,9 @@ export const PageContext = createContext({
   setMustConfirmDate: () => {},
   isNewUser: false,
   isUserEarlyPay: false,
+  //
+  referrer: null,
+  referring_limit: REFERRAL_LIMIT,
 });
 
 const PageContextProvider = ({ children }) => {
@@ -91,6 +95,9 @@ const PageContextProvider = ({ children }) => {
     user,
     mathtrade_history,
   } = useStore((state) => state.data);
+
+  const referrer = user?.referrer || null;
+  const referring_limit = user?.referring_limit || REFERRAL_LIMIT;
 
   const [pageType, setPageType] = useState(null);
   const [items, setItems] = useState({ list: [], count: 0 });
@@ -327,6 +334,9 @@ const PageContextProvider = ({ children }) => {
         //
         isNewUser,
         isUserEarlyPay,
+        //
+        referrer,
+        referring_limit,
       }}
     >
       {children}
