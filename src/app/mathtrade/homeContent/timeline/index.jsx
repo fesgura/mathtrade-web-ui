@@ -46,7 +46,7 @@ const Timeline = () => {
   }, [milestones]);
 
   return (
-    <div className="md:py-8">
+    <div className="py-4">
       <h4 className="font-bold md:text-center text-xl mb-3 md:pl-0 pl-2">
         <I18N id="timeline.header" />
       </h4>

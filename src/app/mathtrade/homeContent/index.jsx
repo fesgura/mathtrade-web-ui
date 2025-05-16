@@ -41,8 +41,8 @@ const HomeContent = () => {
       {mathtrade && Object.keys(mathtrade).length > 0 ? (
         <>
           <Pills />
-          <Referral />
           <Timeline />
+          <Referral />
         </>
       ) : (
         <CountdownMathtrade />
