@@ -20,6 +20,15 @@ export const extractBGGdataFromElement = (data) => {
     link,
   } = bggElement;
 
+  /*
+   data > items > item > link > [{
+      "type": "boardgamecompilation",
+      "id": "822",
+      "value": "Carcassonne",
+      "inbound": "true"
+    },]
+    */
+
   // NAMES *******************************************************
 
   const namesComp = (() => {
