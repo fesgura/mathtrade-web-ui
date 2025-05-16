@@ -1,5 +1,5 @@
 import { linksToHelp } from "@/config/linksToHelp";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import posterSrc from "@/img/video-poster.jpg";
 import Image from "next/image";
 import Icon from "@/components/icon";
@@ -43,7 +43,7 @@ const Videohelp = () => {
         </div>
       )}
       <div className="pt-4 sm:flex items-center gap-5 justify-center text-center">
-        <a
+        {/* <a
           href={linksToHelp.bgg}
           target="_blank"
           className="flex items-center justify-center gap-1 text-sky-700 hover:text-sky-500 underline"
@@ -53,8 +53,10 @@ const Videohelp = () => {
             <Icon type="bgg" />
             <Icon type="external-link" />
           </div>
-        </a>
+        </a> 
         <div className="text-gray-500 sm:block hidden">/</div>
+        */}
+
         <a
           href={linksToHelp.telegram}
           target="_blank"
