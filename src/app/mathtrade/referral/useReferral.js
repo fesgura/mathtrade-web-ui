@@ -1,8 +1,12 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useContext } from "react";
 import useFetch from "@/hooks/useFetch";
-import { REFERRAL_LIMIT } from "@/config/referral";
+import { PageContext } from "@/context/page";
 
 const useReferral = () => {
+  /* PAGE CONTEXT */
+  const { referrer, referring_limit } = useContext(PageContext);
+  /* endPAGE CONTEXT */
+
   const [code, setCode] = useState("");
   const [referred, setReferred] = useState("");
 
@@ -72,9 +76,11 @@ const useReferral = () => {
     code,
     url,
     referralsCount: referralList.length,
-    disabled: referralList.length >= REFERRAL_LIMIT,
+    disabled: referralList.length >= referring_limit,
     isLoaded,
     referralList,
+    referring_limit,
+    referrer,
   };
 };
 export default useReferral;
