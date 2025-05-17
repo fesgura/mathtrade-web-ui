@@ -7,6 +7,7 @@ export const TagContext = createContext({
   tag: null,
   showingBans: false,
   wantGroup: null,
+  isSameBGGId: false,
 });
 
 export const TagContextProvider = ({ children }) => {

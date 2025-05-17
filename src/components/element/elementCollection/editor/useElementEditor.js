@@ -116,6 +116,7 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
               weight_votes: null,
               year_published: null,
               game_thumbnail: "",
+              contain_ids: "",
             },
       versions: BGGinfo ? BGGinfo.versions : [],
     };
@@ -217,6 +218,7 @@ const useElementEditor = ({ newBGGinfo, toggleEditingMode }) => {
       "game_thumbnail",
       "year_published",
       "box_size",
+      "contain_ids",
     ],
     //
     versions: dataComplete.versions,

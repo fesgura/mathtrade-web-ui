@@ -23,7 +23,7 @@ export const ItemContext = createContext({
 
 export const ItemContextProvider = ({ itemRaw, children }) => {
   /* PAGE CONTEXT **********************************************/
-  const { myWants, myItemsInMT_forWants /*, userId*/ } =
+  const { myWants /* myItemsInMT_forWants , userId*/ } =
     useContext(PageContext);
   /* end PAGE CONTEXT */
 
@@ -72,32 +72,35 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
       comments: commentsCount,
       ban_id,
       reported,
+      matched_bgg_id,
     } = itemLoaded;
 
     const isCombo = elements?.length > 1;
 
-    const isSameBGGId = (() => {
-      let isFoundedBGGId = false;
+    // const isSameBGGId = (() => {
+    //   let isFoundedBGGId = false;
 
-      if (owner) {
-        return false;
-      }
+    //   if (owner) {
+    //     return false;
+    //   }
 
-      const bggIdList = elements.map(({ element }) => {
-        return `${element?.game?.bgg_id}`;
-      });
+    //   const bggIdList = elements.map(({ element }) => {
+    //     return `${element?.game?.bgg_id}`;
+    //   });
 
-      myItemsInMT_forWants.forEach(({ elements }) => {
-        elements.forEach(({ element }) => {
-          const bggId = `${element?.game?.bgg_id}`;
-          if (bggIdList.includes(bggId)) {
-            isFoundedBGGId = true;
-          }
-        });
-      });
+    //   myItemsInMT_forWants.forEach(({ elements }) => {
+    //     elements.forEach(({ element }) => {
+    //       const bggId = `${element?.game?.bgg_id}`;
+    //       if (bggIdList.includes(bggId)) {
+    //         isFoundedBGGId = true;
+    //       }
+    //     });
+    //   });
 
-      return isFoundedBGGId;
-    })();
+    //   return isFoundedBGGId;
+    // })();
+
+    const isSameBGGId = owner ? false : matched_bgg_id && matched_bgg_id > 0;
 
     return {
       id,
@@ -119,7 +122,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
       },
       isSameBGGId,
     };
-  }, [itemLoaded, myItemsInMT_forWants]);
+  }, [itemLoaded]);
 
   /* end ITEM ***************************/
 

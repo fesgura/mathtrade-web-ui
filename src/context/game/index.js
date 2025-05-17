@@ -35,9 +35,12 @@ export const GameContextProvider = ({ gameRaw, children }) => {
       ban_id,
       type,
       value,
+      matched_bgg_id,
     } = gameRaw;
 
     const notGame = type === 3 || bgg_id === 23953 || bgg_id < 0;
+
+    const isSameBGGId = notGame ? false : matched_bgg_id && matched_bgg_id > 0;
 
     return {
       bgg_id,
@@ -53,6 +56,7 @@ export const GameContextProvider = ({ gameRaw, children }) => {
       ban_id,
       notGame,
       value,
+      isSameBGGId,
     };
   }, [gameRaw]);
 

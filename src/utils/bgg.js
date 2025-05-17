@@ -17,7 +17,17 @@ export const extractBGGdataFromElement = (data) => {
     poll,
     statistics,
     yearpublished,
+    link,
   } = bggElement;
+
+  /*
+   data > items > item > link > [{
+      "type": "boardgamecompilation",
+      "id": "822",
+      "value": "Carcassonne",
+      "inbound": "true"
+    },]
+    */
 
   // NAMES *******************************************************
 
@@ -45,6 +55,22 @@ export const extractBGGdataFromElement = (data) => {
     boardgame: 1,
     boardgameexpansion: 2,
   };
+
+  // CONTAINS *******************************************************
+  const contain_ids = (() => {
+    // const list = [`${bgg_id}`]
+
+    if (!link || link.length === 0) {
+      return `${bgg_id}`;
+    }
+
+    const list = link
+      .filter(({ type }) => type === "boardgamecompilation")
+      .map(({ id }) => id);
+
+    return [`${bgg_id}`].concat(list).join(",");
+  })();
+  // end CONTAINS *******************************************************
 
   // POLL *******************************************************
   // Dependency
@@ -254,6 +280,7 @@ export const extractBGGdataFromElement = (data) => {
       ...dependencyPoll,
       ...stats,
       ...players,
+      contain_ids,
     },
     versions,
   };

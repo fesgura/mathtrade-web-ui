@@ -22,7 +22,7 @@ export const WantGroupContext = createContext({
 // contextType = item, game, tag
 export const WantGroupContextProvider = ({ contextType, children }) => {
   /* PAGE CONTEXT **********************************************/
-  const { userId, myItemsInMT_forWants } = useContext(PageContext);
+  const { userId /*, myItemsInMT_forWants*/ } = useContext(PageContext);
   /* end PAGE CONTEXT */
 
   /* ITEM CONTEXT **********************************************/
@@ -83,39 +83,50 @@ export const WantGroupContextProvider = ({ contextType, children }) => {
   }, [item, game, userId]);
 
   const isSameBGGId = useMemo(() => {
-    let isFoundedBGGId = false;
+    // let isFoundedBGGId = false;
 
-    let bggIdList = [];
-    if (contextType === "game") {
-      bggIdList = [`${game?.bgg_id}`];
+    // let bggIdList = [];
+    // if (contextType === "game") {
+    //   bggIdList = [`${game?.bgg_id}`];
+    // }
+
+    // if (contextType === "item") {
+    //   item?.elements.forEach(({ element }) => {
+    //     const bggId = `${element?.game?.bgg_id}`;
+    //     bggIdList.push(bggId);
+    //   });
+    // }
+
+    // if (contextType === "tag") {
+    //   tag?.itemsComplete?.forEach(({ elements }) => {
+    //     elements.forEach(({ bgg_id }) => {
+    //       bggIdList.push(`${bgg_id}`);
+    //     });
+    //   });
+    // }
+
+    // myItemsInMT_forWants.forEach(({ elements }) => {
+    //   elements.forEach(({ element }) => {
+    //     const bggId = `${element?.game?.bgg_id}`;
+    //     if (bggIdList.includes(bggId)) {
+    //       isFoundedBGGId = true;
+    //     }
+    //   });
+    // });
+
+    switch (contextType) {
+      case "game":
+        return game?.isSameBGGId;
+      case "item":
+        return item?.isSameBGGId;
+      // case "tag":
+      //   return tag?.isSameBGGId;
+      default:
+        return false;
     }
 
-    if (contextType === "item") {
-      item?.elements.forEach(({ element }) => {
-        const bggId = `${element?.game?.bgg_id}`;
-        bggIdList.push(bggId);
-      });
-    }
-
-    if (contextType === "tag") {
-      tag?.itemsComplete?.forEach(({ elements }) => {
-        elements.forEach(({ bgg_id }) => {
-          bggIdList.push(`${bgg_id}`);
-        });
-      });
-    }
-
-    myItemsInMT_forWants.forEach(({ elements }) => {
-      elements.forEach(({ element }) => {
-        const bggId = `${element?.game?.bgg_id}`;
-        if (bggIdList.includes(bggId)) {
-          isFoundedBGGId = true;
-        }
-      });
-    });
-
-    return isFoundedBGGId;
-  }, [contextType, game, item, tag, myItemsInMT_forWants]);
+    // return isFoundedBGGId;
+  }, [contextType, game, item]);
 
   return (
     <WantGroupContext.Provider
