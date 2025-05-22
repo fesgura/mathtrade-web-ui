@@ -35,7 +35,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
       className={clsx(
         "bg-gray-900 h-full  rounded-lg mx-auto lg:p-3 p-2 transition-opacity relative",
         {
-          "opacity-30": showAsIgnored,
+          "opacity-30 pointer-events-none": showAsIgnored,
         }
       )}
     >
