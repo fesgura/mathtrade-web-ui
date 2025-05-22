@@ -68,7 +68,7 @@ const MyGroupsInItemUI = ({ className }) => {
             {groupsToAdd.map((group) => {
               return (
                 <div className="p-1" key={group.id}>
-                  <GroupBadge group={group} onAdd={onAdd} />
+                  <GroupBadge group={group} onAdd={onAdd} canIEdit={canIEdit} />
                 </div>
               );
             })}
