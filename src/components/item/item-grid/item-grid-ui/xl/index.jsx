@@ -21,7 +21,7 @@ const ItemXL = ({ onToggleExpanse, hideWant, hideTags, onChangeValue }) => {
   return (
     <div
       className={clsx("relative transition-opacity pb-5", {
-        "opacity-30": showAsIgnored,
+        "opacity-30 pointer-events-none": showAsIgnored,
       })}
     >
       <div className="pt-2 px-3 pb-3">

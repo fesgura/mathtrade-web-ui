@@ -35,7 +35,7 @@ const GameGridXL = ({ onToggleExpanse }) => {
         className={clsx(
           "bg-gray-900 w-full mx-auto p-2 pr-9 relative transition-opacity rounded-t-lg",
           {
-            "opacity-30": showAsIgnored,
+            "opacity-30  pointer-events-none": showAsIgnored,
           }
         )}
       >

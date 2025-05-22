@@ -18,7 +18,7 @@ const ItemMD = ({ onToggleExpanse }) => {
       className={clsx(
         "flex flex-col justify-between h-full p-2 pb-3 transition-opacity",
         {
-          "opacity-30": showAsIgnored,
+          "opacity-30 pointer-events-none": showAsIgnored,
         }
       )}
     >
