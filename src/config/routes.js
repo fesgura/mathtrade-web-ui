@@ -95,4 +95,9 @@ export const PRIVATE_ROUTES = {
     path: privateRoot + "/faqs",
     enabled: "always",
   },
+  MEMELOGY: {
+    title: "memelogy",
+    path: privateRoot + "/memelogy",
+    enabled: "always",
+  },
 };

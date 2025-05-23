@@ -13,6 +13,7 @@ import TimelineButton from "./timeline";
 import HelpButton from "./helpButton";
 import AdvCompromise from "./advCompromise";
 import Wrapper from "../wrapper";
+import LinkButton from "./link";
 
 const Header = () => {
   /* PAGE CONTEXT **********************************************/
@@ -58,6 +59,9 @@ const Header = () => {
                     <CartButton />
                   </div>
                 ) : null}
+                <div className="main-header_col">
+                  <LinkButton name="MEMELOGY" />
+                </div>
                 <div className="main-header_col">
                   <HelpButton />
                 </div>
