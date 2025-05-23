@@ -12,8 +12,6 @@ const useMyGroupsSidebar = () => {
   const updateFilters = useOptions((state) => state.updateFilters);
   /* end FILTER OPTIONS *********************************************/
 
-  console.log(filters_myoffer);
-
   const selectGroup = useCallback(
     (groupId) => {
       updateFilters({ groupId, keyword: undefined }, "myoffer");

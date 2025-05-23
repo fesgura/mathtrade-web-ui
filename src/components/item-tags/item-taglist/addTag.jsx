@@ -23,8 +23,8 @@ const AddTag = ({ updateTag, options, itemId, loading }) => {
         <I18N id="itemList.Tags.AddTag" />
       </button>
       {visible && !loading ? (
-        <div className="absolute bottom-[112%] bg-white  shadow-[0_4px_16px_rgba(0,0,0,0.4)] min-w-full rounded-md animate-fadeup">
-          <div className="absolute bottom-[-16px] left-[50%] ml-[-8px] w-0 border-8 border-t-white border-l-transparent border-r-transparent border-b-transparent" />
+        <div className="absolute top-[112%] z-50 bg-white  shadow-[0_4px_16px_rgba(0,0,0,0.4)] min-w-full rounded-md animate-fadeup">
+          <div className="absolute top-[-16px]  left-[50%] ml-[-8px] w-0 border-8 border-b-white border-l-transparent border-r-transparent border-t-transparent" />
           <div className="p-2 overflow-y-auto">
             {options.map((tag) => {
               const { id, color, name, items } = tag;
