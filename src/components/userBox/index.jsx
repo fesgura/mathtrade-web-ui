@@ -29,8 +29,6 @@ const UserBox = ({ userForce, avatarWidth = 24, toLeft, toCenter }) => {
     return loc[0] ? loc[0]?.name : "";
   }, [locations, user]);
 
-  console.log(user);
-
   return (
     <div
       className={clsx("flex items-center gap-1", {
