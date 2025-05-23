@@ -20,12 +20,16 @@ const UserBox = ({ userForce, avatarWidth = 24, toLeft, toCenter }) => {
     if (!locations || !locations.length) {
       return "";
     }
+
+    const locId = user?.locationId?.id || user?.locationId || "";
     const loc = locations.filter((l) => {
-      return l.id === user.locationId;
+      return l.id === locId;
     });
 
     return loc[0] ? loc[0]?.name : "";
   }, [locations, user]);
+
+  console.log(user);
 
   return (
     <div
