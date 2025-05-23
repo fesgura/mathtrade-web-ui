@@ -26,7 +26,7 @@ const ReferredUI = () => {
   } = useReferral();
 
   return (
-    <div className="relative min-h-96">
+    <div className="relative min-h-96 px-4">
       {isLoaded && (
         <section className="max-w-2xl mx-auto pt-7 pb-12 relative">
           <h3 className="text-center pb-2 text-2xl text-balance">

@@ -56,7 +56,7 @@ export default function MathTradeLayout({ children }) {
         </div> */}
         <PageContextProvider>
           <Header />
-          <div className="relative w-full min-h-screen pt-11 pb-16">
+          <div className="relative w-full min-h-screen pt-11 pb-20">
             <a id="a-top" />
             <main className="relative py-main">{children}</main>
             <Footer />
