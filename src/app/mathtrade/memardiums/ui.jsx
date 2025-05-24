@@ -1,11 +1,13 @@
+import { useEffect, useRef, useState } from "react";
+
 import Flicking from "@egjs/flicking";
 import { EVENTS } from "@egjs/flicking";
 import "@egjs/flicking/dist/flicking.css";
-import { useEffect, useRef, useState } from "react";
+import Meme from "./meme";
 
 const list = Array.from({ length: 10 }, (_, i) => i);
 
-const MemelogyUI = () => {
+const MemelogyUI = ({ data }) => {
   const sliderNode = useRef(null);
 
   const [viewLabel, setViewLabel] = useState(true);
@@ -19,7 +21,6 @@ const MemelogyUI = () => {
       horizontal: true,
       adaptive: true,
       moveType: "freeScroll",
-      resizeOnContentsReady: true,
       interruptable: true,
       preventClickOnDrag: true,
       autoResize: true,
@@ -34,36 +35,24 @@ const MemelogyUI = () => {
       }
     });
     return () => {
-      flicking.destroy();
+      //flicking.destroy();
     };
   }, []);
 
   return (
-    <div className="p-5">
-      <div className="relative">
-        <div ref={sliderNode} className="flicking-viewport">
-          <div className="flicking-camera">
-            {list.map((item, i) => {
-              return (
-                <div className="card-panel px-2" key={item}>
-                  <div
-                    className="bg-red-500 w-96  rounded-md"
-                    style={{ height: `${30 * item + 200}px` }}
-                  >
-                    {" "}
-                    {item}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+    <div className="relative min-h-96 cursor-grab">
+      <div ref={sliderNode} className="flicking-viewport">
+        <div className="flicking-camera">
+          {data.map((meme, i) => {
+            return <Meme data={meme} key={`${meme?.title || "m"}-${i}`} />;
+          })}
         </div>
-        {viewLabel && (
-          <div className="absolute top-1/2 left-1/2 bg-white text-gray-600 w-40 font-bold p-2 rounded-full z-50 text-center -translate-x-1/2 -translate-y-1/2 uppercase shadow-md pointer-events-none">
-            ⬅️ Arrastrá ➡️
-          </div>
-        )}
       </div>
+      {viewLabel && (
+        <div className="absolute top-1/2 left-1/2 bg-white text-gray-600 w-40 font-bold p-2 rounded-full z-50 text-center -translate-x-1/2 -translate-y-1/2 uppercase shadow-md pointer-events-none">
+          ⬅️ Arrastrá ➡️
+        </div>
+      )}
     </div>
   );
 };

@@ -106,6 +106,9 @@ const endpoints = {
   // IMAGES
   POST_IMAGE: "api/users/images/",
 
+  // MEMARDIUMS
+  MEMARDIUMS: "api/news/",
+
   // COMMENTS
   GET_COMMENTS: "api/mathtrades/$[mathtradeId]/items/$[1]/comments/",
   POST_COMMENT: "api/mathtrades/$[mathtradeId]/items/$[1]/comments/",
