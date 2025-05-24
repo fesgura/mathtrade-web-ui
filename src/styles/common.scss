@@ -174,3 +174,7 @@ p {
     transform: scale(1.5);
   }
 }
+
+.flicking-viewport {
+  transition: height 500ms;
+}

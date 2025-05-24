@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@egjs/flicking": "^4.13.1",
     "@floating-ui/react": "^0.26.9",
     "@react-pdf/renderer": "^3.4.2",
     "apisauce": "3.0.1",

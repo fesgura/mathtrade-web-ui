@@ -21,7 +21,10 @@ const HelpButton = () => {
         className="relative cursor-pointer block peer  text-sm text-white hover:bg-primary/30 h-11 px-2"
         onClick={toggleMobile}
       >
-        <I18N id="help.menu" />
+        <span className="xl:inline-block hidden">
+          <I18N id="help.menu" />
+        </span>
+        <span className="xl:hidden">❔</span>
       </button>
 
       <HeadContent visibleMobile={visibleMobile} toggleMobile={toggleMobile}>

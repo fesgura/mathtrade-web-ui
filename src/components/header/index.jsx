@@ -13,7 +13,7 @@ import TimelineButton from "./timeline";
 import HelpButton from "./helpButton";
 import AdvCompromise from "./advCompromise";
 import Wrapper from "../wrapper";
-import LinkButton from "./link";
+import I18N from "@/i18n";
 
 const Header = () => {
   /* PAGE CONTEXT **********************************************/
@@ -60,7 +60,18 @@ const Header = () => {
                   </div>
                 ) : null}
                 <div className="main-header_col">
-                  <LinkButton name="MEMELOGY" />
+                  <Link
+                    href={PRIVATE_ROUTES.MEMARDIUMS.path}
+                    className="block leading-10 text-white hover:bg-primary/30 px-1 text-center transition-colors relative"
+                  >
+                    <div className="absolute top-0 right-0 font-bold text-[8px] text-white uppercase leading-none bg-red-600 p-[2px] rounded-sm sm:block hidden">
+                      <I18N id="new" />
+                    </div>
+                    <I18N id={`menu.${PRIVATE_ROUTES.MEMARDIUMS.title}.icon`} />
+                    <span className="xl:inline-block pl-1 hidden">
+                      <I18N id={`menu.${PRIVATE_ROUTES.MEMARDIUMS.title}`} />
+                    </span>
+                  </Link>
                 </div>
                 <div className="main-header_col">
                   <HelpButton />
