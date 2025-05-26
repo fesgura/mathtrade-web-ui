@@ -52,7 +52,7 @@ const WantButton = ({ contextSize }) => {
   ) : (
     <>
       {contextSize === "xl" && contextType === "game" ? <GameItemList /> : null}
-      {contextSize === "xl" ? <ItemToOfferList /> : null}
+      {canIwant && contextSize === "xl" ? <ItemToOfferList /> : null}
       {canIwant && contextSize === "xl" && wantGroup ? <BtnEditRemove /> : null}
       {canIwant && contextSize === "xl" && !wantGroup ? <BtnAdd /> : null}
       {canIwant && contextSize === "md" && wantGroup ? (
