@@ -42,11 +42,17 @@ const WantButton = ({ contextSize }) => {
           <HelpContext id="isSameBGGId" />
         </div>
       </div>
-    ) : null
+    ) : (
+      <>
+        {contextSize === "xl" && contextType === "game" ? (
+          <GameItemList />
+        ) : null}
+      </>
+    )
   ) : (
     <>
       {contextSize === "xl" && contextType === "game" ? <GameItemList /> : null}
-      {canIwant && contextSize === "xl" ? <ItemToOfferList /> : null}
+      {contextSize === "xl" ? <ItemToOfferList /> : null}
       {canIwant && contextSize === "xl" && wantGroup ? <BtnEditRemove /> : null}
       {canIwant && contextSize === "xl" && !wantGroup ? <BtnAdd /> : null}
       {canIwant && contextSize === "md" && wantGroup ? (
