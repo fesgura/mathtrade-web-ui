@@ -27,6 +27,14 @@ const RadioList = ({ name, data, onChange, options, translateOptions }) => {
           </div>
         </label>
       ))}
+      <input
+        type="radio"
+        name={n}
+        value=""
+        defaultChecked={data ? data[name] === "" : false}
+        //checked={value === option.value}
+        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 mt-1 hidden"
+      />
     </div>
   );
 };
