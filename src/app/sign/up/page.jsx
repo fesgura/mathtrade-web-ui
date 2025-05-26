@@ -141,7 +141,7 @@ const SignUpPage = () => {
                   disabled={pausedSite === "yes"}
                 />
               </InputContainer>
-              <InputContainer>
+              <InputContainer className="mb-1">
                 <Label text="form.Telegram.user" name="telegram" />
                 <Input
                   name="telegram"
@@ -151,6 +151,9 @@ const SignUpPage = () => {
                   disabled={pausedSite === "yes"}
                 />
               </InputContainer>
+              <p className="text-xs text-gray-700 text-center mb-5 text-balance">
+                <I18N id="form.Telegram.ad" />
+              </p>
             </fieldset>
             <fieldset>
               <legend className="text-center py-4 font-bold block w-full border-t border-t-gray-200">

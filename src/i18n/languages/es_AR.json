@@ -303,6 +303,7 @@
   "form.Phone.placeholder": "Ej: 541145772829",
   "form.SelectOptInstruction": "Seleccioná...",
   "form.Telegram.user": "Telegram (nombre de usuario)",
+  "form.Telegram.ad": "Te pedimos encarecidamente que <u><strong>pongas tu nombre de usuario de Telegram</strong></u> para que podamos comunicarnos de manera directa con vos.",
   "form.Telegram.user.placeholder": "Ej: julietalopez28",
   "form.Username": "Nombre de usuario",
   "form.Username.help": "Tu nombre de usuario. Lo necesitarás para poder ingresar al sistema.",

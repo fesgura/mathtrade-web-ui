@@ -83,7 +83,7 @@ export default function MyAccount() {
                   </InputContainer>
                 </div>
                 <div className="">
-                  <InputContainer>
+                  <InputContainer className="mb-1">
                     <Label text="form.Telegram.user" name="telegram" />
                     <Input
                       data={userData}
@@ -93,6 +93,9 @@ export default function MyAccount() {
                       icon="telegram"
                     />
                   </InputContainer>
+                  <p className="text-xs text-gray-700 text-center mb-5 text-balance">
+                    <I18N id="form.Telegram.ad" />
+                  </p>
                 </div>
               </div>
               <InputContainer>
