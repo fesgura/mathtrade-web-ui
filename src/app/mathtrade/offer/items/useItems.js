@@ -23,6 +23,7 @@ const useItems = () => {
 
   /* FILTERS */
   const filters = useOptions((state) => state.filters_item);
+  const updateFilters = useOptions((state) => state.updateFilters);
   /* end FILTERS */
 
   /* EXPANDED ITEM ******************************************/
@@ -45,6 +46,11 @@ const useItems = () => {
     },
     [setItems]
   );
+
+  const afterError = useCallback(() => {
+    updateFilters({ page: 1 }, "item");
+  }, [updateFilters]);
+
   const [, , loading, error] = useFetch({
     endpoint: "GET_ITEMS_LIST",
     params: filters,
@@ -52,6 +58,7 @@ const useItems = () => {
     initialState: { results: [] },
     beforeLoad,
     afterLoad,
+    afterError,
     reloadValue,
   });
   /* end FETCH */

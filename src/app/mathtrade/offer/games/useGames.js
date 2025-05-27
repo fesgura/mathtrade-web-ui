@@ -20,6 +20,7 @@ const useItems = () => {
 
   /* FILTERS */
   const filters = useOptions((state) => state.filters_game);
+  const updateFilters = useOptions((state) => state.updateFilters);
   /* end FILTERS */
 
   /* EXPANDED GAME ******************************************/
@@ -40,6 +41,11 @@ const useItems = () => {
     },
     [setGames]
   );
+
+  const afterError = useCallback(() => {
+    updateFilters({ page: 1 }, "game");
+  }, [updateFilters]);
+
   const [, , loading, error] = useFetch({
     endpoint: "GET_GAMES_LIST",
     params: filters,
@@ -47,6 +53,7 @@ const useItems = () => {
     initialState: { results: [] },
     beforeLoad,
     afterLoad,
+    afterError,
   });
   /* end FETCH */
 
