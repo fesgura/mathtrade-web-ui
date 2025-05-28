@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    PAUSED_SITE: "no",
+    PAUSED_SITE: "yes",
     //
     API_TEST_MODE: "no",
     BASE_URL_TEST: "https://mathtrade-backend.fly.dev/",
