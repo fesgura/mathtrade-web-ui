@@ -13,7 +13,7 @@ const STORE_DEFAULT = {
 };
 
 const STORAGE_NAME = "MT_ARG_STORE_MAYO_25_c";
-const OPTIONS_NAME = "MT_ARG_OPTIONS_MAYO_25_b";
+const OPTIONS_NAME = "MT_ARG_OPTIONS_MAYO_25_c";
 
 export const useOptions = create(
   persist(
