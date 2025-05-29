@@ -9,22 +9,32 @@ import I18N from "@/i18n";
 const ReferredUI = lazy(() => import("./ui"));
 
 export default function ReferralToRegister() {
-  const { isNewUser } = useContext(PageContext);
+  const { isNewUser, canI } = useContext(PageContext);
 
   return (
     <>
       <PageHeader title="title.referNewUserPage" name="referral" bgImg="5" />
       <SectionCommon>
-        {isNewUser ? (
+        {canI.sign ? (
+          <>
+            {isNewUser ? (
+              <section className=" py-12 text-center">
+                <h2 className="text-xl text-center text-balance">
+                  <I18N id="referral.newUsers" />
+                </h2>
+              </section>
+            ) : (
+              <Dynamic>
+                <ReferredUI />
+              </Dynamic>
+            )}
+          </>
+        ) : (
           <section className=" py-12 text-center">
             <h2 className="text-xl text-center text-balance">
-              <I18N id="referral.newUsers" />
+              <I18N id="referral.noSign" />
             </h2>
           </section>
-        ) : (
-          <Dynamic>
-            <ReferredUI />
-          </Dynamic>
         )}
       </SectionCommon>
     </>

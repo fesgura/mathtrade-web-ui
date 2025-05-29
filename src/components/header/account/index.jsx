@@ -7,10 +7,14 @@ import { PRIVATE_ROUTES } from "@/config/routes";
 import I18N from "@/i18n";
 import useHeaderAccount from "./useHeaderAccount";
 import HeadContent from "../head-content";
+import { useContext } from "react";
+import { PageContext } from "@/context/page";
 
 const AccountMenuButton = () => {
   const { user } = useStore((state) => state.data);
   const { show, visibleMobile, toggleMobile, signOut } = useHeaderAccount();
+
+  const { canI } = useContext(PageContext);
 
   return show ? (
     <div className="relative">
@@ -42,14 +46,16 @@ const AccountMenuButton = () => {
               <Icon type="user" />
               <I18N id="title.MyAccount" />
             </Link>
-            <Link
-              href={PRIVATE_ROUTES.REFERRAL.path}
-              className="flex items-center justify-center gap-1 leading-10 hover:bg-sky-200"
-              onClick={toggleMobile}
-            >
-              <Icon type="newUser" />
-              <I18N id="title.referNewUserPage" />
-            </Link>
+            {canI.sign && (
+              <Link
+                href={PRIVATE_ROUTES.REFERRAL.path}
+                className="flex items-center justify-center gap-1 leading-10 hover:bg-sky-200"
+                onClick={toggleMobile}
+              >
+                <Icon type="newUser" />
+                <I18N id="title.referNewUserPage" />
+              </Link>
+            )}
             <button
               href="/"
               className="block leading-10 hover:bg-danger hover:text-white w-full text-danger"

@@ -77,12 +77,15 @@ const UserTable = () => {
               <Th value="location" order={order} setOrder={setOrder}>
                 <I18N id="result.userTable.location" />
               </Th>
-              <Th value="commitment_datetime" order={order} setOrder={setOrder}>
+              <Th value="items" order={order} setOrder={setOrder}>
+                <I18N id="result.userTable.items" />
+              </Th>
+              {/* <Th value="commitment_datetime" order={order} setOrder={setOrder}>
                 <I18N id="result.userTable.commitment_datetime" />
-              </Th>
-              <Th value="commitment" order={order} setOrder={setOrder}>
+              </Th> */}
+              {/* <Th value="commitment" order={order} setOrder={setOrder}>
                 <I18N id="result.userTable.commitment" />
-              </Th>
+              </Th> */}
             </tr>
           </thead>
           <tbody className="bg-white">
@@ -93,6 +96,7 @@ const UserTable = () => {
                 first_name,
                 last_name,
                 location,
+                items,
                 commitment_datetime,
                 commitment,
               } = user;
@@ -100,11 +104,11 @@ const UserTable = () => {
                 <tr
                   key={id}
                   className={clsx(
-                    "border-b border-gray-400 transition-colors",
-                    {
-                      "bg-success/30 hover:bg-success/60": commitment,
-                      "bg-danger/30 hover:bg-danger/50": !commitment,
-                    }
+                    "border-b border-gray-400 transition-colors"
+                    // {
+                    //   "bg-success/30 hover:bg-success/60": commitment,
+                    //   "bg-danger/30 hover:bg-danger/50": !commitment,
+                    // }
                   )}
                 >
                   <td className="p-2">
@@ -114,14 +118,15 @@ const UserTable = () => {
                     </div>
                   </td>
                   <td className="p-2">{location?.name}</td>
-                  <td className="p-2">
+                  <td className="p-2">{items || "0"}</td>
+                  {/* <td className="p-2">
                     {commitment_datetime
                       ? DateIntlFormat(commitment_datetime)
                       : "-"}
-                  </td>
-                  <td className="p-2">
+                  </td> */}
+                  {/* <td className="p-2">
                     {commitment ? <I18N id="Yes" /> : <I18N id="No" />}
-                  </td>
+                  </td> */}
                 </tr>
               );
             })}

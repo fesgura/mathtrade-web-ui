@@ -60,7 +60,14 @@ const BtnQuickAdd = () => {
         return oldMyWantsCopy;
       });
 
-      const { x, y, width, height } = buttonRef.current.getBoundingClientRect();
+      const rect = buttonRef.current?.getBoundingClientRect() || {
+        x: 0,
+        y: 0,
+        width: 10,
+        height: 10,
+      };
+
+      const { x, y, width, height } = rect;
 
       const xPos = Math.round(x + 0.5 * width - 8);
       const yPos = Math.round(y + 0.5 * height - 8);

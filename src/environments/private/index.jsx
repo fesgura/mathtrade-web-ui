@@ -23,7 +23,7 @@ export const PrivateEnvironmentContext = createContext({
 });
 
 const PrivateEnvironment = ({ children }) => {
-  const { membership } = useStore((state) => state.data);
+  const { membership, user } = useStore((state) => state.data);
 
   const [enableRenderPrivateEnvironment, setEnableRenderPrivateEnvironment] =
     useState(false);
@@ -33,13 +33,17 @@ const PrivateEnvironment = ({ children }) => {
   const currentPath = usePathname();
 
   useEffect(() => {
-    if (pausedSite !== "yes") {
-      signInApi();
-      setEnableRenderPrivateEnvironment(true);
-    } else {
+    if (!user) {
       signOut();
+    } else {
+      if (pausedSite !== "yes") {
+        signInApi();
+        setEnableRenderPrivateEnvironment(true);
+      } else {
+        signOut();
+      }
     }
-  }, [signOut]);
+  }, [signOut, user]);
 
   const enableToShow = useMemo(() => {
     const enabled =

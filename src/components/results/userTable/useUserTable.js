@@ -21,15 +21,15 @@ const useUserTable = () => {
     const keyLow = normalizeString(searchValue);
 
     return listRaw.filter((user) => {
-      const { first_name, last_name } = user;
+      const { first_name, last_name, location } = user;
 
       if (keyLow === "") {
         return true;
       }
       return (
-        normalizeString(`${first_name || ""} ${last_name || ""}`).indexOf(
-          keyLow
-        ) >= 0
+        normalizeString(
+          `${first_name || ""} ${last_name || ""} ${location?.name || ""}`
+        ).indexOf(keyLow) >= 0
       );
     });
   }, [listRaw, searchValue]);
@@ -49,6 +49,9 @@ const useUserTable = () => {
           const aDate = new Date(a?.commitment_datetime);
           const bDate = new Date(b?.commitment_datetime);
           return aDate < bDate ? -1 * dir : dir;
+
+        case "items":
+          return a?.items < b?.items ? -1 * dir : dir;
 
         case "commitment":
           return a?.commitment < b?.commitment ? -1 * dir : dir;

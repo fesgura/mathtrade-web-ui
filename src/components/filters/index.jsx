@@ -35,6 +35,16 @@ const tabOpList = [
   },
 ];
 
+// const NoFilters = () => {
+//   return (
+//     <div className="p-5">
+//       <div className="p-4 text-center text-balance bg-primary/10 border border-primary rounded-lg">
+//         Los filtros están momentáneamente desactivados hasta la próxima etapa.
+//       </div>
+//     </div>
+//   );
+// };
+
 const Filters = ({ type = "item" }) => {
   const {
     enabledRender,
