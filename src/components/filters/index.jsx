@@ -35,15 +35,15 @@ const tabOpList = [
   },
 ];
 
-const NoFilters = () => {
-  return (
-    <div className="p-5">
-      <div className="p-4 text-center text-balance bg-primary/10 border border-primary rounded-lg">
-        Los filtros están momentáneamente desactivados hasta la próxima etapa.
-      </div>
-    </div>
-  );
-};
+// const NoFilters = () => {
+//   return (
+//     <div className="p-5">
+//       <div className="p-4 text-center text-balance bg-primary/10 border border-primary rounded-lg">
+//         Los filtros están momentáneamente desactivados hasta la próxima etapa.
+//       </div>
+//     </div>
+//   );
+// };
 
 const Filters = ({ type = "item" }) => {
   const {
@@ -59,7 +59,7 @@ const Filters = ({ type = "item" }) => {
 
   return (
     <>
-      {/* {type === "item" ? (
+      {type === "item" ? (
         <div className="px-5 pt-5 flex items-end border-b border-gray-300 gap-3">
           {tabOpList.map(({ value, text }) => {
             return (
@@ -73,7 +73,7 @@ const Filters = ({ type = "item" }) => {
             );
           })}
         </div>
-      ) : null} */}
+      ) : null}
 
       {tabOpSelected === 0 ? (
         <Form onSubmit={onSubmit} formatTypes={formatTypes}>
@@ -88,29 +88,26 @@ const Filters = ({ type = "item" }) => {
           >
             {enabledRender ? (
               type === "item" ? (
-                // <FiltersForItems />
-                <NoFilters />
+                <FiltersForItems />
               ) : (
                 <FiltersForGames />
               )
             ) : null}
           </div>
-          {type === "item" ? null : (
-            <div className="text-center py-4 px-5 bg-white lg:border-t lg:border-gray-300">
-              <Button block>
-                <InnerButton>
-                  <Icon type="filters" />
-                  <I18N id="btn.filter.Filter" />
-                </InnerButton>
-              </Button>
-              <button
-                className="mt-5 text-primary underline hover:text-sky-800 text-sm font-bold"
-                onClick={clearFilters}
-              >
-                <I18N id="btn.filter.Clear" />
-              </button>
-            </div>
-          )}
+          <div className="text-center py-4 px-5 bg-white lg:border-t lg:border-gray-300">
+            <Button block>
+              <InnerButton>
+                <Icon type="filters" />
+                <I18N id="btn.filter.Filter" />
+              </InnerButton>
+            </Button>
+            <button
+              className="mt-5 text-primary underline hover:text-sky-800 text-sm font-bold"
+              onClick={clearFilters}
+            >
+              <I18N id="btn.filter.Clear" />
+            </button>
+          </div>
         </Form>
       ) : null}
       {type === "item" && tabOpSelected === 1 ? (
