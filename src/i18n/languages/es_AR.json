@@ -959,6 +959,7 @@
   "btn.CommitChanges": "Comprometer mis cambios",
   "result.userTable.name": "Nombre",
   "result.userTable.location": "Ubicación",
+  "result.userTable.items": "Ejemplares",
   "result.userTable.commitment_datetime": "Fecha de compromiso",
   "result.userTable.commitment": "¿Comprometió?",
   "EarlyPay.text.1": "Debido a que en el último Math Trade <strong>no pagaste en término</strong> los gastos para el funcionamiento del mismo (y otro usuario tuvo que adelantar el dinero para cubrirlo); para este Math Trade, antes de poder <strong>comprometer</strong> tus deseos <strong>vas a tener que adelantar un monto de $ $$$</strong>.",

@@ -77,6 +77,9 @@ const UserTable = () => {
               <Th value="location" order={order} setOrder={setOrder}>
                 <I18N id="result.userTable.location" />
               </Th>
+              <Th value="items" order={order} setOrder={setOrder}>
+                <I18N id="result.userTable.items" />
+              </Th>
               <Th value="commitment_datetime" order={order} setOrder={setOrder}>
                 <I18N id="result.userTable.commitment_datetime" />
               </Th>
@@ -93,6 +96,7 @@ const UserTable = () => {
                 first_name,
                 last_name,
                 location,
+                items,
                 commitment_datetime,
                 commitment,
               } = user;
@@ -114,6 +118,7 @@ const UserTable = () => {
                     </div>
                   </td>
                   <td className="p-2">{location?.name}</td>
+                  <td className="p-2">{items || "0"}</td>
                   <td className="p-2">
                     {commitment_datetime
                       ? DateIntlFormat(commitment_datetime)
