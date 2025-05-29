@@ -69,8 +69,8 @@ const Pagination = ({ type = "item", count }) => {
       {notShowNextPage ? null : (
         <div className="pagination-c pagination-c-btn">
           <button
-            className="w-5 h-5 leading-[16px] text-center border text-xl rounded-full
-            border-solid border-gray-400 text-gray-400 hover:bg-primary hover:border-primary hover:text-white"
+            className="w-8 h-8 text-center border text-3xl rounded-full leading-[0.82]
+            bg-primary text-white hover:bg-sky-700 overflow-hidden"
             title={getI18Ntext("pagination.NextPage")}
             onClick={nextPage}
           >
