@@ -16,11 +16,17 @@ const Timeline = () => {
 
   useEffect(() => {
     const d = new Date();
-    const todayStr =
-      d.toISOString().split("T")[0] +
-      "T" +
-      d.toTimeString().split(" ")[0] +
-      "-03:00";
+    d.toLocaleDateString("es-ES");
+    // const todayStr =
+    //   d.toISOString().split("T")[0] +
+    //   "T" +
+    //   d.toTimeString().split(" ")[0] +
+    //   "-03:00";
+
+    const di = d.toLocaleDateString("en-GB").split("/").reverse().join("-");
+    const ti = d.toLocaleTimeString("en-GB");
+
+    const todayStr = di + "T" + ti + "-03:00";
 
     if (
       todayStr < milestones[milestones.length - 1].dateRaw &&
