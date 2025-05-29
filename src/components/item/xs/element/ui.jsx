@@ -3,13 +3,14 @@ import StatusBadge from "@/components/status-badge";
 import { ElementContext } from "@/context/element";
 import { useContext } from "react";
 import clsx from "clsx";
+import I18N from "@/i18n";
 
 const ElementXSUI = ({ isCombo }) => {
   const { element } = useContext(ElementContext);
 
   const { title, language, extraData } = element;
 
-  const { box_status, component_status } = extraData;
+  const { box_status, component_status, comment } = extraData;
 
   return (
     <div
@@ -48,10 +49,19 @@ const ElementXSUI = ({ isCombo }) => {
                 "text-xs max-w-40": !isCombo,
                 "text-[9px] leading-none max-w-20": isCombo,
               })}
-              data-tooltip={language}
             >
               {language}
             </div>
+            {comment && comment?.length > 0 ? (
+              <div
+                className="text-gray-400 font-bold cursor-default text-[8px] leading-none uppercase"
+                data-tooltip={comment}
+              >
+                <I18N
+                  id={`item.xs.element.description${isCombo ? ".min" : ""}`}
+                />
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
