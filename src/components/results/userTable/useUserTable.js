@@ -61,7 +61,6 @@ const useUserTable = () => {
     });
   }, [listSearched, order]);
 
-  console.log(list);
   return {
     list,
     loading,
