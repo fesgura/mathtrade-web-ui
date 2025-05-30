@@ -9,6 +9,8 @@ export const GameContext = createContext({
   showAsIgnored: false,
   setShowAsIgnored: () => {},
   //
+  setUpdatedValue: () => {},
+  //
   wantGroup: null,
 });
 
@@ -18,6 +20,7 @@ export const GameContextProvider = ({ gameRaw, children }) => {
   /* end PAGE CONTEXT */
 
   const [showAsIgnored, setShowAsIgnored] = useState(false);
+  const [updatedValue, setUpdatedValue] = useState(null);
 
   const game = useMemo(() => {
     if (!gameRaw) {
@@ -55,10 +58,10 @@ export const GameContextProvider = ({ gameRaw, children }) => {
       itemCount: items?.length || 1,
       ban_id,
       notGame,
-      value,
+      value: value || updatedValue,
       isSameBGGId,
     };
-  }, [gameRaw]);
+  }, [gameRaw, updatedValue]);
 
   const wantGroup = useMemo(() => {
     if (!myWants.length) {
@@ -80,6 +83,8 @@ export const GameContextProvider = ({ gameRaw, children }) => {
         game,
         showAsIgnored,
         setShowAsIgnored,
+        //
+        setUpdatedValue,
         //
         wantGroup,
       }}
