@@ -3,15 +3,30 @@ import { MyWantsContext } from "@/context/myWants/all";
 import { useContext } from "react";
 import I18N from "@/i18n";
 import CommitButton from "./commitButton";
+import { useOptions } from "@/store";
 
 const CommitFooter = ({ acceptNum, changeScreenViewOffer }) => {
   const { mustConfirm, isUserEarlyPay } = useContext(PageContext);
 
-  const { acceptChecksCommit, setAcceptChecksCommit } =
+  /* FILTER OPTIONS **********************************************/
+  const filters_wants = useOptions((state) => state.filters_wants);
+  /* end FILTER OPTIONS *********************************************/
+
+  const { acceptChecksCommit, setAcceptChecksCommit, isLoadedWants } =
     useContext(MyWantsContext);
 
-  if (isUserEarlyPay) {
+  if (isUserEarlyPay || !isLoadedWants) {
     return null;
+  }
+
+  if (filters_wants.keyword) {
+    return (
+      <div className="border-t-2 border-gray-300 py-10">
+        <div className="max-w-3xl mx-auto text-center text-balance">
+          <I18N id="CommitFooterVisual.clearFilter" />
+        </div>
+      </div>
+    );
   }
 
   return mustConfirm ? (
