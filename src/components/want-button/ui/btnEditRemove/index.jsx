@@ -36,6 +36,8 @@ const BtnEditRemove = () => {
     useContext(WantGroupContext);
   /* end WANTGROUP CONTEXT */
 
+  const [notSelectedGame, setNotSelectedGame] = useState(false);
+
   /* Success Alert **********************************************/
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
   useEffect(() => {
@@ -126,6 +128,13 @@ const BtnEditRemove = () => {
       params.want_ids = tag.items;
     }
 
+    if (!params.want_ids.length) {
+      setNotSelectedGame(true);
+      return;
+    }
+
+    setNotSelectedGame(false);
+
     putMyWant({ params });
   }, [
     item,
@@ -158,6 +167,11 @@ const BtnEditRemove = () => {
       {showSuccessAlert ? <SuccessAlert text="want.updated" /> : null}
       <ErrorAlert error={error} />
       <div className="w-fit mx-auto border-b pb-4 mb-2">
+        {notSelectedGame ? (
+          <div className="text-center mb-3 text-red-500">
+            <I18N id="want.notSelectedGame" />
+          </div>
+        ) : null}
         <button
           className={clsx(
             "rounded-full outline-none transition-colors inline-block w-auto bg-want text-white px-7 py-3 text-xl shadow-md",

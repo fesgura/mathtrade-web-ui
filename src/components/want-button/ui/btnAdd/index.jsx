@@ -53,6 +53,8 @@ const BtnAdd = () => {
 
   const buttonRef = useRef(null);
 
+  const [notSelectedGame, setNotSelectedGame] = useState(false);
+
   /* POST *************************************/
 
   const afterLoad = useCallback(
@@ -139,6 +141,14 @@ const BtnAdd = () => {
       params.tag = parseInt(tag.id, 10);
       params.want_ids = tag.items;
     }
+
+    if (!params.want_ids.length) {
+      setNotSelectedGame(true);
+      return;
+    }
+
+    setNotSelectedGame(false);
+
     postMyWant({ params });
   }, [
     item,
@@ -172,6 +182,11 @@ const BtnAdd = () => {
       {inOtherGroups ? (
         <div className="text-sm mb-3 text-red-500">
           <I18N id="wantEditor.IsItemInOther.item" />
+        </div>
+      ) : null}
+      {notSelectedGame ? (
+        <div className="text-center mb-3 text-red-500">
+          <I18N id="want.notSelectedGame" />
         </div>
       ) : null}
       <button
