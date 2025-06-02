@@ -39,6 +39,23 @@ const SearchForm = () => {
             }}
             className="border border-gray-400 rounded-tl-md rounded-bl-md pl-1 pr-5 text-xs focus:outline-none"
           />
+          {(filters_wants?.keyword || "").length > 0 ? (
+            <div
+              className="absolute top-1/2 right-1 translate-y-[-50%] cursor-pointer hover:opacity-70"
+              onClick={() => {
+                setValue("");
+                gotoTop();
+                updateFilters(
+                  {
+                    keyword: undefined,
+                  },
+                  "wants"
+                );
+              }}
+            >
+              <Icon />
+            </div>
+          ) : null}
         </div>
         <div>
           <button className="bg-primary border border-primary text-white rounded-tr-md rounded-br-md text-xs px-1 hover:opacity-70">
