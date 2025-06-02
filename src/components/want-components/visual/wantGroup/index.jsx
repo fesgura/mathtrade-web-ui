@@ -17,8 +17,6 @@ const WantGroupUI = ({ wantGroup }) => {
 
     const items = wants.concat(availables);
 
-    console.log(type);
-
     if (type === "item" || type === "tag") {
       game_thumbnail = items?.[0]?.elements?.[0]?.element?.thumbnail;
       return [{ thumbnail: game_thumbnail || "" }]; //[elementThumb];
