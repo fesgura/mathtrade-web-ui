@@ -2,6 +2,7 @@ import Icon from "@/components/icon";
 import I18N, { getI18Ntext } from "@/i18n";
 import useSearchBGG from "./useSearchBGG";
 import clsx from "clsx";
+import BadgeType from "@/components/badgeType";
 
 const SearchBGG = ({ setSearchResultBGG }) => {
   const {
@@ -68,19 +69,11 @@ const SearchBGG = ({ setSearchResultBGG }) => {
                       <strong>{nameComp.b}</strong>
                       {nameComp.c}
                     </div>
-                    <div
-                      className={clsx(
-                        "uppercase font-bold text-[8px] leading-none px-2 py-1 border rounded-sm",
-                        {
-                          "bg-yellow-100 border-yellow-400 text-yellow-800":
-                            expansion,
-                          "bg-purple-100 border-purple-400 text-purple-800":
-                            !expansion,
-                        }
-                      )}
-                    >
-                      <I18N id={`element-type-badge-${expansion ? 2 : 1}`} />
-                    </div>
+                    <BadgeType
+                      className="text-[9px]"
+                      type="item"
+                      subtype={expansion ? 2 : 1}
+                    />
                   </div>
                 </li>
               );

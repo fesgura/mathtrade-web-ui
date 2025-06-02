@@ -11,6 +11,7 @@ import BanButton from "@/components/ban/button";
 import clsx from "clsx";
 import WantButtonGame from "./wantButtonGame";
 import ItemNoBGG from "./itemNoBgg";
+import BadgeType from "@/components/badgeType";
 
 const GameGridMD = ({ onToggleExpanse }) => {
   /* GAME CONTEXT **********************************************/
@@ -21,7 +22,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
     bgg_id,
     title,
     titleLink,
-    type,
+    typeNum,
     thumbnail,
     year,
     items,
@@ -74,10 +75,11 @@ const GameGridMD = ({ onToggleExpanse }) => {
         </div>
         <div className="text-white flex flex-col h-full justify-between">
           <div>
-            <div className="uppercase text-[10px] font-bold opacity-70">
-              {type}
-            </div>
-
+            <BadgeType
+              className="text-[9px]"
+              type="game"
+              subtype={typeNum || 1}
+            />
             <div
               data-tooltip={getI18Ntext("Enlarge")}
               className="cursor-pointer"

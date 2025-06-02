@@ -9,10 +9,11 @@ const BadgeType = ({ type, subtype = 1, isCombo, className }) => {
         {
           "bg-orange-700 text-white": type === "game" && subtype === 1,
           "bg-lime-700 text-white": type === "game" && subtype === 2,
-          "bg-sky-300 text-sky-900 border border-sky-400":
+          "bg-sky-300/80 text-sky-900 border border-sky-400":
             type === "item" && subtype === 1,
           "bg-purple-300/80 text-purple-900 border border-purple-400":
             type === "item" && subtype === 2,
+          "bg-yellow-300 text-black border border-yellow-600": subtype === 3,
           "bg-gray-300 text-gray-900 border border-gray-500": type === "tag",
         },
         className

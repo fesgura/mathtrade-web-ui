@@ -8,12 +8,13 @@ import PhotoGallery from "@/components/photoGallery";
 import ElementWrapperInside from "../elementCollection/elementWrapperInside";
 import { ElementContext } from "@/context/element";
 import { useContext } from "react";
+import BadgeType from "@/components/badgeType";
 
 const ElementCompleteUI = () => {
   const { element } = useContext(ElementContext);
 
   const {
-    type,
+    typeNum,
     game,
     title,
     titleLink,
@@ -35,9 +36,11 @@ const ElementCompleteUI = () => {
         <div className="grow">
           <div className="border-b border-gray-300 sm:flex items-end justify-between pb-2 mb-3">
             <div className="">
-              <div className="uppercase text-[10px] font-bold text-gray-400">
-                {type}
-              </div>
+              <BadgeType
+                className="text-[9px]"
+                type="item"
+                subtype={typeNum || 1}
+              />
               <h3 className="text-lg font-bold">{title}</h3>
             </div>
           </div>

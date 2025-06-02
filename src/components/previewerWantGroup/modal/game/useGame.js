@@ -15,7 +15,7 @@ const useGame = (wantGroup) => {
 
   /* GAME CONTEXT **********************************************/
   const { game, gameRaw } = useContext(GameContext);
-  const { title, titleLink, type, thumbnail, items, itemCount } = game;
+  const { title, titleLink, type, typeNum, thumbnail, items, itemCount } = game;
   /* end GAME CONTEXT */
 
   const [groupWantList, setGroupWantList] = useState({});
@@ -151,6 +151,7 @@ const useGame = (wantGroup) => {
     title,
     titleLink,
     type,
+    typeNum,
     thumbnail,
     items,
     itemCount,

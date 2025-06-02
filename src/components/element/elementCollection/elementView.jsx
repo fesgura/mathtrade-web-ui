@@ -12,6 +12,7 @@ import BoxSize from "@/components/boxSize";
 import { ElementContext } from "@/context/element";
 import { PageContext } from "@/context/page";
 import { useContext, useMemo } from "react";
+import BadgeType from "@/components/badgeType";
 
 const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
   const { canI } = useContext(PageContext);
@@ -21,7 +22,7 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
   const { deleteElement, loading, error } = useDeleteElement(element);
 
   const {
-    type,
+    typeNum,
     game,
     title,
     titleLink,
@@ -56,9 +57,11 @@ const ElementView = ({ toggleEditingMode, insideItem, extraContent }) => {
       <div className="grow">
         <div className="border-b border-gray-300 pb-2 pr-16 mb-3">
           <div>
-            <div className="uppercase text-[10px] font-bold text-gray-400">
-              {type}
-            </div>
+            <BadgeType
+              className="text-[9px]"
+              type="item"
+              subtype={typeNum || 1}
+            />
             <h3 className="text-lg font-bold">{title}</h3>
           </div>
         </div>

@@ -10,6 +10,7 @@ import useStepSearchBGG from "./useStepSearchBGG";
 import LinkExternal from "@/components/link-external";
 import { LoadingBox } from "@/components/loading";
 import BGGlink from "@/components/bggInfo/bggLink";
+import BadgeType from "@/components/badgeType";
 
 const LabelNav = ({ selected, children, onClick }) => {
   return (
@@ -101,9 +102,11 @@ const NewElementStep2 = ({ setStep, newBGGinfo, setnewBGGinfo }) => {
 
             <div className="lg:pl-6 pl-3">
               <div className="pr-[60px]">
-                <div className="uppercase text-[10px] font-bold text-gray-400">
-                  {elementToShow.type}
-                </div>
+                <BadgeType
+                  className="text-[9px]"
+                  type="item"
+                  subtype={elementToShow.type === "Juego" ? 1 : 2}
+                />
                 <div className="flex items-center gap-2">
                   <h3 className="text-lg font-bold">{elementToShow.title}</h3>
                   <BGGlink href={elementToShow.titleLink} />
