@@ -13,34 +13,35 @@ const WantGroupUI = ({ wantGroup }) => {
   const isCombo = type === "item" && wants?.[0].elements.length > 1;
 
   const elementsThumbnails = useMemo(() => {
-    let elementThumb = [];
-    if (wants && wants.length) {
-      wants.forEach((item) => {
+    let game_thumbnail = null;
+
+    const items = wants.concat(availables);
+
+    console.log(type);
+
+    if (type === "item" || type === "tag") {
+      game_thumbnail = items?.[0]?.elements?.[0]?.element?.thumbnail;
+      return [{ thumbnail: game_thumbnail || "" }]; //[elementThumb];
+    }
+
+    const games = items
+      ?.reduce((arr, item) => {
         const { elements } = item;
-
-        elementThumb =
-          elements.filter((el) => {
-            return el.bgg_id === bgg_id;
-          })[0]?.element || elements[0]?.element;
+        return arr.concat(elements);
+      }, [])
+      ?.map(({ element }) => {
+        return element.game;
       });
+
+    if (bgg_id) {
+      game_thumbnail = games?.filter(({ bgg_id: bggId }) => {
+        return `${bggId}` === `${bgg_id}`;
+      })?.[0]?.game_thumbnail;
+    } else {
+      game_thumbnail = games?.[0]?.game_thumbnail;
     }
 
-    if (availables && availables.length) {
-      availables.forEach((item) => {
-        const { elements } = item;
-
-        elementThumb =
-          elements.filter((el) => {
-            return el.bgg_id === bgg_id;
-          })[0]?.element || elements[0]?.element;
-      });
-    }
-
-    if (type === "game" && elementThumb?.game?.game_thumbnail) {
-      return [{ thumbnail: elementThumb.game.game_thumbnail }];
-    }
-
-    return [elementThumb];
+    return [{ thumbnail: game_thumbnail || "" }]; //[elementThumb];
   }, [type, wants, availables, bgg_id]);
 
   const style = useMemo(() => {

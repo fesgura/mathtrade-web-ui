@@ -23,31 +23,34 @@ const useWantGroup = (wantGroup, itemId) => {
   const isCombo = type === "item" && wants?.[0].elements.length > 1;
 
   const elementsThumbnails = useMemo(() => {
-    if (wants && wants.length) {
-      return wants.map((item) => {
-        const { elements } = item;
+    let game_thumbnail = null;
 
-        return (
-          elements.filter((el) => {
-            return el.bgg_id === bgg_id;
-          })[0]?.element || elements[0].element
-        );
-      });
+    const items = wants.concat(availables);
+
+    if (type === "item" || type === "tag") {
+      game_thumbnail = items?.[0]?.elements?.[0]?.element?.thumbnail;
+      return [{ thumbnail: game_thumbnail || "" }]; //[elementThumb];
     }
 
-    if (availables && availables.length) {
-      return availables.map((item) => {
+    const games = items
+      ?.reduce((arr, item) => {
         const { elements } = item;
-
-        return (
-          elements.filter((el) => {
-            return el.bgg_id === bgg_id;
-          })[0].element || elements[0].element
-        );
+        return arr.concat(elements);
+      }, [])
+      ?.map(({ element }) => {
+        return element.game;
       });
+
+    if (bgg_id) {
+      game_thumbnail = games?.filter(({ bgg_id: bggId }) => {
+        return `${bggId}` === `${bgg_id}`;
+      })?.[0]?.game_thumbnail;
+    } else {
+      game_thumbnail = games?.[0]?.game_thumbnail;
     }
-    return [];
-  }, [wants, availables, bgg_id]);
+
+    return [{ thumbnail: game_thumbnail || "" }]; //[elementThumb];
+  }, [type, wants, availables, bgg_id]);
 
   const style = useMemo(() => {
     return type === "tag" ? colorTagStyles(tag?.color) : null;
