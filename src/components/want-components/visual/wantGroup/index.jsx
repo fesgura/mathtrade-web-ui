@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { colorTagStyles } from "@/utils/color";
 import I18N, { getI18Ntext } from "@/i18n";
 import ValueMini from "@/components/value/mini";
+import BadgeType from "@/components/badgeType";
 
 const WantGroupUI = ({ wantGroup }) => {
   const { name, type, game_type, tag, wants, bgg_id, value, availables } =
@@ -84,10 +85,12 @@ const WantGroupUI = ({ wantGroup }) => {
           <h4 className="text-xs font-bold sm:mb-1 cropped" title={name}>
             {`${name}${type === "tag" ? ` (${wants.length})` : ""}`}
           </h4>
-          <p className="uppercase text-[9px] font-bold opacity-50">
-            <I18N id={`cart.wantGroup.type.${type}.${game_type || 1}`} />
-            {isCombo ? ` - ${getI18Ntext("element-type-badge-0")}` : null}
-          </p>
+          <BadgeType
+            className="text-[9px]"
+            type={type}
+            subtype={game_type || 1}
+            isCombo={isCombo}
+          />
         </div>
       </div>
     </div>
