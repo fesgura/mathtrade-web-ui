@@ -1,12 +1,17 @@
 import { useCallback, useContext, useEffect, useState, useMemo } from "react";
 import { GameContext } from "@/context/game";
 import { PageContext } from "@/context/page";
+import { MyWantsContext } from "@/context/myWants/all";
 import useFetch from "@/hooks/useFetch";
 
 const useGame = (wantGroup) => {
   /* PAGE CONTEXT **********************************************/
   const { userId, setMyWants, canI, setMustConfirm } = useContext(PageContext);
   /* end PAGE CONTEXT */
+
+  /* MY WANTS CONTEXT **********************************************/
+  const { setAcceptChecksCommit } = useContext(MyWantsContext);
+  /* end MY WANTS CONTEXT */
 
   /* GAME CONTEXT **********************************************/
   const { game, gameRaw } = useContext(GameContext);
@@ -72,6 +77,10 @@ const useGame = (wantGroup) => {
     (updatedWant) => {
       setShowSuccessAlert(true);
       setMustConfirm(true);
+      setAcceptChecksCommit({
+        accept_1: false,
+        accept_2: false,
+      });
       setMyWants((oldMyWants) => {
         const oldMyWantsCopy = [...oldMyWants];
         const index = oldMyWantsCopy.findIndex((w) => w.id === updatedWant.id);
@@ -81,7 +90,7 @@ const useGame = (wantGroup) => {
         return oldMyWantsCopy;
       });
     },
-    [setMyWants, setMustConfirm]
+    [setMyWants, setMustConfirm, setAcceptChecksCommit]
   );
 
   const urlParams = useMemo(() => {

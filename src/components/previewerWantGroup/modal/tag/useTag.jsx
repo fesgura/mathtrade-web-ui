@@ -1,5 +1,6 @@
 import { useEffect, useContext, useCallback, useMemo, useState } from "react";
 import { PageContext } from "@/context/page";
+import { MyWantsContext } from "@/context/myWants/all";
 import { colorTagStyles } from "@/utils/color";
 import useFetch from "@/hooks/useFetch";
 
@@ -7,6 +8,10 @@ const useTag = (wantGroup) => {
   /* PAGE CONTEXT **********************************************/
   const { setMyWants, canI, setMustConfirm } = useContext(PageContext);
   /* end PAGE CONTEXT */
+
+  /* MY WANTS CONTEXT **********************************************/
+  const { setAcceptChecksCommit } = useContext(MyWantsContext);
+  /* end MY WANTS CONTEXT */
 
   const { title, colorStyle, items, itemIds, value } = useMemo(() => {
     const { name: title, tag, wants: items, value } = wantGroup;
@@ -58,6 +63,10 @@ const useTag = (wantGroup) => {
     (updatedWant) => {
       setMustConfirm(true);
       setShowSuccessAlert(true);
+      setAcceptChecksCommit({
+        accept_1: false,
+        accept_2: false,
+      });
 
       setMyWants((oldMyWants) => {
         const oldMyWantsCopy = [...oldMyWants];
@@ -68,7 +77,7 @@ const useTag = (wantGroup) => {
         return oldMyWantsCopy;
       });
     },
-    [setMyWants, setMustConfirm]
+    [setMyWants, setMustConfirm, setAcceptChecksCommit]
   );
 
   const urlParams = useMemo(() => {

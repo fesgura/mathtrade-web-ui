@@ -21,6 +21,7 @@ const useFooter = () => {
     deletedWantgroupIds,
     setDeletedWantgroupIds,
     isLoadedWants,
+    setAcceptChecksCommit,
   } = useContext(MyWantsContext);
   /* end MYWANTS CONTEXT **********************************************/
 
@@ -34,6 +35,10 @@ const useFooter = () => {
         setDeletedWantgroupIds({});
         setMustConfirm(true);
         setMustConfirmDate(null);
+        setAcceptChecksCommit({
+          accept_1: false,
+          accept_2: false,
+        });
       }
     },
     [
@@ -43,6 +48,7 @@ const useFooter = () => {
       setDeletedWantgroupIds,
       setMustConfirm,
       setMustConfirmDate,
+      setAcceptChecksCommit,
     ]
   );
   const [postAllChanges, , loadingPost, errorPost] = useFetch({
