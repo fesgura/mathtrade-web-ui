@@ -135,6 +135,26 @@ const useWants = () => {
   });
   // end MY USER ********************************************
 
+  // AVOID SCROLL TO END VIA Keyboard ********************************************
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.keyCode === 35) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    };
+    if (window) {
+      window.addEventListener("keydown", handleKey);
+    }
+
+    return () => {
+      if (window) {
+        window.removeEventListener("keydown", handleKey);
+      }
+    };
+  }, []);
+  // end AVOID SCROLL TO END VIA Keyboard ********************************************
+
   return {
     screenView,
     setScreenView,
