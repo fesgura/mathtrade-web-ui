@@ -120,7 +120,7 @@ const FiltersForItems = () => {
           </div>
           <RangeTwo data={data} name="value" />
         </InputContainer>
-        {/* <InputContainer>
+        <InputContainer>
           <Label text="filter.box.Status" name="status" size="sm" />
           <Select
             data={data}
@@ -139,7 +139,7 @@ const FiltersForItems = () => {
             //multiple
             size="sm"
           />
-        </InputContainer> */}
+        </InputContainer>
         <InputContainer>
           <Label text="filter.Location" name="location" size="sm" />
           <Select
