@@ -929,7 +929,7 @@
   "isSameBGGId.tag": "Ya tenés alguno de los juegos en esta etiqueta.<br/>No podés desearla.",
   "boxSizes.title": "Tamaño de caja",
   "boxSizes.description": "Cúanto mide aproximadamente la caja del juego.",
-  "boxSizes.title.noBox": "Sin caja",
+  "boxSizes.title.noBox": "No ocupa lugar",
   "boxSizes.description.noBox": "El juego viene dentro de la caja de otro juego. (Especificar en la descripción).",
   "boxSizes.title.small": "Pequeña",
   "boxSizes.description.small": "Hasta $$$ cm en su lado más largo.",
