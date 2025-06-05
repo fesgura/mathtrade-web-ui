@@ -36,6 +36,7 @@ const GameGridXL = ({ onToggleExpanse }) => {
           "bg-gray-900 w-full mx-auto p-2 pr-9 relative transition-opacity rounded-t-lg",
           {
             "opacity-30  pointer-events-none": showAsIgnored,
+            "shadow-[0_0_0_7px_rgba(255,0,0,1)]": ban_id,
           }
         )}
       >
