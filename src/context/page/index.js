@@ -85,6 +85,7 @@ export const PageContext = createContext({
   isUserEarlyPay: false,
   //
   referrer: null,
+  isReferrer: false,
   referring_limit: REFERRAL_LIMIT,
 });
 
@@ -127,6 +128,10 @@ const PageContextProvider = ({ children }) => {
   }, []);
 
   const [mathtradeUpdated, updateMathtrade] = useState({});
+
+  const isReferrer = useMemo(() => {
+    return referrer && membership && mathtradeStored;
+  }, [referrer, membership, mathtradeStored]);
 
   const mathtrade = useMemo(() => {
     return { ...mathtradeStored, ...mathtradeUpdated };
@@ -336,6 +341,7 @@ const PageContextProvider = ({ children }) => {
         isUserEarlyPay,
         //
         referrer,
+        isReferrer: true,
         referring_limit,
       }}
     >

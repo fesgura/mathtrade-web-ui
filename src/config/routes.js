@@ -69,6 +69,11 @@ export const PRIVATE_ROUTES = {
     path: privateRoot + "/statistics",
     enabled: "onlyForMembers",
   },
+  REFERRALS_AREA: {
+    title: "referrals-area",
+    path: privateRoot + "/referrals-area",
+    enabled: "onlyForMembers",
+  },
   MY_DATA: {
     title: "myData",
     path: privateRoot + "/my-data",

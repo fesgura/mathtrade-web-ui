@@ -750,6 +750,7 @@
   "title.YouHaveNotifications": "Tenés notificaciones sin leer.",
   "title.notificationsNotRead": "notificaciones sin leer",
   "title.oneNotificationNotRead": "1 notificación sin leer",
+  "title.referrals-area": "Área de Referentes",
   "btn.generateReferralCode": "Generar código",
   "unban": "Quitar de ignorados",
   "unban.UserItems": "Ignorado (¿Quitar?)",
@@ -966,8 +967,13 @@
   "result.userTable.name": "Nombre",
   "result.userTable.location": "Ubicación",
   "result.userTable.items": "Ejemplares",
-  "result.userTable.commitment_datetime": "Fecha de compromiso",
+  "result.userTable.commitment_datetime": "Fecha de<br/>compromiso",
   "result.userTable.commitment": "¿Comprometió?",
+  "result.userTable.phone": "Teléfono",
+  "result.userTable.telegram": "Telegram",
+  "result.userTable.email": "Email",
+  "result.userTable.bgg_user": "Usuario<br/>BGG",
+  "result.userTable.trades": "Nº de<br/>Intercambios",
   "EarlyPay.text.1": "Debido a que en el último Math Trade <strong>no pagaste en término</strong> los gastos para el funcionamiento del mismo (y otro usuario tuvo que adelantar el dinero para cubrirlo); para este Math Trade, antes de poder <strong>comprometer</strong> tus deseos <strong>vas a tener que adelantar un monto de $ $$$</strong>.",
   "EarlyPay.text.2": "Luego de descontar tu parte de los gastos del Math Trade, <strong>el monto restante te será devuelto</strong>.",
   "EarlyPay.text.3": "Por favor, ponete en contacto con la organización para concretar este pago.",
@@ -985,5 +991,6 @@
   "collectionFaq.answer.1": "Tu ludoteca es tu <strong>espacio personal y privado</strong>, en el que subís los juegos que te interesa ofrecer (o no) en el Math Trade.<br/>Trasciende este Math Trade, y si conservas tus juegos vas a poder ofrecerlos en Math Trades futuros.<br/><br/>Los <strong>únicos datos que te pedimos</strong> aquí son el nombre, edición, idioma y tamaño de caja.<br/>Nada más; <i>(no nos importa el estado de tus juegos, porque son tuyos y no los estás ofreciendo desde aquí)</i>.<br/><br/>Una vez que el Math Trade esté habilitado para <strong>ofrecer</strong>, vas a tener que ir a <i>\"Yo ofrezco\"</i> para ofertar tus artículos<br/><strong>Ahí sí</strong> que te vamos a pedir <strong>estados de caja y componentes, descripción, fotos,</strong> etc. y te pediremos absoluta <strong>responsabilidad</strong> sobre los datos que cargues.",
   "no-memardiums": "No hay memardiums que mostrar todavía.",
   "item.xs.element.description": "Descripción",
-  "item.xs.element.description.min": "Descr."
+  "item.xs.element.description.min": "Descr.",
+  "referral-area.usertitle": "Usuarios de $$$"
 }
