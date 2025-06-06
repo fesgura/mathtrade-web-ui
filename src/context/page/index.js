@@ -341,7 +341,7 @@ const PageContextProvider = ({ children }) => {
         isUserEarlyPay,
         //
         referrer,
-        isReferrer: true,
+        isReferrer,
         referring_limit,
       }}
     >
