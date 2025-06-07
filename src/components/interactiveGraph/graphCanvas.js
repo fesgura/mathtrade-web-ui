@@ -2,11 +2,9 @@ import dynamic from "next/dynamic";
 import { useEffect, useRef } from "react";
 
 import cytoscape from "cytoscape";
-import dagre from "cytoscape-dagre";
 import fcose from "cytoscape-fcose";
 
 cytoscape.use(fcose);
-cytoscape.use(dagre);
 
 const CytoscapeComponent = dynamic(() => import("react-cytoscapejs"), {
   ssr: false,
