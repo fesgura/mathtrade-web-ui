@@ -3,7 +3,6 @@ import { getI18Ntext } from "@/i18n";
 
 const useAsyncSelect = (options, value, onChange) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [placeholder] = useState(getI18Ntext("form.SelectOptInstruction"));
   const [displayedText, setDisplayedText] = useState("Cargando...");
   const wrapperRef = useRef(null);
 
@@ -14,7 +13,7 @@ const useAsyncSelect = (options, value, onChange) => {
       if (selectedOption) {
         setDisplayedText(selectedOption.text);
       } else {
-        setDisplayedText(placeholder);
+        setDisplayedText(getI18Ntext("form.SelectOptInstruction"));
       }
     } else {
       setDisplayedText("Cargando opciones...");
