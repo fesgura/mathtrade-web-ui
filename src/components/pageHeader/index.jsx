@@ -13,6 +13,7 @@ import img7 from "@/img/page-header/7.webp";
 import img8 from "@/img/page-header/8.webp";
 import img9 from "@/img/page-header/9.webp";
 import img10 from "@/img/page-header/10.webp";
+import img11 from "@/img/page-header/11.webp";
 
 const imgs = {
   1: {
@@ -65,6 +66,11 @@ const imgs = {
     opacity: 0.4,
     blur: 3,
   },
+  11: {
+    src: img11.src,
+    opacity: 0.6,
+    blur: 3,
+  },
 };
 
 const PageHeader = ({
@@ -92,6 +98,7 @@ const PageHeader = ({
             "from-red-500 to-purple-800": name === "myAccount",
             "from-want to-sky-700": name === "faqs",
             "from-red-600 to-purple-800": name === "referral",
+            "from-sky-600 to-purple-900": name === "chains",
           }
         )}
       >
