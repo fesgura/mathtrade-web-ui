@@ -68,7 +68,7 @@ const imgs = {
   },
   11: {
     src: img11.src,
-    opacity: 0.4,
+    opacity: 0.6,
     blur: 3,
   },
 };
@@ -98,6 +98,7 @@ const PageHeader = ({
             "from-red-500 to-purple-800": name === "myAccount",
             "from-want to-sky-700": name === "faqs",
             "from-red-600 to-purple-800": name === "referral",
+            "from-sky-600 to-purple-900": name === "chains",
           }
         )}
       >

@@ -1,14 +1,9 @@
-import dynamic from "next/dynamic";
 import { useEffect, useRef } from "react";
-
+import CytoscapeComponent from "react-cytoscapejs";
 import cytoscape from "cytoscape";
 import fcose from "cytoscape-fcose";
 
 cytoscape.use(fcose);
-
-const CytoscapeComponent = dynamic(() => import("react-cytoscapejs"), {
-  ssr: false,
-});
 
 const GraphCanvas = ({
   elements,
@@ -46,7 +41,11 @@ const GraphCanvas = ({
   }, [selectedNodeId]);
 
   if (!elements || elements.length === 0) {
-    return <p>Cargando cadenas o no hay datos para mostrar...</p>;
+    return (
+      <p className="text-xs text-gray-700 text-center mb-5 text-balance">
+        Cargando cadenas o no hay datos para mostrar...
+      </p>
+    );
   }
 
   return (
