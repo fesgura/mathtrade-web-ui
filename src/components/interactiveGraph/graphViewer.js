@@ -72,11 +72,11 @@ const GraphViewer = () => {
     {
       selector: "node",
       style: {
-        "background-color": "#0070f3",
+        "background-color": "#0B1D51",
         label: "data(label)",
         color: "#fff",
-        "text-outline-color": "#0070f3",
-        "text-outline-width": 2,
+        "text-outline-color": "#0B1D51",
+        "text-outline-width": 1,
         "font-size": "12px",
       },
     },
@@ -96,7 +96,7 @@ const GraphViewer = () => {
       selector: "node:selected",
       style: {
         "border-width": 3,
-        "border-color": "#ff4500",
+        "border-color": "#8CCDEB",
       },
     },
   ];
@@ -150,7 +150,7 @@ const GraphViewer = () => {
               style={{
                 padding: "8px 12px",
                 border: "1px solid #ddd",
-                backgroundColor: index === activeIndex ? "#0070f3" : "#fff",
+                backgroundColor: index === activeIndex ? "#8CCDEB" : "#fff",
                 color: index === activeIndex ? "#fff" : "#000",
                 borderRadius: "5px",
                 cursor: "pointer",
