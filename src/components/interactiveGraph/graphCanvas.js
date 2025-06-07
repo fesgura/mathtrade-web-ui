@@ -50,7 +50,7 @@ const GraphCanvas = ({ elements, layout, stylesheet, selectedNodeId }) => {
       stylesheet={stylesheet}
       style={{
         width: "100%",
-        height: "600px",
+        height: "100%",
         border: "1px solid #e1e1e1",
         borderRadius: "8px",
       }}
