@@ -82,7 +82,6 @@ const handleYearChange = (event) => {
         "target-arrow-color": "#ccc",
         "target-arrow-shape": "triangle",
         "curve-style": "bezier",
-        label: "a cambio de",
         "font-size": "10px",
         color: "#666",
       },
