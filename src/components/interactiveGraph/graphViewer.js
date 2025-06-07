@@ -1,16 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { AsyncSelect, Label } from "@/components/form";
 import { useIsMobile } from "@/hooks/useIsMobile";
-import MobileWarning from "./mobileWarning";
-import { Label, AsyncSelect } from "@/components/form";
 import clsx from "clsx";
+import { useEffect, useState, useMemo } from "react";
 import GraphCanvas from "./graphCanvas";
+import MobileWarning from "./mobileWarning";
 
 const AVAILABLE_YEARS = ["2023", "2024"];
 
 const GraphViewer = () => {
   const { isMobile, isInitial } = useIsMobile();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("default"); // 'default' o 'alphabetic'
   const [subgraphs, setSubgraphs] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -68,59 +70,23 @@ const GraphViewer = () => {
     ? [...activeSubgraph.nodes, ...(activeSubgraph.edges || [])]
     : [];
 
-  const layoutConfig = {
-    name: "fcose",
-    quality: "default",
-    animate: true,
-    animationDuration: 1200,
-    gravity: 100,
-    nodeRepulsion: 4500,
-    edgeElasticity: 0.45,
-    nodeSeparation: 80,
-    fit: true,
-    padding: 50,
-    numIter: 2500,
-  };
-  const canvasStyleConfig = {
-    width: "100%",
-    height: "100%",
-    border: "1px solid #e1e1e1",
-    borderRadius: "8px",
-    backgroundColor: "#fff",
-  };
+  const displayedNodes = useMemo(() => {
+    if (!activeSubgraph?.nodes) return [];
 
-  const stylesheetConfig = [
-    {
-      selector: "node",
-      style: {
-        "background-color": "#0B1D51",
-        label: "data(label)",
-        color: "#fff",
-        "text-outline-color": "#0B1D51",
-        "text-outline-width": 1,
-        "font-size": "12px",
-      },
-    },
-    {
-      selector: "edge",
-      style: {
-        width: 2,
-        "line-color": "#ccc",
-        "target-arrow-color": "#ccc",
-        "target-arrow-shape": "triangle",
-        "curve-style": "bezier",
-        "font-size": "10px",
-        color: "#666",
-      },
-    },
-    {
-      selector: "node:selected",
-      style: {
-        "border-width": 3,
-        "border-color": "#8CCDEB",
-      },
-    },
-  ];
+    let nodes = [...activeSubgraph.nodes];
+
+    if (searchTerm) {
+      nodes = nodes.filter((node) =>
+        node.data.label.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
+
+    if (sortOrder === "alphabetic") {
+      nodes.sort((a, b) => a.data.label.localeCompare(b.data.label));
+    }
+
+    return nodes;
+  }, [activeSubgraph, searchTerm, sortOrder]);
 
   if (isInitial) {
     return null;
@@ -167,12 +133,37 @@ const GraphViewer = () => {
         </div>
       ) : (
         <div className="flex gap-8 mt-4">
-          <div className="flex-none w-[250px] border border-gray-300 rounded-lg p-4 bg-white">
+          <div className="w-[250px] border border-gray-300 rounded-lg p-4 bg-white flex flex-col">
             <h4 className="font-bold mb-2">
               Juegos en esta cadena ({activeSubgraph?.nodes.length || 0})
             </h4>
+
+            <div className="mb-2">
+              <input
+                type="text"
+                placeholder="Buscar juego..."
+                className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+            <div className="mb-2">
+              <button
+                type="button"
+                className="w-full p-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm"
+                onClick={() =>
+                  setSortOrder((current) =>
+                    current === "default" ? "alphabetic" : "default"
+                  )
+                }
+              >
+                Ordenar:{" "}
+                {sortOrder === "default" ? "Por Defecto" : "Alfabético (A-Z)"}
+              </button>
+            </div>
+
             <ul className="list-none p-0 m-0 h-[600px] overflow-y-auto">
-              {activeSubgraph?.nodes.map((node) => (
+              {displayedNodes?.map((node) => (
                 <li
                   key={node.data.id}
                   onClick={() => handleNodeClick(node.data.id)}
@@ -191,10 +182,7 @@ const GraphViewer = () => {
             <GraphCanvas
               key={activeIndex}
               elements={activeGraphElements}
-              layout={layoutConfig}
-              stylesheet={stylesheetConfig}
               selectedNodeId={selectedNodeId}
-              canvasStyle={canvasStyleConfig}
             />
           </div>
         </div>
