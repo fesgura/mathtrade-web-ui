@@ -96,10 +96,22 @@ const GraphViewer = () => {
     return <MobileWarning />;
   }
 
-  return (
-    <div>
-      <div className="flex justify-start items-center gap-8 border-b border-gray-300 pb-4 mb-4">
-        <div className="max-w-96 mx-auto">
+  return isLoading ? (
+    <div className="text-center p-16">
+      <p className="text-xs text-gray-700 text-center mb-5 text-balance">
+        Cargando datos del año {selectedYear}...
+      </p>
+    </div>
+  ) : subgraphs.length === 0 ? (
+    <div className="text-center p-16">
+      <p className="text-xs text-gray-700 text-center mb-5 text-balance">
+        No se encontraron cadenas para el año {selectedYear}.
+      </p>
+    </div>
+  ) : (
+    <section className="flex gap-8">
+      <aside className="w-[250px] border border-gray-300 rounded-lg p-4 bg-white flex flex-col">
+        <div className="max-w-96 mb-4">
           <Label text="chains.selector.year" />
           <AsyncSelect
             value={selectedYear}
@@ -109,7 +121,7 @@ const GraphViewer = () => {
           />
         </div>
 
-        <div className="max-w-96 mx-auto">
+        <div className="max-w-96 mb-4">
           <Label text="chains.selector.chain" />
           <AsyncSelect
             value={activeIndex}
@@ -118,76 +130,59 @@ const GraphViewer = () => {
             disabled={isLoading || subgraphs.length === 0}
           />
         </div>
-      </div>
-      {isLoading ? (
-        <div className="text-center p-16">
-          <p className="text-xs text-gray-700 text-center mb-5 text-balance">
-            Cargando datos del año {selectedYear}...
-          </p>
-        </div>
-      ) : subgraphs.length === 0 ? (
-        <div className="text-center p-16">
-          <p className="text-xs text-gray-700 text-center mb-5 text-balance">
-            No se encontraron cadenas para el año {selectedYear}.
-          </p>
-        </div>
-      ) : (
-        <div className="flex gap-8 mt-4">
-          <div className="w-[250px] border border-gray-300 rounded-lg p-4 bg-white flex flex-col">
-            <h4 className="font-bold mb-2">
-              Juegos en esta cadena ({activeSubgraph?.nodes.length || 0})
-            </h4>
+        <header className="pt-4 border-t border-gray-300">
+          <h4 className="font-bold mb-2">
+            Juegos en esta cadena ({activeSubgraph?.nodes.length || 0})
+          </h4>
+        </header>
 
-            <div className="mb-2">
-              <input
-                type="text"
-                placeholder="Buscar juego..."
-                className="w-full p-2 border border-gray-300 rounded-md text-sm"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-            <div className="mb-2">
-              <button
-                type="button"
-                className="w-full p-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm"
-                onClick={() =>
-                  setSortOrder((current) =>
-                    current === "default" ? "alphabetic" : "default"
-                  )
-                }
-              >
-                Ordenar:{" "}
-                {sortOrder === "default" ? "Por Defecto" : "Alfabético (A-Z)"}
-              </button>
-            </div>
-
-            <ul className="list-none p-0 m-0 h-[600px] overflow-y-auto">
-              {displayedNodes?.map((node) => (
-                <li
-                  key={node.data.id}
-                  onClick={() => handleNodeClick(node.data.id)}
-                  className={clsx(
-                    "p-2 cursor-pointer border-b border-gray-100 hover:bg-gray-50 transition-colors duration-150",
-                    { "font-bold bg-blue-50": selectedNodeId === node.data.id }
-                  )}
-                >
-                  {node.data.label}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex-1">
-            <GraphCanvas
-              key={activeIndex}
-              elements={activeGraphElements}
-              selectedNodeId={selectedNodeId}
-            />
-          </div>
+        <div className="mb-2">
+          <input
+            type="text"
+            placeholder="Buscar juego..."
+            className="w-full p-2 border border-gray-300 rounded-md text-sm"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
-      )}
-    </div>
+        <div className="mb-2">
+          <button
+            type="button"
+            className="w-full p-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md text-sm"
+            onClick={() =>
+              setSortOrder((current) =>
+                current === "default" ? "alphabetic" : "default"
+              )
+            }
+          >
+            Ordenar:{" "}
+            {sortOrder === "default" ? "Por Defecto" : "Alfabético (A-Z)"}
+          </button>
+        </div>
+
+        <ul className="list-none p-0 m-0 h-[600px] overflow-y-auto">
+          {displayedNodes?.map((node) => (
+            <li
+              key={node.data.id}
+              onClick={() => handleNodeClick(node.data.id)}
+              className={clsx(
+                "p-2 cursor-pointer border-b border-gray-100 hover:bg-gray-50 transition-colors duration-150",
+                { "font-bold bg-blue-50": selectedNodeId === node.data.id }
+              )}
+            >
+              {node.data.label}
+            </li>
+          ))}
+        </ul>
+      </aside>
+      <article className="flex-1">
+        <GraphCanvas
+          key={activeIndex}
+          elements={activeGraphElements}
+          selectedNodeId={selectedNodeId}
+        />
+      </article>
+    </section>
   );
 };
 
