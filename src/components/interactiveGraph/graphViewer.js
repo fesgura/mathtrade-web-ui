@@ -3,34 +3,33 @@
 import { useEffect, useState } from "react";
 import GraphCanvas from "./graphCanvas";
 
-const AVAILABLE_YEARS = ['2023', '2024']; 
+const AVAILABLE_YEARS = ["2023", "2024"];
 
 const GraphViewer = () => {
   const [subgraphs, setSubgraphs] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(AVAILABLE_YEARS[0]); 
+  const [selectedYear, setSelectedYear] = useState(AVAILABLE_YEARS[0]);
 
-useEffect(() => {
-  setIsLoading(true);
+  useEffect(() => {
+    setIsLoading(true);
 
-  const dataUrl = `/data/graph_results_${selectedYear}.json`;
+    const dataUrl = `/data/graph_results_${selectedYear}.json`;
 
-  fetch(dataUrl)
-    .then(res => res.json())
-    .then(data => {
-      setSubgraphs(data.subgraphs || []); 
-      setIsLoading(false);
-    })
-    .catch(error => {
-      setSubgraphs([]); 
-      setIsLoading(false);
-    });
-    
-}, [selectedYear]);
+    fetch(dataUrl)
+      .then((res) => res.json())
+      .then((data) => {
+        setSubgraphs(data.subgraphs || []);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setSubgraphs([]);
+        setIsLoading(false);
+      });
+  }, [selectedYear]);
 
-const handleYearChange = (event) => {
+  const handleYearChange = (event) => {
     setActiveIndex(0);
     setSelectedNodeId(null);
     setSelectedYear(event.target.value);
@@ -60,6 +59,13 @@ const handleYearChange = (event) => {
     fit: true,
     padding: 50,
     numIter: 2500,
+  };
+  const canvasStyleConfig = {
+    width: "100%",
+    height: "100%",
+    border: "1px solid #e1e1e1",
+    borderRadius: "8px",
+    backgroundColor: "#fff",
   };
 
   const stylesheetConfig = [
@@ -97,12 +103,29 @@ const handleYearChange = (event) => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #ccc', paddingBottom: '1rem', marginBottom: '1rem' }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          borderBottom: "1px solid #ccc",
+          paddingBottom: "1rem",
+          marginBottom: "1rem",
+        }}
+      >
         <div>
-          <label htmlFor="year-select" style={{ marginRight: '10px' }}>Seleccionar Año:</label>
-          <select id="year-select" value={selectedYear} onChange={handleYearChange}>
-            {AVAILABLE_YEARS.map(year => (
-              <option key={year} value={year}>{year}</option>
+          <label htmlFor="year-select" style={{ marginRight: "10px" }}>
+            Seleccionar Año:
+          </label>
+          <select
+            id="year-select"
+            value={selectedYear}
+            onChange={handleYearChange}
+          >
+            {AVAILABLE_YEARS.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
             ))}
           </select>
         </div>
@@ -150,6 +173,7 @@ const handleYearChange = (event) => {
             border: "1px solid #ccc",
             borderRadius: "8px",
             padding: "1rem",
+            backgroundColor: "#fff",
           }}
         >
           <h4>Juegos en esta cadena ({activeSubgraph?.nodes.length || 0})</h4>
@@ -189,6 +213,7 @@ const handleYearChange = (event) => {
             layout={layoutConfig}
             stylesheet={stylesheetConfig}
             selectedNodeId={selectedNodeId}
+            canvasStyle={canvasStyleConfig}
           />
         </div>
       </div>

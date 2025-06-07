@@ -10,7 +10,13 @@ const CytoscapeComponent = dynamic(() => import("react-cytoscapejs"), {
   ssr: false,
 });
 
-const GraphCanvas = ({ elements, layout, stylesheet, selectedNodeId }) => {
+const GraphCanvas = ({
+  elements,
+  layout,
+  stylesheet,
+  selectedNodeId,
+  canvasStyle,
+}) => {
   const cyRef = useRef(null);
 
   useEffect(() => {
@@ -48,12 +54,7 @@ const GraphCanvas = ({ elements, layout, stylesheet, selectedNodeId }) => {
       elements={elements}
       layout={layout}
       stylesheet={stylesheet}
-      style={{
-        width: "100%",
-        height: "100%",
-        border: "1px solid #e1e1e1",
-        borderRadius: "8px",
-      }}
+      style={canvasStyle}
       cy={(cy) => {
         cyRef.current = cy;
       }}
