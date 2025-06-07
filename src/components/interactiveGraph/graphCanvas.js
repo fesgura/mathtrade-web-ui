@@ -40,7 +40,7 @@ const GraphCanvas = ({ elements, layout, stylesheet, selectedNodeId }) => {
   }, [selectedNodeId]);
 
   if (!elements || elements.length === 0) {
-    return <p>Cargando grafo o no hay datos para mostrar...</p>;
+    return <p>Cargando cadenas o no hay datos para mostrar...</p>;
   }
 
   return (
