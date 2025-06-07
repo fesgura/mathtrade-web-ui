@@ -105,4 +105,9 @@ export const PRIVATE_ROUTES = {
     path: privateRoot + "/memardiums",
     enabled: "always",
   },
+  INTERACTIVE_GRAPH: {
+    title: "interactiveGraph",
+    path: privateRoot + "/graph",
+    enabled: "always",
+  },
 };

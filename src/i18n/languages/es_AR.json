@@ -323,7 +323,6 @@
   "group.dragger.help": "Arrastrá y soltá el ejemplar sobre un grupo de la izquierda para agregar a un grupo.",
   "help.menu": "Ayuda",
   "help.title": "Ayuda",
-
   "helpcontext.title.isSameBGGId": "¿Por qué no puedo desearlo?",
   "helpcontext.answer.isSameBGGId": "No podés desear un juego que ya tenés y que estás ofreciendo.<br/>No importa si buscas cambiar el idioma, la edición, etc.<br/>Desde la organización ya no permitimos este tipo de intercambios.",
   "helpcontext.title.howToOfferCollection": "¿Cómo ofrezco mis artículos?",
@@ -342,10 +341,8 @@
   "helpcontext.answer.whatIsTag": "Las <strong>etiquetas</strong> te permiten agrupar ejemplares. Estos agrupamientos pueden ser <strong>deseados</strong> luego como grupo completo, ya sea porque deseas <strong>todos</strong> o <strong>solo uno</strong> de esos ejemplares.",
   "helpcontext.title.whatIsThis.ban.item": "¿Qué es esto?",
   "helpcontext.answer.whatIsThis.ban.item": "Puedes <strong>ocultar</strong> del listado aquellos ejemplares que <strong>no te interesan</strong>, y que definitivamente no vas a desear.",
-
   "helpcontext.title.wantAble": "¿Qué es esto?",
   "helpcontext.answer.wantAble": "No podés desear juegos con el mismo <i>bgg_id</i> que los que vos ofreces.<br/>Una buena idea es directamente <strong>ocultar esos juegos</strong>.",
-
   "helpcontext.title.whatIsThis.ban.game": "¿Qué es esto?",
   "helpcontext.answer.whatIsThis.ban.game": "Podés <strong>ocultar</strong> del listado aquellos juegos que <strong>no te interesan</strong>, y que definitivamente no vas a desear.",
   "helpcontext.title.whatIsThis.value.item": "¿Qué es esto?",
@@ -371,6 +368,7 @@
   "inviteToMathTrade.btn.Participate": "Participar",
   "inviteToMathTrade.lead": "Ya arrancó el Math Trade Argentina",
   "inviteToMathTrade.lead2": "Inscribite aquí para participar:",
+  "interactiveGraph.text1": "Visualizá las cadenas de intercambio que se formaron en el Math Trade de 2023",
   "itemComments.editor.label.add": "Agregar comentario",
   "itemComments.editor.label.add.adv": "caracteres",
   "itemComments.editor.label.placeholder": "Escribe aquí...",
@@ -495,6 +493,8 @@
   "menu.wants": "Mis deseos",
   "menu.memardiums.icon": "🤡",
   "menu.memardiums": "Memardiums",
+  "menu.interactiveGraph": "Explorador de Cadenas",
+  "menu.interactiveGraph.icon": "🪢",
   "minimize": "Minimizar",
   "modal.title.ChangePassword": "Cambiar contraseña",
   "myCollection.cantOffer.isInMT": "Este ejemplar está ofrecido, y no puede modificarse.",
@@ -728,6 +728,7 @@
   "timeline.want": "Hasta aquí podés agregar los deseos para tus intercambios <strong>y comprometerlos</strong>",
   "title.Faqs": "Preguntas frecuentes",
   "title.memardiums": "🤡 Memardiums",
+  "title.interactiveGraph": "Explorador de Cadenas",
   "title.referNewUser": "Referir nuevo participante",
   "title.referNewUserPage": "Invitá a un nuevo participante",
   "title.GameList": "Juegos",
@@ -815,10 +816,8 @@
   "result.table.member_from": "Recibo de",
   "hideWanted.items.label": "Ocultar ejemplares ya deseados",
   "hideWanted.games.label": "Ocultar juegos ya deseados",
-
   "wantAble.items.label": "Ocultar ejemplares que <strong>no puedo desear</strong>.",
   "wantAble.games.label": "Ocultar juegos que <strong>no puedo desear</strong>.",
-
   "link.mtBGG": "Hilo del Math Trade en la BGG",
   "link.mtTelegram": "Canal del Math Trade en Telegram",
   "quickhelp.title": "Ayuda rápida",

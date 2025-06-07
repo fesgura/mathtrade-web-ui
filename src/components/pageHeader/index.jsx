@@ -13,6 +13,7 @@ import img7 from "@/img/page-header/7.webp";
 import img8 from "@/img/page-header/8.webp";
 import img9 from "@/img/page-header/9.webp";
 import img10 from "@/img/page-header/10.webp";
+import img11 from "@/img/page-header/11.webp";
 
 const imgs = {
   1: {
@@ -62,6 +63,11 @@ const imgs = {
   },
   10: {
     src: img10.src,
+    opacity: 0.4,
+    blur: 3,
+  },
+  11: {
+    src: img11.src,
     opacity: 0.4,
     blur: 3,
   },
