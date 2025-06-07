@@ -12,7 +12,7 @@ const CytoscapeComponent = dynamic(() => import("react-cytoscapejs"), {
   ssr: false,
 });
 
-const InteractiveGraph = ({ elements, layout, stylesheet, selectedNodeId }) => {
+const GraphCanvas = ({ elements, layout, stylesheet, selectedNodeId }) => {
   const cyRef = useRef(null);
 
   useEffect(() => {
@@ -63,4 +63,4 @@ const InteractiveGraph = ({ elements, layout, stylesheet, selectedNodeId }) => {
   );
 };
 
-export default InteractiveGraph;
+export default GraphCanvas;

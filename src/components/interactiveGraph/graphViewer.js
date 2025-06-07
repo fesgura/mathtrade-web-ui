@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import InteractiveGraph from "./interactiveGraph";
+import GraphCanvas from "./graphCanvas";
 
 const GraphViewer = () => {
   const [subgraphs, setSubgraphs] = useState([]);
@@ -155,7 +155,7 @@ const GraphViewer = () => {
         </div>
 
         <div className="graph-container" style={{ flex: "1" }}>
-          <InteractiveGraph
+          <GraphCanvas
             key={activeIndex}
             elements={activeGraphElements}
             layout={layoutConfig}
