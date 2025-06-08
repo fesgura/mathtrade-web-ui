@@ -10,15 +10,28 @@ import MobileWarning from "./mobileWarning";
 
 const AVAILABLE_YEARS = ["2024", "2023"];
 
+const INITIAL_CHAINS = {
+  2024: 4,
+  2023: 7,
+};
+
+const yearOptions = AVAILABLE_YEARS.map((year) => ({
+  value: year,
+  text: year,
+}));
+
 const GraphViewer = () => {
   const { isMobile, isInitial } = useIsMobile();
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("default"); // 'default' o 'alphabetic'
   const [subgraphs, setSubgraphs] = useState([]);
-  const [activeIndex, setActiveIndex] = useState(0);
+
   const [isLoading, setIsLoading] = useState(true);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
   const [selectedYear, setSelectedYear] = useState(AVAILABLE_YEARS[0]);
+  const [activeIndex, setActiveIndex] = useState(
+    INITIAL_CHAINS[AVAILABLE_YEARS[0]]
+  );
 
   useEffect(() => {
     if (isMobile) {
@@ -42,7 +55,7 @@ const GraphViewer = () => {
   }, [selectedYear, isMobile]);
 
   const handleYearChange = (newYear) => {
-    setActiveIndex(0);
+    setActiveIndex(INITIAL_CHAINS[newYear]);
     setSelectedNodeId(null);
     setSelectedYear(newYear);
   };
@@ -55,11 +68,6 @@ const GraphViewer = () => {
   const handleNodeClick = (nodeId) => {
     setSelectedNodeId(nodeId);
   };
-
-  const yearOptions = AVAILABLE_YEARS.map((year) => ({
-    value: year,
-    text: year,
-  }));
 
   const chainOptions = subgraphs.map((sg, index) => ({
     value: index,
