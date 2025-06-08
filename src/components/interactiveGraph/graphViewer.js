@@ -1,13 +1,14 @@
 "use client";
 
 import { AsyncSelect, Label } from "@/components/form";
+import { LoadingBox } from "@/components/loading";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import clsx from "clsx";
 import { useEffect, useState, useMemo } from "react";
 import GraphCanvas from "./graphCanvas";
 import MobileWarning from "./mobileWarning";
 
-const AVAILABLE_YEARS = ["2023", "2024"];
+const AVAILABLE_YEARS = ["2024", "2023"];
 
 const GraphViewer = () => {
   const { isMobile, isInitial } = useIsMobile();
@@ -98,9 +99,7 @@ const GraphViewer = () => {
 
   return isLoading ? (
     <div className="text-center p-16">
-      <p className="text-xs text-gray-700 text-center mb-5 text-balance">
-        Cargando datos del año {selectedYear}...
-      </p>
+      <LoadingBox loading={isLoading} />
     </div>
   ) : subgraphs.length === 0 ? (
     <div className="text-center p-16">

@@ -43,18 +43,19 @@ cytoscape.use(fcose);
       selector: "edge",
       style: {
         width: 2,
-        "line-color": "#ccc",
-        "target-arrow-color": "#ccc",
+        "line-color": "#0B1D51",
+        "target-arrow-color": "#0B1D51",
         "target-arrow-shape": "triangle",
         "curve-style": "bezier",
         "font-size": "10px",
-        color: "#666",
+        color: "#0B1D51",
+        "arrow-scale": 2
       },
     },
     {
       selector: "node:selected",
       style: {
-        "border-width": 3,
+        "background-color": "#8CCDEB",
         "border-color": "#8CCDEB",
       },
     },
@@ -81,7 +82,7 @@ const GraphCanvas = ({
       cy.animate(
         {
           center: { eles: nodeToSelect },
-          zoom: 2,
+          zoom: 1.5,
         },
         {
           duration: 500,
@@ -109,6 +110,8 @@ const GraphCanvas = ({
       cy={(cy) => {
         cyRef.current = cy;
       }}
+      wheelSensitivity={1.8}
+      maxZoom={3}
     />
   );
 };
