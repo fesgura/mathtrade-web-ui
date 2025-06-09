@@ -33,7 +33,13 @@ const Doc = ({ pages }) => {
         return (
           <Page size="A4" dpi={dpi} style={styles.page} key={k}>
             <View style={styles.section}>
-              {src ? <ImagePDF src={src} alt="" style={styles.image} /> : null}
+              {src ? (
+                <ImagePDF
+                  src={src}
+                  alt=""
+                  // style={styles.image}
+                />
+              ) : null}
             </View>
           </Page>
         );

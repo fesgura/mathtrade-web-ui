@@ -17,7 +17,7 @@ export default function ResultsUI() {
     useResults();
 
   return (
-    <div className="relative">
+    <div className="relative p-1">
       <PillsResults />
       <div className="max-w-[1100px] mx-auto mb-5 pt-3">
         <Downloads accordion />
@@ -56,7 +56,7 @@ export default function ResultsUI() {
           <PaymentInfo />
         </Dynamic>
       )}
-      <LoadingBox loading={loading} />
+      <LoadingBox loading={loading} transparent />
     </div>
   );
 }

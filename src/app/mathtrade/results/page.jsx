@@ -2,16 +2,18 @@
 import PageHeader from "@/components/pageHeader";
 import I18N from "@/i18n";
 import { ResultsContextProvider } from "@/context/results";
-import { useContext, useEffect, useState, lazy } from "react";
+import { useContext, useEffect, useState, lazy, useMemo } from "react";
 import { PageContext } from "@/context/page";
 import Tabs from "@/components/tabs";
-//import UserTable from "@/components/results/userTable";
 import Dynamic from "@/components/dynamic";
 import Wrapper from "@/components/wrapper";
 import SectionCommon from "@/components/sections/common";
 
 const ResultsUI = lazy(() => import("./ui"));
 const UserTable = lazy(() => import("@/components/results/userTable"));
+// const GraphViewer = lazy(() =>
+//   import("@/components/interactiveGraph/graphViewer")
+// );
 
 export default function Results() {
   /* PAGE CONTEXT **********************************************/
@@ -23,6 +25,14 @@ export default function Results() {
   /* end PAGE CONTEXT */
 
   const [tabView, setTabView] = useState(0);
+
+  const tablist = useMemo(() => {
+    const list = ["results.tab.results", "results.tab.users"];
+    if (canI.results) {
+      list.push("results.tab.chains");
+    }
+    return list;
+  }, [canI.results]);
 
   return (
     <>
@@ -43,11 +53,7 @@ export default function Results() {
       />
       <Wrapper className="mb-1">
         <div className="bg-colorMain rounded-t-main shadow-main">
-          <Tabs
-            list={["results.tab.results", "results.tab.users"]}
-            value={tabView}
-            onChange={setTabView}
-          />
+          <Tabs list={tablist} value={tabView} onChange={setTabView} />
         </div>
       </Wrapper>
       <SectionCommon topNotRounded>
@@ -69,11 +75,21 @@ export default function Results() {
               </div>
             )}
           </div>
-        ) : (
+        ) : tabView === 1 ? (
           <div className="md:px-8 px-3 py-8">
             <Dynamic>
               <UserTable />
             </Dynamic>
+          </div>
+        ) : (
+          <div className="min-h-96 relative p-6">
+            <div className="text-center text-balance text-2xl py-5">
+              Muy pronto podrás ver aquí las cadenas de intercambios para este
+              Math Trade 2025.
+            </div>
+            {/* <Dynamic>
+              <GraphViewer years={["2025"]} />
+            </Dynamic> */}
           </div>
         )}
       </SectionCommon>

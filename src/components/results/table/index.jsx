@@ -4,6 +4,7 @@ import clsx from "clsx";
 import Search from "./search";
 import useTable from "./useTable";
 import Row from "./row";
+import XlsButtonBtn from "@/components/xlsButton";
 
 const Th = ({ value, order, setOrder, children, className }) => {
   const dir = order.indexOf("-") === 0 ? -1 : 1;
@@ -37,12 +38,16 @@ const Th = ({ value, order, setOrder, children, className }) => {
 };
 
 const ResultsTable = () => {
-  const { list, order, setOrder, searchValue, setSearchValue } = useTable();
+  const { list, listJSON, order, setOrder, searchValue, setSearchValue } =
+    useTable();
+
+  console.log(listJSON);
 
   return (
     <div className="relative min-h-[260px]">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 py-3">
         <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+        <XlsButtonBtn filename="cambios" data={listJSON} />
       </div>
       <div className="max-w-7xl mx-auto  overflow-x-auto">
         <div className="min-w-[1000px]">

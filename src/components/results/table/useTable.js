@@ -19,27 +19,27 @@ const useTable = () => {
     const keyLow = normalizeString(searchValue);
 
     return MathTradeResults.filter((result) => {
-      const { item_to, member_to, item_from, member_from } = result;
+      const { item_to, membership_to, item_from, membership_from } = result;
 
       if (keyLow === "") {
         return true;
       }
       return (
         normalizeString(
-          `${item_to?.title || ""} ${member_to?.first_name || ""} ${
-            member_to?.last_name || ""
-          } ${member_to?.location?.name || ""} ${item_from?.title || ""} ${
-            member_from?.first_name || ""
-          } ${member_from?.last_name || ""} ${
-            member_from?.location?.name || ""
+          `${item_to?.title || ""} ${membership_to?.first_name || ""} ${
+            membership_to?.last_name || ""
+          } ${membership_to?.location?.name || ""} ${item_from?.title || ""} ${
+            membership_from?.first_name || ""
+          } ${membership_from?.last_name || ""} ${
+            membership_from?.location?.name || ""
           }`
         ).indexOf(keyLow) >= 0
       );
     });
   }, [MathTradeResults, searchValue]);
 
-  const list = useMemo(() => {
-    return MathTradeResultsUnordered.sort((a, b) => {
+  const { list, listJSON } = useMemo(() => {
+    const listOrdered = MathTradeResultsUnordered.sort((a, b) => {
       const dir = order.indexOf("-") === 0 ? -1 : 1;
 
       const orderKey = order.replace("-", "");
@@ -47,24 +47,38 @@ const useTable = () => {
       switch (orderKey) {
         case "item_to":
           return a?.item_to?.title < b?.item_to?.title ? -1 * dir : dir;
-        case "member_to":
-          return a?.member_to?.last_name < b?.member_to?.last_name
+        case "membership_to":
+          return a?.membership_to?.last_name < b?.membership_to?.last_name
             ? -1 * dir
             : dir;
         case "item_from":
           return a?.item_from?.title < b?.item_from?.title ? -1 * dir : dir;
-        case "member_from":
-          return a?.member_from?.last_name < b?.member_from?.last_name
+        case "membership_from":
+          return a?.membership_from?.last_name < b?.membership_from?.last_name
             ? -1 * dir
             : dir;
         default:
           return 1; //a.last_name < b.last_name ? -1 * dir : dir;
       }
     });
+
+    const listJSONdata = listOrdered.map((res) => {
+      const { item_to, membership_to, item_from, membership_from } = res;
+
+      return {
+        "Ejemplar que ENTREGO": item_to?.title,
+        "ENTREGO a": `${membership_to?.first_name} ${membership_to?.last_name} (${membership_to?.location?.name})`,
+        "Ejemplar que RECIBO": item_from?.title,
+        "Recibo de": `${membership_from?.first_name} ${membership_from?.last_name} (${membership_from?.location?.name})`,
+      };
+    });
+
+    return { list: listOrdered, listJSON: listJSONdata };
   }, [MathTradeResultsUnordered, order]);
 
   return {
     list,
+    listJSON,
     order,
     setOrder,
     searchValue,

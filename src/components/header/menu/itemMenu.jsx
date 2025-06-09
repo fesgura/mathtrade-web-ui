@@ -7,7 +7,7 @@ import { useMemo } from "react";
 import InnerButton from "@/components/button/inner-button";
 
 const IconInMenu = ({ icon }) => {
-  return icon ? <Icon type={icon} className="text-xl" /> : null;
+  return icon ? <span>{icon}</span> : null;
 };
 
 const ItemMenu = ({ menuItem, currentPath, setVisibleMobileMenu }) => {
@@ -109,6 +109,8 @@ const ItemMenu = ({ menuItem, currentPath, setVisibleMobileMenu }) => {
         "bg-sky-700/70": active === "myData",
         "leading-9 py-1 px-5": !special,
         "bg-sky-400/50 py-1 px-5 mx-1 rounded-full text-xs font-bold": special,
+        // "bg-teal-600/60 rounded-xl":
+        //   name === "results" && (!active || active !== "results"),
       })}
       onClick={() => {
         setVisibleMobileMenu(false);

@@ -655,6 +655,7 @@
   "results.pill.user.commit": "Participantes comprometieron sus cambios<br/>y participan del Math Trade",
   "results.tab.results": "Resultados",
   "results.tab.users": "Usuarios participantes",
+  "results.tab.chains": "Cadenas",
   "results.screen.grid": "Tabla",
   "results.screen.visual": "Visual",
   "results.screen.printTags": "Etiquetas <span class=\"md:inline hidden\">para imprimir</span>",
