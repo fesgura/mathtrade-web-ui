@@ -6,7 +6,7 @@ import { ElementContext } from "@/context/element";
 
 const useRemoveElement = () => {
   /* PAGE CONTEXT **************************** */
-  const { forceReloadPage } = useContext(PageContext);
+  const { forceReloadPage, canI } = useContext(PageContext);
   /* end PAGE CONTEXT **************************** */
 
   /* ITEM CONTEXT **************************** */
@@ -38,7 +38,7 @@ const useRemoveElement = () => {
   }, [deleteElement, element]);
 
   return {
-    canRemoveElement: (item?.elements?.length || 1) > 1,
+    canRemoveElement: (item?.elements?.length || 1) > 1 && canI.offer,
     removeElement,
     loading,
   };

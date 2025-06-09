@@ -3,6 +3,7 @@ import { PageContext } from "@/context/page";
 import { getI18Ntext } from "@/i18n";
 import { useOptions } from "@/store";
 import { dependencyOptions } from "@/config/dependencyTypes";
+import { banOptionsValues } from "@/config/banOptions";
 
 const useFilterGames = () => {
   /* PAGE CONTEXT **********************************************/
@@ -24,9 +25,13 @@ const useFilterGames = () => {
     }
 
     if (!filters.ignored) {
-      filtersProc.ignored = "no";
+      if (typeof filters.ignored === "boolean") {
+        filtersProc.ignored = banOptionsValues.false_value;
+      } else {
+        filtersProc.ignored = banOptionsValues.undefined_value;
+      }
     } else {
-      filtersProc.ignored = "yes";
+      filtersProc.ignored = banOptionsValues.true_value;
     }
 
     const { wanted } = filtersProc;
@@ -50,12 +55,16 @@ const useFilterGames = () => {
     const o = {
       banOptions: [
         {
-          value: "no",
+          value: banOptionsValues.undefined_value,
           text: getI18Ntext("ban.btn-filter.hide.item"),
         },
         {
-          value: "yes",
+          value: banOptionsValues.true_value,
           text: getI18Ntext("ban.btn-filter.show.item"),
+        },
+        {
+          value: banOptionsValues.false_value,
+          text: getI18Ntext("ban.btn-filter.all.item"),
         },
       ],
     };

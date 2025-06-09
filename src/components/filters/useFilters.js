@@ -2,6 +2,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { useStore, useOptions } from "@/store";
 import { SidebarContext } from "@/context/sidebar";
 import { GotoTopContext } from "@/context/goto-top";
+import { banOptionsValues } from "@/config/banOptions";
 
 const useFilters = ({ type }) => {
   const { hideSidebar } = useContext(SidebarContext);
@@ -78,12 +79,17 @@ const useFilters = ({ type }) => {
         newFilters.user = -1 * parseInt(user?.id || 999, 10);
       }
 
-      if (newFilters.ignored === "yes") {
-        newFilters.ignored = true;
+      switch (newFilters.ignored) {
+        case banOptionsValues.true_value:
+          newFilters.ignored = true;
+          break;
+        case banOptionsValues.false_value:
+          newFilters.ignored = false;
+          break;
+        default:
+          newFilters.ignored = undefined;
       }
-      if (newFilters.ignored === "no") {
-        newFilters.ignored = undefined;
-      }
+
       newFilters.wanted = hide_wanted === "true" ? false : undefined;
 
       newFilters.wantable = wantable === "true" ? "true" : undefined;

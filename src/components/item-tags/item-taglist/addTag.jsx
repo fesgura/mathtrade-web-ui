@@ -16,7 +16,7 @@ const AddTag = ({ updateTag, options, itemId, loading }) => {
         onBlur={() => {
           setTimeout(() => {
             setVisible(false);
-          }, 150);
+          }, 1300);
         }}
       >
         <Icon type={loading ? "loading" : "plus"} />{" "}

@@ -11,13 +11,15 @@ import InnerButton from "@/components/button/inner-button";
 import Icon from "@/components/icon";
 import clsx from "clsx";
 import { LoadingBox } from "@/components/loading";
+import BadgeType from "@/components/badgeType";
 
 const GameUI = ({ wantGroup }) => {
   const {
     gameRaw,
     title,
     titleLink,
-    type,
+
+    typeNum,
     thumbnail,
     items,
     itemCount,
@@ -60,9 +62,11 @@ const GameUI = ({ wantGroup }) => {
           </div>
           <div className="text-white grow">
             <div>
-              <div className="uppercase text-[10px] font-bold opacity-70">
-                {type}
-              </div>
+              <BadgeType
+                className="text-[9px]"
+                type="game"
+                subtype={typeNum || 1}
+              />
               <h3 className="text-lg font-bold cropped">{title}</h3>
               <div className="py-3">
                 <div className="py-3 border-b border-t border-gray-700">

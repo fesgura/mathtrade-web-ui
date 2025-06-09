@@ -47,6 +47,7 @@ export const ElementContextProvider = ({ elementRaw, children }) => {
     return {
       id,
       type,
+      typeNum: game?.type || 1,
       game,
       thumbnail,
       title,

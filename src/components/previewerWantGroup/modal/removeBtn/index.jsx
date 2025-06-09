@@ -12,7 +12,8 @@ import { LoadingBox } from "@/components/loading";
 const RemoveButton = ({ wantGroup }) => {
   const [showDelete, setShowDelete] = useState(false);
 
-  const { setDeletedWantgroupIds } = useContext(MyWantsContext);
+  const { setDeletedWantgroupIds, setAcceptChecksCommit } =
+    useContext(MyWantsContext);
 
   /* PAGE CONTEXT **********************************************/
   const { setMyWants, tooglePreviewWantGroupModal, setMustConfirm } =
@@ -25,6 +26,10 @@ const RemoveButton = ({ wantGroup }) => {
 
   const afterLoad = useCallback(() => {
     setMustConfirm(true);
+    setAcceptChecksCommit({
+      accept_1: false,
+      accept_2: false,
+    });
     setMyWants((oldMyWants) => {
       const oldMyWantsCopy = [...oldMyWants].filter((w) => w.id !== id);
       return oldMyWantsCopy;
@@ -44,6 +49,7 @@ const RemoveButton = ({ wantGroup }) => {
     tooglePreviewWantGroupModal,
     setDeletedWantgroupIds,
     setMustConfirm,
+    setAcceptChecksCommit,
   ]);
 
   const urlParams = useMemo(() => {

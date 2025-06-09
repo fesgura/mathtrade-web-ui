@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { colorTagStyles } from "@/utils/color";
 import I18N, { getI18Ntext } from "@/i18n";
 import ValueMini from "@/components/value/mini";
+import BadgeType from "@/components/badgeType";
 
 const WantGroupUI = ({ wantGroup }) => {
   const { name, type, game_type, tag, wants, bgg_id, value, availables } =
@@ -13,34 +14,33 @@ const WantGroupUI = ({ wantGroup }) => {
   const isCombo = type === "item" && wants?.[0].elements.length > 1;
 
   const elementsThumbnails = useMemo(() => {
-    let elementThumb = [];
-    if (wants && wants.length) {
-      wants.forEach((item) => {
+    let game_thumbnail = null;
+
+    const items = wants.concat(availables);
+
+    if (type === "item" || type === "tag") {
+      game_thumbnail = items?.[0]?.elements?.[0]?.element?.thumbnail;
+      return [{ thumbnail: game_thumbnail || "" }]; //[elementThumb];
+    }
+
+    const games = items
+      ?.reduce((arr, item) => {
         const { elements } = item;
-
-        elementThumb =
-          elements.filter((el) => {
-            return el.bgg_id === bgg_id;
-          })[0]?.element || elements[0]?.element;
+        return arr.concat(elements);
+      }, [])
+      ?.map(({ element }) => {
+        return element.game;
       });
+
+    if (bgg_id) {
+      game_thumbnail = games?.filter(({ bgg_id: bggId }) => {
+        return `${bggId}` === `${bgg_id}`;
+      })?.[0]?.game_thumbnail;
+    } else {
+      game_thumbnail = games?.[0]?.game_thumbnail;
     }
 
-    if (availables && availables.length) {
-      availables.forEach((item) => {
-        const { elements } = item;
-
-        elementThumb =
-          elements.filter((el) => {
-            return el.bgg_id === bgg_id;
-          })[0]?.element || elements[0]?.element;
-      });
-    }
-
-    if (type === "game" && elementThumb?.game?.game_thumbnail) {
-      return [{ thumbnail: elementThumb.game.game_thumbnail }];
-    }
-
-    return [elementThumb];
+    return [{ thumbnail: game_thumbnail || "" }]; //[elementThumb];
   }, [type, wants, availables, bgg_id]);
 
   const style = useMemo(() => {
@@ -85,10 +85,12 @@ const WantGroupUI = ({ wantGroup }) => {
           <h4 className="text-xs font-bold sm:mb-1 cropped" title={name}>
             {`${name}${type === "tag" ? ` (${wants.length})` : ""}`}
           </h4>
-          <p className="uppercase text-[9px] font-bold opacity-50">
-            <I18N id={`cart.wantGroup.type.${type}.${game_type || 1}`} />
-            {isCombo ? ` - ${getI18Ntext("element-type-badge-0")}` : null}
-          </p>
+          <BadgeType
+            className="text-[9px]"
+            type={type}
+            subtype={game_type || 1}
+            isCombo={isCombo}
+          />
         </div>
       </div>
     </div>

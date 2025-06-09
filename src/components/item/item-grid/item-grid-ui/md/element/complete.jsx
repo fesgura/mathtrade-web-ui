@@ -5,12 +5,14 @@ import I18N, { getI18Ntext } from "@/i18n";
 import StatusBadge from "@/components/status-badge";
 import { ElementContext } from "@/context/element";
 import { useContext } from "react";
+import BadgeType from "@/components/badgeType";
 
 const ElementComplete = ({ onToggleExpanse }) => {
   const { element } = useContext(ElementContext);
 
   const {
-    type,
+    //type,
+    typeNum,
     title,
     titleLink,
     publisher,
@@ -39,9 +41,11 @@ const ElementComplete = ({ onToggleExpanse }) => {
       </div>
       <div className="p-3">
         <div className="flex items-center justify-between gap-2 mb-1">
-          <div className="uppercase text-[10px] font-bold text-gray-400">
-            {type}
-          </div>
+          <BadgeType
+            className="text-[9px]"
+            type="item"
+            subtype={typeNum || 1}
+          />
           {titleLink ? (
             <LinkExternal
               href={titleLink}

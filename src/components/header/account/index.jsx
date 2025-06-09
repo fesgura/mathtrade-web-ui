@@ -14,7 +14,7 @@ const AccountMenuButton = () => {
   const { user } = useStore((state) => state.data);
   const { show, visibleMobile, toggleMobile, signOut } = useHeaderAccount();
 
-  const { canI } = useContext(PageContext);
+  const { canI, isReferrer } = useContext(PageContext);
 
   return show ? (
     <div className="relative">
@@ -46,6 +46,15 @@ const AccountMenuButton = () => {
               <Icon type="user" />
               <I18N id="title.MyAccount" />
             </Link>
+            {isReferrer ? (
+              <Link
+                href={PRIVATE_ROUTES.REFERRALS_AREA.path}
+                className="flex items-center justify-center gap-1 leading-10 hover:bg-sky-200 font-bold"
+                onClick={toggleMobile}
+              >
+                <I18N id="title.referrals-area" />
+              </Link>
+            ) : null}
             {canI.sign && (
               <Link
                 href={PRIVATE_ROUTES.REFERRAL.path}

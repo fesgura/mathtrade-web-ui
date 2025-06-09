@@ -6,10 +6,11 @@ import clsx from "clsx";
 import ErrorAlert from "@/components/errorAlert";
 import { LoadingBox } from "@/components/loading";
 import { DateIntlFormat } from "@/utils/dateUtils";
+import XlsButtonBtn from "@/components/xlsButton";
 
 const Search = ({ searchValue, setSearchValue }) => {
   return (
-    <div className="flex items-center gap-1 mb-4">
+    <div className="flex items-center gap-1">
       <label className="block text-sm font-bold text-gray-500 whitespace-nowrap">
         <I18N id="filter.Search" />
       </label>
@@ -58,16 +59,28 @@ const Th = ({ value, order, setOrder, children, className }) => {
 };
 
 const UserTable = () => {
-  const { list, loading, error, order, setOrder, searchValue, setSearchValue } =
-    useUserTable();
+  const {
+    list,
+    listJSON,
+    loading,
+    error,
+    order,
+    setOrder,
+    searchValue,
+    setSearchValue,
+  } = useUserTable();
 
   return (
-    <div className="relative min-h-[260px]">
-      <div className="max-w-7xl mx-auto">
-        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+    <div className="relative min-h-[260px] pt-2">
+      <div className="pb-3  mb-5 flex flex-wrap gap-5 items-center justify-end border-b border-gray-400">
+        <div className="flex flex-wrap items-center gap-3">
+          <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+          <XlsButtonBtn filename="participantes" data={listJSON} />
+        </div>
       </div>
+
       <ErrorAlert error={error} />
-      <div className="max-w-7xl mx-auto  overflow-x-auto shadow-lg">
+      <div className="overflow-x-auto shadow-lg">
         <table className="w-full  border border-gray-100 shadow border-spacing-0 text-sm ">
           <thead className="border-b bg-gray-100 border-gray-300 align-top text-left">
             <tr>
@@ -80,12 +93,15 @@ const UserTable = () => {
               <Th value="items" order={order} setOrder={setOrder}>
                 <I18N id="result.userTable.items" />
               </Th>
-              {/* <Th value="commitment_datetime" order={order} setOrder={setOrder}>
+              <Th value="trades" order={order} setOrder={setOrder}>
+                <I18N id="result.userTable.trades" />
+              </Th>
+              <Th value="commitment_datetime" order={order} setOrder={setOrder}>
                 <I18N id="result.userTable.commitment_datetime" />
-              </Th> */}
-              {/* <Th value="commitment" order={order} setOrder={setOrder}>
+              </Th>
+              <Th value="commitment" order={order} setOrder={setOrder}>
                 <I18N id="result.userTable.commitment" />
-              </Th> */}
+              </Th>
             </tr>
           </thead>
           <tbody className="bg-white">
@@ -97,6 +113,7 @@ const UserTable = () => {
                 last_name,
                 location,
                 items,
+                trades,
                 commitment_datetime,
                 commitment,
               } = user;
@@ -104,29 +121,32 @@ const UserTable = () => {
                 <tr
                   key={id}
                   className={clsx(
-                    "border-b border-gray-400 transition-colors"
-                    // {
-                    //   "bg-success/30 hover:bg-success/60": commitment,
-                    //   "bg-danger/30 hover:bg-danger/50": !commitment,
-                    // }
+                    "border-b border-gray-400 transition-colors",
+                    {
+                      "bg-success/30 hover:bg-success/60": commitment,
+                      "bg-danger/30 hover:bg-danger/50": !commitment,
+                    }
                   )}
                 >
                   <td className="p-2">
                     <div className="flex items-center gap-2">
-                      <Avatar avatar={avatar} />
+                      <div>
+                        <Avatar avatar={avatar} />
+                      </div>
                       <div className="">{`${first_name} ${last_name}`}</div>
                     </div>
                   </td>
                   <td className="p-2">{location?.name}</td>
                   <td className="p-2">{items || "0"}</td>
-                  {/* <td className="p-2">
+                  <td className="p-2">{trades || "0"}</td>
+                  <td className="p-2">
                     {commitment_datetime
                       ? DateIntlFormat(commitment_datetime)
                       : "-"}
-                  </td> */}
-                  {/* <td className="p-2">
+                  </td>
+                  <td className="p-2">
                     {commitment ? <I18N id="Yes" /> : <I18N id="No" />}
-                  </td> */}
+                  </td>
                 </tr>
               );
             })}

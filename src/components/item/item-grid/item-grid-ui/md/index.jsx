@@ -19,6 +19,7 @@ const ItemMD = ({ onToggleExpanse }) => {
         "flex flex-col justify-between h-full p-2 pb-3 transition-opacity",
         {
           "opacity-30 pointer-events-none": showAsIgnored,
+          "shadow-[0_0_0_7px_rgba(255,0,0,1)]": ban_id,
         }
       )}
     >

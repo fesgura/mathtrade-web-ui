@@ -37,9 +37,11 @@ const ItemTagHeaderUI = () => {
             <div className="pt-3">
               <Value size="tag" type="tag" onChange={onChangeValue} />
             </div>
-            <div>
-              <WantButton contextSize="md" />
-            </div>
+            {tag?.items?.length > 0 ? (
+              <div>
+                <WantButton contextSize="md" />
+              </div>
+            ) : null}
             {canIEdit ? (
               <div>
                 <button

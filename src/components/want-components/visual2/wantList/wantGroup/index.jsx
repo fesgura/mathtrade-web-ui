@@ -5,6 +5,7 @@ import Icon from "@/components/icon";
 import I18N, { getI18Ntext } from "@/i18n";
 import ValueMini from "@/components/value/mini";
 import useWantGroup from "./useWantGroup";
+import BadgeType from "@/components/badgeType";
 
 const WantGroupVisual2 = ({ wantGroup, itemId, toAdd }) => {
   const {
@@ -69,10 +70,12 @@ const WantGroupVisual2 = ({ wantGroup, itemId, toAdd }) => {
           >
             {name}
           </h4>
-          <p className="uppercase text-[9px] font-bold opacity-50">
-            <I18N id={`cart.wantGroup.type.${type}.${game_type || 1}`} />
-            {isCombo ? ` - ${getI18Ntext("element-type-badge-0")}` : null}
-          </p>
+          <BadgeType
+            className="text-[9px]"
+            type={type}
+            subtype={game_type || 1}
+            isCombo={isCombo}
+          />
         </div>
       </div>
       {!toAdd && canIwant ? (
