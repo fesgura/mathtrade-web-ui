@@ -41,8 +41,6 @@ const ResultsTable = () => {
   const { list, listJSON, order, setOrder, searchValue, setSearchValue } =
     useTable();
 
-  console.log(listJSON);
-
   return (
     <div className="relative min-h-[260px]">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 py-3">
