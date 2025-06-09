@@ -220,7 +220,7 @@ const UserTable = () => {
                     )}
                   </td>
                   <td className="p-2">{items || "0"}</td>
-                  <td className="p-2">{trades || "-"}</td>
+                  <td className="p-2">{trades || "0"}</td>
                   <td className="p-2">
                     {commitment_datetime
                       ? DateIntlFormat(commitment_datetime)

@@ -72,12 +72,15 @@ const UserTable = () => {
 
   return (
     <div className="relative min-h-[260px] pt-2">
-      <div className="max-w-7xl mx-auto flex flex-wrap items-center gap-3 justify-between  mb-4">
-        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-        <XlsButtonBtn filename="participantes" data={listJSON} />
+      <div className="pb-3  mb-5 flex flex-wrap gap-5 items-center justify-end border-b border-gray-400">
+        <div className="flex flex-wrap items-center gap-3">
+          <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+          <XlsButtonBtn filename="participantes" data={listJSON} />
+        </div>
       </div>
+
       <ErrorAlert error={error} />
-      <div className="max-w-7xl mx-auto  overflow-x-auto shadow-lg">
+      <div className="overflow-x-auto shadow-lg">
         <table className="w-full  border border-gray-100 shadow border-spacing-0 text-sm ">
           <thead className="border-b bg-gray-100 border-gray-300 align-top text-left">
             <tr>
@@ -89,6 +92,9 @@ const UserTable = () => {
               </Th>
               <Th value="items" order={order} setOrder={setOrder}>
                 <I18N id="result.userTable.items" />
+              </Th>
+              <Th value="trades" order={order} setOrder={setOrder}>
+                <I18N id="result.userTable.trades" />
               </Th>
               <Th value="commitment_datetime" order={order} setOrder={setOrder}>
                 <I18N id="result.userTable.commitment_datetime" />
@@ -107,6 +113,7 @@ const UserTable = () => {
                 last_name,
                 location,
                 items,
+                trades,
                 commitment_datetime,
                 commitment,
               } = user;
@@ -131,6 +138,7 @@ const UserTable = () => {
                   </td>
                   <td className="p-2">{location?.name}</td>
                   <td className="p-2">{items || "0"}</td>
+                  <td className="p-2">{trades || "0"}</td>
                   <td className="p-2">
                     {commitment_datetime
                       ? DateIntlFormat(commitment_datetime)
