@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import useFetch from "@/hooks/useFetch";
 import { normalizeString } from "@/utils";
+import { DateIntlFormat } from "@/utils/dateUtils";
 
 const useUserTable = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -34,8 +35,8 @@ const useUserTable = () => {
     });
   }, [listRaw, searchValue]);
 
-  const list = useMemo(() => {
-    return listSearched.sort((a, b) => {
+  const { list, listJSON } = useMemo(() => {
+    const listOrdered = listSearched.sort((a, b) => {
       const dir = order.indexOf("-") === 0 ? -1 : 1;
 
       const orderKey = order.replace("-", "");
@@ -59,10 +60,38 @@ const useUserTable = () => {
           return 1;
       }
     });
+
+    const listJSONdata = listOrdered.map((user) => {
+      const {
+        first_name,
+        last_name,
+        location,
+        items,
+        trades,
+        commitment_datetime,
+        commitment,
+      } = user;
+      return {
+        Nombre: `${first_name} ${last_name}`,
+        Ubicación: location?.name || "-",
+        Ejemplares: items || 0,
+        Cambios: trades || 0,
+        "Fecha de compromiso": commitment_datetime
+          ? DateIntlFormat(commitment_datetime)
+          : "-",
+        "¿Comprometió?": commitment ? "Sí" : "No",
+      };
+    });
+
+    return {
+      list: listOrdered,
+      listJSON: listJSONdata,
+    };
   }, [listSearched, order]);
 
   return {
     list,
+    listJSON,
     loading,
     error,
     order,

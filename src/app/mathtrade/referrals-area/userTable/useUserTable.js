@@ -2,6 +2,7 @@ import { useState, useMemo, useContext } from "react";
 import useFetch from "@/hooks/useFetch";
 import { normalizeString } from "@/utils";
 import { PageContext } from "@/context/page";
+import { DateIntlFormat } from "@/utils/dateUtils";
 
 const useUserTable = () => {
   const [searchValue, setSearchValue] = useState("");
@@ -46,8 +47,8 @@ const useUserTable = () => {
     });
   }, [listRaw, searchValue]);
 
-  const list = useMemo(() => {
-    return listSearched.sort((a, b) => {
+  const { list, listJSON } = useMemo(() => {
+    const listOrdered = listSearched.sort((a, b) => {
       const dir = order.indexOf("-") === 0 ? -1 : 1;
 
       const orderKey = order.replace("-", "");
@@ -83,10 +84,44 @@ const useUserTable = () => {
           return 1;
       }
     });
+
+    const listJSONdata = listOrdered.map((user) => {
+      const {
+        first_name,
+        last_name,
+        phone,
+        telegram,
+        email,
+        bgg_user,
+        items,
+        trades,
+        commitment_datetime,
+        commitment,
+      } = user;
+      return {
+        Nombre: `${first_name} ${last_name}`,
+        Teléfono: phone || "-",
+        Telegram: telegram || "-",
+        Email: email || "-",
+        "Usuario BGG": bgg_user || "-",
+        Ejemplares: items || 0,
+        "Nº de Intercambios": trades || 0,
+        "Fecha de compromiso": commitment_datetime
+          ? DateIntlFormat(commitment_datetime)
+          : "-",
+        "¿Comprometió?": commitment ? "Sí" : "No",
+      };
+    });
+
+    return {
+      list: listOrdered,
+      listJSON: listJSONdata,
+    };
   }, [listSearched, order]);
 
   return {
     list,
+    listJSON,
     loading,
     error,
     order,

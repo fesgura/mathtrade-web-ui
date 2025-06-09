@@ -6,10 +6,11 @@ import clsx from "clsx";
 import ErrorAlert from "@/components/errorAlert";
 import { LoadingBox } from "@/components/loading";
 import { DateIntlFormat } from "@/utils/dateUtils";
+import XlsButtonBtn from "@/components/xlsButton";
 
 const Search = ({ searchValue, setSearchValue }) => {
   return (
-    <div className="flex items-center gap-1 mb-4">
+    <div className="flex items-center gap-1">
       <label className="block text-sm font-bold text-gray-500 whitespace-nowrap">
         <I18N id="filter.Search" />
       </label>
@@ -58,13 +59,22 @@ const Th = ({ value, order, setOrder, children, className }) => {
 };
 
 const UserTable = () => {
-  const { list, loading, error, order, setOrder, searchValue, setSearchValue } =
-    useUserTable();
+  const {
+    list,
+    listJSON,
+    loading,
+    error,
+    order,
+    setOrder,
+    searchValue,
+    setSearchValue,
+  } = useUserTable();
 
   return (
-    <div className="relative min-h-[260px]">
-      <div className="max-w-7xl mx-auto">
+    <div className="relative min-h-[260px] pt-2">
+      <div className="max-w-7xl mx-auto flex flex-wrap items-center gap-3 justify-between  mb-4">
         <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+        <XlsButtonBtn filename="participantes" data={listJSON} />
       </div>
       <ErrorAlert error={error} />
       <div className="max-w-7xl mx-auto  overflow-x-auto shadow-lg">
@@ -113,7 +123,9 @@ const UserTable = () => {
                 >
                   <td className="p-2">
                     <div className="flex items-center gap-2">
-                      <Avatar avatar={avatar} />
+                      <div>
+                        <Avatar avatar={avatar} />
+                      </div>
                       <div className="">{`${first_name} ${last_name}`}</div>
                     </div>
                   </td>

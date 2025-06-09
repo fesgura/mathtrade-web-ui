@@ -6,6 +6,7 @@ import clsx from "clsx";
 import ErrorAlert from "@/components/errorAlert";
 import { LoadingBox } from "@/components/loading";
 import { DateIntlFormat } from "@/utils/dateUtils";
+import XlsButtonBtn from "@/components/xlsButton";
 
 const Search = ({ searchValue, setSearchValue }) => {
   return (
@@ -60,6 +61,7 @@ const Th = ({ value, order, setOrder, children, className }) => {
 const UserTable = () => {
   const {
     list,
+    listJSON,
     loading,
     error,
     order,
@@ -75,7 +77,13 @@ const UserTable = () => {
         <h2 className="text-2xl font-bold text-balance">
           <I18N id="referral-area.usertitle" values={[cityName]} />
         </h2>
-        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+        <div className="flex flex-wrap items-center gap-3">
+          <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+          <XlsButtonBtn
+            filename={`${cityName}-participantes`}
+            data={listJSON}
+          />
+        </div>
       </div>
       <ErrorAlert error={error} />
       <div className="mx-auto  overflow-x-auto shadow-lg">
@@ -144,8 +152,11 @@ const UserTable = () => {
                 >
                   <td className="p-2">
                     <div className="flex items-center gap-2">
-                      <Avatar avatar={avatar} />
-                      <div className="">
+                      <div>
+                        <Avatar avatar={avatar} />
+                      </div>
+
+                      <div>
                         <div className="font-bold leading-none">{`${first_name} ${last_name}`}</div>
 
                         {fueraMT ? (

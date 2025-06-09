@@ -993,5 +993,6 @@
   "no-memardiums": "No hay memardiums que mostrar todavía.",
   "item.xs.element.description": "Descripción",
   "item.xs.element.description.min": "Descr.",
-  "referral-area.usertitle": "Usuarios de $$$"
+  "referral-area.usertitle": "Usuarios de $$$",
+  "xlsx.btn": "Descargar como Excel"
 }
