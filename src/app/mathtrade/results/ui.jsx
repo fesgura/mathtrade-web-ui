@@ -1,13 +1,16 @@
+import { lazy } from "react";
 import useResults from "./useResults";
 import PillsResults from "@/components/results/pills";
 import UserSelector from "@/components/results/userSelector";
 import Tabs from "@/components/tabs";
-import ResultsVisual from "@/components/results/visual";
-import ResultsTable from "@/components/results/table";
-import PrintTags from "@/components/results/printTags";
-import PaymentInfo from "@/components/results/paymentInfo";
 import Downloads from "../statistics/currentMT/downloads";
 import { LoadingBox } from "@/components/loading";
+import Dynamic from "@/components/dynamic";
+
+const ResultsVisual = lazy(() => import("@/components/results/visual"));
+const ResultsTable = lazy(() => import("@/components/results/table"));
+const PrintTags = lazy(() => import("@/components/results/printTags"));
+const PaymentInfo = lazy(() => import("@/components/results/paymentInfo"));
 
 export default function ResultsUI() {
   const { screenViewResults, setScreenViewResults, loading, MathTradeResults } =
@@ -37,13 +40,21 @@ export default function ResultsUI() {
       ) : null}
 
       {screenViewResults === 0 ? (
-        <ResultsVisual />
+        <Dynamic>
+          <ResultsVisual />
+        </Dynamic>
       ) : screenViewResults === 1 ? (
-        <ResultsTable />
+        <Dynamic>
+          <ResultsTable />
+        </Dynamic>
       ) : screenViewResults === 2 ? (
-        <PrintTags />
+        <Dynamic>
+          <PrintTags />
+        </Dynamic>
       ) : (
-        <PaymentInfo />
+        <Dynamic>
+          <PaymentInfo />
+        </Dynamic>
       )}
       <LoadingBox loading={loading} />
     </div>

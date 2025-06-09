@@ -105,9 +105,4 @@ export const PRIVATE_ROUTES = {
     path: privateRoot + "/memardiums",
     enabled: "always",
   },
-  CHAINS: {
-    title: "chains",
-    path: privateRoot + "/chains",
-    enabled: "always",
-  },
 };

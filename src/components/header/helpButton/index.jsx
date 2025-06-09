@@ -60,6 +60,16 @@ const HelpButton = () => {
           >
             <I18N id="title.Rulebook" />
           </a>
+          <Link
+            href={PRIVATE_ROUTES.MEMARDIUMS.path}
+            className="leading-10 hover:bg-sky-200 text-center border-t flex item-center justify-center gap-1"
+            onClick={toggleMobile}
+          >
+            <I18N id={`menu.${PRIVATE_ROUTES.MEMARDIUMS.title}.icon`} />
+            <span>
+              <I18N id={`menu.${PRIVATE_ROUTES.MEMARDIUMS.title}`} />
+            </span>
+          </Link>
         </div>
       </HeadContent>
     </div>

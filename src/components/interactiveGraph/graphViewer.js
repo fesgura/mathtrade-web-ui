@@ -8,19 +8,12 @@ import { useEffect, useState, useMemo } from "react";
 import GraphCanvas from "./graphCanvas";
 import MobileWarning from "./mobileWarning";
 
-const AVAILABLE_YEARS = ["2024", "2023"];
-
 const INITIAL_CHAINS = {
   2024: 4,
   2023: 7,
 };
 
-const yearOptions = AVAILABLE_YEARS.map((year) => ({
-  value: year,
-  text: year,
-}));
-
-const GraphViewer = () => {
+const GraphViewer = ({ years }) => {
   const { isMobile, isInitial } = useIsMobile();
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOrder, setSortOrder] = useState("default"); // 'default' o 'alphabetic'
@@ -28,10 +21,15 @@ const GraphViewer = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [selectedNodeId, setSelectedNodeId] = useState(null);
-  const [selectedYear, setSelectedYear] = useState(AVAILABLE_YEARS[0]);
-  const [activeIndex, setActiveIndex] = useState(
-    INITIAL_CHAINS[AVAILABLE_YEARS[0]]
-  );
+  const [selectedYear, setSelectedYear] = useState(years[0]);
+  const [activeIndex, setActiveIndex] = useState(INITIAL_CHAINS[years[0]] || 0);
+
+  const yearOptions = useMemo(() => {
+    return years.map((year) => ({
+      value: year,
+      text: year,
+    }));
+  }, [years]);
 
   useEffect(() => {
     if (isMobile) {
@@ -118,15 +116,21 @@ const GraphViewer = () => {
   ) : (
     <section className="flex gap-8">
       <aside className="w-[250px] border border-gray-300 rounded-lg p-4 bg-white flex flex-col">
-        <div className="max-w-96 mb-4">
-          <Label text="chains.selector.year" />
-          <AsyncSelect
-            value={selectedYear}
-            options={yearOptions}
-            onChange={handleYearChange}
-            disabled={isLoading}
-          />
-        </div>
+        {years.length > 1 ? (
+          <div className="max-w-96 mb-4">
+            <Label text="chains.selector.year" />
+            <AsyncSelect
+              value={selectedYear}
+              options={yearOptions}
+              onChange={handleYearChange}
+              disabled={isLoading}
+            />
+          </div>
+        ) : (
+          <div className="text-xl font-bold mb-3 text-center border-b border-gray-300 pb-2">
+            {years?.[0]}
+          </div>
+        )}
 
         <div className="max-w-96 mb-4">
           <Label text="chains.selector.chain" />

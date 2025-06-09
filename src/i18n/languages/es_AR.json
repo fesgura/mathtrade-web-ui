@@ -854,6 +854,7 @@
   "AdvCompromise": "¡NO ESTÁS PARTICIPANDO!<br/>Para hacerlo, DEBÉS comprometer tus cambios desde el botón <strong>\"Comprometer cambios\"</strong> en ",
   "stats.screen.current": "Actual",
   "stats.screen.historial": "Historia del Math Trade",
+  "stats.screen.chains": "Cadenas",
   "screenViewOffer.tab.0": "Recibo",
   "screenViewOffer.tab.1": "Ofrezco",
   "notOfferedVisual": "No has ofrecido ningún ejemplar.",
