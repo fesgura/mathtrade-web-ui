@@ -13,9 +13,9 @@ import tenor from "@/img/tenor.gif";
 
 const ResultsUI = lazy(() => import("./ui"));
 const UserTable = lazy(() => import("@/components/results/userTable"));
-// const GraphViewer = lazy(() =>
-//   import("@/components/interactiveGraph/graphViewer")
-// );
+const GraphViewer = lazy(() =>
+  import("@/components/interactiveGraph/graphViewer")
+);
 
 export default function Results() {
   /* PAGE CONTEXT **********************************************/
@@ -88,14 +88,9 @@ export default function Results() {
           </div>
         ) : (
           <div className="min-h-96 relative p-6">
-            <div className="text-center text-balance text-2xl py-5">
-              Muy pronto podrás ver aquí las cadenas de intercambios para este
-              Math Trade 2025.
-            </div>
-
-            {/* <Dynamic>
+            <Dynamic>
               <GraphViewer years={["2025"]} />
-            </Dynamic> */}
+            </Dynamic>
           </div>
         )}
       </SectionCommon>
