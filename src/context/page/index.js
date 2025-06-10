@@ -180,8 +180,7 @@ const PageContextProvider = ({ children }) => {
     const commit = want;
     // $now >= $dates.frezze_wants_date && $now < $dates.frezze_commit_date;
     const results =
-      $now >= $dates.show_results_date &&
-      (mathtrade.status === "pre-final" || mathtrade.status === "final");
+      $now >= $dates.show_results_date && mathtrade.status === "final";
 
     if (!membership) {
       return {
