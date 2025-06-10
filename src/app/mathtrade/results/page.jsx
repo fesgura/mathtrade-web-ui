@@ -8,6 +8,8 @@ import Tabs from "@/components/tabs";
 import Dynamic from "@/components/dynamic";
 import Wrapper from "@/components/wrapper";
 import SectionCommon from "@/components/sections/common";
+import Image from "next/image";
+import tenor from "@/img/tenor.gif";
 
 const ResultsUI = lazy(() => import("./ui"));
 const UserTable = lazy(() => import("@/components/results/userTable"));
@@ -72,6 +74,9 @@ export default function Results() {
                 <p className="text-center text-balance text-2xl py-5">
                   <I18N id="results.NotResultsYet.help" />
                 </p>
+                <div className="flex justify-center">
+                  <Image src={tenor} alt="THIS IS FINE" priority />
+                </div>
               </div>
             )}
           </div>
@@ -87,6 +92,7 @@ export default function Results() {
               Muy pronto podrás ver aquí las cadenas de intercambios para este
               Math Trade 2025.
             </div>
+
             {/* <Dynamic>
               <GraphViewer years={["2025"]} />
             </Dynamic> */}
