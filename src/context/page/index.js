@@ -162,8 +162,6 @@ const PageContextProvider = ({ children }) => {
     }
     const $now = new Date().getTime();
 
-    const ENABLED_RESULTS = false;
-
     const $dates = [
       "start_date",
       "frezze_geek_date",
@@ -181,10 +179,7 @@ const PageContextProvider = ({ children }) => {
       $now >= $dates.frezze_geek_date && $now < $dates.frezze_wants_date;
     const commit = want;
     // $now >= $dates.frezze_wants_date && $now < $dates.frezze_commit_date;
-    const results =
-      $now >= $dates.show_results_date &&
-      mathtrade.status === "final" &&
-      ENABLED_RESULTS;
+    const results = $now >= $dates.frezze_wants_date;
 
     if (!membership) {
       return {
