@@ -33,7 +33,7 @@ const useResults = () => {
     },
     [setUserList]
   );
-  const [, , loadingUsers, errorUsers] = useFetch({
+  const [, , loadingUsers] = useFetch({
     endpoint: "GET_MATHTRADE_USERS",
     autoLoad: true,
     initialState: [],
