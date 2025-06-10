@@ -11,17 +11,17 @@ export const MenuListDefault = [
 
 export const MenuList = [
   ...MenuListDefault,
-  // {
-  //   title: `menu.${PRIVATE_ROUTES.MY_OFFER.title}`,
-  //   path: PRIVATE_ROUTES.MY_OFFER.path,
-  //   name: "myOffer",
-  //   //  disabled: true,
-  // },
-  // {
-  //   title: `menu.OfferGames`,
-  //   path: PRIVATE_ROUTES.OFFER.path,
-  //   name: "offer",
-  // },
+  {
+    title: `menu.${PRIVATE_ROUTES.MY_OFFER.title}`,
+    path: PRIVATE_ROUTES.MY_OFFER.path,
+    name: "myOffer",
+    //  disabled: true,
+  },
+  {
+    title: `menu.OfferGames`,
+    path: PRIVATE_ROUTES.OFFER.path,
+    name: "offer",
+  },
   {
     title: `menu.${PRIVATE_ROUTES.WANTS.title}`,
     path: PRIVATE_ROUTES.WANTS.path,
