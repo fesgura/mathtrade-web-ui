@@ -1,6 +1,6 @@
 export const meetingAddress = {
-  name: "Foco Geek",
-  address: "en Palermo",
+  name: "Geek Out Club",
+  address: "Arévalo 2063, Palermo",
   location: "CABA",
-  url: "https://maps.app.goo.gl/cLScKpcn8FhNA1H6A",
+  url: "https://maps.app.goo.gl/VNxkPdupRmuRnuqR7",
 };
