@@ -659,6 +659,7 @@
   "results.screen.grid": "Tabla",
   "results.screen.visual": "Visual",
   "results.screen.printTags": "Etiquetas <span class=\"md:inline hidden\">para imprimir</span>",
+  "results.screen.received": "Mis ejemplares recibidos",
   "results.screen.payment": "Pagos",
   "results.showAll": "Mostrar todos los participantes",
   "results.tab.1": "Intercambios",
@@ -996,5 +997,11 @@
   "item.xs.element.description": "Descripción",
   "item.xs.element.description.min": "Descr.",
   "referral-area.usertitle": "Usuarios de $$$",
-  "xlsx.btn": "Descargar como Excel"
+  "xlsx.btn": "Descargar como Excel",
+  "received.p.1": "Si recibís un ejemplar <strong>POR FUERA DE LOS ENVÍOS</strong>, es decir de mano en mano. por favor, indicalo aquí marcando tu ejemplar como <strong>RECIBIDO</strong>.",
+  "received.p.2": "De esta manera, la organización podrá tener <strong>trazabilidad</strong> sobre todos los intercambios realizados.",
+  "received.btn": "Marcar como RECIBIDO",
+  "received.already": "RECIBIDO",
+  "received.btn.yes": "Sí, marcar como RECIBIDO",
+  "received.modal.title": "¿Marcar \"$$$\" como RECIBIDO?"
 }

@@ -9,6 +9,7 @@ import Dynamic from "@/components/dynamic";
 
 const ResultsVisual = lazy(() => import("@/components/results/visual"));
 const ResultsTable = lazy(() => import("@/components/results/table"));
+const ReceivedItems = lazy(() => import("@/components/results/receivedItems"));
 const PrintTags = lazy(() => import("@/components/results/printTags"));
 const PaymentInfo = lazy(() => import("@/components/results/paymentInfo"));
 
@@ -30,6 +31,7 @@ export default function ResultsUI() {
             list={[
               "results.screen.visual",
               "results.screen.grid",
+              "results.screen.received",
               "results.screen.printTags",
               "results.screen.payment",
             ]}
@@ -48,6 +50,10 @@ export default function ResultsUI() {
           <ResultsTable />
         </Dynamic>
       ) : screenViewResults === 2 ? (
+        <Dynamic>
+          <ReceivedItems />
+        </Dynamic>
+      ) : screenViewResults === 3 ? (
         <Dynamic>
           <PrintTags />
         </Dynamic>
