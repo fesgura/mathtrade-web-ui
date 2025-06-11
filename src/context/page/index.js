@@ -49,6 +49,7 @@ export const PageContext = createContext({
   mathTradeId: null,
   membership: null,
   userId: "",
+  user: null,
   //
   showBanUsers: false,
   setShowBanUsers: () => {},
@@ -303,6 +304,7 @@ const PageContextProvider = ({ children }) => {
         membership,
         mathTradeId: mathtrade && mathtrade.id ? mathtrade.id : null,
         userId: user && user.id ? user.id : "",
+        user,
         //
         showBanUsers,
         setShowBanUsers,

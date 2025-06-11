@@ -11,7 +11,8 @@ import Iconshelp from "./iconshelp";
 import Pills from "./pills";
 import Referral from "@/components/referral";
 import CountdownMathtrade from "./coundown";
-import ReferralInvite from "./referralInvite";
+//import ReferralInvite from "./referralInvite";
+import UserQR from "@/components/userQr";
 
 //const baseURL = process.env.BASE_URL;
 
@@ -38,16 +39,21 @@ const HomeContent = () => {
           </p>
         </div>
       </div> */}
+
       {mathtrade && Object.keys(mathtrade).length > 0 ? (
         <>
+          <div className="flex justify-center mb-4">
+            <UserQR />
+          </div>
+          <div className="mb-8">
+            <Referral />
+          </div>
           <Pills />
           <Timeline />
-          <Referral />
         </>
       ) : (
         <CountdownMathtrade />
       )}
-      <ReferralInvite />
       <Videohelp />
       <h2 className="text-center font-bold text-2xl py-5">
         <I18N id="quickhelp.title" />
