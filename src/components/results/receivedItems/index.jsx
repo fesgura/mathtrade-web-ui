@@ -1,10 +1,5 @@
-import Thumbnail from "@/components/thumbnail";
 import useReceivedItems from "./useReceivedItems";
-import Avatar from "@/components/avatar";
-import Icon from "@/components/icon";
-import clsx from "clsx";
 import I18N from "@/i18n";
-import Modal from "@/components/modal";
 import ModalReceivedItem from "./modal";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
@@ -34,11 +29,12 @@ const ReceivedItems = () => {
         </p>
         <ErrorAlert error={error} />
         <div className="flex flex-col gap-5 min-h-96 relative">
-          {results.map(({ received, item_from }) => {
+          {results.map(({ received, item_from, idResult }) => {
             return (
               <Item
                 key={item_from?.id}
                 itemRaw={item_from}
+                idResult={idResult}
                 received={received}
                 onOpenReceived={onOpenReceived}
               />

@@ -12,10 +12,9 @@ const ChangeSection = ({ result }) => {
     item_to,
     membership_from,
     membership_to,
+    delivered,
     received,
   } = result;
-
-  console.log(result);
 
   return (
     <div className="py-9 border-b-2 border-gray-300 w-fit mx-auto">
@@ -30,7 +29,7 @@ const ChangeSection = ({ result }) => {
               <Arr1 />
             </div>
             <div>
-              <ItemChange item={item_to} received={received} />
+              <ItemChange item={item_to} received={delivered} />
             </div>
             <div className="sm:w-20 w-10">
               <Arr2 />

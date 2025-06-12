@@ -35,6 +35,7 @@ export default function ResultsUI() {
               "results.screen.printTags",
               "results.screen.payment",
             ]}
+            highlighted={2}
             value={screenViewResults}
             onChange={setScreenViewResults}
           />

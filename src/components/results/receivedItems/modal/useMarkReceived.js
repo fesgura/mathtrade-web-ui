@@ -9,16 +9,16 @@ const useMarkReceived = (itemData, onClose, setReloadData) => {
 
   // POST_RECEIVED ********************************************
   const [onPostReceived, , loading, error] = useFetch({
-    endpoint: "POST_RECEIVED",
-    method: "POST",
+    endpoint: "PUT_RECEIVED",
+    method: "PUT",
     afterLoad,
   });
 
   const postReceived = useCallback(() => {
     onPostReceived({
+      urlParams: [itemData.idResult],
       params: {
-        item_id: itemData.id,
-        received: true,
+        mark_received: true,
       },
     });
   }, [onPostReceived, itemData]);

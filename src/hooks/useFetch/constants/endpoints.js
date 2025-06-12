@@ -142,7 +142,7 @@ const endpoints = {
   
   */
 
-  POST_RECEIVED: "api/mathtrades/$[mathtradeId]/prices/",
+  PUT_RECEIVED: "api/mathtrades/$[mathtradeId]/results/$[1]/",
 
   // VOTACION
   GET_VOTACION: "api/surveys/",

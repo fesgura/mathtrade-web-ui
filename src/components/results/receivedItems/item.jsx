@@ -1,17 +1,15 @@
 import { ItemContext, ItemContextProvider } from "@/context/item";
 import { useContext } from "react";
 import ElementComplete from "@/components/element/elementComplete";
-import I18N, { getI18Ntext } from "@/i18n";
-import ItemComments from "@/components/item-comments";
+import I18N from "@/i18n";
 import UserBox from "@/components/userBox";
 import Icon from "@/components/icon";
-import { LoadingBox } from "@/components/loading";
 import clsx from "clsx";
 
-const ItemUI = ({ received, onOpenReceived }) => {
+const ItemUI = ({ received, onOpenReceived, idResult }) => {
   /* ITEM CONTEXT **********************************************/
   const { item } = useContext(ItemContext);
-  const { elements, isCombo, title, id } = item;
+  const { elements, isCombo, title } = item;
   /* end ITEM CONTEXT */
 
   return (
@@ -42,7 +40,7 @@ const ItemUI = ({ received, onOpenReceived }) => {
             <button
               className="flex gap-1 items-center py-1 px-3 rounded-md  bg-green-600 text-white transition-colors hover:bg-sky-800"
               onClick={() => {
-                onOpenReceived({ title, id });
+                onOpenReceived({ title, idResult });
               }}
             >
               <Icon type="check" />
@@ -55,10 +53,14 @@ const ItemUI = ({ received, onOpenReceived }) => {
   );
 };
 
-const Item = ({ itemRaw, received, onOpenReceived }) => {
+const Item = ({ itemRaw, received, onOpenReceived, idResult }) => {
   return (
     <ItemContextProvider itemRaw={itemRaw}>
-      <ItemUI received={received} onOpenReceived={onOpenReceived} />
+      <ItemUI
+        received={received}
+        onOpenReceived={onOpenReceived}
+        idResult={idResult}
+      />
     </ItemContextProvider>
   );
 };

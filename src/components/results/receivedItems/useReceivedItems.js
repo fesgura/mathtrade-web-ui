@@ -36,16 +36,18 @@ const useReceivedItems = () => {
 
   const results = useMemo(() => {
     return resultsRaw.map((result) => {
-      const { received, item_from } = result;
+      const { received, item_from, id: idResult } = result;
+
       return {
         received,
         item_from,
+        idResult,
       };
     });
   }, [resultsRaw]);
 
-  const onOpenReceived = useCallback((item) => {
-    setItemData(item);
+  const onOpenReceived = useCallback((itemData) => {
+    setItemData(itemData);
     setModalOpen(true);
   }, []);
 
