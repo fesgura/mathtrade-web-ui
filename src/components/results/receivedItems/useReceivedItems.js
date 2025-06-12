@@ -36,15 +36,18 @@ const useReceivedItems = () => {
 
   const results = useMemo(() => {
     return resultsRaw.map((result) => {
-      const { delivered, item_from, membership_from } = result;
-      console.log(result);
+      const { received, item_from } = result;
       return {
-        delivered,
+        received,
         item_from,
-        membership_from,
       };
     });
   }, [resultsRaw]);
+
+  const onOpenReceived = useCallback((item) => {
+    setItemData(item);
+    setModalOpen(true);
+  }, []);
 
   return {
     results,
@@ -52,6 +55,7 @@ const useReceivedItems = () => {
     error,
     modalOpen,
     toggleModal,
+    onOpenReceived,
     itemData,
     setItemData,
     setReloadData,

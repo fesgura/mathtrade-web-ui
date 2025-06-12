@@ -5,7 +5,11 @@ import ErrorAlert from "@/components/errorAlert";
 import { LoadingBox } from "@/components/loading";
 
 const ModalReceivedItem = ({ isOpen, onClose, itemData, setReloadData }) => {
-  const { loading, error } = useMarkReceived(onClose, setReloadData);
+  const { postReceived, loading, error } = useMarkReceived(
+    itemData,
+    onClose,
+    setReloadData
+  );
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="md">
@@ -22,7 +26,12 @@ const ModalReceivedItem = ({ isOpen, onClose, itemData, setReloadData }) => {
         >
           <I18N id="btn.Cancel" />
         </button>
-        <button className="py-2 px-5 bg-primary text-white rounded-full transition-colors hover:bg-sky-800">
+        <button
+          className="py-2 px-5 bg-green-600 text-white rounded-full transition-colors hover:bg-green-800"
+          onClick={() => {
+            postReceived();
+          }}
+        >
           <I18N id="received.btn.yes" />
         </button>
       </div>

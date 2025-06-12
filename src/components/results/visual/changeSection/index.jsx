@@ -6,8 +6,16 @@ import Arr4 from "./svg/arr4";
 import UserChange from "./user";
 
 const ChangeSection = ({ result }) => {
-  const { membership, item_from, item_to, membership_from, membership_to } =
-    result;
+  const {
+    membership,
+    item_from,
+    item_to,
+    membership_from,
+    membership_to,
+    received,
+  } = result;
+
+  console.log(result);
 
   return (
     <div className="py-9 border-b-2 border-gray-300 w-fit mx-auto">
@@ -22,7 +30,7 @@ const ChangeSection = ({ result }) => {
               <Arr1 />
             </div>
             <div>
-              <ItemChange item={item_to} />
+              <ItemChange item={item_to} received={received} />
             </div>
             <div className="sm:w-20 w-10">
               <Arr2 />
@@ -38,7 +46,7 @@ const ChangeSection = ({ result }) => {
               <Arr3 />
             </div>
             <div>
-              <ItemChange item={item_from} />
+              <ItemChange item={item_from} received={received} />
             </div>
             <div className="sm:w-20 w-10">
               <Arr4 />
