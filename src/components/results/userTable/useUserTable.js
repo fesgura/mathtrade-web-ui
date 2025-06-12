@@ -53,6 +53,8 @@ const useUserTable = () => {
 
         case "items":
           return a?.items < b?.items ? -1 * dir : dir;
+        case "trades":
+          return a?.trades < b?.trades ? -1 * dir : dir;
 
         case "commitment":
           return a?.commitment < b?.commitment ? -1 * dir : dir;

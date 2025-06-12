@@ -29,6 +29,7 @@ export const dataToTag = (data) => {
     altLocation: member_to
       ? `${member_to?.location.name}, ${member_to?.location.province}`
       : "-",
+    isAMBA: member_to?.location?.name === "AMBA",
   };
 };
 
@@ -38,12 +39,14 @@ const K = Math.round(0.01 * dpi);
 
 const padding = 5 * K;
 const paddingInt = 5 * K;
-const paddingRect = 60 * K;
+const paddingRect = 30 * K;
 const heightRect = 100 * K;
 const sideHex = 130 * K;
 
+const blackRectWidth = 150 * K;
+
 export const drawTag = (data, ctx, width, height, x, y) => {
-  const { id, altLocation, from, mesa, name, to, via } = data;
+  const { id, altLocation, from, mesa, name, to, via, isAMBA } = data;
 
   const centerX = x + width / 2;
   const wQuad = width - 2 * padding;
@@ -101,9 +104,14 @@ export const drawTag = (data, ctx, width, height, x, y) => {
   ctx.fillText(altLocationComplete, centerX, yPos);
 
   yPos += 40 * K;
-  ctx.font = `${80 * K}px Arial`;
 
-  ctx.fillText(mesa, centerX, yPos);
+  if (isAMBA) {
+    ctx.font = `${60 * K}px Arial`;
+    ctx.fillText(mesa, centerX - blackRectWidth / 2, yPos + 17 * K);
+  } else {
+    ctx.font = `${80 * K}px Arial`;
+    ctx.fillText(mesa, centerX, yPos);
+  }
 
   ctx.lineWidth = 2;
 
@@ -128,6 +136,29 @@ export const drawTag = (data, ctx, width, height, x, y) => {
       heightRect
     );
   }
+  if (isAMBA) {
+    ctx.fillRect(
+      x + width - (blackRectWidth + paddingRect),
+      yPos - 10 * K,
+      blackRectWidth,
+      heightRect
+    );
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = `bold ${26 * K}px Arial`;
+    ctx.fillText(
+      "QUEDA EN",
+      x + width - (blackRectWidth + paddingRect) + blackRectWidth / 2,
+      yPos + 7 * K
+    );
+    ctx.font = `bold ${45 * K}px Arial`;
+    ctx.fillText(
+      "CABA",
+      x + width - (blackRectWidth + paddingRect) + blackRectWidth / 2,
+      yPos + 40 * K
+    );
+  }
+
+  ctx.fillStyle = "#000000";
 
   yPos += heightRect;
   ctx.font = `${20 * K}px Arial`;
@@ -194,12 +225,16 @@ export const drawTag = (data, ctx, width, height, x, y) => {
     const altLocationCompleteB = !via
       ? "Mandar a " + altLocation
       : "Mandar a CABA";
-    ctx.fillText(altLocationCompleteB, centerX, yPos);
+    ctx.fillText(
+      altLocationCompleteB,
+      isAMBA ? centerX - blackRectWidth / 2 : centerX,
+      yPos
+    );
 
     //Mesa:
     yPos += 16 * K;
     ctx.font = `${60 * K}px Arial`;
-    ctx.fillText(mesa, centerX, yPos);
+    ctx.fillText(mesa, isAMBA ? centerX - blackRectWidth / 2 : centerX, yPos);
 
     // cuadro:
     yPos += 8 * K;
@@ -226,6 +261,29 @@ export const drawTag = (data, ctx, width, height, x, y) => {
         heightRectB
       );
     }
+
+    if (isAMBA) {
+      ctx.fillRect(
+        x + width - (blackRectWidth + paddingRect),
+        yPos - 10 * K,
+        blackRectWidth,
+        heightRectB
+      );
+      ctx.fillStyle = "#FFFFFF";
+      ctx.font = `bold ${20 * K}px Arial`;
+      ctx.fillText(
+        "QUEDA EN",
+        x + width - (blackRectWidth + paddingRect) + blackRectWidth / 2,
+        yPos - 6 * K
+      );
+      ctx.font = `bold ${30 * K}px Arial`;
+      ctx.fillText(
+        "CABA",
+        x + width - (blackRectWidth + paddingRect) + blackRectWidth / 2,
+        yPos + 15 * K
+      );
+    }
+    ctx.fillStyle = "#000000";
     // a quien:
     yPos += heightRectB;
     ctx.font = `${14 * K}px Arial`;
