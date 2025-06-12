@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, lazy } from "react";
 import { PageContext } from "@/context/page";
 import I18N from "@/i18n";
 //import { linksToHelp } from "@/config/linksToHelp";
@@ -12,9 +12,11 @@ import Pills from "./pills";
 import Referral from "@/components/referral";
 import CountdownMathtrade from "./coundown";
 //import ReferralInvite from "./referralInvite";
-//import UserQR from "@/components/userQr";
+import Dynamic from "@/components/dynamic";
 
 //const baseURL = process.env.BASE_URL;
+
+const UserQR = lazy(() => import("@/components/userQr"));
 
 const HomeContent = () => {
   /* PAGE CONTEXT **********************************************/
@@ -42,9 +44,9 @@ const HomeContent = () => {
 
       {mathtrade && Object.keys(mathtrade).length > 0 ? (
         <>
-          {/* <div className="flex justify-center mb-4">
+          <Dynamic>
             <UserQR />
-          </div> */}
+          </Dynamic>
           <div className="mb-8">
             <Referral />
           </div>
