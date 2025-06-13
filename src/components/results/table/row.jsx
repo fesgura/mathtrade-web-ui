@@ -5,7 +5,7 @@ import Previewer from "@/components/previewer";
 import Avatar from "@/components/avatar";
 import I18N from "@/i18n";
 
-const ItemChangeUI = ({ received }) => {
+const ItemChangeUI = ({ delivered, received }) => {
   const { item } = useContext(ItemContext);
   const { title, elements } = item;
 
@@ -21,6 +21,11 @@ const ItemChangeUI = ({ received }) => {
       >
         {title}
       </h4>
+      {delivered ? (
+        <div className="bg-red-600 text-white font-bold text-[10px] leading-normal rounded px-2">
+          <I18N id="delivered.already" />
+        </div>
+      ) : null}
       {received ? (
         <div className="bg-green-600 text-white font-bold text-[10px] leading-normal rounded px-2">
           <I18N id="received.already" />
@@ -31,10 +36,10 @@ const ItemChangeUI = ({ received }) => {
   );
 };
 
-const ItemChange = ({ item, received }) => {
+const ItemChange = ({ item, delivered, received }) => {
   return item ? (
     <ItemContextProvider itemRaw={item}>
-      <ItemChangeUI received={received} />
+      <ItemChangeUI delivered={delivered} received={received} />
     </ItemContextProvider>
   ) : null;
 };
@@ -70,7 +75,7 @@ const Row = ({ result }) => {
   return (
     <tr className="hover:bg-primary/20 border-b border-gray-300">
       <td className="py-1 px-3">
-        <ItemChange item={item_to} received={delivered} />
+        <ItemChange item={item_to} delivered={delivered} />
       </td>
       <td className="py-1 px-3 border-r-2 border-gray-300">
         <UserChange user={membership_to} />

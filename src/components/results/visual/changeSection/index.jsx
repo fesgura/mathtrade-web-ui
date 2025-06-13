@@ -29,7 +29,7 @@ const ChangeSection = ({ result }) => {
               <Arr1 />
             </div>
             <div>
-              <ItemChange item={item_to} received={delivered} />
+              <ItemChange item={item_to} delivered={delivered} />
             </div>
             <div className="sm:w-20 w-10">
               <Arr2 />

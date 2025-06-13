@@ -1002,6 +1002,7 @@
   "received.p.2": "De esta manera, la organización podrá tener <strong>trazabilidad</strong> sobre todos los intercambios realizados.",
   "received.btn": "Marcar como RECIBIDO",
   "received.already": "RECIBIDO",
+  "delivered.already": "ENTREGADO",
   "received.btn.yes": "Sí, marcar como RECIBIDO",
   "received.modal.title": "¿Marcar \"$$$\" como RECIBIDO?"
 }

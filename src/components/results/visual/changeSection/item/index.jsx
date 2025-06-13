@@ -3,7 +3,7 @@ import { ItemContext, ItemContextProvider } from "@/context/item";
 import I18N from "@/i18n";
 import Element from "./element";
 
-const ItemChangeUI = ({ received }) => {
+const ItemChangeUI = ({ delivered, received }) => {
   const { item } = useContext(ItemContext);
   const { isCombo, elements } = item;
 
@@ -18,6 +18,11 @@ const ItemChangeUI = ({ received }) => {
         ) : null}
       </div>
 
+      {delivered ? (
+        <div className="uppercase text-center font-bold text-white bg-red-600 text-[11px] px-1 rounded-b-lg">
+          <I18N id="delivered.already" />
+        </div>
+      ) : null}
       {received ? (
         <div className="uppercase text-center font-bold text-white bg-green-600 text-[11px] px-1 rounded-b-lg">
           <I18N id="received.already" />
@@ -27,10 +32,10 @@ const ItemChangeUI = ({ received }) => {
   );
 };
 
-const ItemChange = ({ item, received }) => {
+const ItemChange = ({ item, delivered, received }) => {
   return item ? (
     <ItemContextProvider itemRaw={item}>
-      <ItemChangeUI received={received} />
+      <ItemChangeUI received={received} delivered={delivered} />
     </ItemContextProvider>
   ) : null;
 };
