@@ -52,14 +52,19 @@ const useBoxes = (locations) => {
     getBoxes();
   }, [getBoxes, reloadFlag]);
 
-  const boxesList = useMemo(() => {
-    return boxes.map((box) => {
+  const { boxesList, locationIdBoxFilter } = useMemo(() => {
+    const locationIdFilt = {};
+
+    const boxesLi = boxes.map((box) => {
+      locationIdFilt[box.destiny] = true;
       return {
         value: `${box.id}`,
         text: `Caja Nº ${box.number} - ${box.destinyName}`,
         destiny: `${box.destiny}`,
       };
     });
+
+    return { boxesList: boxesLi, locationIdBoxFilter: locationIdFilt };
   }, [boxes]);
   /* end GET BOXES **********************************************/
 
@@ -99,6 +104,7 @@ const useBoxes = (locations) => {
     reloadBoxes,
     boxes,
     boxesList,
+    locationIdBoxFilter,
     loadingBoxes,
     errorBoxes,
     addNewBox,

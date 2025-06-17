@@ -12,37 +12,45 @@ const useItems = (boxes, locations, localLocation) => {
     const locationIdFilt = {};
     const itemLi = items
       .map((item) => {
-        const { id, title, location, via_meeting } = item;
-
-        if (location !== 1 && location === localLocation) {
-          return null;
-        }
-
-        if (location !== 1 && !via_meeting) {
-          locationIdFilt[location] = true;
-        }
-
-        if (location === 1) {
-          locationIdFilt[location] = true;
-        }
-
-        const loc = locations.find((l) => l.id === location);
+        const {
+          id,
+          assigned_trade_code,
+          title,
+          location,
+          send_to,
+          via_meeting,
+        } = item;
 
         const [boxFound] = boxes.filter(
           (box) => box.math_items.indexOf(`${id}`) >= 0
         );
 
+        const boxNumber = boxFound ? boxFound.number : null;
+
+        const endDestiny = via_meeting ? 1 : send_to || location;
+
+        if (location !== 1 && location === localLocation) {
+          return null;
+        }
+
+        if (location !== 1 && !via_meeting && !boxNumber) {
+          locationIdFilt[endDestiny] = true;
+        }
+
+        const loc = locations.find((l) => l.id === location);
+
         const destinyName = loc ? loc.name : "";
 
         return {
           value: `${id}`,
-          text: `${id} - ${title} ➡️ ${
-            location !== 1 && via_meeting ? "AMBA -> " : ""
+          text: `${assigned_trade_code} - ${title} ➡️ ${
+            location !== 1 && via_meeting ? "AMBA ➡️ " : ""
           }${destinyName}`,
           destiny: `${location}`,
           destinyName,
+          endDestiny: `${endDestiny}`,
           via_meeting,
-          boxNumber: boxFound ? boxFound.number : null,
+          boxNumber,
         };
       })
       .filter((item) => item);

@@ -24,6 +24,7 @@ export const BoxDeliveryContext = createContext({
   //
   localLocation: 1,
   locationOptions: [],
+  locationOptionsForTracking: [],
   //
   reloadTrackings: () => {},
   trackings: [],
@@ -48,6 +49,7 @@ const BoxDeliveryContextProvider = ({ children }) => {
     reloadBoxes,
     boxes,
     boxesList,
+    locationIdBoxFilter,
     loadingBoxes,
     errorBoxes,
     addNewBox,
@@ -79,15 +81,20 @@ const BoxDeliveryContextProvider = ({ children }) => {
   /* END TRACKING **********************************************/
 
   const locationOptions = useMemo(() => {
-    return formatLocationsOptionsFiltered(
-      locations,
-      {
-        ...locationIdFilter,
-        [localLocation]: false,
-      },
-      COUNT_ITEMS_DELIVERY
-    );
+    return formatLocationsOptionsFiltered(locations, {
+      ...locationIdFilter,
+      [localLocation]: false,
+      [1]: true,
+    });
   }, [locations, localLocation, locationIdFilter]);
+
+  const locationOptionsForTracking = useMemo(() => {
+    return formatLocationsOptionsFiltered(locations, {
+      ...locationIdBoxFilter,
+      [localLocation]: false,
+      [1]: true,
+    });
+  }, [locations, localLocation, locationIdBoxFilter]);
 
   return (
     <BoxDeliveryContext.Provider
@@ -107,6 +114,7 @@ const BoxDeliveryContextProvider = ({ children }) => {
         //
         localLocation,
         locationOptions,
+        locationOptionsForTracking,
         //
         reloadTrackings,
         trackings,

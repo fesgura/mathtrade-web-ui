@@ -13,7 +13,7 @@ const Editor = ({ track }) => {
     loading,
     error,
     //
-    locationOptions,
+    locationOptionsForTracking,
     locationId,
     setLocationId,
     //
@@ -32,7 +32,7 @@ const Editor = ({ track }) => {
             <Select
               data={{ destiny: locationId }}
               name="destiny"
-              options={locationOptions}
+              options={locationOptionsForTracking}
               icon="location"
               size="sm"
               onChange={(newLocationId) => {

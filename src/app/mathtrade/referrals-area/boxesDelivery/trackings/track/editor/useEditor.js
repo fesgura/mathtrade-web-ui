@@ -6,7 +6,7 @@ const useEditor = (track) => {
   const { id, tracking_code, boxes, destiny } = track;
 
   const {
-    locationOptions,
+    locationOptionsForTracking,
     boxesList,
 
     reloadTrackings,
@@ -71,7 +71,7 @@ const useEditor = (track) => {
     loading: loadingPostTracking,
     error: errorPostTracking,
     //
-    locationOptions,
+    locationOptionsForTracking,
     locationId,
     setLocationId,
     id,

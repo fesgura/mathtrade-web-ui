@@ -50,30 +50,34 @@ const BoxEditor = ({ box }) => {
 
         <InputContainer validate="math_items">
           <Label text="boxesDelivery.items" name="math_items" required />
-          <Select
-            data={{ math_items }}
-            name="math_items"
-            options={itemOptions}
-            multiple
-            customRenderTag={(item, deleteBtn) => {
-              return (
-                <div
-                  className="flex items-center justify-between gap-2 w-full bg-sky-100 border border-sky-400 font-bold rounded px-2  py-1 text-sm"
-                  key={item.value}
-                >
-                  <div className="">{item.text}</div>
-                  <div className="text-red-600">{deleteBtn}</div>
-                </div>
-              );
-            }}
-            customRenderOption={(op) => {
-              return (
-                <div className="py-2" key={op.value}>
-                  {op.text}
-                </div>
-              );
-            }}
-          />
+          {itemOptions.length > 0 ? (
+            <Select
+              data={{ math_items }}
+              name="math_items"
+              options={itemOptions}
+              multiple
+              customRenderTag={(item, deleteBtn) => {
+                return (
+                  <div
+                    className="flex items-center justify-between gap-2 w-full bg-sky-100 border border-sky-400 font-bold rounded px-2  py-1 text-sm"
+                    key={item.value}
+                  >
+                    <div className="">{item.text}</div>
+                    <div className="text-red-600">{deleteBtn}</div>
+                  </div>
+                );
+              }}
+              customRenderOption={(op) => {
+                return (
+                  <div className="py-2" key={op.value}>
+                    {op.text}
+                  </div>
+                );
+              }}
+            />
+          ) : (
+            <div className="bg-white rounded-md border border-gray-400 p-2"></div>
+          )}
         </InputContainer>
         <ErrorAlert error={error} />
         <div

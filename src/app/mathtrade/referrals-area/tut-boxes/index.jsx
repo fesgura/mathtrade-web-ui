@@ -8,7 +8,6 @@ import img5 from "@/img/tut-boxes/5_300.jpg";
 const items = [img1, img2, img3, img4, img5];
 
 const TutBoxes = () => {
-  console.log(img1);
   return (
     <div className="py-11 px-3 max-w-5xl mx-auto ">
       <h2 className="text-center text-balance text-2xl mb-5 text-gray-600 italic">
