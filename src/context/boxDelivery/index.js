@@ -1,10 +1,12 @@
 import { useStore } from "@/store";
-import { formatLocationsSimple } from "@/utils/formatLocations";
+import { formatLocationsOptionsFiltered } from "@/utils/formatLocations";
 import { createContext, useMemo, useContext } from "react";
 import { PageContext } from "@/context/page";
 import useItems from "./useItems";
 import useBoxes from "./useBoxes";
 import useTracking from "./useTracking";
+
+const COUNT_ITEMS_DELIVERY = 6;
 
 export const BoxDeliveryContext = createContext({
   itemList: [],
@@ -38,9 +40,7 @@ const BoxDeliveryContextProvider = ({ children }) => {
   const localLocation = referrer?.id || 1;
 
   const locations = useStore((state) => state.locations);
-  const locationOptions = useMemo(() => {
-    return formatLocationsSimple(locations, localLocation);
-  }, [locations, localLocation]);
+
   /* END LOCATIONS **********************************************/
 
   /* BOXES **********************************************/
@@ -58,7 +58,7 @@ const BoxDeliveryContextProvider = ({ children }) => {
   /* END BOXES **********************************************/
 
   /* ITEM LIST **********************************************/
-  const { itemList, loadingItems, errorItems } = useItems(
+  const { itemList, locationIdFilter, loadingItems, errorItems } = useItems(
     boxes,
     locations,
     localLocation
@@ -77,6 +77,17 @@ const BoxDeliveryContextProvider = ({ children }) => {
     setTrackingIdToEdit,
   } = useTracking(locations);
   /* END TRACKING **********************************************/
+
+  const locationOptions = useMemo(() => {
+    return formatLocationsOptionsFiltered(
+      locations,
+      {
+        ...locationIdFilter,
+        [localLocation]: true,
+      },
+      COUNT_ITEMS_DELIVERY
+    );
+  }, [locations, localLocation, locationIdFilter]);
 
   return (
     <BoxDeliveryContext.Provider

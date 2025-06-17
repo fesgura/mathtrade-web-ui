@@ -54,15 +54,18 @@ export const formatLocations = (locationsFromAPI, filterLocationsRaw) => {
   });
 };
 
-export const formatLocationsSimple = (locationsFromAPI, localLocation) => {
-  let localLoc = localLocation || -1;
+export const formatLocationsOptionsFiltered = (
+  locationsFromAPI,
+  locationIdFilter,
+  limit = 0
+) => {
   const list = [];
 
   let currentProvince = "none";
 
   if (locationsFromAPI) {
     locationsFromAPI.forEach(({ id, name, province }) => {
-      if (localLoc !== id) {
+      if (locationIdFilter[id] && locationIdFilter[id] >= limit) {
         if (province !== currentProvince) {
           currentProvince = province;
           list.push({
