@@ -12,17 +12,19 @@ const useItems = (boxes, locations, localLocation) => {
     const locationIdFilt = {};
     const itemLi = items
       .map((item) => {
-        const { id, title, location } = item;
+        const { id, title, location, via_meeting } = item;
 
         if (location !== 1 && location === localLocation) {
           return null;
         }
 
-        if (!locationIdFilt[location]) {
-          locationIdFilt[location] = 0;
+        if (location !== 1 && !via_meeting) {
+          locationIdFilt[location] = true;
         }
 
-        locationIdFilt[location] += 1;
+        if (location === 1) {
+          locationIdFilt[location] = true;
+        }
 
         const loc = locations.find((l) => l.id === location);
 
@@ -34,9 +36,12 @@ const useItems = (boxes, locations, localLocation) => {
 
         return {
           value: `${id}`,
-          text: `${id} - ${title} ➡️ ${destinyName}`,
+          text: `${id} - ${title} ➡️ ${
+            location !== 1 && via_meeting ? "AMBA -> " : ""
+          }${destinyName}`,
           destiny: `${location}`,
           destinyName,
+          via_meeting,
           boxNumber: boxFound ? boxFound.number : null,
         };
       })

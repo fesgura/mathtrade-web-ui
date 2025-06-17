@@ -56,8 +56,7 @@ export const formatLocations = (locationsFromAPI, filterLocationsRaw) => {
 
 export const formatLocationsOptionsFiltered = (
   locationsFromAPI,
-  locationIdFilter,
-  limit = 0
+  locationIdFilter
 ) => {
   const list = [];
 
@@ -65,7 +64,7 @@ export const formatLocationsOptionsFiltered = (
 
   if (locationsFromAPI) {
     locationsFromAPI.forEach(({ id, name, province }) => {
-      if (locationIdFilter[id] && locationIdFilter[id] >= limit) {
+      if (locationIdFilter[id]) {
         if (province !== currentProvince) {
           currentProvince = province;
           list.push({

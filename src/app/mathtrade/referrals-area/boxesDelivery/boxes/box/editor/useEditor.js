@@ -18,12 +18,20 @@ const useEditor = (box) => {
   const itemOptions = useMemo(() => {
     return itemList.filter((item) => {
       const canByBoxNumber = !item.boxNumber || item.boxNumber === number;
-      const canByDestiny = locationId === "1" || item.destiny === locationId;
+      const canByDestiny =
+        (locationId === "1" && item.via_meeting) ||
+        (locationId === "1" && item.destiny === "1") ||
+        (locationId !== "1" &&
+          item.destiny === locationId &&
+          !item.via_meeting);
+
       return canByBoxNumber && canByDestiny;
     });
   }, [itemList, number, locationId]);
 
   //////////////////////////////
+
+  console.log(itemOptions);
 
   const afterLoad = useCallback(() => {
     setBoxIdToEdit(null);

@@ -7,8 +7,13 @@ import Tabs from "@/components/tabs";
 
 const UserTable = lazy(() => import("./userTable"));
 const BoxesDelivery = lazy(() => import("./boxesDelivery"));
+const TutBoxes = lazy(() => import("./tut-boxes"));
 
-const tablist = ["referral.tab.users", "referral.tab.boxesDelivery"];
+const tablist = [
+  "referral.tab.prepareBoxes",
+  "referral.tab.boxesDelivery",
+  "referral.tab.users",
+];
 
 export default function ReferralToRegisterUI() {
   const [tabView, setTabView] = useState(0);
@@ -28,11 +33,15 @@ export default function ReferralToRegisterUI() {
       <SectionCommon topNotRounded>
         {tabView === 0 ? (
           <Dynamic>
-            <UserTable />
+            <TutBoxes />
+          </Dynamic>
+        ) : tabView === 1 ? (
+          <Dynamic>
+            <BoxesDelivery />
           </Dynamic>
         ) : (
           <Dynamic>
-            <BoxesDelivery />
+            <UserTable />
           </Dynamic>
         )}
       </SectionCommon>

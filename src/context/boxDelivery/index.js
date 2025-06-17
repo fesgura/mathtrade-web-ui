@@ -6,7 +6,7 @@ import useItems from "./useItems";
 import useBoxes from "./useBoxes";
 import useTracking from "./useTracking";
 
-const COUNT_ITEMS_DELIVERY = 6;
+const COUNT_ITEMS_DELIVERY = 1;
 
 export const BoxDeliveryContext = createContext({
   itemList: [],
@@ -83,7 +83,7 @@ const BoxDeliveryContextProvider = ({ children }) => {
       locations,
       {
         ...locationIdFilter,
-        [localLocation]: true,
+        [localLocation]: false,
       },
       COUNT_ITEMS_DELIVERY
     );
