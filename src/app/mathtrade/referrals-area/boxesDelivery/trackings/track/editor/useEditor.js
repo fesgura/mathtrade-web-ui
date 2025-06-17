@@ -8,6 +8,7 @@ const useEditor = (track) => {
   const {
     locationOptions,
     boxesList,
+
     reloadTrackings,
     setTrackingIdToEdit,
     cancelAddNewTracking,
