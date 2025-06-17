@@ -1,6 +1,7 @@
 import { useStore } from "@/store";
 import { formatLocationsSimple } from "@/utils/formatLocations";
-import { createContext, useMemo } from "react";
+import { createContext, useMemo, useContext } from "react";
+import { PageContext } from "@/context/page";
 import useItems from "./useItems";
 import useBoxes from "./useBoxes";
 import useTracking from "./useTracking";
@@ -19,6 +20,7 @@ export const BoxDeliveryContext = createContext({
   loading: false,
   error: null,
   //
+  localLocation: 1,
   locationOptions: [],
   //
   reloadTrackings: () => {},
@@ -31,10 +33,14 @@ export const BoxDeliveryContext = createContext({
 
 const BoxDeliveryContextProvider = ({ children }) => {
   /* LOCATIONS **********************************************/
+  const { referrer } = useContext(PageContext);
+
+  const localLocation = referrer?.id || 1;
+
   const locations = useStore((state) => state.locations);
   const locationOptions = useMemo(() => {
-    return formatLocationsSimple(locations);
-  }, [locations]);
+    return formatLocationsSimple(locations, localLocation);
+  }, [locations, localLocation]);
   /* END LOCATIONS **********************************************/
 
   /* BOXES **********************************************/
@@ -52,7 +58,11 @@ const BoxDeliveryContextProvider = ({ children }) => {
   /* END BOXES **********************************************/
 
   /* ITEM LIST **********************************************/
-  const { itemList, loadingItems, errorItems } = useItems(boxes, locations);
+  const { itemList, loadingItems, errorItems } = useItems(
+    boxes,
+    locations,
+    localLocation
+  );
   /* END ITEM LIST **********************************************/
 
   /* TRACKING **********************************************/
@@ -84,6 +94,7 @@ const BoxDeliveryContextProvider = ({ children }) => {
         loading: loadingBoxes || loadingItems || loadingTrackings,
         error: errorBoxes || errorItems || errorTrackings,
         //
+        localLocation,
         locationOptions,
         //
         reloadTrackings,

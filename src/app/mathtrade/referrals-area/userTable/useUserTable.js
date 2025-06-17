@@ -9,8 +9,6 @@ const useUserTable = () => {
 
   const { referrer } = useContext(PageContext);
 
-  const location = 2;
-
   const [order, setOrder] = useState("name");
 
   const params = useMemo(() => {
