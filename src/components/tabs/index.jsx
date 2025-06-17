@@ -1,16 +1,27 @@
 import I18N from "@/i18n";
 import clsx from "clsx";
 
-const Tabs = ({ list, onChange, highlighted = -1, value }) => {
+const Tabs = ({ list, onChange, highlighted = -1, value, min, className }) => {
   return (
-    <menu className="flex justify-center flex-wrap text-2xl pt-1">
+    <menu
+      className={clsx(
+        "flex flex-wrap pt-1",
+        {
+          "text-2xl justify-center": !min,
+        },
+        className
+      )}
+    >
       {list?.map((name, k) => {
         return (
           <button
             className={clsx("relative px-6 py-1 border-b-4 transition-colors", {
-              "border-want cursor-default font-bold": k === value,
+              "border-want cursor-default font-bold": k === value && !min,
               "border-transparent text-gray-400 hover:text-gray-900":
-                k !== value,
+                k !== value && !min,
+              "border-primary cursor-default font-bold": k === value && min,
+              "border-transparent text-gray-600 hover:text-gray-900":
+                k !== value && min,
             })}
             key={name}
             onClick={() => {

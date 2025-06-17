@@ -92,14 +92,17 @@ const useSelect = (
     (optionValue, multiple, action, optionComplete) => {
       let newValueOutput = "";
       if (multiple) {
-        if (optionValue !== undefined && optionValue !== null) {
+        if (
+          optionValue !== "" &&
+          optionValue !== undefined &&
+          optionValue !== null
+        ) {
           const indexInOptionsComplete = optionsComplete.findIndex(
             (o) => o.value === optionValue
           );
           const newOptionsComplete = [...optionsComplete];
-          // if (newOptionsComplete[indexInOptionsComplete] !== undefined) {
+
           newOptionsComplete[indexInOptionsComplete].chosen = action === "add";
-          //  }
 
           setOptionsComplete(newOptionsComplete);
 
