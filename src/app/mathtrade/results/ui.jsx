@@ -11,6 +11,7 @@ const ResultsVisual = lazy(() => import("@/components/results/visual"));
 const ResultsTable = lazy(() => import("@/components/results/table"));
 const ReceivedItems = lazy(() => import("@/components/results/receivedItems"));
 const PrintTags = lazy(() => import("@/components/results/printTags"));
+const TutBoxes = lazy(() => import("@/components/results/tut-boxes"));
 const PaymentInfo = lazy(() => import("@/components/results/paymentInfo"));
 
 export default function ResultsUI() {
@@ -33,6 +34,7 @@ export default function ResultsUI() {
               "results.screen.grid",
               "results.screen.received",
               "results.screen.printTags",
+              "results.screen.TutBoxes",
               "results.screen.payment",
             ]}
             highlighted={2}
@@ -57,6 +59,10 @@ export default function ResultsUI() {
       ) : screenViewResults === 3 ? (
         <Dynamic>
           <PrintTags />
+        </Dynamic>
+      ) : screenViewResults === 4 ? (
+        <Dynamic>
+          <TutBoxes />
         </Dynamic>
       ) : (
         <Dynamic>

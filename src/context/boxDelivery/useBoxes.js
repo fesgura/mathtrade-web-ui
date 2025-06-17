@@ -13,11 +13,13 @@ const useBoxes = (locations) => {
             const loc = locations.find((l) => l.id === b.destiny);
 
             const math_items_full = b.math_items.map(
-              ({ id, title, location }) => {
+              ({ id, title, location, assigned_trade_code }) => {
                 const lo = locations.find((l) => l.id === location);
                 return {
                   id: `${id}`,
-                  text: `${id} - ${title} ➡️ ${lo?.name || ""}`,
+                  text: `${assigned_trade_code} - ${title} ➡️ ${
+                    lo?.name || ""
+                  }`,
                 };
               }
             );
