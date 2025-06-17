@@ -61,7 +61,7 @@ const Editor = ({ track }) => {
         </div>
 
         <InputContainer validate="boxes">
-          <Label text="boxesDelivery.boxesLabel" name="boxes" required />
+          <Label text="boxesDelivery.trackingBoxLabel" name="boxes" required />
           <Select
             data={{ boxes }}
             name="boxes"
@@ -75,6 +75,13 @@ const Editor = ({ track }) => {
                 >
                   <div className="">{box.text}</div>
                   <div className="text-red-600">{deleteBtn}</div>
+                </div>
+              );
+            }}
+            customRenderOption={(op) => {
+              return (
+                <div className="py-2" key={op.value}>
+                  {op.text}
                 </div>
               );
             }}

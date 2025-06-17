@@ -1019,11 +1019,12 @@
   "boxesDelivery.tab.boxes": "Cajas",
   "boxesDelivery.tab.tracking": "Tracking de envíos",
   "boxesDelivery.btn.deleteBoxTitle": "¿Eliminar caja?",
-  "boxesDelivery.btn.deleteTrackingTitle": "¿Eliminar tracking?",
+  "boxesDelivery.btn.tracking.deleteBoxTitle": "¿Eliminar tracking?",
   "boxesDelivery.btn.newTracking": "Nuevo Tracking",
   "boxesDelivery.tracking_code": "Tracking Nº",
   "boxesDelivery.tracking_code.placeholder": "Ej: 000-1111-ABCD",
   "boxesDelivery.boxesLabel": "Cajas",
   "boxesDelivery.btn.tracking.update": "Actualizar tracking",
-  "boxesDelivery.btn.tracking.newBox": "Crear nuevo tracking"
+  "boxesDelivery.btn.tracking.create": "Crear nuevo tracking",
+  "boxesDelivery.trackingBoxLabel": "Cajas"
 }

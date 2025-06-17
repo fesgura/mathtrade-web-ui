@@ -66,6 +66,13 @@ const BoxEditor = ({ box }) => {
                 </div>
               );
             }}
+            customRenderOption={(op) => {
+              return (
+                <div className="py-2" key={op.value}>
+                  {op.text}
+                </div>
+              );
+            }}
           />
         </InputContainer>
         <ErrorAlert error={error} />

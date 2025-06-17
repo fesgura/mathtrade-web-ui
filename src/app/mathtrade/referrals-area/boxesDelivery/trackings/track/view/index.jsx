@@ -42,7 +42,7 @@ const View = ({ track }) => {
         </div>
       </div>
       <div>
-        <Label text="boxesDelivery.items" name="items" />
+        <Label text="boxesDelivery.trackingBoxLabel" name="boxes" />
         <div className="bg-white border border-gray-300 p-1 rounded-md flex flex-wrap gap-2">
           {boxes.map(({ id, number }) => {
             return (
