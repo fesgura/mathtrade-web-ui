@@ -46,22 +46,34 @@ const useEditor = (track) => {
   });
   /* END POST Tracking **********************************************/
 
+  /* PUT Tracking **********************************************/
+  const [putTracking, , loadingPutTracking, errorPutTracking] = useFetch({
+    endpoint: "LOGISTICS_PUT_TRACKING",
+    method: "PUT",
+    afterLoad,
+  });
+  /* END PUT Tracking **********************************************/
+
   const onSubmit = useCallback(
     (d) => {
       const params = {
         ...d,
-        destiny: parseInt(d.destiny),
+        destiny: parseInt(d.destiny, 10),
         tracking_code: d.tracking_code,
-        boxes: d.boxes.split(","),
-        weight: parseInt(d.weight),
+        boxes: d.boxes.split(",").map((id) => {
+          return parseInt(id, 10);
+        }),
+        weight: parseInt(d.weight, 10),
         price: `${d.price}`,
       };
 
       if (!id) {
         postTracking({ params });
+      } else {
+        putTracking({ params, urlParams: [id] });
       }
     },
-    [id, postTracking]
+    [id, postTracking, putTracking]
   );
 
   const onCancel = useCallback(() => {
@@ -82,8 +94,8 @@ const useEditor = (track) => {
     },
     onSubmit,
     onCancel,
-    loading: loadingPostTracking,
-    error: errorPostTracking,
+    loading: loadingPostTracking || loadingPutTracking,
+    error: errorPostTracking || errorPutTracking,
     //
     locationOptionsForTracking,
     locationId,

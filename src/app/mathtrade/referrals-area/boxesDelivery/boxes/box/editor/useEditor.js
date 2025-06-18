@@ -1,6 +1,7 @@
 import { useState, useContext, useMemo, useCallback } from "react";
 import { BoxDeliveryContext } from "@/context/boxDelivery";
 import useFetch from "@/hooks/useFetch";
+import { parse } from "qs";
 
 const useEditor = (box) => {
   const { id, destiny, number, math_items } = box;
@@ -59,7 +60,9 @@ const useEditor = (box) => {
       const params = {
         destiny: parseInt(d.destiny),
         number: number,
-        math_items: d.math_items.split(","),
+        math_items: d.math_items.split(",").map((id) => {
+          return parseInt(id, 10);
+        }),
       };
 
       if (!id) {
