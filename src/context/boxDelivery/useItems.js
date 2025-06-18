@@ -51,6 +51,7 @@ const useItems = (boxes, locations, localLocation) => {
           endDestiny: `${endDestiny}`,
           via_meeting,
           boxNumber,
+          itemRaw: item,
         };
       })
       .filter((item) => item);
@@ -58,6 +59,11 @@ const useItems = (boxes, locations, localLocation) => {
     return { itemList: itemLi, locationIdFilter: locationIdFilt };
   }, [items, boxes, locations, localLocation]);
 
-  return { itemList, locationIdFilter, loadingItems, errorItems };
+  return {
+    itemList,
+    locationIdFilter,
+    loadingItems,
+    errorItems,
+  };
 };
 export default useItems;

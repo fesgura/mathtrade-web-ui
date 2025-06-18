@@ -1018,6 +1018,7 @@
   "boxesDelivery.btn.create": "Crear caja",
   "boxesDelivery.btn.update": "Actualizar caja",
   "boxesDelivery.btn.newBox": "Crear nueva caja",
+  "boxesDelivery.tab.items": "Ejemplares",
   "boxesDelivery.tab.boxes": "Cajas",
   "boxesDelivery.tab.tracking": "Tracking de envíos",
   "boxesDelivery.btn.deleteBoxTitle": "¿Eliminar caja?",
@@ -1031,5 +1032,10 @@
   "boxesDelivery.trackingBoxLabel": "Cajas",
   "boxesDelivery.photoTracking": "Foto de boleta<br/>de envío",
   "boxesDelivery.price": "Precio",
-  "boxesDelivery.weight": "Peso Kg."
+  "boxesDelivery.weight": "Peso Kg.",
+  "boxesDelivery.items.code": "Código",
+  "boxesDelivery.items.user": "Nombre",
+  "boxesDelivery.items.title": "Título",
+  "boxesDelivery.items.boxNumber": "Caja de envío Nº",
+  "boxesDelivery.items.destinyName": "Destino"
 }

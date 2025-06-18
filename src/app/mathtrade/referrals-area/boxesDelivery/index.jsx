@@ -4,8 +4,13 @@ import Tabs from "@/components/tabs";
 import BoxDeliveryContextProvider from "@/context/boxDelivery";
 import Boxes from "./boxes";
 import Trackings from "./trackings";
+import Items from "./items";
 
-const tablist = ["boxesDelivery.tab.boxes", "boxesDelivery.tab.tracking"];
+const tablist = [
+  "boxesDelivery.tab.items",
+  "boxesDelivery.tab.boxes",
+  "boxesDelivery.tab.tracking",
+];
 
 const BoxesDelivery = () => {
   const [tabView, setTabView] = useState(0);
@@ -22,7 +27,7 @@ const BoxesDelivery = () => {
         />
       </div>
       <BoxDeliveryContextProvider>
-        {tabView === 0 ? <Boxes /> : <Trackings />}
+        {tabView === 0 ? <Items /> : tabView === 1 ? <Boxes /> : <Trackings />}
       </BoxDeliveryContextProvider>
     </div>
   );
