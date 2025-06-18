@@ -3,7 +3,15 @@ import { BoxDeliveryContext } from "@/context/boxDelivery";
 import useFetch from "@/hooks/useFetch";
 
 const useEditor = (track) => {
-  const { id, tracking_code, boxes, destiny } = track;
+  const {
+    id,
+    destiny,
+    tracking_code,
+    boxes,
+    image: imageDefault,
+    price,
+    weight,
+  } = track;
 
   const {
     locationOptionsForTracking,
@@ -15,6 +23,7 @@ const useEditor = (track) => {
   } = useContext(BoxDeliveryContext);
 
   const [locationId, setLocationId] = useState(`${destiny}`);
+  const [image, setImage] = useState(imageDefault || "");
 
   const boxOptions = useMemo(() => {
     return boxesList.filter((box) => {
@@ -40,9 +49,12 @@ const useEditor = (track) => {
   const onSubmit = useCallback(
     (d) => {
       const params = {
+        ...d,
         destiny: parseInt(d.destiny),
         tracking_code: d.tracking_code,
         boxes: d.boxes.split(","),
+        weight: parseInt(d.weight),
+        price: `${d.price}`,
       };
 
       if (!id) {
@@ -65,6 +77,8 @@ const useEditor = (track) => {
       tracking_code: ["required"],
       destiny: ["required"],
       boxes: ["required"],
+      price: ["required"],
+      weight: ["required"],
     },
     onSubmit,
     onCancel,
@@ -74,10 +88,14 @@ const useEditor = (track) => {
     locationOptionsForTracking,
     locationId,
     setLocationId,
+    image,
+    setImage,
     id,
     tracking_code,
     boxes: boxes.map(({ id }) => id).join(","),
     boxOptions,
+    price,
+    weight,
   };
 };
 

@@ -14,8 +14,10 @@ const PhotoGallery = ({
   className,
   title = "photoGallery.editElement.title",
   subtitle = "photoGallery.editElement.subtitle",
+  noTitled,
   max = 4,
   extended,
+  noEdit,
 }) => {
   const {
     editable,
@@ -33,37 +35,39 @@ const PhotoGallery = ({
   return list.length || editable ? (
     <>
       <div className={className}>
-        <h3
-          className={clsx("flex items-center h-5 w-fit", {
-            "cursor-pointer px-2": !extended,
-          })}
-          onClick={extended ? () => {} : toggleShowImages}
-        >
-          <strong className="uppercase text-xs block text-gray-500 leading-5">
-            <I18N id={title} />
-          </strong>
-          {editable ? (
-            <span className="text-xs block pl-1 italic text-gray-400 leading-5">
-              <I18N id={subtitle} />
-            </span>
-          ) : (
-            <span className="text-xs block text-gray-400 leading-5 pl-1">
-              ({list.length})
-            </span>
-          )}
-          {extended ? null : (
-            <span
-              className={clsx(
-                "text-xl block leading-none text-gray-600 transition-transform relative top-[-1px]",
-                {
-                  "rotate-90": showImages,
-                }
-              )}
-            >
-              <Icon type="chevron-right" />
-            </span>
-          )}
-        </h3>
+        {noTitled ? null : (
+          <h3
+            className={clsx("flex items-center h-5 w-fit", {
+              "cursor-pointer px-2": !extended,
+            })}
+            onClick={extended ? () => {} : toggleShowImages}
+          >
+            <strong className="uppercase text-xs block text-gray-500 leading-5">
+              <I18N id={title} />
+            </strong>
+            {editable ? (
+              <span className="text-xs block pl-1 italic text-gray-400 leading-5">
+                <I18N id={subtitle} />
+              </span>
+            ) : (
+              <span className="text-xs block text-gray-400 leading-5 pl-1">
+                ({list.length})
+              </span>
+            )}
+            {extended ? null : (
+              <span
+                className={clsx(
+                  "text-xl block leading-none text-gray-600 transition-transform relative top-[-1px]",
+                  {
+                    "rotate-90": showImages,
+                  }
+                )}
+              >
+                <Icon type="chevron-right" />
+              </span>
+            )}
+          </h3>
+        )}
         {showImages && (
           <div className="flex gap-3 flex-wrap pt-3 animate-fadedown">
             {list.map((src, k) => {
@@ -83,6 +87,7 @@ const PhotoGallery = ({
                 <PhotoUploader
                   className="w-[120px] h-[120px] text-6xl bg-gray-100 text-gray-300 hover:text-gray-500 hover:bg-gray-200 transition-colors"
                   onLoaded={onLoadImage}
+                  noEdit={noEdit}
                 >
                   <Icon type="plus" />
                 </PhotoUploader>

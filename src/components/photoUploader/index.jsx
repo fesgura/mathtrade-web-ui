@@ -2,7 +2,7 @@ import { useState } from "react";
 import Modal from "../modal";
 import PhotoLoader from "./loader";
 
-const PhotoUploader = ({ children, className, onLoaded }) => {
+const PhotoUploader = ({ children, className, onLoaded, noEdit }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -23,7 +23,11 @@ const PhotoUploader = ({ children, className, onLoaded }) => {
         }}
         size="md"
       >
-        <PhotoLoader onLoaded={onLoaded} setIsOpen={setIsOpen} />
+        <PhotoLoader
+          onLoaded={onLoaded}
+          setIsOpen={setIsOpen}
+          noEdit={noEdit}
+        />
       </Modal>
     </>
   );

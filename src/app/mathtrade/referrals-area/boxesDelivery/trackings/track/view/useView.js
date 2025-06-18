@@ -3,7 +3,7 @@ import { BoxDeliveryContext } from "@/context/boxDelivery";
 import useFetch from "@/hooks/useFetch";
 
 const useView = (track) => {
-  const { id, destinyName, tracking_code, boxes } = track;
+  const { id, destinyName, tracking_code, boxes, image, price, weight } = track;
 
   const { setTrackingIdToEdit, reloadTrackings } =
     useContext(BoxDeliveryContext);
@@ -37,6 +37,9 @@ const useView = (track) => {
     tracking_code,
     destinyName,
     boxes,
+    image,
+    price,
+    weight,
   };
 };
 export default useView;

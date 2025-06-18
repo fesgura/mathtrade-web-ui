@@ -1028,5 +1028,8 @@
   "boxesDelivery.boxesLabel": "Cajas",
   "boxesDelivery.btn.tracking.update": "Actualizar tracking",
   "boxesDelivery.btn.tracking.create": "Crear nuevo tracking",
-  "boxesDelivery.trackingBoxLabel": "Cajas"
+  "boxesDelivery.trackingBoxLabel": "Cajas",
+  "boxesDelivery.photoTracking": "Foto de boleta<br/>de envío",
+  "boxesDelivery.price": "Precio",
+  "boxesDelivery.weight": "Peso Kg."
 }
