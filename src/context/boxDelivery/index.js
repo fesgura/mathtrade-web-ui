@@ -10,6 +10,7 @@ const COUNT_ITEMS_DELIVERY = 1;
 
 export const BoxDeliveryContext = createContext({
   itemList: [],
+  itemListRaw: [],
   //
   boxes: [],
   boxesList: [],
@@ -60,11 +61,8 @@ const BoxDeliveryContextProvider = ({ children }) => {
   /* END BOXES **********************************************/
 
   /* ITEM LIST **********************************************/
-  const { itemList, locationIdFilter, loadingItems, errorItems } = useItems(
-    boxes,
-    locations,
-    localLocation
-  );
+  const { itemList, itemListRaw, locationIdFilter, loadingItems, errorItems } =
+    useItems(boxes, locations, localLocation);
   /* END ITEM LIST **********************************************/
 
   /* TRACKING **********************************************/
@@ -100,6 +98,7 @@ const BoxDeliveryContextProvider = ({ children }) => {
     <BoxDeliveryContext.Provider
       value={{
         itemList,
+        itemListRaw,
         //
         boxes,
         boxesList,

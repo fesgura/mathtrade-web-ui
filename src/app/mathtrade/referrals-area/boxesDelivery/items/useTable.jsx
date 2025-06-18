@@ -3,13 +3,13 @@ import { useState, useMemo, useContext } from "react";
 import { normalizeString } from "@/utils";
 
 const useTable = () => {
-  const { itemList, loading, error } = useContext(BoxDeliveryContext);
+  const { itemListRaw, loading, error } = useContext(BoxDeliveryContext);
 
   const [searchValue, setSearchValue] = useState("");
   const [order, setOrder] = useState("user");
 
   const itemTableRaw = useMemo(() => {
-    return itemList.map(({ boxNumber, destinyName, itemRaw }) => {
+    return itemListRaw.map(({ boxNumber, destinyName, itemRaw }) => {
       const { id, assigned_trade_code, first_name, last_name, title } = itemRaw;
 
       return {
@@ -22,7 +22,7 @@ const useTable = () => {
         destinyName,
       };
     });
-  }, [itemList]);
+  }, [itemListRaw]);
 
   const itemTableSearched = useMemo(() => {
     if (!itemTableRaw || !itemTableRaw.length) {
