@@ -1,10 +1,8 @@
 import I18N, { getI18Ntext } from "@/i18n";
-import Avatar from "@/components/avatar";
 import Icon from "@/components/icon";
 import clsx from "clsx";
 import ErrorAlert from "@/components/errorAlert";
 import { LoadingBox } from "@/components/loading";
-import { DateIntlFormat } from "@/utils/dateUtils";
 import XlsButtonBtn from "@/components/xlsButton";
 import useTable from "./useTable";
 
