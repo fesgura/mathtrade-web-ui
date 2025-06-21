@@ -7,11 +7,13 @@ import Tabs from "@/components/tabs";
 
 const UserTable = lazy(() => import("./userTable"));
 const BoxesDelivery = lazy(() => import("./boxesDelivery"));
+const BoxesReceived = lazy(() => import("./boxesReceived"));
 const TutBoxes = lazy(() => import("./tut-boxes"));
 
 const tablist = [
   "referral.tab.prepareBoxes",
   "referral.tab.boxesDelivery",
+  "referral.tab.boxesReceived",
   "referral.tab.users",
 ];
 
@@ -38,6 +40,10 @@ export default function ReferralToRegisterUI() {
         ) : tabView === 1 ? (
           <Dynamic>
             <BoxesDelivery />
+          </Dynamic>
+        ) : tabView === 2 ? (
+          <Dynamic>
+            <BoxesReceived />
           </Dynamic>
         ) : (
           <Dynamic>

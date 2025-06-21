@@ -1037,5 +1037,9 @@
   "boxesDelivery.items.user": "Nombre",
   "boxesDelivery.items.title": "Título",
   "boxesDelivery.items.boxNumber": "Caja de envío Nº",
-  "boxesDelivery.items.destinyName": "Destino"
+  "boxesDelivery.items.destinyName": "Destino",
+  "referral.tab.boxesReceived": "Cajas que recibo",
+  "boxesReceived.table.tracking": "Nº Tracking",
+  "boxesReceived.table.origin_name": "Ciudad de origen",
+  "boxesReceived.table.boxes": "Cantidad de Cajas"
 }
