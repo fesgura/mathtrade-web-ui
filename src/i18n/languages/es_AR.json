@@ -1011,7 +1011,7 @@
   "referral.tab.prepareBoxes": "Armado de las cajas",
   "boxesDelivery.number": "Caja Nº",
   "boxesDelivery.city": "Ciudad de destino",
-  "boxesDelivery.items": "Ejemplares dentro de la caja",
+  "boxesDelivery.items": "Ejemplares dentro de la caja ($$$)",
   "boxesDelivery.btn.edit": "Editar",
   "boxesDelivery.btn.delete": "Eliminar caja",
   "boxesDelivery.btn.tracking.delete": "Eliminar tracking",

@@ -113,7 +113,7 @@ const useSelect = (
 
           setValueOutput(newValueOutput);
           if (onChange) {
-            onChange(newValueOutput, optionComplete);
+            onChange(newValueOutput, optionComplete, optionsComplete);
           }
         }
       } else {

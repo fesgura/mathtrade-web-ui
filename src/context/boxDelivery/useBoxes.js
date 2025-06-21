@@ -1,5 +1,6 @@
 import useFetch from "@/hooks/useFetch";
 import { useState, useCallback, useEffect, useMemo } from "react";
+import { codeNumToString } from "./utils";
 
 const useBoxes = (locations) => {
   const [boxes, setBoxes] = useState([]);
@@ -12,17 +13,19 @@ const useBoxes = (locations) => {
           .map((b) => {
             const loc = locations.find((l) => l.id === b.destiny);
 
-            const math_items_full = b.math_items.map(
-              ({ id, title, location, assigned_trade_code }) => {
+            const math_items_full = b.math_items
+              .sort((a, b) => {
+                return a?.assigned_trade_code > b?.assigned_trade_code ? 1 : -1;
+              })
+              .map(({ id, title, location, assigned_trade_code }) => {
                 const lo = locations.find((l) => l.id === location);
                 return {
                   id: `${id}`,
-                  text: `${assigned_trade_code} - ${title} ➡️ ${
-                    lo?.name || ""
-                  }`,
+                  text: `${codeNumToString(
+                    assigned_trade_code
+                  )} - ${title} ➡️ ${lo?.name || ""}`,
                 };
-              }
-            );
+              });
 
             return {
               ...b,

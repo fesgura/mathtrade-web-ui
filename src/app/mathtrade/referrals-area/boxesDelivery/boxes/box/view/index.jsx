@@ -35,8 +35,11 @@ const BoxView = ({ box }) => {
         </div>
       </div>
       <div>
-        {" "}
-        <Label text="boxesDelivery.items" name="items" />
+        <Label
+          text="boxesDelivery.items"
+          name="items"
+          values={[math_items_full.length]}
+        />
         <div className="bg-white/70 border border-gray-400/70 p-2 rounded-md flex flex-col gap-1">
           {math_items_full.map(({ id, text }) => {
             return (

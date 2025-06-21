@@ -20,6 +20,8 @@ const BoxEditor = ({ box }) => {
     number,
     math_items,
     itemOptions,
+    itemCount,
+    setItemCount,
   } = useEditor(box);
 
   return (
@@ -49,13 +51,22 @@ const BoxEditor = ({ box }) => {
         </div>
 
         <InputContainer validate="math_items">
-          <Label text="boxesDelivery.items" name="math_items" required />
+          <Label
+            text="boxesDelivery.items"
+            name="math_items"
+            values={[itemCount]}
+            required
+          />
+
           {itemOptions.length > 0 ? (
             <Select
               data={{ math_items }}
               name="math_items"
               options={itemOptions}
               multiple
+              onChange={(a) => {
+                setItemCount(a.split(",").length);
+              }}
               customRenderTag={(item, deleteBtn) => {
                 return (
                   <div

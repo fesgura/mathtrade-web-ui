@@ -8,6 +8,7 @@ const Label = ({
   name,
   required,
   size = "md",
+  values,
 }) => {
   return (
     <label
@@ -21,7 +22,7 @@ const Label = ({
       )}
       htmlFor={name}
     >
-      <I18N id={text} />{" "}
+      <I18N id={text} values={values || []} />{" "}
       {required && (
         <span
           className="text-primary"

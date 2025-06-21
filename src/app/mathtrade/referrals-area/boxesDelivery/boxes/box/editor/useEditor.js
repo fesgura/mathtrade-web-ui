@@ -82,6 +82,8 @@ const useEditor = (box) => {
     }
   }, [cancelAddNewBox, id, number, setBoxIdToEdit]);
 
+  const [itemCount, setItemCount] = useState(math_items.length);
+
   return {
     validations: {
       destiny: ["required"],
@@ -99,6 +101,8 @@ const useEditor = (box) => {
     number,
     math_items: math_items.join(","),
     itemOptions,
+    itemCount,
+    setItemCount,
   };
 };
 
