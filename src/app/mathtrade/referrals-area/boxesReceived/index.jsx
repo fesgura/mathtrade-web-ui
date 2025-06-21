@@ -74,63 +74,71 @@ const BoxesReceived = () => {
 
   return (
     <div className="relative min-h-[260px] max-w-5xl mx-auto pt-2 pb-8">
-      <div
-        className="pb-3 px-5  mb-5 flex flex-wrap gap-5 items-center justify-between
-       border-b border-gray-400"
-      >
-        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-        <XlsButtonBtn filename="cajas_que_recibo" data={listJSON} />
-      </div>
-
       <ErrorAlert error={error} />
-      <div className="overflow-x-auto shadow-lg">
-        <table className="w-full  border border-gray-100 shadow border-spacing-0 text-sm ">
-          <thead className="border-b bg-gray-100 border-gray-300 align-top text-left">
-            <tr>
-              <Th>#</Th>
-              <Th value="tracking" order={order} setOrder={setOrder}>
-                <I18N id="boxesReceived.table.tracking" />
-              </Th>
-              <Th value="origin_name" order={order} setOrder={setOrder}>
-                <I18N id="boxesReceived.table.origin_name" />
-              </Th>
-              <Th value="boxes" order={order} setOrder={setOrder}>
-                <I18N id="boxesReceived.table.boxes" />
-              </Th>
-            </tr>
-          </thead>
-          <tbody className="bg-white">
-            {trackings.map((item, k) => {
-              const { origin_name, tracking, boxes } = item;
-
-              return (
-                <tr
-                  key={`${tracking}-${k}`}
-                  className="border-b border-gray-400"
-                >
-                  <td className="p-2">{k + 1}</td>
-                  <td className="p-2">
-                    {tracking ? (
-                      <a
-                        href={`https://www.viacargo.com.ar/tracking/${tracking}`}
-                        className="text-primary font-bold  hover:text-sky-700 underline"
-                        target="_blank"
-                        rel="noreferrer"
-                      >
-                        {tracking}
-                      </a>
-                    ) : (
-                      "-"
-                    )}
-                  </td>
-                  <td className="p-2">{origin_name}</td>
-                  <td className="p-2">{boxes.length}</td>
+      {trackings.length === 0 && !loading && !error ? (
+        <div className="text-center text-xl italic p-8">
+          <I18N id="boxesReceived.table.emptyList" />
+        </div>
+      ) : (
+        <>
+          <div
+            className="pb-3 px-5  mb-5 flex flex-wrap gap-5 items-center justify-between
+       border-b border-gray-400"
+          >
+            <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+            <XlsButtonBtn filename="cajas_que_recibo" data={listJSON} />
+          </div>
+          <div className="overflow-x-auto shadow-lg">
+            <table className="w-full  border border-gray-100 shadow border-spacing-0 text-sm ">
+              <thead className="border-b bg-gray-100 border-gray-300 align-top text-left">
+                <tr>
+                  <Th>#</Th>
+                  <Th value="tracking" order={order} setOrder={setOrder}>
+                    <I18N id="boxesReceived.table.tracking" />
+                  </Th>
+                  <Th value="origin_name" order={order} setOrder={setOrder}>
+                    <I18N id="boxesReceived.table.origin_name" />
+                  </Th>
+                  <Th value="boxes" order={order} setOrder={setOrder}>
+                    <I18N id="boxesReceived.table.boxes" />
+                  </Th>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+              </thead>
+              <tbody className="bg-white">
+                {trackings.map((item, k) => {
+                  const { origin_name, tracking, boxes } = item;
+
+                  return (
+                    <tr
+                      key={`${tracking}-${k}`}
+                      className="border-b border-gray-400"
+                    >
+                      <td className="p-2">{k + 1}</td>
+                      <td className="p-2">
+                        {tracking ? (
+                          <a
+                            href={`https://www.viacargo.com.ar/tracking/${tracking}`}
+                            className="text-primary font-bold  hover:text-sky-700 underline"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            {tracking}
+                          </a>
+                        ) : (
+                          "-"
+                        )}
+                      </td>
+                      <td className="p-2">{origin_name}</td>
+                      <td className="p-2">{boxes.length}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+
       <LoadingBox loading={loading} transparent />
     </div>
   );

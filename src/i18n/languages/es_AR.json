@@ -1041,5 +1041,6 @@
   "referral.tab.boxesReceived": "Cajas que recibo",
   "boxesReceived.table.tracking": "Nº Tracking",
   "boxesReceived.table.origin_name": "Ciudad de origen",
-  "boxesReceived.table.boxes": "Cantidad de Cajas"
+  "boxesReceived.table.boxes": "Cantidad de Cajas",
+  "boxesReceived.table.emptyList": "No aparece información aquí por ahora."
 }
