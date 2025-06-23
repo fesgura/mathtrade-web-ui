@@ -3,7 +3,7 @@ import { BoxDeliveryContext } from "@/context/boxDelivery";
 import useFetch from "@/hooks/useFetch";
 
 const useView = (box) => {
-  const { id, destinyName, number, math_items_full } = box;
+  const { id, destinyName, number, math_items_full, comment } = box;
 
   const { setBoxIdToEdit, reloadBoxes } = useContext(BoxDeliveryContext);
 
@@ -36,6 +36,7 @@ const useView = (box) => {
     number,
     destinyName,
     math_items_full,
+    comment,
   };
 };
 export default useView;

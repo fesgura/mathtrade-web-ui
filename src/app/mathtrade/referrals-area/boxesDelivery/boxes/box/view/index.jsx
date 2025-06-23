@@ -16,21 +16,26 @@ const BoxView = ({ box }) => {
     number,
     destinyName,
     math_items_full,
+    comment,
   } = useView(box);
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex items-start gap-5">
-        <div className="w-24">
-          <Label text="boxesDelivery.number" name="number" />
-          <div className="bg-white/20 border border-gray-400/70 text-xl font-bold py-1 rounded-md text-center px-3">
-            {number}
+      <div className="flex flex-wrap gap-5">
+        <div>
+          <div className="w-24">
+            <Label text="boxesDelivery.number" name="number" />
+            <div className="bg-white/20 border border-gray-400/70 text-xl font-bold py-1 rounded-md text-center px-3">
+              {number}
+            </div>
           </div>
         </div>
         <div>
-          <Label text="boxesDelivery.city" name="destiny" />
-          <div className="bg-white/20 border border-gray-400/70 text-xl font-bold py-1 rounded-md text-center px-3">
-            {destinyName}
+          <div className="w-36">
+            <Label text="boxesDelivery.city" name="destiny" />
+            <div className="bg-white/20 border border-gray-400/70 text-xl font-bold py-1 rounded-md text-center px-3">
+              {destinyName}
+            </div>
           </div>
         </div>
       </div>
@@ -53,7 +58,7 @@ const BoxView = ({ box }) => {
           })}
         </div>
       </div>
-
+      {comment ? <p className="text-sm">{comment}</p> : null}
       <div className="flex items-end justify-between gap-2">
         <button
           className="text-white  font-bold text-lg px-6 py-1 rounded-full  hover:text-white transition-colors bg-primary hover:bg-sky-700"

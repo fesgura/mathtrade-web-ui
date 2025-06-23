@@ -1,9 +1,16 @@
-import { Form, InputContainer, Label, Select } from "@/components/form";
+import {
+  Form,
+  InputContainer,
+  Label,
+  Select,
+  Textarea,
+} from "@/components/form";
 import I18N from "@/i18n";
 import useEditor from "./useEditor";
 import clsx from "clsx";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
+import { maxCharacters, charactersDanger } from "@/config/maxCharacters";
 
 const BoxEditor = ({ box }) => {
   const {
@@ -22,6 +29,8 @@ const BoxEditor = ({ box }) => {
     itemOptions,
     itemCount,
     setItemCount,
+    comment,
+    setComment,
   } = useEditor(box);
 
   return (
@@ -89,6 +98,32 @@ const BoxEditor = ({ box }) => {
           ) : (
             <div className="bg-white rounded-md border border-gray-400 p-2"></div>
           )}
+        </InputContainer>
+        <InputContainer>
+          <div className="flex items-center gap-2">
+            <Label text="boxesDelivery.comment" name="comment" />
+            <span
+              className={clsx("text-xs", {
+                "text-gray-500":
+                  maxCharacters - comment.length > charactersDanger,
+                "text-danger font-bold":
+                  maxCharacters - comment.length <= charactersDanger,
+              })}
+            >
+              ({` ${comment.length} / ${maxCharacters} `}
+              <I18N id="itemComments.editor.label.add.adv" /> )
+            </span>
+          </div>
+          <Textarea
+            data={{ comment }}
+            name="comment"
+            onChange={({ target }) => {
+              setComment(target.value);
+            }}
+            className="h-24"
+            size="sm"
+            maxlength={maxCharacters}
+          />
         </InputContainer>
         <ErrorAlert error={error} />
         <div

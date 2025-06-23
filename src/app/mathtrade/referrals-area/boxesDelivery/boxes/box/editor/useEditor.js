@@ -4,7 +4,7 @@ import useFetch from "@/hooks/useFetch";
 import { parse } from "qs";
 
 const useEditor = (box) => {
-  const { id, destiny, number, math_items } = box;
+  const { id, destiny, number, math_items, comment: commentBox } = box;
 
   const {
     locationOptions,
@@ -15,6 +15,7 @@ const useEditor = (box) => {
   } = useContext(BoxDeliveryContext);
 
   const [locationId, setLocationId] = useState(`${destiny}`);
+  const [comment, setComment] = useState(commentBox || "");
 
   const itemOptions = useMemo(() => {
     return itemList.filter((item) => {
@@ -65,6 +66,10 @@ const useEditor = (box) => {
         }),
       };
 
+      if (d.comment) {
+        params.comment = d.comment;
+      }
+
       if (!id) {
         postBox({ params });
       } else {
@@ -103,6 +108,8 @@ const useEditor = (box) => {
     itemOptions,
     itemCount,
     setItemCount,
+    comment,
+    setComment,
   };
 };
 
