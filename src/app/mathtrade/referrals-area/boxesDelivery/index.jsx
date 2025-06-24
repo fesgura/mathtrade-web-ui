@@ -23,6 +23,7 @@ const BoxesDelivery = () => {
           value={tabView}
           onChange={setTabView}
           min
+          toLeft
           className="relative top-[2px]"
         />
       </div>

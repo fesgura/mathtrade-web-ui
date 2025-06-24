@@ -1,13 +1,22 @@
 import I18N from "@/i18n";
 import clsx from "clsx";
 
-const Tabs = ({ list, onChange, highlighted = -1, value, min, className }) => {
+const Tabs = ({
+  list,
+  onChange,
+  highlighted = -1,
+  value,
+  min,
+  className,
+  toLeft,
+}) => {
   return (
     <menu
       className={clsx(
         "flex flex-wrap pt-1",
         {
           "text-2xl justify-center": !min,
+          "justify-center": !toLeft,
         },
         className
       )}
