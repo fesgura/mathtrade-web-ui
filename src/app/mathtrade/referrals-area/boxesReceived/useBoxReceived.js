@@ -2,6 +2,7 @@ import useFetch from "@/hooks/useFetch";
 import { useState, useCallback, useEffect, useMemo, useContext } from "react";
 import { normalizeString } from "@/utils";
 import { PageContext } from "@/context/page";
+import { codeNumToString } from "@/context/boxDelivery/utils";
 
 const useBoxReceived = () => {
   /* LOCATIONS **********************************************/
@@ -13,44 +14,74 @@ const useBoxReceived = () => {
 
   const [trackingsRaw, setTrackingsRaw] = useState([]);
 
-  /* GET BOXES **********************************************/
-  const afterLoad = useCallback((newBoxes) => {
-    const newTrackingsPool = newBoxes.reduce((obj, box) => {
-      const { origin_name, tracking, number } = box;
-      if (!obj[tracking]) {
-        obj[tracking] = {
-          tracking,
+  const afterLoadTrackings = useCallback((newTrackings) => {
+    const newTrackingsMap = newTrackings.map(
+      ({ id, image, boxes: boxesRaw, tracking_code, price, weight }) => {
+        let origin_name = "-";
+
+        let itemsCount = 0;
+
+        const boxes = boxesRaw.map((box) => {
+          if (box?.origin_name) {
+            origin_name = box?.origin_name;
+          }
+
+          const items = box?.math_items.map((item) => {
+            return {
+              id: item?.id,
+              name: `${codeNumToString(item?.assigned_trade_code)} - ${
+                item?.title
+              }`,
+              user: `${item?.first_name} ${item?.last_name}`,
+            };
+          });
+
+          itemsCount += items.length;
+
+          return {
+            id: box?.id,
+            name: `Caja Nº ${box?.number}`,
+            items,
+            comment: box?.comment,
+          };
+        });
+
+        return {
+          id,
+          image,
+          boxes,
+          tracking: tracking_code,
           origin_name,
-          boxes: [],
+          priceTotal: new Intl.NumberFormat("es-AR", {
+            style: "currency",
+            currency: "ARS",
+          }).format(price),
+          weight,
+          itemsCount,
+          pricePerItem: new Intl.NumberFormat("es-AR", {
+            style: "currency",
+            currency: "ARS",
+          }).format(price / itemsCount),
         };
       }
+    );
 
-      obj[tracking].boxes.push({
-        number,
-        text: `Caja Nº ${number}`,
-      });
-
-      return obj;
-    }, {});
-
-    const newTrackings = Object.values(newTrackingsPool);
-
-    setTrackingsRaw(newTrackings);
+    setTrackingsRaw(newTrackingsMap);
   }, []);
 
-  const [getBoxes, , loading, error] = useFetch({
-    endpoint: "LOGISTICS_GET_BOXES",
+  const [getTrackings, , loading, error] = useFetch({
+    endpoint: "LOGISTICS_GET_TRACKINGS",
     initialState: [],
-    afterLoad,
+    afterLoad: afterLoadTrackings,
   });
 
   useEffect(() => {
-    getBoxes({
+    getTrackings({
       params: {
         destination: localLocation,
       },
     });
-  }, [getBoxes, localLocation]);
+  }, [getTrackings, localLocation]);
 
   ////////////////////////////////////////////////
 
@@ -64,13 +95,25 @@ const useBoxReceived = () => {
 
     const keyLow = normalizeString(searchValue);
 
-    return trackingsRaw.filter((item) => {
-      const { origin_name } = item;
-
+    return trackingsRaw.filter((tr) => {
       if (keyLow === "") {
         return true;
       }
-      return normalizeString(`${origin_name || ""}`).indexOf(keyLow) >= 0;
+      const { origin_name, boxes } = tr;
+
+      const itemTexts = boxes
+        .map((box) => {
+          return box.items
+            .map((item) => `${item.name} - ${item.user}`)
+            .join("|");
+        })
+        .join("|");
+
+      return (
+        normalizeString(`${origin_name || ""} ${itemTexts || ""}`).indexOf(
+          keyLow
+        ) >= 0
+      );
     });
   }, [trackingsRaw, searchValue]);
 
@@ -88,20 +131,37 @@ const useBoxReceived = () => {
         case "tracking":
           return a?.tracking < b?.tracking ? -1 * dir : dir;
 
-        case "boxes":
-          return a?.boxes?.length < b?.boxes?.length ? -1 * dir : dir;
+        case "price":
+          return a?.priceTotal < b?.priceTotal ? -1 * dir : dir;
         default:
           return 1;
       }
     });
 
-    const listJSONdata = listOrdered.map((tr) => {
-      const { origin_name, tracking, boxes } = tr;
+    const listJSONdata = listOrdered.map((tr, k) => {
+      const {
+        origin_name,
+        tracking,
+        boxes,
+        priceTotal,
+        itemsCount,
+        pricePerItem,
+      } = tr;
 
       return {
+        "#": k,
         "Nº Tracking": tracking || "-",
         "Ciudad de origen": origin_name,
-        "Cantidad de Cajas": boxes?.length || 0,
+        Precio: `${priceTotal} / ${itemsCount} ejemplares = ${pricePerItem} por ejemplar`,
+        Cajas: boxes
+          .map((box) => {
+            return `${box.name}: ${box.items
+              .map((item) => {
+                return `${item.name} - ${item.user}`;
+              })
+              .join(", ")}`;
+          })
+          .join("|"),
       };
     });
 
