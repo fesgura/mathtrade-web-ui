@@ -32,7 +32,9 @@ const useBoxReceived = () => {
               name: `${codeNumToString(item?.assigned_trade_code)} - ${
                 item?.title
               }`,
-              user: `${item?.first_name} ${item?.last_name}`,
+              user: `${item?.receptor_first_name || "-"} ${
+                item?.receptor_last_name || ""
+              }`,
             };
           });
 
@@ -155,11 +157,14 @@ const useBoxReceived = () => {
         Precio: `${priceTotal} / ${itemsCount} ejemplares = ${pricePerItem} por ejemplar`,
         Cajas: boxes
           .map((box) => {
-            return `${box.name}: ${box.items
-              .map((item) => {
-                return `${item.name} - ${item.user}`;
-              })
-              .join(", ")}`;
+            return (
+              `${box.name}: ${box.items
+                .map((item) => {
+                  return `${item.name} - recibe ${item.user}`;
+                })
+                .join(", ")}` +
+              (box.comment ? `. Comentario: ${box.comment}` : "")
+            );
           })
           .join("|"),
       };

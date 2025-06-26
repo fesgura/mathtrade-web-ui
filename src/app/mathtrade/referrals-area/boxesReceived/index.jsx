@@ -18,7 +18,7 @@ const BoxCell = ({ box, isFirst }) => {
 
   return (
     <div
-      className={clsx("py-1 max-w-72", {
+      className={clsx("py-1 w-64", {
         "border-t border-gray-300": !isFirst,
       })}
     >
@@ -49,10 +49,15 @@ const BoxCell = ({ box, isFirst }) => {
                 className="text-xs border border-primary/80 bg-primary/20 py-1 px-2 rounded-md"
               >
                 <div className="font-bold"> {item.name}</div>
-                <div className=""> {item.user}</div>
+                <div className="">recibe {item.user}</div>
               </div>
             );
           })}
+          {comment ? (
+            <div className="text-xs text-balance p-2 border border-gray-300 rounded-md">
+              {comment}
+            </div>
+          ) : null}
         </div>
       ) : null}
     </div>
