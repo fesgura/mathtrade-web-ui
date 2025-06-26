@@ -1,6 +1,5 @@
 import useFetch from "@/hooks/useFetch";
-import { useState, useCallback, useEffect, useMemo, useContext } from "react";
-import { normalizeString } from "@/utils";
+import { useState, useCallback, useEffect, useContext } from "react";
 import { PageContext } from "@/context/page";
 import { codeNumToString } from "@/context/boxDelivery/utils";
 
@@ -12,7 +11,7 @@ const useBoxReceived = () => {
 
   /* end LOCATIONS **********************************************/
 
-  const [trackingsRaw, setTrackingsRaw] = useState([]);
+  const [trackings, setTrackings] = useState([]);
 
   const afterLoadTrackings = useCallback((newTrackings) => {
     const newTrackingsMap = newTrackings.map(
@@ -68,7 +67,7 @@ const useBoxReceived = () => {
       }
     );
 
-    setTrackingsRaw(newTrackingsMap);
+    setTrackings(newTrackingsMap);
   }, []);
 
   const [getTrackings, , loading, error] = useFetch({
@@ -87,104 +86,10 @@ const useBoxReceived = () => {
 
   ////////////////////////////////////////////////
 
-  const [searchValue, setSearchValue] = useState("");
-  const [order, setOrder] = useState("");
-
-  const trackingsSearched = useMemo(() => {
-    if (!trackingsRaw || !trackingsRaw.length) {
-      return [];
-    }
-
-    const keyLow = normalizeString(searchValue);
-
-    return trackingsRaw.filter((tr) => {
-      if (keyLow === "") {
-        return true;
-      }
-      const { origin_name, boxes } = tr;
-
-      const itemTexts = boxes
-        .map((box) => {
-          return box.items
-            .map((item) => `${item.name} - ${item.user}`)
-            .join("|");
-        })
-        .join("|");
-
-      return (
-        normalizeString(`${origin_name || ""} ${itemTexts || ""}`).indexOf(
-          keyLow
-        ) >= 0
-      );
-    });
-  }, [trackingsRaw, searchValue]);
-
-  const { trackings, listJSON } = useMemo(() => {
-    const listOrdered = trackingsSearched.sort((a, b) => {
-      const dir = order.indexOf("-") === 0 ? -1 : 1;
-
-      const orderKey = order.replace("-", "");
-
-      switch (orderKey) {
-        case "origin_name":
-          return a?.origin_name.toUpperCase() < b?.origin_name.toUpperCase()
-            ? -1 * dir
-            : dir;
-        case "tracking":
-          return a?.tracking < b?.tracking ? -1 * dir : dir;
-
-        case "price":
-          return a?.priceTotal < b?.priceTotal ? -1 * dir : dir;
-        default:
-          return 1;
-      }
-    });
-
-    const listJSONdata = listOrdered.map((tr, k) => {
-      const {
-        origin_name,
-        tracking,
-        boxes,
-        priceTotal,
-        itemsCount,
-        pricePerItem,
-      } = tr;
-
-      return {
-        "#": k,
-        "Nº Tracking": tracking || "-",
-        "Ciudad de origen": origin_name,
-        Precio: `${priceTotal} / ${itemsCount} ejemplares = ${pricePerItem} por ejemplar`,
-        Cajas: boxes
-          .map((box) => {
-            return (
-              `${box.name}: ${box.items
-                .map((item) => {
-                  return `${item.name} - recibe ${item.user}`;
-                })
-                .join(", ")}` +
-              (box.comment ? `. Comentario: ${box.comment}` : "")
-            );
-          })
-          .join("|"),
-      };
-    });
-
-    return {
-      trackings: listOrdered,
-      listJSON: listJSONdata,
-    };
-  }, [trackingsSearched, order]);
-
   return {
     trackings,
-    listJSON,
     loading,
     error,
-    order,
-    setOrder,
-    searchValue,
-    setSearchValue,
   };
 };
 
