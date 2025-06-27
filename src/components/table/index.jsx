@@ -106,6 +106,7 @@ const Table = ({
   downloadExcel,
   loading,
   error,
+  rowsProps,
 }) => {
   const { order, setOrder, searchValue, setSearchValue, list, listJSON } =
     useTable(columns, data, searchValuesFunc, downloadExcel);
@@ -155,10 +156,12 @@ const Table = ({
           </thead>
           <tbody className="bg-white">
             {list.map((item, k) => {
+              const row_props = rowsProps ? rowsProps(item) : {};
               return (
                 <tr
                   key={`${item?.id || "0"}__${k}`}
                   className="border-b border-gray-400"
+                  {...row_props}
                 >
                   {columns.map((column, j) => {
                     return (
