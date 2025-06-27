@@ -1,18 +1,11 @@
 import I18N, { getI18Ntext } from "@/i18n";
-import useUserTable from "./useUserTable";
 import Avatar from "@/components/avatar";
-import Icon from "@/components/icon";
-import clsx from "clsx";
-import ErrorAlert from "@/components/errorAlert";
-import { LoadingBox } from "@/components/loading";
 import { DateIntlFormat } from "@/utils/dateUtils";
-import XlsButtonBtn from "@/components/xlsButton";
 
 const columns = [
   {
     header: "result.userTable.name",
     value: "name",
-    excel: false,
     sort: (a, b, dir) => {
       return a?.last_name < b?.last_name ? -1 * dir : dir;
     },
