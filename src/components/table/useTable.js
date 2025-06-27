@@ -77,13 +77,7 @@ const useTable = (columns, data, searchValuesFunc, downloadExcel) => {
         o[colName] = column.excel(tr, tr[column.value], k);
       });
 
-      const { origin_name, tracking, boxes } = tr;
-
-      return {
-        "Nº Tracking": tracking || "-",
-        "Ciudad de origen": origin_name,
-        "Cantidad de Cajas": boxes?.length || 0,
-      };
+      return o;
     });
 
     return {

@@ -12,7 +12,7 @@ const BoxesReceived = () => {
         error={error}
         columns={columns}
         data={trackings}
-        downloadExcel
+        downloadExcel="cajas-que-recibo"
         searchValuesFunc={(tr) => {
           const { origin_name, boxes } = tr;
 

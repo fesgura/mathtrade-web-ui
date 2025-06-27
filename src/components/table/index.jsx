@@ -115,7 +115,7 @@ const Table = ({
   }
 
   return (
-    <div className="relative">
+    <div className="relative min-h-72">
       {typeof searchValuesFunc === "undefined" && !downloadExcel ? null : (
         <div
           className="py-3 px-5 flex flex-wrap gap-5 items-center justify-between
@@ -125,7 +125,7 @@ const Table = ({
             <Search searchValue={searchValue} setSearchValue={setSearchValue} />
           )}
           {downloadExcel ? (
-            <XlsButtonBtn filename="cajas_que_recibo" data={listJSON} />
+            <XlsButtonBtn filename={downloadExcel} data={listJSON} />
           ) : null}
         </div>
       )}
