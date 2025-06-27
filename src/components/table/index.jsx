@@ -165,6 +165,7 @@ const Table = ({
                       <td
                         className="p-2 align-top"
                         key={`${column.value || "0"}__${j}`}
+                        style={column.style}
                       >
                         {column.render
                           ? column.render(item, item?.[column.value] || null, k)
