@@ -2,8 +2,6 @@ import { useCallback, useMemo } from "react";
 import useFetch from "@/hooks/useFetch";
 
 const useUserBanRow = (user, userBans, setUserBans) => {
-  const { avatar, name, location } = user;
-
   /* POST BAN  **********************************************/
   const afterLoadBan = useCallback(
     (res) => {
@@ -55,9 +53,6 @@ const useUserBanRow = (user, userBans, setUserBans) => {
   }, [user, ban_id, banUser, unbanUser]);
 
   return {
-    avatar,
-    name,
-    location,
     ban_id,
     onClick,
     loading: loadingBan || loadingUnBan,

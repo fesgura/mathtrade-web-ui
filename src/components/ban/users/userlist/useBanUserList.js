@@ -1,7 +1,6 @@
 import { useContext, useMemo, useCallback, useEffect, useState } from "react";
 import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
-import { normalizeString } from "@/utils";
 
 const useBanUserList = () => {
   /* PAGE CONTEXT **********************************************/
@@ -70,30 +69,17 @@ const useBanUserList = () => {
 
   /* end GET BAN USERS ****************************************/
 
-  const [searchValue, setSearchValue] = useState("");
-
-  const [order, setOrder] = useState("name");
-
-  const userListUnordered = useMemo(() => {
+  const userList = useMemo(() => {
     if (!users.length) {
       return [];
     }
-
-    const keyLow = normalizeString(searchValue);
 
     return users
       .filter((user) => {
         if (user.id === userId) {
           return false;
         }
-        if (keyLow === "") {
-          return true;
-        }
-        return (
-          normalizeString(
-            `${user?.first_name || ""} ${user?.last_name || ""}`
-          ).indexOf(keyLow) >= 0
-        );
+        return true;
       })
       .map((user) => {
         const { id, /*ban_id,*/ avatar, first_name, last_name, location } =
@@ -107,25 +93,7 @@ const useBanUserList = () => {
           location: location?.name || "-",
         };
       });
-  }, [users, userId, searchValue]);
-
-  const userList = useMemo(() => {
-    return userListUnordered.sort((a, b) => {
-      const dir = order.indexOf("-") === 0 ? -1 : 1;
-
-      const orderKey = order.replace("-", "");
-
-      switch (orderKey) {
-        case "status":
-          return typeof userBans[a.id] !== "undefined" ? -1 * dir : dir;
-
-        case "location":
-          return a.location < b.location ? -1 * dir : dir;
-        default:
-          return a.last_name < b.last_name ? -1 * dir : dir;
-      }
-    });
-  }, [userListUnordered, order, userBans]);
+  }, [users, userId]);
 
   return {
     userList,
@@ -133,10 +101,6 @@ const useBanUserList = () => {
     setUserBans,
     loading: loadingUsers || loadingBanUsers,
     error: errorLoadingUsers || errorBanUsers,
-    order,
-    setOrder,
-    searchValue,
-    setSearchValue,
   };
 };
 
