@@ -20,17 +20,16 @@ const View = ({ track }) => {
     image,
     price,
     weight,
-    // math_items_full,
   } = useView(track);
 
   return (
-    <div className="flex gap-4">
-      <div className="">
+    <div className="flex flex-wrap gap-4">
+      <div className="w-32">
         <Label text="boxesDelivery.photoTracking" name="destiny" required />
         <PhotoGallery images={image} noTitled extended />
       </div>
 
-      <div className="flex flex-col gap-5 border-l border-gray-300 pl-4 flex-1">
+      <div className="flex flex-col gap-5 sm:border-l border-gray-300 sm:pl-4 sm:pr-0 pl-3 pr-3 flex-1 min-w-64">
         <div className="flex flex-wrap items-start gap-7">
           <div>
             <Label text="boxesDelivery.city" name="destiny" />
