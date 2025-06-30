@@ -1,95 +1,30 @@
-import I18N from "@/i18n";
-import Icon from "@/components/icon";
-import clsx from "clsx";
-import Search from "./search";
-import useTable from "./useTable";
-import Row from "./row";
-import XlsButtonBtn from "@/components/xlsButton";
-
-const Th = ({ value, order, setOrder, children, className }) => {
-  const dir = order.indexOf("-") === 0 ? -1 : 1;
-  return (
-    <th className={clsx("text-left py-2 px-3", className)}>
-      <div
-        className="flex items-center gap-2 cursor-pointer"
-        onClick={() => {
-          if (order.indexOf(value) >= 0) {
-            if (dir > 0) {
-              setOrder("-" + value);
-            } else {
-              setOrder(value);
-            }
-          } else {
-            setOrder(value);
-          }
-        }}
-      >
-        <div>{children}</div>
-        <div
-          className={clsx("text-xl leading-none", {
-            "opacity-20": order.indexOf(value) < 0,
-          })}
-        >
-          <Icon type={`chevron-${dir < 0 ? "up" : "down"}`} />
-        </div>
-      </div>
-    </th>
-  );
-};
+import { useContext } from "react";
+import { ResultsContext } from "@/context/results";
+import Table from "@/components/table";
+import columns from "./columns";
 
 const ResultsTable = () => {
-  const { list, listJSON, order, setOrder, searchValue, setSearchValue } =
-    useTable();
+  /* RESULTS CONTEXT *****************************************/
+  const { MathTradeResults } = useContext(ResultsContext);
+  /* end RESULTS CONTEXT *****************************************/
 
   return (
-    <div className="relative min-h-[260px]">
-      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 py-3">
-        <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-        <XlsButtonBtn filename="cambios" data={listJSON} />
-      </div>
-      <div className="max-w-7xl mx-auto  overflow-x-auto">
-        <div className="min-w-[1000px]">
-          <table className="w-full  border border-gray-100 shadow border-spacing-0 text-sm ">
-            <thead className="border-b bg-gray-100 border-gray-300 align-top">
-              <tr>
-                <Th value="item_to" order={order} setOrder={setOrder}>
-                  <I18N id="result.table.item_to" />
-                </Th>
-                <Th
-                  value="member_to"
-                  order={order}
-                  setOrder={setOrder}
-                  className="border-r-2 border-gray-300"
-                >
-                  <I18N id="result.table.member_to" />
-                </Th>
-                <Th value="item_from" order={order} setOrder={setOrder}>
-                  <I18N id="result.table.item_from" />
-                </Th>
-                <Th value="member_from" order={order} setOrder={setOrder}>
-                  <I18N id="result.table.member_from" />
-                </Th>
-              </tr>
-            </thead>
-            <tbody className="bg-white">
-              {list.map((result) => {
-                return <Row result={result} key={result.id} />;
-              })}
-              {/* {userList.map((user) => {
-              return (
-                <UserBanRow
-                  key={user.id}
-                  user={user}
-                  userBans={userBans}
-                  setUserBans={setUserBans}
-                />
-              );
-            })} */}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
+    <Table
+      data={MathTradeResults}
+      columns={columns}
+      downloadExcel="resultados"
+      searchValuesFunc={(result) => {
+        const { item_to, membership_to, item_from, membership_from } = result;
+
+        return `${item_to?.title || ""} ${membership_to?.first_name || ""} ${
+          membership_to?.last_name || ""
+        } ${membership_to?.location?.name || ""} ${item_from?.title || ""} ${
+          membership_from?.first_name || ""
+        } ${membership_from?.last_name || ""} ${
+          membership_from?.location?.name || ""
+        }`;
+      }}
+    />
   );
 };
 
