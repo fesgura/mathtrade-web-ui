@@ -100,6 +100,7 @@ const columns = [
 */
 
 const Table = ({
+  header,
   columns,
   data,
   searchValuesFunc,
@@ -122,9 +123,16 @@ const Table = ({
           className="py-3 px-5 flex flex-wrap gap-5 items-center justify-between
        border-b border-gray-300"
         >
-          {typeof searchValuesFunc === "undefined" ? null : (
-            <Search searchValue={searchValue} setSearchValue={setSearchValue} />
-          )}
+          <div className="flex flex-wrap items-center gap-4">
+            {header || null}
+            {typeof searchValuesFunc === "undefined" ? null : (
+              <Search
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+              />
+            )}
+          </div>
+
           {downloadExcel ? (
             <XlsButtonBtn filename={downloadExcel} data={listJSON} />
           ) : null}

@@ -138,17 +138,17 @@ const columns = [
       return trades || "0";
     },
   },
-  {
-    header: "result.userTable.commitment_datetime",
-    value: "commitment_datetime",
-    sort: true,
-    excel: (_, commitment_datetime) => {
-      return commitment_datetime ? DateIntlFormat(commitment_datetime) : "-";
-    },
-    render: (_, commitment_datetime) => {
-      return commitment_datetime ? DateIntlFormat(commitment_datetime) : "-";
-    },
-  },
+  // {
+  //   header: "result.userTable.commitment_datetime",
+  //   value: "commitment_datetime",
+  //   sort: true,
+  //   excel: (_, commitment_datetime) => {
+  //     return commitment_datetime ? DateIntlFormat(commitment_datetime) : "-";
+  //   },
+  //   render: (_, commitment_datetime) => {
+  //     return commitment_datetime ? DateIntlFormat(commitment_datetime) : "-";
+  //   },
+  // },
   {
     header: "result.userTable.commitment",
     value: "commitment",
@@ -164,6 +164,17 @@ const columns = [
       ) : (
         <I18N id="No" />
       );
+    },
+  },
+  {
+    header: "result.userTable.payment",
+    value: "paid",
+    sort: true,
+    excel: (_, paid) => {
+      return paid ? getI18Ntext("Yes") : getI18Ntext("No");
+    },
+    render: (_, paid) => {
+      return paid ? <I18N id="Yes" /> : <I18N id="No" />;
     },
   },
 ];
