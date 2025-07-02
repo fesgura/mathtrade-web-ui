@@ -16,6 +16,7 @@ import Dynamic from "@/components/dynamic";
 
 //const baseURL = process.env.BASE_URL;
 
+const PaymentInfo = lazy(() => import("@/components/results/paymentInfo"));
 const UserQR = lazy(() => import("@/components/userQr"));
 
 const HomeContent = () => {
@@ -44,6 +45,11 @@ const HomeContent = () => {
 
       {mathtrade && Object.keys(mathtrade).length > 0 ? (
         <>
+          <div className="mb-5">
+            <Dynamic>
+              <PaymentInfo />
+            </Dynamic>
+          </div>
           <Dynamic>
             <UserQR />
           </Dynamic>

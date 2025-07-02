@@ -3,9 +3,13 @@ import { ResultsContext } from "@/context/results";
 import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
 
+const defaultScreenViewResults = 5; //0;
+
 const useResults = () => {
   /* SCREEN OPTIONS **********************************************/
-  const [screenViewResults, setScreenViewResults] = useState(0);
+  const [screenViewResults, setScreenViewResults] = useState(
+    defaultScreenViewResults
+  );
   /* end SCREEN OPTIONS **********************************************/
 
   /* PAGE CONTEXT *****************************************/
@@ -22,7 +26,7 @@ const useResults = () => {
   } = useContext(ResultsContext);
 
   useEffect(() => {
-    setScreenViewResults(0);
+    setScreenViewResults(defaultScreenViewResults);
   }, [currentUser]);
   /* end RESULTS CONTEXT *****************************************/
 
