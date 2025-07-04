@@ -75,6 +75,11 @@ const dataCrecimiento = [
     users: [533, 422],
     items: [6502, 2313],
   },
+  {
+    x: "May 2025",
+    users: [564, 515],
+    items: [7764, 3048],
+  },
 ];
 
 export const crecimientoData = (() => {
