@@ -67,7 +67,7 @@ export const PRIVATE_ROUTES = {
   STATS: {
     title: "statistics",
     path: privateRoot + "/statistics",
-    enabled: "onlyForMembers",
+    enabled: "always",
   },
   REFERRALS_AREA: {
     title: "referrals-area",

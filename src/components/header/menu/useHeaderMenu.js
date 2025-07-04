@@ -30,6 +30,8 @@ const useHeaderMenu = () => {
       } else {
         if (canI.sign) {
           list = MenuListNotSignedToMathtrade;
+        } else {
+          list = MenuListDefault;
         }
       }
     } else {

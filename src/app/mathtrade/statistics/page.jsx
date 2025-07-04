@@ -14,12 +14,36 @@ const GraphViewer = lazy(() =>
   import("@/components/interactiveGraph/graphViewer")
 );
 
-export default function Statistics() {
-  const { screenViewStats, setScreenViewStats } = useStats();
+const Header = () => {
   return (
     <>
       <Script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-bundle.min.js" />
       <PageHeader title="title.Stats" name="stats" bgImg="9" />
+    </>
+  );
+};
+
+export default function Statistics() {
+  const { showAllStats, screenViewStats, setScreenViewStats } = useStats();
+
+  if (!showAllStats) {
+    return (
+      <>
+        <Header />
+        <SectionCommon>
+          <div className="md:px-8 px-3 py-8">
+            <Dynamic>
+              <HistorialMT />
+            </Dynamic>
+          </div>
+        </SectionCommon>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Header />
       <Wrapper className="mb-1">
         <div className="bg-colorMain rounded-t-main shadow-main">
           <Tabs

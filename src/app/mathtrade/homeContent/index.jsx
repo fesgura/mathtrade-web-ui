@@ -43,25 +43,28 @@ const HomeContent = () => {
         </div>
       </div> */}
 
-      {mathtrade && Object.keys(mathtrade).length > 0 ? (
-        <>
-          <div className="mb-5">
+      {
+        mathtrade && Object.keys(mathtrade).length > 0 ? (
+          <>
+            <div className="mb-5">
+              <Dynamic>
+                <PaymentInfo />
+              </Dynamic>
+            </div>
             <Dynamic>
-              <PaymentInfo />
+              <UserQR />
             </Dynamic>
-          </div>
-          <Dynamic>
-            <UserQR />
-          </Dynamic>
-          <div className="mb-8">
-            <Referral />
-          </div>
-          <Pills />
-          <Timeline />
-        </>
-      ) : (
-        <CountdownMathtrade />
-      )}
+            <div className="mb-8">
+              <Referral />
+            </div>
+            <Pills />
+            <Timeline />
+          </>
+        ) : null
+        // (
+        //   <CountdownMathtrade />
+        // )
+      }
       <Videohelp />
       <h2 className="text-center font-bold text-2xl py-5">
         <I18N id="quickhelp.title" />

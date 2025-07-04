@@ -1,6 +1,6 @@
 import { PRIVATE_ROUTES } from "@/config/routes";
 
-export const MenuListDefault = [
+const MenuListMyCollection = [
   {
     title: `menu.${PRIVATE_ROUTES.MY_COLLECTION.title}`,
     path: PRIVATE_ROUTES.MY_COLLECTION.path,
@@ -9,8 +9,18 @@ export const MenuListDefault = [
   },
 ];
 
+export const MenuListDefault = [
+  ...MenuListMyCollection,
+  {
+    title: `menu.${PRIVATE_ROUTES.STATS.title}`,
+    path: PRIVATE_ROUTES.STATS.path,
+    name: "stats",
+    // disabled: true,
+  },
+];
+
 export const MenuList = [
-  ...MenuListDefault,
+  ...MenuListMyCollection,
   {
     title: `menu.${PRIVATE_ROUTES.MY_OFFER.title}`,
     path: PRIVATE_ROUTES.MY_OFFER.path,

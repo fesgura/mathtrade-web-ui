@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useOptions } from "@/store";
 import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
@@ -18,7 +18,9 @@ const useStats = () => {
   /* end SCREEN OPTIONS **********************************************/
 
   /* PAGE CONTEXT **********************************************/
-  const { setPageType } = useContext(PageContext);
+  const { setPageType, mathTradeId, membership } = useContext(PageContext);
+
+  const showAllStats = mathTradeId !== null && membership !== null;
 
   useEffect(() => {
     setPageType("stats");
@@ -26,18 +28,31 @@ const useStats = () => {
   /* end PAGE CONTEXT */
 
   /* FETCH *************************************************/
-  const format = useCallback((d) => {
-    return d[0];
-  }, []);
+  // const format = useCallback((d) => {
+  //   return d[0];
+  // }, []);
 
-  const [, data, loading, error] = useFetch({
-    endpoint: "GET_MATHTRADE_STATS",
-    autoLoad: true,
-    // format,
-  });
+  // const [getData, data, loading, error] = useFetch({
+  //   endpoint: "GET_MATHTRADE_STATS",
+  //   autoLoad: true,
+  //   // format,
+  // });
+
+  // useEffect(() => {
+  //   if (mathTradeId !== null && membership !== null) {
+  //     getData();
+  //   }
+  // }, [getData, mathTradeId, membership]);
   /* end FETCH */
 
-  return { data, loading, error, screenViewStats, setScreenViewStats };
+  return {
+    showAllStats,
+    // data,
+    // loading,
+    // error,
+    screenViewStats,
+    setScreenViewStats,
+  };
 };
 
 export default useStats;
