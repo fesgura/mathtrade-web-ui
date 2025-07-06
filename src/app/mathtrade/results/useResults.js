@@ -3,7 +3,7 @@ import { ResultsContext } from "@/context/results";
 import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
 
-const defaultScreenViewResults = 5; //0;
+const defaultScreenViewResults = 0;
 
 const useResults = () => {
   /* SCREEN OPTIONS **********************************************/
