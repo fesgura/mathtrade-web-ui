@@ -13,7 +13,7 @@ import Referral from "@/components/referral";
 import CountdownMathtrade from "./coundown";
 //import ReferralInvite from "./referralInvite";
 import Dynamic from "@/components/dynamic";
-import AllMessage from "@/components/allMessage";
+// import AllMessage from "@/components/allMessage";
 
 //const baseURL = process.env.BASE_URL;
 
@@ -43,7 +43,7 @@ const HomeContent = () => {
           </p>
         </div>
       </div> */}
-      <AllMessage />
+      {/* <AllMessage /> */}
       {
         mathtrade && Object.keys(mathtrade).length > 0 ? (
           <>

@@ -11,7 +11,7 @@ import ChangePassword from "./changePassword";
 import Button from "@/components/button";
 import Alink from "@/components/link";
 import { Suspense } from "react";
-import AllMessage from "@/components/allMessage";
+// import AllMessage from "@/components/allMessage";
 
 const pausedSite = process.env.PAUSED_SITE;
 
@@ -28,7 +28,7 @@ const SignInContent = () => {
 
   return (
     <div>
-      <AllMessage />
+      {/* <AllMessage /> */}
       {changePasswordRequiredToken ? (
         <ChangePassword
           setChangePasswordRequiredToken={setChangePasswordRequiredToken}
