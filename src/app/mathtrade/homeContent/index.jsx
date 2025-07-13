@@ -10,15 +10,15 @@ import Iconshelp from "./iconshelp";
 //import { instructPDFurl } from "@/config/rulebook";
 import Pills from "./pills";
 import Referral from "@/components/referral";
-import CountdownMathtrade from "./coundown";
+//import CountdownMathtrade from "./coundown";
 //import ReferralInvite from "./referralInvite";
-import Dynamic from "@/components/dynamic";
+//import Dynamic from "@/components/dynamic";
 // import AllMessage from "@/components/allMessage";
 
 //const baseURL = process.env.BASE_URL;
 
 //const PaymentInfo = lazy(() => import("@/components/results/paymentInfo"));
-const UserQR = lazy(() => import("@/components/userQr"));
+//const UserQR = lazy(() => import("@/components/userQr"));
 
 const HomeContent = () => {
   /* PAGE CONTEXT **********************************************/
@@ -52,9 +52,9 @@ const HomeContent = () => {
                 <PaymentInfo />
               </Dynamic>
             </div> */}
-            <Dynamic>
+            {/* <Dynamic>
               <UserQR />
-            </Dynamic>
+            </Dynamic> */}
             <div className="mb-8">
               <Referral />
             </div>
