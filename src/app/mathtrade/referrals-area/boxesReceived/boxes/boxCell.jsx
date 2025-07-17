@@ -1,7 +1,6 @@
 import I18N from "@/i18n";
 import Icon from "@/components/icon";
 import clsx from "clsx";
-import useBoxReceived from "./useBoxReceived";
 import { useState } from "react";
 import PhotoGallery from "@/components/photoGallery";
 import Table from "@/components/table";

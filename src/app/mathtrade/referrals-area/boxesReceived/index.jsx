@@ -1,32 +1,27 @@
-import useBoxReceived from "./useBoxReceived";
-import Table from "@/components/table";
-import columns from "./columns";
+import { useState } from "react";
+import Tabs from "@/components/tabs";
+import Boxes from "./boxes";
+import Items from "./items";
+
+const tablist = ["boxesReceived.tab.boxes", "boxesReceived.tab.items"];
 
 const BoxesReceived = () => {
-  const { trackings, loading, error } = useBoxReceived();
+  const [tabView, setTabView] = useState(0);
 
   return (
-    <div className="relative min-h-[260px] pb-8">
-      <Table
-        loading={loading}
-        error={error}
-        columns={columns}
-        data={trackings}
-        downloadExcel="cajas-que-recibo"
-        searchValuesFunc={(tr) => {
-          const { origin_name, boxes } = tr;
+    <div>
+      <div className="border-b border-gray-400/70 mb-5 ">
+        <Tabs
+          list={tablist}
+          value={tabView}
+          onChange={setTabView}
+          min
+          //toLeft
+          className="relative top-[2px]"
+        />
+      </div>
 
-          const itemTexts = boxes
-            .map((box) => {
-              return box.items
-                .map((item) => `${item.name} - ${item.user}`)
-                .join("|");
-            })
-            .join("|");
-
-          return `${origin_name || ""} ${itemTexts || ""}`;
-        }}
-      />
+      {tabView === 0 ? <Boxes /> : <Items />}
     </div>
   );
 };

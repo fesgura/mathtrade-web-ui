@@ -1042,6 +1042,8 @@
   "boxesDelivery.items.boxNumber": "Caja de envío Nº",
   "boxesDelivery.items.destinyName": "Destino",
   "referral.tab.boxesReceived": "Cajas que recibo",
+  "boxesReceived.tab.items": "Ejemplares que recibo",
+  "boxesReceived.tab.boxes": "Cajas",
   "boxesReceived.table.tracking": "Nº Tracking",
   "boxesReceived.table.origin_name": "Ciudad de origen",
   "boxesReceived.table.boxes": "Cajas",
@@ -1055,5 +1057,11 @@
   "wantsOffered.text2": "Es un buen dato para saber qué ejemplares están dispuestos a cambiarse eventualmente por los tuyos; con la posibilidad de contactar a sus propietarios.",
   "wantsOffered.noOffer": "No se ofertó nada.",
   "boxesReceived.showItems.show": "Mostrar Ejemplares ($$$)",
-  "boxesReceived.showItems.hide": "Ocultar Ejemplares ($$$)"
+  "boxesReceived.showItems.hide": "Ocultar Ejemplares ($$$)",
+  "boxesReceived.items.code": "Código",
+  "boxesReceived.items.boxNumber": "Caja Nº",
+  "boxesReceived.items.user": "Recibe",
+  "boxesReceived.items.title": "Título",
+  "boxesReceived.items.originName": "Ciudad de origen",
+  "boxesReceived.items.viaMeeting": "Sólo si viene del encuentro"
 }
