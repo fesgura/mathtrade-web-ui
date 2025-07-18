@@ -70,6 +70,15 @@ const HelpButton = () => {
               <I18N id={`menu.${PRIVATE_ROUTES.MEMARDIUMS.title}`} />
             </span>
           </Link>
+          <Link
+            href={PUBLIC_ROUTES.MEDIA.path}
+            className="leading-10 hover:bg-sky-200 text-center border-t flex item-center justify-center font-bold"
+            onClick={toggleMobile}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <I18N id={`${PUBLIC_ROUTES.MEDIA.title}`} />
+          </Link>
         </div>
       </HeadContent>
     </div>

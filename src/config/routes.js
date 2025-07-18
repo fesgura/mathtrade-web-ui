@@ -20,8 +20,13 @@ export const PUBLIC_ROUTES = {
     enabled: "always",
   },
   TERMS_CONDITIONS: {
-    title: "termsConditions",
+    title: "link.termsConditions",
     path: "/terms-conditions",
+    enabled: "always",
+  },
+  MEDIA: {
+    title: "link.Media",
+    path: "/media",
     enabled: "always",
   },
 };
@@ -104,5 +109,12 @@ export const PRIVATE_ROUTES = {
     title: "memardiums",
     path: privateRoot + "/memardiums",
     enabled: "always",
+  },
+};
+
+export const EXTERNAL_ROUTES = {
+  MEDIA: {
+    title: "link.Media",
+    path: "/media",
   },
 };

@@ -75,6 +75,7 @@ const imgs = {
 
 const PageHeader = ({
   title,
+  subtitle,
   description,
   name = "home",
   noHideDescription,
@@ -115,6 +116,11 @@ const PageHeader = ({
           <h1 className="text-white lg:text-6xl font-bold text-4xl text-balance">
             <I18N id={title} />
           </h1>
+          {subtitle ? (
+            <p className="text-white lg:text-4xl font-bold text-2xl text-balance pt-2">
+              <I18N id={subtitle} />
+            </p>
+          ) : null}
           {description ? (
             <div className="pl-3">
               <PageHeaderDescription

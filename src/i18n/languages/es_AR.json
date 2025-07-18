@@ -1,4 +1,5 @@
 {
+  "MT.title": "Math Trade Argentina",
   "AlertNoCommitment": "<strong>NO ESTÁS PARTICIPANDO DEL MATH TRADE.</strong><br/>Para hacerlo debés <strong>\"Guardar y comprometer cambios\"</strong> desde  ",
   "AlertNoCommitment.myWants": "<strong>NO ESTÁS PARTICIPANDO DEL MATH TRADE.</strong><br/>Para hacerlo debés <strong>\"Guardar y comprometer cambios\"</strong>.",
   "Ampliar": "Ampliar",
@@ -474,6 +475,8 @@
   "link.GoToList": "Ir al lista de juegos",
   "link.GoToMyCollection": "Ir a mi ludoteca",
   "link.GoToResults": "Ver los resultados",
+  "link.Media": "Contenido para medios",
+  "link.termsConditions": "Términos y condiciones",
   "menu.Faqs": "Preguntas frecuentes",
   "menu.List": "Otros ofrecen",
   "menu.MyData": "Mis datos",
@@ -1063,5 +1066,6 @@
   "boxesReceived.items.user": "Recibe",
   "boxesReceived.items.title": "Título",
   "boxesReceived.items.originName": "Ciudad de origen",
-  "boxesReceived.items.viaMeeting": "Sólo si viene del encuentro"
+  "boxesReceived.items.viaMeeting": "Sólo si viene del encuentro",
+  "media.Title": "Contenido para medios"
 }
