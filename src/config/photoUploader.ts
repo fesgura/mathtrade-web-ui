@@ -1,7 +1,14 @@
 import apiConfig from "./apiConfig";
 
 export const photoUploaderConfig = (() => {
-  const o = {
+  const o: {
+    formats: string[];
+    maxFileSizeMB: number;
+    saveData: { format: string; quality: number };
+    urlBase: string;
+    widthDefault: number;
+    formatString?: string;
+  } = {
     formats: ["image/jpeg", "image/png", "image/jpg"],
     maxFileSizeMB: 4,
     saveData: {

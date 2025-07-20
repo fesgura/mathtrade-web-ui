@@ -11,7 +11,7 @@ const selectLocationById = (locations, id) => {
 };
 //
 const Referral = () => {
-  const { membership, mathtrade } = useStore((state) => state.data);
+  const { membership = null, mathtrade = null } = useStore((state) => state.data);
   const locations = useStore((state) => state.locations);
 
   const meetingDay = useMemo(() => {
@@ -50,7 +50,7 @@ const Referral = () => {
           <I18N
             id="myData.help.AMBA2"
             values={[
-              `${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`,
+              `${currentLocation?.referral?.full_name}`,
             ]}
           />
         </p>
@@ -58,11 +58,11 @@ const Referral = () => {
         <p className="mb-4">
           <I18N id="myData.help.noAMBA1" values={[currentLocation?.name]} />
           {currentLocation?.referral &&
-          currentLocation?.referral?.first_name ? (
+          currentLocation?.referral?.full_name ? (
             <I18N
               id="myData.help.noAMBA2"
               values={[
-                `${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`,
+                `${currentLocation?.referral?.full_name}`,
                 currentLocation?.name,
               ]}
             />
@@ -70,13 +70,13 @@ const Referral = () => {
         </p>
       )}
 
-      {currentLocation?.referral && currentLocation?.referral?.first_name ? (
+      {currentLocation?.referral && currentLocation?.referral?.full_name ? (
         <div
           className="bg-white  shadow-md rounded-lg  mb-4 p-4 max-w-xl mx-auto"
           //style={{ maxWidth: 500, margin: "0 auto 30px" }}
         >
           <div className="description">
-            <h3 className="font-bold text-xl mb-3">{`${currentLocation?.referral?.first_name} ${currentLocation?.referral?.last_name}`}</h3>
+            <h3 className="font-bold text-xl mb-3">{`${currentLocation?.referral?.full_name}`}</h3>
 
             <div className="referal-items">
               {currentLocation?.referral?.telegram ? (

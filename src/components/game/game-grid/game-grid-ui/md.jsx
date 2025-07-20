@@ -16,19 +16,6 @@ import BadgeType from "@/components/badgeType";
 const GameGridMD = ({ onToggleExpanse }) => {
   /* GAME CONTEXT **********************************************/
   const { game, gameRaw, showAsIgnored } = useContext(GameContext);
-
-  const {
-    ban_id,
-    bgg_id,
-    title,
-    titleLink,
-    typeNum,
-    thumbnail,
-    year,
-    items,
-    itemCount,
-    notGame,
-  } = game;
   /* end GAME CONTEXT */
 
   return (
@@ -37,13 +24,13 @@ const GameGridMD = ({ onToggleExpanse }) => {
         "bg-gray-900 h-full  rounded-lg mx-auto lg:p-3 p-2 transition-opacity relative",
         {
           "opacity-30 pointer-events-none": showAsIgnored,
-          "shadow-[0_0_0_7px_rgba(255,0,0,1)]": ban_id,
+          "shadow-[0_0_0_7px_rgba(255,0,0,1)]": game.ban_id,
         }
       )}
     >
       <picture className="absolute top-0 left-0 w-full h-full rounded-lg overflow-hidden opacity-30">
         <img
-          src={thumbnail}
+          src={game.thumbnail_url}
           alt=""
           className="w-full h-full object-cover blur-[3px] scale-110"
         />
@@ -53,7 +40,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
         <div className="lg:w-52 w-24">
           <div className="relative">
             <Thumbnail
-              elements={[{ thumbnail }]}
+              elements={[{ thumbnail: game.thumbnail_url }]}
               className="rounded-t-lg lg:w-52 w-24 shadow-[0_1px_5px_rgba(0,0,0,0.5)]"
             />
             <div
@@ -71,7 +58,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
           <div className="bg-black rounded-b-lg flex items-center justify-end gap-3 p-2">
             <BanButton size="md" type="game" />
             <div className="w-[1px] h-4 bg-gray-400"></div>
-            {ban_id ? null : <Value size="md" type="game" />}
+            {game.ban_id ? null : <Value size="md" type="game" />}
           </div>
         </div>
         <div className="text-white flex flex-col h-full justify-between">
@@ -79,7 +66,7 @@ const GameGridMD = ({ onToggleExpanse }) => {
             <BadgeType
               className="text-[9px]"
               type="game"
-              subtype={typeNum || 1}
+              subtype={game.type || "BASE"}
             />
             <div
               data-tooltip={getI18Ntext("Enlarge")}
@@ -87,46 +74,46 @@ const GameGridMD = ({ onToggleExpanse }) => {
               onClick={onToggleExpanse}
             >
               <h3 className="text-lg font-bold cropped hover:opacity-70">
-                {`${title}${year ? ` (${year})` : ""}`}
+                {`${game.title}${game.year_published ? ` (${game.year_published})` : ""}`}
               </h3>
             </div>
 
-            {notGame ? (
+            {game.not_game ? (
               <ItemNoBGG
-                itemRaw={items[0] || null}
-                bgg_id={bgg_id}
-                title={title}
+                itemRaw={game.combos[0] || null}
+                bgg_id={game.bgg_id}
+                title={game.title}
               />
             ) : (
               <div className="py-3">
                 <div className="py-3 border-b border-t border-gray-700">
-                  <BGGinfo game={gameRaw} bggLink={titleLink} />
+                  <BGGinfo game={game} bggLink={game.title_link} />
                 </div>
               </div>
             )}
           </div>
 
           <div className="text-center">
-            {notGame ? null : (
+            {game.not_game ? null : (
               <div data-tooltip={getI18Ntext("Enlarge")}>
                 <div
                   className="text-xs opacity-50 mb-2 cursor-pointer"
                   onClick={onToggleExpanse}
                 >
-                  {`${itemCount} `}
+                  {`${game.combos.length} `}
                   <I18N
                     id={
-                      itemCount === 1 ? "game.item-num.1" : "game.item-num.more"
+                      game.combos.length === 1 ? "game.item-num.1" : "game.item-num.more"
                     }
                   />
                 </div>
               </div>
             )}
             <WantButtonGame
-              ban_id={ban_id}
+              ban_id={game.ban_id}
               contextSize="md"
-              notGame={notGame}
-              itemRaw={items[0] || null}
+              notGame={game.not_game}
+              itemRaw={game.combos[0] || null}
             />
           </div>
         </div>

@@ -9,13 +9,13 @@ export const WantGroupContext = createContext({
   contextType: "item",
   wantGroup: null,
   groupWantList: {},
-  setGroupWantList: () => {},
+  setGroupWantList: (v) => {}, 
   itemsOfferList: {},
-  setItemsOfferList: () => {},
+  setItemsOfferList: (v) => {},
   dup_protection: true,
-  setDup_protection: () => {},
+  setDup_protection: (v) => {},
   ownList: {},
-  setOwnList: () => {},
+  setOwnList: (v) => {},
   isOwner: false,
 });
 
@@ -65,16 +65,16 @@ export const WantGroupContextProvider = ({ contextType, children }) => {
       return item.isOwned;
     }
 
-    if (game?.bgg_id && game.items.length) {
+    if (game?.bgg_id && game.combos.length) {
       let ownItems = 0;
 
-      game.items.forEach((itm) => {
+      game.combos.forEach((itm) => {
         if (itm?.user?.id === userId) {
           ownItems += 1;
         }
       });
 
-      if (ownItems === game.items.length) {
+      if (ownItems === game.combos.length) {
         return true;
       }
     }

@@ -7,12 +7,12 @@ const useTable = () => {
 
   const itemTable = useMemo(() => {
     return itemListRaw.map(({ boxNumber, destinyName, itemRaw }) => {
-      const { id, assigned_trade_code, first_name, last_name, title } = itemRaw;
+      const { id, assigned_trade_code, full_name, title } = itemRaw;
 
       return {
         id,
         assigned_trade_code: codeNumToString(assigned_trade_code),
-        user: `${first_name} ${last_name}`,
+        user: `${full_name}`,
         last_name,
         title,
         boxNumber,

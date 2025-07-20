@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { StoreData, StoreState as Store } from "./types";
 
-const STORE_DEFAULT = {
+const STORE_DEFAULT: Store = {
   data: {
     user: null,
     mathtrade: null,
@@ -10,6 +11,7 @@ const STORE_DEFAULT = {
     lang: "es",
   },
   locations: null,
+  updateStore: null
 };
 
 const STORAGE_NAME = "MT_ARG_STORE_MAYO_25_hg";
@@ -18,15 +20,12 @@ const OPTIONS_NAME = "MT_ARG_OPTIONS_MAYO_25_hg";
 export const useOptions = create(
   persist(
     (set) => ({
-      // Options Data
       filters_item: {},
       filters_game: {},
       filters_wants: {},
       filters_collection: {},
       filters_myoffer: {},
       options: {},
-      //
-      // Options Actions
       updateFilters: (data, elementName) =>
         set((state) => {
           const filterName = `filters_${elementName}`;
@@ -76,9 +75,8 @@ export const useOptions = create(
 
 export const useStore = create(
   persist(
-    (set) => ({
+    (set, get) => ({
       ...STORE_DEFAULT,
-      //updateStore: (newData) => set({ data: newData }),
       updateStore: (elementName, data) =>
         set((state) => {
           return { [elementName]: data };
@@ -86,17 +84,13 @@ export const useStore = create(
       updateUser: (user) =>
         set((state) => {
           return {
-            ...state,
             data: {
               ...state.data,
-              user: {
-                ...state.data.user,
-                ...user,
-              },
+              user,
             },
           };
         }),
-      clearStore: () => set({ ...STORE_DEFAULT }),
+      getSafe: () => get() || STORE_DEFAULT,
     }),
     { name: STORAGE_NAME }
   )

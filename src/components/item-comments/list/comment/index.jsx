@@ -1,8 +1,7 @@
 import UserBox from "@/components/userBox";
-import useComment from "./useComment";
-import Icon from "@/components/icon";
-import clsx from "clsx";
 import I18N from "@/i18n";
+import clsx from "clsx";
+import useComment from "./useComment";
 
 const Comment = ({ comment, myUserId, isLast }) => {
   const {

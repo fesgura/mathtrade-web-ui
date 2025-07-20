@@ -1,32 +1,29 @@
-import clsx from "clsx";
-import { useStore } from "@/store";
 import Avatar from "@/components/avatar";
-import { useMemo, useContext } from "react";
 import { ItemContext } from "@/context/item";
+import { useStore } from "@/store";
+import { StoreLocation, StoreState } from "@/store/types";
+import { User } from "@/types/user";
+import clsx from "clsx";
+import { useContext, useMemo } from "react";
 
-const UserBox = ({ userForce, avatarWidth = 24, toLeft, toCenter }) => {
+const UserBox = ({ userForce, avatarWidth = 24, toLeft, toCenter }: {
+  userForce: User | null, avatarWidth?: number, toLeft?: boolean, toCenter?: boolean
+}) => {
   /* ITEM CONTEXT **********************************************/
   const { item } = useContext(ItemContext);
   const { user: userDefault } = item;
   const user = userForce || userDefault;
   /* end ITEM CONTEXT */
 
-  const locations = useStore((state) => state.locations);
+  const locations = useStore<StoreLocation[]>((state: StoreState) => state.locations || {} as StoreLocation[]);
 
   const locationName = useMemo(() => {
+    console.log("UserBox locationName", user, item, locations);
     if (user.customLocation) {
       return user.customLocation;
     }
-    if (!locations || !locations.length) {
-      return "";
-    }
 
-    const locId = user?.locationId?.id || user?.locationId || "";
-    const loc = locations.filter((l) => {
-      return l.id === locId;
-    });
-
-    return loc[0] ? loc[0]?.name : "";
+    return user.location;
   }, [locations, user]);
 
   return (
@@ -47,7 +44,7 @@ const UserBox = ({ userForce, avatarWidth = 24, toLeft, toCenter }) => {
             "text-center": toCenter,
           })}
         >
-          {user?.name}
+          {user?.full_name}
         </div>
         <div
           className={clsx("text-[11px] leading-tight opacity-90", {
@@ -59,7 +56,7 @@ const UserBox = ({ userForce, avatarWidth = 24, toLeft, toCenter }) => {
         </div>
       </div>
       <div>
-        <Avatar avatar={user?.avatar || ""} width={avatarWidth} />
+        <Avatar avatar={user?.avatar || ""} width={avatarWidth} onClick={undefined} className={undefined} />
       </div>
     </div>
   );

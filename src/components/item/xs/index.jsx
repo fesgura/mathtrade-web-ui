@@ -10,6 +10,7 @@ const ItemXS = ({
   dark,
 }) => {
   return (
+    console.log("ItemXS", itemRaw, hideUser), // DEBUG
     <ItemContextProvider itemRaw={itemRaw}>
       <ItemXSUI
         extraContent={extraContent}

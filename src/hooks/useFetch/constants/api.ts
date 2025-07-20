@@ -1,7 +1,7 @@
 import { create } from "apisauce";
 import Qs from "qs";
-import apiConfig, { COOKIE_AUTH_TOKEN } from "@/config/apiConfig";
-import { getCookie } from "@/utils/cookies";
+import apiConfig, { COOKIE_AUTH_TOKEN } from "../../../config/apiConfig";
+import { getCookie } from "../../../utils/cookies";
 
 export const api = create({
   ...apiConfig,
@@ -17,15 +17,14 @@ export const apiBGG = create({
 export const signInApi = () => {
   if (!api.headers.Authorization) {
     const token = getCookie(COOKIE_AUTH_TOKEN);
-
     api.setHeaders({
-      Authorization: "token " + token,
+      Authorization: token ? `Bearer ${token}` : undefined,
     });
   }
 };
 export const setTokenToAPI = (token) => {
   api.setHeaders({
-    Authorization: "token " + token,
+    Authorization: token ? `Bearer ${token}` : undefined,
   });
 };
 

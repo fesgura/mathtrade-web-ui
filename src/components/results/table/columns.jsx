@@ -53,7 +53,7 @@ const UserChange = ({ user }) => {
         <Avatar avatar={avatar} width="100%" />
       </div>
       <div className="">
-        <div className="cropped leading-none font-bold text-[10px]">{`${first_name} ${last_name}`}</div>
+        <div className="cropped leading-none font-bold text-[10px]">{`${full_name}`}</div>
         <div className="text-gray-600 leading-none text-[11px]">
           {location?.name || ""}
         </div>
@@ -91,7 +91,7 @@ const columns = [
       return <UserChange user={membership_to} />;
     },
     excel: ({ membership_to }) => {
-      return `${membership_to?.first_name} ${membership_to?.last_name} (${membership_to?.location?.name})`;
+      return `${membership_to?.full_name} (${membership_to?.location?.name})`;
     },
   },
   {
@@ -111,7 +111,7 @@ const columns = [
     header: "result.table.member_from",
     value: "membership_from",
     sort: (a, b, dir) => {
-      return a?.membership_from?.last_name < b?.membership_from?.last_name
+      return a?.membership_from?.full_name < b?.membership_from?.full_name
         ? -1 * dir
         : dir;
     },
@@ -122,7 +122,7 @@ const columns = [
       return <UserChange user={membership_from} />;
     },
     excel: ({ membership_from }) => {
-      return `${membership_from?.first_name} ${membership_from?.last_name} (${membership_from?.location?.name})`;
+      return `${membership_from?.full_name} (${membership_from?.location?.name})`;
     },
   },
 ];

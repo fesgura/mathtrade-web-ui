@@ -256,7 +256,7 @@ const useFiltersItems = () => {
         const { id, first_name, last_name, location } = user;
         return {
           value: id,
-          text: `${first_name} ${last_name} (${location?.name})`,
+          text: `${full_name} (${location?.name})`,
         };
       });
   }, [users]);

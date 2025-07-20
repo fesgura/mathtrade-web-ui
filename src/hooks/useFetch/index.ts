@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useMemo } from "react";
+import { useStore } from "../../store";
+import { StoreData, StoreState } from "../../store/types";
 import { callToAPI } from "./utils";
-import { useStore } from "@/store";
 import useSignOut from "../useSignOut";
 
 const useFetch = ({
@@ -19,7 +20,8 @@ const useFetch = ({
   reloadValue,
 }) => {
   const signOut = useSignOut();
-  const { mathtrade } = useStore((state) => state.data);
+  const storeData = useStore<StoreData>((state: StoreState) => state.data || {} as StoreData);
+  const mathtrade = storeData.mathtrade || null;
 
   const [data, setData] = useState(initialState || null);
   const [errorMessage, setErrorMessage] = useState(null);

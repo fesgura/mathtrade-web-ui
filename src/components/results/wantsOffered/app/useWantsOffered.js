@@ -56,7 +56,7 @@ const useWantsOffered = () => {
       return index;
     }
 
-    let name = `${user.first_name} ${user.last_name}`.toLowerCase();
+    let name = `${user.full_name}`.toLowerCase();
 
     name = normalizeName(name);
 

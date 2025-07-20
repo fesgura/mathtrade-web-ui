@@ -9,10 +9,10 @@ const columns = [
     sort: (a, b, dir) => {
       return a?.last_name < b?.last_name ? -1 * dir : dir;
     },
-    excel: ({ first_name, last_name }) => {
-      return `${first_name} ${last_name}`;
+    excel: ({ full_name}) => {
+      return `${full_name}`;
     },
-    render: ({ avatar, first_name, last_name, items }) => {
+    render: ({ avatar, full_name, items }) => {
       return (
         <div className="flex items-center gap-2">
           <div>
@@ -20,7 +20,7 @@ const columns = [
           </div>
 
           <div>
-            <div className="font-bold leading-none">{`${first_name} ${last_name}`}</div>
+            <div className="font-bold leading-none">{`${full_name}`}</div>
 
             {items === 0 ? (
               <div className="uppercase font-bold leading-none text-xs text-red-600">

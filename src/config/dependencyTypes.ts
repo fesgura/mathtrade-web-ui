@@ -1,4 +1,4 @@
-import { getI18Ntext } from "@/i18n";
+import { getI18Ntext } from "../i18n";
 
 export const dependencyOptions = (() => {
   const list = [];

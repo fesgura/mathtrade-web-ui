@@ -38,9 +38,7 @@ const useValue = (type, itemIds, currentValue, groupId) => {
       setItemListId([id]);
     }
     if (type === "game") {
-      const { items, value: valueGame } = game;
-
-      const { itemListId_game } = items.reduce(
+      const { itemListId_game } = game.combos.reduce(
         (obj, itm) => {
           const { id } = itm;
           obj.itemListId_game.push(id);
@@ -49,7 +47,7 @@ const useValue = (type, itemIds, currentValue, groupId) => {
         { itemListId_game: [] }
       );
 
-      setValue(valueGame);
+      setValue(game.value || 0);
       setItemListId(itemListId_game);
     }
     if (type === "tag") {

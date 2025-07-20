@@ -23,27 +23,30 @@ export const PrivateEnvironmentContext = createContext({
 });
 
 const PrivateEnvironment = ({ children }) => {
-  const { membership, user } = useStore((state) => state.data);
-
-  const [enableRenderPrivateEnvironment, setEnableRenderPrivateEnvironment] =
-    useState(false);
-
+  const { membership = null, user = null } = useStore((state) => state.data);
+  const [enableRenderPrivateEnvironment, setEnableRenderPrivateEnvironment] = useState(false);
+  const [checkedUser, setCheckedUser] = useState(false);
   const signOut = useSignOut();
-
   const currentPath = usePathname();
+  const isAdmin = user?.roles?.includes("ADMIN");
 
   useEffect(() => {
-    if (!user) {
-      signOut();
-    } else {
-      if (pausedSite !== "yes") {
-        signInApi();
-        setEnableRenderPrivateEnvironment(true);
-      } else {
+    if (!checkedUser && typeof user !== "undefined") {
+      setCheckedUser(true);
+    }
+    if (checkedUser) {
+      if (!user) {
         signOut();
+      } else {
+        if (pausedSite !== "yes") {
+          signInApi();
+          setEnableRenderPrivateEnvironment(true);
+        } else {
+          signOut();
+        }
       }
     }
-  }, [signOut, user]);
+  }, [signOut, user, checkedUser]);
 
   const enableToShow = useMemo(() => {
     const enabled =
@@ -53,12 +56,12 @@ const PrivateEnvironment = ({ children }) => {
       return true;
     }
 
-    if (enabled === "onlyForMembers" && membership) {
+    if ((enabled === "onlyForMembers" && membership) || isAdmin) {
       return true;
     }
 
     return false;
-  }, [currentPath, membership]);
+  }, [currentPath, isAdmin, membership]);
 
   return (
     <PrivateEnvironmentContext.Provider

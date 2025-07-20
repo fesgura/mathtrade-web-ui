@@ -82,14 +82,13 @@ const useBanUserList = () => {
         return true;
       })
       .map((user) => {
-        const { id, /*ban_id,*/ avatar, first_name, last_name, location } =
+        const { id, /*ban_id,*/ avatar, full_name, location } =
           user;
 
         return {
           id,
           avatar,
-          name: `${first_name} ${last_name}`,
-          last_name,
+          name: `${full_name}`,
           location: location?.name || "-",
         };
       });

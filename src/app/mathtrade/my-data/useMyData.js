@@ -26,7 +26,7 @@ const useMyData = () => {
 
   const store = useStore((state) => state.data);
   const locations = useStore((state) => state.locations);
-  const { membership, mathtrade } = store;
+  const { membership = null, mathtrade = null } = store;
   const updateStore = useStore((state) => state.updateStore);
 
   const [currentLocation, setCurrentLocation] = useState(null);

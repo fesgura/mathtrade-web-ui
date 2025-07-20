@@ -3,21 +3,23 @@ import ItemOfGame from "./item";
 import useGameList from "./useGameList";
 
 const GameItemList = () => {
-  const { items, itemCount } = useGameList();
+  const { combos } = useGameList();
+
+  console.log("GameItemList", combos); // DEBUG
 
   return (
     <>
       <div className="bg-gray-900 text-white lg:p-4 py-4 px-2 border-t border-white/20">
         <h4 className="mb-3">
-          {`${itemCount} `}
+          {`${combos.length} `}
           <I18N
-            id={itemCount === 1 ? "game.item-num.1" : "game.item-num.more"}
+            id={combos.length === 1 ? "game.item-num.1" : "game.item-num.more"}
           />
           :
         </h4>
         <div className="flex flex-col gap-2">
-          {items.map((item) => {
-            return <ItemOfGame key={item.id} item={item} />;
+          {combos.map((combo) => {
+            return <ItemOfGame key={combo.id} combo={combo} />;
           })}
         </div>
       </div>

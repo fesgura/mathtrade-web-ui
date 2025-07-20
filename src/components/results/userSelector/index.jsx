@@ -33,7 +33,7 @@ const UserSelector = () => {
 
         return {
           value,
-          text: `${first_name} ${last_name} (${
+          text: `${full_name} (${
             location?.name || ""
           }), ${trades} ${getI18Ntext(
             trades === 1 ? "result.trade" : "result.trades"

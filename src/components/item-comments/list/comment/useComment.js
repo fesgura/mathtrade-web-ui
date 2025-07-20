@@ -53,7 +53,7 @@ const useComment = ({ comment, myUserId }) => {
       date: DateIntlFormat(date),
       isMyUser: myUserId === membership.id,
       user: {
-        name: `${membership.first_name} ${membership.last_name}`,
+        name: `${membership.full_name}`,
         avatar: membership?.avatar || "",
         customLocation: membership?.location?.name || null,
         locationId: membership?.locationId || "",

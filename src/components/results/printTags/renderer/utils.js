@@ -20,9 +20,9 @@ export const dataToTag = (data) => {
   return {
     id,
     name: item_to ? cropWord(item_to?.title, 40) : "-",
-    from: `${user.first_name} ${user.last_name} (${user.location.name})`, //"LOLCESE (Córdoba)",
+    from: `${user.full_name} (${user.location})`, //"LOLCESE (Córdoba)",
     to: member_to
-      ? `${member_to?.first_name} ${member_to?.last_name} (${member_to?.location.name})`
+      ? `${member_to?.full_name} (${member_to?.location})`
       : "-", //"GENEZE_CB (AMBA)",
     mesa: table_number || "0",
     via: via_meeting,

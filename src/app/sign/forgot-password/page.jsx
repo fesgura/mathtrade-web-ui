@@ -1,13 +1,11 @@
 "use client";
-import { Form, InputContainer, Label, Input } from "@/components/form";
+import ErrorAlert from "@/components/errorAlert";
+import { Form, Input, InputContainer, Label } from "@/components/form";
+import { LoadingBox } from "@/components/loading";
+import { PUBLIC_ROUTES } from "@/config";
 import I18N from "@/i18n";
 import useForgotPassword from "./useForgotPassword";
-import ErrorAlert from "@/components/errorAlert";
-import { LoadingBox } from "@/components/loading";
-import Question from "@/components/question";
-import { PUBLIC_ROUTES } from "@/config";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-import { GOOGLE_RECAPTCHA_CLIENT_KEY } from "@/config";
+
 import Button from "@/components/button";
 
 const ForgotPasswordPage = () => {
@@ -88,12 +86,4 @@ const ForgotPasswordPage = () => {
   );
 };
 
-const GoogleContextProvider = () => (
-  <GoogleReCaptchaProvider
-    reCaptchaKey={GOOGLE_RECAPTCHA_CLIENT_KEY}
-    language="es"
-  >
-    <ForgotPasswordPage />
-  </GoogleReCaptchaProvider>
-);
-export default GoogleContextProvider;
+export default ForgotPasswordPage;

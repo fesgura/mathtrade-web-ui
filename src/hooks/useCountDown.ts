@@ -22,7 +22,7 @@ const useCountDown = (dateString, dateNow) => {
     //
     function updateCountdown() {
       const now = dateNow ? new Date(dateNow) : new Date();
-      const diff = targetDate - now;
+      const diff = targetDate.getTime() - now.getTime();
 
       if (diff <= 0) {
         setData({

@@ -37,7 +37,7 @@ const useItems = () => {
         return {
           id,
           assigned_trade_code: codeNumToString(assigned_trade_code),
-          user: `${receptor_first_name} ${receptor_last_name}`,
+          user: `${receptor_full_name}`,
           last_name: receptor_last_name,
           title,
           boxNumber: box_number,

@@ -6,17 +6,11 @@ import ModalPreviewer from "@/components/previewer/modal";
 import ModalPreviewerWantGroup from "@/components/previewerWantGroup/modal";
 import ChatBoxButton from "@/components/chatbox";
 import Script from "next/script";
-import dynamic from "next/dynamic";
 import EarlyPayPopup from "@/components/earlyPayPopup";
 // import Image from "next/image";
 // import mapImg from "@/img/mapa.webp";
 
-const PrivateEnvironmentNoSSR = dynamic(
-  () => import("@/environments/private"),
-  {
-    ssr: false,
-  }
-);
+import PrivateEnvironmentNoSSR from "./PrivateEnvironmentNoSSR";
 
 // const Bg = () => {
 //   return (

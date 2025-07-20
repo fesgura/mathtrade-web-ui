@@ -2,8 +2,7 @@
 import { Form, InputContainer, Label, Input } from "@/components/form";
 import I18N from "@/i18n";
 import useSignIn from "./useSignIn";
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
-import { GOOGLE_RECAPTCHA_CLIENT_KEY } from "@/config";
+
 import { PUBLIC_ROUTES } from "@/config";
 import ErrorAlert from "@/components/errorAlert";
 import { LoadingBox } from "@/components/loading";
@@ -128,13 +127,4 @@ const SignInPage = () => {
   );
 };
 
-const GoogleContextProvider = () => (
-  <GoogleReCaptchaProvider
-    reCaptchaKey={GOOGLE_RECAPTCHA_CLIENT_KEY}
-    language="es"
-  >
-    <SignInPage />
-  </GoogleReCaptchaProvider>
-);
-
-export default GoogleContextProvider;
+export default SignInPage;

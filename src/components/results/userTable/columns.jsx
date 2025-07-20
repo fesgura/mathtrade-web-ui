@@ -16,8 +16,8 @@ const columns = [
     sort: (a, b, dir) => {
       return a?.last_name < b?.last_name ? -1 * dir : dir;
     },
-    excel: ({ first_name, last_name }) => {
-      return `${first_name} ${last_name}`;
+    excel: ({ full_name}) => {
+      return `${full_name}`;
     },
     render: ({ avatar, first_name, last_name }) => {
       return (
@@ -27,7 +27,7 @@ const columns = [
           </div>
 
           <div>
-            <div className="font-bold leading-none">{`${first_name} ${last_name}`}</div>
+            <div className="font-bold leading-none">{`${full_name}`}</div>
           </div>
         </div>
       );

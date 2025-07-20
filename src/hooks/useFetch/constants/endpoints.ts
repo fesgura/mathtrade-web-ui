@@ -1,26 +1,26 @@
 const endpoints = {
   // User
-  LOGIN: "api/auth-token/",
+  LOGIN: "api/auth-token",
   POST_USER: "api/users/register/",
   PUT_PASSWORD: "api/users/change-password/",
   FORGOT_PASSWORD: "api/users/recovery-password/",
-  GET_USERS: "api/users/",
-  GET_USER: "api/users/",
+  GET_USERS: "api/users",
+  GET_USER: "api/users",
   PUT_USER: "api/users/",
   GET_REFERRALS: "api/users/referral/",
   POST_REFERRAL: "api/users/referral/",
 
   // Location
-  GET_LOCATIONS: "api/locations/",
+  GET_LOCATIONS: "api/locations",
 
   // COLLECTION (OLD)
-  GET_MYCOLLECTION_ITEMS: "api/items/",
+  GET_MYCOLLECTION_ITEMS: "api/items",
   EDIT_MYCOLLECTION_ITEM: "api/items/$[1]/",
   DELETE_MYCOLLECTION_ITEM: "api/items/$[1]/",
 
   // COLLECTION (NEW)
-  GET_MYCOLLECTION_ELEMENTS: "api/elements/",
-  POST_MYCOLLECTION_ELEMENTS: "api/elements/",
+  GET_MYCOLLECTION_ELEMENTS: "api/elements",
+  POST_MYCOLLECTION_ELEMENTS: "api/elements",
   PUT_MYCOLLECTION_ELEMENT: "api/elements/$[1]/",
   DELETE_MYCOLLECTION_ELEMENT: "api/elements/$[1]/",
 
@@ -66,11 +66,11 @@ const endpoints = {
   COMMIT_CHANGES: "api/mathtrades/$[mathtradeId]/user-commit/",
 
   // GAMES
-  GET_GAMES_LIST: "api/mathtrades/$[mathtradeId]/games/",
-  GET_GAME: "api/mathtrades/$[mathtradeId]/games/$[1]/",
+  GET_GAMES_LIST: "api/games",
+  GET_GAME: "api/games/$[1]/",
 
   // WANTS
-  MYWANTS: "api/mathtrades/$[mathtradeId]/user-want-groups/",
+  MYWANTS: "api/user-want-groups",
   GET_WANT: "api/mathtrades/$[mathtradeId]/user-want-groups/$[1]/",
   POST_MYWANTS: "api/mathtrades/$[mathtradeId]/user-want-groups/",
   PUT_MYWANTS: "api/mathtrades/$[mathtradeId]/user-want-groups/$[1]/",

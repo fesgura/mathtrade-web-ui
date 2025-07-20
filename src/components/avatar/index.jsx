@@ -12,7 +12,7 @@ const Avatar = ({ avatar = null, first_name = "", width = 32, onClick,className 
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={avatar}
-        alt={first_name}
+        alt={full_name}
         width={width}
         height={width}
         className="object-cover w-full aspect-square block"

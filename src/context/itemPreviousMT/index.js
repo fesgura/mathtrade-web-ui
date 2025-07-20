@@ -25,7 +25,7 @@ export const ItemPreviousMTContext = createContext({
 export const ItemPreviousMTContextProvider = ({ children }) => {
   const { forceReloadPage } = useContext(PageContext);
 
-  const { mathtrade_history } = useStore((state) => state.data);
+  const { mathtrade_history = null } = useStore((state) => state.data);
 
   const [openModal, setOpenModal] = useState(false);
 

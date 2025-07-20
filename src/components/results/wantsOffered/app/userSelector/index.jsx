@@ -18,7 +18,7 @@ const UserSelector = ({ currentUserId, setCurrentUserId }) => {
 
         return {
           value,
-          text: `${first_name} ${last_name} (${location?.name || ""})`,
+          text: `${full_name} (${location?.name || ""})`,
         };
       });
   }, [userList]);

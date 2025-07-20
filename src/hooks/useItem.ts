@@ -66,6 +66,15 @@ const useItem = ({ itemExternal, item, isForcedReload, deleteReload }) => {
     endpoint: "GET_ITEM",
     urlParams: urlParamsItem,
     afterLoad,
+    initialState: null,
+    format: undefined,
+    beforeLoad: undefined,
+    afterError: undefined,
+    method: undefined,
+    path: undefined,
+    params: undefined,
+    autoLoad: undefined,
+    reloadValue: undefined,
   });
 
   useEffect(() => {

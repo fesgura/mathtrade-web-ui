@@ -10,7 +10,7 @@ const useGameList = () => {
 
   /* GAME CONTEXT **********************************************/
   const { game } = useContext(GameContext);
-  const { items, itemCount } = game;
+  const { combos } = game;
   /* end GAME CONTEXT */
 
   /* WANTGROUP CONTEXT **********************************************/
@@ -27,7 +27,7 @@ const useGameList = () => {
         return id;
       });
 
-      items.forEach((itm) => {
+      combos.forEach((itm) => {
         if (itm?.membership?.id === userId) {
           newGroupWantList[itm?.id || "_"] = false;
           newOwnList[itm?.id || "_"] = true;
@@ -36,7 +36,7 @@ const useGameList = () => {
         }
       });
     } else {
-      items.forEach((itm) => {
+      combos.forEach((itm) => {
         if (itm?.membership?.id === userId) {
           newGroupWantList[itm?.id || "_"] = false;
           newOwnList[itm?.id || "_"] = true;
@@ -48,9 +48,9 @@ const useGameList = () => {
 
     setGroupWantList(newGroupWantList);
     setOwnList(newOwnList);
-  }, [items, userId, setOwnList, wantGroup, setGroupWantList]);
+  }, [combos, userId, setOwnList, wantGroup, setGroupWantList]);
 
-  return { items, itemCount };
+  return { combos };
 };
 
 export default useGameList;

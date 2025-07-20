@@ -1,11 +1,11 @@
 "use client";
 import { createContext, useState, useCallback, useMemo } from "react";
-import useLocations from "@/hooks/useLocations";
-import { useStore } from "@/store";
-import { NEW_USER_OFFER_LIMIT } from "@/config/newUserOfferLimit";
-import { REFERRAL_LIMIT } from "@/config/referral";
+import useLocations from "../../hooks/useLocations";
+import { useStore } from "../../store";
+import { NEW_USER_OFFER_LIMIT } from "../../config/newUserOfferLimit";
+import { REFERRAL_LIMIT } from "../../config/referral";
 
-export const PageContext = createContext({
+export const PageContext = createContext<any>({
   updateMathtrade: () => {},
   pageType: null,
   setPageType: () => {},
@@ -43,10 +43,10 @@ export const PageContext = createContext({
   setItemTags: () => {},
   users: [],
   setUsers: () => {},
-  loadingUsers: [],
+  loadingUsers: false,
   setLoadingUsers: () => {},
   //
-  mathTradeId: null,
+  mathtradeId: null,
   membership: null,
   userId: "",
   user: null,
@@ -73,6 +73,7 @@ export const PageContext = createContext({
   previewWantGroup: null,
   setPreviewWantGroup: () => {},
   showPreviewWantGroupModal: false,
+  setShowPreviewWantGroupModal: () => {},
   tooglePreviewWantGroupModal: () => {},
   //
   filterData: {},
@@ -90,13 +91,13 @@ export const PageContext = createContext({
   referring_limit: REFERRAL_LIMIT,
 });
 
-const PageContextProvider = ({ children }) => {
+const PageContextProvider = ({ children }: { children: React.ReactNode }) => {
   const {
     mathtrade: mathtradeStored,
     membership,
     user,
     mathtrade_history,
-  } = useStore((state) => state.data);
+  } = useStore((state: any) => state.data);
 
   const referrer = user?.referrer || null;
   const referring_limit = user?.referring_limit || REFERRAL_LIMIT;
@@ -104,9 +105,28 @@ const PageContextProvider = ({ children }) => {
   const [pageType, setPageType] = useState(null);
   const [items, setItems] = useState({ list: [], count: 0 });
   const [games, setGames] = useState({ list: [], count: 0 });
-  const [myCollection, setMyCollection] = useState([]);
+  type CollectionElement = {
+    id: string | number;
+    name?: string;
+    thumbnail?: string;
+    [key: string]: any;
+  };
+  const [myCollection, setMyCollection] = useState<CollectionElement[]>([]);
   const [myCollectionBGGids, setMyCollectionBGGids] = useState([]);
-  const [myItemsInMT, setMyItemsInMT] = useState([]);
+  type MyItemElement = {
+    element: {
+      id: string | number;
+      [key: string]: any;
+    };
+    [key: string]: any;
+  };
+
+  type MyItem = {
+    elements: MyItemElement[];
+    [key: string]: any;
+  };
+
+  const [myItemsInMT, setMyItemsInMT] = useState<MyItem[]>([]);
   const [myItemsInMT_forWants, setMyItemsInMT_forWants] = useState([]);
   const [myGroups, setMyGroups] = useState([]);
   const [myGroups_forWants, setMyGroups_forWants] = useState([]);
@@ -170,10 +190,25 @@ const PageContextProvider = ({ children }) => {
       // "frezze_commit_date",
       "meeting_date",
       "show_results_date",
-    ].reduce((obj, dateName) => {
-      obj[dateName] = new Date(mathtrade[dateName]).getTime();
+    ].reduce((obj: {
+      start_date: number;
+      frezze_geek_date: number;
+      frezze_wants_date: number;
+      meeting_date: number;
+      show_results_date: number;
+      // frezze_commit_date?: number;
+    }, dateName) => {
+      const dateValue = mathtrade && mathtrade[dateName];
+      obj[dateName] = dateValue ? new Date(dateValue).getTime() : 0;
       return obj;
-    }, {});
+    }, {
+      start_date: 0,
+      frezze_geek_date: 0,
+      frezze_wants_date: 0,
+      meeting_date: 0,
+      show_results_date: 0,
+      // frezze_commit_date: 0,
+    });
 
     const offer = $now >= $dates.start_date && $now < $dates.frezze_geek_date;
     const want =
@@ -225,7 +260,7 @@ const PageContextProvider = ({ children }) => {
 
   /* CollectionFILTERED ********************************************/
   const { myCollectionFiltered, myCollectionList } = useMemo(() => {
-    const listElementIds = myItemsInMT.reduce((arr, { elements }) => {
+    const listElementIds = myItemsInMT.reduce<string[]>((arr, { elements }) => {
       elements.forEach((element) => {
         arr.push(`${element.element.id}`);
       });
@@ -302,7 +337,7 @@ const PageContextProvider = ({ children }) => {
         //
         mathtrade,
         membership,
-        mathTradeId: mathtrade && mathtrade.id ? mathtrade.id : null,
+        mathtradeId: mathtrade && mathtrade.id ? mathtrade.id : null,
         userId: user && user.id ? user.id : "",
         user,
         //

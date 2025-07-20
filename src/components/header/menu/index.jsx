@@ -1,11 +1,8 @@
 "use client";
-import Link from "next/link";
-import I18N from "@/i18n";
-import clsx from "clsx";
 import Icon from "@/components/icon";
-import useHeaderMenu from "./useHeaderMenu";
-import { PRIVATE_ROUTES } from "@/config/routes";
+import clsx from "clsx";
 import ItemMenu from "./itemMenu";
+import useHeaderMenu from "./useHeaderMenu.ts";
 
 const MainMenu = () => {
   const {

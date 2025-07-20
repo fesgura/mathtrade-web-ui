@@ -1,4 +1,5 @@
 import { useCallback, useState, useEffect, useContext } from "react";
+import type { User } from "@/types/user";
 import {
   MenuList,
   MenuListDefault,
@@ -7,14 +8,15 @@ import {
 import { usePathname } from "next/navigation";
 import { useStore } from "@/store";
 import { PageContext } from "@/context/page";
+import { StoreData, StoreState } from "@/store/types";
 
 const useHeaderMenu = () => {
   const { canI } = useContext(PageContext);
-
-  const { membership, mathtrade } = useStore((state) => state.data);
-
+  const storeData = useStore<StoreData>((state: StoreState) => state.data || {} as StoreData);
+  const user = storeData.user ?? { roles: [] };
+  const membership = storeData.membership ?? null;
+  const mathtrade = storeData.mathtrade ?? null;
   const currentPath = usePathname();
-
   const [visibleMobileMenu, setVisibleMobileMenu] = useState(false);
   const [menuListOfItems, setMenuListOfItems] = useState([]);
 
@@ -22,10 +24,12 @@ const useHeaderMenu = () => {
     setVisibleMobileMenu((v) => !v);
   }, []);
 
+  const isAdmin = user?.roles?.includes("ADMIN");
+
   useEffect(() => {
     let list = [];
     if (mathtrade) {
-      if (membership) {
+      if (membership || isAdmin) {
         list = MenuList;
       } else {
         if (canI.sign) {
@@ -38,7 +42,7 @@ const useHeaderMenu = () => {
       list = MenuListDefault;
     }
     setMenuListOfItems(list.filter((item) => !item.disabled));
-  }, [membership, mathtrade, canI]);
+  }, [membership, mathtrade, canI, isAdmin]);
 
   return {
     visibleMobileMenu,

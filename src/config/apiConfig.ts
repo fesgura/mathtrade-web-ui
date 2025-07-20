@@ -1,10 +1,10 @@
 const baseURL =
   process.env.API_TEST_MODE === "yes"
-    ? process.env.BASE_URL_TEST
-    : process.env.BASE_URL;
+    ? process.env.NEXT_PUBLIC_BASE_URL_TEST
+    : process.env.NEXT_PUBLIC_BASE_URL;
 
 const apiConfig = {
-  timeout: 300000, // 5 minutes
+  timeout: 15000, // 15 segundos
   baseURL,
   headers: {
     Accept: "application/json",

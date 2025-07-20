@@ -1,10 +1,11 @@
-import { useCallback, useContext } from "react";
 import { PageContext } from "@/context/page";
 import { WantGroupContext } from "@/context/wantGroup";
+import { useCallback, useContext } from "react";
 
 import ItemXS from "@/components/item/xs";
+import { GameCombo } from "@/types/games";
 
-const ItemOfGame = ({ item }) => {
+const ItemOfGame = ({ combo }: { combo: GameCombo }) => {
   /* PAGE CONTEXT **********************************************/
   const { canI } = useContext(PageContext);
   /* end PAGE CONTEXT */
@@ -15,36 +16,33 @@ const ItemOfGame = ({ item }) => {
   /* end WANTGROUP CONTEXT **********************************************/
 
   const onChange = useCallback(
-    ({ target }) => {
+    ({ target }: { target: HTMLInputElement }) => {
       setGroupWantList((oldGroupWantList) => {
         const oldGroupWantListCopy = { ...oldGroupWantList };
-        oldGroupWantListCopy[item?.id] = target.checked;
+        oldGroupWantListCopy[combo?.id] = target.checked;
         return oldGroupWantListCopy;
       });
     },
-    [item, setGroupWantList]
+    [combo, setGroupWantList]
   );
+  console.log("ItemOfGame", combo, ownList, groupWantList); // DEBUG
 
   return (
     <ItemXS
-      itemRaw={item}
-      extraContent={
-        <input
-          type="checkbox"
-          name={`item-${item?.id}`}
-          className={
-            !canI.want || ownList[item?.id]
-              ? "cursor-not-allowed"
-              : "cursor-pointer"
-          }
-          checked={groupWantList[item?.id] || false}
-          onChange={onChange}
-          disabled={!canI.want || ownList[item?.id]}
-        />
-      }
-      className={ownList[item?.id] ? "opacity-50" : null}
-      dark
-    />
+      itemRaw={combo}
+      extraContent={<input
+        type="checkbox"
+        name={`item-${combo?.id}`}
+        className={!canI.want || ownList[combo?.id]
+          ? "cursor-not-allowed"
+          : "cursor-pointer"}
+        checked={groupWantList[combo?.id] || false}
+        onChange={onChange}
+        disabled={!canI.want || ownList[combo?.id]} />}
+      className={ownList[combo?.id] ? "opacity-50" : null}
+      dark 
+      hideUser={undefined} 
+      hideValue={undefined} />
   );
 
   /*   (

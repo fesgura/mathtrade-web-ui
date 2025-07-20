@@ -1,15 +1,15 @@
-import { getI18Ntext } from "@/i18n";
+import { getI18Ntext } from "../i18n";
 
 const COLORS = {
   MB: "rgb(0, 59, 221)",
   BU: "rgb(99, 96, 90)",
   CP: "rgb(200, 0, 0)",
-  NO: "rgb(0, 0, 0)",
+  NO: "rgb(160, 100, 20)",
 };
 
 const DEFAULT_STATUS_KEYS = ["MB", "BU"];
 const EMPTY_BOX_STATUS_KEY = "NO";
-const INVALID_STATUS_KEY = "CP";
+export const INVALID_STATUS_KEY = "CP";
 
 // BOX
 const BOX_STATUS_KEYS = [
@@ -18,13 +18,21 @@ const BOX_STATUS_KEYS = [
   INVALID_STATUS_KEY,
 ];
 
-export const boxStatusTypes = BOX_STATUS_KEYS.map((key) => {
+type StatusType = {
+  key: string;
+  text: string;
+  color: string;
+  min: string;
+  enabledForOptions: boolean;
+};
+
+export const boxStatusTypes: Record<string, StatusType> = BOX_STATUS_KEYS.map((key) => {
   return {
     key,
     text: getI18Ntext(`statusType.box.${key}`),
     color: COLORS[key],
     min: key,
-    enabledForOptions: validStatusKeys.includes(key),
+    enabledForOptions: !INVALID_STATUS_KEY.includes(key),
   };
 }).reduce((obj, st) => {
   obj[st.key] = st;
@@ -41,15 +49,15 @@ export const boxStatusList = Object.values(boxStatusTypes)
   });
 
 // COMPONENTS
-const COMPONENT_STATUS_KEYS = [...DEFAULT_STATUS_KEYS, INVALID_STATUS_KEY];
+const COMPONENT_STATUS_KEYS = ["MB", "BU", "CP", "NO"];
 
-export const componentsStatusTypes = COMPONENT_STATUS_KEYS.map((key) => {
+export const componentsStatusTypes: Record<string, StatusType> = COMPONENT_STATUS_KEYS.map((key) => {
   return {
     key,
     text: getI18Ntext(`statusType.components.${key}`),
     color: COLORS[key],
     min: key,
-    enabledForOptions: validStatusKeys.includes(key),
+    enabledForOptions: !INVALID_STATUS_KEY.includes(key),
   };
 }).reduce((obj, st) => {
   obj[st.key] = st;
