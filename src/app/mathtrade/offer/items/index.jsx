@@ -13,10 +13,19 @@ import ItemTagHeader from "@/components/item-tags/item-tag-header";
 import ErrorAlert from "@/components/errorAlert";
 import EmptyList from "@/components/emptyList";
 import Footer from "./footer";
+import NewSinceNotice from "@/components/newSinceNotice";
 
 const ItemsView = () => {
-  const { isLoaded, items, expandedItem, setExpandedItem, loading, error } =
-    useItems();
+  const {
+    isLoaded,
+    items,
+    expandedItem,
+    setExpandedItem,
+    loading,
+    error,
+    newCount,
+    refreshList,
+  } = useItems();
 
   return (
     <SectionWithSidebar name="items" loading={loading} topNotRounded>
@@ -30,6 +39,7 @@ const ItemsView = () => {
               <Header />
             </StickyHeader>
             <ItemTagHeader />
+            <NewSinceNotice count={newCount} onRefresh={refreshList} />
             <div className="md:px-7 px-3 py-7">
               <div className="item-grid">
                 {items.list.map((itemRaw) => {

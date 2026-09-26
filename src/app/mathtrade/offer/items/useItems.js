@@ -1,4 +1,5 @@
 import useFetch from "@/hooks/useFetch";
+import useListSnapshot from "@/hooks/useListSnapshot";
 import { useCallback, useState, useContext, useEffect } from "react";
 import { useOptions } from "@/store";
 import { PageContext } from "@/context/page";
@@ -40,16 +41,24 @@ const useItems = () => {
 
   /* FETCH *************************************************/
   const [isLoaded, setIsLoaded] = useState(false);
+  // Stable pagination: see useListSnapshot.
+  const {
+    params: listParams,
+    onLoaded: onListLoaded,
+    newCount,
+    refresh: refreshSnapshot,
+  } = useListSnapshot(filters);
 
   const afterLoad = useCallback(
     (newItems) => {
       setIsLoaded(true);
+      onListLoaded(newItems);
       const { results: list, count } = newItems;
 
       setItems({ list, count });
       //  setFilterData(newFilterData || {});
     },
-    [setItems]
+    [setItems, onListLoaded]
   );
 
   const afterError = useCallback(() => {
@@ -60,7 +69,7 @@ const useItems = () => {
 
   const [, , loading, error] = useFetch({
     endpoint: "GET_ITEMS_LIST",
-    params: filters,
+    params: listParams,
     autoLoad: true,
     initialState: { results: [] },
     beforeLoad,
@@ -68,6 +77,14 @@ const useItems = () => {
     afterError,
     reloadValue,
   });
+  // "Actualizar": new snapshot, back to page 1.
+  const refreshList = useCallback(() => {
+    refreshSnapshot();
+    if (filters?.page && filters.page !== 1) {
+      updateFilters({ page: 1 }, "item");
+    }
+  }, [refreshSnapshot, filters?.page, updateFilters]);
+
   /* end FETCH */
 
   /* FETCH FILTERS *************************************************/
@@ -140,6 +157,8 @@ const useItems = () => {
     setExpandedItem,
     loading,
     error,
+    newCount,
+    refreshList,
   };
 };
 export default useItems;

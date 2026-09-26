@@ -11,10 +11,19 @@ import ErrorAlert from "@/components/errorAlert";
 import GameGrid from "@/components/game/game-grid";
 import EmptyList from "@/components/emptyList";
 import Footer from "./footer";
+import NewSinceNotice from "@/components/newSinceNotice";
 
 const GamesView = () => {
-  const { isLoaded, games, expandedGame, setExpandedGame, loading, error } =
-    useGames();
+  const {
+    isLoaded,
+    games,
+    expandedGame,
+    setExpandedGame,
+    loading,
+    error,
+    newCount,
+    refreshList,
+  } = useGames();
 
   return (
     <SectionWithSidebar name="games" loading={loading} topNotRounded>
@@ -27,7 +36,7 @@ const GamesView = () => {
             <StickyHeader>
               <Header />
             </StickyHeader>
-
+            <NewSinceNotice count={newCount} onRefresh={refreshList} />
             <div className="md:px-7 px-3 py-7">
               <div className="game-grid">
                 {games.list.map((gameRaw) => {
