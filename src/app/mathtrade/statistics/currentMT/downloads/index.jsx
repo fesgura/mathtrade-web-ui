@@ -16,6 +16,8 @@ const ContentDownload = () => {
     // format,
   });
   /* end FETCH */
+  // No link yet (before the final stage, or no file uploaded): hide the
+  // button instead of showing one that does nothing.
   return error ? (
     <ErrorAlert error />
   ) : (
@@ -31,31 +33,35 @@ const ContentDownload = () => {
           />
         </p>
       </div>
-      <p className="mb-4">
-        <a
-          href={stats?.wants}
-          className="bg-primary block text-white py-2 px-6 text-lg text-center w-fit mx-auto rounded-full hover:opacity-80"
-          download
-          target="_blank"
-        >
-          <Icon type="download" className="me-2" download target="_blank" />
-          <I18N id="stats.downloads.btn.wants" />
-        </a>
-      </p>
+      {stats?.wants ? (
+        <p className="mb-4">
+          <a
+            href={stats.wants}
+            className="bg-primary block text-white py-2 px-6 text-lg text-center w-fit mx-auto rounded-full hover:opacity-80"
+            download
+            target="_blank"
+          >
+            <Icon type="download" className="me-2" download target="_blank" />
+            <I18N id="stats.downloads.btn.wants" />
+          </a>
+        </p>
+      ) : null}
       <p className="mb-4 text-balance">
         <I18N id="stats.downloads.text2" />
       </p>
-      <p className="mb-4">
-        <a
-          href={stats?.results}
-          className="bg-primary block text-white py-2 px-6 text-lg text-center w-fit mx-auto rounded-full hover:opacity-80"
-          download
-          target="_blank"
-        >
-          <Icon type="download" className="me-2" download target="_blank" />
-          <I18N id="stats.downloads.btn.results" />
-        </a>
-      </p>
+      {stats?.results ? (
+        <p className="mb-4">
+          <a
+            href={stats.results}
+            className="bg-primary block text-white py-2 px-6 text-lg text-center w-fit mx-auto rounded-full hover:opacity-80"
+            download
+            target="_blank"
+          >
+            <Icon type="download" className="me-2" download target="_blank" />
+            <I18N id="stats.downloads.btn.results" />
+          </a>
+        </p>
+      ) : null}
       <LoadingBox loading={loading} />
     </div>
   );
