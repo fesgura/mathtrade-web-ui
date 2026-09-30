@@ -88,6 +88,7 @@ const endpoints = {
   // MATHTRADE
   GET_MATHTRADES: "api/mathtrades/",
   GET_MATHTRADE: "api/mathtrades/$[mathtradeId]/",
+  GET_CURRENT_MATHTRADE: "api/mathtrades/current/",
   GET_MATHTRADE_USER: "api/mathtrades/$[mathtradeId]/users/$[1]/",
   GET_MATHTRADE_USERS: "api/mathtrades/$[mathtradeId]/users/",
 

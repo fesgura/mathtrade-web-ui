@@ -163,24 +163,44 @@ const PageContextProvider = ({ children = null }) => {
     return { ...mathtradeStored, ...mathtradeUpdated };
   }, [mathtradeStored, mathtradeUpdated]);
 
-  /* Refresh mathtrade (dates, active) on tab focus regain — see
-   * MIN_REFRESH_INTERVAL_MS comment above for why this isn't a timer. */
+  /* Refresh the active edition (dates, counters, and which one it is) on tab
+   * focus regain — see MIN_REFRESH_INTERVAL_MS comment above for why this
+   * isn't a timer. Login stores the edition once; asking for the *current*
+   * one (not the stored id) is what lets a change of active edition, e.g.
+   * the example one -> the real one, reach sessions opened before it. */
   const lastRefreshRef = useRef(0);
-  const afterLoadFreshMathtrade = useCallback(
-    (freshMathtrade: any) => {
-      if (!freshMathtrade) return;
-      updateMathtrade(freshMathtrade);
-      updateStore("data", { ...storeData, mathtrade: freshMathtrade });
+  const afterLoadCurrent = useCallback(
+    (current: any) => {
+      if (!current) return;
+      const fresh = current.mathtrade || null;
+      if ((fresh?.id ?? null) !== (mathtradeStored?.id ?? null)) {
+        // Another edition is active now (or none): store it and start over,
+        // so nothing from the previous edition stays on screen.
+        updateStore("data", {
+          ...storeData,
+          mathtrade: fresh,
+          membership: current.membership || null,
+        });
+        window.location.reload();
+        return;
+      }
+      if (!fresh) return;
+      updateMathtrade(fresh);
+      updateStore("data", {
+        ...storeData,
+        mathtrade: fresh,
+        membership: current.membership || null,
+      });
     },
-    [updateStore, storeData]
+    [updateStore, storeData, mathtradeStored]
   );
   const [refreshMathtrade] = useFetch({
-    endpoint: "GET_MATHTRADE",
-    afterLoad: afterLoadFreshMathtrade,
+    endpoint: "GET_CURRENT_MATHTRADE",
+    afterLoad: afterLoadCurrent,
   });
-  const mathtradeId = mathtradeStored?.id;
+  const userId = user?.id;
   useEffect(() => {
-    if (!mathtradeId) return;
+    if (!userId) return;
     const onFocusRegain = () => {
       if (document.visibilityState !== "visible") return;
       const now = Date.now();
@@ -188,7 +208,7 @@ const PageContextProvider = ({ children = null }) => {
       lastRefreshRef.current = now;
       // stats: the counters (games/items/participants) come with it; without
       // it the backend sends them as 0 and would overwrite them.
-      refreshMathtrade({ mathtradeId, params: { stats: true } });
+      refreshMathtrade({ params: { stats: true } });
     };
     // Also once on load, so the home has the counters without its own call.
     onFocusRegain();
@@ -198,7 +218,7 @@ const PageContextProvider = ({ children = null }) => {
       document.removeEventListener("visibilitychange", onFocusRegain);
       window.removeEventListener("focus", onFocusRegain);
     };
-  }, [mathtradeId, refreshMathtrade]);
+  }, [userId, refreshMathtrade]);
 
   const canI = useMemo(() => {
     const closed = {
