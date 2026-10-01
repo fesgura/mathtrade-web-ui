@@ -4,6 +4,7 @@ import ElementView from "./elementView";
 import { ElementContextProvider } from "@/context/element";
 import Dynamic from "@/components/dynamic";
 import Modal from "@/components/modal";
+import I18N from "@/i18n";
 
 const ElementEditor = lazy(() => import("./editor"));
 const ExtraDataEditor = lazy(
@@ -60,6 +61,11 @@ const ElementCollection = ({
       </Modal>
       {showAddToMT ? (
         <Modal isOpen={addingToMT} onClose={toggleAddingToMT} size="md2">
+          {/* From Mi ludoteca a copy goes in on its own; combos are made
+              in Yo ofrezco. */}
+          <p className="mx-4 mt-4 mb-1 rounded-lg bg-sky-50 border border-sky-200 px-3 py-2 text-sm text-gray-700">
+            <I18N id="collection.addToMT.single" />
+          </p>
           <Dynamic h={600}>
             {/* No ItemContextProvider here on purpose: this is a brand-new
                 item with no math_item yet, which is exactly ItemContext's

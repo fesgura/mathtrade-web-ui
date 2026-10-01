@@ -1267,6 +1267,8 @@
   "addElementToItem.addCombo.title.1": "Agregar artículo de tu ",
   "addElementToItem.addCombo.title.2": " para formar <b>combo</b>",
   "addElementToItem.addCombo.title": "Agregar artículo para formar <b>combo</b>",
+  "collection.addToMT.single": "Así se ofrece <strong>solo este juego</strong>, como un ejemplar individual. Para ofrecer varios juegos juntos (un <strong>combo</strong>), hacelo desde <strong>Yo ofrezco</strong>.",
+  "collection.addToMT.single.short": "Se ofrece solo este juego. Para un combo, usá Yo ofrezco.",
   "btn.AddToMT": "Ofertar al Math Trade",
   "btn.AddToItem": "Agregar a ítem",
   "btn.CreateItem": "Crear ítem",
