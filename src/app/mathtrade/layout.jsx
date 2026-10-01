@@ -62,7 +62,9 @@ export default function MathTradeLayout({ children }) {
           <div className="lg:flex">
             <Sidebar />
             <TabBar />
-            <div className="relative w-full min-h-screen pb-24 lg:pb-20 lg:min-w-0 lg:flex-1">
+            {/* Mobile: room for the fixed TabBar under the footer (which flows
+                after the content there). Desktop: room for the pinned footer. */}
+            <div className="relative w-full min-h-screen pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-20 lg:min-w-0 lg:flex-1">
               <a id="a-top" />
               <AdvContribution />
               <AdvCompromise />
