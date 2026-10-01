@@ -10,7 +10,9 @@ const coverOf = (item?: ProvisionalItem | null) =>
   item?.elements?.[0]?.element?.thumbnail || "";
 
 const TimesChip = ({ count }: { count: number }) => (
-  <span className="inline-block shrink-0 whitespace-nowrap rounded-full bg-primary/10 text-primary text-xs font-bold px-2 py-0.5">
+  <span
+    data-tour-part="times"
+    className="inline-block shrink-0 whitespace-nowrap rounded-full bg-primary/10 text-primary text-xs font-bold px-2 py-0.5">
     {/* "1 vez" has no placeholder: pass the count only to "$$$ veces". */}
     <I18N
       id={`provisional.tile.times.${count === 1 ? "one" : "many"}`}
@@ -103,7 +105,13 @@ const NoTradeTile = ({ count }: { count: number }) => (
 
 // One card per offered game, with a card for each thing it got across the
 // runs the member took part in. All cards share the grid row height.
-const SummaryCard = ({ row }: { row: ProvisionalSummaryRow }) => {
+const SummaryCard = ({
+  row,
+  tourAnchor,
+}: {
+  row: ProvisionalSummaryRow;
+  tourAnchor?: string;
+}) => {
   const { item, outcomes } = row;
   const counts = new Map<string, { item: ProvisionalItem; count: number }>();
   let noTrade = 0;
@@ -122,6 +130,7 @@ const SummaryCard = ({ row }: { row: ProvisionalSummaryRow }) => {
 
   return (
     <article
+      data-tour={tourAnchor}
       className={clsx(
         "h-full flex flex-col bg-white rounded-xl shadow-lg overflow-hidden",
         cardKindBorderClass(resolveItemKind(item))
@@ -181,8 +190,12 @@ const ProvisionalSummary = ({ rows = [] }: { rows?: ProvisionalSummaryRow[] }) =
         <I18N id="provisional.summary.title" />
       </h2>
       <div className="grid gap-6 auto-rows-fr [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
-        {rows.map((row) => (
-          <SummaryCard key={row.item.id} row={row} />
+        {rows.map((row, index) => (
+          <SummaryCard
+            key={row.item.id}
+            row={row}
+            tourAnchor={index === 0 ? "provisional.card" : undefined}
+          />
         ))}
       </div>
     </section>
