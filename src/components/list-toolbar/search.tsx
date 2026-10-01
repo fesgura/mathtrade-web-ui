@@ -15,6 +15,7 @@ const ListSearch = ({
     >
       <Icon type="search" className="text-gray-500 text-sm shrink-0" />
       <input
+        autoComplete="off"
         type="search"
         value={value}
         onChange={(e) => onChange(e.target.value)}

@@ -43,6 +43,7 @@ export default function MyAccount() {
             </section>
             <div className="text-center mb-6">
               <input
+                autoComplete="off"
                 type="text"
                 placeholder={getI18Ntext("filter.Search")}
                 value={keyword}

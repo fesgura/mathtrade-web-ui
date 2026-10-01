@@ -44,7 +44,7 @@ const SearchBGG = ({
           onFocus={onFocus}
           onBlur={onBlur}
           ref={inputRef}
-          autoComplete="false"
+          autoComplete="off"
         />
         {loading ? (
           <div className="absolute top-1/2 right-3 translate-y-[-50%] text-primary">

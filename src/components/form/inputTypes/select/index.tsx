@@ -161,6 +161,7 @@ const Select = ({
           optionsComplete.filter((option) => option.chosen).length >
             0 ? null : (
             <input
+              autoComplete="off"
               className={clsx("relative bg-transparent focus:outline-none", {
                 "w-full": !multiple,
                 "cursor-not-allowed": disabled || disabledInput,

@@ -32,6 +32,7 @@ const ItemList = () => {
             <I18N id="filter.Search" />
           </label>
           <input
+            autoComplete="off"
             type="text"
             placeholder={getI18Ntext("filter.Search")}
             value={keyword}

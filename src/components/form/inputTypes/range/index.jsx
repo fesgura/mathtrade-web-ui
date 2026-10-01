@@ -35,6 +35,7 @@ const Range = ({
     <div className="flex items-center">
       <div className="pr-2">
         <input
+          autoComplete="off"
           type="number"
           min={min}
           max={max}

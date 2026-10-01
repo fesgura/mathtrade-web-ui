@@ -83,6 +83,7 @@ const GroupItemsPicker = ({ group, isOpen, onClose }) => {
           <HelpContext id="groupPicker" />
         </div>
         <input
+          autoComplete="off"
           type="search"
           className="w-full border border-stroke rounded-md p-2 text-sm mb-2"
           placeholder={getI18Ntext("myGroups.picker.search")}
