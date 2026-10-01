@@ -9,7 +9,7 @@ import clsx from "clsx";
 
 const AddElementToMyItem = lazy(() => import("../addElement"));
 
-const ItemUI = () => {
+const ItemUI = ({ tourAnchor = undefined }) => {
   /* PAGE CONTEXT **********************************************/
   const { canI } = useContext(PageContext);
   /* end PAGE CONTEXT **********************************************/
@@ -38,6 +38,7 @@ const ItemUI = () => {
 
   return (
     <article
+      data-tour={tourAnchor}
       className={clsx(
         "relative mb-6",
         isCombo

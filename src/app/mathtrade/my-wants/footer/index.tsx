@@ -105,6 +105,7 @@ const Footer = () => {
                   ) : null}
                   <button
                     type="button"
+                    data-tour="mywants.save"
                     className={clsx(
                       "h-[34px] rounded-full outline-none transition-colors px-4 text-body font-bold whitespace-nowrap",
                       enabledBtn

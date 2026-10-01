@@ -63,7 +63,10 @@ const Visual = () => {
 
   return (
     <SectionCommon topNotRounded>
-      <div className="flex justify-center items-center gap-1.5 pt-5 pb-1">
+      <div
+        className="flex justify-center items-center gap-1.5 pt-5 pb-1"
+        data-tour="mywants.direction"
+      >
         {[0, 1].map((k) => {
           return (
             <TabVisual

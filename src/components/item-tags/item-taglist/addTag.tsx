@@ -27,7 +27,7 @@ const AddTag = ({
   if (!options.length && !canCreate) return null;
 
   return (
-    <div className="relative">
+    <div className="relative" data-tour-part="tag">
       <button
         type="button"
         className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold border border-dashed border-gray-400 text-primary hover:border-primary"

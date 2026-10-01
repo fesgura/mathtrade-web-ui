@@ -1,5 +1,6 @@
 "use client";
 import useWantToItem from "./useWantToItem";
+import useTour from "@/tours/useTour";
 import VisualSection from "@/components/want-components/visual";
 import EmptyList from "@/components/emptyList";
 import CommitHeaderVisual from "@/components/want-components/commit/headers/header-visual";
@@ -9,6 +10,8 @@ import { PRIVATE_ROUTES } from "@/config/routes";
 const WantToItem = ({ changeScreenViewOffer = () => {} }) => {
   const { isLoadedWants, myWants, wantList, myItemList, readyToRender } =
     useWantToItem();
+
+  useTour("my-wants", { ready: readyToRender && (wantList?.length || 0) > 0 });
 
   return readyToRender ? (
     <div className="md:px-8 px-3">

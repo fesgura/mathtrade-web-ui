@@ -13,7 +13,7 @@ const AutocompleteButton = () => {
 
   return (
     <>
-      <div className="flex items-center gap-1 shrink-0">
+      <div className="flex items-center gap-1 shrink-0" data-tour="mywants.autocomplete">
         <button
           type="button"
           className={clsx(

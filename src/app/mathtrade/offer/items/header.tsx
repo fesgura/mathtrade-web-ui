@@ -23,7 +23,7 @@ const Header = () => {
     <ListToolbar
       leading={
         <>
-          <FilterToggleButton type="item" />
+          <FilterToggleButton type="item" tourAnchor="items.filters" />
           <ActiveFilterChips type="item" />
         </>
       }

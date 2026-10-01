@@ -273,6 +273,7 @@ const ElementView = ({
               <button
                 className="bg-want text-white px-5 py-1 rounded-full font-bold text-sm hover:bg-emerald-700 transition-colors"
                 onClick={onAddToMT}
+                data-tour-part="addToMT"
               >
                 <InnerButton>
                   <Icon type="plus" />

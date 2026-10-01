@@ -12,11 +12,14 @@ const NewItemUI = () => {
   /* end PAGE CONTEXT *********************************************/
 
   return myCollectionList.length ? (
-    <article className="relative bg-white rounded-lg shadow-md mb-6 p-3 pt-2 border border-stroke">
+    <article
+      data-tour="myoffer.new"
+      className="relative bg-white rounded-lg shadow-md mb-6 p-3 pt-2 border border-stroke"
+    >
       <AddElementToMyItem startOpen />
     </article>
   ) : (
-    <div className="text-center text-xl py-6">
+    <div data-tour="myoffer.new" className="text-center text-xl py-6">
       <I18N id="addItemToItem.noElements" />
       <Link
         href={PRIVATE_ROUTES.MY_COLLECTION.path}

@@ -16,7 +16,9 @@ const UtilityRow = ({ collapsed }: { collapsed: boolean }) => {
         <TimelineButton variant="row" collapsed={collapsed} placement="right" />
       ) : null}
       <NotificationsButton variant="row" collapsed={collapsed} placement="right" />
-      <HelpButton variant="row" collapsed={collapsed} placement="right" />
+      <div data-tour="home.help">
+        <HelpButton variant="row" collapsed={collapsed} placement="right" />
+      </div>
       <BugReportButton variant="row" collapsed={collapsed} />
     </div>
   );

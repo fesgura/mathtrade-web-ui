@@ -6,13 +6,15 @@ const FilterBlock = ({
   titleId = "",
   hintId = "",
   children = null,
+  tourAnchor = undefined,
 }: {
   titleId?: string;
   hintId?: string;
   children?: ReactNode;
+  tourAnchor?: string; // data-tour for the guided tutorial (src/tours)
 }) => {
   return (
-    <section>
+    <section data-tour={tourAnchor}>
       {titleId ? (
         <h3 className="m-0 mb-1.5 text-xs font-semibold text-gray-500">
           <I18N id={titleId} />
