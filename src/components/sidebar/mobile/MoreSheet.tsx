@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import Icon from "@/components/icon";
 import I18N from "@/i18n";
 import clsx from "clsx";
@@ -36,13 +36,6 @@ const MoreSheet = ({
 }: MoreSheetProps) => {
   const { mathtrade } = useContext(PageContext);
   const hasMathtrade = Boolean(mathtrade && Object.keys(mathtrade).length > 0);
-
-  useEffect(() => {
-    document.body.classList.toggle("mt-more-open", open);
-    return () => {
-      document.body.classList.remove("mt-more-open");
-    };
-  }, [open]);
 
   return (
     <div

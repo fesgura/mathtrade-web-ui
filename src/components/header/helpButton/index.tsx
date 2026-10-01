@@ -2,7 +2,6 @@
 import HeadContent from "../head-content";
 import useHoverPanel from "../head-content/useHoverPanel";
 import Icon from "@/components/icon";
-import { openHelpChat } from "@/components/chatbox";
 import I18N from "@/i18n";
 import Link from "next/link";
 import clsx from "clsx";
@@ -23,7 +22,7 @@ type HelpButtonProps = {
   tone?: "dark" | "light";
   collapsed?: boolean;
   // Closes whatever contains the button (the mobile "Más" sheet) when the
-  // tutorial or the chat opens, so no panel stays open over it.
+  // tutorial starts, so no panel stays open over it.
   onAction?: () => void;
 };
 
@@ -100,17 +99,6 @@ const HelpButton = ({
               <I18N id="tour.help" />
             </button>
           ) : null}
-          <button
-            type="button"
-            className="block w-full leading-10 hover:bg-sky-200 text-center border-b"
-            onClick={() => {
-              if (visibleMobile) toggleMobile();
-              onAction?.();
-              openHelpChat();
-            }}
-          >
-            <I18N id="help.chat" />
-          </button>
           <Link
             href={PRIVATE_ROUTES.FAQS.path}
             className="block leading-10 hover:bg-sky-200 text-center"
