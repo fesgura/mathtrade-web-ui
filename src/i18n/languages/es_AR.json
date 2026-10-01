@@ -1395,6 +1395,8 @@
   "tour.home.read.text": "El <strong>reglamento</strong>, los <strong>términos y condiciones</strong> y las <strong>preguntas frecuentes</strong>. Leelos, sobre todo si es tu primera vez: ahí está cómo funciona todo y qué pasa si algo sale mal.",
   "tour.home.lockedSign.title": "Las que tienen candado",
   "tour.home.lockedSign.text": "Todavía no te inscribiste en este Math Trade: estas secciones se abren cuando te inscribís, y cada una en su etapa.",
+  "tour.demoBadge": "Ejemplo",
+  "tour.my-collection.demo": "Esto es un ejemplo: tu ludoteca todavía está vacía.",
   "tour.items.card.title": "Cada ejemplar por separado",
   "tour.items.card.text": "Acá ves cada copia que se ofrece, con su estado, idioma y quién la ofrece. Sirve cuando te importa una copia en particular.",
   "tour.items.tag.title": "Etiquetas",

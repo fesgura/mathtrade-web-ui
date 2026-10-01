@@ -80,3 +80,33 @@ nav .driver-active-element {
     display: none !important;
   }
 }
+
+// Example card shown while a tour runs on an empty list (src/tours/demo).
+.tour-demo {
+  position: relative;
+  pointer-events: none;
+  user-select: none;
+}
+.tour-demo-badge {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  background: #f59e0b;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 12px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+.mt-tour .mt-tour-demo-note {
+  display: block;
+  margin-bottom: 6px;
+  color: #b45309;
+  font-style: normal;
+  font-weight: 600;
+}

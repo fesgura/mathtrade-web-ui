@@ -17,6 +17,9 @@ import Faq from "@/components/faq";
 import ListToolbar from "@/components/list-toolbar";
 import ListSearch from "@/components/list-toolbar/search";
 import useTour from "@/tours/useTour";
+import { useTourDemo } from "@/tours/context";
+import TourDemo from "@/tours/demo/TourDemo";
+import { demoElement } from "@/tours/demo/demoData";
 
 const collectionFaq = {
   question: "collectionFaq.question",
@@ -34,6 +37,8 @@ const MyCollectionPage = () => {
     canI,
   } = useMyCollection();
   useTour("my-collection", { ready: !loading });
+  // Empty collection while the tutorial runs: an example card to explain.
+  const showDemo = useTourDemo("my-collection") && !elementList.length;
 
   return (
     <>
@@ -81,6 +86,13 @@ const MyCollectionPage = () => {
               <NewElement />
             </ElementWrapperOuter>
             <div className="collection-grid">
+              {showDemo ? (
+                <TourDemo>
+                  <ElementWrapperOuter tourAnchor="mycollection.item">
+                    <ElementCollection element={{ element: demoElement }} showAddToMT />
+                  </ElementWrapperOuter>
+                </TourDemo>
+              ) : null}
               {elementList.map((element, index) => {
                 return (
                   <ElementWrapperOuter

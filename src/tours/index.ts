@@ -25,6 +25,10 @@ export type Tour = {
   // Auto-start waits (a few seconds at most) for this element: lists that
   // paint their rows only once they're on screen.
   waitFor?: string;
+  // Empty list: show an example card (src/tours/demo) while the tour runs.
+  // `has` is what means "there's real content"; without it, the screen
+  // `screen` renders its example (useTourDemo) and the tour points at it.
+  demo?: { screen: string; has: string };
   steps: TourStep[];
 };
 
@@ -214,6 +218,7 @@ export const TOURS: Record<string, Tour> = {
   "my-collection": {
     key: "my-collection.v1",
     when: () => true,
+    demo: { screen: "my-collection", has: '[data-tour="mycollection.item"]' },
     steps: [
       { anchor: "mycollection.new", id: "mycollection.new", side: "bottom" },
       { anchor: "mycollection.item", id: "mycollection.item", side: "right" },

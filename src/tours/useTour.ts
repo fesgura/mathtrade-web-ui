@@ -37,7 +37,7 @@ const revealInScrollBox = (el?: Element) => {
 const useTour = (name: string, { ready }: { ready: boolean }) => {
   const tour = TOURS[name];
   const { canI } = useContext(PageContext) as any;
-  const { setStartCurrentTour } = useContext(TourContext);
+  const { setStartCurrentTour, setDemo } = useContext(TourContext);
   const user = useStore((state: any) => state.data?.user);
   const updateStore = useStore((state: any) => state.updateStore);
   const seen = Boolean(user?.tours_seen?.[tour?.key]);
@@ -63,8 +63,13 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
     afterLoad: afterSeen,
   });
 
-  const start = useCallback(() => {
+  // Builds the steps from what's on screen and runs the tour. `demo`: an
+  // example card is shown (empty list), see src/tours/demo.
+  const run = useCallback((demo: boolean) => {
     if (!tour) return;
+    const demoNote = demo
+      ? `<em class="mt-tour-demo-note">${getI18Ntext(`tour.${tour.demo!.screen}.demo`)}</em>`
+      : "";
     // Only the steps whose element is on screen now (mobile/desktop, stage).
     const steps = tour.steps
       .filter((step) => !step.when || step.when(canI))
@@ -85,12 +90,17 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
         element: step.floating ? undefined : (el as Element),
         popover: {
           title: getI18Ntext(`tour.${id}.title`),
-          description: getI18Ntext(`tour.${id}.text`),
+          description:
+            (demo && el?.closest("[data-tour-demo]") ? demoNote : "") +
+            getI18Ntext(`tour.${id}.text`),
           side: step.side,
           align: step.align || "center",
         },
       }));
-    if (!steps.length) return;
+    if (!steps.length) {
+      if (demo) setDemo(null);
+      return;
+    }
 
     const tourDriver = driver({
       steps,
@@ -104,6 +114,8 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
       stagePadding: 6,
       stageRadius: 10,
       smoothScroll: true,
+      // The example card must not be clicked (it would call the API).
+      disableActiveInteraction: demo,
       onHighlighted: (el) => {
         if (!el) return;
         revealInScrollBox(el);
@@ -117,11 +129,34 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
         skip.onclick = () => tourDriver.destroy();
         popover.footer.prepend(skip);
       },
-      // Finished, skipped or closed (Esc / click outside): seen.
-      onDestroyed: () => postSeen({ urlParams: [tour.key] }),
+      // Finished, skipped or closed (Esc / click outside): seen, and the
+      // example card (if any) goes away.
+      onDestroyed: () => {
+        if (demo) setDemo(null);
+        postSeen({ urlParams: [tour.key] });
+      },
     });
     tourDriver.drive();
-  }, [tour, postSeen, canI]);
+  }, [tour, postSeen, canI, setDemo]);
+
+  const start = useCallback(() => {
+    if (!tour) return;
+    if (!tour.demo || document.querySelector(tour.demo.has)) {
+      run(false);
+      return;
+    }
+    // Empty list: show the example card, wait for it to paint, then run.
+    setDemo(tour.demo.screen);
+    let tries = 0;
+    const wait = () => {
+      if (document.querySelector("[data-tour-demo]") || ++tries > 20) run(true);
+      else setTimeout(wait, 100);
+    };
+    setTimeout(wait, 50);
+  }, [tour, run, setDemo]);
+
+  // Leaving the screen mid-tour: its example card must not linger.
+  useEffect(() => () => setDemo(null), [setDemo]);
 
   // Ayuda: "Ver el tutorial de esta pantalla".
   useEffect(() => {
