@@ -132,3 +132,13 @@ export const demoWantGroup = {
   game_type: 1,
 };
 export const DEMO_MATCH = `${demoWantGroup.id}_${demoMyItem.id}`;
+
+// A second example copy of yours, not offered yet for that wish: it makes the
+// row show "+ Agregar", like the real view does when you have more copies.
+export const demoMyItem2 = {
+  ...demoMyItem,
+  id: -4,
+  title: "CARCASSONNE (2000)",
+  elements: [{ ...demoCopy, id: -4, element: { ...demoCopy.element, name: "CARCASSONNE (2000)" } }],
+  value: 4,
+};

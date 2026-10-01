@@ -3,7 +3,7 @@ import { useContext, useMemo } from "react";
 import { MyWantsContext } from "@/context/myWants/all";
 import { WantVisualSectionContextProvider } from "@/context/wantVisualSection";
 import VisualSectionUI from "@/components/want-components/visual/ui";
-import { demoWantGroup, demoMyItem, DEMO_MATCH } from "./demoData";
+import { demoWantGroup, demoMyItem, demoMyItem2, DEMO_MATCH } from "./demoData";
 
 /**
  * Mis deseos' example row: the real row (rendered right away, not lazily)
@@ -19,7 +19,10 @@ const DemoWantRow = ({ myItemList = [] }: { myItemList?: any[] }) => {
   return (
     <MyWantsContext.Provider value={value}>
       <WantVisualSectionContextProvider>
-        <VisualSectionUI wantGroup={demoWantGroup} myItemList={[demoMyItem, ...myItemList]} />
+        <VisualSectionUI
+          wantGroup={demoWantGroup}
+          myItemList={[demoMyItem, demoMyItem2, ...myItemList]}
+        />
       </WantVisualSectionContextProvider>
     </MyWantsContext.Provider>
   );
