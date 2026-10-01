@@ -5,6 +5,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { DOCUMENT_TITLE, DOCUMENT_DESCRIPTION } from "@/config";
 import ConsoleBufferInit from "@/components/consoleBufferInit";
+import SentryUser from "@/components/sentryUser";
 
 //const mainFont = Montserrat({ subsets: ["latin"], weight: ["500", "700"] });
 
@@ -114,6 +115,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="es">
       <body className={mainFont.className}>
         <ConsoleBufferInit />
+        <SentryUser />
         {children}
       </body>
     </html>
