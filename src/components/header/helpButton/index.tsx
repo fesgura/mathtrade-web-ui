@@ -21,6 +21,9 @@ type HelpButtonProps = {
   // "dark" for the black sidebar, "light" for the white mobile sheet.
   tone?: "dark" | "light";
   collapsed?: boolean;
+  // Closes whatever contains the button (the mobile "Más" sheet) when the
+  // tutorial starts, so no panel stays open over it.
+  onStartTour?: () => void;
 };
 
 const HelpButton = ({
@@ -28,6 +31,7 @@ const HelpButton = ({
   placement = "below",
   tone = "dark",
   collapsed = false,
+  onStartTour,
 }: HelpButtonProps = {}) => {
   const { visibleMobile, toggleMobile } = useExclusiveMobilePanel("help");
   const { startCurrentTour } = useContext(TourContext);
@@ -88,6 +92,7 @@ const HelpButton = ({
               className="block w-full leading-10 bg-primary hover:bg-sky-700 text-center font-semibold text-white border-b"
               onClick={() => {
                 if (visibleMobile) toggleMobile();
+                onStartTour?.();
                 startCurrentTour();
               }}
             >
