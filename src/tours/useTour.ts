@@ -171,7 +171,8 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
     // Let the list paint and the loading blur go before highlighting.
     let tries = 0;
     let timer = setTimeout(function attempt() {
-      if (tour.waitFor && !document.querySelector(tour.waitFor) && ++tries < 15) {
+      const empty = tour.demo && !document.querySelector(tour.demo.has);
+      if (tour.waitFor && !empty && !document.querySelector(tour.waitFor) && ++tries < 15) {
         timer = setTimeout(attempt, 300);
         return;
       }

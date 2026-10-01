@@ -95,3 +95,40 @@ export const demoGame = {
     { id: -2, title: "CATAN (1995)", membership: demoMember, elements: [{ ...demoCopy, id: -2 }], value: null, ignored: false },
   ],
 };
+
+// Ejemplares: a copy someone else offers (GET .../items/), taggable.
+export const demoOtherItem = {
+  id: -3,
+  title: "CATAN (1995)",
+  membership: demoMember,
+  copies: 1,
+  elements: [{ ...demoCopy, id: -3 }],
+  value: null,
+  owner: false,
+  group: null,
+  tags: [],
+  comments: 0,
+  added_mt: null,
+  ban_id: null,
+  matched_bgg_id: 0,
+  reported: null,
+};
+
+// Mis deseos: a wish for CATAN (GET .../user-want-groups/) with your example
+// copy offered for it (DEMO_MATCH marks that pair as checked).
+export const demoWantGroup = {
+  id: -1,
+  name: "CATAN",
+  bgg_id: 13,
+  type: "game",
+  dup_protection: true,
+  wants: [
+    { id: -2, title: "CATAN (1995)", membership: demoMember, elements: [{ ...demoCopy, id: -2 }], value: 0, ignored: false },
+  ],
+  items: [demoMyItem.id],
+  availables: [],
+  tag: null,
+  value: 7,
+  game_type: 1,
+};
+export const DEMO_MATCH = `${demoWantGroup.id}_${demoMyItem.id}`;

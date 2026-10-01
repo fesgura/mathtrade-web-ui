@@ -1399,6 +1399,8 @@
   "tour.my-collection.demo": "Esto es un ejemplo: tu ludoteca todavía está vacía.",
   "tour.my-offer.demo": "Esto es un ejemplo: todavía no ofreciste nada.",
   "tour.offer.demo": "Esto es un ejemplo: ahora no hay juegos para mostrar (puede ser por los filtros).",
+  "tour.items.demo": "Esto es un ejemplo: ahora no hay ejemplares de otras personas para mostrar.",
+  "tour.my-wants.demo": "Esto es un ejemplo: todavía no tenés deseos. Se agregan desde Juegos ofrecidos, con Lo quiero.",
   "tour.items.card.title": "Cada ejemplar por separado",
   "tour.items.card.text": "Acá ves cada copia que se ofrece, con su estado, idioma y quién la ofrece. Sirve cuando te importa una copia en particular.",
   "tour.items.tag.title": "Etiquetas",

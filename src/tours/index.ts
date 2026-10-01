@@ -100,6 +100,8 @@ export const TOURS: Record<string, Tour> = {
   // Mis deseos (Visual, Recibo -> Ofrezco): building the possible trades.
   "my-wants": {
     key: "my-wants.v1",
+    // Rows paint lazily: their always-present container means "has wishes".
+    demo: { screen: "my-wants", has: ".visual-section-want" },
     when: (canI) => Boolean(canI?.want),
     waitFor: "[data-tour-row]",
     steps: [
@@ -270,6 +272,7 @@ export const TOURS: Record<string, Tour> = {
   // Ejemplares (avanzado): one copy per card, and tags.
   items: {
     key: "items.v1",
+    demo: { screen: "items", has: TAGGABLE_ITEM },
     when: (canI) => Boolean(canI?.offer || canI?.want),
     steps: [
       { anchor: "items.card", selector: TAGGABLE_ITEM, id: "items.card", side: "right" },
