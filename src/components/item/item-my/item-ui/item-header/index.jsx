@@ -25,8 +25,12 @@ const HeaderItem = ({ className = "mb-2" }) => {
         <div className="flex items-center justify-between gap-3">
           {elementsLength > 0 ? (
             <div className="flex items-center gap-3">
-              <MyGroupsInItem className="" />
-              <Value size="xl" type="item" />
+              <span className="inline-flex" data-tour-part="group">
+                <MyGroupsInItem className="" />
+              </span>
+              <span className="inline-flex" data-tour-part="value">
+                <Value size="xl" type="item" />
+              </span>
               {ready === false ? (
                 <Chip tone="alert">
                   <I18N id="myOffer.item.missingInfo" />
@@ -35,21 +39,23 @@ const HeaderItem = ({ className = "mb-2" }) => {
             </div>
           ) : null}
           {canIdelete ? (
-            <ButtonAlert
-              className="text-red-700 font-bold text-xs hover:text-red-900 transition-colors"
-              title="title.DeleteItem"
-              description={
-                isWantPhase
-                  ? "description.DeleteItem.wants"
-                  : "description.DeleteItem"
-              }
-              onClick={deleteItem}
-            >
-              <InnerButton>
-                <Icon type="trash" />
-                <I18N id="btn.DeleteItem" />
-              </InnerButton>
-            </ButtonAlert>
+            <span className="inline-flex" data-tour-part="withdraw">
+              <ButtonAlert
+                className="text-red-700 font-bold text-xs hover:text-red-900 transition-colors"
+                title="title.DeleteItem"
+                description={
+                  isWantPhase
+                    ? "description.DeleteItem.wants"
+                    : "description.DeleteItem"
+                }
+                onClick={deleteItem}
+              >
+                <InnerButton>
+                  <Icon type="trash" />
+                  <I18N id="btn.DeleteItem" />
+                </InnerButton>
+              </ButtonAlert>
+            </span>
           ) : null}
         </div>
         {isCombo ? (

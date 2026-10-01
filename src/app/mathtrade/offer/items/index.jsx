@@ -13,6 +13,10 @@ import ItemTagHeader from "@/components/item-tags/item-tag-header";
 import ErrorAlert from "@/components/errorAlert";
 import EmptyList from "@/components/emptyList";
 import Footer from "./footer";
+import useTour from "@/tours/useTour";
+import { useTourDemo } from "@/tours/context";
+import TourDemo from "@/tours/demo/TourDemo";
+import { demoOtherItem } from "@/tours/demo/demoData";
 import NewSinceNotice from "@/components/newSinceNotice";
 
 const ItemsView = () => {
@@ -26,6 +30,10 @@ const ItemsView = () => {
     newCount,
     refreshList,
   } = useItems();
+  // Guided tutorial (src/tours): once the first page is on screen.
+  // Ready once loaded, even if empty: then the tour shows an example copy.
+  useTour("items", { ready: !loading && isLoaded });
+  const showDemo = useTourDemo("items");
 
   return (
     <SectionWithSidebar name="items" loading={loading} topNotRounded>
@@ -42,6 +50,11 @@ const ItemsView = () => {
             <NewSinceNotice count={newCount} onRefresh={refreshList} />
             <div className="md:px-7 px-3 py-7">
               <div className="item-grid">
+                {showDemo ? (
+                  <TourDemo>
+                    <ItemGrid itemRaw={demoOtherItem} expanded={null} setExpanded={() => {}} />
+                  </TourDemo>
+                ) : null}
                 {items.list.map((itemRaw) => {
                   return (
                     <ItemGrid
@@ -54,7 +67,7 @@ const ItemsView = () => {
                 })}
               </div>
               <EmptyList
-                visible={isLoaded && !(items?.list?.length || 0) && !error}
+                visible={isLoaded && !(items?.list?.length || 0) && !error && !showDemo}
                 message="EmptyList.items"
               />
               <ErrorAlert error={error} className="mt-3" />

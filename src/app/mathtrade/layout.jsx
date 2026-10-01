@@ -3,13 +3,12 @@ import Sidebar from "@/components/sidebar";
 import TabBar from "@/components/sidebar/mobile/TabBar";
 import Footer from "@/components/footer";
 import PageContextProvider from "@/context/page";
+import { TourContextProvider } from "@/tours/context";
 import ModalPreviewer from "@/components/previewer/modal";
 import ModalPreviewerWantGroup from "@/components/previewerWantGroup/modal";
-import ChatBoxButton from "@/components/chatbox";
 import AdvCompromise from "@/components/header/advCompromise";
 import AdvSelfExcluded from "@/components/header/advSelfExcluded";
 import AdvContribution from "@/components/header/advContribution";
-import Script from "next/script";
 import dynamic from "next/dynamic";
 import EarlyPayPopup from "@/components/earlyPayPopup";
 // import Image from "next/image";
@@ -46,7 +45,6 @@ const PrivateEnvironmentNoSSR = dynamic(
 export default function MathTradeLayout({ children }) {
   return (
     <>
-      <Script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1" />
       <PrivateEnvironmentNoSSR>
         {/* <div className="fixed top-0 left-0 z-0 w-screen h-screen overflow-hidden ">
           <img
@@ -59,6 +57,7 @@ export default function MathTradeLayout({ children }) {
           <Bg />
         </div> */}
         <PageContextProvider>
+        <TourContextProvider>
           <div className="lg:flex">
             <Sidebar />
             <TabBar />
@@ -76,7 +75,7 @@ export default function MathTradeLayout({ children }) {
           <ModalPreviewerWantGroup />
           <ModalPreviewer />
           <EarlyPayPopup />
-          <ChatBoxButton />
+        </TourContextProvider>
         </PageContextProvider>
       </PrivateEnvironmentNoSSR>
     </>

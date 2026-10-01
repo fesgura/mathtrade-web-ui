@@ -70,14 +70,6 @@
     }
   }
 
-  // Dialogflow's FAB is position:fixed in shadow DOM and can sit above the
-  // Más sheet / filter overlay even with its React wrapper on a lower layer.
-  body.mt-more-open df-messenger,
-  body:has(.sidebar-aside.visibleMobile) df-messenger {
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-
   .container-with-sidebar {
     grid-template-columns: 100%;
   }

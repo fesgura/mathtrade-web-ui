@@ -23,7 +23,7 @@ const OfferPage = () => {
         alert={<I18N id="alert.duplicateCopies" />}
       />
       <Wrapper className="mb-1">
-        <div className="bg-white rounded-t-main shadow-main">
+        <div className="bg-white rounded-t-main shadow-main" data-tour="offer.tabs">
           <Tabs
             list={["offer.screen.games", "offer.screen.items"]}
             value={screenOfferView}

@@ -154,7 +154,10 @@ const ContributionBox = ({
   if (!isMembership) {
     if (!contributionAmount) return null;
     return (
-      <div className="border border-stroke rounded-lg p-4 mb-6 bg-gray-50">
+      <div
+        className="border border-stroke rounded-lg p-4 mb-6 bg-gray-50"
+        data-tour="signup.contribution"
+      >
         <p className="mb-2">
           <I18N
             id="contribution.signupAmount"

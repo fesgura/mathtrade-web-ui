@@ -14,6 +14,7 @@ import { GotoTopContext } from "@/context/goto-top";
 import { PageContext } from "@/context/page";
 import useSidebarNav from "@/components/sidebar/useSidebarNav";
 import LeavePageGuard from "@/components/leave-page-guard";
+import { useTourDemo } from "@/tours/context";
 
 const Footer = () => {
   const { emptyWants, enabledBtn, changesCount, onClick, loading } =
@@ -24,11 +25,13 @@ const Footer = () => {
   const filters = useOptions((state) => state.filters_wants);
   const updateFilters = useOptions((state) => state.updateFilters);
   const showClearHint = Boolean(!isUserEarlyPay && filters?.keyword);
+  // The tutorial's example row (no wishes yet) also explains Guardar cambios.
+  const tourDemo = useTourDemo("my-wants");
 
   // Ask before leaving with unsaved changes (links, back, refresh).
   const leaveGuard = <LeavePageGuard when={changesCount > 0} />;
 
-  if (emptyWants) {
+  if (emptyWants && !tourDemo) {
     return leaveGuard;
   }
   return (
@@ -105,6 +108,7 @@ const Footer = () => {
                   ) : null}
                   <button
                     type="button"
+                    data-tour="mywants.save"
                     className={clsx(
                       "h-[34px] rounded-full outline-none transition-colors px-4 text-body font-bold whitespace-nowrap",
                       enabledBtn

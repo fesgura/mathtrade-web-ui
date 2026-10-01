@@ -21,10 +21,18 @@ import NewUserOfferAlert from "@/components/NewUserOfferAlert";
 import GroupBar from "@/components/item-mygroups/group-bar";
 import GroupsHint from "@/components/item-mygroups/groups-hint";
 import I18N from "@/i18n";
+import useTour from "@/tours/useTour";
+import { useTourDemo } from "@/tours/context";
+import TourDemo from "@/tours/demo/TourDemo";
+import { demoMyItem } from "@/tours/demo/demoData";
 
 const MyItemsPage = () => {
   const { isLoaded, items, loading, error, canAddNewElement } = useMyOffer();
   const { canI } = useContext(PageContext);
+  // Guided tutorial (src/tours): once the list is on screen.
+  useTour("my-offer", { ready: !loading && isLoaded });
+  // Nothing offered while the tutorial runs: an example copy to explain.
+  const showDemo = useTourDemo("my-offer") && !items.length;
 
   return (
     <>
@@ -32,9 +40,7 @@ const MyItemsPage = () => {
         variant="compact"
         title="title.MyItems"
         helpId="page.myOffer"
-        alert={
-          canI?.want ? <I18N id="collection.offerClosed.wants" /> : null
-        }
+        alert={canI?.want ? <I18N id="collection.offerClosed.wants" /> : null}
         alertTone="warning"
       />
       <ItemPreviousMTContextProvider>
@@ -42,7 +48,9 @@ const MyItemsPage = () => {
           <GotoTopContextProvider>
             <SidebarGrid>
               <Sidebar titleId="myGroups.groupHeader">
-                <MyGroupsSidebar />
+                <div data-tour="myoffer.groups">
+                  <MyGroupsSidebar />
+                </div>
               </Sidebar>
               <div>
                 <StickyHeader>
@@ -54,11 +62,22 @@ const MyItemsPage = () => {
                     <GroupBar />
                     <NewUserOfferAlert />
                     {canAddNewElement && <NewItem />}
-                    {items.map((itemRaw) => {
-                      return <ItemMy key={itemRaw.id} itemRaw={itemRaw} />;
+                    {items.map((itemRaw, index) => {
+                      return (
+                        <ItemMy
+                          key={itemRaw.id}
+                          itemRaw={itemRaw}
+                          tourAnchor={index === 0 ? "myoffer.item" : undefined}
+                        />
+                      );
                     })}
+                    {showDemo ? (
+                      <TourDemo>
+                        <ItemMy itemRaw={demoMyItem} tourAnchor="myoffer.item" />
+                      </TourDemo>
+                    ) : null}
                     <EmptyList
-                      visible={isLoaded && !(items?.length || 0) && !error}
+                      visible={isLoaded && !(items?.length || 0) && !error && !showDemo}
                       message="EmptyList.myOffer"
                     />
 

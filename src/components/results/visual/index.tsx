@@ -29,8 +29,12 @@ const ResultsVisual = ({ forced = false }: { forced?: boolean }) => {
 
   return (
     <div>
-      {(MathTradeResults || []).map((result) => (
-        <ChangeSection result={result} key={result.id} />
+      {(MathTradeResults || []).map((result, index) => (
+        <ChangeSection
+          result={result}
+          key={result.id}
+          tourAnchor={index === 0 ? "results.row" : undefined}
+        />
       ))}
     </div>
   );

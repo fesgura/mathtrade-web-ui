@@ -17,16 +17,18 @@ const linkClass =
 // the FAQs need a logged-in user).
 const WhatIsMT = ({ showFaqLink = true }: { showFaqLink?: boolean }) => (
   <section className="grid md:grid-cols-2 gap-6 items-start">
-    <div className="md:order-2">
+    <div className="md:order-2" data-tour="home.video">
       <VideoCta />
     </div>
     <div className="md:order-1">
-      <h2 className="font-bold text-2xl mb-3">
-        <I18N id="whatIsMT.title" />
-      </h2>
-      <p className="mb-3">
-        <I18N id="whatIsMT.lead" />
-      </p>
+      <div data-tour="home.whatIs">
+        <h2 className="font-bold text-2xl mb-3">
+          <I18N id="whatIsMT.title" />
+        </h2>
+        <p className="mb-3">
+          <I18N id="whatIsMT.lead" />
+        </p>
+      </div>
       <p className="text-sm text-gray-700 bg-gray-50 rounded-lg p-3 mb-5">
         <I18N id="whatIsMT.example" />
       </p>
@@ -48,7 +50,7 @@ const WhatIsMT = ({ showFaqLink = true }: { showFaqLink?: boolean }) => (
       <h3 className="font-bold text-sm text-gray-600 mb-2">
         <I18N id="whatIsMT.read" />
       </h3>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2" data-tour="home.read">
         <a
           href={baseURL + rulebookPDFurl}
           target="_blank"

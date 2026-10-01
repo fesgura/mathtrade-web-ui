@@ -18,7 +18,10 @@ const BanButtonUI = ({ className = "", type = "item" }) => {
   const isActive = showAsIgnored || ban_id;
 
   return (
-    <div className={clsx("h-7 pointer-events-auto", className)}>
+    <div
+      className={clsx("h-7 pointer-events-auto", className)}
+      data-tour-part="ignore"
+    >
       <div data-tooltip={getI18Ntext(ban_id ? "unban" : `ban.${type}`)}>
         <button
           type="button"

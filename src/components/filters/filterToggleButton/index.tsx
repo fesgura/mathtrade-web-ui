@@ -9,7 +9,13 @@ import clsx from "clsx";
 
 const excludeKeys = ["page", "order", "page_size", "keyword"];
 
-const FilterToggleButton = ({ type = "item" }: { type?: string }) => {
+const FilterToggleButton = ({
+  type = "item",
+  tourAnchor,
+}: {
+  type?: string;
+  tourAnchor?: string; // data-tour for the guided tutorial (src/tours)
+}) => {
   const filtersComp = useOptions((state) => state[`filters_${type}`]);
 
   const count = useMemo(() => {
@@ -23,6 +29,7 @@ const FilterToggleButton = ({ type = "item" }: { type?: string }) => {
 
   return (
     <SidebarToggleButton
+      data-tour={tourAnchor}
       className={clsx(
         "h-9 px-3 rounded-full text-caption font-bold transition-colors border shrink-0",
         count > 0 ? "border-primary" : "border-primary/40"

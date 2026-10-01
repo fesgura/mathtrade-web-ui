@@ -63,14 +63,16 @@ const ProvisionalExclude = () => {
   return (
     <div className="mt-10 pt-8 border-t border-gray-200">
       <ErrorAlert error={error} />
-      <Button
-        type="button"
-        color="danger"
-        onClick={() => setOpen(true)}
-        disabled={loading}
-      >
-        <I18N id="provisional.exclude.cta" />
-      </Button>
+      <span className="inline-block" data-tour="provisional.exclude">
+        <Button
+          type="button"
+          color="danger"
+          onClick={() => setOpen(true)}
+          disabled={loading}
+        >
+          <I18N id="provisional.exclude.cta" />
+        </Button>
+      </span>
       <Modal
         isOpen={open}
         onClose={close}

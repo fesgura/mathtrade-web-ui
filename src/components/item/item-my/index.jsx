@@ -1,10 +1,10 @@
 import { ItemContextProvider } from "@/context/item";
 import ItemUI from "./item-ui";
 
-const ItemMy = ({ itemRaw }) => {
+const ItemMy = ({ itemRaw, tourAnchor = undefined }) => {
   return (
     <ItemContextProvider itemRaw={itemRaw}>
-      <ItemUI />
+      <ItemUI tourAnchor={tourAnchor} />
     </ItemContextProvider>
   );
 };
