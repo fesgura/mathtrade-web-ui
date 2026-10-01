@@ -16,9 +16,22 @@ const DETAIL_RULES: DetailRule[] = [
   { test: (d) => d === "You do not have permission to perform this action.", key: "error.mathtrade.geekListClosed" },
 ];
 
+// Typed errors: the backend sends a "code" next to the detail.
+const CODE_KEYS: Record<string, string> = {
+  not_member: "error.mathtrade.notMember",
+};
+
+export const resolveApiErrorCode = (error: any): string | undefined => {
+  const code = error?.data?.code;
+  return typeof code === "string" ? CODE_KEYS[code] : undefined;
+};
+
 export const resolveApiErrorMessage = (error: any): string | undefined => {
   const data = error?.data;
   if (!data || typeof data !== "object") return undefined;
+
+  const codeKey = resolveApiErrorCode(error);
+  if (codeKey) return codeKey;
 
   if (typeof data.detail === "string") {
     return DETAIL_RULES.find(({ test }) => test(data.detail))?.key;

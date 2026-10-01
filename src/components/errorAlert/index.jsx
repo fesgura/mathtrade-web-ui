@@ -1,5 +1,6 @@
 import I18N from "@/i18n";
 import clsx from "clsx";
+import { resolveApiErrorCode } from "@/utils/apiError";
 
 const ErrorAlert = ({ error, errorMessage = "", className = "" }) => {
   return error ? (
@@ -15,7 +16,7 @@ const ErrorAlert = ({ error, errorMessage = "", className = "" }) => {
             ? errorMessage
             : typeof error === "string"
             ? error
-            : "error.General"
+            : resolveApiErrorCode(error) || "error.General"
         }
       />
     </div>
