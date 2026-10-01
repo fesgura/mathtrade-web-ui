@@ -12,6 +12,9 @@ import GameGrid from "@/components/game/game-grid";
 import EmptyList from "@/components/emptyList";
 import Footer from "./footer";
 import useTour from "@/tours/useTour";
+import { useTourDemo } from "@/tours/context";
+import TourDemo from "@/tours/demo/TourDemo";
+import { demoGame } from "@/tours/demo/demoData";
 import NewSinceNotice from "@/components/newSinceNotice";
 
 const GamesView = () => {
@@ -26,7 +29,9 @@ const GamesView = () => {
     refreshList,
   } = useGames();
   // Guided tutorial (src/tours): once the first page is on screen.
-  useTour("offer", { ready: !loading && games.list.length > 0 });
+  // Ready once loaded, even if empty: then the tour shows an example game.
+  useTour("offer", { ready: !loading && isLoaded });
+  const showDemo = useTourDemo("offer") && !games.list.length;
 
   return (
     <SectionWithSidebar name="games" loading={loading} topNotRounded>
@@ -42,6 +47,16 @@ const GamesView = () => {
             <NewSinceNotice count={newCount} onRefresh={refreshList} />
             <div className="md:px-7 px-3 py-7">
               <div className="game-grid">
+                {showDemo ? (
+                  <TourDemo>
+                    <GameGrid
+                      gameRaw={demoGame}
+                      expanded={null}
+                      setExpanded={() => {}}
+                      tourAnchor="offer.game"
+                    />
+                  </TourDemo>
+                ) : null}
                 {games.list.map((gameRaw, index) => {
                   return (
                     <GameGrid
@@ -55,7 +70,7 @@ const GamesView = () => {
                 })}
               </div>
               <EmptyList
-                visible={isLoaded && !(games?.list?.length || 0) && !error}
+                visible={isLoaded && !(games?.list?.length || 0) && !error && !showDemo}
                 message="EmptyList.games"
               />
               <ErrorAlert error={error} className="mt-3" />

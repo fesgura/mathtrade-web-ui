@@ -38,6 +38,7 @@ const TAGGABLE_ITEM = '[data-tour-item]:has([data-tour-part="tag"])';
 export const TOURS: Record<string, Tour> = {
   offer: {
     key: "offer.v1",
+    demo: { screen: "offer", has: '[data-tour="offer.game"]' },
     when: (canI) => Boolean(canI?.offer || canI?.want),
     steps: [
       { anchor: "offer.tabs", id: "offer.tabs", side: "bottom" },
@@ -63,6 +64,7 @@ export const TOURS: Record<string, Tour> = {
   // Yo ofrezco: loading your copies.
   "my-offer": {
     key: "my-offer.v1",
+    demo: { screen: "my-offer", has: '[data-tour="myoffer.item"]' },
     when: (canI) => Boolean(canI?.offer || canI?.want),
     steps: [
       { anchor: "myoffer.new", id: "myoffer.new", side: "bottom" },

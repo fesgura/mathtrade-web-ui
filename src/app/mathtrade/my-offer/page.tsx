@@ -22,12 +22,17 @@ import GroupBar from "@/components/item-mygroups/group-bar";
 import GroupsHint from "@/components/item-mygroups/groups-hint";
 import I18N from "@/i18n";
 import useTour from "@/tours/useTour";
+import { useTourDemo } from "@/tours/context";
+import TourDemo from "@/tours/demo/TourDemo";
+import { demoMyItem } from "@/tours/demo/demoData";
 
 const MyItemsPage = () => {
   const { isLoaded, items, loading, error, canAddNewElement } = useMyOffer();
   const { canI } = useContext(PageContext);
   // Guided tutorial (src/tours): once the list is on screen.
   useTour("my-offer", { ready: !loading && isLoaded });
+  // Nothing offered while the tutorial runs: an example copy to explain.
+  const showDemo = useTourDemo("my-offer") && !items.length;
 
   return (
     <>
@@ -66,8 +71,13 @@ const MyItemsPage = () => {
                         />
                       );
                     })}
+                    {showDemo ? (
+                      <TourDemo>
+                        <ItemMy itemRaw={demoMyItem} tourAnchor="myoffer.item" />
+                      </TourDemo>
+                    ) : null}
                     <EmptyList
-                      visible={isLoaded && !(items?.length || 0) && !error}
+                      visible={isLoaded && !(items?.length || 0) && !error && !showDemo}
                       message="EmptyList.myOffer"
                     />
 

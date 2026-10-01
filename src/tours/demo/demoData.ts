@@ -37,3 +37,61 @@ export const demoElement = {
   box_size: 3,
   offered: null,
 };
+
+// The person shown as owner/offerer in the examples.
+const demoMember = {
+  id: -1,
+  username: "ejemplo",
+  first_name: "Persona",
+  last_name: "de ejemplo",
+  location: { id: -1, name: "AMBA", province: "AMBA", geolocation: null, mandatory_attendance: true },
+  avatar: null,
+  commitment: null,
+  event_attendance: true,
+};
+
+// One offered copy (the `elements` entry of an item).
+const demoCopy = {
+  id: -1,
+  element: { ...demoElement, id: null },
+  box_status: "MB",
+  component_status: "MB",
+  images: "",
+  comment: "",
+};
+
+// Yo ofrezco: one of your offered copies (GET .../user-items/).
+export const demoMyItem = {
+  id: -1,
+  title: "CATAN (1995)",
+  membership: demoMember,
+  copies: 1,
+  elements: [demoCopy],
+  value: 5,
+  group: null,
+  added_mt: null,
+  last_update: null,
+  ready: true,
+};
+
+// Juegos ofrecidos: a game someone else offers (GET .../games/).
+export const demoGame = {
+  name: "CATAN",
+  bgg_id: 13,
+  type: 1,
+  dependency: catan.dependency,
+  rank: catan.rank,
+  rate: catan.rate,
+  weight: catan.weight,
+  thumbnail: DEMO_IMAGE,
+  ban_id: null,
+  value: null,
+  year: 1995,
+  dependency_votes: catan.dependency_votes,
+  rate_votes: catan.rate_votes,
+  weight_votes: catan.weight_votes,
+  matched_bgg_id: 0,
+  items: [
+    { id: -2, title: "CATAN (1995)", membership: demoMember, elements: [{ ...demoCopy, id: -2 }], value: null, ignored: false },
+  ],
+};

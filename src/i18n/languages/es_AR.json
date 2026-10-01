@@ -1397,6 +1397,8 @@
   "tour.home.lockedSign.text": "Todavía no te inscribiste en este Math Trade: estas secciones se abren cuando te inscribís, y cada una en su etapa.",
   "tour.demoBadge": "Ejemplo",
   "tour.my-collection.demo": "Esto es un ejemplo: tu ludoteca todavía está vacía.",
+  "tour.my-offer.demo": "Esto es un ejemplo: todavía no ofreciste nada.",
+  "tour.offer.demo": "Esto es un ejemplo: ahora no hay juegos para mostrar (puede ser por los filtros).",
   "tour.items.card.title": "Cada ejemplar por separado",
   "tour.items.card.text": "Acá ves cada copia que se ofrece, con su estado, idioma y quién la ofrece. Sirve cuando te importa una copia en particular.",
   "tour.items.tag.title": "Etiquetas",
