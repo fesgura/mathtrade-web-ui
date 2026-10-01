@@ -365,6 +365,8 @@ const PlaygroundPage = () => {
 
           {/* Medias*/}
           <figure>
+            {/* Style playground: shows how a plain <img> looks in body text. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="img/aleksandar-jason-a562ZEFKW8I-unsplash-2000x1000.jpg"
               alt="Minimal landscape"

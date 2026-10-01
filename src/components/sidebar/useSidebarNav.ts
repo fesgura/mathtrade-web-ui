@@ -153,11 +153,6 @@ const useSidebarNav = () => {
     canI.offer,
     canI.provisionalResults,
     canI.results,
-    mathtrade?.start_date,
-    mathtrade?.freeze_geek_date,
-    mathtrade?.freeze_wants_date,
-    mathtrade?.provisional_results_date,
-    mathtrade?.show_results_date,
   ]);
 
   const groups: NavGroup[] = useMemo(() => {

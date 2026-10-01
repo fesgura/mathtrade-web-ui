@@ -25,12 +25,16 @@ const labelFor = (list: { value: any; text: string }[], value: any) =>
   list.find((item) => `${item.value}` === `${value}`)?.text || `${value}`;
 
 const ActiveFilterChips = ({ type = "item" }: { type?: "item" | "game" }) => {
-  const filters = useOptions((state) => state[`filters_${type}`]) || {};
+  const storedFilters = useOptions((state) => state[`filters_${type}`]);
+  const filters = useMemo(() => storedFilters || {}, [storedFilters]);
   const updateFilters = useOptions((state) => state.updateFilters);
   const { gotoTop } = useContext(GotoTopContext);
   const { itemTags, users } = useContext(PageContext);
   const locations = useStore((state) => state.locations);
-  const locationList = Array.isArray(locations) ? locations : [];
+  const locationList = useMemo(
+    () => (Array.isArray(locations) ? locations : []),
+    [locations]
+  );
 
   const chips = useMemo(() => {
     const next: ChipItem[] = [];
