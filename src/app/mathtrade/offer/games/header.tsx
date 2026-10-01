@@ -23,12 +23,13 @@ const Header = () => {
     <ListToolbar
       leading={
         <>
-          <FilterToggleButton type="game" />
+          <FilterToggleButton type="game" tourAnchor="offer.filters" />
           <ActiveFilterChips type="game" />
         </>
       }
       search={
         <ListSearch
+          tourAnchor="offer.search"
           value={filters?.keyword || ""}
           onChange={(keyword) => {
             gotoTop();

@@ -11,6 +11,7 @@ import ErrorAlert from "@/components/errorAlert";
 import GameGrid from "@/components/game/game-grid";
 import EmptyList from "@/components/emptyList";
 import Footer from "./footer";
+import useTour from "@/tours/useTour";
 import NewSinceNotice from "@/components/newSinceNotice";
 
 const GamesView = () => {
@@ -24,6 +25,8 @@ const GamesView = () => {
     newCount,
     refreshList,
   } = useGames();
+  // Guided tutorial (src/tours): once the first page is on screen.
+  useTour("offer", { ready: !loading && games.list.length > 0 });
 
   return (
     <SectionWithSidebar name="games" loading={loading} topNotRounded>
@@ -39,13 +42,14 @@ const GamesView = () => {
             <NewSinceNotice count={newCount} onRefresh={refreshList} />
             <div className="md:px-7 px-3 py-7">
               <div className="game-grid">
-                {games.list.map((gameRaw) => {
+                {games.list.map((gameRaw, index) => {
                   return (
                     <GameGrid
                       key={gameRaw.bgg_id}
                       gameRaw={gameRaw}
                       expanded={expandedGame}
                       setExpanded={setExpandedGame}
+                      tourAnchor={index === 0 ? "offer.game" : undefined}
                     />
                   );
                 })}

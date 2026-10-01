@@ -6,9 +6,13 @@ const ListSearch = ({
   value = "",
   onChange = (_keyword) => {},
   placeholder = "",
+  tourAnchor = undefined, // data-tour for the guided tutorial (src/tours)
 }) => {
   return (
-    <label className="flex items-center gap-2 w-full h-[34px] px-2.5 bg-gray-100 border border-gray-200 rounded-full">
+    <label
+      data-tour={tourAnchor}
+      className="flex items-center gap-2 w-full h-[34px] px-2.5 bg-gray-100 border border-gray-200 rounded-full"
+    >
       <Icon type="search" className="text-gray-500 text-sm shrink-0" />
       <input
         type="search"
