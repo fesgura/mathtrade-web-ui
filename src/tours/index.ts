@@ -140,6 +140,18 @@ export const TOURS: Record<string, Tour> = {
       },
     ],
   },
+  // Resultados: what you receive and give, the views, other members.
+  results: {
+    key: "results.v1",
+    when: (canI) => Boolean(canI?.results),
+    waitFor: '[data-tour="results.row"]',
+    steps: [
+      { anchor: "results.row", id: "results.row", side: "bottom" },
+      { anchor: "results.views", id: "results.views", side: "bottom", align: "end" },
+      { anchor: "results.user", id: "results.user", side: "bottom" },
+      { anchor: "results.wants", id: "results.wants", side: "top" },
+    ],
+  },
   // Ejemplares (avanzado): one copy per card, and tags.
   items: {
     key: "items.v1",
