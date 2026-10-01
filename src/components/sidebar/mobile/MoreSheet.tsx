@@ -118,7 +118,7 @@ const MoreSheet = ({
           <NotificationsButton variant="row" tone="light" />
         </SheetRow>
         <SheetRow>
-          <HelpButton variant="row" tone="light" onStartTour={onClose} />
+          <HelpButton variant="row" tone="light" onAction={onClose} />
         </SheetRow>
         <SheetRow>
           <BugReportButton variant="row" tone="light" />
