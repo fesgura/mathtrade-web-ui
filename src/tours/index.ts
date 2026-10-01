@@ -10,6 +10,7 @@ export type TourStep = {
   selector?: string; // e.g. a part inside the first card
   id: string; // i18n: tour.<id>.title / tour.<id>.text
   side?: "top" | "bottom" | "left" | "right";
+  align?: "start" | "center" | "end"; // default start
   when?: (canI: CanI) => boolean; // only in some stages
   // If the element isn't on screen, this one instead (with its own text,
   // tour.<fallback.id>), e.g. the Filtros button when the panel is closed.
@@ -19,6 +20,9 @@ export type TourStep = {
 export type Tour = {
   key: string;
   when: (canI: CanI) => boolean; // stages where it makes sense
+  // Auto-start waits (a few seconds at most) for this element: lists that
+  // paint their rows only once they're on screen.
+  waitFor?: string;
   steps: TourStep[];
 };
 
@@ -83,6 +87,36 @@ export const TOURS: Record<string, Tour> = {
         id: "myoffer.withdraw",
         side: "left",
       },
+    ],
+  },
+  // Mis deseos (Visual, Recibo -> Ofrezco): building the possible trades.
+  "my-wants": {
+    key: "my-wants.v1",
+    when: (canI) => Boolean(canI?.want),
+    waitFor: "[data-tour-row]",
+    steps: [
+      { anchor: "mywants.row", selector: "[data-tour-row]", id: "mywants.row", side: "top" },
+      {
+        anchor: "mywants.want",
+        selector: '[data-tour-row] [data-tour-part="want"]',
+        id: "mywants.want",
+        side: "right",
+      },
+      {
+        anchor: "mywants.offer",
+        selector: '[data-tour-row] [data-tour-part="offer"]',
+        id: "mywants.offer",
+        side: "bottom",
+      },
+      {
+        anchor: "mywants.direction",
+        id: "mywants.direction",
+        side: "bottom",
+        align: "center",
+      },
+      { anchor: "mywants.tabs", id: "mywants.tabs", side: "bottom" },
+      { anchor: "mywants.autocomplete", id: "mywants.autocomplete", side: "top" },
+      { anchor: "mywants.save", id: "mywants.save", side: "top" },
     ],
   },
   // Ejemplares (avanzado): one copy per card, and tags.

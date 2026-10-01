@@ -67,7 +67,7 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
           title: getI18Ntext(`tour.${id}.title`),
           description: getI18Ntext(`tour.${id}.text`),
           side: step.side,
-          align: "start" as const,
+          align: step.align || "start",
         },
       }));
     if (!steps.length) return;
@@ -109,7 +109,12 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
     if (!tour || !user || seen || !ready || autoStarted.current) return;
     if (!tour.when(canI)) return;
     // Let the list paint and the loading blur go before highlighting.
-    const timer = setTimeout(() => {
+    let tries = 0;
+    let timer = setTimeout(function attempt() {
+      if (tour.waitFor && !document.querySelector(tour.waitFor) && ++tries < 15) {
+        timer = setTimeout(attempt, 300);
+        return;
+      }
       if (document.querySelector("dialog")) return; // a modal is open: next visit
       autoStarted.current = true;
       start();
