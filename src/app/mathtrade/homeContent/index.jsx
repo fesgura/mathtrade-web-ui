@@ -41,7 +41,10 @@ const HomeContent = () => {
           </div>
         </>
       ) : null}
-      <div className="mb-8 bg-white p-5 rounded-xl shadow-lg">
+      <div
+        className="mb-8 bg-white p-5 rounded-xl shadow-lg"
+        data-tour="home.whatIs"
+      >
         <WhatIsMT />
       </div>
       {/* At the bottom; a floating button scrolls down to it. */}

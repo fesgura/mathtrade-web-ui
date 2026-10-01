@@ -23,6 +23,7 @@ import RulesQuiz from "./RulesQuiz";
 import { useState } from "react";
 import { rulebookPDFurl } from "@/config/rulebook";
 import Referral from "@/components/referral";
+import useTour from "@/tours/useTour";
 
 const baseURL = process.env.BASE_URL;
 
@@ -59,6 +60,11 @@ const MyDataPage = () => {
   // Non-members of an edition that requires the quiz see the sign-up form
   // only once they pass it.
   const quizGate = !isMembership && rulesRequired && !quizPassed;
+  // Sign-up only (not "Mis datos"): the quiz first if the edition has one,
+  // then the form once it shows.
+  useTour(quizGate ? "signup" : "signup-form", {
+    ready: !loading && isMathtrade && signupOpen && !isMembership,
+  });
 
   return (
     <>
@@ -115,7 +121,7 @@ const MyDataPage = () => {
                     />
                   </p>
                   <Form validations={validations} onSubmit={onSubmit}>
-                    <div className="max-w-96 mx-auto">
+                    <div className="max-w-96 mx-auto" data-tour="signup.location">
                       <InputContainer className="m-0" validate="location">
                         <Label text="form.Location" required name="location" />
                         <Select
@@ -136,7 +142,10 @@ const MyDataPage = () => {
                       </p>
                     </div>
                     <Referral />
-                    <div style={{ maxWidth: 300, margin: "0 auto" }}>
+                    <div
+                      style={{ maxWidth: 300, margin: "0 auto" }}
+                      data-tour="signup.attendance"
+                    >
                       <InputContainer>
                         <Label text="MyData.InPerson" className="mb-2" />
                         <Switch
@@ -162,7 +171,7 @@ const MyDataPage = () => {
                     <ErrorAlert error={error} />
 
                     {isMembership ? null : (
-                      <div className="mb-1 pt-4">
+                      <div className="mb-1 pt-4" data-tour="signup.terms">
                         <Checkbox
                           data={{ terms_acceptance: acceptTyC }}
                           name="terms_acceptance"
@@ -199,6 +208,7 @@ const MyDataPage = () => {
                       </p>
                     )}
                     <div className="text-center pb-3 pt-4">
+                      <span className="inline-block" data-tour="signup.submit">
                       <Button
                         ariaLabel="btn.Save"
                         className="px-5"
@@ -212,6 +222,7 @@ const MyDataPage = () => {
                           }`}
                         />
                       </Button>
+                      </span>
                     </div>
                   </Form>
                 </>

@@ -11,6 +11,23 @@ import { TourContext } from "./context";
 
 const isVisible = (el: Element | null) => !!el && el.getClientRects().length > 0;
 
+// driver.js scrolls the page, not inner scroll boxes (e.g. the sidebar menu),
+// which can clip the highlighted part. Scroll that box just enough.
+const revealInScrollBox = (el?: Element) => {
+  let box = el?.parentElement;
+  while (box && box !== document.body) {
+    const { overflowY } = getComputedStyle(box);
+    if (/(auto|scroll)/.test(overflowY) && box.scrollHeight > box.clientHeight) {
+      const r = el!.getBoundingClientRect();
+      const b = box.getBoundingClientRect();
+      if (r.bottom > b.bottom) box.scrollTop += r.bottom - b.bottom + 4;
+      else if (r.top < b.top) box.scrollTop -= b.top - r.top + 4;
+      return;
+    }
+    box = box.parentElement;
+  }
+};
+
 /**
  * Guided tour of a screen (src/tours/index.ts). Starts on its own the first
  * time, once the screen is `ready` (loaded), the stage allows it and no modal
@@ -24,7 +41,9 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
   const user = useStore((state: any) => state.data?.user);
   const updateStore = useStore((state: any) => state.updateStore);
   const seen = Boolean(user?.tours_seen?.[tour?.key]);
-  const autoStarted = useRef(false);
+  // Key of the tour already auto-started on this screen (a screen can switch
+  // tours, e.g. sign-up: the quiz first, then the form once it's passed).
+  const autoStarted = useRef<string | null>(null);
 
   const afterSeen = useCallback(
     (data: any) => {
@@ -60,14 +79,15 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
           step,
         };
       })
-      .filter(({ el }) => isVisible(el))
+      // A step with no element (floating) shows centered on the screen.
+      .filter(({ el, step }) => step.floating || isVisible(el))
       .map(({ step, el, id }) => ({
-        element: el as Element,
+        element: step.floating ? undefined : (el as Element),
         popover: {
           title: getI18Ntext(`tour.${id}.title`),
           description: getI18Ntext(`tour.${id}.text`),
           side: step.side,
-          align: step.align || "start",
+          align: step.align || "center",
         },
       }));
     if (!steps.length) return;
@@ -84,6 +104,11 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
       stagePadding: 6,
       stageRadius: 10,
       smoothScroll: true,
+      onHighlighted: (el) => {
+        if (!el) return;
+        revealInScrollBox(el);
+        tourDriver.refresh();
+      },
       onPopoverRender: (popover) => {
         if (!tourDriver.hasNextStep()) return;
         const skip = document.createElement("button");
@@ -106,7 +131,7 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
   }, [tour, start, setStartCurrentTour]);
 
   useEffect(() => {
-    if (!tour || !user || seen || !ready || autoStarted.current) return;
+    if (!tour || !user || seen || !ready || autoStarted.current === tour.key) return;
     if (!tour.when(canI)) return;
     // Let the list paint and the loading blur go before highlighting.
     let tries = 0;
@@ -116,7 +141,7 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
         return;
       }
       if (document.querySelector("dialog")) return; // a modal is open: next visit
-      autoStarted.current = true;
+      autoStarted.current = tour.key;
       start();
     }, 800);
     return () => clearTimeout(timer);

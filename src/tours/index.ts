@@ -10,8 +10,10 @@ export type TourStep = {
   selector?: string; // e.g. a part inside the first card
   id: string; // i18n: tour.<id>.title / tour.<id>.text
   side?: "top" | "bottom" | "left" | "right";
-  align?: "start" | "center" | "end"; // default start
+  align?: "start" | "center" | "end"; // default center
   when?: (canI: CanI) => boolean; // only in some stages
+  // No element: a centered closing note (e.g. how to see it again).
+  floating?: boolean;
   // If the element isn't on screen, this one instead (with its own text,
   // tour.<fallback.id>), e.g. the Filtros button when the panel is closed.
   fallback?: { anchor: string; id: string };
@@ -125,6 +127,10 @@ export const TOURS: Record<string, Tour> = {
     key: "home.v1",
     when: () => true,
     steps: [
+      // First time: what this is, the video, and the rules to read.
+      { anchor: "home.whatIs", id: "home.whatIs", side: "bottom" },
+      { anchor: "home.video", id: "home.video", side: "left" },
+      { anchor: "home.read", id: "home.read", side: "top" },
       { anchor: "home.stage", id: "home.stage", side: "right" },
       { anchor: "home.calendar", id: "home.calendar", side: "left" },
       {
@@ -133,11 +139,20 @@ export const TOURS: Record<string, Tour> = {
         id: "home.event",
         side: "right",
       },
+      // Locked: by stage, or (not signed up yet) because you aren't in.
       {
         anchor: "home.locked",
         selector: "aside [data-tour-locked]",
         id: "home.locked",
         side: "right",
+        when: (canI) => !canI?.sign,
+      },
+      {
+        anchor: "home.locked",
+        selector: "aside [data-tour-locked]",
+        id: "home.lockedSign",
+        side: "right",
+        when: (canI) => Boolean(canI?.sign),
       },
       {
         anchor: "home.nav.space",
@@ -153,8 +168,46 @@ export const TOURS: Record<string, Tour> = {
         selector: '[data-tour="home.tabbar"] [aria-disabled="true"]',
         id: "home.lockedMobile",
         side: "top",
+        when: (canI) => !canI?.sign,
+      },
+      {
+        anchor: "home.lockedMobile",
+        selector: '[data-tour="home.tabbar"] [aria-disabled="true"]',
+        id: "home.lockedSign",
+        side: "top",
+        when: (canI) => Boolean(canI?.sign),
       },
       { anchor: "home.more", id: "home.more", side: "top", align: "end" },
+      // What comes next, while sign-up is open and you're not in yet.
+      {
+        anchor: "home.signup",
+        id: "home.signup",
+        side: "bottom",
+        when: (canI) => Boolean(canI?.sign),
+      },
+      { anchor: "", id: "home.end", floating: true },
+    ],
+  },
+  // Inscripción (my-data without membership). If the edition has the
+  // rules quiz, "signup" covers it; "signup-form" starts once it's passed
+  // (or right away when there's no quiz).
+  signup: {
+    key: "signup.v1",
+    when: (canI) => Boolean(canI?.sign),
+    steps: [
+      { anchor: "signup.quiz", id: "signup.quiz", side: "bottom" },
+      { anchor: "signup.contribution", id: "signup.contribution", side: "bottom" },
+    ],
+  },
+  "signup-form": {
+    key: "signup-form.v1",
+    when: (canI) => Boolean(canI?.sign),
+    steps: [
+      { anchor: "signup.contribution", id: "signup.contribution", side: "bottom" },
+      { anchor: "signup.location", id: "signup.location", side: "bottom" },
+      { anchor: "signup.attendance", id: "signup.attendance", side: "bottom" },
+      { anchor: "signup.terms", id: "signup.terms", side: "top" },
+      { anchor: "signup.submit", id: "signup.submit", side: "top" },
     ],
   },
   // Mi ludoteca: the games you own, kept across editions.

@@ -8,9 +8,10 @@
 }
 // The menu is black: dimmed and highlighted look the same there, so mark
 // the highlighted part with a ring.
+// Inset: the menu scrolls (overflow), which would clip an outer ring.
 aside .driver-active-element,
 nav .driver-active-element {
-  box-shadow: 0 0 0 2px $primary;
+  box-shadow: inset 0 0 0 2px $primary;
   border-radius: 10px;
 }
 .driver-popover.mt-tour {
