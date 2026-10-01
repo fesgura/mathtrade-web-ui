@@ -6,7 +6,6 @@ const endpoints = {
   FORGOT_PASSWORD: "api/users/recovery-password/",
   GET_USERS: "api/users/",
   GET_USER: "api/users/",
-  POST_TOUR_SEEN: "api/users/tours/$[1]/",
   PUT_USER: "api/users/",
   GET_REFERRALS: "api/users/referral/",
   POST_REFERRAL: "api/users/referral/",

@@ -6,7 +6,7 @@ const AddFromPreviousMTBtn = () => {
   const { mathTradePrevious, onOpen } = useContext(ItemPreviousMTContext);
 
   return mathTradePrevious && mathTradePrevious?.item_count > 0 ? (
-    <div className="flex items-center" data-tour="myoffer.previous">
+    <div className="flex items-center">
       <div className="px-4 md:block hidden">
         <div className="w-[2px] h-12 bg-gray-400 rotate-12"></div>
       </div>

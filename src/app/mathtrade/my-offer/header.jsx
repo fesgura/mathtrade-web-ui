@@ -27,7 +27,6 @@ const HeaderMyOffer = ({ count }) => {
       className="rounded-t-main"
       leading={
         <SidebarToggleButton
-          data-tour="myoffer.groupsBtn"
           className="h-[34px] px-3 rounded-full text-caption font-bold transition-colors shrink-0"
           classNameNotHighlighted="text-primary bg-primary/10"
           classNameHighlighted="text-white bg-primary"
@@ -63,24 +62,16 @@ const HeaderMyOffer = ({ count }) => {
         />
       }
       extra={
-        <span className="inline-flex" data-tour="myoffer.ready">
-          <OptionChips
-            filterType="myoffer"
-            name="ready"
-            allowEmpty
-            emptyLabel={getI18Ntext("myOffer.filter.ready.all")}
-            options={[
-              {
-                value: "ready",
-                text: getI18Ntext("myOffer.filter.ready.ready"),
-              },
-              {
-                value: "missing",
-                text: getI18Ntext("myOffer.filter.ready.missing"),
-              },
-            ]}
-          />
-        </span>
+        <OptionChips
+          filterType="myoffer"
+          name="ready"
+          allowEmpty
+          emptyLabel={getI18Ntext("myOffer.filter.ready.all")}
+          options={[
+            { value: "ready", text: getI18Ntext("myOffer.filter.ready.ready") },
+            { value: "missing", text: getI18Ntext("myOffer.filter.ready.missing") },
+          ]}
+        />
       }
       sort={
         <OrderBy

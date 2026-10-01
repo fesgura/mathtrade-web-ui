@@ -3,7 +3,6 @@ import Sidebar from "@/components/sidebar";
 import TabBar from "@/components/sidebar/mobile/TabBar";
 import Footer from "@/components/footer";
 import PageContextProvider from "@/context/page";
-import { TourContextProvider } from "@/tours/context";
 import ModalPreviewer from "@/components/previewer/modal";
 import ModalPreviewerWantGroup from "@/components/previewerWantGroup/modal";
 import ChatBoxButton from "@/components/chatbox";
@@ -60,7 +59,6 @@ export default function MathTradeLayout({ children }) {
           <Bg />
         </div> */}
         <PageContextProvider>
-        <TourContextProvider>
           <div className="lg:flex">
             <Sidebar />
             <TabBar />
@@ -77,7 +75,6 @@ export default function MathTradeLayout({ children }) {
           <ModalPreviewer />
           <EarlyPayPopup />
           <ChatBoxButton />
-        </TourContextProvider>
         </PageContextProvider>
       </PrivateEnvironmentNoSSR>
     </>

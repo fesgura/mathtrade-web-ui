@@ -172,10 +172,7 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
         </div>
       </div>
 
-      <div
-        className="px-4 pb-3.5 pt-3 border-t border-black/5"
-        data-tour-part={ban_id ? undefined : "want"}
-      >
+      <div className="px-4 pb-3.5 pt-3 border-t border-black/5">
         <WantButtonGame
           ban_id={ban_id}
           contextSize="md"

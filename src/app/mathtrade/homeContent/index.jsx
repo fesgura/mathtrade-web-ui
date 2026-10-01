@@ -6,7 +6,6 @@ import WhatIsMT from "@/components/whatIsMT";
 import EditionCard from "./editionCard";
 import EditionStats from "./editionStats";
 import Referral from "@/components/referral";
-import useTour from "@/tours/useTour";
 
 const HomeContent = () => {
   /* PAGE CONTEXT **********************************************/
@@ -14,7 +13,6 @@ const HomeContent = () => {
   /* end PAGE CONTEXT */
 
   const hasEdition = mathtrade && Object.keys(mathtrade).length > 0;
-  useTour("home", { ready: true });
 
   return (
     <div className="md:px-8 px-3 pt-8 pb-5">
@@ -29,10 +27,7 @@ const HomeContent = () => {
               </h2>
               <EditionStats />
             </section>
-            <section
-              className="bg-white p-5 rounded-xl shadow-lg"
-              data-tour="home.calendar"
-            >
+            <section className="bg-white p-5 rounded-xl shadow-lg">
               <h2 className="font-bold text-xl mb-4">
                 <I18N id="timeline.header" />
               </h2>
@@ -41,10 +36,7 @@ const HomeContent = () => {
           </div>
         </>
       ) : null}
-      <div
-        className="mb-8 bg-white p-5 rounded-xl shadow-lg"
-        data-tour="home.whatIs"
-      >
+      <div className="mb-8 bg-white p-5 rounded-xl shadow-lg">
         <WhatIsMT />
       </div>
       {/* At the bottom; a floating button scrolls down to it. */}

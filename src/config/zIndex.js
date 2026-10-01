@@ -11,7 +11,6 @@ const Z = {
   nav: 40, // sidebar, mobile tab bar, floating buttons (chat, "Ver tu representante")
   panel: 50, // panels opened from the nav, "Más" sheet, mobile filters
   modal: 60, // modals, photo gallery
-  tour: 65, // guided tutorial (driver.js): over modals, under contextual help
   popover: 70, // dropdowns, contextual help: above modals too
   tooltip: 80,
 };

@@ -6,13 +6,7 @@ import { InputContainer, Select, Label } from "@/components/form";
 const tradesOf = (entry: { commitment?: unknown; trades?: number }) =>
   entry.commitment ? entry.trades || 0 : 0;
 
-const UserSelector = ({
-  compact = false,
-  tourAnchor,
-}: {
-  compact?: boolean;
-  tourAnchor?: string;
-}) => {
+const UserSelector = ({ compact = false }: { compact?: boolean }) => {
   const {
     userList,
     currentUserId: user,
@@ -36,7 +30,7 @@ const UserSelector = ({
   }, [userList, user]);
 
   return (
-    <div data-tour={tourAnchor} className={compact ? "w-full min-w-0 sm:w-auto sm:max-w-sm sm:flex-1" : "max-w-lg mx-auto py-4"}>
+    <div className={compact ? "w-full min-w-0 sm:w-auto sm:max-w-sm sm:flex-1" : "max-w-lg mx-auto py-4"}>
       <InputContainer className={compact ? "mb-0" : undefined}>
         <Label text="filter.User" name="user" size="sm" />
         <Select

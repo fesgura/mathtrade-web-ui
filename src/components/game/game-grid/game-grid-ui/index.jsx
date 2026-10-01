@@ -3,7 +3,7 @@ import useGameGrid from "./useGameGrid";
 import GameGridMD from "./md";
 import GameGridXL from "./xl";
 
-const GameGridUI = ({ expanded, setExpanded, tourAnchor = undefined }) => {
+const GameGridUI = ({ expanded, setExpanded }) => {
   const { gameNode, isExpanded, onToggleExpanse } = useGameGrid(
     expanded,
     setExpanded
@@ -14,7 +14,6 @@ const GameGridUI = ({ expanded, setExpanded, tourAnchor = undefined }) => {
         "col-span-full  pt-[110px]": isExpanded,
       })}
       ref={gameNode}
-      data-tour={tourAnchor}
     >
       <div
         className={clsx(

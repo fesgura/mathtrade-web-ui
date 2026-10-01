@@ -24,11 +24,7 @@ const NavRows = ({
   return (
     <nav className="sidebar-nav-scroll flex flex-col gap-0.5 w-full">
       {groups.map((group, groupIndex) => (
-        <div
-          key={group.id}
-          className="flex flex-col gap-px"
-          data-tour={`home.nav.${group.id}`}
-        >
+        <div key={group.id} className="flex flex-col gap-px">
           <p
             className={clsx(
               "px-2.5 text-[11px] leading-tight font-semibold text-[#8a92a0] overflow-hidden transition-[max-height,opacity,margin] duration-200 ease-out motion-reduce:transition-none",
@@ -61,7 +57,7 @@ const NavRows = ({
                 : undefined;
 
             return (
-              <div key={entry.key} data-tour-locked={locked ? "" : undefined}>
+              <div key={entry.key}>
                 <NavItem
                   href={entry.path}
                   locked={navLocked}

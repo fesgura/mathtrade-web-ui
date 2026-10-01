@@ -77,19 +77,16 @@ export const SidebarToggleButton = ({
   classNameNotHighlighted = "",
   classNameHighlighted = "",
   children = null,
-  "data-tour": tourAnchor = undefined,
 }: {
   className?: string;
   classNameNotHighlighted?: string;
   classNameHighlighted?: string;
   children?: ReactNode;
-  "data-tour"?: string; // guided tutorial anchor (src/tours)
 }) => {
   const { visibleSidebar, toggleSidebar } = useContext(SidebarContext);
   return (
     <button
       type="button"
-      data-tour={tourAnchor}
       className={clsx(
         className,
         visibleSidebar ? classNameHighlighted : classNameNotHighlighted

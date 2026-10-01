@@ -25,7 +25,6 @@ const ItemGridUI = ({ expanded, setExpanded }: ItemGridUIProps) => {
         "col-span-full  pt-[100px]": isExpanded,
       })}
       ref={itemNode as React.RefObject<HTMLElement>}
-      data-tour-item=""
     >
       <div
         className={clsx(

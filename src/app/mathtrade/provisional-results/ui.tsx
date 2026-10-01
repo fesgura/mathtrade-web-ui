@@ -6,13 +6,10 @@ import { LoadingBox } from "@/components/loading";
 import useProvisionalResults from "./useProvisionalResults";
 import ProvisionalSummary from "./summary";
 import ProvisionalExclude from "./exclude";
-import useTour from "@/tours/useTour";
 
 const ProvisionalResultsUI = () => {
   const { loading, error, runsCount, summary, viewingMember } =
     useProvisionalResults();
-  // Not when an admin looks at someone else's results.
-  useTour("provisional", { ready: !loading && !viewingMember });
 
   if (loading && !runsCount) {
     return (
@@ -46,10 +43,7 @@ const ProvisionalResultsUI = () => {
       ) : null}
       {/* What these are, in plain words. Deliberately says nothing about how
           the runs are built: members must not be able to tell them apart. */}
-      <section
-        className="mb-6 rounded-xl bg-primary/5 border border-primary/20 p-4"
-        data-tour="provisional.intro"
-      >
+      <section className="mb-6 rounded-xl bg-primary/5 border border-primary/20 p-4">
         <h2 className="font-bold text-base mb-2">
           <I18N id="provisional.intro.title" />
         </h2>

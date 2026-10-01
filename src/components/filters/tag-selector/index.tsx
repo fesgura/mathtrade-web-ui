@@ -16,11 +16,7 @@ const TagSelector = () => {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   return (
-    <FilterBlock
-      titleId="itemList.Tags.title"
-      hintId="filter.tags.hint"
-      tourAnchor="items.tagFilter"
-    >
+    <FilterBlock titleId="itemList.Tags.title" hintId="filter.tags.hint">
       <div className="mb-2">
         <HelpContext id="whatIsTag" variant="link" />
       </div>

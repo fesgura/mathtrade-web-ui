@@ -16,7 +16,6 @@ import HelpContext from "@/components/help-context";
 import Faq from "@/components/faq";
 import ListToolbar from "@/components/list-toolbar";
 import ListSearch from "@/components/list-toolbar/search";
-import useTour from "@/tours/useTour";
 
 const collectionFaq = {
   question: "collectionFaq.question",
@@ -33,7 +32,6 @@ const MyCollectionPage = () => {
     optionsOrder,
     canI,
   } = useMyCollection();
-  useTour("my-collection", { ready: !loading });
 
   return (
     <>
@@ -53,7 +51,6 @@ const MyCollectionPage = () => {
               className="rounded-t-main"
               search={
                 <ListSearch
-                  tourAnchor="mycollection.search"
                   value={filters_collection?.keyword || ""}
                   onChange={searchText}
                 />
@@ -77,16 +74,13 @@ const MyCollectionPage = () => {
 
           <div className="md:px-7 px-3 py-7">
             <Faq data={collectionFaq} translate accent />
-            <ElementWrapperOuter tourAnchor="mycollection.new">
+            <ElementWrapperOuter>
               <NewElement />
             </ElementWrapperOuter>
             <div className="collection-grid">
-              {elementList.map((element, index) => {
+              {elementList.map((element) => {
                 return (
-                  <ElementWrapperOuter
-                    key={element.id}
-                    tourAnchor={index === 0 ? "mycollection.item" : undefined}
-                  >
+                  <ElementWrapperOuter key={element.id}>
                     <ElementCollection element={{ element }} showAddToMT />
                   </ElementWrapperOuter>
                 );

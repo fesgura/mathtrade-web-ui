@@ -5,13 +5,7 @@ import I18N from "@/i18n";
 import Chip from "@/components/chip";
 import { FlowArrow } from "@/components/svg/trade-arrows";
 
-const ChangeSection = ({
-  result,
-  tourAnchor,
-}: {
-  result: any;
-  tourAnchor?: string;
-}) => {
+const ChangeSection = ({ result }: { result: any }) => {
   const {
     item_from,
     item_to,
@@ -22,7 +16,7 @@ const ChangeSection = ({
   } = result || {};
 
   return (
-    <div className="py-5 border-b border-gray-200" data-tour={tourAnchor}>
+    <div className="py-5 border-b border-gray-200">
       <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_auto_minmax(0,1fr)] gap-x-1.5 sm:gap-x-3 sm:max-w-xl sm:mx-auto">
         <h3 className="col-start-1 row-start-1 text-sm font-bold text-want mb-2">
           <I18N id="results.col.receive" />

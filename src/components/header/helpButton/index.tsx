@@ -6,8 +6,6 @@ import I18N from "@/i18n";
 import Link from "next/link";
 import clsx from "clsx";
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "@/config/routes";
-import { useContext } from "react";
-import { TourContext } from "@/tours/context";
 import { rulebookPDFurl } from "@/config/rulebook";
 import { fadeLabelClass } from "@/components/sidebar/fadeLabel";
 import useExclusiveMobilePanel from "@/components/header/head-content/useExclusiveMobilePanel";
@@ -30,7 +28,6 @@ const HelpButton = ({
   collapsed = false,
 }: HelpButtonProps = {}) => {
   const { visibleMobile, toggleMobile } = useExclusiveMobilePanel("help");
-  const { startCurrentTour } = useContext(TourContext);
 
   const {
     refs,
@@ -82,18 +79,6 @@ const HelpButton = ({
         floatingProps={getFloatingProps()}
       >
         <div className="py-1">
-          {startCurrentTour ? (
-            <button
-              type="button"
-              className="block w-full leading-10 bg-primary hover:bg-sky-700 text-center font-semibold text-white border-b"
-              onClick={() => {
-                if (visibleMobile) toggleMobile();
-                startCurrentTour();
-              }}
-            >
-              <I18N id="tour.help" />
-            </button>
-          ) : null}
           <Link
             href={PRIVATE_ROUTES.FAQS.path}
             className="block leading-10 hover:bg-sky-200 text-center"
