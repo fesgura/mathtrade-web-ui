@@ -82,7 +82,8 @@ export const extractBGGdataFromElement = (data) => {
       return {
         value: `${v.bgg_version_id}`,
         text: v.name,
-        thumbnail: v.thumbnail,
+        // An edition without its own picture shows the game's cover.
+        thumbnail: v.thumbnail || thumbnail,
         publisher: v.publisher,
         language: Object.values(v.languages).join(", "),
         year: v.yearpublished,
