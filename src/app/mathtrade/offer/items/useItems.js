@@ -1,6 +1,6 @@
 import useFetch from "@/hooks/useFetch";
 import useListSnapshot from "@/hooks/useListSnapshot";
-import { useCallback, useState, useContext, useEffect } from "react";
+import { useCallback, useState, useContext, useEffect, useMemo } from "react";
 import { useOptions } from "@/store";
 import { PageContext } from "@/context/page";
 
@@ -94,8 +94,14 @@ const useItems = () => {
     },
     [setFilterData]
   );
+  // The counts follow the ignored mode, so they match the list shown.
+  const filterParams = useMemo(
+    () => ({ ignored: filters?.ignored }),
+    [filters?.ignored]
+  );
   useFetch({
     endpoint: "GET_FILTER_ITEMS",
+    params: filterParams,
     autoLoad: true,
     initialState: {},
     afterLoad: afterLoadFilters,
