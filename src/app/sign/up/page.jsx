@@ -16,6 +16,7 @@ import { LoadingBox } from "@/components/loading";
 import Button from "@/components/button";
 import HelpContext from "@/components/help-context";
 import { rulebookPDFurl } from "@/config/rulebook";
+import RecaptchaNotice from "@/components/recaptchaNotice";
 
 const baseURL = process.env.BASE_URL;
 
@@ -215,6 +216,7 @@ const SignUpPage = () => {
                 <I18N id="btn.SignUp" />
               </Button>
             </div>
+            <RecaptchaNotice />
           </Form>
           <hr className="my-5" />
           <div className="text-center">

@@ -1182,6 +1182,7 @@
   "glossary.text.want": "Todo lo que querés recibir a cambio de tus ejemplares. Puede ser un juego (cualquier copia de ese juego), una etiqueta (varios ejemplares que juntaste vos) o un ejemplar puntual.",
   "glossary.title.value": "Puntaje",
   "glossary.text.value": "Puedes asignarle puntaje a todos los ejemplares. Dicho puntaje es personal y sólo lo verás vos. Te puede ayudar a ordenar los ejemplares de acuerdo a tus preferencias, aunque no es necesario que lo uses.",
+  "recaptcha.notice": "Este sitio está protegido por reCAPTCHA y se aplican la <a class=\"underline\" href=\"https://policies.google.com/privacy\" target=\"_blank\" rel=\"noopener noreferrer\">Política de privacidad</a> y las <a class=\"underline\" href=\"https://policies.google.com/terms\" target=\"_blank\" rel=\"noopener noreferrer\">Condiciones del servicio</a> de Google.",
   "paused.site": "Estamos trabajando en el sitio.<br />Muy pronto podrás ingresar nuevamente.",
   "gameCount.many": "$$$ Juegos",
   "gameCount.one": "$$$ Juego",

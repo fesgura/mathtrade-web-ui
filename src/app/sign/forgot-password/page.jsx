@@ -9,6 +9,7 @@ import { PUBLIC_ROUTES } from "@/config";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import { GOOGLE_RECAPTCHA_CLIENT_KEY } from "@/config";
 import Button from "@/components/button";
+import RecaptchaNotice from "@/components/recaptchaNotice";
 
 const ForgotPasswordPage = () => {
   const { step, validations, onSubmit, loading, error } = useForgotPassword();
@@ -45,6 +46,7 @@ const ForgotPasswordPage = () => {
                 <I18N id="forgotPassword.btn" />
               </Button>
             </div>
+            <RecaptchaNotice />
           </Form>
           <hr className="my-5" />
           <div className="text-center">

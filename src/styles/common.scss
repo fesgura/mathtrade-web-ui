@@ -178,3 +178,9 @@ p {
 .flicking-viewport {
   transition: height 500ms;
 }
+
+// The floating reCAPTCHA badge overlapped the help chat. Hidden as Google
+// allows, with its notice shown in each form that uses it (RecaptchaNotice).
+.grecaptcha-badge {
+  visibility: hidden;
+}

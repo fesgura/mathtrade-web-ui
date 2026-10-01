@@ -5,6 +5,7 @@ import { resolveApiErrorMessage } from "@/utils/apiError";
 import { LoadingBox } from "@/components/loading";
 import { Form, InputContainer, Label, Textarea } from "@/components/form";
 import useBugReportForm from "./useBugReportForm";
+import RecaptchaNotice from "@/components/recaptchaNotice";
 
 type BugReportFormProps = {
   toggleEditingMode: () => void;
@@ -69,6 +70,7 @@ const BugReportForm = ({
               <I18N id="bugReport.submit" />
             </button>
           </div>
+          <RecaptchaNotice />
         </Form>
       )}
 

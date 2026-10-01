@@ -11,6 +11,7 @@ import ChangePassword from "./changePassword";
 import Button from "@/components/button";
 import Alink from "@/components/link";
 import { Suspense } from "react";
+import RecaptchaNotice from "@/components/recaptchaNotice";
 // import AllMessage from "@/components/allMessage";
 
 const pausedSite = process.env.PAUSED_SITE;
@@ -92,6 +93,7 @@ const SignInContent = () => {
                 <I18N id="btn.Enter" />
               </Button>
             </div>
+            <RecaptchaNotice />
           </Form>
           <hr className="my-5" />
           {pausedSite !== "yes" ? (
