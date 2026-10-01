@@ -49,18 +49,23 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
     // Only the steps whose element is on screen now (mobile/desktop, stage).
     const steps = tour.steps
       .filter((step) => !step.when || step.when(canI))
-      .map((step) => ({
-        step,
-        el: document.querySelector(
+      .map((step) => {
+        const el = document.querySelector(
           step.selector || `[data-tour="${step.anchor}"]`
-        ),
-      }))
+        );
+        if (isVisible(el) || !step.fallback) return { el, id: step.id, step };
+        return {
+          el: document.querySelector(`[data-tour="${step.fallback.anchor}"]`),
+          id: step.fallback.id,
+          step,
+        };
+      })
       .filter(({ el }) => isVisible(el))
-      .map(({ step, el }) => ({
+      .map(({ step, el, id }) => ({
         element: el as Element,
         popover: {
-          title: getI18Ntext(`tour.${step.id}.title`),
-          description: getI18Ntext(`tour.${step.id}.text`),
+          title: getI18Ntext(`tour.${id}.title`),
+          description: getI18Ntext(`tour.${id}.text`),
           side: step.side,
           align: "start" as const,
         },

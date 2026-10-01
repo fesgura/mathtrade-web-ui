@@ -11,6 +11,9 @@ export type TourStep = {
   id: string; // i18n: tour.<id>.title / tour.<id>.text
   side?: "top" | "bottom" | "left" | "right";
   when?: (canI: CanI) => boolean; // only in some stages
+  // If the element isn't on screen, this one instead (with its own text,
+  // tour.<fallback.id>), e.g. the Filtros button when the panel is closed.
+  fallback?: { anchor: string; id: string };
 };
 
 export type Tour = {
@@ -18,6 +21,9 @@ export type Tour = {
   when: (canI: CanI) => boolean; // stages where it makes sense
   steps: TourStep[];
 };
+
+// The first copy card someone else offers (only those have "+ Etiqueta").
+const TAGGABLE_ITEM = '[data-tour-item]:has([data-tour-part="tag"])';
 
 export const TOURS: Record<string, Tour> = {
   offer: {
@@ -42,6 +48,32 @@ export const TOURS: Record<string, Tour> = {
         when: (canI) => Boolean(canI?.want),
       },
       { anchor: "offer.new", id: "offer.new", side: "bottom" },
+    ],
+  },
+  // Ejemplares (avanzado): one copy per card, and tags.
+  items: {
+    key: "items.v1",
+    when: (canI) => Boolean(canI?.offer || canI?.want),
+    steps: [
+      { anchor: "items.card", selector: TAGGABLE_ITEM, id: "items.card", side: "right" },
+      {
+        anchor: "items.tag",
+        selector: `${TAGGABLE_ITEM} [data-tour-part="tag"]`,
+        id: "items.tag",
+        side: "bottom",
+      },
+      {
+        anchor: "items.tagWhy",
+        selector: `${TAGGABLE_ITEM} [data-tour-part="tag"]`,
+        id: "items.tagWhy",
+        side: "bottom",
+      },
+      {
+        anchor: "items.tagFilter",
+        id: "items.tagFilter",
+        side: "right",
+        fallback: { anchor: "items.filters", id: "items.tagFilterClosed" },
+      },
     ],
   },
 };

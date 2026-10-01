@@ -13,6 +13,7 @@ import ItemTagHeader from "@/components/item-tags/item-tag-header";
 import ErrorAlert from "@/components/errorAlert";
 import EmptyList from "@/components/emptyList";
 import Footer from "./footer";
+import useTour from "@/tours/useTour";
 import NewSinceNotice from "@/components/newSinceNotice";
 
 const ItemsView = () => {
@@ -26,6 +27,8 @@ const ItemsView = () => {
     newCount,
     refreshList,
   } = useItems();
+  // Guided tutorial (src/tours): once the first page is on screen.
+  useTour("items", { ready: !loading && items.list.length > 0 });
 
   return (
     <SectionWithSidebar name="items" loading={loading} topNotRounded>
