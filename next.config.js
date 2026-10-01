@@ -5,7 +5,7 @@ const nextConfig = {
     //
     API_TEST_MODE: "no",
     BASE_URL_TEST: "http://localhost:8000/",
-    BASE_URL: "https://mathtrade-backend.fly.dev/",
+    BASE_URL: "https://api.mathtrade.com.ar/",
     //
     GOOGLE_RECAPTCHA_CLIENT_KEY: "6LeWcz8gAAAAAGgpOiINIJZSwsmKH-eMjtbQbFbF",
     //
