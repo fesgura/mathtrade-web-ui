@@ -119,6 +119,61 @@ export const TOURS: Record<string, Tour> = {
       { anchor: "mywants.save", id: "mywants.save", side: "top" },
     ],
   },
+  // Inicio: the menu (sidebar on desktop, bottom bar on mobile), stages and
+  // locked sections. Steps of the other layout aren't on screen: skipped.
+  home: {
+    key: "home.v1",
+    when: () => true,
+    steps: [
+      { anchor: "home.stage", id: "home.stage", side: "right" },
+      { anchor: "home.calendar", id: "home.calendar", side: "left" },
+      {
+        anchor: "home.nav.event",
+        selector: 'aside [data-tour="home.nav.event"]',
+        id: "home.event",
+        side: "right",
+      },
+      {
+        anchor: "home.locked",
+        selector: "aside [data-tour-locked]",
+        id: "home.locked",
+        side: "right",
+      },
+      {
+        anchor: "home.nav.space",
+        selector: 'aside [data-tour="home.nav.space"]',
+        id: "home.space",
+        side: "right",
+      },
+      { anchor: "home.help", id: "home.help", side: "right" },
+      // Mobile.
+      { anchor: "home.tabbar", id: "home.tabbar", side: "top" },
+      {
+        anchor: "home.lockedMobile",
+        selector: '[data-tour="home.tabbar"] [aria-disabled="true"]',
+        id: "home.lockedMobile",
+        side: "top",
+      },
+      { anchor: "home.more", id: "home.more", side: "top", align: "end" },
+    ],
+  },
+  // Mi ludoteca: the games you own, kept across editions.
+  "my-collection": {
+    key: "my-collection.v1",
+    when: () => true,
+    steps: [
+      { anchor: "mycollection.new", id: "mycollection.new", side: "bottom" },
+      { anchor: "mycollection.item", id: "mycollection.item", side: "right" },
+      {
+        anchor: "mycollection.addToMT",
+        selector: '.collection-grid [data-tour-part="addToMT"]',
+        id: "mycollection.addToMT",
+        side: "top",
+        when: (canI) => Boolean(canI?.offer),
+      },
+      { anchor: "mycollection.search", id: "mycollection.search", side: "bottom" },
+    ],
+  },
   // Resultados provisorios: what the runs mean, and self-exclusion.
   provisional: {
     key: "provisional.v1",

@@ -6,6 +6,13 @@
 .driver-active-element {
   z-index: calc(#{$z-tour} + 1) !important;
 }
+// The menu is black: dimmed and highlighted look the same there, so mark
+// the highlighted part with a ring.
+aside .driver-active-element,
+nav .driver-active-element {
+  box-shadow: 0 0 0 2px $primary;
+  border-radius: 10px;
+}
 .driver-popover.mt-tour {
   z-index: calc(#{$z-tour} + 2) !important;
   border-radius: 14px;
@@ -53,12 +60,19 @@
     border-color: $primary !important;
     color: #fff !important;
   }
+  // Same padding on both sides (the outline/focus ring stays centered);
+  // the negative margin keeps the text aligned with the description.
   .mt-tour-skip {
     border: none !important;
     background: transparent !important;
     color: #6b7280 !important;
     text-decoration: underline;
-    padding-left: 0 !important;
+    padding: 6px 10px !important;
+    margin-left: -10px;
+    &:focus-visible {
+      outline: 2px solid $primary;
+      outline-offset: 0;
+    }
   }
   // "Saltear tutorial" closes it; the × would be a second way to the same.
   .driver-popover-close-btn {
