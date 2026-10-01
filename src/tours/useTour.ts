@@ -11,6 +11,11 @@ import { TourContext } from "./context";
 
 const isVisible = (el: Element | null) => !!el && el.getClientRects().length > 0;
 
+// One tour at a time: a second start (double tap, Ayuda twice) while one is
+// open or about to open is ignored, or the first one's cleanup is lost.
+let tourOpen = false;
+let activeDriver: ReturnType<typeof driver> | null = null;
+
 // driver.js scrolls the page, not inner scroll boxes (e.g. the sidebar menu),
 // which can clip the highlighted part. Scroll that box just enough.
 const revealInScrollBox = (el?: Element) => {
@@ -99,6 +104,7 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
       }));
     if (!steps.length) {
       if (demo) setDemo(null);
+      tourOpen = false;
       return;
     }
 
@@ -132,15 +138,19 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
       // Finished, skipped or closed (Esc / click outside): seen, and the
       // example card (if any) goes away.
       onDestroyed: () => {
+        tourOpen = false;
+        activeDriver = null;
         if (demo) setDemo(null);
         postSeen({ urlParams: [tour.key] });
       },
     });
+    activeDriver = tourDriver;
     tourDriver.drive();
   }, [tour, postSeen, canI, setDemo]);
 
   const start = useCallback(() => {
-    if (!tour) return;
+    if (!tour || tourOpen) return;
+    tourOpen = true;
     if (!tour.demo || document.querySelector(tour.demo.has)) {
       run(false);
       return;
@@ -155,8 +165,15 @@ const useTour = (name: string, { ready }: { ready: boolean }) => {
     setTimeout(wait, 50);
   }, [tour, run, setDemo]);
 
-  // Leaving the screen mid-tour: its example card must not linger.
-  useEffect(() => () => setDemo(null), [setDemo]);
+  // Leaving the screen mid-tour: close it, and its example card goes too.
+  useEffect(
+    () => () => {
+      activeDriver?.destroy();
+      tourOpen = false;
+      setDemo(null);
+    },
+    [setDemo]
+  );
 
   // Ayuda: "Ver el tutorial de esta pantalla".
   useEffect(() => {
