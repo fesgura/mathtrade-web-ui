@@ -50,6 +50,41 @@ export const TOURS: Record<string, Tour> = {
       { anchor: "offer.new", id: "offer.new", side: "bottom" },
     ],
   },
+  // Yo ofrezco: loading your copies.
+  "my-offer": {
+    key: "my-offer.v1",
+    when: (canI) => Boolean(canI?.offer || canI?.want),
+    steps: [
+      { anchor: "myoffer.new", id: "myoffer.new", side: "bottom" },
+      { anchor: "myoffer.previous", id: "myoffer.previous", side: "left" },
+      { anchor: "myoffer.item", id: "myoffer.item", side: "top" },
+      { anchor: "myoffer.ready", id: "myoffer.ready", side: "bottom" },
+      {
+        anchor: "myoffer.value",
+        selector: '[data-tour="myoffer.item"] [data-tour-part="value"]',
+        id: "myoffer.value",
+        side: "bottom",
+      },
+      {
+        anchor: "myoffer.group",
+        selector: '[data-tour="myoffer.item"] [data-tour-part="group"]',
+        id: "myoffer.group",
+        side: "bottom",
+      },
+      {
+        anchor: "myoffer.groups",
+        id: "myoffer.groups",
+        side: "right",
+        fallback: { anchor: "myoffer.groupsBtn", id: "myoffer.groups" },
+      },
+      {
+        anchor: "myoffer.withdraw",
+        selector: '[data-tour="myoffer.item"] [data-tour-part="withdraw"]',
+        id: "myoffer.withdraw",
+        side: "left",
+      },
+    ],
+  },
   // Ejemplares (avanzado): one copy per card, and tags.
   items: {
     key: "items.v1",
