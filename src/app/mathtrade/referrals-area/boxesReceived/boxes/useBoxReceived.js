@@ -1,13 +1,11 @@
 import useFetch from "@/hooks/useFetch";
-import { useState, useCallback, useEffect, useContext } from "react";
-import { PageContext } from "@/context/page";
+import { useState, useCallback, useEffect } from "react";
+import { useReferrerView } from "@/context/referrerView";
 import { codeNumToString } from "@/context/boxDelivery/utils";
 
 const useBoxReceived = () => {
   /* LOCATIONS **********************************************/
-  const { referrer } = useContext(PageContext);
-
-  const localLocation = referrer?.id || 1;
+  const { localLocation, params: viewParams } = useReferrerView();
 
   /* end LOCATIONS **********************************************/
 
@@ -79,10 +77,11 @@ const useBoxReceived = () => {
   useEffect(() => {
     getTrackings({
       params: {
+        ...viewParams,
         destination: localLocation,
       },
     });
-  }, [getTrackings, localLocation]);
+  }, [getTrackings, localLocation, viewParams]);
 
   ////////////////////////////////////////////////
 

@@ -6,9 +6,11 @@ import ButtonAlert from "@/components/buttonAlert";
 import InnerButton from "@/components/button/inner-button";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
+import { useReferrerView } from "@/context/referrerView";
 import PhotoGallery from "@/components/photoGallery";
 
 const View = ({ track }) => {
+  const { readOnly } = useReferrerView();
   const {
     editTracking,
     deleteTracking,
@@ -80,25 +82,27 @@ const View = ({ track }) => {
           </div>
         </div>
 
-        <div className="flex items-end justify-between gap-2">
-          <button
-            className="text-white  font-bold text-lg px-6 py-1 rounded-full  hover:text-white transition-colors bg-primary hover:bg-sky-700"
-            onClick={editTracking}
-          >
-            <I18N id="boxesDelivery.btn.edit" />
-          </button>
+        {!readOnly && (
+          <div className="flex items-end justify-between gap-2">
+            <button
+              className="text-white  font-bold text-lg px-6 py-1 rounded-full  hover:text-white transition-colors bg-primary hover:bg-sky-700"
+              onClick={editTracking}
+            >
+              <I18N id="boxesDelivery.btn.edit" />
+            </button>
 
-          <ButtonAlert
-            className="text-sm flex items-center gap-1 text-red-600"
-            onClick={deleteTracking}
-            title="boxesDelivery.btn.tracking.deleteBoxTitle"
-          >
-            <InnerButton>
-              <Icon type="trash" />
-              <I18N id="boxesDelivery.btn.tracking.delete" />
-            </InnerButton>
-          </ButtonAlert>
-        </div>
+            <ButtonAlert
+              className="text-sm flex items-center gap-1 text-red-600"
+              onClick={deleteTracking}
+              title="boxesDelivery.btn.tracking.deleteBoxTitle"
+            >
+              <InnerButton>
+                <Icon type="trash" />
+                <I18N id="boxesDelivery.btn.tracking.delete" />
+              </InnerButton>
+            </ButtonAlert>
+          </div>
+        )}
         <ErrorAlert error={error} />
         <LoadingBox loading={loading} transparent />
       </div>

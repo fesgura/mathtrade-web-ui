@@ -2,7 +2,7 @@ import useFetch from "@/hooks/useFetch";
 import { useState, useCallback, useEffect, useMemo } from "react";
 import { codeNumToString } from "./utils";
 
-const useBoxes = (locations) => {
+const useBoxes = (locations, viewParams) => {
   const [boxes, setBoxes] = useState([]);
 
   /* GET BOXES **********************************************/
@@ -54,8 +54,8 @@ const useBoxes = (locations) => {
   });
 
   useEffect(() => {
-    getBoxes();
-  }, [getBoxes, reloadFlag]);
+    getBoxes({ params: viewParams });
+  }, [getBoxes, reloadFlag, viewParams]);
 
   const { boxesList, locationIdBoxFilter } = useMemo(() => {
     const locationIdFilt = {};

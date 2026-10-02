@@ -2,9 +2,10 @@ import useFetch from "@/hooks/useFetch";
 import { useMemo } from "react";
 import { codeNumToString } from "./utils";
 
-const useItems = (boxes, locations, localLocation) => {
+const useItems = (boxes, locations, localLocation, viewParams) => {
   const [, items, loadingItems, errorItems] = useFetch({
     endpoint: "LOGISTICS_GET_ITEMS",
+    params: viewParams,
     autoLoad: true,
     initialState: [],
   });

@@ -1,18 +1,19 @@
-import { useState, useMemo, useContext } from "react";
+import { useState, useMemo } from "react";
 import useFetch from "@/hooks/useFetch";
-import { PageContext } from "@/context/page";
+import { useReferrerView } from "@/context/referrerView";
 
 const useUserTable = () => {
-  const { referrer } = useContext(PageContext);
+  const { viewLocationId, locationName, mathtradeId } = useReferrerView();
 
   const params = useMemo(() => {
-    return { location: referrer?.id };
-  }, [referrer]);
+    return { location: viewLocationId };
+  }, [viewLocationId]);
 
   const [, listRaw, loading, error] = useFetch({
     endpoint: "GET_MATHTRADE_USERS",
     initialState: [],
     params,
+    mathtradeId,
     autoLoad: true,
   });
 
@@ -35,7 +36,7 @@ const useUserTable = () => {
     list,
     loading,
     error,
-    cityName: referrer?.name || "",
+    cityName: locationName,
     showOnlyCommiters,
     setShowOnlyCommiters,
   };

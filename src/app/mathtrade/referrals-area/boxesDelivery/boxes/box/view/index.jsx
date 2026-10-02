@@ -6,8 +6,10 @@ import ButtonAlert from "@/components/buttonAlert";
 import InnerButton from "@/components/button/inner-button";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
+import { useReferrerView } from "@/context/referrerView";
 
 const BoxView = ({ box }) => {
+  const { readOnly } = useReferrerView();
   const {
     editBox,
     deleteBox,
@@ -59,25 +61,27 @@ const BoxView = ({ box }) => {
         </div>
       </div>
       {comment ? <p className="text-sm">{comment}</p> : null}
-      <div className="flex items-end justify-between gap-2">
-        <button
-          className="text-white  font-bold text-lg px-6 py-1 rounded-full  hover:text-white transition-colors bg-primary hover:bg-sky-700"
-          onClick={editBox}
-        >
-          <I18N id="boxesDelivery.btn.edit" />
-        </button>
+      {!readOnly && (
+        <div className="flex items-end justify-between gap-2">
+          <button
+            className="text-white  font-bold text-lg px-6 py-1 rounded-full  hover:text-white transition-colors bg-primary hover:bg-sky-700"
+            onClick={editBox}
+          >
+            <I18N id="boxesDelivery.btn.edit" />
+          </button>
 
-        <ButtonAlert
-          className="text-sm flex items-center gap-1 text-red-600"
-          onClick={deleteBox}
-          title="boxesDelivery.btn.deleteBoxTitle"
-        >
-          <InnerButton>
-            <Icon type="trash" />
-            <I18N id="boxesDelivery.btn.delete" />
-          </InnerButton>
-        </ButtonAlert>
-      </div>
+          <ButtonAlert
+            className="text-sm flex items-center gap-1 text-red-600"
+            onClick={deleteBox}
+            title="boxesDelivery.btn.deleteBoxTitle"
+          >
+            <InnerButton>
+              <Icon type="trash" />
+              <I18N id="boxesDelivery.btn.delete" />
+            </InnerButton>
+          </ButtonAlert>
+        </div>
+      )}
       <ErrorAlert error={error} />
       <LoadingBox loading={loading} transparent />
     </div>

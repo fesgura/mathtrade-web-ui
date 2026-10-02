@@ -1,7 +1,7 @@
 import { useStore } from "@/store";
 import { formatLocationsOptionsFiltered } from "@/utils/formatLocations";
-import { createContext, useMemo, useContext } from "react";
-import { PageContext } from "@/context/page";
+import { createContext, useMemo } from "react";
+import { useReferrerView } from "@/context/referrerView";
 import useItems from "./useItems";
 import useBoxes from "./useBoxes";
 import useTracking from "./useTracking";
@@ -37,9 +37,7 @@ export const BoxDeliveryContext = createContext({
 
 const BoxDeliveryContextProvider = ({ children }) => {
   /* LOCATIONS **********************************************/
-  const { referrer } = useContext(PageContext);
-
-  const localLocation = referrer?.id || 1;
+  const { localLocation, params: viewParams } = useReferrerView();
 
   const locations = useStore((state) => state.locations);
 
@@ -57,12 +55,12 @@ const BoxDeliveryContextProvider = ({ children }) => {
     cancelAddNewBox,
     boxIdToEdit,
     setBoxIdToEdit,
-  } = useBoxes(locations);
+  } = useBoxes(locations, viewParams);
   /* END BOXES **********************************************/
 
   /* ITEM LIST **********************************************/
   const { itemList, itemListRaw, locationIdFilter, loadingItems, errorItems } =
-    useItems(boxes, locations, localLocation);
+    useItems(boxes, locations, localLocation, viewParams);
   /* END ITEM LIST **********************************************/
 
   /* TRACKING **********************************************/
@@ -75,7 +73,7 @@ const BoxDeliveryContextProvider = ({ children }) => {
     cancelAddNewTracking,
     trackingIdToEdit,
     setTrackingIdToEdit,
-  } = useTracking(locations);
+  } = useTracking(locations, viewParams);
   /* END TRACKING **********************************************/
 
   const locationOptions = useMemo(() => {

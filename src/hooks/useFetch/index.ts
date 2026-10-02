@@ -16,6 +16,8 @@ const useFetch = ({
   params = null,
   autoLoad = false,
   reloadValue = null,
+  // Another edition than the stored one (e.g. the admin view of the referrers area)
+  mathtradeId: optionMathtradeId = null,
 } = {}) => {
   const signOut = useSignOut();
   // Only the id: the edition object is replaced on every tab-focus refresh
@@ -50,7 +52,7 @@ const useFetch = ({
         path,
         urlParams: defaultUrlParams.concat(urlParams),
         params,
-        mathtradeId: mathtradeId || storedMathtradeId || 0,
+        mathtradeId: mathtradeId || optionMathtradeId || storedMathtradeId || 0,
       });
       setLoading(false);
 
@@ -79,6 +81,7 @@ const useFetch = ({
       afterLoad,
       afterError,
       defaultUrlParams,
+      optionMathtradeId,
       storedMathtradeId,
       signOut,
     ]

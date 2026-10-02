@@ -1,7 +1,7 @@
 import useFetch from "@/hooks/useFetch";
 import { useState, useCallback, useEffect } from "react";
 
-const useTracking = (locations) => {
+const useTracking = (locations, viewParams) => {
   const [trackings, setTrackings] = useState([]);
 
   /* GET TRACKINGS **********************************************/
@@ -33,8 +33,8 @@ const useTracking = (locations) => {
   });
 
   useEffect(() => {
-    getTrackings();
-  }, [getTrackings, reloadFlagTrackings]);
+    getTrackings({ params: viewParams });
+  }, [getTrackings, reloadFlagTrackings, viewParams]);
   /* end GET TRACKINGS **********************************************/
 
   const [trackingIdToEdit, setTrackingIdToEdit] = useState(null);

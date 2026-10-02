@@ -5,6 +5,8 @@ import SectionCommon from "@/components/sections/common";
 import Dynamic from "@/components/dynamic";
 import Wrapper from "@/components/wrapper";
 import Tabs from "@/components/tabs";
+import { ReferrerViewProvider } from "@/context/referrerView";
+import ViewSelector from "./viewSelector";
 
 const UserTable = lazy(() => import("./userTable"));
 const BoxesDelivery = lazy(() => import("./boxesDelivery"));
@@ -22,10 +24,11 @@ export default function ReferralToRegisterUI() {
   const [tabView, setTabView] = useState(0);
 
   return (
-    <>
+    <ReferrerViewProvider>
       <PageHeader title="title.referrals-area" variant="minimal" />
       <Wrapper className="mb-1">
         <div className="bg-white rounded-t-main shadow-main">
+          <ViewSelector />
           <Tabs list={tablist} value={tabView} onChange={setTabView} />
         </div>
       </Wrapper>
@@ -48,6 +51,6 @@ export default function ReferralToRegisterUI() {
           </Dynamic>
         )}
       </SectionCommon>
-    </>
+    </ReferrerViewProvider>
   );
 }

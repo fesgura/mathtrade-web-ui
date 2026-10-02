@@ -1,6 +1,6 @@
 import useFetch from "@/hooks/useFetch";
-import { useState, useCallback, useEffect, useContext, useMemo } from "react";
-import { PageContext } from "@/context/page";
+import { useState, useCallback, useEffect, useMemo } from "react";
+import { useReferrerView } from "@/context/referrerView";
 import { codeNumToString } from "@/context/boxDelivery/utils";
 import { useStore } from "@/store";
 import { formatLocations } from "@/utils";
@@ -9,9 +9,7 @@ const useItems = () => {
   /* LOCATIONS **********************************************/
   const locations = useStore((state) => state.locations);
 
-  const { referrer } = useContext(PageContext);
-
-  const localLocation = referrer?.id || 1;
+  const { localLocation, params: viewParams } = useReferrerView();
 
   const [locationFilter, setLocationFilter] = useState(null);
 
@@ -61,7 +59,7 @@ const useItems = () => {
   });
 
   useEffect(() => {
-    const params = { destination: localLocation };
+    const params = { ...viewParams, destination: localLocation };
 
     if (locationFilter) {
       params.origin = locationFilter;
@@ -70,7 +68,7 @@ const useItems = () => {
     getItems({
       params,
     });
-  }, [getItems, localLocation, locationFilter]);
+  }, [getItems, localLocation, locationFilter, viewParams]);
 
   const items = useMemo(() => {
     return itemsRaw.filter((item) => {
