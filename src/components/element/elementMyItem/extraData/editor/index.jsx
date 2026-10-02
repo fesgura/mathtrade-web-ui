@@ -7,6 +7,7 @@ import StatusBadge from "@/components/status-badge";
 import clsx from "clsx";
 import { useMemo } from "react";
 import { maxCharacters, charactersDanger } from "@/config/maxCharacters";
+import ReceivedCopies from "./receivedCopies";
 import useExtraDataEditor from "./useExtraDataEditor";
 import BoxSize from "@/components/boxSize";
 import { boxSizesOptions } from "@/config/boxSizes";
@@ -98,6 +99,7 @@ const ExtraDataEditor = ({
   return (
     <Form validations={validations} onSubmit={onSubmit}>
       <Hidden data={{ element_id }} name="element_id" />
+      <ReceivedCopies onUseComment={setComment} />
 
       <div className="border-b border-gray-400 pb-2 mb-3">
         <InputContainer validate="box_size">

@@ -33,6 +33,7 @@ const endpoints = {
   DELETE_MYITEM: "api/mathtrades/$[mathtradeId]/user-items/$[1]/",
 
   // ITEMS PREVIOUS MT
+  GET_RECEIVED_COPIES: "api/mathtrades/$[mathtradeId]/received-copies/",
   GET_MYITEMS_PREVIOUSMT: "api/mathtrades/$[mathtradeId]/user-items/",
   POST_ITEM_PREVIOUSMT: "api/mathtrades/$[mathtradeId]/user-item-copy/",
 
