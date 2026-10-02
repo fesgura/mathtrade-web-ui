@@ -7,6 +7,7 @@ import { formatLocations } from "@/utils";
 
 export const DATE_FIELDS = [
   "start_date",
+  "signup_close_date",
   "freeze_geek_date",
   "freeze_wants_date",
   "provisional_results_date",

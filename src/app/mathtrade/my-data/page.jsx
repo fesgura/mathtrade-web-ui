@@ -36,6 +36,8 @@ const MyDataPage = () => {
     isMembership,
     signupOpen,
     signupOpensOn,
+    signupClosed,
+    signupClosedOn,
     currentLocation,
     currentEventAttendance,
     isMandatoryAttendance,
@@ -80,10 +82,17 @@ const MyDataPage = () => {
           {isMathtrade && !signupOpen ? (
             <div className="text-center py-11 text-xl">
               <p>
-                <I18N
-                  id="menu.locked.signupOpensOn"
-                  values={[`${signupOpensOn.day}/${signupOpensOn.month}`]}
-                />
+                {signupClosed ? (
+                  <I18N
+                    id="menu.locked.signupClosedOn"
+                    values={[`${signupClosedOn.day}/${signupClosedOn.month}`]}
+                  />
+                ) : (
+                  <I18N
+                    id="menu.locked.signupOpensOn"
+                    values={[`${signupOpensOn.day}/${signupOpensOn.month}`]}
+                  />
+                )}
               </p>
             </div>
           ) : isMathtrade ? (

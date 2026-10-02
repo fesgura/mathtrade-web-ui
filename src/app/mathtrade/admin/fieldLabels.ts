@@ -10,6 +10,7 @@ export const FIELD_LABELS: Record<string, string> = {
   venue_address: "adminPanel.venue.address",
   venue_map_url: "adminPanel.venue.mapUrl",
   start_date: "adminPanel.field.startDate",
+  signup_close_date: "adminPanel.field.signupCloseDate",
   freeze_geek_date: "adminPanel.field.freezeGeekDate",
   freeze_wants_date: "adminPanel.field.freezeWantsDate",
   provisional_results_date: "adminPanel.field.provisionalResultsDate",

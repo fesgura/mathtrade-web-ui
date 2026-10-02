@@ -9,6 +9,11 @@ const MILESTONE_TEXT: Record<string, { title: string; color: number }> = {
     title: "timeline.start",
     color: 1,
   },
+  // Optional: only shown when the edition sets it.
+  signup_close_date: {
+    title: "timeline.signupClose",
+    color: 1,
+  },
   freeze_geek_date: {
     title: "timeline.geek",
     color: 1,
@@ -66,6 +71,10 @@ const useTimeline = () => {
     const sorted = Object.entries(MILESTONE_TEXT)
       .map(([key, value]) => {
         const dateRaw = mathtrade[key];
+        // Receipts are also due when loading ends, if the edition asks for one.
+        if (key === "freeze_geek_date" && mathtrade.contribution_amount) {
+          value = { ...value, title: "timeline.geekContribution" };
+        }
         const time = dateRaw ? new Date(dateRaw).getTime() : NaN;
         return {
           key,

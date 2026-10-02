@@ -102,11 +102,23 @@ const useSidebarNav = () => {
         if (canI.sign) {
           // Signup window is open — just haven't accepted membership yet.
           locked[key] = { daysLeft: 0, captionId: "menu.locked.needMembership" };
-        } else if (mathtrade.start_date) {
+        } else if (
+          mathtrade.start_date &&
+          new Date(mathtrade.start_date).getTime() > Date.now()
+        ) {
           const { day, month } = formatDateString(mathtrade.start_date).dateObj;
           locked[key] = {
             daysLeft: daysLeftUntil(mathtrade.start_date),
             captionId: "menu.locked.signupOpensOn",
+            displayValue: `${day}/${month}`,
+          };
+        } else if (mathtrade.start_date) {
+          // Started, but sign-up already closed.
+          const close = mathtrade.signup_close_date || mathtrade.freeze_geek_date;
+          const { day, month } = formatDateString(close).dateObj;
+          locked[key] = {
+            daysLeft: 0,
+            captionId: "menu.locked.signupClosedOn",
             displayValue: `${day}/${month}`,
           };
         }

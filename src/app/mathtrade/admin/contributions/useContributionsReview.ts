@@ -9,6 +9,7 @@ export type ContributionRow = {
   amount: string;
   status: "pending" | "approved" | "rejected";
   rejection_reason: string;
+  resubmit_allowed: boolean;
   submitted_at: string;
   reviewed_at: string | null;
   reviewed_by: string | null;
@@ -97,8 +98,8 @@ const useContributionsReview = () => {
   );
 
   const reject = useCallback(
-    (row: ContributionRow, reason: string) =>
-      rejectApi({ urlParams: [row.id], params: { reason } }),
+    (row: ContributionRow, reason: string, resubmit: boolean) =>
+      rejectApi({ urlParams: [row.id], params: { reason, resubmit } }),
     [rejectApi]
   );
 

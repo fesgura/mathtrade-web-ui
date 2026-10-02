@@ -214,6 +214,16 @@ const useMyData = () => {
     () => formatDateString(mathtrade?.start_date || null).dateObj,
     [mathtrade]
   );
+  // Started but sign-up closed (signup_close_date, else end of loading).
+  const signupClose = mathtrade?.signup_close_date || mathtrade?.freeze_geek_date;
+  const signupClosed =
+    !canI.sign &&
+    Boolean(mathtrade?.start_date) &&
+    new Date(mathtrade.start_date).getTime() <= Date.now();
+  const signupClosedOn = useMemo(
+    () => formatDateString(signupClose || null).dateObj,
+    [signupClose]
+  );
 
   return {
     validations: {
@@ -225,6 +235,8 @@ const useMyData = () => {
     isMembership: membership !== null,
     signupOpen: membership !== null || canI.sign,
     signupOpensOn,
+    signupClosed,
+    signupClosedOn,
     currentLocation, //: membership?.location,
     currentEventAttendance,
     isMandatoryAttendance: currentLocation?.mandatory_attendance,

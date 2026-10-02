@@ -253,6 +253,7 @@ const PageContextProvider = ({ children = null }) => {
 
     const $dates = [
       "start_date",
+      "signup_close_date",
       "freeze_geek_date",
       "freeze_wants_date",
       "provisional_results_date",
@@ -264,6 +265,11 @@ const PageContextProvider = ({ children = null }) => {
     }, {});
 
     const offer = $now >= $dates.start_date && $now < $dates.freeze_geek_date;
+    // Sign-up may close before loading ends (signup_close_date, optional).
+    const signupClose = Number.isFinite($dates.signup_close_date)
+      ? $dates.signup_close_date
+      : $dates.freeze_geek_date;
+    const signupOpen = $now >= $dates.start_date && $now < signupClose;
     const want =
       $now >= $dates.freeze_geek_date && $now < $dates.freeze_wants_date;
     const commit = want;
@@ -278,7 +284,7 @@ const PageContextProvider = ({ children = null }) => {
 
     if (!membership) {
       return {
-        sign: offer,
+        sign: signupOpen,
         invite: offer,
         offer,
         want,

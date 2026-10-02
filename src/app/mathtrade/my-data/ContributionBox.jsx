@@ -8,6 +8,7 @@ import Button from "@/components/button";
 import ErrorAlert from "@/components/errorAlert";
 import { LoadingBox } from "@/components/loading";
 import useFetch from "@/hooks/useFetch";
+import { contributionDeadline } from "@/utils/contributionDeadline";
 import { openAuthenticatedFile } from "@/hooks/useFetch/utils";
 
 export const formatAmount = (amount) => {
@@ -175,8 +176,12 @@ const ContributionBox = ({
   }
 
   if (!contribution) return null;
-  const { amount, account, status, rejection_reason, id } = contribution;
+  const { amount, account, status, rejection_reason, id, can_upload, upload_until, resubmit_allowed } =
+    contribution;
+  const deadline = contributionDeadline(upload_until);
   const needsReceipt = status === "missing" || status === "rejected";
+  // Can't send one now: the deadline passed, or the rejection was final.
+  const closed = needsReceipt && can_upload === false;
 
   return (
     <div className={clsx("border rounded-lg p-4 mb-6", STATUS_STYLE[status])}>
@@ -190,8 +195,24 @@ const ContributionBox = ({
           <I18N id="contribution.rejectionReason" /> {rejection_reason}
         </p>
       ) : null}
-      {needsReceipt ? (
+      {closed ? (
+        <p className="font-semibold mb-3">
+          <I18N
+            id={
+              status === "rejected" && resubmit_allowed === false
+                ? "contribution.finalRejection"
+                : "contribution.closed"
+            }
+          />
+        </p>
+      ) : null}
+      {needsReceipt && !closed ? (
         <>
+          {deadline ? (
+            <p className="font-semibold mb-3">
+              <I18N id="contribution.deadline" values={[deadline]} />
+            </p>
+          ) : null}
           <p className="text-sm text-gray-600 mb-3">
             <I18N id="contribution.explanation" />
           </p>
