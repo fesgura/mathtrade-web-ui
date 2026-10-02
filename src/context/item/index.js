@@ -84,6 +84,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
       reported,
       matched_bgg_id,
       ready,
+      favorite_id,
     } = itemLoaded;
 
     const isCombo = elements?.length > 1;
@@ -132,6 +133,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
       tags,
       commentsCount,
       ban_id,
+      favorite_id: favorite_id ?? null,
       reported,
       isCombo,
       ready: ready !== false,

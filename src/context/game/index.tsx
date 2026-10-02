@@ -42,6 +42,7 @@ export const GameContextProvider = ({ gameRaw = null, children = null }) => {
       type,
       value,
       matched_bgg_id,
+      favorite_id,
     } = gameRaw;
 
     const notGame = type === 3 || bgg_id === 23953 || bgg_id < 0;
@@ -65,6 +66,7 @@ export const GameContextProvider = ({ gameRaw = null, children = null }) => {
       // placeholder (MAT-120).
       itemCount: items?.length ?? 0,
       ban_id: banIdOverride !== undefined ? banIdOverride : ban_id,
+      favorite_id: favorite_id ?? null,
       notGame,
       value: value || updatedValue,
       isSameBGGId,

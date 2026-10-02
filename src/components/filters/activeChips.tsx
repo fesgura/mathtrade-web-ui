@@ -213,6 +213,18 @@ const ActiveFilterChips = ({ type = "item" }: { type?: "item" | "game" }) => {
         return;
       }
 
+      if (key === "favorite") {
+        if (`${value}` !== "true") return;
+        next.push({
+          key,
+          label: getI18Ntext(
+            type === "game" ? "favorite.filter.games" : "favorite.filter.items"
+          ),
+          clear: { favorite: undefined },
+        });
+        return;
+      }
+
       if (key === "wantable") {
         next.push({
           key,

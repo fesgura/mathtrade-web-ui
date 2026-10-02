@@ -75,6 +75,7 @@ const useFilters = ({ type = "item" }: { type?: "item" | "game" }) => {
 
       newFilters.wanted = hide_wanted === "true" ? false : undefined;
       newFilters.wantable = wantable === "true" ? "true" : undefined;
+      newFilters.favorite = dataFromForm.favorite === "true" ? "true" : undefined;
 
       gotoTop();
       updateFilters(

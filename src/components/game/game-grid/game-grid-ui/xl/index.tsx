@@ -5,6 +5,7 @@ import I18N, { getI18Ntext } from "@/i18n";
 import Icon from "@/components/icon";
 import Value from "@/components/value";
 import BanButton from "@/components/ban/button";
+import FavoriteButton from "@/components/favorite/button";
 import Chip from "@/components/chip";
 import clsx from "clsx";
 import ItemNoBGG from "../itemNoBgg";
@@ -91,6 +92,7 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
                 subtype={notGame ? 3 : typeNum || 1}
               />
               <div className="flex items-center gap-2 shrink-0">
+                <FavoriteButton type="game" />
                 <BanButton size="md" type="game" />
                 {ban_id ? null : (
                   <>

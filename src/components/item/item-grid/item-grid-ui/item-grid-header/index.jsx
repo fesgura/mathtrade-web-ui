@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { ItemContext } from "@/context/item";
 import I18N from "@/i18n";
 import BanButton from "@/components/ban/button";
+import FavoriteButton from "@/components/favorite/button";
 import Value from "@/components/value";
 import ItemTagList from "@/components/item-tags/item-taglist";
 
@@ -27,6 +28,7 @@ const ItemGridHeader = ({
           {/* hideTags only means "no tag chips" — it shouldn't also hide
               the ignore/ban control, which both preview modals need
               (they pass hideTags for the tags, not to hide this). */}
+          <FavoriteButton type="item" />
           <BanButton size="xl" type="item" />
           {ban_id ? null : (
             <>

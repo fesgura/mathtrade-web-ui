@@ -23,6 +23,14 @@ const FiltersForGames = () => {
     <>
       <FilterBlock titleId="Users">
         <InputContainer className="mb-2">
+          <Switch data={data} name="favorite">
+            <div className="text-xs flex items-center gap-1">
+              <Icon type="star" className="text-amber-500" />
+              <I18N id="favorite.filter.games" />
+            </div>
+          </Switch>
+        </InputContainer>
+        <InputContainer className="mb-2">
           <Switch name="hide_my_user" data={data}>
             <div className="text-xs">
               <I18N id="hideOwnGames.label" />

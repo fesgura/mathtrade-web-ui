@@ -35,6 +35,14 @@ const FiltersForItems = () => {
     <>
       <FilterBlock titleId="Users">
         <InputContainer className="mb-2">
+          <Switch data={data} name="favorite">
+            <div className="text-xs flex items-center gap-1">
+              <Icon type="star" className="text-amber-500" />
+              <I18N id="favorite.filter.items" />
+            </div>
+          </Switch>
+        </InputContainer>
+        <InputContainer className="mb-2">
           <Switch data={data} name="hide_my_user">
             <div className="text-xs">
               <I18N id="hideOwnItems.label" />

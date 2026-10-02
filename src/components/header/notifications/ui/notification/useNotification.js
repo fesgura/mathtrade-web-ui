@@ -89,6 +89,21 @@ const useNotification = (data, type, noMembership) => {
 
           linkText = "notifications.message.COM.btn";
           break;
+
+        case "FAV":
+          // Someone loaded a copy of one of your favorite games.
+          values.push(message?.name || "");
+          values.push(message?.mt_name || "");
+          body = null;
+          linkFunction = message?.item_id
+            ? () => {
+                toggleMobile();
+                setItemPreviewId(message?.item_id);
+                setShowModalPreview(true);
+              }
+            : null;
+          linkText = "notifications.message.COM.btn";
+          break;
       }
 
       const messageText = `notifications.message.${type}${suffix}`;
