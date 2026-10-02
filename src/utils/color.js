@@ -9,8 +9,12 @@ const hexToRgb = (hex) => {
     : null;
 };
 
-export const colorTagStyles = (backgroundColor) => {
-  const rgb_bg = hexToRgb(backgroundColor);
+// For colors saved before getRandomColor padded them (e.g. "#c92de").
+const FALLBACK_COLOR = "#999999";
+
+export const colorTagStyles = (savedColor) => {
+  const rgb_bg = hexToRgb(savedColor);
+  const backgroundColor = rgb_bg ? savedColor : FALLBACK_COLOR;
 
   let color = "#FFF";
 
@@ -28,5 +32,11 @@ export const colorTagStyles = (backgroundColor) => {
 };
 
 export const getRandomColor = () => {
-  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+  // padStart: without it small values gave 5 digits, not a valid color.
+  return (
+    "#" +
+    Math.floor(Math.random() * 16777215)
+      .toString(16)
+      .padStart(6, "0")
+  );
 };

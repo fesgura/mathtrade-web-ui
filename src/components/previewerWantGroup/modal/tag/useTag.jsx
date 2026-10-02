@@ -14,7 +14,10 @@ const useTag = (wantGroup) => {
   /* end MY WANTS CONTEXT */
 
   const { title, colorStyle, items, itemIds, value } = useMemo(() => {
-    const { name: title, tag, wants: items, value } = wantGroup;
+    const { name: title, tag, wants, availables, value } = wantGroup;
+    // Every tagged item: the ones marked "Lo quiero" (wants, ticked) and
+    // the rest (availables), so a tag with nothing chosen isn't empty.
+    const items = (wants || []).concat(availables || []);
     return {
       title,
       colorStyle: colorTagStyles(tag?.color),
