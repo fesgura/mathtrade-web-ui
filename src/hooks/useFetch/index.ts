@@ -1,7 +1,29 @@
-import { useState, useCallback, useEffect, useMemo } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
+import * as Sentry from "@sentry/nextjs";
 import { callToAPI } from "./utils";
 import { useStore } from "@/store";
 import useSignOut from "../useSignOut";
+
+// Runaway-loop guard. An autoLoad whose inputs change identity on every
+// render refetches in a loop (on 2026-10-01 something hit one endpoint at
+// ~14 req/s for minutes, untraceable from the backend logs). Legitimate
+// re-runs (a reloadValue bump, a filter change) are a handful at most, so
+// more than AUTOLOAD_LIMIT in AUTOLOAD_WINDOW_MS means a loop: stop that
+// instance's autoLoad and report where it happened. Manual getData() calls
+// are not counted.
+const AUTOLOAD_LIMIT = 10;
+const AUTOLOAD_WINDOW_MS = 10_000;
+
+const reportAutoLoadLoop = (endpoint: string) => {
+  const path = typeof window !== "undefined" ? window.location.pathname : "";
+  console.error("[useFetch] autoLoad loop stopped", { endpoint, path });
+  // A no-op outside production builds (src/sentry.ts)
+  Sentry.captureMessage("useFetch autoLoad loop stopped", {
+    level: "error",
+    tags: { endpoint },
+    extra: { path },
+  });
+};
 
 const useFetch = ({
   initialState = null,
@@ -87,11 +109,24 @@ const useFetch = ({
     ]
   );
 
+  const autoLoadTimesRef = useRef<number[]>([]);
+  const autoLoadStoppedRef = useRef(false);
+
   useEffect(() => {
-    if (autoLoad) {
-      getData({ params });
+    if (!autoLoad || autoLoadStoppedRef.current) return;
+    const now = Date.now();
+    const recent = autoLoadTimesRef.current.filter(
+      (time) => now - time < AUTOLOAD_WINDOW_MS
+    );
+    recent.push(now);
+    autoLoadTimesRef.current = recent;
+    if (recent.length > AUTOLOAD_LIMIT) {
+      autoLoadStoppedRef.current = true;
+      reportAutoLoadLoop(endpoint || path || "");
+      return;
     }
-  }, [getData, params, autoLoad, reloadValue]);
+    getData({ params });
+  }, [getData, params, autoLoad, reloadValue, endpoint, path]);
 
   return [getData, data, loading, errorMessage];
 };
