@@ -1,8 +1,6 @@
 "use client";
-import { useContext, useCallback, useMemo, useState } from "react";
+import { useContext, useState } from "react";
 import { PageContext } from "@/context/page";
-import useFetch from "@/hooks/useFetch";
-import { DateIntlFormat } from "@/utils/dateUtils";
 import I18N from "@/i18n";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import Link from "next/link";
@@ -12,31 +10,8 @@ import Wrapper from "@/components/wrapper";
 const AdvCompromise = () => {
   const [showAdvice, setShowAdvice] = useState(true);
 
-  const { mustConfirm, setMustConfirm, setMustConfirmDate, userId, canI } =
-    useContext(PageContext);
-
-  const afterLoadMyUser = useCallback(
-    (user: any) => {
-      if (typeof user.commitment !== "undefined") {
-        setMustConfirm(!user.commitment);
-      }
-      if (typeof user.commitment_datetime !== "undefined") {
-        setMustConfirmDate(DateIntlFormat(user.commitment_datetime));
-      }
-    },
-    [setMustConfirm, setMustConfirmDate]
-  );
-
-  const urlUserParams = useMemo(() => {
-    return [userId];
-  }, [userId]);
-
-  useFetch({
-    endpoint: "GET_MATHTRADE_USER",
-    urlParams: urlUserParams,
-    afterLoad: afterLoadMyUser,
-    autoLoad: true,
-  });
+  // mustConfirm comes from the membership (PageContext)
+  const { mustConfirm, canI } = useContext(PageContext);
 
   return showAdvice && mustConfirm && !canI.offer && canI.commit ? (
     <Wrapper className="mt-main">

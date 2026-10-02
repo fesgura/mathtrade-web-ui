@@ -5,6 +5,7 @@ import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store";
 import { NEW_USER_OFFER_LIMIT } from "@/config/newUserOfferLimit";
 import { REFERRAL_LIMIT } from "@/config/referral";
+import { DateIntlFormat } from "@/utils/dateUtils";
 
 // Only the login response persists `data.mathtrade` (dates, active, etc.),
 // so an admin's date change never reaches an already-open tab until it
@@ -15,6 +16,8 @@ import { REFERRAL_LIMIT } from "@/config/referral";
 // closed. MIN_REFRESH_INTERVAL_MS guards against rapid alt-tabbing firing
 // this repeatedly.
 const MIN_REFRESH_INTERVAL_MS = 60 * 1000;
+// A membership refreshed this recently is fresh enough to enter My wants.
+const MEMBERSHIP_FRESH_MS = 10 * 1000;
 
 export const PageContext = createContext({
   updateMathtrade: (_value?: any) => {},
@@ -99,6 +102,7 @@ export const PageContext = createContext({
   setMustConfirm: (_value?: any) => {},
   mustConfirmDate: null,
   setMustConfirmDate: (_value?: any) => {},
+  refreshMembership: () => {},
   isNewUser: false,
   isUserEarlyPay: false,
   mathtrade_history: [],
@@ -169,6 +173,7 @@ const PageContextProvider = ({ children = null }) => {
    * one (not the stored id) is what lets a change of active edition, e.g.
    * the example one -> the real one, reach sessions opened before it. */
   const lastRefreshRef = useRef(0);
+  const lastMembershipRefreshRef = useRef(0);
   const afterLoadCurrent = useCallback(
     (current: any) => {
       if (!current) return;
@@ -206,6 +211,8 @@ const PageContextProvider = ({ children = null }) => {
       const now = Date.now();
       if (now - lastRefreshRef.current < MIN_REFRESH_INTERVAL_MS) return;
       lastRefreshRef.current = now;
+      // current/ brings the membership too
+      lastMembershipRefreshRef.current = now;
       // stats: the counters (games/items/participants) come with it; without
       // it the backend sends them as 0 and would overwrite them.
       refreshMathtrade({ params: { stats: true } });
@@ -312,6 +319,53 @@ const PageContextProvider = ({ children = null }) => {
 
   const [mustConfirm, setMustConfirm] = useState(false);
   const [mustConfirmDate, setMustConfirmDate] = useState(null);
+
+  /* COMMITMENT ****************************************************
+   * Whether the member has to commit comes with `membership` (login,
+   * current/ and members/<id>/ all serialize is_committed + commitment), so
+   * it's derived from it instead of asking users/<id>/ on every page load.
+   * Keyed on the values, not the object: the store replaces the object on
+   * every refresh, and one bringing the same values must not undo a local
+   * "you must commit" set right after editing a want. */
+  const hasMembership = !!membership;
+  const isCommitted = !!membership?.is_committed;
+  const commitmentAt = membership?.commitment ?? null;
+  useEffect(() => {
+    setMustConfirm(hasMembership && !isCommitted);
+    setMustConfirmDate(commitmentAt ? DateIntlFormat(commitmentAt) : null);
+  }, [hasMembership, isCommitted, commitmentAt]);
+
+  // Entering My wants refreshes the membership: a commit or a want edit may
+  // have happened on another device. Skipped right after this provider
+  // mounts (its own current/ refresh is about to bring it; child effects run
+  // before this provider's) or after any refresh in the last few seconds.
+  const providerMountedAtRef = useRef(Date.now());
+  const afterLoadMembership = useCallback(
+    (freshMembership: any) => {
+      const { data } = useStore.getState();
+      if (data.membership && freshMembership) {
+        updateStore("data", { ...data, membership: freshMembership });
+      }
+    },
+    [updateStore]
+  );
+  const [loadMembership] = useFetch({
+    endpoint: "GET_MYDATA_MATHTRADE",
+    afterLoad: afterLoadMembership,
+  });
+  const memberUserId = membership?.user_id;
+  const refreshMembership = useCallback(() => {
+    if (!memberUserId) return;
+    const now = Date.now();
+    const lastFresh = Math.max(
+      lastMembershipRefreshRef.current,
+      providerMountedAtRef.current
+    );
+    if (now - lastFresh < MEMBERSHIP_FRESH_MS) return;
+    lastMembershipRefreshRef.current = now;
+    loadMembership({ urlParams: [memberUserId] });
+  }, [memberUserId, loadMembership]);
+  /* end COMMITMENT */
 
   useLocations();
 
@@ -430,6 +484,7 @@ const PageContextProvider = ({ children = null }) => {
         setMustConfirm,
         mustConfirmDate,
         setMustConfirmDate,
+        refreshMembership,
         //
         isNewUser,
         isUserEarlyPay,

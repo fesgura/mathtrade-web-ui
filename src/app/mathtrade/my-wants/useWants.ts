@@ -3,7 +3,6 @@ import { useOptions } from "@/store";
 import { PageContext } from "@/context/page";
 import { MyWantsContext } from "@/context/myWants/all";
 import useFetch from "@/hooks/useFetch";
-import { DateIntlFormat } from "@/utils/dateUtils";
 
 const useWants = () => {
   const options = useOptions((state) => state.options);
@@ -19,10 +18,8 @@ const useWants = () => {
     myWants,
     setMyWants,
     setMyItemsInMT_forWants,
-    userId,
     setMyGroups_forWants,
-    setMustConfirm,
-    setMustConfirmDate,
+    refreshMembership,
   } = useContext(PageContext);
 
   const {
@@ -93,31 +90,11 @@ const useWants = () => {
     }
   }, [loadMyGropus, screenView]);
 
-  const afterLoadMyUser = useCallback(
-    (user) => {
-      if (typeof user.commitment !== "undefined") {
-        setMustConfirm(!user.commitment);
-      }
-      if (
-        typeof user.commitment_datetime !== "undefined" &&
-        user.commitment_datetime !== null
-      ) {
-        setMustConfirmDate(DateIntlFormat(user.commitment_datetime));
-      }
-    },
-    [setMustConfirm, setMustConfirmDate]
-  );
-
-  const urlUserParams = useMemo(() => {
-    return [userId];
-  }, [userId]);
-
-  const [, , loadingMyUser, errorMyUser] = useFetch({
-    endpoint: "GET_MATHTRADE_USER",
-    urlParams: urlUserParams,
-    afterLoad: afterLoadMyUser,
-    autoLoad: true,
-  });
+  // The commit state (mustConfirm) comes from the membership: refresh it on
+  // entering, in case of a commit or a want edit on another device.
+  useEffect(() => {
+    refreshMembership();
+  }, [refreshMembership]);
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -136,10 +113,8 @@ const useWants = () => {
   return {
     screenView,
     setScreenView,
-    loading:
-      loadingMyWants || loadingMyItemsInMT || loadingMyGropus || loadingMyUser,
-    error:
-      errorMyWants || errorMyItemsInMT || errorGropusMyGropus || errorMyUser,
+    loading: loadingMyWants || loadingMyItemsInMT || loadingMyGropus,
+    error: errorMyWants || errorMyItemsInMT || errorGropusMyGropus,
   };
 };
 
