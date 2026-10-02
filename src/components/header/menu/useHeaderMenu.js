@@ -37,7 +37,14 @@ const useHeaderMenu = () => {
     } else {
       list = MenuListDefault;
     }
-    setMenuListOfItems(list.filter((item) => !item.disabled));
+    setMenuListOfItems(
+      list.filter(
+        (item) =>
+          !item.disabled &&
+          // An edition without provisional results has no page for them.
+          (item.name !== "provisionalResults" || mathtrade?.provisional_results_date)
+      )
+    );
   }, [membership, mathtrade, canI]);
 
   return {

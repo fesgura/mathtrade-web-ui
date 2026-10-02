@@ -78,12 +78,18 @@ const useSidebarNav = () => {
       // Full nav is shown even without a membership yet — gated items render
       // locked (see lockedInfo) instead of being hidden outright, so people
       // can see what's coming and when it opens.
-      const nav = PRIMARY_NAV.map((entry) => {
-        if (entry.key === "MY_DATA" && !membership) {
-          return { ...entry, titleI18nKey: "menu.myData.signup" };
-        }
-        return entry;
-      });
+      const nav = PRIMARY_NAV
+        // An edition without provisional results has no page for them.
+        .filter(
+          (entry) =>
+            entry.key !== "PROVISIONAL_RESULTS" || mathtrade.provisional_results_date
+        )
+        .map((entry) => {
+          if (entry.key === "MY_DATA" && !membership) {
+            return { ...entry, titleI18nKey: "menu.myData.signup" };
+          }
+          return entry;
+        });
       return withHome(nav);
     }
     const visibleKeys =
