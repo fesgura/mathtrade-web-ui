@@ -96,6 +96,12 @@ const AdminPanelPage = () => {
             >
               <I18N id="adminSelfExcluded.link" />
             </Link>
+            <Link
+              href={PRIVATE_ROUTES.ADMIN_REPORTS.path}
+              className="text-primary underline ml-4"
+            >
+              <I18N id="adminReports.link" />
+            </Link>
           </div>
           <ErrorAlert error={errorList} />
           {creating ? (

@@ -169,6 +169,9 @@ const endpoints = {
 
   // REPORT
   POST_REPORT: "api/reports/",
+  ADMIN_GET_REPORTS: "api/reports/",
+  ADMIN_RESOLVE_REPORT: "api/reports/$[1]/resolve/",
+  ADMIN_DELETE_REPORT: "api/reports/$[1]/",
   QUIT_REPORT: "api/reports/$[1]/",
 
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/
