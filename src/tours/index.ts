@@ -35,7 +35,50 @@ export type Tour = {
 // The first copy card someone else offers (only those have "+ Etiqueta").
 const TAGGABLE_ITEM = '[data-tour-item]:has([data-tour-part="tag"])';
 
+// Tab `n` (1-based) of a tab bar marked with data-tour.
+const tab = (bar: string, n: number) =>
+  `[data-tour="${bar}"] button:nth-of-type(${n})`;
+
 export const TOURS: Record<string, Tour> = {
+  // Referrers area, Envíos tab: packing boxes and loading shipments. Every
+  // step points at a tab button, there with or without data.
+  "referrals-delivery": {
+    key: "referrals-delivery.v1",
+    when: () => true,
+    steps: [
+      {
+        anchor: "referrals.delivery.tabs",
+        selector: tab("referrals.delivery.tabs", 1),
+        id: "referrals.items",
+        side: "bottom",
+      },
+      {
+        anchor: "referrals.delivery.tabs",
+        selector: tab("referrals.delivery.tabs", 2),
+        id: "referrals.boxes",
+        side: "bottom",
+      },
+      {
+        anchor: "referrals.delivery.tabs",
+        selector: tab("referrals.delivery.tabs", 3),
+        id: "referrals.tracking",
+        side: "bottom",
+      },
+      {
+        anchor: "referrals.tabs",
+        selector: tab("referrals.tabs", 1),
+        id: "referrals.prepare",
+        side: "bottom",
+      },
+      {
+        anchor: "referrals.tabs",
+        selector: tab("referrals.tabs", 3),
+        id: "referrals.received",
+        side: "bottom",
+      },
+      { anchor: "", id: "referrals.end", floating: true },
+    ],
+  },
   offer: {
     key: "offer.v1",
     demo: { screen: "offer", has: '[data-tour="offer.game"]' },

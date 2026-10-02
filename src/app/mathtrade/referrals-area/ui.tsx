@@ -29,7 +29,9 @@ export default function ReferralToRegisterUI() {
       <Wrapper className="mb-1">
         <div className="bg-white rounded-t-main shadow-main">
           <ViewSelector />
-          <Tabs list={tablist} value={tabView} onChange={setTabView} />
+          <div data-tour="referrals.tabs">
+            <Tabs list={tablist} value={tabView} onChange={setTabView} />
+          </div>
         </div>
       </Wrapper>
       <SectionCommon topNotRounded>
