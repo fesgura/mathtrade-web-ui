@@ -114,6 +114,23 @@ const useSidebarNav = () => {
       return locked;
     }
 
+    // Signed up, but the edition hasn't started yet (e.g. sign-up before
+    // the opening, or an admin moving the start): nothing opens until then.
+    if (
+      mathtrade?.start_date &&
+      new Date(mathtrade.start_date).getTime() > Date.now()
+    ) {
+      const { day, month } = formatDateString(mathtrade.start_date).dateObj;
+      MEMBERSHIP_GATED_KEYS.forEach((key) => {
+        locked[key] = {
+          daysLeft: daysLeftUntil(mathtrade.start_date),
+          captionId: "menu.locked.opensOn",
+          displayValue: `${day}/${month}`,
+        };
+      });
+      return locked;
+    }
+
     if (canI.offer && mathtrade?.freeze_geek_date) {
       const daysLeft = daysLeftUntil(mathtrade.freeze_geek_date);
       locked.WANTS = {

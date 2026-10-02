@@ -662,6 +662,7 @@
   "menu.locked.provisional.1day": "Se habilita cuando salgan los resultados provisorios (falta 1 día)",
   "menu.locked.provisional.days": "Se habilita cuando salgan los resultados provisorios (faltan $$$ días)",
   "menu.locked.needMembership": "Se habilita cuando aceptes la membresía en Inscripción",
+  "menu.locked.opensOn": "Se habilita el $$$",
   "menu.locked.signupOpensOn": "La inscripción abre el $$$",
   "menu.myData.signup": "Inscripción",
   "sidebar.adminPill": "Admin",
