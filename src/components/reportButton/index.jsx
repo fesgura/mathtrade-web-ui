@@ -22,7 +22,7 @@ const ReportButton = ({ className }) => {
   if (id && reported) {
     return (
       <div className={className}>
-        <QuitReport id={id} reported={reported} />
+        <QuitReport id={reported.id} reported={reported} />
       </div>
     );
   }
