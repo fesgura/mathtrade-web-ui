@@ -11,7 +11,10 @@ const NewItemUI = () => {
   const { myCollectionList } = useContext(PageContext);
   /* end PAGE CONTEXT *********************************************/
 
-  return myCollectionList.length ? (
+  // Already-offered elements can only go into a combo, not a new offer.
+  const hasNotOffered = myCollectionList.some((el: any) => !el.mathItemId);
+
+  return hasNotOffered ? (
     <article
       data-tour="myoffer.new"
       className="relative bg-white rounded-lg shadow-md mb-6 p-3 pt-2 border border-stroke"

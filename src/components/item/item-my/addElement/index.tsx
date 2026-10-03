@@ -7,6 +7,7 @@ import clsx from "clsx";
 import Link from "next/link";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import AddFromPreviousMTBtn from "../addFromPreviousMtBtn";
+import ConfirmModal from "@/components/confirmModal";
 
 const AddElementToMyItem = ({ startOpen = false }: { startOpen?: boolean }) => {
   const {
@@ -19,6 +20,9 @@ const AddElementToMyItem = ({ startOpen = false }: { startOpen?: boolean }) => {
     selectedElement,
     addElement,
     onCancel,
+    elementToMove,
+    confirmMove,
+    cancelMove,
   } = useAddElement(startOpen);
 
   return (
@@ -81,6 +85,16 @@ const AddElementToMyItem = ({ startOpen = false }: { startOpen?: boolean }) => {
           </button>
         </div>
       )}
+
+      <ConfirmModal
+        isOpen={!!elementToMove}
+        onCancel={cancelMove}
+        onConfirm={confirmMove}
+        title="addElementToItem.move.title"
+        description="addElementToItem.move.description"
+        descriptionValues={[elementToMove?.mathItemTitle || ""]}
+        confirmId="addElementToItem.move.confirm"
+      />
     </>
   );
 };
