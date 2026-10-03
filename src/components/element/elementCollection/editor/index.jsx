@@ -211,7 +211,7 @@ const ElementEditor = ({ newBGGinfo = null, toggleEditingMode = () => {} }) => {
                   </div>
                   <div className="w-32">
                     <InputContainer validate="year">
-                      <Label text="element.Year" name="year" required />
+                      <Label text="element.Year" name="year" required={bgg_version_id === "other"} />
                       <Input
                         data={{ year }}
                         name="year"

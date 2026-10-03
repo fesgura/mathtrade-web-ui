@@ -52,6 +52,7 @@ const useMyAccount = () => {
       first_name: ["required"],
       last_name: ["required"],
       phone: ["required", "phone"],
+      bgg_user: ["required"],
     },
     onSubmit,
   };

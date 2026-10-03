@@ -197,7 +197,7 @@ const useElementEditor = ({
       name: ["required"],
       language: ["required"],
       publisher: ["required"],
-      year: ["required"],
+      year: bgg_version_id === "other" ? ["required"] : [],
       box_size: ["required"],
     },
     onSubmit: (params: any = {}) => {
