@@ -34,13 +34,21 @@ export const resolveApiErrorMessage = (error: any): string | undefined => {
   if (codeKey) return codeKey;
 
   if (typeof data.detail === "string") {
-    return DETAIL_RULES.find(({ test }) => test(data.detail))?.key;
+    return DETAIL_RULES.find(({ test }) => test(data.detail))?.key || data.detail;
   }
 
   for (const { field, test, key } of FIELD_RULES) {
     const messages = data[field];
     if (Array.isArray(messages) && messages.some((m: unknown) => typeof m === "string" && test(m))) {
       return key;
+    }
+  }
+
+  // Fallback: return the first string from any field error array
+  for (const key of Object.keys(data)) {
+    const messages = data[key];
+    if (Array.isArray(messages) && messages.length > 0 && typeof messages[0] === "string") {
+      return messages[0];
     }
   }
 

@@ -98,9 +98,9 @@ export default function MyAccount() {
                   </p>
                 </div>
               </div>
-              <InputContainer>
+              <InputContainer validate="bgg_user">
                 <Label text="form.BGGuser" name="bgg_user" />
-                <Output
+                <Input
                   data={userData}
                   name="bgg_user"
                   ariaLabel="form.BGGuser"
