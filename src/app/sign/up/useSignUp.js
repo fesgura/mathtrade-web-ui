@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import useFetch from "@/hooks/useFetch";
+import { callToAPI } from "@/hooks/useFetch/utils";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { GOOGLE_RECAPTCHA_SIGNUP_ID } from "@/config";
 
@@ -34,25 +35,20 @@ const useSignUp = () => {
       setErrorRecaptcha(null);
 
       let avatar = "";
-      /*
-      const [, responseBGG, bggData] = await fetchBGG("USER", {
-        name: data.bgg_user,
+      
+      const [, responseBGG, bggData] = await callToAPI({
+        method: "GET",
+        endpoint: "BGG_GET_USER",
+        urlParams: [data.bgg_user],
       });
 
-      if (!responseBGG.ok) {
-        setErrorBGG(true);
-        setLoading(false);
-        return;
-      }
-      */
-
-      if (!bggData?.user?.id) {
+      if (!responseBGG.ok || !bggData?.id) {
         setErrorBGG(true);
         setLoading(false);
         return;
       }
 
-      avatar = bggData?.user?.avatarlink?.value || "";
+      avatar = bggData.avatarlink || "";
 
       if (!executeRecaptcha) {
         setLoading(false);
