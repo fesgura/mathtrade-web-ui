@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import useFetch from "@/hooks/useFetch";
 
-const useImportBgg = ({ onClose, onSuccess }) => {
+const useImportBgg = ({ isOpen = false, onClose, onSuccess }) => {
   const [selectedGames, setSelectedGames] = useState<Set<number>>(new Set());
 
   const [getBggCollection, bggCollectionRaw, loadingBgg, errorBgg] = useFetch({
@@ -18,12 +18,19 @@ const useImportBgg = ({ onClose, onSuccess }) => {
     },
   });
 
+  // The modal stays mounted: start each opening from scratch, with what is
+  // already in the collection fresh (it may have just been imported).
   useEffect(() => {
+    if (!isOpen) return;
+    setSelectedGames(new Set());
     getBggCollection({ params: { inCollection: true } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isOpen]);
 
   const toggleGame = useCallback((bggId: number) => {
+    const bggCollection = Array.isArray(bggCollectionRaw) ? bggCollectionRaw : [];
+    const game = bggCollection.find((g: any) => g.bgg_id === bggId);
+    if (game?.in_my_collection) return;
     setSelectedGames((prev) => {
       const next = new Set(prev);
       if (next.has(bggId)) {
@@ -33,13 +40,16 @@ const useImportBgg = ({ onClose, onSuccess }) => {
       }
       return next;
     });
-  }, []);
+  }, [bggCollectionRaw]);
 
   const handleImport = useCallback(() => {
     if (selectedGames.size === 0) return;
 
     const bggCollection = Array.isArray(bggCollectionRaw) ? bggCollectionRaw : [];
-    const gamesToImport = bggCollection.filter((g: any) => selectedGames.has(g.bgg_id));
+    const gamesToImport = bggCollection.filter(
+      (g: any) => selectedGames.has(g.bgg_id) && !g.in_my_collection
+    );
+    if (!gamesToImport.length) return;
 
     const payload = gamesToImport.map((g: any) => ({
       bgg_id: g.bgg_id,

@@ -18,6 +18,8 @@
   "error.item.alreadyCloned": "Ya agregaste este juego a tu oferta.",
   "error.item.draftExists": "Ya tenés un ítem sin completar. Terminalo antes de agregar otro.",
   "error.item.notAvailable": "Este juego ya no está disponible para copiar (puede que ya lo hayas tradeado).",
+  "importBgg.alreadyInCollection": "Ya está en tu ludoteca",
+  "error.element.incomplete": "Completá la información de este juego en tu ludoteca antes de ofrecerlo.",
   "error.mathElement.notFound": "No se encontró este ítem. Recargá la página e intentá de nuevo.",
   "error.mathtrade.notMember": "Todavía no estás inscripto/a en este Math Trade. Para cargar juegos, valuarlos o armar tus deseos, primero <a href=\"/mathtrade/my-data\" style=\"text-decoration:underline;font-weight:bold\">inscribite desde Mis datos</a>.",
   "error.mathtrade.geekListClosed": "La carga de objetos está cerrada en este momento.",
