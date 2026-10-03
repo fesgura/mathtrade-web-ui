@@ -22,7 +22,7 @@ const ImportBggModal = ({
     handleImport,
     loadingPost,
     errorPost,
-  } = useImportBgg({ onClose, onSuccess });
+  } = useImportBgg({ isOpen, onClose, onSuccess });
 
   const isProcessing = loadingBgg && bggCollection === null;
 
@@ -57,15 +57,19 @@ const ImportBggModal = ({
             {bggCollection && bggCollection.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {bggCollection.map((game: any) => {
-                  const isSelected = selectedGames.has(game.bgg_id);
+                  const owned = !!game.in_my_collection;
+                  const isSelected = !owned && selectedGames.has(game.bgg_id);
                   return (
                     <div
                       key={game.bgg_id}
                       onClick={() => toggleGame(game.bgg_id)}
-                      className={`flex items-center gap-4 p-3 border rounded-xl cursor-pointer transition-colors ${
-                        isSelected
-                          ? "border-primary bg-sky-50"
-                          : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                      aria-disabled={owned}
+                      className={`flex items-center gap-4 p-3 border rounded-xl transition-colors ${
+                        owned
+                          ? "border-gray-200 bg-gray-50 opacity-60 cursor-not-allowed"
+                          : isSelected
+                          ? "border-primary bg-sky-50 cursor-pointer"
+                          : "border-gray-200 hover:border-gray-300 hover:bg-gray-50 cursor-pointer"
                       }`}
                     >
                       <div className="flex-shrink-0 w-16 h-16">
@@ -82,7 +86,11 @@ const ImportBggModal = ({
                           {game.primary_name}
                         </h3>
                         <div className="text-xs mt-1">
-                          {game.version_name ? (
+                          {owned ? (
+                            <span className="text-gray-500 font-medium">
+                              <I18N id="importBgg.alreadyInCollection" />
+                            </span>
+                          ) : game.version_name ? (
                             <span className="text-gray-500">
                               {game.version_name}
                               {game.version_language ? ` (${game.version_language})` : ""}
