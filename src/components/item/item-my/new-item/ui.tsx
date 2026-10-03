@@ -11,8 +11,11 @@ const NewItemUI = () => {
   const { myCollectionList } = useContext(PageContext);
   /* end PAGE CONTEXT *********************************************/
 
-  // Already-offered elements can only go into a combo, not a new offer.
-  const hasNotOffered = myCollectionList.some((el: any) => !el.mathItemId);
+  // Already-offered elements can only go into a combo, not a new offer, and
+  // ones still missing info can't be offered at all.
+  const hasNotOffered = myCollectionList.some(
+    (el: any) => !el.mathItemId && el.complete
+  );
 
   return hasNotOffered ? (
     <article

@@ -9,6 +9,11 @@ const FIELD_RULES: FieldRule[] = [
     test: (m) => m.startsWith("Invalid pk") && m.endsWith("object does not exist."),
     key: "error.item.notAvailable",
   },
+  {
+    field: "element_id",
+    test: (m) => m.endsWith("is missing info."),
+    key: "error.element.incomplete",
+  },
 ];
 
 const DETAIL_RULES: DetailRule[] = [
