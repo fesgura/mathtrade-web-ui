@@ -21,13 +21,14 @@ const useAddElement = (startOpen = false) => {
   // Element waiting for confirmation: it is inside another combo.
   const [elementToMove, setElementToMove] = useState<any>(null);
 
-  // New offer: only elements not offered yet.
+  // New offer: only complete elements not offered yet.
   // Adding to a combo: also the offered ones (they move here), except those
   // already in this same combo.
   const options = useMemo(() => {
     return myCollectionList
       .filter((el: any) => {
-        if (!itemId) return !el.mathItemId;
+        if (!itemId) return !el.mathItemId && el.complete;
+        if (!el.mathItemId) return el.complete;
         return `${el.mathItemId}` !== `${itemId}`;
       })
       .map((el: any) => {

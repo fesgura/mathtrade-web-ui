@@ -405,8 +405,10 @@ const PageContextProvider = ({ children = null }) => {
     });
 
     const collFilterList = collFilter.map(
-      ({ name: text, id, thumbnail, mathItemId, mathItemSize }: any) => {
-        return { text, value: `${id}`, thumbnail, mathItemId, mathItemSize };
+      ({ name: text, id, thumbnail, mathItemId, mathItemSize, box_size }: any) => {
+        // No box size yet: still missing info (e.g. bulk-imported from BGG).
+        const complete = box_size !== null && box_size !== undefined;
+        return { text, value: `${id}`, thumbnail, mathItemId, mathItemSize, complete };
       }
     );
 
