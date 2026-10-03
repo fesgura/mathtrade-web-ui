@@ -89,11 +89,13 @@ const ElementComplete = ({
       <div className="grow min-w-0 py-3 px-4 flex flex-col gap-2.5 items-start">
         {header}
 
-        <div className="flex items-center justify-between gap-2 w-full">
+        <div className="flex flex-col gap-2 w-full items-end">
           <BadgeType type="item" subtype={typeNum || 1} />
           {offered ? (
+            <div className="flex items-center justify-end gap-2 shrink-0 w-full">
               <div className="shrink-0 uppercase font-bold bg-gray-800 text-white text-[10px] px-2.5 py-[3px] rounded-full whitespace-nowrap">
-              <I18N id="element.Offered" />
+                <I18N id="element.Offered" />
+              </div>
             </div>
           ) : null}
         </div>

@@ -20,7 +20,7 @@ const OfferPage = () => {
         variant="compact"
         title="title.OfferGames"
         helpId="page.offer"
-        alert={<I18N id="alert.duplicateCopies" />}
+        alert={screenOfferView === 1 ? <I18N id="alert.duplicateCopies" /> : undefined}
       />
       <Wrapper className="mb-1">
         <div className="bg-white rounded-t-main shadow-main" data-tour="offer.tabs">

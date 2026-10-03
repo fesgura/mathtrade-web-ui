@@ -54,7 +54,6 @@ const Header = () => {
             { text: getI18Ntext("element.BGG.rank"), value: "rank" },
             { text: getI18Ntext("element.BGG.weight"), value: "weight" },
             { text: getI18Ntext("element.BGG.rating"), value: "rate" },
-            { text: getI18Ntext("element.BGG.id"), value: "bgg_id" },
           ]}
         />
       }

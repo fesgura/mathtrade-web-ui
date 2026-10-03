@@ -92,20 +92,15 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
         </div>
 
         <div className="grow min-w-0 py-3.5 px-4 flex flex-col gap-2.5 items-start">
-          <div className="flex items-center justify-between gap-2 w-full">
+          <div className="flex flex-col gap-2 w-full items-end">
             <BadgeType
               type="game"
               subtype={notGame ? 3 : typeNum || 1}
             />
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center justify-end gap-2 shrink-0 w-full">
               <FavoriteButton type="game" />
               <BanButton size="md" type="game" />
-              {ban_id ? null : (
-                <>
-                  <div className="w-[1px] h-4 bg-black/10" />
-                  <Value type="game" />
-                </>
-              )}
+              {ban_id ? null : <Value type="game" />}
             </div>
           </div>
 
