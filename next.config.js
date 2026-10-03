@@ -3,7 +3,7 @@ const { withSentryConfig } = require("@sentry/nextjs/config");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    PAUSED_SITE: "yes",
+    PAUSED_SITE: "no",
     //
     API_TEST_MODE: "no",
     BASE_URL_TEST: "http://localhost:8000/",
