@@ -1,10 +1,9 @@
 "use client";
+import React, { useState, useCallback, useContext } from "react";
 import useMyCollection from "./useMyCollection";
 import { GotoTopContextProvider } from "@/context/goto-top";
 import SectionCommon from "@/components/sections/common";
 import ErrorAlert from "@/components/errorAlert";
-//import ItemMy from "@/components/item/item-my";
-//import NewItem from "@/components/item/item-my/new-item";
 import ElementWrapperOuter from "@/components/element/elementCollection/elementWrapperOuter";
 import ElementCollection from "@/components/element/elementCollection";
 import NewElement from "@/components/element/newElement";
@@ -20,6 +19,10 @@ import useTour from "@/tours/useTour";
 import { useTourDemo } from "@/tours/context";
 import TourDemo from "@/tours/demo/TourDemo";
 import { demoElement } from "@/tours/demo/demoData";
+import ImportBggModal from "@/components/element/importBggModal";
+import { PageContext } from "@/context/page";
+import OptionChips from "@/components/filters/optionChips";
+import { getI18Ntext } from "@/i18n";
 
 const collectionFaq = {
   question: "collectionFaq.question",
@@ -39,6 +42,15 @@ const MyCollectionPage = () => {
   useTour("my-collection", { ready: !loading });
   // Empty collection while the tutorial runs: an example card to explain.
   const showDemo = useTourDemo("my-collection") && !elementList.length;
+
+  const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+  const { forceReloadPage } = useContext(PageContext) as any;
+
+  const handleOpenImportModal = useCallback(() => setIsImportModalOpen(true), []);
+  const handleCloseImportModal = useCallback(() => setIsImportModalOpen(false), []);
+  const handleImportSuccess = useCallback(() => {
+    forceReloadPage();
+  }, [forceReloadPage]);
 
   return (
     <>
@@ -72,9 +84,27 @@ const MyCollectionPage = () => {
                 />
               }
               extra={
-                canI.offer ? (
-                  <HelpContext id="howToOfferCollection" />
-                ) : null
+                <div className="flex items-center gap-4">
+                  {canI.offer ? (
+                    <HelpContext id="howToOfferCollection" />
+                  ) : null}
+                  <OptionChips
+                    filterType="collection"
+                    name="ready"
+                    allowEmpty
+                    emptyLabel={getI18Ntext("myOffer.filter.ready.all")}
+                    options={[
+                      {
+                        value: "ready",
+                        text: getI18Ntext("myOffer.filter.ready.ready"),
+                      },
+                      {
+                        value: "missing",
+                        text: getI18Ntext("myOffer.filter.ready.missing"),
+                      },
+                    ]}
+                  />
+                </div>
               }
               sort={<OrderBy type="collection" options={optionsOrder} />}
             />
@@ -83,7 +113,7 @@ const MyCollectionPage = () => {
           <div className="md:px-7 px-3 py-7">
             <Faq data={collectionFaq} translate accent />
             <ElementWrapperOuter tourAnchor="mycollection.new">
-              <NewElement />
+              <NewElement onOpenImportBgg={handleOpenImportModal} />
             </ElementWrapperOuter>
             <div className="collection-grid">
               {showDemo ? (
@@ -109,6 +139,11 @@ const MyCollectionPage = () => {
           </div>
         </GotoTopContextProvider>
       </SectionCommon>
+      <ImportBggModal
+        isOpen={isImportModalOpen}
+        onClose={handleCloseImportModal}
+        onSuccess={handleImportSuccess}
+      />
     </>
   );
 };

@@ -3,11 +3,11 @@ const { withSentryConfig } = require("@sentry/nextjs/config");
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    PAUSED_SITE: "no",
+    PAUSED_SITE: process.env.PAUSED_SITE || "no",
     //
-    API_TEST_MODE: "no",
-    BASE_URL_TEST: "http://localhost:8000/",
-    BASE_URL: "https://api.mathtrade.com.ar/",
+    API_TEST_MODE: process.env.API_TEST_MODE || "no",
+    BASE_URL_TEST: process.env.BASE_URL_TEST || "http://localhost:8000/",
+    BASE_URL: process.env.BASE_URL || "https://api.mathtrade.com.ar/",
     //
     GOOGLE_RECAPTCHA_CLIENT_KEY: "6LeWcz8gAAAAAGgpOiINIJZSwsmKH-eMjtbQbFbF",
     //

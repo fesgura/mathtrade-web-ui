@@ -146,11 +146,18 @@ const useMyCollection = () => {
 
   const elementList = useMemo(() => {
     const keyword = filters_collection?.keyword || "";
-    const elementFiltered = keyword.length
+    let elementFiltered = keyword.length
       ? elementsInCollection.filter((item: any = {}) => {
           return collectionSearchHaystack(item).indexOf(normalizeString(keyword)) >= 0;
         })
       : [...elementsInCollection];
+
+    const readyFilter = filters_collection?.ready;
+    if (readyFilter === "ready") {
+      elementFiltered = elementFiltered.filter((item: any) => item.box_size !== null);
+    } else if (readyFilter === "missing") {
+      elementFiltered = elementFiltered.filter((item: any) => item.box_size === null);
+    }
 
     const order = filters_collection?.order || "none";
     if (order === "none") {

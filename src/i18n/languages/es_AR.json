@@ -1430,6 +1430,8 @@
   "tour.home.more.text": "Todas las demás secciones, y <strong>Ayuda</strong>: las preguntas frecuentes, el reglamento y los términos y condiciones (leelos, sobre todo si es tu primera vez), y el botón para volver a ver el tutorial de cada pantalla.",
   "tour.mycollection.new.title": "Cargá tus juegos",
   "tour.mycollection.new.text": "Tocá <strong>Nuevo artículo</strong>, buscá el juego en BGG y elegí la edición. Tu ludoteca queda guardada de una edición a la otra, y al terminar cada Math Trade se actualiza con tus cambios: no hace falta volver a cargarla.",
+  "tour.mycollection.importBgg.title": "Carga masiva",
+  "tour.mycollection.importBgg.text": "Usá <strong>Importar colección BGG</strong> para traer rápidamente todos tus juegos desde la BoardGameGeek. Se cargarán con falta de información hasta que completes la edición y el idioma.",
   "tour.mycollection.item.title": "Un juego tuyo",
   "tour.mycollection.item.text": "Cada tarjeta es un juego que tenés. Con <strong>Editar</strong> cambiás la edición o los datos, y con <strong>Eliminar</strong> lo sacás de tu ludoteca.",
   "tour.mycollection.addToMT.title": "Ofrecelo en el Math Trade",

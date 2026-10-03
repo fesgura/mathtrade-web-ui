@@ -5,13 +5,13 @@ import NewElementStep1 from "./step-1";
 import NewElementStep2 from "./step-2";
 import NewElementStep3 from "./step-3";
 
-const NewElement = () => {
+const NewElement = ({ onOpenImportBgg }) => {
   const [step, setStep] = useState(0);
 
   const [newBGGinfo, setnewBGGinfo] = useState(noBGGgame);
 
   if (step === 0) {
-    return <NewElementStep0 setStep={setStep} />;
+    return <NewElementStep0 setStep={setStep} onOpenImportBgg={onOpenImportBgg} />;
   }
   if (step === 1) {
     return <NewElementStep1 setStep={setStep} setnewBGGinfo={setnewBGGinfo} />;

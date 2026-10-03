@@ -269,11 +269,12 @@ export const TOURS: Record<string, Tour> = {
   },
   // Mi ludoteca: the games you own, kept across editions.
   "my-collection": {
-    key: "my-collection.v1",
+    key: "my-collection.v2", // bump version
     when: () => true,
     demo: { screen: "my-collection", has: '[data-tour="mycollection.item"]' },
     steps: [
       { anchor: "mycollection.new", id: "mycollection.new", side: "bottom" },
+      { anchor: "mycollection.importBgg", id: "mycollection.importBgg", side: "bottom" },
       { anchor: "mycollection.item", id: "mycollection.item", side: "right" },
       {
         anchor: "mycollection.addToMT",
