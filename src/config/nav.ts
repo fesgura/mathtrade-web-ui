@@ -21,6 +21,12 @@ export const PRIMARY_NAV: NavEntry[] = [
     mobilePrimary: true,
   },
   {
+    key: "FAVORITES",
+    path: PRIVATE_ROUTES.FAVORITES.path,
+    titleI18nKey: `menu.${PRIVATE_ROUTES.FAVORITES.title}`,
+    icon: "star",
+  },
+  {
     key: "MY_OFFER",
     path: PRIVATE_ROUTES.MY_OFFER.path,
     titleI18nKey: `menu.${PRIVATE_ROUTES.MY_OFFER.title}`,

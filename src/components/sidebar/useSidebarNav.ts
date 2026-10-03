@@ -7,7 +7,7 @@ import { PRIVATE_ROUTES } from "@/config/routes";
 import { formatDateString } from "@/utils/dateUtils";
 
 export const COLLAPSE_KEY = "sidebar_mainNav_collapsed";
-const DEFAULT_KEYS = ["MY_COLLECTION", "STATS"];
+const DEFAULT_KEYS = ["MY_COLLECTION", "FAVORITES", "STATS"];
 
 // These require an accepted Membership in the active mathtrade to be usable at all.
 const MEMBERSHIP_GATED_KEYS = [
@@ -38,7 +38,7 @@ const EVENT_ORDER = [
   "RESULTS",
   "SIGN_TO_MATHTRADE",
 ];
-const SPACE_ORDER = ["MY_COLLECTION", "STATS", "RESULTS_HISTORIAL", "MY_DATA"];
+const SPACE_ORDER = ["MY_COLLECTION", "FAVORITES", "STATS", "RESULTS_HISTORIAL", "MY_DATA"];
 
 const sortBy = (order: string[]) => (a: NavEntry, b: NavEntry) =>
   order.indexOf(a.key) - order.indexOf(b.key);

@@ -49,6 +49,11 @@ export const PRIVATE_ROUTES = {
     path: privateRoot + "/my-collection",
     enabled: "always",
   },
+  FAVORITES: {
+    title: "favorites",
+    path: privateRoot + "/favorites",
+    enabled: "always",
+  },
   MY_OFFER: {
     title: "myOffer",
     path: privateRoot + "/my-offer",

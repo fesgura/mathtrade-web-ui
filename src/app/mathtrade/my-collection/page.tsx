@@ -20,11 +20,6 @@ import useTour from "@/tours/useTour";
 import { useTourDemo } from "@/tours/context";
 import TourDemo from "@/tours/demo/TourDemo";
 import { demoElement } from "@/tours/demo/demoData";
-import { useState } from "react";
-import Tabs from "@/components/tabs";
-import FavoritesPanel from "./favorites";
-
-const TABS = ["collection.tab.games", "collection.tab.favorites"];
 
 const collectionFaq = {
   question: "collectionFaq.question",
@@ -41,8 +36,7 @@ const MyCollectionPage = () => {
     optionsOrder,
     canI,
   } = useMyCollection();
-  const [tab, setTab] = useState(0);
-  useTour("my-collection", { ready: !loading && tab === 0 });
+  useTour("my-collection", { ready: !loading });
   // Empty collection while the tutorial runs: an example card to explain.
   const showDemo = useTourDemo("my-collection") && !elementList.length;
 
@@ -57,14 +51,6 @@ const MyCollectionPage = () => {
         }
         alertTone="warning"
       />
-      <div className="bg-white rounded-t-main shadow-main mb-1">
-        <Tabs list={TABS} value={tab} onChange={setTab} />
-      </div>
-      {tab === 1 ? (
-        <SectionCommon topNotRounded>
-          <FavoritesPanel />
-        </SectionCommon>
-      ) : (
       <SectionCommon loading={loading}>
         <GotoTopContextProvider>
           <StickyHeader>
@@ -123,7 +109,6 @@ const MyCollectionPage = () => {
           </div>
         </GotoTopContextProvider>
       </SectionCommon>
-      )}
     </>
   );
 };

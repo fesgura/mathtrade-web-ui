@@ -17,7 +17,7 @@ const IMPORT_MAX_TRIES = 6;
 // "Name (2019)" from the BGG search, saved as just the name.
 const cleanName = (name = "") => name.replace(/\s*\(\d*\)\s*$/, "");
 
-// Mi ludoteca → Favoritos: games you'd like to get, in any edition. They get
+// Favoritos: games you'd like to get, in any edition. They get
 // a star in Juegos ofrecidos / Ejemplares, can be filtered by, and notify you
 // when someone loads one.
 const FavoritesPanel = () => {
