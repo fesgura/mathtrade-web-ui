@@ -110,9 +110,17 @@ const useElementEditor = ({
 
     setName(BGGinfoClone.element?.title || BGGinfoClone.element?.name || "");
     setThumbnail(BGGinfoClone.element?.thumbnail || "");
-    setBgg_version_id(
-      `${BGGinfoClone.element?.bgg_version_id || ""}`.toLowerCase()
-    );
+    const versionId = `${BGGinfoClone.element?.bgg_version_id || ""}`.toLowerCase();
+    // Bulk-imported with no edition: saved as "other", but nobody chose it.
+    // Start with no edition, so it's picked from the list (which also fills
+    // language, publisher and year).
+    const importedWithoutEdition =
+      versionId === "other" &&
+      element?.game?.bgg_id > 0 &&
+      element?.box_size == null &&
+      !element?.languageRaw &&
+      !element?.publisherRaw;
+    setBgg_version_id(importedWithoutEdition ? "" : versionId);
     setBox_size(box_size);
 
     setLanguage(
