@@ -10,7 +10,7 @@ const ReferralInvite = () => {
   const { canI } = useContext(PageContext);
 
   return canI.invite ? (
-    <div className="px-7 text-center py-5 border-t border-gray-400 max-w-4xl mx-auto">
+    <section className="bg-white p-5 rounded-xl shadow-lg mb-6 text-center" data-tour="home.referral">
       <p className="text-xl mb-5">
         <I18N id="referral.invite.text1" values={[REFERRAL_LIMIT]} />
       </p>
@@ -23,7 +23,7 @@ const ReferralInvite = () => {
           <I18N id="title.referNewUserPage" />
         </Link>
       </p>
-    </div>
+    </section>
   ) : null;
 };
 

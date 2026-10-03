@@ -15,7 +15,7 @@ export default function ReferralToRegister() {
     <>
       <PageHeader title="title.referNewUserPage" variant="minimal" />
       <SectionCommon>
-        {canI.sign ? (
+        {canI.invite ? (
           <>
             {isNewUser ? (
               <section className=" py-12 text-center">

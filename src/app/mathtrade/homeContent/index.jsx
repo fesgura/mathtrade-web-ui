@@ -6,6 +6,7 @@ import WhatIsMT from "@/components/whatIsMT";
 import EditionCard from "./editionCard";
 import EditionStats from "./editionStats";
 import Referral from "@/components/referral";
+import ReferralInvite from "./referralInvite";
 import useTour from "@/tours/useTour";
 
 const HomeContent = () => {
@@ -39,6 +40,7 @@ const HomeContent = () => {
               <Calendar />
             </section>
           </div>
+          <ReferralInvite />
         </>
       ) : null}
       <div

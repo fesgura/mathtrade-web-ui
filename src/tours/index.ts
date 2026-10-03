@@ -185,6 +185,12 @@ export const TOURS: Record<string, Tour> = {
       { anchor: "home.stage", id: "home.stage", side: "right" },
       { anchor: "home.calendar", id: "home.calendar", side: "left" },
       {
+        anchor: "home.referral",
+        id: "home.referral",
+        side: "bottom",
+        when: (canI) => Boolean(canI?.invite),
+      },
+      {
         anchor: "home.nav.event",
         selector: 'aside [data-tour="home.nav.event"]',
         id: "home.event",

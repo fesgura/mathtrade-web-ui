@@ -1412,6 +1412,8 @@
   "tour.home.stage.text": "Acá ves la etapa actual del Math Trade y cuánto falta para que termine.",
   "tour.home.calendar.title": "Las fechas",
   "tour.home.calendar.text": "Cuándo empieza y termina cada etapa: ofrecer, desear, resultados y el evento.",
+  "tour.home.referral.title": "Invitar amigos",
+  "tour.home.referral.text": "Si el Math Trade está en etapa de ofertas, podés invitar a otras personas usando este botón para generar un código único.",
   "tour.home.event.title": "Las secciones del evento",
   "tour.home.event.text": "En el orden en que se usan: mirás lo que se ofrece en <strong>Juegos ofrecidos</strong>, cargás lo tuyo en <strong>Yo ofrezco</strong>, armás tus cambios en <strong>Mis deseos</strong> y después ves los <strong>Resultados</strong>.",
   "tour.home.locked.title": "Las que tienen candado",

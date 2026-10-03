@@ -142,7 +142,7 @@ const AccountMenuButton = ({
                 <I18N id="title.AdminPanel" />
               </Link>
             ) : null}
-            {canI.sign && (
+            {canI.invite && (
               <Link
                 href={PRIVATE_ROUTES.REFERRAL.path}
                 className="flex items-center justify-center gap-1 leading-10 hover:bg-sky-200"
