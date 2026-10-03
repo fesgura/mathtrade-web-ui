@@ -64,9 +64,8 @@ const useElementEditor = ({
       } else {
         setNoGame(true);
       }
-      if (element?.bgg_version_id === "other") {
-        setNoGame(true);
-      }
+      // A BGG game with version "other" (e.g. bulk-imported with no edition)
+      // still gets its editions list, as when creating it.
     } else {
       setNoGame(newBGGinfo.element.bgg_id === noBGGgame.element.bgg_id);
     }
