@@ -7,10 +7,15 @@ import clsx from "clsx";
 import { useMemo } from "react";
 
 const AddElementToMyItemSelector = ({
-  myCollectionList,
+  myCollectionList = [],
   setSelectedElementId,
-  selectedElementId,
+  selectedElementId = null,
   addElement,
+}: {
+  myCollectionList?: any[];
+  setSelectedElementId: (id: string | null) => void;
+  selectedElementId?: string | null;
+  addElement: () => void;
 }) => {
   const elementSelected = useMemo(() => {
     return myCollectionList.find((element) => {
@@ -33,14 +38,19 @@ const AddElementToMyItemSelector = ({
           <Select
             options={myCollectionList}
             onChange={setSelectedElementId}
-            customRenderOption={(option) => {
-              const { text, thumbnail } = option;
+            customRenderOption={(option: any) => {
+              const { text, thumbnail, note } = option;
               return (
                 <div className="flex items-center gap-1 py-1">
                   <div className="w-12">
                     <Thumbnail className="w-10" src={thumbnail} />
                   </div>
-                  <div>{text}</div>
+                  <div>
+                    {text}
+                    {note ? (
+                      <div className="text-xs text-gray-500 italic">{note}</div>
+                    ) : null}
+                  </div>
                 </div>
               );
             }}

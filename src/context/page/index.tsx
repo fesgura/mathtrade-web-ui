@@ -377,20 +377,38 @@ const PageContextProvider = ({ children = null }) => {
 
   /* CollectionFILTERED ********************************************/
   const { myCollectionFiltered, myCollectionList } = useMemo(() => {
-    const listElementIds = myItemsInMT.reduce((arr, { elements }) => {
-      elements.forEach((element) => {
-        arr.push(`${element.element.id}`);
+    // Collection element id -> where it is already offered in this MT.
+    const offeredIn: Record<string, any> = {};
+    myItemsInMT.forEach((item: any) => {
+      const elements = item.elements || [];
+      elements.forEach((mathElement: any) => {
+        const elementId = mathElement?.element?.id;
+        if (!elementId) return;
+        offeredIn[`${elementId}`] = {
+          mathItemId: item.id,
+          mathItemTitle: item.title || "",
+          mathItemSize: elements.length,
+          mathElement, // the offered copy: id, box_status, component_status...
+        };
       });
-      return arr;
-    }, []);
-
-    const collFilter = myCollection.filter((element) => {
-      return listElementIds.indexOf(`${element.id}`) < 0;
     });
 
-    const collFilterList = collFilter.map(({ name: text, id, thumbnail }) => {
-      return { text, value: `${id}`, thumbnail };
+    const collFilter = myCollection.map((element: any) => {
+      const offer = offeredIn[`${element.id}`];
+      return {
+        ...element,
+        mathItemId: offer?.mathItemId || null,
+        mathItemTitle: offer?.mathItemTitle || "",
+        mathItemSize: offer?.mathItemSize || 0,
+        mathElement: offer?.mathElement || null,
+      };
     });
+
+    const collFilterList = collFilter.map(
+      ({ name: text, id, thumbnail, mathItemId, mathItemSize }: any) => {
+        return { text, value: `${id}`, thumbnail, mathItemId, mathItemSize };
+      }
+    );
 
     return {
       myCollectionFiltered: collFilter,
