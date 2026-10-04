@@ -250,11 +250,17 @@ export const initNetworkBuffer = () => {
   const originalSend = xhrProto.send;
   const originalSetRequestHeader = xhrProto.setRequestHeader;
 
+  // Cast: DOM lib overloads of open() can't be implemented by one TS
+  // signature; a Parameters<> rest wrapper fails tsc on assignment.
+  type XhrOpen = typeof XMLHttpRequest.prototype.open;
   xhrProto.open = function (
     this: XMLHttpRequest,
-    ...args: Parameters<XMLHttpRequest["open"]>
-  ) {
-    const [method, url] = args;
+    method: string,
+    url: string | URL,
+    async?: boolean,
+    username?: string | null,
+    password?: string | null
+  ): void {
     (this as XMLHttpRequest & { __bugReport?: XhrMeta }).__bugReport = {
       method: String(method).toUpperCase(),
       url: String(url),
@@ -262,8 +268,12 @@ export const initNetworkBuffer = () => {
       started: 0,
       headers: {},
     };
-    return originalOpen.apply(this, args);
-  };
+    if (async === undefined) {
+      originalOpen.call(this, method, url);
+      return;
+    }
+    originalOpen.call(this, method, url, async, username, password);
+  } as XhrOpen;
 
   xhrProto.setRequestHeader = function (
     this: XMLHttpRequest,
