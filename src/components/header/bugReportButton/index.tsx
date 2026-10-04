@@ -9,6 +9,7 @@ import Modal from "@/components/modal";
 import { fadeLabelClass } from "@/components/sidebar/fadeLabel";
 import { captureScreenshot } from "@/utils/screenshot";
 import { getConsoleBuffer } from "@/utils/consoleBuffer";
+import { formatNetworkBuffer } from "@/utils/networkBuffer";
 import BugReportForm from "./form";
 
 type BugReportButtonProps = {
@@ -19,28 +20,34 @@ type BugReportButtonProps = {
   // "dark" for the black sidebar, "light" for the white mobile sheet.
   tone?: "dark" | "light";
   collapsed?: boolean;
+  // Same as HelpButton: close the mobile more-sheet before capture so
+  // the screenshot is of the page underneath, not the sheet overlay.
+  onAction?: () => void;
 };
 
 const BugReportButtonInner = ({
   tone = "dark",
   collapsed = false,
+  onAction,
 }: BugReportButtonProps = {}) => {
   const [open, setOpen] = useState(false);
   const [screenshot, setScreenshot] = useState<string | null>(null);
   const [consoleLog, setConsoleLog] = useState("");
+  const [networkLog, setNetworkLog] = useState("");
 
   const toggleOpen = useCallback(() => {
     setOpen((v) => !v);
   }, []);
 
   const openWithCapture = useCallback(async () => {
-    // Captured up front, before the modal even opens, so the preview the
-    // form shows is exactly what gets sent — no separate "attach" step.
+    // Close chrome overlays first, then capture — preview === payload.
+    onAction?.();
     const shot = await captureScreenshot();
     setScreenshot(shot);
     setConsoleLog(getConsoleBuffer().join("\n"));
+    setNetworkLog(formatNetworkBuffer());
     setOpen(true);
-  }, []);
+  }, [onAction]);
 
   return (
     <div className="relative">
@@ -65,6 +72,7 @@ const BugReportButtonInner = ({
           toggleEditingMode={toggleOpen}
           screenshot={screenshot}
           consoleLog={consoleLog}
+          networkLog={networkLog}
         />
       </Modal>
     </div>

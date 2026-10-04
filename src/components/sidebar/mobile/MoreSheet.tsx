@@ -40,6 +40,7 @@ const MoreSheet = ({
   return (
     <div
       id="mobile-more-sheet"
+      data-html2canvas-ignore=""
       className={clsx(
         "lg:hidden fixed inset-x-0 top-0 z-panel",
         aboveTabBar,
@@ -114,7 +115,7 @@ const MoreSheet = ({
           <HelpButton variant="row" tone="light" onAction={onClose} />
         </SheetRow>
         <SheetRow>
-          <BugReportButton variant="row" tone="light" />
+          <BugReportButton variant="row" tone="light" onAction={onClose} />
         </SheetRow>
         <SheetRow>
           <AccountMenuButton variant="row" tone="light" />

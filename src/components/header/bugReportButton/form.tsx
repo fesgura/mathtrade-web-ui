@@ -11,16 +11,19 @@ type BugReportFormProps = {
   toggleEditingMode: () => void;
   screenshot: string | null;
   consoleLog: string;
+  networkLog: string;
 };
 
 const BugReportForm = ({
   toggleEditingMode,
   screenshot,
   consoleLog,
+  networkLog,
 }: BugReportFormProps) => {
   const { validations, onSubmit, loading, submitted, error } = useBugReportForm(
     screenshot,
-    consoleLog
+    consoleLog,
+    networkLog
   );
 
   return (

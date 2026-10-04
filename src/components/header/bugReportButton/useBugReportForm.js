@@ -3,7 +3,7 @@ import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import useFetch from "@/hooks/useFetch";
 import { GOOGLE_RECAPTCHA_BUGREPORT_ID } from "@/config";
 
-const useBugReportForm = (screenshot, consoleLog) => {
+const useBugReportForm = (screenshot, consoleLog, networkLog) => {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [submitted, setSubmitted] = useState(false);
   const [recaptchaError, setRecaptchaError] = useState(null);
@@ -37,6 +37,7 @@ const useBugReportForm = (screenshot, consoleLog) => {
             user_agent: navigator.userAgent,
             screenshot: screenshot || "",
             console_log: consoleLog || "",
+            network_log: networkLog || "",
             recaptcha,
           },
         });
@@ -44,7 +45,15 @@ const useBugReportForm = (screenshot, consoleLog) => {
         setRecaptchaError("error.General");
       }
     },
-    [loading, submitted, executeRecaptcha, postBugReport, screenshot, consoleLog]
+    [
+      loading,
+      submitted,
+      executeRecaptcha,
+      postBugReport,
+      screenshot,
+      consoleLog,
+      networkLog,
+    ]
   );
 
   return {

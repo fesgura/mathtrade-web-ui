@@ -19,6 +19,7 @@ const Sidebar = () => {
 
   return (
     <aside
+      data-html2canvas-ignore=""
       className={clsx(
         "hidden lg:flex flex-col h-screen sticky top-0 z-nav overflow-visible bg-black shrink-0 py-2 px-2 transition-[width] duration-300 ease-out motion-reduce:transition-none",
         collapsed ? "w-[68px] items-center" : "w-[244px]"
