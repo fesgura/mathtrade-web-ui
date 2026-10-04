@@ -252,10 +252,9 @@ export const initNetworkBuffer = () => {
 
   xhrProto.open = function (
     this: XMLHttpRequest,
-    method: string,
-    url: string | URL,
-    ...rest: unknown[]
+    ...args: Parameters<XMLHttpRequest["open"]>
   ) {
+    const [method, url] = args;
     (this as XMLHttpRequest & { __bugReport?: XhrMeta }).__bugReport = {
       method: String(method).toUpperCase(),
       url: String(url),
@@ -263,11 +262,7 @@ export const initNetworkBuffer = () => {
       started: 0,
       headers: {},
     };
-    return originalOpen.apply(
-      this,
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      [method, url, ...(rest as any[])] as any
-    );
+    return originalOpen.apply(this, args);
   };
 
   xhrProto.setRequestHeader = function (
