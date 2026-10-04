@@ -33,11 +33,11 @@ const WhatIsMT = ({ showFaqLink = true }: { showFaqLink?: boolean }) => {
             <I18N id="whatIsMT.lead" />
           </p>
         </div>
-        <aside className="rounded-lg border border-sky-300 bg-sky-50 text-sky-950 p-3 mb-5">
+        <aside className="rounded-lg border border-sky-300 bg-sky-50 text-sky-950 p-3 mb-5 min-w-0 max-w-full break-words">
           <h3 className="font-bold text-base mb-1">
             <I18N id="mtSolidario.title" />
           </h3>
-          <p className="text-sm">
+          <p className="text-sm break-words">
             <I18N id="mtSolidario.lead" values={[verb]} />
           </p>
         </aside>

@@ -9,7 +9,10 @@ import I18N, { getI18Ntext } from "@/i18n";
 import { formatAmount } from "@/app/mathtrade/my-data/ContributionBox";
 import useContributionsReview, { ContributionRow } from "./useContributionsReview";
 
-const selectClass = "border border-stroke rounded-md p-2 text-sm bg-white";
+/* w-full + max-w-full on mobile: native <select> min-width follows the
+ * longest option (account holder + alias), which otherwise overflows ~390px. */
+const selectClass =
+  "border border-stroke rounded-md p-2 text-sm bg-white w-full sm:w-auto max-w-full min-w-0";
 
 const formatDate = (iso: string | null) =>
   iso ? new Date(iso).toLocaleString("es-AR", { dateStyle: "short", timeStyle: "short" }) : "";
@@ -106,7 +109,7 @@ const ContributionsReviewPage = () => {
       <PageHeader title="title.AdminContributions" variant="minimal" />
       <SectionCommon loading={loading}>
         <div className="md:px-7 px-3 py-7">
-          <div className="flex flex-wrap items-center gap-3 mb-5">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 mb-5 w-full min-w-0 max-w-full">
             <select
               className={selectClass}
               value={mathtradeId ?? ""}
@@ -136,7 +139,7 @@ const ContributionsReviewPage = () => {
                 </option>
               ))}
             </select>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-600 shrink-0">
               <I18N id="adminContributions.count" values={[contributions.length]} />
             </p>
           </div>
@@ -151,14 +154,14 @@ const ContributionsReviewPage = () => {
 
           {contributions.map((row) => (
             <div key={row.id} className="border border-stroke rounded-lg p-4 mb-3">
-              <div className="flex flex-wrap items-start justify-between gap-3">
-                <div className="text-sm">
-                  <p className="font-bold text-base">
+              <div className="flex flex-wrap items-start justify-between gap-3 min-w-0">
+                <div className="text-sm min-w-0 max-w-full break-words">
+                  <p className="font-bold text-base break-words">
                     {row.first_name} {row.last_name}{" "}
                     <span className="font-normal text-gray-500">({row.bgg_user})</span>
                   </p>
-                  <p>{row.email}{row.location ? ` · ${row.location}` : ""}</p>
-                  <p>
+                  <p className="break-words">{row.email}{row.location ? ` · ${row.location}` : ""}</p>
+                  <p className="break-words">
                     {formatAmount(row.amount)} → {row.account.holder_name} ({row.account.alias})
                   </p>
                   <p className="text-gray-500">

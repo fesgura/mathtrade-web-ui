@@ -186,7 +186,7 @@ const ElementView = ({
             against and the reserved line would be wasted height. */}
         <h3
           className={clsx(
-            "text-heading leading-tight line-clamp-2",
+            "text-heading leading-tight line-clamp-2 break-words",
             isRow ? null : "min-h-[2.5em]",
             titleColorClass
           )}
@@ -201,7 +201,7 @@ const ElementView = ({
         )}
 
         {showBGGstats ? (
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 w-full min-w-0">
             <BGGratings
               rate={rate}
               rateColor={rateColor}

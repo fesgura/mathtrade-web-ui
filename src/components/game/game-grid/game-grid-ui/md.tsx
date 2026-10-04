@@ -81,7 +81,7 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
   return (
     <div
       className={clsx(
-        "h-full rounded-lg transition-opacity relative flex flex-col",
+        "h-full min-w-0 max-w-full rounded-lg transition-opacity relative flex flex-col",
         cardKindBorderClass(cardKind),
         {
           "opacity-30 pointer-events-none": showAsIgnored,
@@ -127,7 +127,7 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
                 clamped at 2, and letting it collapse to 1 pushes the rating
                 and complexity row up, so neighbouring cards in the same grid
                 row stop lining up. 2.5em == 2 * leading-tight. */}
-            <h3 className="text-heading hover:opacity-70 leading-tight line-clamp-2 min-h-[2.5em]">
+            <h3 className="text-heading hover:opacity-70 leading-tight line-clamp-2 min-h-[2.5em] break-words">
               {`${title}${year ? ` (${year})` : ""}`}
             </h3>
           </div>
@@ -135,7 +135,7 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
           {notGame ? (
             <ItemNoBGG itemRaw={items?.[0] || null} />
           ) : showBGGstats ? (
-            <div className="flex items-center gap-4 w-full">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 w-full min-w-0">
               <BGGratings
                 rate={rate}
                 rateColor={rateColor}

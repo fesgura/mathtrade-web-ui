@@ -26,7 +26,7 @@ export default function MathTradeLayout({ children }: { children: ReactNode }) {
                 after the content there). Desktop: room for the pinned footer. */}
             <div
               data-bug-report-capture=""
-              className="relative w-full min-h-screen pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-20 lg:min-w-0 lg:flex-1"
+              className="relative w-full max-w-full min-w-0 min-h-screen pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-20 lg:flex-1"
             >
               <a id="a-top" />
               <AdvSolidario />

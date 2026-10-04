@@ -189,7 +189,7 @@ const ProvisionalSummary = ({ rows = [] }: { rows?: ProvisionalSummaryRow[] }) =
       <h2 className="text-base font-bold mb-3">
         <I18N id="provisional.summary.title" />
       </h2>
-      <div className="grid gap-6 auto-rows-fr [grid-template-columns:repeat(auto-fill,minmax(300px,1fr))]">
+      <div className="grid gap-6 auto-rows-fr [grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr))]">
         {rows.map((row, index) => (
           <SummaryCard
             key={row.item.id}

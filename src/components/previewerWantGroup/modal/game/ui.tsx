@@ -101,7 +101,7 @@ const GameUI = ({ wantGroup }) => {
             {notGame ? (
               <ItemNoBGG itemRaw={items?.[0] || null} />
             ) : showBGGstats ? (
-              <div className="flex items-center gap-4 w-full">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 w-full min-w-0">
                 <BGGratings
                   rate={rate}
                   rateColor={rateColor}

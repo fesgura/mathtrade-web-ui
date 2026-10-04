@@ -30,7 +30,7 @@ const ItemTagList = () => {
             style={colorTagStyles(color)}
             key={id}
           >
-            <span className="whitespace-nowrap">{name}</span>
+            <span className="truncate max-w-[12rem] sm:max-w-[16rem]">{name}</span>
             {canIEdit ? (
               <button
                 type="button"

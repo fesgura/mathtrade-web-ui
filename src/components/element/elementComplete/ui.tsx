@@ -101,7 +101,7 @@ const ElementCompleteUI = () => {
             ) : null}
           </div>
 
-          <h3 className="text-heading leading-tight w-full">{title}</h3>
+          <h3 className="text-heading leading-tight w-full break-words">{title}</h3>
 
           {titleLink ? null : (
             <div className="italic text-gray-500 font-bold text-caption -mt-1.5">
@@ -110,7 +110,7 @@ const ElementCompleteUI = () => {
           )}
 
           {showBGGstats ? (
-            <div className="flex items-center gap-4 w-full">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 w-full min-w-0">
               <BGGratings
                 rate={rate}
                 rateColor={rateColor}
@@ -188,7 +188,7 @@ const ElementCompleteUI = () => {
       {comment || images ? (
         <div className="px-4 pb-4 border-t border-gray-200 pt-3">
           {comment ? (
-            <div className="text-body text-gray-600">{comment}</div>
+            <div className="text-body text-gray-600 break-words">{comment}</div>
           ) : null}
           <PhotoGallery images={images || ""} className={comment ? "mt-3" : ""} />
         </div>

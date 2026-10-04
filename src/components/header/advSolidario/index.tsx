@@ -16,7 +16,7 @@ const AdvSolidario = () => {
 
   return (
     <Wrapper className="mt-main">
-      <div className="relative w-full text-center p-2 pr-8 shadow-main rounded-main border border-sky-300 bg-sky-100 text-sky-950">
+      <div className="relative w-full max-w-full min-w-0 text-center text-sm sm:text-base leading-snug break-words p-2 pr-8 shadow-main rounded-main border border-sky-300 bg-sky-100 text-sky-950">
         <I18N id="mtSolidario.banner" values={[verb]} />
         <button
           type="button"

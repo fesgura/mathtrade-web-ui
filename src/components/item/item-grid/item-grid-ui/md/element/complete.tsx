@@ -114,13 +114,13 @@ const ElementComplete = ({
         >
           {/* Reserves both lines so the rows below stay aligned across cards
               in the same grid row — see game-grid-ui/md.tsx. */}
-          <h3 className="text-heading hover:opacity-70 leading-tight line-clamp-2 min-h-[2.5em]">
+          <h3 className="text-heading hover:opacity-70 leading-tight line-clamp-2 min-h-[2.5em] break-words">
             {title}
           </h3>
         </div>
 
         {showBGGstats ? (
-          <div className="flex items-center gap-4 w-full">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 w-full min-w-0">
             <BGGratings
               rate={rate}
               rateColor={rateColor}

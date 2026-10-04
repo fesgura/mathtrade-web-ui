@@ -16,15 +16,15 @@ const ItemGridHeader = ({
 
   return (
     <header className={className}>
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex items-start justify-between gap-3 min-w-0 w-full">
         {ban_id || hideTags ? (
-          <div />
+          <div className="min-w-0" />
         ) : (
-          <div>
+          <div className="min-w-0 flex-1">
             <ItemTagList />
           </div>
         )}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 shrink-0">
           {/* hideTags only means "no tag chips" — it shouldn't also hide
               the ignore/ban control, which both preview modals need
               (they pass hideTags for the tags, not to hide this). */}

@@ -54,7 +54,9 @@ const BugReportForm = ({
 
           <ErrorAlert error={error} errorMessage={resolveApiErrorMessage(error)} />
 
-          <div className="flex items-center justify-center gap-4 pt-2 pb-1">
+          {/* Stack on narrow viewports: "Cancelar" + "Enviar reporte" with
+              text-lg/px-6 do not fit side by side around 390px. */}
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-2 sm:gap-4 pt-2 pb-1">
             <button
               className="border border-gray-400 text-gray-500 font-bold text-lg px-6 py-1 rounded-full hover:bg-gray-400 hover:text-white transition-colors"
               type="button"

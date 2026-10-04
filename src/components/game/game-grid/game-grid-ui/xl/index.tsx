@@ -117,14 +117,14 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
               </div>
             </div>
 
-            <h3 className="text-heading leading-tight w-full">{`${title}${
+            <h3 className="text-heading leading-tight w-full break-words">{`${title}${
               year ? ` (${year})` : ""
             }`}</h3>
 
             {notGame ? (
               <ItemNoBGG itemRaw={items?.[0] || null} />
             ) : showBGGstats ? (
-              <div className="flex items-center gap-4 w-full">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-2 w-full min-w-0">
                 <BGGratings
                   rate={rate}
                   rateColor={rateColor}

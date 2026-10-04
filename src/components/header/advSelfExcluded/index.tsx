@@ -13,7 +13,7 @@ const AdvSelfExcluded = () => {
 
   return showAdvice && membership?.self_excluded ? (
     <Wrapper className="mt-main">
-      <div className="bg-red-600 w-full text-white text-center p-2 shadow-main rounded-main relative">
+      <div className="bg-red-600 w-full max-w-full min-w-0 text-white text-center text-sm sm:text-base leading-snug break-words p-2 pr-8 shadow-main rounded-main relative">
         <I18N id="AdvSelfExcluded" />
         <Link
           href={PUBLIC_ROUTES.TERMS_CONDITIONS.path}

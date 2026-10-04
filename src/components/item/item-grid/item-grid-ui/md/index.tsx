@@ -19,7 +19,7 @@ const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
 
   return (
     <div
-      className={clsx("flex flex-col h-full transition-opacity", {
+      className={clsx("flex flex-col h-full min-w-0 max-w-full transition-opacity", {
         "opacity-30 pointer-events-none": showAsIgnored,
         "shadow-[0_0_0_7px_rgba(255,0,0,1)]": ban_id,
       })}
@@ -33,7 +33,7 @@ const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
         </div>
       ) : null}
       {isOwned && staffObservation ? (
-        <div className="mx-3 mt-2 rounded border border-amber-300 bg-amber-50 px-2 py-1.5 text-[11px] text-amber-950">
+        <div className="mx-3 mt-2 min-w-0 max-w-full rounded border border-amber-300 bg-amber-50 px-2 py-1.5 text-[11px] leading-snug text-amber-950 break-words">
           <span className="font-semibold">
             <I18N id="myOffer.staffObservation.title" />
           </span>
@@ -75,15 +75,17 @@ const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
         ) : null}
       </div>
 
-      <div className="flex items-center justify-between gap-3 px-4 py-2">
+      <div className="flex items-center justify-between gap-3 px-4 py-2 min-w-0">
         {commentsCount ? (
-          <div className="text-[11px] font-bold text-gray-600 leading-tight">
+          <div className="text-[11px] font-bold text-gray-600 leading-tight min-w-0 truncate">
             <ItemCommentTitle />
           </div>
         ) : (
-          <div />
+          <div className="min-w-0" />
         )}
-        <UserBox userForce={user} />
+        <div className="min-w-0 max-w-[55%] shrink">
+          <UserBox userForce={user} />
+        </div>
       </div>
 
       {ban_id ? null : (

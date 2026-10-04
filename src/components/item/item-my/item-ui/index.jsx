@@ -52,13 +52,13 @@ const ItemUI = ({ tourAnchor = undefined }) => {
       {headerOutside ? <HeaderItem /> : null}
       {staffObservation ? (
         <div
-          className="mb-3 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-950"
+          className="mb-3 min-w-0 max-w-full rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-950 break-words"
           role="status"
         >
           <p className="font-semibold">
             <I18N id="myOffer.staffObservation.title" />
           </p>
-          <p className="mt-1">“{staffObservation.comment}”</p>
+          <p className="mt-1 break-words">“{staffObservation.comment}”</p>
           <p className="mt-1 text-xs opacity-90">
             <I18N id="myOffer.staffObservation.corrida" />
           </p>
