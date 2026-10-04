@@ -5,6 +5,7 @@ import VideoCta from "@/components/videoCta";
 import { PRIVATE_ROUTES, PUBLIC_ROUTES } from "@/config/routes";
 import { rulebookPDFurl } from "@/config/rulebook";
 import { linksToHelp } from "@/config/linksToHelp";
+import useSolidarioVerb from "@/hooks/useSolidarioVerb";
 
 const baseURL = process.env.BASE_URL;
 const STEPS = [1, 2, 3, 4, 5];
@@ -15,74 +16,86 @@ const linkClass =
 // What a Math Trade is and how it works, with the rules to read. Shown on the
 // home and in the login's "¿Qué es el Math Trade?" (without the FAQ link:
 // the FAQs need a logged-in user).
-const WhatIsMT = ({ showFaqLink = true }: { showFaqLink?: boolean }) => (
-  <section className="grid md:grid-cols-2 gap-6 items-start">
-    <div className="md:order-2" data-tour="home.video">
-      <VideoCta />
-    </div>
-    <div className="md:order-1">
-      <div data-tour="home.whatIs">
-        <h2 className="font-bold text-2xl mb-3">
-          <I18N id="whatIsMT.title" />
-        </h2>
-        <p className="mb-3">
-          <I18N id="whatIsMT.lead" />
+const WhatIsMT = ({ showFaqLink = true }: { showFaqLink?: boolean }) => {
+  const { verb } = useSolidarioVerb();
+
+  return (
+    <section className="grid md:grid-cols-2 gap-6 items-start">
+      <div className="md:order-2" data-tour="home.video">
+        <VideoCta />
+      </div>
+      <div className="md:order-1">
+        <div data-tour="home.whatIs">
+          <h2 className="font-bold text-2xl mb-3">
+            <I18N id="whatIsMT.title" />
+          </h2>
+          <p className="mb-3">
+            <I18N id="whatIsMT.lead" />
+          </p>
+        </div>
+        <aside className="rounded-lg border border-sky-300 bg-sky-50 text-sky-950 p-3 mb-5">
+          <h3 className="font-bold text-base mb-1">
+            <I18N id="mtSolidario.title" />
+          </h3>
+          <p className="text-sm">
+            <I18N id="mtSolidario.lead" values={[verb]} />
+          </p>
+        </aside>
+        <p className="text-sm text-gray-700 bg-gray-50 rounded-lg p-3 mb-5">
+          <I18N id="whatIsMT.example" />
         </p>
+        <h3 className="font-bold text-lg mb-2">
+          <I18N id="whatIsMT.how" />
+        </h3>
+        <ol className="mb-5 space-y-2">
+          {STEPS.map((n) => (
+            <li key={n} className="flex gap-3 text-sm">
+              <span className="shrink-0 w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center">
+                {n}
+              </span>
+              <span className="pt-0.5">
+                <I18N id={`whatIsMT.step.${n}`} />
+              </span>
+            </li>
+          ))}
+        </ol>
+        <h3 className="font-bold text-sm text-gray-600 mb-2">
+          <I18N id="whatIsMT.read" />
+        </h3>
+        <div className="flex flex-wrap gap-2" data-tour="home.read">
+          <a
+            href={baseURL + rulebookPDFurl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkClass}
+          >
+            <I18N id="whatIsMT.link.rulebook" />
+          </a>
+          <a
+            href={PUBLIC_ROUTES.TERMS_CONDITIONS.path}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkClass}
+          >
+            <I18N id="title.TyC" />
+          </a>
+          {showFaqLink ? (
+            <Link href={PRIVATE_ROUTES.FAQS.path} className={linkClass}>
+              <I18N id="menu.Faqs" />
+            </Link>
+          ) : null}
+          <a
+            href={linksToHelp.telegram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkClass}
+          >
+            <I18N id="whatIsMT.link.telegram" />
+          </a>
+        </div>
       </div>
-      <p className="text-sm text-gray-700 bg-gray-50 rounded-lg p-3 mb-5">
-        <I18N id="whatIsMT.example" />
-      </p>
-      <h3 className="font-bold text-lg mb-2">
-        <I18N id="whatIsMT.how" />
-      </h3>
-      <ol className="mb-5 space-y-2">
-        {STEPS.map((n) => (
-          <li key={n} className="flex gap-3 text-sm">
-            <span className="shrink-0 w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center">
-              {n}
-            </span>
-            <span className="pt-0.5">
-              <I18N id={`whatIsMT.step.${n}`} />
-            </span>
-          </li>
-        ))}
-      </ol>
-      <h3 className="font-bold text-sm text-gray-600 mb-2">
-        <I18N id="whatIsMT.read" />
-      </h3>
-      <div className="flex flex-wrap gap-2" data-tour="home.read">
-        <a
-          href={baseURL + rulebookPDFurl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={linkClass}
-        >
-          <I18N id="whatIsMT.link.rulebook" />
-        </a>
-        <a
-          href={PUBLIC_ROUTES.TERMS_CONDITIONS.path}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={linkClass}
-        >
-          <I18N id="title.TyC" />
-        </a>
-        {showFaqLink ? (
-          <Link href={PRIVATE_ROUTES.FAQS.path} className={linkClass}>
-            <I18N id="menu.Faqs" />
-          </Link>
-        ) : null}
-        <a
-          href={linksToHelp.telegram}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={linkClass}
-        >
-          <I18N id="whatIsMT.link.telegram" />
-        </a>
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default WhatIsMT;
