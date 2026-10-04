@@ -45,7 +45,9 @@ export const Sidebar = ({
     >
       <div
         className={clsx(
-          "bg-white lg:sticky lg:top-0 lg:h-screen overflow-x-hidden sidebar-aside-inner z-sticky flex flex-col border-r border-gray-200",
+          // overflow-hidden + viewport height: only the filter form body scrolls,
+          // so Filtrar/Limpiar stay pinned (desktop and mobile).
+          "bg-white lg:sticky lg:top-0 h-full max-h-dvh lg:h-dvh lg:max-h-dvh overflow-hidden sidebar-aside-inner z-sticky flex flex-col border-r border-gray-200",
           {
             "lg:rounded-tl-main": !topNotRounded,
           }

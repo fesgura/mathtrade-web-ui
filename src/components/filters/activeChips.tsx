@@ -69,10 +69,12 @@ const ActiveFilterChips = ({ type = "item" }: { type?: "item" | "game" }) => {
         base === "value"
           ? "filter.Value"
           : base === "rate"
-            ? "filter.Rating"
-            : base === "weight"
-              ? "filter.Weight"
-              : base;
+            ? "filter.Rating.geek"
+            : base === "average_rate"
+              ? "filter.Rating.avg"
+              : base === "weight"
+                ? "filter.Weight"
+                : base;
       next.push({
         key: base,
         label: `${getI18Ntext(titleId)} ${from ?? ""}–${to ?? ""}`,

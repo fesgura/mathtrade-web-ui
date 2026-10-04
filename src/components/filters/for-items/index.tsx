@@ -7,6 +7,7 @@ import {
   Switch,
 } from "@/components/form";
 import useFilterItems from "./useFilterItems";
+import useApplyToggleFilter from "../useApplyToggleFilter";
 import I18N, { getI18Ntext } from "@/i18n";
 import BanUsers from "@/components/ban/users";
 import UnignoreAll from "@/components/ban/unignore-all";
@@ -30,12 +31,17 @@ const FiltersForItems = () => {
     languageList,
     dependencyList,
   } = useFilterItems();
+  const applyToggle = useApplyToggleFilter("item");
 
   return (
     <>
       <FilterBlock titleId="Users">
         <InputContainer className="mb-2">
-          <Switch data={data} name="favorite">
+          <Switch
+            data={data}
+            name="favorite"
+            onChange={(checked) => applyToggle("favorite", checked)}
+          >
             <div className="text-xs flex items-center gap-1">
               <Icon type="star" className="text-amber-500" />
               <I18N id="favorite.filter.items" />
@@ -43,7 +49,11 @@ const FiltersForItems = () => {
           </Switch>
         </InputContainer>
         <InputContainer className="mb-2">
-          <Switch data={data} name="hide_my_user">
+          <Switch
+            data={data}
+            name="hide_my_user"
+            onChange={(checked) => applyToggle("hide_my_user", checked)}
+          >
             <div className="text-xs">
               <I18N id="hideOwnItems.label" />
             </div>
@@ -95,7 +105,11 @@ const FiltersForItems = () => {
         </summary>
         <div className="pt-3 flex flex-col gap-4">
           <InputContainer className="mb-0">
-            <Switch data={data} name="hide_wanted">
+            <Switch
+              data={data}
+              name="hide_wanted"
+              onChange={(checked) => applyToggle("hide_wanted", checked)}
+            >
               <div className="text-xs flex items-center gap-1">
                 <Icon type="heart" className="text-gray-600" />
                 <I18N id="hideWanted.items.label" />
@@ -105,7 +119,11 @@ const FiltersForItems = () => {
 
           <div>
             <InputContainer className="mb-1">
-              <Switch data={data} name="wantable">
+              <Switch
+                data={data}
+                name="wantable"
+                onChange={(checked) => applyToggle("wantable", checked)}
+              >
                 <div className="text-xs flex items-center gap-1">
                   <Icon type="eye-hide" className="text-gray-600" />
                   <I18N id="wantAble.items.label" />
@@ -193,8 +211,12 @@ const FiltersForItems = () => {
           ) : null}
 
           <InputContainer className="mb-0">
-            <Label text="filter.Rating" name="rate" size="sm" />
+            <Label text="filter.Rating.geek" name="rate" size="sm" />
             <RangeTwo data={data} name="rate" min={1} />
+          </InputContainer>
+          <InputContainer className="mb-0">
+            <Label text="filter.Rating.avg" name="average_rate" size="sm" />
+            <RangeTwo data={data} name="average_rate" min={1} />
           </InputContainer>
           <InputContainer className="mb-0">
             <Label text="filter.Weight" name="weight" size="sm" />

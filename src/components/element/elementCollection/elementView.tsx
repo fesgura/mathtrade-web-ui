@@ -8,13 +8,13 @@ import useDeleteElement from "./useDeleteElement";
 import useWithdrawFromMT from "./useWithdrawFromMT";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
-import Question from "@/components/question";
 import { ElementContext } from "@/context/element";
 import { PageContext } from "@/context/page";
 import { useContext, useMemo, type ReactNode } from "react";
 import BadgeType from "@/components/badgeType";
 import { resolveCardKind, cardKindBorderClass } from "@/components/badgeType/cardKind";
 import useBGGdata from "@/components/bggInfo/useBGGdata";
+import BGGratings from "@/components/bggInfo/ratings";
 import BGGlink from "@/components/bggInfo/bggLink";
 import { getI18Ntext } from "@/i18n";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
@@ -74,6 +74,9 @@ const ElementView = ({
   const {
     isInBGG,
     rate,
+    rateColor,
+    averageRate,
+    averageRateColor,
     rateVotes,
     rank,
     weight,
@@ -81,6 +84,9 @@ const ElementView = ({
   } = useBGGdata({ game }) as {
     isInBGG?: boolean;
     rate: number;
+    rateColor: string;
+    averageRate: number | null;
+    averageRateColor: string;
     rateVotes: number;
     rank?: number;
     weight: number;
@@ -195,12 +201,14 @@ const ElementView = ({
 
         {showBGGstats ? (
           <div className="flex items-center gap-4">
-            <div
-              className="text-body-lg text-center w-10 h-10 leading-10 rounded-full text-white shrink-0 bg-primary"
-              title={`${rateVotes} ${getI18Ntext("element.BGG.votes")}`}
-            >
-              {rate}
-            </div>
+            <BGGratings
+              rate={rate}
+              rateColor={rateColor}
+              averageRate={averageRate}
+              averageRateColor={averageRateColor}
+              rateVotes={rateVotes}
+              showHelp
+            />
             <div className="flex flex-col gap-1">
               <span className={META_TEXT}>
                 <I18N id="element.BGG.weight" />

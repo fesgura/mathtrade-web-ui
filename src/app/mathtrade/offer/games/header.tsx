@@ -53,7 +53,8 @@ const Header = () => {
             { text: getI18Ntext("element.Year"), value: "year" },
             { text: getI18Ntext("element.BGG.rank"), value: "rank" },
             { text: getI18Ntext("element.BGG.weight"), value: "weight" },
-            { text: getI18Ntext("element.BGG.rating"), value: "rate" },
+            { text: getI18Ntext("element.BGG.rating.geek"), value: "rate" },
+            { text: getI18Ntext("element.BGG.rating.avg"), value: "average_rate" },
           ]}
         />
       }

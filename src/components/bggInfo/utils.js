@@ -40,11 +40,15 @@ const dependencyToData = (dependency) => {
   };
 };
 //
+const roundRate = (value) => Math.round((value || 0) * 10) / 10;
+
 export const getStatsOfElement = (element) => {
   if (!element) {
     return {
       rate: 1,
       rateColor: ratingsBGG[0],
+      averageRate: null,
+      averageRateColor: ratingsBGG[0],
       rateVotes: 1,
       weight: 1,
       weightVotes: 1,
@@ -58,6 +62,7 @@ export const getStatsOfElement = (element) => {
   const {
     bgg_id,
     rate,
+    average_rate,
     rate_votes,
     weight,
     weight_votes,
@@ -66,10 +71,17 @@ export const getStatsOfElement = (element) => {
     rank,
   } = element;
 
+  const hasAverage =
+    average_rate !== null && average_rate !== undefined && average_rate !== "";
+
   return {
     isInBGG: `${bgg_id}` !== noBGGgame.element.bgg_id,
-    rate: Math.round((rate || 0) * 10) / 10,
+    rate: roundRate(rate),
     rateColor: ratingsBGG[Math.floor(rate || 0)],
+    averageRate: hasAverage ? roundRate(average_rate) : null,
+    averageRateColor: hasAverage
+      ? ratingsBGG[Math.floor(average_rate || 0)]
+      : ratingsBGG[0],
     rateVotes: parseInt(rate_votes || 0, 10),
     rank,
     weight: Math.round((weight || 0) * 100) / 100,

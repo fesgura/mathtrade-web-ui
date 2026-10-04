@@ -9,6 +9,7 @@ import { ElementContext } from "@/context/element";
 import { useContext } from "react";
 import BadgeType from "@/components/badgeType";
 import useBGGdata from "@/components/bggInfo/useBGGdata";
+import BGGratings from "@/components/bggInfo/ratings";
 import BGGlink from "@/components/bggInfo/bggLink";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
 import { boxSizesValues, boxSizeIdToReview } from "@/config/boxSizes";
@@ -50,11 +51,24 @@ const ElementCompleteUI = () => {
 
   const { box_status, component_status, comment, images } = extraData;
 
-  const { isInBGG, rate, rateVotes, rank, weight, dependency } = useBGGdata({
+  const {
+    isInBGG,
+    rate,
+    rateColor,
+    averageRate,
+    averageRateColor,
+    rateVotes,
+    rank,
+    weight,
+    dependency,
+  } = useBGGdata({
     game,
   }) as {
     isInBGG?: boolean;
     rate: number;
+    rateColor: string;
+    averageRate: number | null;
+    averageRateColor: string;
     rateVotes: number;
     rank?: number;
     weight: number;
@@ -97,12 +111,14 @@ const ElementCompleteUI = () => {
 
           {showBGGstats ? (
             <div className="flex items-center gap-4 w-full">
-              <div
-                className="text-body-lg text-center w-10 h-10 leading-10 rounded-full text-white shrink-0 bg-primary"
-                title={`${rateVotes} ${getI18Ntext("element.BGG.votes")}`}
-              >
-                {rate}
-              </div>
+              <BGGratings
+                rate={rate}
+                rateColor={rateColor}
+                averageRate={averageRate}
+                averageRateColor={averageRateColor}
+                rateVotes={rateVotes}
+                showHelp
+              />
               <div className="flex flex-col gap-1">
               <span className="text-caption text-gray-700 leading-none">
                 <I18N id="element.BGG.weight" />

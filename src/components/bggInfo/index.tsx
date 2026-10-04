@@ -2,21 +2,34 @@ import { getI18Ntext } from "@/i18n";
 import useBGGdata from "./useBGGdata";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
 import BGGinfoLabel from "./bggInfoLabel";
+import BGGratings from "./ratings";
 import BGGlink from "./bggLink";
 
 
-const BGGinfo = ({ game, contextFor = "black", className = "", bggLink }) => {
+const BGGinfo = ({
+  game = null,
+  contextFor = "black",
+  className = "",
+  bggLink = undefined,
+}: {
+  game?: any;
+  contextFor?: string;
+  className?: string;
+  bggLink?: string;
+}) => {
   const {
     isInBGG,
     rate,
     rateColor,
+    averageRate,
+    averageRateColor,
     rateVotes,
     rank,
     weight,
     weightVotes,
     dependency,
     dependencyVotes,
-  } = useBGGdata({ game });
+  }: Record<string, any> = useBGGdata({ game });
 
   return (
     game &&
@@ -25,14 +38,18 @@ const BGGinfo = ({ game, contextFor = "black", className = "", bggLink }) => {
         <div className="flex flex-wrap gap-x-4 gap-y-4">
           <BGGinfoLabel
             label="element.BGG.rating"
-            question={`${rateVotes} ${getI18Ntext("element.BGG.votes")}`}
+            question={`${rateVotes} ${getI18Ntext("element.BGG.votes")}. ${getI18Ntext("element.BGG.rating.help")}`}
             contextFor={contextFor}
           >
-            <div
-              className="mt-1 text-sm text-center font-bold w-10 ssh-8 leading-6 rounded-full text-white"
-              style={{ backgroundColor: rateColor }}
-            >
-              {rate}
+            <div className="mt-1">
+              <BGGratings
+                rate={rate}
+                rateColor={rateColor}
+                averageRate={averageRate}
+                averageRateColor={averageRateColor}
+                rateVotes={rateVotes}
+                size="sm"
+              />
             </div>
           </BGGinfoLabel>
           <BGGinfoLabel

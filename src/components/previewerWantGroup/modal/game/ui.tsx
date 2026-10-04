@@ -15,6 +15,7 @@ import {
   cardKindBorderClass,
 } from "@/components/badgeType/cardKind";
 import useBGGdata from "@/components/bggInfo/useBGGdata";
+import BGGratings from "@/components/bggInfo/ratings";
 import BGGlink from "@/components/bggInfo/bggLink";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
 import ItemNoBGG from "@/components/game/game-grid/game-grid-ui/itemNoBgg";
@@ -42,11 +43,23 @@ const GameUI = ({ wantGroup }) => {
     canIwant,
   } = useGame(wantGroup);
 
-  const { isInBGG, rate, rateVotes, rank, weight } = useBGGdata({
+  const {
+    isInBGG,
+    rate,
+    rateColor,
+    averageRate,
+    averageRateColor,
+    rateVotes,
+    rank,
+    weight,
+  } = useBGGdata({
     game: gameRaw,
   }) as {
     isInBGG?: boolean;
     rate: number;
+    rateColor: string;
+    averageRate: number | null;
+    averageRateColor: string;
     rateVotes: number;
     rank?: number;
     weight: number;
@@ -89,12 +102,14 @@ const GameUI = ({ wantGroup }) => {
               <ItemNoBGG itemRaw={items?.[0] || null} />
             ) : showBGGstats ? (
               <div className="flex items-center gap-4 w-full">
-                <div
-                  className="text-body-lg text-center w-10 h-10 leading-10 rounded-full text-white shrink-0 bg-primary"
-                  title={`${rateVotes} ${getI18Ntext("element.BGG.votes")}`}
-                >
-                  {rate}
-                </div>
+                <BGGratings
+                  rate={rate}
+                  rateColor={rateColor}
+                  averageRate={averageRate}
+                  averageRateColor={averageRateColor}
+                  rateVotes={rateVotes}
+                  showHelp
+                />
                 <div className="flex flex-col gap-1">
                   <span className="text-caption text-gray-700 leading-none">
                     <I18N id="element.BGG.weight" />
