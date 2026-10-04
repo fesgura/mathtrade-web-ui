@@ -1096,6 +1096,7 @@
   "adminContributions.filter.rejected": "Rechazados",
   "adminContributions.filter.all": "Todos los estados",
   "adminContributions.filter.allAccounts": "Todas las cuentas",
+  "adminContributions.count": "$$$ comprobantes",
   "adminContributions.status.pending": "Pendiente",
   "adminContributions.status.approved": "Aprobado",
   "adminContributions.status.rejected": "Rechazado",

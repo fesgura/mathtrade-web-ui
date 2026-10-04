@@ -136,6 +136,9 @@ const ContributionsReviewPage = () => {
                 </option>
               ))}
             </select>
+            <p className="text-sm text-gray-600">
+              <I18N id="adminContributions.count" values={[contributions.length]} />
+            </p>
           </div>
 
           <ErrorAlert error={error} />
