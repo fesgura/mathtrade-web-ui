@@ -1,13 +1,34 @@
 "use client";
+import { useEffect, useRef, useState } from "react";
 import Icon from "@/components/icon";
 import { getI18Ntext } from "@/i18n";
 
+const SEARCH_DEBOUNCE_MS = 300;
+
 const ListSearch = ({
   value = "",
-  onChange = (_keyword) => {},
+  onChange = (_keyword: string) => {},
   placeholder = "",
   tourAnchor = undefined, // data-tour for the guided tutorial (src/tours)
 }) => {
+  // Local value so typing stays snappy; commit to filters after a short pause
+  // so each keystroke does not fire a list fetch (and trip autoLoad guards).
+  const [draft, setDraft] = useState(value);
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+
+  useEffect(() => {
+    setDraft(value);
+  }, [value]);
+
+  useEffect(() => {
+    if (draft === (value || "")) return;
+    const t = setTimeout(() => {
+      onChangeRef.current(draft);
+    }, SEARCH_DEBOUNCE_MS);
+    return () => clearTimeout(t);
+  }, [draft, value]);
+
   return (
     <label
       data-tour={tourAnchor}
@@ -17,8 +38,8 @@ const ListSearch = ({
       <input
         autoComplete="off"
         type="search"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
+        value={draft}
+        onChange={(e) => setDraft(e.target.value)}
         placeholder={
           placeholder || getI18Ntext("filter.Search.placeholder.short")
         }

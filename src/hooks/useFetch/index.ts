@@ -4,13 +4,11 @@ import { callToAPI } from "./utils";
 import { useStore } from "@/store";
 import useSignOut from "../useSignOut";
 
-// Runaway-loop guard. An autoLoad whose inputs change identity on every
-// render refetches in a loop (on 2026-10-01 something hit one endpoint at
-// ~14 req/s for minutes, untraceable from the backend logs). Legitimate
-// re-runs (a reloadValue bump, a filter change) are a handful at most, so
-// more than AUTOLOAD_LIMIT in AUTOLOAD_WINDOW_MS means a loop: stop that
-// instance's autoLoad and report where it happened. Manual getData() calls
-// are not counted.
+// Runaway-loop guard. An autoLoad whose *callback identity* churns with the
+// same params refetches in a loop (on 2026-10-01 something hit one endpoint
+// at ~14 req/s for minutes). Count only repeats of the same params key —
+// typing a search is many distinct keys and must not permanently disable
+// autoLoad (that left "0 juegos" stuck after empty searches).
 const AUTOLOAD_LIMIT = 10;
 const AUTOLOAD_WINDOW_MS = 10_000;
 
@@ -68,30 +66,33 @@ const useFetch = ({
       setErrorMessage(null);
       setLoading(true);
 
-      const [errors, response, responseData] = await callToAPI({
-        method,
-        endpoint,
-        path,
-        urlParams: defaultUrlParams.concat(urlParams),
-        params,
-        mathtradeId: mathtradeId || optionMathtradeId || storedMathtradeId || 0,
-      });
-      setLoading(false);
+      try {
+        const [errors, response, responseData] = await callToAPI({
+          method,
+          endpoint,
+          path,
+          urlParams: defaultUrlParams.concat(urlParams),
+          params,
+          mathtradeId: mathtradeId || optionMathtradeId || storedMathtradeId || 0,
+        });
 
-      if (!response.ok) {
-        setErrorMessage(errors);
-        if (afterError) {
-          afterError(errors);
+        if (!response.ok) {
+          setErrorMessage(errors);
+          if (afterError) {
+            afterError(errors);
+          }
+          if (response?.status === 401) {
+            signOut();
+          }
+        } else {
+          const jsonData = format ? format(responseData) : responseData;
+          if (afterLoad && !errors) {
+            afterLoad(jsonData);
+          }
+          setData(jsonData);
         }
-        if (response?.status === 401) {
-          signOut();
-        }
-      } else {
-        const jsonData = format ? format(responseData) : responseData;
-        if (afterLoad && !errors) {
-          afterLoad(jsonData);
-        }
-        setData(jsonData);
+      } finally {
+        setLoading(false);
       }
     },
     [
@@ -111,9 +112,21 @@ const useFetch = ({
 
   const autoLoadTimesRef = useRef<number[]>([]);
   const autoLoadStoppedRef = useRef(false);
+  const lastParamsKeyRef = useRef<string | null>(null);
+  const paramsKey = useMemo(() => JSON.stringify(params ?? null), [params]);
 
   useEffect(() => {
-    if (!autoLoad || autoLoadStoppedRef.current) return;
+    if (!autoLoad) return;
+
+    // New filters/search/page: clear any prior halt so the list can recover.
+    if (paramsKey !== lastParamsKeyRef.current) {
+      lastParamsKeyRef.current = paramsKey;
+      autoLoadStoppedRef.current = false;
+      autoLoadTimesRef.current = [];
+    }
+
+    if (autoLoadStoppedRef.current) return;
+
     const now = Date.now();
     const recent = autoLoadTimesRef.current.filter(
       (time) => now - time < AUTOLOAD_WINDOW_MS
@@ -126,7 +139,7 @@ const useFetch = ({
       return;
     }
     getData({ params });
-  }, [getData, params, autoLoad, reloadValue, endpoint, path]);
+  }, [getData, params, paramsKey, autoLoad, reloadValue, endpoint, path]);
 
   return [getData, data, loading, errorMessage];
 };
