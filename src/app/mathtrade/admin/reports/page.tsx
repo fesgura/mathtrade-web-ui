@@ -149,6 +149,9 @@ const AdminReportsPage = () => {
               ))}
             </div>
           </div>
+          <p className="mb-4 text-sm text-gray-600">
+            <I18N id="adminReports.corridaHint" />
+          </p>
           <ErrorAlert error={error || errorResolve || errorDelete} />
           {!loading && !list.length ? (
             <EmptyList visible icon="status-box" message="adminReports.none" />

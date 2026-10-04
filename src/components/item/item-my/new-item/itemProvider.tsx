@@ -12,6 +12,7 @@ const newItemData = {
   group: null,
   tags: [],
   reported: false,
+  staff_observation: null,
   comments: 0,
   ban_id: null,
   owner: true,

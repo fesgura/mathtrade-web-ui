@@ -5,6 +5,7 @@ import ElementMyItem from "@/components/element/elementMyItem";
 import HeaderItem from "./item-header";
 import Dynamic from "@/components/dynamic";
 import { cardKindBorderClass } from "@/components/badgeType/cardKind";
+import I18N from "@/i18n";
 import clsx from "clsx";
 
 const AddElementToMyItem = lazy(() => import("../addElement"));
@@ -16,7 +17,7 @@ const ItemUI = ({ tourAnchor = undefined }) => {
 
   /* ITEM CONTEXT **********************************************/
   const { item } = useContext(ItemContext);
-  const { id, elements, isCombo } = item;
+  const { id, elements, isCombo, staff_observation: staffObservation } = item;
   /* end ITEM CONTEXT **********************************************/
 
   // A combo bundles several elements into one item, so it still needs a
@@ -49,6 +50,20 @@ const ItemUI = ({ tourAnchor = undefined }) => {
       )}
     >
       {headerOutside ? <HeaderItem /> : null}
+      {staffObservation ? (
+        <div
+          className="mb-3 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-950"
+          role="status"
+        >
+          <p className="font-semibold">
+            <I18N id="myOffer.staffObservation.title" />
+          </p>
+          <p className="mt-1">“{staffObservation.comment}”</p>
+          <p className="mt-1 text-xs opacity-90">
+            <I18N id="myOffer.staffObservation.corrida" />
+          </p>
+        </div>
+      ) : null}
       <div className="flex flex-col gap-3">
         {elements.map((element, k) => {
           return (

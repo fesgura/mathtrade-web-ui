@@ -82,6 +82,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
       comments: commentsCount,
       ban_id,
       reported,
+      staff_observation,
       matched_bgg_id,
       ready,
       favorite_id,
@@ -135,6 +136,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
       ban_id,
       favorite_id: favorite_id ?? null,
       reported,
+      staff_observation: staff_observation || null,
       isCombo,
       ready: ready !== false,
       user: {

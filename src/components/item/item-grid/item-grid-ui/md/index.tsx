@@ -15,7 +15,7 @@ type ItemMDProps = {
 const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
   const { item, showAsIgnored } = useContext(ItemContext);
 
-  const { ban_id, isCombo, elements, user, commentsCount } = item;
+  const { ban_id, isCombo, elements, user, commentsCount, isOwned, staff_observation: staffObservation } = item;
 
   return (
     <div
@@ -30,6 +30,15 @@ const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
       {isCombo ? (
         <div className="px-3 pt-2 pb-1">
           <ItemGridHeader />
+        </div>
+      ) : null}
+      {isOwned && staffObservation ? (
+        <div className="mx-3 mt-2 rounded border border-amber-300 bg-amber-50 px-2 py-1.5 text-[11px] text-amber-950">
+          <span className="font-semibold">
+            <I18N id="myOffer.staffObservation.title" />
+          </span>
+          {": "}
+          <I18N id="myOffer.staffObservation.corrida" />
         </div>
       ) : null}
 
