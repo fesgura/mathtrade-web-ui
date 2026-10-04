@@ -8,6 +8,7 @@ import useDeleteElement from "./useDeleteElement";
 import useWithdrawFromMT from "./useWithdrawFromMT";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
+import Question from "@/components/question";
 import { ElementContext } from "@/context/element";
 import { PageContext } from "@/context/page";
 import { useContext, useMemo, type ReactNode } from "react";
