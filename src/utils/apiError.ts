@@ -31,30 +31,59 @@ export const resolveApiErrorCode = (error: any): string | undefined => {
   return typeof code === "string" ? CODE_KEYS[code] : undefined;
 };
 
+const firstString = (value: unknown): string | undefined => {
+  if (typeof value === "string" && value.trim()) return value;
+  if (Array.isArray(value)) {
+    const hit = value.find((item) => typeof item === "string" && item.trim());
+    return typeof hit === "string" ? hit : undefined;
+  }
+  return undefined;
+};
+
 export const resolveApiErrorMessage = (error: any): string | undefined => {
+  // Network / timeout failures from apisauce land here without a JSON body.
+  const problem = error?.problem || error?.originalError?.code;
+  if (
+    problem === "NETWORK_ERROR" ||
+    problem === "TIMEOUT_ERROR" ||
+    problem === "CONNECTION_ERROR" ||
+    problem === "ECONNABORTED"
+  ) {
+    return "error.Network";
+  }
+
   const data = error?.data;
-  if (!data || typeof data !== "object") return undefined;
+  if (!data) return undefined;
+  if (typeof data === "string") {
+    // Non-JSON bodies (HTML 413/502, plain text) — don't surface markup.
+    return undefined;
+  }
+  if (typeof data !== "object") return undefined;
+
+  // DRF `ValidationError("msg")` serializes as a bare JSON array: ["msg"].
+  if (Array.isArray(data)) {
+    return firstString(data);
+  }
 
   const codeKey = resolveApiErrorCode(error);
   if (codeKey) return codeKey;
 
-  if (typeof data.detail === "string") {
-    return DETAIL_RULES.find(({ test }) => test(data.detail))?.key || data.detail;
+  const detail = firstString(data.detail);
+  if (detail) {
+    return DETAIL_RULES.find(({ test }) => test(detail))?.key || detail;
   }
 
   for (const { field, test, key } of FIELD_RULES) {
-    const messages = data[field];
-    if (Array.isArray(messages) && messages.some((m: unknown) => typeof m === "string" && test(m))) {
-      return key;
-    }
+    const message = firstString(data[field]);
+    if (message && test(message)) return key;
   }
 
-  // Fallback: return the first string from any field error array
+  // Fallback: first string from any field. DRF often returns a scalar string
+  // per field (`{"file": "…"}`), not a one-element array — the array-only
+  // check used to drop those and show error.General on receipt uploads.
   for (const key of Object.keys(data)) {
-    const messages = data[key];
-    if (Array.isArray(messages) && messages.length > 0 && typeof messages[0] === "string") {
-      return messages[0];
-    }
+    const message = firstString(data[key]);
+    if (message) return message;
   }
 
   return undefined;

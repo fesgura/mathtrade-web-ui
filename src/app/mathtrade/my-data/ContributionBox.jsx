@@ -22,6 +22,33 @@ export const formatAmount = (amount) => {
 };
 
 const RECEIPT_ACCEPT = "application/pdf,image/png,image/jpeg,image/webp";
+const RECEIPT_MAX_BYTES = 10 * 1024 * 1024;
+const RECEIPT_MIME_OK = new Set([
+  "application/pdf",
+  "image/png",
+  "image/jpeg",
+  "image/webp",
+]);
+
+const receiptClientError = (file) => {
+  if (!file) return "contribution.upload.error.format";
+  if (file.size > RECEIPT_MAX_BYTES) return "contribution.upload.error.size";
+  const name = (file.name || "").toLowerCase();
+  const type = (file.type || "").toLowerCase();
+  if (
+    type === "image/heic" ||
+    type === "image/heif" ||
+    name.endsWith(".heic") ||
+    name.endsWith(".heif")
+  ) {
+    return "contribution.upload.error.heic";
+  }
+  // Empty type is common on some Android picks; the backend sniffs magic bytes.
+  if (type && !RECEIPT_MIME_OK.has(type)) {
+    return "contribution.upload.error.format";
+  }
+  return null;
+};
 
 const CopyValue = ({ label, value }) => {
   const [copied, setCopied] = useState(false);
@@ -77,9 +104,11 @@ const AccountCard = ({ amount, account }) =>
 const ReceiptUpload = ({ onUploaded }) => {
   const inputRef = useRef(null);
   const [file, setFile] = useState(null);
+  const [localError, setLocalError] = useState(null);
 
   const afterLoad = useCallback(() => {
     setFile(null);
+    setLocalError(null);
     if (inputRef.current) inputRef.current.value = "";
     onUploaded();
   }, [onUploaded]);
@@ -100,7 +129,11 @@ const ReceiptUpload = ({ onUploaded }) => {
         type="file"
         accept={RECEIPT_ACCEPT}
         className="text-sm mb-2 block"
-        onChange={(e) => setFile(e.target.files?.[0] || null)}
+        onChange={(e) => {
+          const next = e.target.files?.[0] || null;
+          setFile(next);
+          setLocalError(next ? receiptClientError(next) : null);
+        }}
       />
       <p className="text-xs text-gray-500 mb-3">
         <I18N id="contribution.upload.help" />
@@ -108,8 +141,13 @@ const ReceiptUpload = ({ onUploaded }) => {
       <Button
         sm
         type="button"
-        disabled={!file || sending}
+        disabled={!file || sending || Boolean(localError)}
         onClick={() => {
+          const clientError = receiptClientError(file);
+          if (clientError) {
+            setLocalError(clientError);
+            return;
+          }
           const formData = new FormData();
           formData.append("file", file);
           sendReceipt({ params: formData });
@@ -117,7 +155,7 @@ const ReceiptUpload = ({ onUploaded }) => {
       >
         <I18N id="contribution.upload.btn" />
       </Button>
-      <ErrorAlert error={error} />
+      <ErrorAlert error={localError || error} />
       <LoadingBox loading={sending} transparent min />
     </div>
   );

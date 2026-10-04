@@ -18,16 +18,27 @@ const handlePromise = (promise) =>
   promise
     .then((response) => {
       if (response.ok) return [null, response, response.data];
-      return [{ error: true, data: response.data }, response, response.data];
+      // Keep problem/status: resolveApiErrorMessage uses them for network/
+      // timeout copy instead of the generic "error.General".
+      return [
+        {
+          error: true,
+          data: response.data,
+          problem: response.problem,
+          status: response.status,
+        },
+        response,
+        response.data,
+      ];
     })
     .catch((error) => Promise.resolve([error, { ok: false }, null]));
 
 const service = ({ method, pathRequest, params }) => {
-  // The client defaults to a JSON Content-Type, which makes axios serialize
-  // FormData to JSON (files become {}). Override it so file uploads go multipart.
+  // Default JSON Content-Type makes axios serialize FormData to JSON (files
+  // become {}). Clear it so the browser sets multipart with the boundary.
   const config =
     params instanceof FormData
-      ? { headers: { "Content-Type": "multipart/form-data" } }
+      ? { headers: { "Content-Type": undefined } }
       : undefined;
 
   switch (method) {
