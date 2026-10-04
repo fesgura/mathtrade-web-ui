@@ -9,6 +9,7 @@ export const GameContext = createContext({
   showAsIgnored: false,
   setShowAsIgnored: (_value?: any) => {},
   setBanId: (_value?: any) => {},
+  setFavoriteId: (_value?: any) => {},
   setUpdatedValue: (_value?: any) => {},
   wantGroup: null,
 });
@@ -18,11 +19,16 @@ export const GameContextProvider = ({ gameRaw = null, children = null }) => {
 
   const [showAsIgnored, setShowAsIgnored] = useState(false);
   const [banIdOverride, setBanIdOverride] = useState(undefined);
+  // FavoriteButton remounts when the game card collapses/expands (MD ↔ XL).
+  // Keep the toggled id here so the remounted button doesn't fall back to
+  // the stale favorite_id on gameRaw.
+  const [favoriteIdOverride, setFavoriteIdOverride] = useState(undefined);
   const [updatedValue, setUpdatedValue] = useState(null);
 
   useEffect(() => {
     setShowAsIgnored(false);
     setBanIdOverride(undefined);
+    setFavoriteIdOverride(undefined);
   }, [gameRaw]);
 
   const game = useMemo(() => {
@@ -66,12 +72,15 @@ export const GameContextProvider = ({ gameRaw = null, children = null }) => {
       // placeholder (MAT-120).
       itemCount: items?.length ?? 0,
       ban_id: banIdOverride !== undefined ? banIdOverride : ban_id,
-      favorite_id: favorite_id ?? null,
+      favorite_id:
+        favoriteIdOverride !== undefined
+          ? favoriteIdOverride
+          : (favorite_id ?? null),
       notGame,
       value: value || updatedValue,
       isSameBGGId,
     };
-  }, [gameRaw, updatedValue, banIdOverride]);
+  }, [gameRaw, updatedValue, banIdOverride, favoriteIdOverride]);
 
   const wantGroup = useMemo(() => {
     if (!myWants?.length) {
@@ -92,6 +101,7 @@ export const GameContextProvider = ({ gameRaw = null, children = null }) => {
         showAsIgnored,
         setShowAsIgnored,
         setBanId: setBanIdOverride,
+        setFavoriteId: setFavoriteIdOverride,
         setUpdatedValue,
         wantGroup,
       }}

@@ -19,6 +19,7 @@ export const ItemContext = createContext({
   showAsIgnored: false,
   setShowAsIgnored: (_value) => {},
   setBanId: (_value) => {},
+  setFavoriteId: (_value) => {},
   //
   wantGroup: null,
   itemTag: null,
@@ -39,6 +40,14 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
 
   const setBanId = useCallback((id) => {
     setItemLoaded((old) => (old ? { ...old, ban_id: id } : old));
+  }, []);
+
+  // Same idea as setBanId: FavoriteButton lives in both the collapsed (MD)
+  // and expanded (XL) card, which remount on toggle. Without writing the
+  // new id into itemLoaded, the remounted button re-reads the stale
+  // favorite_id from the list payload and looks unfavorited.
+  const setFavoriteId = useCallback((id) => {
+    setItemLoaded((old) => (old ? { ...old, favorite_id: id } : old));
   }, []);
 
   /* RELOAD ITEM ***************************/
@@ -211,6 +220,7 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
         showAsIgnored,
         setShowAsIgnored,
         setBanId,
+        setFavoriteId,
         //
         wantGroup,
         otherWantGroups,
