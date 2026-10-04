@@ -236,12 +236,20 @@
   }
 }
 
+/* Keep default top tooltips on-screen on narrow viewports: grow from the
+   trigger's left edge instead of aligning to its right (that clipped long
+   notes when the trigger sat mid-card). */
 @media screen and (max-width: 600px) {
   [data-tooltip]:not([data-placement])::before,
   [data-tooltip][data-placement="top"]::before {
-    left: auto;
-    right: 0;
+    left: 0;
+    right: auto;
     transform: translate(0, -0.25rem);
+  }
+  [data-tooltip]:not([data-placement])::after,
+  [data-tooltip][data-placement="top"]::after {
+    left: 0.75rem;
+    transform: translate(0, 0);
   }
 }
 @media screen and (max-width: 1420px) {

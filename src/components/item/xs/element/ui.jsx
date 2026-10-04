@@ -4,7 +4,8 @@ import Chip from "@/components/chip";
 import { ElementContext } from "@/context/element";
 import { useContext } from "react";
 import clsx from "clsx";
-import I18N, { getI18Ntext } from "@/i18n";
+import { getI18Ntext } from "@/i18n";
+import DescriptionNote from "./descriptionNote";
 
 const ElementXSUI = ({ isCombo }) => {
   const { element } = useContext(ElementContext);
@@ -54,14 +55,7 @@ const ElementXSUI = ({ isCombo }) => {
           </Chip>
         ) : null}
         {comment && comment?.length > 0 ? (
-          <div
-            className="text-gray-400 font-bold cursor-default text-[10px] leading-none underline"
-            data-tooltip={comment}
-          >
-            <I18N
-              id={`item.xs.element.description${isCombo ? ".min" : ""}`}
-            />
-          </div>
+          <DescriptionNote comment={comment} isCombo={isCombo} />
         ) : null}
       </div>
     </div>
