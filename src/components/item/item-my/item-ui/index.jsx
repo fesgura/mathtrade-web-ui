@@ -49,14 +49,19 @@ const ItemUI = ({ tourAnchor = undefined }) => {
         isCombo
           ? clsx("rounded-lg p-3 shadow-md", cardKindBorderClass("combo"))
           : showsAsPlainCard
-          ? "rounded-lg p-3 border border-stroke"
+          ? // No p-3 here: padding inset the grey element fill from the
+            // outer border (white gutter). Pad only the add-combo footer.
+            "rounded-lg border border-stroke"
           : null
       )}
     >
       {headerOutside ? <HeaderItem /> : null}
       {staffObservation ? (
         <div
-          className="mb-3 min-w-0 max-w-full rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-950 break-words"
+          className={clsx(
+            "min-w-0 max-w-full rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-950 break-words",
+            showsAsPlainCard ? "m-3" : "mb-3"
+          )}
           role="status"
         >
           <p className="font-semibold">
@@ -74,6 +79,7 @@ const ItemUI = ({ tourAnchor = undefined }) => {
             <ElementMyItem
               key={element.id}
               element={element}
+              bordered={!showsAsPlainCard}
               header={
                 headerOutside || k > 0 ? null : (
                   // No bottom margin: inside the card the content column
@@ -85,9 +91,11 @@ const ItemUI = ({ tourAnchor = undefined }) => {
           );
         })}
         {showsAddElement ? (
-          <Dynamic h={100}>
-            <AddElementToMyItem />
-          </Dynamic>
+          <div className={clsx(showsAsPlainCard && "px-3 pb-3")}>
+            <Dynamic h={100}>
+              <AddElementToMyItem />
+            </Dynamic>
+          </div>
         ) : null}
       </div>
     </article>

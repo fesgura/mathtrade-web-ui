@@ -10,16 +10,24 @@ const ElementMyItem = ({
   forAddElement = false,
   onCancel = undefined,
   header = null,
+  // Yo ofrezco plain card: the article already draws the outer stroke, so
+  // skip this border or the tint sits behind a double frame.
+  bordered = true,
 }: {
   element?: any;
   forAddElement?: boolean;
   onCancel?: () => void;
   header?: ReactNode;
+  bordered?: boolean;
 }) => {
   return (
     <ElementWrapperInside
+      // Unpadded so ElementView's tint fills the card edge. The old
+      // p-4 + ElementView -m-4 cancel was clipped by overflow-x-hidden
+      // on cardSurfaceClass and left a white gutter inside the border.
+      padded={false}
+      bordered={forAddElement ? true : bordered}
       className={clsx(
-        "shadow-md",
         forAddElement ? "border-4 border-dashed border-want" : null
       )}
     >
