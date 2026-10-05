@@ -9,13 +9,21 @@ export const GotoTopContextProvider = ({ children }) => {
   const topRef = useRef(null);
 
   const gotoTop = useCallback(() => {
-    if (window && topRef && topRef.current) {
-      const rect = topRef.current.getBoundingClientRect();
+    if (!topRef.current) return;
 
-      const top = (window?.scrollY || 0) + (rect?.y || 0) - 44;
-
-      window.scrollTo({ top, left: 0, behavior: "smooth" });
+    // Mobile mathtrade layout scrolls the content column, not the window.
+    const scroller = document.querySelector("[data-bug-report-capture]");
+    if (scroller instanceof HTMLElement) {
+      const scrollerRect = scroller.getBoundingClientRect();
+      const refRect = topRef.current.getBoundingClientRect();
+      const top = scroller.scrollTop + (refRect.top - scrollerRect.top);
+      scroller.scrollTo({ top: Math.max(0, top), left: 0, behavior: "smooth" });
+      return;
     }
+
+    const rect = topRef.current.getBoundingClientRect();
+    const top = (window.scrollY || 0) + (rect.y || 0);
+    window.scrollTo({ top: Math.max(0, top), left: 0, behavior: "smooth" });
   }, []);
 
   return (

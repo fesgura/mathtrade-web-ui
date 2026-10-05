@@ -19,14 +19,16 @@ export default function MathTradeLayout({ children }: { children: ReactNode }) {
       <PrivateEnvironmentNoSSR>
         <PageContextProvider>
         <TourContextProvider>
-          <div className="lg:flex">
+          {/* Mobile: shell is exactly the viewport; bottom padding reserves the
+              fixed TabBar so the content column's scrollport is the band above
+              it. Sticky list headers then stick within that middle band.
+              Desktop: unchanged row + min-height page column. */}
+          <div className="lg:flex max-lg:flex max-lg:flex-col max-lg:h-dvh max-lg:max-h-dvh max-lg:overflow-hidden max-lg:box-border max-lg:pb-[var(--mt-tabbar-h)]">
             <Sidebar />
             <TabBar />
-            {/* Mobile: room for the fixed TabBar under the footer (which flows
-                after the content there). Desktop: room for the pinned footer. */}
             <div
               data-bug-report-capture=""
-              className="relative w-full max-w-full min-w-0 min-h-screen pb-[calc(4.5rem+env(safe-area-inset-bottom))] lg:pb-20 lg:flex-1"
+              className="relative w-full max-w-full min-w-0 max-lg:flex-1 max-lg:min-h-0 max-lg:overflow-y-auto max-lg:overscroll-y-contain lg:min-h-screen lg:pb-20 lg:flex-1"
             >
               <a id="a-top" />
               <AdvSolidario />

@@ -1,3 +1,9 @@
+:root {
+  // Mobile bottom TabBar (icon + up to 2 label lines + safe area). Shared by
+  // the mathtrade content column, MoreSheet, and other overlays that sit above it.
+  --mt-tabbar-h: calc(3.5rem + env(safe-area-inset-bottom, 0px));
+}
+
 body {
   max-width: 100% !important;
   overflow-x: hidden !important;

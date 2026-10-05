@@ -24,8 +24,7 @@ type MoreSheetProps = {
 // Sit above the tab bar so primary tabs stay tappable. No transform: the
 // calendar/help/account panels use position:fixed and a transform here
 // would trap and clip them inside the sheet.
-const aboveTabBar =
-  "bottom-[calc(3.5rem+env(safe-area-inset-bottom,0px))]";
+const aboveTabBar = "bottom-[var(--mt-tabbar-h)]";
 
 const MoreSheet = ({
   open,
@@ -61,7 +60,7 @@ const MoreSheet = ({
         aria-modal={open}
         aria-labelledby="mobile-more-sheet-title"
         className={clsx(
-          "absolute left-0 right-0 bottom-0 h-auto max-h-[min(85dvh,calc(100dvh-4.5rem))] overflow-y-auto bg-white rounded-t-2xl pb-3 shadow-[0_-8px_32px_rgba(0,0,0,0.3)] transition-[opacity,visibility]",
+          "absolute left-0 right-0 bottom-0 h-auto max-h-[min(85dvh,calc(100dvh-var(--mt-tabbar-h)))] overflow-y-auto bg-white rounded-t-2xl pb-3 shadow-[0_-8px_32px_rgba(0,0,0,0.3)] transition-[opacity,visibility]",
           open ? "opacity-100 visible" : "opacity-0 invisible"
         )}
       >
