@@ -2,6 +2,7 @@
 import { useMemo, useContext } from "react";
 import { PageContext } from "@/context/page";
 import { getI18Ntext } from "@/i18n";
+import { getBggTaxonomyLabel } from "@/i18n/getBggTaxonomyLabel";
 import { useOptions } from "@/store";
 import {
   dependencyChipsFromCounts,
@@ -49,11 +50,31 @@ const useFilterGames = () => {
     if (Array.isArray(filters.dependency)) {
       filtersProc.dependency = filters.dependency.join(",");
     }
+    if (Array.isArray(filters.best_players)) {
+      filtersProc.best_players = filters.best_players.join(",");
+    }
+    if (Array.isArray(filters.players)) {
+      filtersProc.players = filters.players.join(",");
+    }
+    if (Array.isArray(filters.category)) {
+      filtersProc.category = filters.category.join(",");
+    }
+    if (Array.isArray(filters.mechanic)) {
+      filtersProc.mechanic = filters.mechanic.join(",");
+    }
 
     return filtersProc;
   }, [filters]);
 
-  const { typeList, banOptions, dependencyList } = useMemo(() => {
+  const {
+    typeList,
+    banOptions,
+    dependencyList,
+    bestPlayersList,
+    playersList,
+    categoryList,
+    mechanicList,
+  } = useMemo(() => {
     const typeList = (() => {
       const li = [
         { value: "1", text: getI18Ntext("filter.Type.Game") },
@@ -71,6 +92,37 @@ const useFilterGames = () => {
       }
       return li;
     })();
+
+    const bestPlayersList = (() => {
+      const counts = filterData?.best_players || {};
+      return Object.keys(counts)
+        .map((value) => ({
+          value,
+          text: `${value} (${counts[value]})`,
+          num: counts[value],
+        }))
+        .filter(({ num }) => num > 0)
+        .sort((a, b) => Number(a.value) - Number(b.value));
+    })();
+
+    const playersList = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({
+      value: `${n}`,
+      text: `${n}`,
+    }));
+
+    const categoryList = (filterData?.categories || []).map(
+      (row: { bgg_id: number; name: string; count: number }) => ({
+        value: `${row.bgg_id}`,
+        text: `${getBggTaxonomyLabel("category", row)} (${row.count})`,
+      })
+    );
+
+    const mechanicList = (filterData?.mechanisms || []).map(
+      (row: { bgg_id: number; name: string; count: number }) => ({
+        value: `${row.bgg_id}`,
+        text: `${getBggTaxonomyLabel("mechanic", row)} (${row.count})`,
+      })
+    );
 
     return {
       typeList,
@@ -90,6 +142,10 @@ const useFilterGames = () => {
       ],
       dependencyList:
         dependencyChipsFromCounts(filterData?.dependency) || dependencyOptions,
+      bestPlayersList,
+      playersList,
+      categoryList,
+      mechanicList,
     };
   }, [filterData]);
 
@@ -98,6 +154,10 @@ const useFilterGames = () => {
     typeList,
     banOptions,
     dependencyList,
+    bestPlayersList,
+    playersList,
+    categoryList,
+    mechanicList,
   };
 };
 

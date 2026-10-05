@@ -18,6 +18,8 @@ import {
 import useBGGdata from "@/components/bggInfo/useBGGdata";
 import BGGratings from "@/components/bggInfo/ratings";
 import BGGlink from "@/components/bggInfo/bggLink";
+import BGGPlayers from "@/components/bggInfo/players";
+import TaxonomyDisclosure from "@/components/bggInfo/taxonomyDisclosure";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
 import ItemNoBGG from "@/components/game/game-grid/game-grid-ui/itemNoBgg";
 
@@ -53,6 +55,11 @@ const GameUI = ({ wantGroup }) => {
     rateVotes,
     rank,
     weight,
+    bestPlayers,
+    minPlayers,
+    maxPlayers,
+    categories,
+    mechanisms,
   } = useBGGdata({
     game: gameRaw,
   }) as {
@@ -64,6 +71,11 @@ const GameUI = ({ wantGroup }) => {
     rateVotes: number;
     rank?: number;
     weight: number;
+    bestPlayers: number | null;
+    minPlayers: number | null;
+    maxPlayers: number | null;
+    categories: { bgg_id?: number; name?: string }[];
+    mechanisms: { bgg_id?: number; name?: string }[];
   };
   const showBGGstats = !notGame && isInBGG;
   const filledDots = Math.min(5, Math.max(0, Math.round(weight || 0)));
@@ -130,6 +142,23 @@ const GameUI = ({ wantGroup }) => {
                 </div>
                 {titleLink ? <BGGlink href={titleLink} className="ml-auto" /> : null}
               </div>
+            ) : null}
+
+            {showBGGstats ? (
+              <div className="flex flex-wrap gap-1.5 items-center min-w-0 max-w-full">
+                <BGGPlayers
+                  bestPlayers={bestPlayers}
+                  minPlayers={minPlayers}
+                  maxPlayers={maxPlayers}
+                />
+              </div>
+            ) : null}
+
+            {showBGGstats ? (
+              <TaxonomyDisclosure
+                categories={categories}
+                mechanisms={mechanisms}
+              />
             ) : null}
 
             {showBGGstats ? (

@@ -30,6 +30,10 @@ const FiltersForItems = () => {
     locationList,
     languageList,
     dependencyList,
+    bestPlayersList,
+    playersList,
+    categoryList,
+    mechanicList,
   } = useFilterItems();
   const applyToggle = useApplyToggleFilter("item");
 
@@ -222,6 +226,58 @@ const FiltersForItems = () => {
             <Label text="filter.Weight" name="weight" size="sm" />
             <RangeTwo data={data} name="weight" min={1} max={5} />
           </InputContainer>
+
+          {bestPlayersList.length ? (
+            <div>
+              <div className="text-xs font-semibold text-gray-500 mb-1.5">
+                <I18N id="filter.BestPlayers" />
+              </div>
+              <OptionChips
+                filterType="item"
+                name="best_players"
+                options={bestPlayersList}
+                multiple
+              />
+            </div>
+          ) : null}
+
+          <div>
+            <div className="text-xs font-semibold text-gray-500 mb-1.5">
+              <I18N id="filter.Players" />
+            </div>
+            <OptionChips
+              filterType="item"
+              name="players"
+              options={playersList}
+              multiple
+            />
+          </div>
+
+          {categoryList.length ? (
+            <InputContainer className="mb-0">
+              <Label text="filter.Categories" name="category" size="sm" />
+              <Select
+                data={data}
+                name="category"
+                options={categoryList}
+                multiple
+                size="sm"
+              />
+            </InputContainer>
+          ) : null}
+
+          {mechanicList.length ? (
+            <InputContainer className="mb-0">
+              <Label text="filter.Mechanisms" name="mechanic" size="sm" />
+              <Select
+                data={data}
+                name="mechanic"
+                options={mechanicList}
+                multiple
+                size="sm"
+              />
+            </InputContainer>
+          ) : null}
         </div>
       </details>
     </>
