@@ -146,7 +146,11 @@ const ElementView = ({
   return (
     <div
       className={clsx(
-        "relative -m-4 flex-1 flex rounded-lg",
+        // Bleed into ElementWrapperOuter p-4 (ludoteca). Skip when the
+        // parent is already unpadded (my-offer ElementMyItem) — -m-4
+        // plus overflow-x-hidden on the wrapper clips into a white gutter.
+        "relative flex-1 flex rounded-lg",
+        insideItem ? null : "-m-4",
         cardSurfaceClass,
         isRow ? "flex-row" : "flex-col",
         cardKindBorderClass(cardKind)

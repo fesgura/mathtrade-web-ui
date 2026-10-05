@@ -32,10 +32,9 @@ const Chip = ({
   tone?: keyof typeof TONES;
   placement?: "top" | "bottom" | "left" | "right" | "";
 }) => {
-  // Tooltip lives on this wrapper, not on the truncated pill. Tailwind
-  // `truncate` is overflow:hidden — the ::before bubble animates from inside
-  // the chip and then sits above it, so the same node clipped the tooltip
-  // the instant it left the pill (a one-frame flash).
+  // Tooltip attribute lives on this wrapper, not on the truncated pill.
+  // Tailwind `truncate` is overflow:hidden — keeping data-tooltip off that
+  // node avoids clipping the trigger; the bubble itself is portaled.
   return (
     <div
       className={clsx(
