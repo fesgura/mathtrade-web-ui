@@ -182,15 +182,12 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
           ) : null}
 
           {showBGGstats ? (
-            <BGGPlayers
-              bestPlayers={bestPlayers}
-              minPlayers={minPlayers}
-              maxPlayers={maxPlayers}
-            />
-          ) : null}
-
-          {showBGGstats ? (
-            <div className="flex flex-wrap gap-1.5">
+            <div className="flex flex-wrap gap-1.5 items-center min-w-0 max-w-full">
+              <BGGPlayers
+                bestPlayers={bestPlayers}
+                minPlayers={minPlayers}
+                maxPlayers={maxPlayers}
+              />
               <Chip tooltip={getI18Ntext("element.BGG.dependency")}>
                 {dependency}
               </Chip>

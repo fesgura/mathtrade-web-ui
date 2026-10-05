@@ -166,11 +166,16 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
             ) : null}
 
             {showBGGstats ? (
-              <BGGPlayers
-                bestPlayers={bestPlayers}
-                minPlayers={minPlayers}
-                maxPlayers={maxPlayers}
-              />
+              <div className="flex flex-wrap gap-1.5 items-center min-w-0 max-w-full">
+                <BGGPlayers
+                  bestPlayers={bestPlayers}
+                  minPlayers={minPlayers}
+                  maxPlayers={maxPlayers}
+                />
+                <Chip tooltip={getI18Ntext("element.BGG.dependency")}>
+                  {dependency}
+                </Chip>
+              </div>
             ) : null}
 
             {showBGGstats ? (
@@ -178,14 +183,6 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
                 categories={categories}
                 mechanisms={mechanisms}
               />
-            ) : null}
-
-            {showBGGstats ? (
-              <div className="flex flex-wrap gap-1.5">
-                <Chip tooltip={getI18Ntext("element.BGG.dependency")}>
-                  {dependency}
-                </Chip>
-              </div>
             ) : null}
 
             {showBGGstats ? (

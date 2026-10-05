@@ -43,8 +43,10 @@ const Players = ({
           ? `≤${maxPlayers}`
           : null;
 
+  // Own flex row: callers often mount this inside a flex-col card body.
+  // A fragment would make each Chip a column item and stack them.
   return (
-    <>
+    <div className="flex flex-wrap gap-1.5 items-center min-w-0 max-w-full">
       {hasBest ? (
         <Chip tooltip={getI18Ntext("element.BGG.bestPlayers.help")}>
           <I18N id="element.BGG.bestPlayers" /> {bestPlayers}
@@ -55,7 +57,7 @@ const Players = ({
           {range}
         </Chip>
       ) : null}
-    </>
+    </div>
   );
 };
 

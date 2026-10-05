@@ -145,11 +145,13 @@ const GameUI = ({ wantGroup }) => {
             ) : null}
 
             {showBGGstats ? (
-              <BGGPlayers
-                bestPlayers={bestPlayers}
-                minPlayers={minPlayers}
-                maxPlayers={maxPlayers}
-              />
+              <div className="flex flex-wrap gap-1.5 items-center min-w-0 max-w-full">
+                <BGGPlayers
+                  bestPlayers={bestPlayers}
+                  minPlayers={minPlayers}
+                  maxPlayers={maxPlayers}
+                />
+              </div>
             ) : null}
 
             {showBGGstats ? (
