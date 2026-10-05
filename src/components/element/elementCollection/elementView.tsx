@@ -25,6 +25,7 @@ import { getI18Ntext } from "@/i18n";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
 import { boxSizesValues, boxSizeIdToReview } from "@/config/boxSizes";
 import clsx from "clsx";
+import LanguagePills from "@/components/chip/languagePills";
 
 const META_TEXT = "text-caption text-gray-700";
 const TAG_PILL =
@@ -71,6 +72,7 @@ const ElementView = ({
     publisher,
     publisherLink,
     language,
+    languageRaw,
     notGame,
     offered,
     box_size,
@@ -244,7 +246,7 @@ const ElementView = ({
         ) : null}
 
         <div className="flex flex-wrap gap-1.5 min-w-0 max-w-full">
-          {language ? <span className={TAG_PILL}>{language}</span> : null}
+          <LanguagePills languageRaw={languageRaw} language={language} />
           {showBGGstats ? <span className={TAG_PILL}>{dependency}</span> : null}
           {boxSize ? (
             <span className={clsx(TAG_PILL, "inline-flex items-center gap-1")}>
