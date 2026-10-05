@@ -2,6 +2,7 @@
 import { useStore, useOptions } from "@/store";
 import { useContext, useMemo, useCallback, useEffect } from "react";
 import { getI18Ntext } from "@/i18n";
+import { getBggTaxonomyLabel } from "@/i18n/getBggTaxonomyLabel";
 import { boxStatusList, componentsStatusList } from "@/config/statusTypes";
 import { languagesOptions } from "@/config";
 import {
@@ -242,13 +243,13 @@ const useFiltersItems = () => {
       categoryList: (filterData?.categories || []).map(
         (row: { bgg_id: number; name: string; count: number }) => ({
           value: `${row.bgg_id}`,
-          text: `${row.name} (${row.count})`,
+          text: `${getBggTaxonomyLabel("category", row)} (${row.count})`,
         })
       ),
       mechanicList: (filterData?.mechanisms || []).map(
         (row: { bgg_id: number; name: string; count: number }) => ({
           value: `${row.bgg_id}`,
-          text: `${row.name} (${row.count})`,
+          text: `${getBggTaxonomyLabel("mechanic", row)} (${row.count})`,
         })
       ),
     };

@@ -4,6 +4,7 @@ import { useOptions, useStore } from "@/store";
 import { PageContext } from "@/context/page";
 import { GotoTopContext } from "@/context/goto-top";
 import { getI18Ntext } from "@/i18n";
+import { getBggTaxonomyLabel } from "@/i18n/getBggTaxonomyLabel";
 import languagesOptions from "@/config/languagesOptions";
 import { boxStatusList, componentsStatusList } from "@/config/statusTypes";
 import {
@@ -185,11 +186,16 @@ const ActiveFilterChips = ({ type = "item" }: { type?: "item" | "game" }) => {
             : getI18Ntext("filter.Mechanisms");
         values.filter(Boolean).forEach((item) => {
           const row = catalog.find(
-            (entry: { bgg_id: number }) => `${entry.bgg_id}` === `${item}`
+            (entry: { bgg_id: number; name?: string }) =>
+              `${entry.bgg_id}` === `${item}`
+          );
+          const labelName = getBggTaxonomyLabel(
+            key === "category" ? "category" : "mechanic",
+            row || { bgg_id: Number(item) }
           );
           next.push({
             key: `${key}-${item}`,
-            label: `${title}: ${row?.name || item}`,
+            label: `${title}: ${labelName || item}`,
             clear: {
               [key]:
                 values.length > 1

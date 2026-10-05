@@ -2,6 +2,7 @@
 import { useMemo, useContext } from "react";
 import { PageContext } from "@/context/page";
 import { getI18Ntext } from "@/i18n";
+import { getBggTaxonomyLabel } from "@/i18n/getBggTaxonomyLabel";
 import { useOptions } from "@/store";
 import {
   dependencyChipsFromCounts,
@@ -112,14 +113,14 @@ const useFilterGames = () => {
     const categoryList = (filterData?.categories || []).map(
       (row: { bgg_id: number; name: string; count: number }) => ({
         value: `${row.bgg_id}`,
-        text: `${row.name} (${row.count})`,
+        text: `${getBggTaxonomyLabel("category", row)} (${row.count})`,
       })
     );
 
     const mechanicList = (filterData?.mechanisms || []).map(
       (row: { bgg_id: number; name: string; count: number }) => ({
         value: `${row.bgg_id}`,
-        text: `${row.name} (${row.count})`,
+        text: `${getBggTaxonomyLabel("mechanic", row)} (${row.count})`,
       })
     );
 

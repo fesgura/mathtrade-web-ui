@@ -1,6 +1,7 @@
 import Chip from "@/components/chip";
 import Icon from "@/components/icon";
 import I18N from "@/i18n";
+import { getBggTaxonomyLabel } from "@/i18n/getBggTaxonomyLabel";
 
 type TaxonomyItem = { bgg_id?: number; name?: string };
 
@@ -15,8 +16,8 @@ const TaxonomyDisclosure = ({
   mechanisms,
   className = "",
 }: TaxonomyDisclosureProps) => {
-  const cats = (categories || []).filter((c) => c?.name);
-  const mechs = (mechanisms || []).filter((m) => m?.name);
+  const cats = (categories || []).filter((c) => c?.name || c?.bgg_id != null);
+  const mechs = (mechanisms || []).filter((m) => m?.name || m?.bgg_id != null);
   if (!cats.length && !mechs.length) {
     return null;
   }
@@ -43,7 +44,9 @@ const TaxonomyDisclosure = ({
             </div>
             <div className="flex flex-wrap gap-1.5">
               {cats.map((c) => (
-                <Chip key={c.bgg_id ?? c.name}>{c.name}</Chip>
+                <Chip key={c.bgg_id ?? c.name}>
+                  {getBggTaxonomyLabel("category", c)}
+                </Chip>
               ))}
             </div>
           </div>
@@ -55,7 +58,9 @@ const TaxonomyDisclosure = ({
             </div>
             <div className="flex flex-wrap gap-1.5">
               {mechs.map((m) => (
-                <Chip key={m.bgg_id ?? m.name}>{m.name}</Chip>
+                <Chip key={m.bgg_id ?? m.name}>
+                  {getBggTaxonomyLabel("mechanic", m)}
+                </Chip>
               ))}
             </div>
           </div>
