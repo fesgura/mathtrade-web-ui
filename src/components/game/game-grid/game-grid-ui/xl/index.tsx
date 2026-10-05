@@ -19,6 +19,8 @@ import {
 import useBGGdata from "@/components/bggInfo/useBGGdata";
 import BGGratings from "@/components/bggInfo/ratings";
 import BGGlink from "@/components/bggInfo/bggLink";
+import BGGPlayers from "@/components/bggInfo/players";
+import TaxonomyDisclosure from "@/components/bggInfo/taxonomyDisclosure";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
 
 const WantButtonGame = lazy(() => import("../wantButtonGame"));
@@ -65,6 +67,11 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
     rank,
     weight,
     dependency,
+    bestPlayers,
+    minPlayers,
+    maxPlayers,
+    categories,
+    mechanisms,
   } = useBGGdata({
     game: gameRaw,
   }) as {
@@ -156,6 +163,21 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
                 </div>
                 {titleLink ? <BGGlink href={titleLink} /> : null}
               </div>
+            ) : null}
+
+            {showBGGstats ? (
+              <BGGPlayers
+                bestPlayers={bestPlayers}
+                minPlayers={minPlayers}
+                maxPlayers={maxPlayers}
+              />
+            ) : null}
+
+            {showBGGstats ? (
+              <TaxonomyDisclosure
+                categories={categories}
+                mechanisms={mechanisms}
+              />
             ) : null}
 
             {showBGGstats ? (

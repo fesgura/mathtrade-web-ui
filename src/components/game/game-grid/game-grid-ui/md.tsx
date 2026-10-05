@@ -19,6 +19,8 @@ import {
 import useBGGdata from "@/components/bggInfo/useBGGdata";
 import BGGratings from "@/components/bggInfo/ratings";
 import BGGlink from "@/components/bggInfo/bggLink";
+import BGGPlayers from "@/components/bggInfo/players";
+import TaxonomyDisclosure from "@/components/bggInfo/taxonomyDisclosure";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
 
 type GameCardData = {
@@ -65,6 +67,11 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
     rank,
     weight,
     dependency,
+    bestPlayers,
+    minPlayers,
+    maxPlayers,
+    categories,
+    mechanisms,
   } = useBGGdata({
     game: gameRaw,
   }) as {
@@ -77,6 +84,11 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
     rank?: number;
     weight: number;
     dependency: string;
+    bestPlayers: number | null;
+    minPlayers: number | null;
+    maxPlayers: number | null;
+    categories: { bgg_id?: number; name?: string }[];
+    mechanisms: { bgg_id?: number; name?: string }[];
   };
   const showBGGstats = !notGame && isInBGG;
   const filledDots = Math.min(5, Math.max(0, Math.round(weight || 0)));
@@ -170,11 +182,26 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
           ) : null}
 
           {showBGGstats ? (
+            <BGGPlayers
+              bestPlayers={bestPlayers}
+              minPlayers={minPlayers}
+              maxPlayers={maxPlayers}
+            />
+          ) : null}
+
+          {showBGGstats ? (
             <div className="flex flex-wrap gap-1.5">
               <Chip tooltip={getI18Ntext("element.BGG.dependency")}>
                 {dependency}
               </Chip>
             </div>
+          ) : null}
+
+          {showBGGstats ? (
+            <TaxonomyDisclosure
+              categories={categories}
+              mechanisms={mechanisms}
+            />
           ) : null}
 
           <div className="mt-auto w-full text-caption text-gray-700 truncate">

@@ -11,6 +11,8 @@ import BadgeType from "@/components/badgeType";
 import useBGGdata from "@/components/bggInfo/useBGGdata";
 import BGGratings from "@/components/bggInfo/ratings";
 import BGGlink from "@/components/bggInfo/bggLink";
+import BGGPlayers from "@/components/bggInfo/players";
+import TaxonomyDisclosure from "@/components/bggInfo/taxonomyDisclosure";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
 import { boxSizesValues, boxSizeIdToReview } from "@/config/boxSizes";
 import clsx from "clsx";
@@ -68,6 +70,11 @@ const ElementComplete = ({
     rank,
     weight,
     dependency,
+    bestPlayers,
+    minPlayers,
+    maxPlayers,
+    categories,
+    mechanisms,
   } = useBGGdata({ game }) as {
     isInBGG?: boolean;
     rate: number;
@@ -152,6 +159,14 @@ const ElementComplete = ({
           </div>
         ) : null}
 
+        {showBGGstats ? (
+          <BGGPlayers
+            bestPlayers={bestPlayers}
+            minPlayers={minPlayers}
+            maxPlayers={maxPlayers}
+          />
+        ) : null}
+
         <div className="flex flex-wrap gap-1.5 min-w-0 max-w-full">
           <StatusChip boxStatus={box_status} componentStatus={component_status} />
           <LanguagePills languageRaw={languageRaw} language={language} />
@@ -171,6 +186,13 @@ const ElementComplete = ({
             </Chip>
           ) : null}
         </div>
+
+        {showBGGstats ? (
+          <TaxonomyDisclosure
+            categories={categories}
+            mechanisms={mechanisms}
+          />
+        ) : null}
 
         <div
           className="mt-auto w-full text-caption text-gray-700"

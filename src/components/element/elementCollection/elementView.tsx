@@ -21,6 +21,8 @@ import {
 import useBGGdata from "@/components/bggInfo/useBGGdata";
 import BGGratings from "@/components/bggInfo/ratings";
 import BGGlink from "@/components/bggInfo/bggLink";
+import BGGPlayers from "@/components/bggInfo/players";
+import TaxonomyDisclosure from "@/components/bggInfo/taxonomyDisclosure";
 import { getI18Ntext } from "@/i18n";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
 import { boxSizesValues, boxSizeIdToReview } from "@/config/boxSizes";
@@ -88,6 +90,11 @@ const ElementView = ({
     rank,
     weight,
     dependency,
+    bestPlayers,
+    minPlayers,
+    maxPlayers,
+    categories,
+    mechanisms,
   } = useBGGdata({ game }) as {
     isInBGG?: boolean;
     rate: number;
@@ -249,6 +256,14 @@ const ElementView = ({
           </div>
         ) : null}
 
+        {showBGGstats ? (
+          <BGGPlayers
+            bestPlayers={bestPlayers}
+            minPlayers={minPlayers}
+            maxPlayers={maxPlayers}
+          />
+        ) : null}
+
         <div className="flex flex-wrap gap-1.5 min-w-0 max-w-full">
           <LanguagePills languageRaw={languageRaw} language={language} />
           {showBGGstats ? <span className={TAG_PILL}>{dependency}</span> : null}
@@ -266,6 +281,13 @@ const ElementView = ({
             </span>
           ) : null}
         </div>
+
+        {showBGGstats ? (
+          <TaxonomyDisclosure
+            categories={categories}
+            mechanisms={mechanisms}
+          />
+        ) : null}
 
         <div
           className={META_TEXT}

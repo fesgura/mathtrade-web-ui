@@ -29,7 +29,7 @@ const ActiveFilterChips = ({ type = "item" }: { type?: "item" | "game" }) => {
   const filters = useMemo(() => storedFilters || {}, [storedFilters]);
   const updateFilters = useOptions((state) => state.updateFilters);
   const { gotoTop } = useContext(GotoTopContext);
-  const { itemTags, users } = useContext(PageContext);
+  const { itemTags, users, filterData } = useContext(PageContext);
   const locations = useStore((state) => state.locations);
   const locationList = useMemo(
     () => (Array.isArray(locations) ? locations : []),
@@ -152,6 +152,55 @@ const ActiveFilterChips = ({ type = "item" }: { type?: "item" | "game" }) => {
         return;
       }
 
+      if (key === "best_players" || key === "players") {
+        const values = Array.isArray(value) ? value : `${value}`.split(",");
+        const title =
+          key === "best_players"
+            ? getI18Ntext("filter.BestPlayers")
+            : getI18Ntext("filter.Players");
+        values.filter(Boolean).forEach((item) => {
+          next.push({
+            key: `${key}-${item}`,
+            label: `${title}: ${item}`,
+            clear: {
+              [key]:
+                values.length > 1
+                  ? values.filter((entry) => `${entry}` !== `${item}`)
+                  : undefined,
+            },
+          });
+        });
+        return;
+      }
+
+      if (key === "category" || key === "mechanic") {
+        const values = Array.isArray(value) ? value : `${value}`.split(",");
+        const catalog =
+          key === "category"
+            ? filterData?.categories || []
+            : filterData?.mechanisms || [];
+        const title =
+          key === "category"
+            ? getI18Ntext("filter.Categories")
+            : getI18Ntext("filter.Mechanisms");
+        values.filter(Boolean).forEach((item) => {
+          const row = catalog.find(
+            (entry: { bgg_id: number }) => `${entry.bgg_id}` === `${item}`
+          );
+          next.push({
+            key: `${key}-${item}`,
+            label: `${title}: ${row?.name || item}`,
+            clear: {
+              [key]:
+                values.length > 1
+                  ? values.filter((entry) => `${entry}` !== `${item}`)
+                  : undefined,
+            },
+          });
+        });
+        return;
+      }
+
       if (key === "box_status") {
         next.push({
           key,
@@ -246,7 +295,7 @@ const ActiveFilterChips = ({ type = "item" }: { type?: "item" | "game" }) => {
     });
 
     return next;
-  }, [filters, itemTags, locationList, users, type]);
+  }, [filters, filterData, itemTags, locationList, users, type]);
 
   const remove = useCallback(
     (clear: Record<string, any>) => {

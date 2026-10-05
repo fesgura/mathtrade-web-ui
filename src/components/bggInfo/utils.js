@@ -69,10 +69,21 @@ export const getStatsOfElement = (element) => {
     dependency,
     dependency_votes,
     rank,
+    best_players,
+    min_players,
+    max_players,
+    categories,
+    mechanisms,
   } = element;
 
   const hasAverage =
     average_rate !== null && average_rate !== undefined && average_rate !== "";
+
+  const toNullableInt = (value) => {
+    if (value === null || value === undefined || value === "") return null;
+    const n = parseInt(value, 10);
+    return Number.isNaN(n) ? null : n;
+  };
 
   return {
     isInBGG: `${bgg_id}` !== noBGGgame.element.bgg_id,
@@ -86,6 +97,11 @@ export const getStatsOfElement = (element) => {
     rank,
     weight: Math.round((weight || 0) * 100) / 100,
     weightVotes: parseInt(weight_votes || 0, 10),
+    bestPlayers: toNullableInt(best_players),
+    minPlayers: toNullableInt(min_players),
+    maxPlayers: toNullableInt(max_players),
+    categories: Array.isArray(categories) ? categories : [],
+    mechanisms: Array.isArray(mechanisms) ? mechanisms : [],
     ...dependencyToData({
       value: dependency || 0,
       votes: dependency_votes || {},
