@@ -10,6 +10,7 @@ import FilterToggleButton from "@/components/filters/filterToggleButton";
 import ActiveFilterChips from "@/components/filters/activeChips";
 import ListToolbar from "@/components/list-toolbar";
 import ListSearch from "@/components/list-toolbar/search";
+import ClearAllScores from "@/components/value/clear-all";
 import { useOptions } from "@/store";
 
 const Header = () => {
@@ -56,6 +57,7 @@ const Header = () => {
       }
       trailing={
         <>
+          <ClearAllScores scope="others" className="" />
           <PageSize type="item" />
           <Pagination type="item" count={count} />
         </>

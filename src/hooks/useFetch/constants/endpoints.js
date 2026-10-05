@@ -50,6 +50,7 @@ const endpoints = {
   GET_ITEM_FROM_HISTORIAL: "api/mathtrades/$[1]/items/$[2]/",
 
   POST_VALUE_ITEMS: "api/mathtrades/$[mathtradeId]/item-values/",
+  POST_CLEAR_VALUE_ITEMS: "api/mathtrades/$[mathtradeId]/item-values/clear/",
 
   // FILTERS
   GET_FILTER_ITEMS: "api/mathtrades/$[mathtradeId]/item-filters/",

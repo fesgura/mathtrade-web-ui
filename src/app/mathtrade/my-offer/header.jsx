@@ -9,6 +9,7 @@ import { useOptions } from "@/store";
 import ListToolbar from "@/components/list-toolbar";
 import ListSearch from "@/components/list-toolbar/search";
 import OptionChips from "@/components/filters/optionChips";
+import ClearAllScores from "@/components/value/clear-all";
 
 const HeaderMyOffer = ({ count }) => {
   const filters_myoffer = useOptions((state) => state.filters_myoffer);
@@ -92,6 +93,7 @@ const HeaderMyOffer = ({ count }) => {
           ]}
         />
       }
+      trailing={<ClearAllScores scope="own" className="" />}
     />
   );
 };
