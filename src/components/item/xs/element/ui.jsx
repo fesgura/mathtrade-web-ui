@@ -1,6 +1,6 @@
 import Thumbnail from "@/components/thumbnail";
 import StatusBadge from "@/components/status-badge";
-import Chip from "@/components/chip";
+import LanguagePills from "@/components/chip/languagePills";
 import { ElementContext } from "@/context/element";
 import { useContext } from "react";
 import clsx from "clsx";
@@ -10,7 +10,7 @@ import DescriptionNote from "./descriptionNote";
 const ElementXSUI = ({ isCombo }) => {
   const { element } = useContext(ElementContext);
 
-  const { title, language, extraData } = element;
+  const { title, language, languageRaw, extraData } = element;
 
   const { box_status, component_status, comment } = extraData;
 
@@ -32,7 +32,7 @@ const ElementXSUI = ({ isCombo }) => {
           </h5>
         </div>
       </div>
-      <div className="flex flex-wrap gap-1 items-center pl-10">
+      <div className="flex flex-wrap gap-1 items-center pl-10 min-w-0 max-w-full">
         <StatusBadge
           status={box_status}
           type="box"
@@ -44,16 +44,15 @@ const ElementXSUI = ({ isCombo }) => {
           min
           label={getI18Ntext("status.label.components")}
         />
-        {language ? (
-          <Chip
-            className={clsx({
-              "max-w-40": !isCombo,
-              "text-[9px] leading-none max-w-20": isCombo,
-            })}
-          >
-            {language}
-          </Chip>
-        ) : null}
+        <LanguagePills
+          languageRaw={languageRaw}
+          language={language}
+          maxVisible={isCombo ? 1 : 2}
+          chipClassName={clsx({
+            "max-w-40": !isCombo,
+            "text-[9px] leading-none max-w-20": isCombo,
+          })}
+        />
         {comment && comment?.length > 0 ? (
           <DescriptionNote comment={comment} isCombo={isCombo} />
         ) : null}

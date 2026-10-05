@@ -4,6 +4,7 @@ import Icon from "@/components/icon";
 import I18N, { getI18Ntext } from "@/i18n";
 import StatusChip from "@/components/status-badge/statusChip";
 import Chip from "@/components/chip";
+import LanguagePills from "@/components/chip/languagePills";
 import { ElementContext } from "@/context/element";
 import { useContext, type ReactNode } from "react";
 import BadgeType from "@/components/badgeType";
@@ -35,6 +36,7 @@ const ElementComplete = ({
     publisher,
     publisherLink,
     language,
+    languageRaw,
     notGame,
     offered,
     box_size,
@@ -47,6 +49,7 @@ const ElementComplete = ({
     publisher?: string | null;
     publisherLink?: string | null;
     language?: string;
+    languageRaw?: string;
     notGame?: boolean;
     offered?: boolean;
     box_size?: number;
@@ -149,9 +152,9 @@ const ElementComplete = ({
           </div>
         ) : null}
 
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-1.5 min-w-0 max-w-full">
           <StatusChip boxStatus={box_status} componentStatus={component_status} />
-          {language ? <Chip>{language}</Chip> : null}
+          <LanguagePills languageRaw={languageRaw} language={language} />
           {showBGGstats ? (
             <Chip tooltip={getI18Ntext("element.BGG.dependency")}>
               {dependency}

@@ -2,7 +2,7 @@ import Thumbnail from "@/components/thumbnail";
 import Icon from "@/components/icon";
 import { getI18Ntext } from "@/i18n";
 import StatusBadge from "@/components/status-badge";
-import Chip from "@/components/chip";
+import LanguagePills from "@/components/chip/languagePills";
 import { ElementContext } from "@/context/element";
 import { useContext } from "react";
 
@@ -13,9 +13,10 @@ type ElementInComboProps = {
 const ElementInCombo = ({ onToggleExpanse }: ElementInComboProps) => {
   const { element } = useContext(ElementContext);
 
-  const { title, language, extraData } = element as {
+  const { title, language, languageRaw, extraData } = element as {
     title: string;
     language?: string;
+    languageRaw?: string;
     extraData: { box_status?: string; component_status?: string };
   };
 
@@ -46,7 +47,7 @@ const ElementInCombo = ({ onToggleExpanse }: ElementInComboProps) => {
             {title}
           </h3>
         </div>
-        <div className="flex flex-wrap gap-1 items-center mt-1 w-full">
+        <div className="flex flex-wrap gap-1 items-center mt-1 w-full min-w-0 max-w-full">
           <StatusBadge
             status={box_status}
             type="box"
@@ -58,7 +59,11 @@ const ElementInCombo = ({ onToggleExpanse }: ElementInComboProps) => {
             min
             label={getI18Ntext("status.label.components")}
           />
-          {language ? <Chip>{language}</Chip> : null}
+          <LanguagePills
+            languageRaw={languageRaw}
+            language={language}
+            maxVisible={1}
+          />
         </div>
       </div>
     </div>
