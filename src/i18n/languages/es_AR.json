@@ -295,6 +295,8 @@
   "element.BGG.votes": "votos",
   "element.BGG.weight": "Complejidad",
   "element.BGG.bestPlayers": "Mejor con",
+  "element.BGG.bestPlayers.help": "Número de jugadores con el que la comunidad de BGG dice que se juega mejor",
+  "element.BGG.playerRange.help": "Rango de jugadores admitido según BGG (caja)",
   "element.BGG.taxonomy": "Categorías y mecanismos",
   "element.BGG.categories": "Categorías",
   "element.BGG.mechanisms": "Mecanismos",

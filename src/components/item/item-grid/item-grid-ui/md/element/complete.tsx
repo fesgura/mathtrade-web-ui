@@ -159,15 +159,14 @@ const ElementComplete = ({
           </div>
         ) : null}
 
-        {showBGGstats ? (
-          <BGGPlayers
-            bestPlayers={bestPlayers}
-            minPlayers={minPlayers}
-            maxPlayers={maxPlayers}
-          />
-        ) : null}
-
         <div className="flex flex-wrap gap-1.5 min-w-0 max-w-full">
+          {showBGGstats ? (
+            <BGGPlayers
+              bestPlayers={bestPlayers}
+              minPlayers={minPlayers}
+              maxPlayers={maxPlayers}
+            />
+          ) : null}
           <StatusChip boxStatus={box_status} componentStatus={component_status} />
           <LanguagePills languageRaw={languageRaw} language={language} />
           {showBGGstats ? (

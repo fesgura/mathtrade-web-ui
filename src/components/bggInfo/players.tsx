@@ -1,24 +1,34 @@
-import I18N from "@/i18n";
+import Chip from "@/components/chip";
+import I18N, { getI18Ntext } from "@/i18n";
 
 type PlayersProps = {
   bestPlayers?: number | null;
   minPlayers?: number | null;
   maxPlayers?: number | null;
-  className?: string;
 };
 
+/**
+ * Player-count pills for the shared card chip row (same Chip tone/sizing as
+ * language / dependency / box size). Renders a fragment so the parent
+ * flex-wrap row can keep all pills together.
+ */
 const Players = ({
   bestPlayers,
   minPlayers,
   maxPlayers,
-  className = "",
 }: PlayersProps) => {
   const hasBest =
-    bestPlayers !== null && bestPlayers !== undefined && !Number.isNaN(bestPlayers);
+    bestPlayers !== null &&
+    bestPlayers !== undefined &&
+    !Number.isNaN(bestPlayers);
   const hasMin =
-    minPlayers !== null && minPlayers !== undefined && !Number.isNaN(minPlayers);
+    minPlayers !== null &&
+    minPlayers !== undefined &&
+    !Number.isNaN(minPlayers);
   const hasMax =
-    maxPlayers !== null && maxPlayers !== undefined && !Number.isNaN(maxPlayers);
+    maxPlayers !== null &&
+    maxPlayers !== undefined &&
+    !Number.isNaN(maxPlayers);
 
   if (!hasBest && !hasMin && !hasMax) {
     return null;
@@ -34,17 +44,18 @@ const Players = ({
           : null;
 
   return (
-    <div
-      className={`flex flex-wrap items-center gap-x-2 gap-y-0.5 text-caption text-gray-700 ${className}`}
-    >
+    <>
       {hasBest ? (
-        <span>
+        <Chip tooltip={getI18Ntext("element.BGG.bestPlayers.help")}>
           <I18N id="element.BGG.bestPlayers" /> {bestPlayers}
-        </span>
+        </Chip>
       ) : null}
-      {hasBest && range ? <span aria-hidden>·</span> : null}
-      {range ? <span>{range}</span> : null}
-    </div>
+      {range ? (
+        <Chip tooltip={getI18Ntext("element.BGG.playerRange.help")}>
+          {range}
+        </Chip>
+      ) : null}
+    </>
   );
 };
 

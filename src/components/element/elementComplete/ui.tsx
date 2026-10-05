@@ -149,22 +149,14 @@ const ElementCompleteUI = () => {
             </div>
           ) : null}
 
-          {showBGGstats ? (
-            <BGGPlayers
-              bestPlayers={bestPlayers}
-              minPlayers={minPlayers}
-              maxPlayers={maxPlayers}
-            />
-          ) : null}
-
-          {showBGGstats ? (
-            <TaxonomyDisclosure
-              categories={categories}
-              mechanisms={mechanisms}
-            />
-          ) : null}
-
           <div className="flex flex-wrap gap-1.5 min-w-0 max-w-full">
+            {showBGGstats ? (
+              <BGGPlayers
+                bestPlayers={bestPlayers}
+                minPlayers={minPlayers}
+                maxPlayers={maxPlayers}
+              />
+            ) : null}
             <StatusChip
               boxStatus={box_status}
               componentStatus={component_status}
@@ -186,6 +178,13 @@ const ElementCompleteUI = () => {
               </Chip>
             ) : null}
           </div>
+
+          {showBGGstats ? (
+            <TaxonomyDisclosure
+              categories={categories}
+              mechanisms={mechanisms}
+            />
+          ) : null}
 
           <div
             className="mt-auto w-full text-caption text-gray-700"

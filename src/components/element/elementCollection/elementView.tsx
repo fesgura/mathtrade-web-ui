@@ -256,15 +256,14 @@ const ElementView = ({
           </div>
         ) : null}
 
-        {showBGGstats ? (
-          <BGGPlayers
-            bestPlayers={bestPlayers}
-            minPlayers={minPlayers}
-            maxPlayers={maxPlayers}
-          />
-        ) : null}
-
         <div className="flex flex-wrap gap-1.5 min-w-0 max-w-full">
+          {showBGGstats ? (
+            <BGGPlayers
+              bestPlayers={bestPlayers}
+              minPlayers={minPlayers}
+              maxPlayers={maxPlayers}
+            />
+          ) : null}
           <LanguagePills languageRaw={languageRaw} language={language} />
           {showBGGstats ? <span className={TAG_PILL}>{dependency}</span> : null}
           {boxSize ? (
