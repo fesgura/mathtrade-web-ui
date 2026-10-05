@@ -74,22 +74,7 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
     mechanisms,
   } = useBGGdata({
     game: gameRaw,
-  }) as {
-    isInBGG?: boolean;
-    rate: number;
-    rateColor: string;
-    averageRate: number | null;
-    averageRateColor: string;
-    rateVotes: number;
-    rank?: number;
-    weight: number;
-    dependency: string;
-    bestPlayers: number | null;
-    minPlayers: number | null;
-    maxPlayers: number | null;
-    categories: { bgg_id?: number; name?: string }[];
-    mechanisms: { bgg_id?: number; name?: string }[];
-  };
+  });
   const showBGGstats = !notGame && isInBGG;
   const filledDots = Math.min(5, Math.max(0, Math.round(weight || 0)));
   const cardKind = resolveGameKind({ notGame, typeNum });
