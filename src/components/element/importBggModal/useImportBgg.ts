@@ -1,8 +1,11 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import useFetch from "@/hooks/useFetch";
 
 const useImportBgg = ({ isOpen = false, onClose, onSuccess }) => {
   const [selectedGames, setSelectedGames] = useState<Set<number>>(new Set());
+  // Sync disabled=loadingPost still allows a double-click before React
+  // re-renders; a ref blocks the second POST in the same tick.
+  const importingRef = useRef(false);
 
   const [getBggCollection, bggCollectionRaw, loadingBgg, errorBgg] = useFetch({
     endpoint: "BGG_GET_GAMES",
@@ -13,16 +16,27 @@ const useImportBgg = ({ isOpen = false, onClose, onSuccess }) => {
     endpoint: "POST_MYCOLLECTION_ELEMENTS",
     method: "POST",
     afterLoad: () => {
+      importingRef.current = false;
       onSuccess?.();
       onClose?.();
     },
+    afterError: () => {
+      importingRef.current = false;
+    },
   });
+
+  useEffect(() => {
+    if (!loadingPost) {
+      importingRef.current = false;
+    }
+  }, [loadingPost]);
 
   // The modal stays mounted: start each opening from scratch, with what is
   // already in the collection fresh (it may have just been imported).
   useEffect(() => {
     if (!isOpen) return;
     setSelectedGames(new Set());
+    importingRef.current = false;
     getBggCollection({ params: { inCollection: true } });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isOpen]);
@@ -43,7 +57,7 @@ const useImportBgg = ({ isOpen = false, onClose, onSuccess }) => {
   }, [bggCollectionRaw]);
 
   const handleImport = useCallback(() => {
-    if (selectedGames.size === 0) return;
+    if (importingRef.current || loadingPost || selectedGames.size === 0) return;
 
     const bggCollection = Array.isArray(bggCollectionRaw) ? bggCollectionRaw : [];
     const gamesToImport = bggCollection.filter(
@@ -63,8 +77,9 @@ const useImportBgg = ({ isOpen = false, onClose, onSuccess }) => {
       box_size: null,
     }));
 
+    importingRef.current = true;
     postElements({ params: payload });
-  }, [bggCollectionRaw, selectedGames, postElements]);
+  }, [bggCollectionRaw, selectedGames, postElements, loadingPost]);
 
   return {
     bggCollection: Array.isArray(bggCollectionRaw) ? bggCollectionRaw : null,
