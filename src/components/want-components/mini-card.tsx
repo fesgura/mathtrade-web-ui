@@ -56,7 +56,7 @@ const WantMiniCard = ({
   return (
     <div
       className={clsx(
-        "relative rounded-lg border border-gray-200 min-w-0 flex flex-col",
+        "relative rounded-lg border border-gray-200 min-w-0 max-w-full w-full overflow-x-hidden flex flex-col",
         fill
           ? "w-full h-full"
           : isAnchor

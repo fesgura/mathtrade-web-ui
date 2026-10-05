@@ -6,6 +6,7 @@ import clsx from "clsx";
 import {
   resolveItemKind,
   cardKindBorderClass,
+  cardSurfaceClass,
 } from "@/components/badgeType/cardKind";
 
 const ItemUI = () => {
@@ -15,7 +16,8 @@ const ItemUI = () => {
   return (
     <div
       className={clsx(
-        "rounded-lg shadow-xl w-full overflow-hidden",
+        "rounded-lg shadow-xl overflow-hidden",
+        cardSurfaceClass,
         cardKindBorderClass(cardKind)
       )}
     >

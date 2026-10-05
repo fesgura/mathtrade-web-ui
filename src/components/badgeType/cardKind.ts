@@ -60,6 +60,12 @@ const CARD_KIND_TINT: Record<CardKind, string> = {
 export const cardKindBorderClass = (kind: CardKind, edge: 4 | 6 = 6) =>
   `${edge === 4 ? "border-l-[4px]" : "border-l-[6px]"} ${CARD_KIND_TINT[kind]}`;
 
+/* Bounds every card chrome: content wraps/clips inside the white card box,
+ * not the page/viewport. Apply on the element that paints the card surface
+ * (wrapper, offer-grid shell, my-offer article, previewer shell, …). */
+export const cardSurfaceClass =
+  "min-w-0 max-w-full w-full overflow-x-hidden";
+
 type WantGroupLike = {
   type?: string;
   game_type?: number;

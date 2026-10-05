@@ -11,7 +11,11 @@ import clsx from "clsx";
 import WantButtonGame from "./wantButtonGame";
 import ItemNoBGG from "./itemNoBgg";
 import BadgeType from "@/components/badgeType";
-import { resolveGameKind, cardKindBorderClass } from "@/components/badgeType/cardKind";
+import {
+  resolveGameKind,
+  cardKindBorderClass,
+  cardSurfaceClass,
+} from "@/components/badgeType/cardKind";
 import useBGGdata from "@/components/bggInfo/useBGGdata";
 import BGGratings from "@/components/bggInfo/ratings";
 import BGGlink from "@/components/bggInfo/bggLink";
@@ -81,7 +85,8 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
   return (
     <div
       className={clsx(
-        "h-full min-w-0 max-w-full rounded-lg transition-opacity relative flex flex-col",
+        "h-full rounded-lg transition-opacity relative flex flex-col",
+        cardSurfaceClass,
         cardKindBorderClass(cardKind),
         {
           "opacity-30 pointer-events-none": showAsIgnored,
@@ -160,7 +165,7 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
                   ))}
                 </div>
               </div>
-              {titleLink ? <BGGlink href={titleLink} className="ml-auto" /> : null}
+              {titleLink ? <BGGlink href={titleLink} /> : null}
             </div>
           ) : null}
 

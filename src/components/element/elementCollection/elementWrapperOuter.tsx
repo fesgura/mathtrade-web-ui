@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cardSurfaceClass } from "@/components/badgeType/cardKind";
 
 const ElementWrapperOuter = ({
   children,
@@ -9,7 +10,7 @@ const ElementWrapperOuter = ({
 }) => {
   return (
     <div
-      className="bg-white p-4 mb-6 rounded-lg shadow-md flex flex-col"
+      className={`bg-white p-4 mb-6 rounded-lg shadow-md flex flex-col ${cardSurfaceClass}`}
       data-tour={tourAnchor}
     >
       {children}

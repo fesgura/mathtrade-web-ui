@@ -25,7 +25,7 @@ const ItemXL = ({
 
   return (
     <div
-      className={clsx("relative transition-opacity pb-5", {
+      className={clsx("relative min-w-0 max-w-full w-full overflow-x-hidden transition-opacity pb-5", {
         "opacity-30 pointer-events-none": showAsIgnored,
         "shadow-[0_0_0_7px_rgba(255,0,0,1)]": ban_id,
       })}

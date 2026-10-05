@@ -145,7 +145,7 @@ const ElementComplete = ({
                 ))}
               </div>
             </div>
-            {titleLink ? <BGGlink href={titleLink} className="ml-auto" /> : null}
+            {titleLink ? <BGGlink href={titleLink} /> : null}
           </div>
         ) : null}
 

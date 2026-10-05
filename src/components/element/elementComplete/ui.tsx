@@ -92,7 +92,7 @@ const ElementCompleteUI = () => {
         </div>
 
         <div className="flex-1 min-w-0 p-4 flex flex-col gap-2.5 items-start">
-          <div className="flex items-center justify-between gap-2 w-full">
+          <div className="flex flex-wrap items-center justify-between gap-2 w-full min-w-0">
             <BadgeType type="item" subtype={typeNum || 1} />
             {offered ? (
               <div className="shrink-0 uppercase font-bold bg-gray-800 text-white text-[10px] px-2.5 py-[3px] rounded-full whitespace-nowrap">
@@ -135,7 +135,7 @@ const ElementCompleteUI = () => {
                 ))}
               </div>
             </div>
-            {titleLink ? <BGGlink href={titleLink} className="ml-auto" /> : null}
+            {titleLink ? <BGGlink href={titleLink} /> : null}
             </div>
           ) : null}
 

@@ -13,6 +13,7 @@ import BadgeType from "@/components/badgeType";
 import {
   resolveGameKind,
   cardKindBorderClass,
+  cardSurfaceClass,
 } from "@/components/badgeType/cardKind";
 import useBGGdata from "@/components/bggInfo/useBGGdata";
 import BGGratings from "@/components/bggInfo/ratings";
@@ -72,12 +73,13 @@ const GameUI = ({ wantGroup }) => {
     <>
       <div
         className={clsx(
-          "w-full mx-auto overflow-hidden rounded-lg",
+          "mx-auto overflow-hidden rounded-lg",
+          cardSurfaceClass,
           cardKindBorderClass(cardKind)
         )}
       >
         <div className="flex items-stretch">
-          <div className="relative w-[160px] shrink-0 self-stretch">
+          <div className="relative w-[110px] sm:w-[160px] shrink-0 self-stretch">
             <Thumbnail
               fill
               contain
@@ -94,7 +96,7 @@ const GameUI = ({ wantGroup }) => {
               <Value type="game" onChange={onChangeValue} />
             </div>
 
-            <h3 className="text-heading leading-tight w-full">
+            <h3 className="text-heading leading-tight w-full break-words">
               {`${title}${year ? ` (${year})` : ""}`}
             </h3>
 

@@ -9,6 +9,7 @@ import clsx from "clsx";
 import {
   resolveItemKind,
   cardKindBorderClass,
+  cardSurfaceClass,
 } from "@/components/badgeType/cardKind";
 
 const ItemUI = ({
@@ -26,7 +27,8 @@ const ItemUI = ({
   return (
     <article
       className={clsx(
-        "transition-all relative mx-auto shadow-xl w-full rounded-xl overflow-hidden",
+        "transition-all relative mx-auto shadow-xl rounded-xl overflow-hidden",
+        cardSurfaceClass,
         cardKindBorderClass(resolveItemKind(item))
       )}
     >
@@ -38,7 +40,7 @@ const ItemUI = ({
       <div className="flex justify-between bg-white/70 rounded-b-[0.7em] p-3 border-t border-gray-200">
         <UserBox toLeft />
 
-        <div className="w-[220px] sm:flex justify-end text-sm font-bold sm:pl-2">
+        <div className="min-w-0 max-w-full sm:w-[220px] sm:flex justify-end text-sm font-bold sm:pl-2">
           {received ? (
             <div className="flex gap-1 items-center py-1 px-3 rounded-md text-green-700 border border-green-500 bg-green-500/10">
               <Icon type="check" />

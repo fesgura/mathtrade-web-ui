@@ -11,7 +11,11 @@ import clsx from "clsx";
 import ItemNoBGG from "../itemNoBgg";
 import Dynamic from "@/components/dynamic";
 import BadgeType from "@/components/badgeType";
-import { resolveGameKind, cardKindBorderClass } from "@/components/badgeType/cardKind";
+import {
+  resolveGameKind,
+  cardKindBorderClass,
+  cardSurfaceClass,
+} from "@/components/badgeType/cardKind";
 import useBGGdata from "@/components/bggInfo/useBGGdata";
 import BGGratings from "@/components/bggInfo/ratings";
 import BGGlink from "@/components/bggInfo/bggLink";
@@ -82,7 +86,8 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
     <div className="relative">
       <div
         className={clsx(
-          "w-full mx-auto relative transition-opacity rounded-t-lg",
+          "mx-auto relative transition-opacity rounded-t-lg",
+          cardSurfaceClass,
           cardKindBorderClass(cardKind),
           {
             "opacity-30  pointer-events-none": showAsIgnored,
@@ -100,7 +105,7 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
             />
           </div>
           <div className="grow min-w-0 flex flex-col gap-2.5 items-start p-4">
-            <div className="flex items-center justify-between gap-2 w-full">
+            <div className="flex flex-wrap items-center justify-between gap-2 w-full min-w-0">
               <BadgeType
                 type="game"
                 subtype={notGame ? 3 : typeNum || 1}
@@ -149,7 +154,7 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
                     ))}
                   </div>
                 </div>
-                {titleLink ? <BGGlink href={titleLink} className="ml-auto" /> : null}
+                {titleLink ? <BGGlink href={titleLink} /> : null}
               </div>
             ) : null}
 

@@ -2,7 +2,11 @@ import clsx from "clsx";
 import useItemGrid from "./useItemGrid";
 import ItemMD from "./md";
 import ItemXL from "./xl";
-import { resolveCardKind, cardKindBorderClass } from "@/components/badgeType/cardKind";
+import {
+  resolveCardKind,
+  cardKindBorderClass,
+  cardSurfaceClass,
+} from "@/components/badgeType/cardKind";
 
 type ItemGridUIProps = {
   expanded: string | number | null;
@@ -30,6 +34,7 @@ const ItemGridUI = ({ expanded, setExpanded }: ItemGridUIProps) => {
       <div
         className={clsx(
           "transition-all relative mx-auto rounded-lg",
+          cardSurfaceClass,
           cardKindBorderClass(cardKind),
           {
             // Capped like the game card: a single-column viewport, or a list

@@ -19,7 +19,7 @@ const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
 
   return (
     <div
-      className={clsx("flex flex-col h-full min-w-0 max-w-full transition-opacity", {
+      className={clsx("flex flex-col h-full min-w-0 max-w-full overflow-x-hidden transition-opacity", {
         "opacity-30 pointer-events-none": showAsIgnored,
         "shadow-[0_0_0_7px_rgba(255,0,0,1)]": ban_id,
       })}

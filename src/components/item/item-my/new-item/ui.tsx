@@ -20,7 +20,7 @@ const NewItemUI = () => {
   return hasNotOffered ? (
     <article
       data-tour="myoffer.new"
-      className="relative bg-white rounded-lg shadow-md mb-6 p-3 pt-2 border border-stroke"
+      className="relative bg-white rounded-lg shadow-md mb-6 p-3 pt-2 border border-stroke min-w-0 max-w-full w-full overflow-x-hidden"
     >
       <AddElementToMyItem startOpen />
     </article>

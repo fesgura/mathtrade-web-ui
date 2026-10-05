@@ -11,6 +11,7 @@ import clsx from "clsx";
 import {
   resolveItemKind,
   cardKindBorderClass,
+  cardSurfaceClass,
 } from "@/components/badgeType/cardKind";
 import { resolveApiErrorMessage } from "@/utils/apiError";
 
@@ -23,6 +24,7 @@ const ItemUI = ({ afterAddItem = (_value?: any) => {} }) => {
     <div
       className={clsx(
         "relative rounded-lg shadow-md pt-2 px-3 pb-3 mb-6 overflow-hidden",
+        cardSurfaceClass,
         cardKindBorderClass(resolveItemKind(item))
       )}
     >

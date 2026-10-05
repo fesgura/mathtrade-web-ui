@@ -13,7 +13,11 @@ import { ElementContext } from "@/context/element";
 import { PageContext } from "@/context/page";
 import { useContext, useMemo, type ReactNode } from "react";
 import BadgeType from "@/components/badgeType";
-import { resolveCardKind, cardKindBorderClass } from "@/components/badgeType/cardKind";
+import {
+  resolveCardKind,
+  cardKindBorderClass,
+  cardSurfaceClass,
+} from "@/components/badgeType/cardKind";
 import useBGGdata from "@/components/bggInfo/useBGGdata";
 import BGGratings from "@/components/bggInfo/ratings";
 import BGGlink from "@/components/bggInfo/bggLink";
@@ -143,6 +147,7 @@ const ElementView = ({
     <div
       className={clsx(
         "relative -m-4 flex-1 flex rounded-lg",
+        cardSurfaceClass,
         isRow ? "flex-row" : "flex-col",
         cardKindBorderClass(cardKind)
       )}
@@ -150,7 +155,8 @@ const ElementView = ({
       <div
         className={clsx(
           "relative overflow-hidden",
-          isRow ? "w-[150px] shrink-0" : "rounded-t-lg"
+          // Narrower thumb on phones so Geek/Avg + Complejidad + BGG fit.
+          isRow ? "w-[110px] sm:w-[150px] shrink-0" : "rounded-t-lg"
         )}
       >
         <Thumbnail
@@ -164,8 +170,8 @@ const ElementView = ({
       <div className="flex-1 min-w-0 p-4 flex flex-col gap-2.5">
         {header}
 
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center justify-between gap-2 min-w-0 w-full">
+          <div className="flex flex-wrap items-center gap-2 min-w-0">
             <BadgeType type="item" subtype={typeNum || 1} />
             {box_size === null ? (
               <div className="bg-red-100 text-red-700 font-bold text-[10px] px-2 py-[2px] rounded uppercase whitespace-nowrap">
@@ -226,11 +232,18 @@ const ElementView = ({
                 ))}
               </div>
             </div>
-            {titleLink ? <BGGlink href={titleLink} className="ml-auto" /> : null}
+            {titleLink ? (
+              <BGGlink
+                href={titleLink}
+                // ml-auto only when the row is wide enough; on my-offer row
+                // cards it shoved BGG past the card edge.
+                className={isRow ? "" : "ml-auto"}
+              />
+            ) : null}
           </div>
         ) : null}
 
-        <div className="flex flex-wrap gap-1.5">
+        <div className="flex flex-wrap gap-1.5 min-w-0 max-w-full">
           {language ? <span className={TAG_PILL}>{language}</span> : null}
           {showBGGstats ? <span className={TAG_PILL}>{dependency}</span> : null}
           {boxSize ? (

@@ -3,7 +3,11 @@ import clsx from "clsx";
 import I18N, { getI18Ntext } from "@/i18n";
 import Thumbnail from "@/components/thumbnail";
 import StatusBadge from "@/components/status-badge";
-import { cardKindBorderClass, resolveItemKind } from "@/components/badgeType/cardKind";
+import {
+  cardKindBorderClass,
+  cardSurfaceClass,
+  resolveItemKind,
+} from "@/components/badgeType/cardKind";
 import type { ProvisionalItem, ProvisionalSummaryRow } from "./useProvisionalResults";
 
 const coverOf = (item?: ProvisionalItem | null) =>
@@ -29,6 +33,7 @@ const ResultTile = ({ item, count }: { item: ProvisionalItem; count: number }) =
   <div
     className={clsx(
       "flex gap-3 rounded-lg border border-gray-200 bg-white p-2",
+      cardSurfaceClass,
       cardKindBorderClass(resolveItemKind(item))
     )}
   >

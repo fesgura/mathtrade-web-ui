@@ -4,7 +4,10 @@ import { ItemContext } from "@/context/item";
 import ElementMyItem from "@/components/element/elementMyItem";
 import HeaderItem from "./item-header";
 import Dynamic from "@/components/dynamic";
-import { cardKindBorderClass } from "@/components/badgeType/cardKind";
+import {
+  cardKindBorderClass,
+  cardSurfaceClass,
+} from "@/components/badgeType/cardKind";
 import I18N from "@/i18n";
 import clsx from "clsx";
 
@@ -42,6 +45,7 @@ const ItemUI = ({ tourAnchor = undefined }) => {
       data-tour={tourAnchor}
       className={clsx(
         "relative mb-6",
+        cardSurfaceClass,
         isCombo
           ? clsx("rounded-lg p-3 shadow-md", cardKindBorderClass("combo"))
           : showsAsPlainCard

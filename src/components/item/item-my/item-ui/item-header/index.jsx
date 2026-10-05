@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import I18N from "@/i18n";
 import Value from "@/components/value";
 import MyGroupsInItem from "@/components/item-mygroups/header-groups";
@@ -21,14 +22,14 @@ const HeaderItem = ({ className = "mb-2" }) => {
 
   return (
     <>
-      <header className={className}>
-        <div className="flex items-center justify-between gap-3">
+      <header className={clsx(className, "min-w-0 w-full")}>
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 min-w-0 w-full">
           {elementsLength > 0 ? (
-            <div className="flex items-center gap-3">
-              <span className="inline-flex" data-tour-part="group">
+            <div className="flex flex-wrap items-center gap-2 min-w-0">
+              <span className="inline-flex min-w-0" data-tour-part="group">
                 <MyGroupsInItem className="" />
               </span>
-              <span className="inline-flex" data-tour-part="value">
+              <span className="inline-flex shrink-0" data-tour-part="value">
                 <Value size="xl" type="item" />
               </span>
               {ready === false ? (
@@ -39,7 +40,7 @@ const HeaderItem = ({ className = "mb-2" }) => {
             </div>
           ) : null}
           {canIdelete ? (
-            <span className="inline-flex" data-tour-part="withdraw">
+            <span className="inline-flex shrink-0" data-tour-part="withdraw">
               <ButtonAlert
                 className="text-red-700 font-bold text-xs hover:text-red-900 transition-colors"
                 title="title.DeleteItem"

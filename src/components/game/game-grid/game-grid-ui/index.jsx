@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { cardSurfaceClass } from "@/components/badgeType/cardKind";
 import useGameGrid from "./useGameGrid";
 import GameGridMD from "./md";
 import GameGridXL from "./xl";
@@ -19,9 +20,10 @@ const GameGridUI = ({ expanded, setExpanded, tourAnchor = undefined }) => {
       <div
         className={clsx(
           "transition-all relative mx-auto hover:shadow-[0_3px_16px_rgba(0,0,0,0.25)] shadow-md",
+          cardSurfaceClass,
           {
             "sm:max-w-[420px] h-full rounded-lg": !isExpanded,
-            "bg-white shadow-xl w-full duration-700 max-w-5xl": isExpanded,
+            "bg-white shadow-xl duration-700 max-w-5xl": isExpanded,
           }
         )}
       >
