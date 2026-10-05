@@ -73,17 +73,7 @@ const ElementCompleteUI = () => {
     mechanisms,
   } = useBGGdata({
     game,
-  }) as {
-    isInBGG?: boolean;
-    rate: number;
-    rateColor: string;
-    averageRate: number | null;
-    averageRateColor: string;
-    rateVotes: number;
-    rank?: number;
-    weight: number;
-    dependency: string;
-  };
+  });
   const showBGGstats = !notGame && game && isInBGG;
 
   const filledDots = Math.min(5, Math.max(0, Math.round(weight || 0)));

@@ -95,17 +95,7 @@ const ElementView = ({
     maxPlayers,
     categories,
     mechanisms,
-  } = useBGGdata({ game }) as {
-    isInBGG?: boolean;
-    rate: number;
-    rateColor: string;
-    averageRate: number | null;
-    averageRateColor: string;
-    rateVotes: number;
-    rank?: number;
-    weight: number;
-    dependency: string;
-  };
+  } = useBGGdata({ game });
   const showBGGstats = !notGame && game && isInBGG;
 
   // "Mi ludoteca" lists individual copies, never bundles - combo can't

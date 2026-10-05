@@ -52,10 +52,13 @@ export const getStatsOfElement = (element) => {
       rateVotes: 1,
       weight: 1,
       weightVotes: 1,
-      dependency: {
-        most: getI18Ntext("NoData"),
-        list: [],
-      },
+      bestPlayers: null,
+      minPlayers: null,
+      maxPlayers: null,
+      categories: [],
+      mechanisms: [],
+      dependency: getI18Ntext("NoData"),
+      dependencyVotes: 0,
     };
   }
 
