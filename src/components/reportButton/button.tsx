@@ -4,9 +4,11 @@ import useReport from "./useReport";
 import Modal from "../modal";
 import { Form, InputContainer, Label, Textarea } from "../form";
 import SuccessAlert from "../successAlert";
+import ErrorAlert from "../errorAlert";
+import { resolveApiErrorMessage } from "@/utils/apiError";
 import { LoadingBox } from "../loading";
 
-const ReportButtonBtn = ({ id }) => {
+const ReportButtonBtn = ({ id = null }: { id?: number | string | null }) => {
   const {
     showModal,
     onOpen,
@@ -15,6 +17,7 @@ const ReportButtonBtn = ({ id }) => {
     onSubmit,
     loading,
     showSuccess,
+    error,
   } = useReport(id);
 
   return (
@@ -38,9 +41,10 @@ const ReportButtonBtn = ({ id }) => {
         <Form validations={validations} onSubmit={onSubmit}>
           <InputContainer validate="comment">
             <Label text="report.Comment" name="comment" required />
-            <Textarea name="comment" />
+            <Textarea name="comment" data={{}} className="" />
           </InputContainer>
           {showSuccess ? <SuccessAlert text="reportItem.success" /> : null}
+          <ErrorAlert error={error} errorMessage={resolveApiErrorMessage(error)} />
           <div className="flex items-center justify-center gap-4 pt-2 pb-5">
             <button
               className="border border-gray-300 text-gray-400 font-bold text-lg px-6 py-1 rounded-full hover:bg-gray-400 hover:text-white transition-colors"

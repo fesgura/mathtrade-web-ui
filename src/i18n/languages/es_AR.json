@@ -200,6 +200,7 @@
   "ban.table.name": "Nombre",
   "ban.table.status": "Estado",
   "bugReport.menu": "Reportar un error",
+  "bugReport.capturing": "Preparando captura…",
   "bugReport.title": "Reportar un error",
   "bugReport.description.label": "Contanos qué pasó",
   "bugReport.submit": "Enviar reporte",
