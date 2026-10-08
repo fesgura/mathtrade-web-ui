@@ -13,10 +13,10 @@ import Wrapper from "@/components/wrapper";
 const MIN_REFRESH_INTERVAL_MS = 60 * 1000;
 
 /* Site-wide reminder for members of the active edition without a way to be
- * reached: red with neither WhatsApp nor Telegram (the admin users list's
+ * reached: red with neither phone nor Telegram (the admin users list's
  * "Sin contacto" filter is exactly who sees it), soft with only one, naming
- * the missing one. WhatsApp = the phone (Mi cuenta has no WhatsApp field;
- * the legacy `whatsapp` value is a fallback). Reads
+ * the missing one. The phone is what people use as WhatsApp (the legacy
+ * `whatsapp` value is a fallback); texts say "teléfono". Reads
  * the member's own profile (GET_USER) rather than the login payload, which is
  * persisted and would go stale right after they edit their contact. Hidden on
  * "Mi cuenta", where they fix it. */
@@ -65,12 +65,12 @@ const AdvContact = () => {
 
   if (!showAdvice || !isMember || !user || pathname === myAccountPath) return null;
 
-  const hasWhatsapp = !!user.phone?.trim?.() || !!user.whatsapp?.trim?.();
+  const hasPhone = !!user.phone?.trim?.() || !!user.whatsapp?.trim?.();
   const hasTelegram = !!user.telegram?.trim?.();
-  if (hasWhatsapp && hasTelegram) return null;
-  const state = !hasWhatsapp && !hasTelegram ? "missing" : "partial";
+  if (hasPhone && hasTelegram) return null;
+  const state = !hasPhone && !hasTelegram ? "missing" : "partial";
   const textId =
-    state === "missing" ? "advContact.missing" : `advContact.partial.${hasWhatsapp ? "telegram" : "whatsapp"}`;
+    state === "missing" ? "advContact.missing" : `advContact.partial.${hasPhone ? "telegram" : "phone"}`;
 
   return (
     <Wrapper className="mt-main">

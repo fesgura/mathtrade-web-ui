@@ -73,14 +73,13 @@ export default function MyAccount() {
                 </div>
                 <div className="">
                   <InputContainer validate="phone">
-                    {/* The phone is the user's WhatsApp (there is no separate field). */}
-                    <Label text="form.PhoneWhatsapp" name="phone" required />
+                    <Label text="form.Phone" name="phone" required />
                     <Input
                       data={userData}
                       name="phone"
                       type="tel"
                       placeholder="form.Phone.placeholder"
-                      ariaLabel="form.PhoneWhatsapp"
+                      ariaLabel="form.Phone"
                       icon="phone"
                     />
                   </InputContainer>
