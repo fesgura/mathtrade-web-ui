@@ -2,17 +2,35 @@ import Thumbnail from "@/components/thumbnail";
 import StatusBadge from "@/components/status-badge";
 import LanguagePills from "@/components/chip/languagePills";
 import { ElementContext } from "@/context/element";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { FloatingPortal } from "@floating-ui/react";
 import clsx from "clsx";
-import { getI18Ntext } from "@/i18n";
+import I18N, { getI18Ntext } from "@/i18n";
+import Icon from "@/components/icon";
+import Modal from "@/components/modal";
+import PhotoGallery from "@/components/photoGallery";
 import DescriptionNote from "./descriptionNote";
 
-const ElementXSUI = ({ isCombo }) => {
+const ElementXSUI = ({ isCombo = false }: { isCombo?: boolean }) => {
   const { element } = useContext(ElementContext);
 
   const { title, language, languageRaw, extraData } = element;
 
-  const { box_status, component_status, comment } = extraData;
+  const {
+    box_status,
+    component_status,
+    comment,
+    images = "",
+  }: {
+    box_status?: string;
+    component_status?: string;
+    comment?: string;
+    images?: string;
+  } = extraData;
+
+  // Copies in want lists and offer pickers had no way to see their photos.
+  const hasPhotos = Boolean(images && images.split(",").some(Boolean));
+  const [showPhotos, setShowPhotos] = useState(false);
 
   return (
     <div className={clsx("flex flex-col gap-1", { grow: !isCombo })}>
@@ -56,7 +74,30 @@ const ElementXSUI = ({ isCombo }) => {
         {comment && comment?.length > 0 ? (
           <DescriptionNote comment={comment} isCombo={isCombo} />
         ) : null}
+        {hasPhotos ? (
+          <button
+            type="button"
+            onClick={() => setShowPhotos(true)}
+            title={getI18Ntext("item.xs.element.photos")}
+            className="inline-flex items-center gap-0.5 text-primary font-bold text-[10px] leading-none underline underline-offset-2"
+          >
+            <Icon type="photo" />
+            <I18N id={`item.xs.element.photos${isCombo ? ".min" : ""}`} />
+          </button>
+        ) : null}
       </div>
+      {hasPhotos ? (
+        // Portaled so it is not clipped by the list or modal it sits in.
+        <FloatingPortal>
+          <Modal
+            isOpen={showPhotos}
+            onClose={() => setShowPhotos(false)}
+            size="md"
+          >
+            <PhotoGallery images={images} extended noTitled />
+          </Modal>
+        </FloatingPortal>
+      ) : null}
     </div>
   );
 };
