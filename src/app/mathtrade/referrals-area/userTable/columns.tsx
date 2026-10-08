@@ -179,21 +179,4 @@ const columns = [
   },
 ];
 
-// Only shown when an admin lists every city at once.
-export const cityColumn = {
-  header: "referral.users.city",
-  value: "location",
-  sort: (a, b, dir) => {
-    return (a?.location?.name || "") < (b?.location?.name || "")
-      ? -1 * dir
-      : dir;
-  },
-  excel: (_, location) => {
-    return location?.name || "-";
-  },
-  render: (_, location) => {
-    return location?.name || "-";
-  },
-};
-
 export default columns;
