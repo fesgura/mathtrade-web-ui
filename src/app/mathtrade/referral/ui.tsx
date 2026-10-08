@@ -23,6 +23,7 @@ const ReferredUI = () => {
     referralList,
     referring_limit,
     referrer,
+    signedUp,
   } = useReferral();
 
   return (
@@ -91,7 +92,11 @@ const ReferredUI = () => {
               </>
             ) : null}
           </div>
-          {disabled ? null : (
+          {!signedUp ? (
+            <p className="text-center text-xl text-balance py-6">
+              <I18N id="referral.notSignedUp" />
+            </p>
+          ) : disabled ? null : (
             <>
               <p className="text-center mb-5 xtext-2xl text-balance">
                 <I18N id="referral.page.subtitle2" />

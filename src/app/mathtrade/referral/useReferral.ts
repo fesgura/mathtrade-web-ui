@@ -4,7 +4,7 @@ import { PageContext } from "@/context/page";
 
 const useReferral = () => {
   /* PAGE CONTEXT */
-  const { referrer, referring_limit } = useContext(PageContext);
+  const { referrer, referring_limit, membership } = useContext(PageContext);
   /* endPAGE CONTEXT */
 
   const [code, setCode] = useState("");
@@ -12,11 +12,11 @@ const useReferral = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const [referralList, setReferralList] = useState([]);
+  const [referralList, setReferralList] = useState<any[]>([]);
 
   ///////////////////////////////
 
-  const afterLoadDataReferrals = useCallback((dataReferrals) => {
+  const afterLoadDataReferrals = useCallback((dataReferrals: any[]) => {
     setReferralList(dataReferrals);
     setIsLoaded(true);
   }, []);
@@ -33,7 +33,7 @@ const useReferral = () => {
     afterError: afterErrorDataReferrals,
   });
 
-  const afterLoad = useCallback((d) => {
+  const afterLoad = useCallback((d: any) => {
     const { code: newCode, referred: newReferred } = d;
     setCode(newCode);
     setReferred(newReferred);
@@ -51,7 +51,7 @@ const useReferral = () => {
   });
 
   const onSubmit = useCallback(
-    async (params) => {
+    async (params: any) => {
       postReferral({
         params,
       });
@@ -81,6 +81,9 @@ const useReferral = () => {
     referralList,
     referring_limit,
     referrer,
+    // Only members of the current edition can invite (the backend answers
+    // "Not signed up." otherwise).
+    signedUp: Boolean(membership),
   };
 };
 export default useReferral;

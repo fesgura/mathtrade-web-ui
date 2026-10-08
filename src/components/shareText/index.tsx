@@ -4,11 +4,11 @@ import I18N, { getI18Ntext } from "@/i18n";
 import Icon from "../icon";
 import { useEffect, useState } from "react";
 
-const ShareText = ({ title, text, url }) => {
+const ShareText = ({ title = "", text = "", url = "" }) => {
   const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
-    let timer = null;
+    let timer: ReturnType<typeof setTimeout> | undefined;
     if (isCopied) {
       timer = setTimeout(() => {
         setIsCopied(false);
@@ -50,7 +50,7 @@ const ShareText = ({ title, text, url }) => {
           className="bg-lime-600 text-white w-10 aspect-square rounded-md text-xl hover:bg-lime-800 transition-colors"
           title={getI18Ntext("share")}
           onClick={async () => {
-            const data = {};
+            const data: ShareData = {};
             if (title) {
               data.text = `${getI18Ntext(title)}${text ? "\n" + text : ""}`;
             } else {

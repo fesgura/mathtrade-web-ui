@@ -14,6 +14,8 @@ const FIELD_RULES: FieldRule[] = [
     test: (m) => m.endsWith("is missing info."),
     key: "error.element.incomplete",
   },
+  // Referral codes: only members of the current edition can invite.
+  { field: "mathtrade", test: (m) => m === "Not signed up.", key: "referral.notSignedUp" },
 ];
 
 const DETAIL_RULES: DetailRule[] = [
