@@ -33,6 +33,8 @@ export default function MyAccount() {
               <Output
                 data={userData}
                 name="email"
+                value=""
+                className=""
                 ariaLabel="form.Email"
                 icon="email"
               />

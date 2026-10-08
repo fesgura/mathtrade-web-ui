@@ -271,11 +271,18 @@ const ActiveFilterChips = ({ type = "item" }: { type?: "item" | "game" }) => {
       }
 
       if (key === "favorite") {
-        if (`${value}` !== "true") return;
+        const hide = `${value}` === "false";
+        if (!hide && `${value}` !== "true") return;
         next.push({
           key,
           label: getI18Ntext(
-            type === "game" ? "favorite.filter.games" : "favorite.filter.items"
+            hide
+              ? type === "game"
+                ? "favorite.filter.hide.games"
+                : "favorite.filter.hide.items"
+              : type === "game"
+                ? "favorite.filter.games"
+                : "favorite.filter.items"
           ),
           clear: { favorite: undefined },
         });

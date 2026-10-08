@@ -11,7 +11,6 @@ import {
 } from "@/components/form";
 import Question from "@/components/question";
 import Button from "@/components/button";
-import ButtonAlert from "@/components/buttonAlert";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
 import { linksToHelp } from "@/config/linksToHelp";
@@ -20,6 +19,7 @@ import PageHeader from "@/components/pageHeader";
 import { PUBLIC_ROUTES } from "@/config";
 import ContributionBox from "./ContributionBox";
 import RulesQuiz from "./RulesQuiz";
+import CancelSignupModal from "./CancelSignupModal";
 import { useState } from "react";
 import { rulebookPDFurl } from "@/config/rulebook";
 import Referral from "@/components/referral";
@@ -59,6 +59,7 @@ const MyDataPage = () => {
     rulesPending,
   } = useMyData();
   const [quizPassed, setQuizPassed] = useState(false);
+  const [cancelOpen, setCancelOpen] = useState(false);
   // Non-members of an edition that requires the quiz see the sign-up form
   // only once they pass it.
   const quizGate = !isMembership && rulesRequired && !quizPassed;
@@ -186,6 +187,7 @@ const MyDataPage = () => {
                           name="terms_acceptance"
                           required
                           ariaLabel="title.TyC"
+                          disabled={false}
                           onChange={setAcceptTyC}
                         >
                           <I18N id="accept.TyC1" />
@@ -238,18 +240,19 @@ const MyDataPage = () => {
               )}
               {isMembership && canOut ? (
                 <div className="text-center pb-3 pt-3">
-                  <ButtonAlert
+                  <button
+                    type="button"
                     className="text-danger text-sm hover:text-red-800"
-                    title="MyData.title.SignOutToMathTrade"
-                    description={
-                      ["pending", "approved"].includes(contribution?.status)
-                        ? "contribution.cancelWarning"
-                        : ""
-                    }
-                    onClick={onSignOut}
+                    onClick={() => setCancelOpen(true)}
                   >
                     <I18N id="MyData.btn.SignOutToMathTrade" />
-                  </ButtonAlert>
+                  </button>
+                  <CancelSignupModal
+                    isOpen={cancelOpen}
+                    onClose={() => setCancelOpen(false)}
+                    onConfirm={onSignOut}
+                    contributionStatus={contribution?.status || ""}
+                  />
                 </div>
               ) : null}
               <LoadingBox loading={loading} transparent />

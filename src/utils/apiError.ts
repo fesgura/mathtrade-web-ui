@@ -14,6 +14,10 @@ const FIELD_RULES: FieldRule[] = [
     test: (m) => m.endsWith("is missing info."),
     key: "error.element.incomplete",
   },
+  // Referral codes: only full participants of the current edition can invite.
+  { field: "mathtrade", test: (m) => m === "Not signed up.", key: "referral.notSignedUp" },
+  { field: "mathtrade", test: (m) => m === "Contribution not approved.", key: "referral.contributionPending" },
+  { field: "mathtrade", test: (m) => m === "Rules quiz pending.", key: "referral.rulesQuizPending" },
 ];
 
 const DETAIL_RULES: DetailRule[] = [

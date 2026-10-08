@@ -1,6 +1,7 @@
 import I18N, { getI18Ntext } from "@/i18n";
 import useUserTable from "./useUserTable";
 import Avatar from "@/components/avatar";
+import { AdminUserName } from "@/components/adminUserModal";
 import Icon from "@/components/icon";
 import clsx from "clsx";
 import ErrorAlert from "@/components/errorAlert";
@@ -19,7 +20,7 @@ const columns = [
     excel: ({ first_name, last_name }) => {
       return `${first_name} ${last_name}`;
     },
-    render: ({ avatar, first_name, last_name }) => {
+    render: ({ id, avatar, first_name, last_name }) => {
       return (
         <div className="flex items-center gap-2">
           <div>
@@ -27,7 +28,10 @@ const columns = [
           </div>
 
           <div>
-            <div className="font-bold leading-none">{`${first_name} ${last_name}`}</div>
+            {/* Row id = the user id (MembershipMathtradesSerializer) */}
+            <AdminUserName userId={id}>
+              <div className="font-bold leading-none">{`${first_name} ${last_name}`}</div>
+            </AdminUserName>
           </div>
         </div>
       );

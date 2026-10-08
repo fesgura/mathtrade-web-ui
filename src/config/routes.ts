@@ -1,3 +1,9 @@
+export type Route = {
+  title: string;
+  path: string;
+  enabled?: string;
+};
+
 export const PUBLIC_ROUTES = {
   DEFAULT: {
     title: "signIn",
@@ -29,7 +35,7 @@ export const PUBLIC_ROUTES = {
     path: "/media",
     enabled: "always",
   },
-};
+} satisfies Record<string, Route>;
 
 export const privateRoot = "/mathtrade";
 
@@ -145,16 +151,21 @@ export const PRIVATE_ROUTES = {
     path: privateRoot + "/admin/reports",
     enabled: "onlyForAdmin",
   },
+  ADMIN_USERS: {
+    title: "adminUsers",
+    path: privateRoot + "/admin/users",
+    enabled: "onlyForAdmin",
+  },
   ADMIN_RULES_QUESTIONS: {
     title: "adminRulesQuestions",
     path: privateRoot + "/admin/rules-questions",
     enabled: "onlyForAdmin",
   },
-};
+} satisfies Record<string, Route>;
 
 export const EXTERNAL_ROUTES = {
   MEDIA: {
     title: "link.Media",
     path: "/media",
   },
-};
+} satisfies Record<string, Route>;

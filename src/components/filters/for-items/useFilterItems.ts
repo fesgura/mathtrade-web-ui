@@ -77,6 +77,8 @@ const useFiltersItems = () => {
     delete filtersProc.favorite;
     if (favorite === "true") {
       filtersProc.favorite = true;
+    } else if (favorite === "false") {
+      filtersProc.hide_favorite = true;
     }
 
     if (Array.isArray(filters.dependency)) {

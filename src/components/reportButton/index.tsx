@@ -12,7 +12,9 @@ const availablePages = [
   "results",
 ];
 
-const ReportButton = ({ className }) => {
+// part="report": only the staff report box (it goes on its own row, so a
+// long comment never squeezes the owner); part="button": only the button.
+const ReportButton = ({ className = "", part = "all" }) => {
   /* PAGE CONTEXT **********************************************/
   const { pageType } = useContext(PageContext);
 
@@ -20,12 +22,15 @@ const ReportButton = ({ className }) => {
   const { id, isOwned, reported } = item;
 
   if (id && reported) {
+    if (part === "button") return null;
     return (
       <div className={className}>
         <QuitReport id={reported.id} reported={reported} />
       </div>
     );
   }
+
+  if (part === "report") return null;
 
   if (id && availablePages.indexOf(pageType) >= 0 && !isOwned) {
     return (

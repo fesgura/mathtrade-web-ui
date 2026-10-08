@@ -41,9 +41,11 @@ const useFilters = ({ type = "item" }: { type?: "item" | "game" }) => {
     onSubmit: (dataFromForm) => {
       hideSidebar();
       const newFilters: Record<string, any> = {};
-      const { hide_my_user, hide_wanted, wantable } = dataFromForm;
+      const { hide_my_user, hide_wanted, wantable, hide_favorite } =
+        dataFromForm;
       delete dataFromForm.hide_my_user;
       delete dataFromForm.hide_wanted;
+      delete dataFromForm.hide_favorite;
 
       Object.entries(dataFromForm).forEach(([key, value]) => {
         switch (typeof value) {
@@ -75,7 +77,12 @@ const useFilters = ({ type = "item" }: { type?: "item" | "game" }) => {
 
       newFilters.wanted = hide_wanted === "true" ? false : undefined;
       newFilters.wantable = wantable === "true" ? "true" : undefined;
-      newFilters.favorite = dataFromForm.favorite === "true" ? "true" : undefined;
+      newFilters.favorite =
+        dataFromForm.favorite === "true"
+          ? "true"
+          : hide_favorite === "true"
+            ? "false"
+            : undefined;
 
       gotoTop();
       updateFilters(

@@ -1,10 +1,11 @@
 import { useState, useCallback, useMemo, useContext } from "react";
 import useFetch from "@/hooks/useFetch";
 import { PageContext } from "@/context/page";
+import { getInviteBlock } from "./inviteBlock";
 
 const useReferral = () => {
   /* PAGE CONTEXT */
-  const { referrer, referring_limit } = useContext(PageContext);
+  const { referrer, referring_limit, membership } = useContext(PageContext);
   /* endPAGE CONTEXT */
 
   const [code, setCode] = useState("");
@@ -12,11 +13,11 @@ const useReferral = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const [referralList, setReferralList] = useState([]);
+  const [referralList, setReferralList] = useState<any[]>([]);
 
   ///////////////////////////////
 
-  const afterLoadDataReferrals = useCallback((dataReferrals) => {
+  const afterLoadDataReferrals = useCallback((dataReferrals: any[]) => {
     setReferralList(dataReferrals);
     setIsLoaded(true);
   }, []);
@@ -33,7 +34,7 @@ const useReferral = () => {
     afterError: afterErrorDataReferrals,
   });
 
-  const afterLoad = useCallback((d) => {
+  const afterLoad = useCallback((d: any) => {
     const { code: newCode, referred: newReferred } = d;
     setCode(newCode);
     setReferred(newReferred);
@@ -51,7 +52,7 @@ const useReferral = () => {
   });
 
   const onSubmit = useCallback(
-    async (params) => {
+    async (params: any) => {
       postReferral({
         params,
       });
@@ -81,6 +82,10 @@ const useReferral = () => {
     referralList,
     referring_limit,
     referrer,
+    // Only full participants of the current edition can invite: signed up,
+    // contribution approved and rules quiz passed when the edition requires
+    // them (the backend answers with the matching "mathtrade" error otherwise).
+    inviteBlock: getInviteBlock(membership),
   };
 };
 export default useReferral;

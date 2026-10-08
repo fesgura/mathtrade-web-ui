@@ -111,6 +111,8 @@ const useItem = ({
       language,
       status,
       user: {
+        // membership.id is the user id (MembershipSingleSerializer)
+        id: user?.id ?? null,
         avatar: user?.avatar || "",
         name: `${user?.first_name || ""} ${user?.last_name || ""}`,
         locationId: user?.location || "none",

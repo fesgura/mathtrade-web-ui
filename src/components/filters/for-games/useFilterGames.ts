@@ -46,6 +46,8 @@ const useFilterGames = () => {
     delete filtersProc.favorite;
     if (favorite === "true") {
       filtersProc.favorite = true;
+    } else if (favorite === "false") {
+      filtersProc.hide_favorite = true;
     }
     if (Array.isArray(filters.dependency)) {
       filtersProc.dependency = filters.dependency.join(",");

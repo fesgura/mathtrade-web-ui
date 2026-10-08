@@ -48,6 +48,18 @@ const FiltersForGames = () => {
         </InputContainer>
         <InputContainer className="mb-2">
           <Switch
+            data={data}
+            name="hide_favorite"
+            onChange={(checked) => applyToggle("hide_favorite", checked)}
+          >
+            <div className="text-xs flex items-center gap-1">
+              <Icon type="star" className="text-gray-400" />
+              <I18N id="favorite.filter.hide" />
+            </div>
+          </Switch>
+        </InputContainer>
+        <InputContainer className="mb-2">
+          <Switch
             name="hide_my_user"
             data={data}
             onChange={(checked) => applyToggle("hide_my_user", checked)}

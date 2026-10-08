@@ -5,7 +5,7 @@ import Icon from "../icon";
 import clsx from "clsx";
 import UserBox from "../userBox";
 
-const QuitReport = ({ id, reported }) => {
+const QuitReport = ({ id = null, reported = null }) => {
   const urlParams = useMemo(() => {
     return [id || ""];
   }, [id]);
@@ -28,7 +28,7 @@ const QuitReport = ({ id, reported }) => {
   }, [quitReport]);
 
   const { user, comment } = useMemo(() => {
-    const { user: user_reported, comment: comment_reported } = reported;
+    const { user: user_reported, comment: comment_reported } = reported || {};
 
     if (!user_reported) {
       return {};
@@ -37,6 +37,7 @@ const QuitReport = ({ id, reported }) => {
     return {
       user: user_reported
         ? {
+            id: user_reported?.id ?? null,
             avatar: user_reported?.avatar || "",
             name: `${user_reported?.first_name || ""} ${
               user_reported?.last_name || ""
@@ -49,19 +50,26 @@ const QuitReport = ({ id, reported }) => {
   }, [reported]);
 
   return showBtn ? (
-    <div className="border border-teal-400 rounded-lg px-3">
+    <div className="border border-teal-400 rounded-lg px-3 min-w-0">
       <div className="border-b border-teal-400/50  py-2">
         <div className="text-[9px] font-bold text-black">
           <I18N id="reportItem.title" />
         </div>
-        <div className="flex gap-2">
-          {comment ? <div className="text-[12px]">{comment}</div> : null}
-          {user ? (
-            <div className="w-40 border-l border-gray-300 pl-2">
+        {comment ? (
+          <div className="text-[12px] break-words whitespace-pre-line">
+            {comment}
+          </div>
+        ) : null}
+        {user ? (
+          <div className="flex items-center gap-2 mt-1 min-w-0">
+            <span className="text-[11px] text-gray-600 shrink-0">
+              <I18N id="reportItem.by" />:
+            </span>
+            <div className="min-w-0">
               <UserBox userForce={user} toLeft />
             </div>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
       <div className="py-2">
         <button

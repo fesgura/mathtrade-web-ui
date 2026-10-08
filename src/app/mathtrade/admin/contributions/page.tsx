@@ -5,9 +5,28 @@ import SectionCommon from "@/components/sections/common";
 import ErrorAlert from "@/components/errorAlert";
 import Button from "@/components/button";
 import Modal from "@/components/modal";
+import ConfirmModal from "@/components/confirmModal";
 import I18N, { getI18Ntext } from "@/i18n";
 import { formatAmount } from "@/app/mathtrade/my-data/ContributionBox";
-import useContributionsReview, { ContributionRow } from "./useContributionsReview";
+import { AdminUserName } from "@/components/adminUserModal";
+import useContributionsReview, {
+  ContributionRow,
+  MissingRow,
+  isMissingRow,
+} from "./useContributionsReview";
+
+// Manual approvals and their undo always go through a confirmation.
+type PendingConfirm =
+  | { kind: "approve"; membershipId: number; name: string }
+  | { kind: "undo"; contributionId: number; name: string }
+  | null;
+
+// I18N renders text containing "<" as HTML: keep member names as text.
+const escapeHtml = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+const fullName = (row: { first_name: string; last_name: string }) =>
+  `${row.first_name} ${row.last_name}`.trim();
 
 /* w-full + max-w-full on mobile: native <select> min-width follows the
  * longest option (account holder + alias), which otherwise overflows ~390px. */
@@ -98,11 +117,58 @@ const ContributionsReviewPage = () => {
     loading,
     error,
     approve,
+    approveManual,
+    undoManual,
     reject,
     rejecting,
     setRejecting,
     viewReceipt,
   } = useContributionsReview();
+  const [confirm, setConfirm] = useState<PendingConfirm>(null);
+
+  const mathtrade = mathtrades.find((mt: any) => mt.id === mathtradeId);
+  const editionAmount = mathtrade?.contribution_amount
+    ? formatAmount(mathtrade.contribution_amount)
+    : "";
+  const showingMissing = contributions.length > 0 && isMissingRow(contributions[0]);
+
+  const askApprove = (row: MissingRow | ContributionRow) =>
+    setConfirm({ kind: "approve", membershipId: row.membership_id, name: fullName(row) });
+
+  const onConfirm = () => {
+    if (confirm?.kind === "approve") approveManual(confirm.membershipId);
+    if (confirm?.kind === "undo") undoManual(confirm.contributionId);
+    setConfirm(null);
+  };
+
+  const renderMissing = (row: MissingRow) => (
+    <div key={`m-${row.membership_id}`} className="border border-stroke rounded-lg p-4 mb-3">
+      <div className="flex flex-wrap items-start justify-between gap-3 min-w-0">
+        <div className="text-sm min-w-0 max-w-full break-words">
+          <p className="font-bold text-base break-words">
+            <AdminUserName userId={row.user_id}>{fullName(row)}</AdminUserName>{" "}
+            <span className="font-normal text-gray-500">({row.bgg_user})</span>
+          </p>
+          <p className="break-words">{row.email}{row.location ? ` · ${row.location}` : ""}</p>
+          <p className="break-words">
+            {row.account ? (
+              `→ ${row.account.holder_name} (${row.account.alias})`
+            ) : (
+              <I18N id="adminContributions.noAccount" />
+            )}
+          </p>
+          <p className="text-gray-500">
+            <I18N id={`adminContributions.status.${row.status}`} />
+          </p>
+        </div>
+        <div className="flex flex-wrap items-center gap-2">
+          <Button sm type="button" onClick={() => askApprove(row)}>
+            <I18N id="adminContributions.manual.approve" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -125,7 +191,7 @@ const ContributionsReviewPage = () => {
               ))}
             </select>
             <select className={selectClass} value={status} onChange={(e) => setStatus(e.target.value)}>
-              {["pending", "approved", "rejected", ""].map((value) => (
+              {["pending", "approved", "rejected", "missing", ""].map((value) => (
                 <option key={value} value={value}>
                   {getI18Ntext(`adminContributions.filter.${value || "all"}`)}
                 </option>
@@ -140,7 +206,10 @@ const ContributionsReviewPage = () => {
               ))}
             </select>
             <p className="text-sm text-gray-600 shrink-0">
-              <I18N id="adminContributions.count" values={[contributions.length]} />
+              <I18N
+                id={showingMissing ? "adminContributions.countMissing" : "adminContributions.count"}
+                values={[contributions.length]}
+              />
             </p>
           </div>
 
@@ -152,13 +221,19 @@ const ContributionsReviewPage = () => {
             </p>
           ) : null}
 
-          {contributions.map((row) => (
+          {contributions.map((row) =>
+            isMissingRow(row) ? renderMissing(row) : (
             <div key={row.id} className="border border-stroke rounded-lg p-4 mb-3">
               <div className="flex flex-wrap items-start justify-between gap-3 min-w-0">
                 <div className="text-sm min-w-0 max-w-full break-words">
                   <p className="font-bold text-base break-words">
-                    {row.first_name} {row.last_name}{" "}
+                    <AdminUserName userId={row.user_id}>{fullName(row)}</AdminUserName>{" "}
                     <span className="font-normal text-gray-500">({row.bgg_user})</span>
+                    {row.manual ? (
+                      <span className="ml-2 align-middle text-xs font-semibold uppercase rounded px-2 py-0.5 bg-gray-200 text-gray-700">
+                        <I18N id="adminContributions.manual.badge" />
+                      </span>
+                    ) : null}
                   </p>
                   <p className="break-words">{row.email}{row.location ? ` · ${row.location}` : ""}</p>
                   <p className="break-words">
@@ -181,9 +256,31 @@ const ContributionsReviewPage = () => {
                   ) : null}
                 </div>
                 <div className="flex flex-wrap items-center gap-2">
-                  <Button sm outline type="button" onClick={() => viewReceipt(row)}>
-                    <I18N id="adminContributions.viewReceipt" />
-                  </Button>
+                  {row.manual ? (
+                    row.status === "approved" ? (
+                      <Button
+                        sm
+                        outline
+                        type="button"
+                        color="danger"
+                        onClick={() =>
+                          setConfirm({ kind: "undo", contributionId: row.id, name: fullName(row) })
+                        }
+                      >
+                        <I18N id="adminContributions.manual.undo" />
+                      </Button>
+                    ) : null
+                  ) : (
+                    <Button sm outline type="button" onClick={() => viewReceipt(row)}>
+                      <I18N id="adminContributions.viewReceipt" />
+                    </Button>
+                  )}
+                  {row.status === "rejected" ? (
+                    // The API refuses it if a newer receipt is pending/approved.
+                    <Button sm outline type="button" onClick={() => askApprove(row)}>
+                      <I18N id="adminContributions.manual.approve" />
+                    </Button>
+                  ) : null}
                   {row.status === "pending" ? (
                     <>
                       <Button sm type="button" onClick={() => approve(row)}>
@@ -197,10 +294,31 @@ const ContributionsReviewPage = () => {
                 </div>
               </div>
             </div>
-          ))}
+            )
+          )}
         </div>
       </SectionCommon>
       <RejectModal row={rejecting} onClose={() => setRejecting(null)} onReject={reject} />
+      <ConfirmModal
+        isOpen={!!confirm}
+        onCancel={() => setConfirm(null)}
+        onConfirm={onConfirm}
+        title={
+          confirm?.kind === "undo"
+            ? "adminContributions.manual.undoConfirm"
+            : "adminContributions.manual.confirmTitle"
+        }
+        description={
+          confirm?.kind === "undo"
+            ? "adminContributions.manual.undoText"
+            : "adminContributions.manual.confirmText"
+        }
+        descriptionValues={
+          confirm?.kind === "undo"
+            ? [escapeHtml(confirm.name)]
+            : [escapeHtml(confirm?.name || ""), editionAmount]
+        }
+      />
     </>
   );
 };

@@ -3,7 +3,13 @@ import { useCallback, useMemo, useState, useContext } from "react";
 import { ItemContext } from "@/context/item";
 import useFetch from "@/hooks/useFetch";
 
-const useComment = ({ comment, myUserId }) => {
+const useComment = ({
+  comment = null,
+  myUserId = null,
+}: {
+  comment?: any;
+  myUserId?: number | null;
+} = {}) => {
   /* ITEM CONTEXT **********************************************/
   const { item, reloadItem } = useContext(ItemContext);
   const { id: itemId } = item;
@@ -53,6 +59,8 @@ const useComment = ({ comment, myUserId }) => {
       date: DateIntlFormat(date),
       isMyUser: myUserId === membership.id,
       user: {
+        // membership.id is the user id (MembershipSingleSerializer)
+        id: membership?.id ?? null,
         name: `${membership.first_name} ${membership.last_name}`,
         avatar: membership?.avatar || "",
         customLocation: membership?.location?.name || null,

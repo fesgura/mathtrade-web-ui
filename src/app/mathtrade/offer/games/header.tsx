@@ -52,7 +52,11 @@ const Header = () => {
             { text: getI18Ntext("element.Date"), value: "last_update" },
             { text: getI18Ntext("element.Value"), value: "value" },
             { text: getI18Ntext("element.Year"), value: "year" },
-            { text: getI18Ntext("element.BGG.rank"), value: "rank" },
+            {
+              text: getI18Ntext("element.BGG.rank"),
+              value: "rank",
+              inverted: true,
+            },
             { text: getI18Ntext("element.BGG.weight"), value: "weight" },
             { text: getI18Ntext("element.BGG.rating.geek"), value: "rate" },
             { text: getI18Ntext("element.BGG.rating.avg"), value: "average_rate" },

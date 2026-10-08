@@ -11,7 +11,7 @@ export type ChipOption = {
 };
 
 type OptionChipsProps = {
-  filterType?: "item" | "game" | "collection";
+  filterType?: "item" | "game" | "collection" | "myoffer";
   name: string;
   options?: ChipOption[];
   multiple?: boolean;
