@@ -8,6 +8,7 @@ import EmptyList from "@/components/emptyList";
 import XlsButton from "@/components/xlsButton";
 import I18N, { getI18Ntext } from "@/i18n";
 import { PRIVATE_ROUTES } from "@/config/routes";
+import { whatsappLink } from "@/utils/whatsapp";
 import useAdminUsers, { AdminUserRow } from "./useAdminUsers";
 
 const selectClass =
@@ -20,7 +21,6 @@ const STATUS_COLORS: Record<AdminUserRow["contribution_status"], string> = {
   rejected: "bg-red-100 text-red-800",
 };
 
-const waLink = (whatsapp: string) => `https://wa.me/${whatsapp.replace(/\D/g, "")}`;
 const tgLink = (telegram: string) => `https://t.me/${telegram.replace(/^@/, "")}`;
 
 const hasNoContact = (row: AdminUserRow) => !row.whatsapp && !row.telegram;
@@ -162,7 +162,10 @@ const AdminUsersPage = () => {
 
           <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
             <div className="font-semibold">
-              <I18N id="adminUsers.count" values={[list.length]} />
+              <I18N
+                id={list.length === 1 ? "adminUsers.count.one" : "adminUsers.count"}
+                values={[list.length]}
+              />
             </div>
             {list.length ? (
               <XlsButton
@@ -212,7 +215,7 @@ const AdminUsersPage = () => {
                           <div className="flex flex-col gap-0.5">
                             {row.whatsapp ? (
                               <a
-                                href={waLink(row.whatsapp)}
+                                href={whatsappLink(row.whatsapp)}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-primary underline"
@@ -232,7 +235,8 @@ const AdminUsersPage = () => {
                             ) : null}
                           </div>
                         )}
-                        {row.phone ? (
+                        {/* WhatsApp = the phone; show the phone only when it differs. */}
+                        {row.phone && row.phone !== row.whatsapp ? (
                           <div className="text-xs text-gray-500">{row.phone}</div>
                         ) : null}
                       </td>

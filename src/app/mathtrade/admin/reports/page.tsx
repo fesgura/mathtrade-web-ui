@@ -9,6 +9,7 @@ import ConfirmModal from "@/components/confirmModal";
 import I18N, { getI18Ntext } from "@/i18n";
 import useFetch from "@/hooks/useFetch";
 import { PRIVATE_ROUTES } from "@/config/routes";
+import { whatsappLink } from "@/utils/whatsapp";
 
 type Person = { id: number; first_name: string; last_name: string } | null;
 
@@ -226,7 +227,7 @@ const AdminReportsPage = () => {
                                 className="ml-2 underline text-primary"
                                 target="_blank"
                                 rel="noreferrer"
-                                href={`https://wa.me/${row.item_detail.owner.whatsapp.replace(/\D/g, "")}`}
+                                href={whatsappLink(row.item_detail.owner.whatsapp)}
                               >
                                 WhatsApp
                               </a>

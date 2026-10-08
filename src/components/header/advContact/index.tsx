@@ -14,7 +14,9 @@ const MIN_REFRESH_INTERVAL_MS = 60 * 1000;
 
 /* Site-wide reminder for members of the active edition without a way to be
  * reached: red with neither WhatsApp nor Telegram (the admin users list's
- * "Sin contacto" filter is exactly who sees it), soft with only one. Reads
+ * "Sin contacto" filter is exactly who sees it), soft with only one, naming
+ * the missing one. WhatsApp = the phone (Mi cuenta has no WhatsApp field;
+ * the legacy `whatsapp` value is a fallback). Reads
  * the member's own profile (GET_USER) rather than the login payload, which is
  * persisted and would go stale right after they edit their contact. Hidden on
  * "Mi cuenta", where they fix it. */
@@ -63,10 +65,12 @@ const AdvContact = () => {
 
   if (!showAdvice || !isMember || !user || pathname === myAccountPath) return null;
 
-  const hasWhatsapp = !!user.whatsapp?.trim?.();
+  const hasWhatsapp = !!user.phone?.trim?.() || !!user.whatsapp?.trim?.();
   const hasTelegram = !!user.telegram?.trim?.();
-  const state = !hasWhatsapp && !hasTelegram ? "missing" : !hasWhatsapp || !hasTelegram ? "partial" : null;
-  if (!state) return null;
+  if (hasWhatsapp && hasTelegram) return null;
+  const state = !hasWhatsapp && !hasTelegram ? "missing" : "partial";
+  const textId =
+    state === "missing" ? "advContact.missing" : `advContact.partial.${hasWhatsapp ? "telegram" : "whatsapp"}`;
 
   return (
     <Wrapper className="mt-main">
@@ -76,7 +80,7 @@ const AdvContact = () => {
           state === "missing" ? "bg-red-600 text-white" : "bg-amber-100 text-amber-900"
         )}
       >
-        <I18N id={`advContact.${state}`} />{" "}
+        <I18N id={textId} />{" "}
         <Link href={myAccountPath} className="underline font-bold hover:opacity-75">
           <I18N id="advContact.link" />
         </Link>

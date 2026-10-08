@@ -33,6 +33,8 @@ export default function MyAccount() {
               <Output
                 data={userData}
                 name="email"
+                value=""
+                className=""
                 ariaLabel="form.Email"
                 icon="email"
               />
@@ -71,13 +73,14 @@ export default function MyAccount() {
                 </div>
                 <div className="">
                   <InputContainer validate="phone">
-                    <Label text="form.Phone" name="phone" required />
+                    {/* The phone is the user's WhatsApp (there is no separate field). */}
+                    <Label text="form.PhoneWhatsapp" name="phone" required />
                     <Input
                       data={userData}
                       name="phone"
                       type="tel"
                       placeholder="form.Phone.placeholder"
-                      ariaLabel="form.Phone"
+                      ariaLabel="form.PhoneWhatsapp"
                       icon="phone"
                     />
                   </InputContainer>
