@@ -215,6 +215,6 @@ const endpoints = {
   BGG_GET_USER: "api/bgg/user/$[1]/",
   BGG_GET_GAMES: "api/bgg/games/",
   BGG_GET_GAME: "api/bgg/games/$[1]/",
-};
+} satisfies Record<string, string>;
 
 export default endpoints;
