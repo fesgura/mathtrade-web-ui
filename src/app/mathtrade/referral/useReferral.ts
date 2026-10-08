@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo, useContext } from "react";
 import useFetch from "@/hooks/useFetch";
 import { PageContext } from "@/context/page";
+import { getInviteBlock } from "./inviteBlock";
 
 const useReferral = () => {
   /* PAGE CONTEXT */
@@ -81,9 +82,10 @@ const useReferral = () => {
     referralList,
     referring_limit,
     referrer,
-    // Only members of the current edition can invite (the backend answers
-    // "Not signed up." otherwise).
-    signedUp: Boolean(membership),
+    // Only full participants of the current edition can invite: signed up,
+    // contribution approved and rules quiz passed when the edition requires
+    // them (the backend answers with the matching "mathtrade" error otherwise).
+    inviteBlock: getInviteBlock(membership),
   };
 };
 export default useReferral;

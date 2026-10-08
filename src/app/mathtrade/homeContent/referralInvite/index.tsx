@@ -5,17 +5,19 @@ import I18N from "@/i18n";
 import { REFERRAL_LIMIT } from "@/config/referral";
 import { useContext } from "react";
 import { PageContext } from "@/context/page";
+import { getInviteBlock, INVITE_BLOCK_TEXT } from "@/app/mathtrade/referral/inviteBlock";
 
 const ReferralInvite = () => {
   const { canI, membership } = useContext(PageContext);
+  const inviteBlock = getInviteBlock(membership);
 
   return canI.invite ? (
     <section
       className="bg-white p-5 rounded-xl shadow-lg mb-6 text-center"
       data-tour="home.referral"
     >
-      {/* Only members of the current edition can invite. */}
-      {membership ? (
+      {/* Only full participants of the current edition can invite. */}
+      {!inviteBlock ? (
         <>
           <p className="text-xl mb-5">
             <I18N id="referral.invite.text1" values={[REFERRAL_LIMIT]} />
@@ -32,7 +34,7 @@ const ReferralInvite = () => {
         </>
       ) : (
         <p className="text-xl">
-          <I18N id="referral.notSignedUp" />
+          <I18N id={INVITE_BLOCK_TEXT[inviteBlock]} />
         </p>
       )}
     </section>

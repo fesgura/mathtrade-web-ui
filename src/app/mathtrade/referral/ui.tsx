@@ -4,6 +4,7 @@ import { Form, InputContainer, Input } from "@/components/form";
 import Button from "@/components/button";
 import I18N from "@/i18n";
 import useReferral from "./useReferral";
+import { INVITE_BLOCK_TEXT } from "./inviteBlock";
 import ErrorAlert from "@/components/errorAlert";
 import ShareText from "@/components/shareText";
 import { LoadingBox } from "@/components/loading";
@@ -23,7 +24,7 @@ const ReferredUI = () => {
     referralList,
     referring_limit,
     referrer,
-    signedUp,
+    inviteBlock,
   } = useReferral();
 
   return (
@@ -92,9 +93,9 @@ const ReferredUI = () => {
               </>
             ) : null}
           </div>
-          {!signedUp ? (
+          {inviteBlock ? (
             <p className="text-center text-xl text-balance py-6">
-              <I18N id="referral.notSignedUp" />
+              <I18N id={INVITE_BLOCK_TEXT[inviteBlock]} />
             </p>
           ) : disabled ? null : (
             <>
