@@ -202,8 +202,11 @@ const useMyData = () => {
 
   // SIGN OUT ***************************************
   const onSignOut = useCallback(() => {
+    // DELETE params go in the query string. confirm=1 acknowledges losing a
+    // sent contribution (the backend asks for it then); the modal already
+    // made the member type the confirmation word, so always send it.
     cancelMemberMathTrade({
-      params: { userId: membership?.user_id || "none" },
+      params: { userId: membership?.user_id || "none", confirm: 1 },
     });
   }, [cancelMemberMathTrade, membership]);
   // END SIGN OUT ***************************************
