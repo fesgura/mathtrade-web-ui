@@ -104,6 +104,8 @@ const endpoints = {
   GET_CONTRIBUTION_RECEIPT: "api/mathtrades/$[1]/contributions/$[2]/receipt/",
   POST_CONTRIBUTION_APPROVE: "api/mathtrades/$[1]/contributions/$[2]/approve/",
   POST_CONTRIBUTION_REJECT: "api/mathtrades/$[1]/contributions/$[2]/reject/",
+  POST_CONTRIBUTION_APPROVE_MANUAL: "api/mathtrades/$[1]/contributions/approve-without-receipt/",
+  POST_CONTRIBUTION_UNDO_MANUAL: "api/mathtrades/$[1]/contributions/$[2]/undo-manual/",
   GET_RULES_QUESTIONS: "api/rules-questions/",
   POST_RULES_QUESTION: "api/rules-questions/",
   PUT_RULES_QUESTION: "api/rules-questions/$[1]/",

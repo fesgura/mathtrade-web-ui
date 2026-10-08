@@ -4,8 +4,12 @@ import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store";
 import { openAuthenticatedFile } from "@/hooks/useFetch/utils";
 
+type AccountRef = { id: number; holder_name: string; alias: string };
+
 export type ContributionRow = {
   id: number;
+  membership_id: number;
+  manual: boolean;
   amount: string;
   status: "pending" | "approved" | "rejected";
   rejection_reason: string;
@@ -13,13 +17,32 @@ export type ContributionRow = {
   submitted_at: string;
   reviewed_at: string | null;
   reviewed_by: string | null;
-  account: { id: number; holder_name: string; alias: string };
+  account: AccountRef;
   first_name: string;
   last_name: string;
   email: string;
   bgg_user: string;
   location: string | null;
 };
+
+// ?status=missing returns memberships with no receipt, not contributions.
+export type MissingRow = {
+  membership_id: number;
+  user_id: number;
+  first_name: string;
+  last_name: string;
+  email: string;
+  bgg_user: string;
+  location: string | null;
+  account: AccountRef | null;
+  status: "missing" | "rejected";
+};
+
+export type ReviewRow = ContributionRow | MissingRow;
+
+// By shape, not by the status filter: right after switching the filter the
+// previous list is still shown until the new one loads.
+export const isMissingRow = (row: ReviewRow): row is MissingRow => !("id" in row);
 
 const useContributionsReview = () => {
   const activeMathtrade = useStore((state) => state.data?.mathtrade);
@@ -92,6 +115,32 @@ const useContributionsReview = () => {
     afterLoad: afterReview,
   });
 
+  const [approveManualApi, , approvingManual, errorApproveManual] = useFetch({
+    endpoint: "POST_CONTRIBUTION_APPROVE_MANUAL",
+    method: "POST",
+    urlParams,
+    afterLoad: reload,
+  });
+
+  const [undoManualApi, , undoingManual, errorUndoManual] = useFetch({
+    endpoint: "POST_CONTRIBUTION_UNDO_MANUAL",
+    method: "POST",
+    urlParams,
+    afterLoad: reload,
+  });
+
+  // Callers confirm first (ConfirmModal): these send right away.
+  const approveManual = useCallback(
+    (membershipId: number) =>
+      approveManualApi({ params: { membership_id: membershipId } }),
+    [approveManualApi]
+  );
+
+  const undoManual = useCallback(
+    (contributionId: number) => undoManualApi({ urlParams: [contributionId] }),
+    [undoManualApi]
+  );
+
   const approve = useCallback(
     (row: ContributionRow) => approveApi({ urlParams: [row.id] }),
     [approveApi]
@@ -121,10 +170,14 @@ const useContributionsReview = () => {
     account,
     setAccount,
     accounts: accounts || [],
-    contributions: (contributions || []) as ContributionRow[],
-    loading: loading || approving || rejectingLoading,
-    error: errorList || errorApprove || errorReject,
+    contributions: (contributions || []) as ReviewRow[],
+    loading:
+      loading || approving || rejectingLoading || approvingManual || undoingManual,
+    error:
+      errorList || errorApprove || errorReject || errorApproveManual || errorUndoManual,
     approve,
+    approveManual,
+    undoManual,
     reject,
     rejecting,
     setRejecting,
