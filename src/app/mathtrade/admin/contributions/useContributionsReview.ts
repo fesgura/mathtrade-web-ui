@@ -9,6 +9,7 @@ type AccountRef = { id: number; holder_name: string; alias: string };
 export type ContributionRow = {
   id: number;
   membership_id: number;
+  user_id: number;
   manual: boolean;
   amount: string;
   status: "pending" | "approved" | "rejected";

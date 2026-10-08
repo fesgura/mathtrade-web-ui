@@ -4,6 +4,7 @@ import { ResultsContext } from "@/context/results";
 import { PageContext } from "@/context/page";
 import Avatar from "@/components/avatar";
 import I18N from "@/i18n";
+import { AdminUserName } from "@/components/adminUserModal";
 
 type ResultUser = {
   id?: string | number;
@@ -29,7 +30,9 @@ export const UserCaption = ({
 
   return (
     <p className="text-caption text-gray-500 mt-1.5 mb-0 max-w-full leading-snug break-words">
-      <I18N id={`results.person.${side}`} /> {name}
+      <I18N id={`results.person.${side}`} />{" "}
+      {/* membership id = the user id (MembershipSingleSerializer) */}
+      <AdminUserName userId={Number(user.id) || null}>{name}</AdminUserName>
       {location ? ` · ${location}` : ""}
     </p>
   );

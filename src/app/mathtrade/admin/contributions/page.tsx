@@ -8,6 +8,7 @@ import Modal from "@/components/modal";
 import ConfirmModal from "@/components/confirmModal";
 import I18N, { getI18Ntext } from "@/i18n";
 import { formatAmount } from "@/app/mathtrade/my-data/ContributionBox";
+import { AdminUserName } from "@/components/adminUserModal";
 import useContributionsReview, {
   ContributionRow,
   MissingRow,
@@ -145,7 +146,7 @@ const ContributionsReviewPage = () => {
       <div className="flex flex-wrap items-start justify-between gap-3 min-w-0">
         <div className="text-sm min-w-0 max-w-full break-words">
           <p className="font-bold text-base break-words">
-            {row.first_name} {row.last_name}{" "}
+            <AdminUserName userId={row.user_id}>{fullName(row)}</AdminUserName>{" "}
             <span className="font-normal text-gray-500">({row.bgg_user})</span>
           </p>
           <p className="break-words">{row.email}{row.location ? ` · ${row.location}` : ""}</p>
@@ -226,7 +227,7 @@ const ContributionsReviewPage = () => {
               <div className="flex flex-wrap items-start justify-between gap-3 min-w-0">
                 <div className="text-sm min-w-0 max-w-full break-words">
                   <p className="font-bold text-base break-words">
-                    {row.first_name} {row.last_name}{" "}
+                    <AdminUserName userId={row.user_id}>{fullName(row)}</AdminUserName>{" "}
                     <span className="font-normal text-gray-500">({row.bgg_user})</span>
                     {row.manual ? (
                       <span className="ml-2 align-middle text-xs font-semibold uppercase rounded px-2 py-0.5 bg-gray-200 text-gray-700">

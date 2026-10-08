@@ -12,6 +12,7 @@ import AdvContact from "@/components/header/advContact";
 import AdvSolidario from "@/components/header/advSolidario";
 import PrivateEnvironmentNoSSR from "@/environments/private/no-ssr";
 import EarlyPayPopup from "@/components/earlyPayPopup";
+import { AdminUserModalProvider } from "@/components/adminUserModal";
 import type { ReactNode } from "react";
 
 export default function MathTradeLayout({ children }: { children: ReactNode }) {
@@ -19,6 +20,7 @@ export default function MathTradeLayout({ children }: { children: ReactNode }) {
     <>
       <PrivateEnvironmentNoSSR>
         <PageContextProvider>
+        <AdminUserModalProvider>
         <TourContextProvider>
           {/* Mobile: shell is exactly the viewport; bottom padding reserves the
               fixed TabBar so the content column's scrollport is the band above
@@ -45,6 +47,7 @@ export default function MathTradeLayout({ children }: { children: ReactNode }) {
           <ModalPreviewer />
           <EarlyPayPopup />
         </TourContextProvider>
+        </AdminUserModalProvider>
         </PageContextProvider>
       </PrivateEnvironmentNoSSR>
     </>

@@ -10,6 +10,7 @@ import I18N, { getI18Ntext } from "@/i18n";
 import useFetch from "@/hooks/useFetch";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import { whatsappLink } from "@/utils/whatsapp";
+import { AdminUserName } from "@/components/adminUserModal";
 
 type Person = { id: number; first_name: string; last_name: string } | null;
 
@@ -170,7 +171,7 @@ const AdminReportsPage = () => {
                   <header className="flex flex-wrap items-start justify-between gap-3 mb-3">
                     <div className="text-sm">
                       <span className="font-semibold">#{row.id}</span> · {row.created} ·{" "}
-                      <I18N id="adminReports.col.by" />: <strong>{fullName(row.user)}</strong>
+                      <I18N id="adminReports.col.by" />: <strong><AdminUserName userId={row.user?.id}>{fullName(row.user)}</AdminUserName></strong>
                       <div className="mt-1">
                         {row.resolved_at ? (
                           <span className="text-green-700">
@@ -220,7 +221,8 @@ const AdminReportsPage = () => {
                         {row.item_detail.owner ? (
                           <>
                             {" · "}
-                            <I18N id="adminReports.owner" />: {fullName(row.item_detail.owner)} (
+                            <I18N id="adminReports.owner" />:{" "}
+                            <AdminUserName userId={row.item_detail.owner.id}>{fullName(row.item_detail.owner)}</AdminUserName> (
                             {row.item_detail.owner.username})
                             {row.item_detail.owner.whatsapp ? (
                               <a
@@ -282,7 +284,7 @@ const AdminReportsPage = () => {
                   {row.reported_user ? (
                     <section className="mb-3 text-sm">
                       <Label id="adminReports.user" />
-                      {fullName(row.reported_user)}
+                      <AdminUserName userId={row.reported_user.id}>{fullName(row.reported_user)}</AdminUserName>
                     </section>
                   ) : null}
 
@@ -305,7 +307,7 @@ const AdminReportsPage = () => {
                       <Label id="adminReports.thread" />
                       {row.comments.map((c) => (
                         <p key={c.id} className="mb-1">
-                          <strong>{fullName(c.user_info)}</strong> ({c.created}): {c.comment}
+                          <strong><AdminUserName userId={c.user_info?.id}>{fullName(c.user_info)}</AdminUserName></strong> ({c.created}): {c.comment}
                         </p>
                       ))}
                     </section>

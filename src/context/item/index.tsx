@@ -6,6 +6,7 @@ import {
   useState,
   useCallback,
   useEffect,
+  type ReactNode,
 } from "react";
 import useFetch from "@/hooks/useFetch";
 import { PageContext } from "@/context/page";
@@ -28,7 +29,13 @@ export const ItemContext = createContext({
   otherWantGroups: [],
 });
 
-export const ItemContextProvider = ({ itemRaw, children }) => {
+export const ItemContextProvider = ({
+  itemRaw = null,
+  children = null,
+}: {
+  itemRaw?: any;
+  children?: ReactNode;
+}) => {
   /* PAGE CONTEXT **********************************************/
   const { myWants, userId, itemTags /* myItemsInMT_forWants */ } =
     useContext(PageContext);
@@ -149,6 +156,8 @@ export const ItemContextProvider = ({ itemRaw, children }) => {
       isCombo,
       ready: ready !== false,
       user: {
+        // membership.id is the user id (MembershipSingleSerializer)
+        id: user?.id ?? null,
         avatar: user?.avatar || "",
         name: `${user?.first_name || ""} ${user?.last_name || ""}`,
         locationId: user?.location || "none",

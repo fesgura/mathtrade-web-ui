@@ -7,6 +7,7 @@ import EmptyList from "@/components/emptyList";
 import I18N from "@/i18n";
 import useFetch from "@/hooks/useFetch";
 import { PRIVATE_ROUTES } from "@/config/routes";
+import { AdminUserName } from "@/components/adminUserModal";
 
 type SelfExcludedRow = {
   user_id: number;
@@ -71,9 +72,11 @@ const AdminSelfExcludedPage = () => {
                   {list.map((row) => (
                     <tr key={row.user_id} className="border-b border-gray-100">
                       <td className="py-2 pr-4">
-                        <div className="font-semibold">
-                          {row.first_name} {row.last_name}
-                        </div>
+                        <AdminUserName userId={row.user_id}>
+                          <div className="font-semibold">
+                            {row.first_name} {row.last_name}
+                          </div>
+                        </AdminUserName>
                         <div className="text-xs text-gray-500">{row.username}</div>
                       </td>
                       <td className="py-2 pr-4">{row.location || "-"}</td>

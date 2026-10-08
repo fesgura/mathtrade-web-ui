@@ -10,6 +10,7 @@ import I18N, { getI18Ntext } from "@/i18n";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import { whatsappLink } from "@/utils/whatsapp";
 import useAdminUsers, { AdminUserRow } from "./useAdminUsers";
+import { AdminUserName } from "@/components/adminUserModal";
 
 const selectClass =
   "border border-stroke rounded-md p-2 text-sm bg-white w-full sm:w-auto max-w-full min-w-0";
@@ -197,9 +198,11 @@ const AdminUsersPage = () => {
                   {list.map((row) => (
                     <tr key={row.user_id} className="border-b border-gray-100 align-top">
                       <td className="py-2 pr-4">
-                        <div className="font-semibold">
-                          {row.first_name} {row.last_name}
-                        </div>
+                        <AdminUserName userId={row.user_id}>
+                          <div className="font-semibold">
+                            {row.first_name} {row.last_name}
+                          </div>
+                        </AdminUserName>
                         <div className="text-xs text-gray-500">
                           {row.username}
                           {row.email ? ` · ${row.email}` : ""}

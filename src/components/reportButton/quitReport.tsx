@@ -37,6 +37,7 @@ const QuitReport = ({ id = null, reported = null }) => {
     return {
       user: user_reported
         ? {
+            id: user_reported?.id ?? null,
             avatar: user_reported?.avatar || "",
             name: `${user_reported?.first_name || ""} ${
               user_reported?.last_name || ""
