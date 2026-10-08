@@ -79,8 +79,14 @@ const AdminPanelPage = () => {
         <div className="md:px-7 px-3 py-7">
           <div className="mb-4 text-right">
             <Link
-              href={PRIVATE_ROUTES.ADMIN_CONTRIBUTIONS.path}
+              href={PRIVATE_ROUTES.ADMIN_USERS.path}
               className="text-primary underline"
+            >
+              <I18N id="adminUsers.link" />
+            </Link>
+            <Link
+              href={PRIVATE_ROUTES.ADMIN_CONTRIBUTIONS.path}
+              className="text-primary underline ml-4"
             >
               <I18N id="adminContributions.link" />
             </Link>

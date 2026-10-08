@@ -145,6 +145,11 @@ export const PRIVATE_ROUTES = {
     path: privateRoot + "/admin/reports",
     enabled: "onlyForAdmin",
   },
+  ADMIN_USERS: {
+    title: "adminUsers",
+    path: privateRoot + "/admin/users",
+    enabled: "onlyForAdmin",
+  },
   ADMIN_RULES_QUESTIONS: {
     title: "adminRulesQuestions",
     path: privateRoot + "/admin/rules-questions",
