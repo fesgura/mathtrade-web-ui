@@ -24,7 +24,13 @@ type ItemElement = {
 type ItemDetail = {
   id: number;
   title: string;
-  owner: (Person & { username: string }) | null;
+  owner:
+    | (Person & {
+        username: string;
+        whatsapp?: string | null;
+        telegram?: string | null;
+      })
+    | null;
   location: string | null;
   elements: ItemElement[];
 } | null;
@@ -215,6 +221,26 @@ const AdminReportsPage = () => {
                             {" · "}
                             <I18N id="adminReports.owner" />: {fullName(row.item_detail.owner)} (
                             {row.item_detail.owner.username})
+                            {row.item_detail.owner.whatsapp ? (
+                              <a
+                                className="ml-2 underline text-primary"
+                                target="_blank"
+                                rel="noreferrer"
+                                href={`https://wa.me/${row.item_detail.owner.whatsapp.replace(/\D/g, "")}`}
+                              >
+                                WhatsApp
+                              </a>
+                            ) : null}
+                            {row.item_detail.owner.telegram ? (
+                              <a
+                                className="ml-2 underline text-primary"
+                                target="_blank"
+                                rel="noreferrer"
+                                href={`https://t.me/${row.item_detail.owner.telegram.replace(/^@/, "")}`}
+                              >
+                                Telegram
+                              </a>
+                            ) : null}
                           </>
                         ) : null}
                         {row.item_detail.location ? ` · ${row.item_detail.location}` : ""}
