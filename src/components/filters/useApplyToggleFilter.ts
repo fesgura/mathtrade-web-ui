@@ -5,7 +5,7 @@ import { GotoTopContext } from "@/context/goto-top";
 
 /**
  * Applies a filter-panel Switch immediately (same semantics as useFilters.onSubmit
- * for favorite / wantable / hide_wanted / hide_my_user), without waiting for Filtrar.
+ * for favorite / hide_favorite / wantable / hide_wanted / hide_my_user), without waiting for Filtrar.
  */
 const useApplyToggleFilter = (type: "item" | "game") => {
   const updateFilters = useOptions((state) => state.updateFilters);
@@ -18,8 +18,13 @@ const useApplyToggleFilter = (type: "item" | "game") => {
       const patch: Record<string, any> = { page: 1 };
 
       switch (name) {
+        // "Solo favoritos" and "Ocultar favoritos" share one param, so
+        // turning one on turns the other off.
         case "favorite":
           patch.favorite = checked ? "true" : undefined;
+          break;
+        case "hide_favorite":
+          patch.favorite = checked ? "false" : undefined;
           break;
         case "wantable":
           patch.wantable = checked ? "true" : undefined;

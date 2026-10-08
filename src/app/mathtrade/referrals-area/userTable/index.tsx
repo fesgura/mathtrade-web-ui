@@ -1,7 +1,9 @@
+import { useMemo } from "react";
 import I18N from "@/i18n";
 import useUserTable from "./useUserTable";
 import Table from "@/components/table";
-import columns from "./columns";
+import { Switch } from "@/components/form";
+import columns, { cityColumn } from "./columns";
 
 const UserTable = () => {
   const {
@@ -11,7 +13,17 @@ const UserTable = () => {
     cityName,
     showOnlyCommiters,
     setShowOnlyCommiters,
+    isAdmin,
+    allLocations,
+    setAllLocations,
   } = useUserTable();
+
+  // With every city listed, a column says where each member is.
+  const tableColumns = useMemo(
+    () =>
+      allLocations ? [columns[0], cityColumn, ...columns.slice(1)] : columns,
+    [allLocations]
+  );
 
   return (
     <div className="relative min-h-[260px]">
@@ -22,7 +34,18 @@ const UserTable = () => {
       </div>
       <Table
         header={
-          <div className="sm:pr-4 sm:border-r sm:border-gray-400">
+          <div className="sm:pr-4 sm:border-r sm:border-gray-400 flex flex-wrap items-center gap-x-5 gap-y-2">
+            {isAdmin ? (
+              <Switch
+                name="allLocations"
+                data={{ allLocations }}
+                onChange={(checked) => setAllLocations(checked)}
+              >
+                <span className="text-sm">
+                  <I18N id="referral.users.allLocations" />
+                </span>
+              </Switch>
+            ) : null}
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
@@ -38,9 +61,9 @@ const UserTable = () => {
         }
         loading={loading}
         error={error}
-        columns={columns}
+        columns={tableColumns}
         data={list}
-        downloadExcel={`usuarios-${cityName}`}
+        downloadExcel={`usuarios-${allLocations ? "todas" : cityName}`}
         searchValuesFunc={(user) => {
           const { first_name, last_name, email, telegram, bgg_user } = user;
 

@@ -107,17 +107,22 @@ const useMyOffer = () => {
         })
       : itemsByGroup;
 
+    // ONLY UNRATED: copies you haven't scored yet (no value, or 0).
+    const itemsByScore = filters_myoffer?.unrated
+      ? itemsByReady.filter((item) => !item.value)
+      : itemsByReady;
+
     // SEARCH
     const keyword = filters_myoffer?.keyword || "";
     const itemsFiltered = keyword.length
       ? (() => {
           const keyLow = normalizeString(keyword);
 
-          return itemsByReady.filter((item) => {
+          return itemsByScore.filter((item) => {
             return normalizeString(item.title).indexOf(keyLow) >= 0;
           });
         })()
-      : itemsByReady;
+      : itemsByScore;
 
     // ORDER
     const order = filters_myoffer?.order || "none";

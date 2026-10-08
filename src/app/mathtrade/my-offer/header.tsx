@@ -10,8 +10,9 @@ import ListToolbar from "@/components/list-toolbar";
 import ListSearch from "@/components/list-toolbar/search";
 import OptionChips from "@/components/filters/optionChips";
 import ClearAllScores from "@/components/value/clear-all";
+import { Switch } from "@/components/form";
 
-const HeaderMyOffer = ({ count }) => {
+const HeaderMyOffer = ({ count = 0 }: { count?: number }) => {
   const filters_myoffer = useOptions((state) => state.filters_myoffer);
   const updateFilters = useOptions((state) => state.updateFilters);
 
@@ -64,23 +65,36 @@ const HeaderMyOffer = ({ count }) => {
         />
       }
       extra={
-        <span className="inline-flex" data-tour="myoffer.ready">
-          <OptionChips
-            filterType="myoffer"
-            name="ready"
-            allowEmpty
-            emptyLabel={getI18Ntext("myOffer.filter.ready.all")}
-            options={[
-              {
-                value: "ready",
-                text: getI18Ntext("myOffer.filter.ready.ready"),
-              },
-              {
-                value: "missing",
-                text: getI18Ntext("myOffer.filter.ready.missing"),
-              },
-            ]}
-          />
+        <span className="inline-flex flex-wrap items-center gap-x-4 gap-y-2">
+          <span className="inline-flex" data-tour="myoffer.ready">
+            <OptionChips
+              filterType="myoffer"
+              name="ready"
+              allowEmpty
+              emptyLabel={getI18Ntext("myOffer.filter.ready.all")}
+              options={[
+                {
+                  value: "ready",
+                  text: getI18Ntext("myOffer.filter.ready.ready"),
+                },
+                {
+                  value: "missing",
+                  text: getI18Ntext("myOffer.filter.ready.missing"),
+                },
+              ]}
+            />
+          </span>
+          <Switch
+            name="unrated"
+            data={{ unrated: !!filters_myoffer?.unrated }}
+            onChange={(checked) => {
+              updateFilters({ unrated: checked || undefined }, "myoffer");
+            }}
+          >
+            <span className="text-xs whitespace-nowrap">
+              <I18N id="myOffer.filter.unrated" />
+            </span>
+          </Switch>
         </span>
       }
       sort={
