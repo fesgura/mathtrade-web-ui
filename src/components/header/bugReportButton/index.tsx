@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useState } from "react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import { FloatingPortal } from "@floating-ui/react";
 import { GOOGLE_RECAPTCHA_CLIENT_KEY } from "@/config";
 import Icon from "@/components/icon";
 import I18N from "@/i18n";
@@ -67,14 +68,23 @@ const BugReportButtonInner = ({
         </span>
       </button>
 
-      <Modal isOpen={open} onClose={toggleOpen} size="md">
-        <BugReportForm
-          toggleEditingMode={toggleOpen}
-          screenshot={screenshot}
-          consoleLog={consoleLog}
-          networkLog={networkLog}
-        />
-      </Modal>
+      {/* Portaled to body: components/modal renders in place, and on mobile
+          this button lives in the "Más" sheet, which onAction closes before
+          the modal opens. The closed sheet is inert/invisible/opacity-0, and
+          those inherit into the fixed dialog, leaving an invisible modal
+          whose body{overflow:hidden} still freezes the page. */}
+      {open ? (
+        <FloatingPortal>
+          <Modal isOpen={open} onClose={toggleOpen} size="md">
+            <BugReportForm
+              toggleEditingMode={toggleOpen}
+              screenshot={screenshot}
+              consoleLog={consoleLog}
+              networkLog={networkLog}
+            />
+          </Modal>
+        </FloatingPortal>
+      ) : null}
     </div>
   );
 };

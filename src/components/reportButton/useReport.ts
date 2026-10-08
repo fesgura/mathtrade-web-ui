@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from "react";
 import useFetch from "@/hooks/useFetch";
 
-const useReport = (id) => {
+const useReport = (id: number | string | null = null) => {
   const [showModal, setShowModal] = useState(false);
 
   const onOpen = useCallback(() => {
@@ -15,7 +15,7 @@ const useReport = (id) => {
   const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
-    let timer = null;
+    let timer: ReturnType<typeof setTimeout> | null = null;
     if (showSuccess) {
       timer = setTimeout(() => {
         setShowSuccess(false);
@@ -34,15 +34,16 @@ const useReport = (id) => {
     setShowSuccess(true);
   }, []);
 
-  const [createReport, , loading] = useFetch({
+  // No afterError: a failed POST must not show the success message.
+  // useFetch exposes the API error, which the modal renders instead.
+  const [createReport, , loading, error] = useFetch({
     endpoint: "POST_REPORT",
     method: "POST",
     afterLoad,
-    afterError: afterLoad,
   });
 
   const onSubmit = useCallback(
-    (data) => {
+    (data: Record<string, unknown>) => {
       const params = {
         ...data,
         item: id,
@@ -62,6 +63,7 @@ const useReport = (id) => {
     onSubmit,
     loading,
     showSuccess,
+    error,
   };
 };
 
