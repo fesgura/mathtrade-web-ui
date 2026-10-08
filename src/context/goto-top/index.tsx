@@ -5,15 +5,19 @@ export const GotoTopContext = createContext({
   gotoTop: () => {},
 });
 
-export const GotoTopContextProvider = ({ children }) => {
-  const topRef = useRef(null);
+export const GotoTopContextProvider = ({ children = null }) => {
+  const topRef = useRef<HTMLDivElement>(null);
 
   const gotoTop = useCallback(() => {
     if (!topRef.current) return;
 
     // Mobile mathtrade layout scrolls the content column, not the window.
+    // On desktop the same column is not a scroll container (overflow only
+    // below lg), so scrolling it would do nothing: use the window there.
     const scroller = document.querySelector("[data-bug-report-capture]");
-    if (scroller instanceof HTMLElement) {
+    const overflowY =
+      scroller instanceof HTMLElement ? getComputedStyle(scroller).overflowY : "";
+    if (overflowY === "auto" || overflowY === "scroll") {
       const scrollerRect = scroller.getBoundingClientRect();
       const refRect = topRef.current.getBoundingClientRect();
       const top = scroller.scrollTop + (refRect.top - scrollerRect.top);

@@ -2,14 +2,27 @@ import { getI18Ntext } from "@/i18n";
 import useOrderBy from "./useOrderBy";
 import Icon from "../icon";
 
-const OrderBy = ({ type = "item", options = [] }) => {
+type OrderOption = {
+  text: string;
+  value: string;
+  // The field's natural order runs the other way (BGG rank: #1 is the
+  // best), so the arrow and label show the opposite of the API direction.
+  inverted?: boolean;
+};
+
+const OrderBy = ({
+  type = "item",
+  options = [] as OrderOption[],
+}) => {
   const { idOrderBy, data, onChangeOrderBy, toggleDesc } = useOrderBy(type);
   const selected = data.value || options[0]?.value || "";
+  const inverted = options.find((opt) => opt.value === selected)?.inverted;
+  const shownDesc = inverted ? !data.desc : data.desc;
   const directionLabel = getI18Ntext(
-    data.desc ? "orderBy.Descent" : "orderBy.Ascent"
+    shownDesc ? "orderBy.Descent" : "orderBy.Ascent"
   );
   const directionShort = getI18Ntext(
-    data.desc ? "orderBy.Descent.mobile" : "orderBy.Ascent.mobile"
+    shownDesc ? "orderBy.Descent.mobile" : "orderBy.Ascent.mobile"
   );
 
   return (
@@ -40,10 +53,10 @@ const OrderBy = ({ type = "item", options = [] }) => {
         onClick={toggleDesc}
         title={`${directionLabel}. ${getI18Ntext("orderBy.Direction.help")}`}
         aria-label={directionLabel}
-        aria-pressed={!!data.desc}
+        aria-pressed={!!shownDesc}
       >
         <Icon
-          type={data.desc ? "arrow-down" : "arrow-up"}
+          type={shownDesc ? "arrow-down" : "arrow-up"}
           className="text-sm shrink-0"
         />
         <span className="text-[11px] font-semibold leading-none hidden sm:inline">

@@ -1254,6 +1254,7 @@
   "reportItem.help": "Si ves alguna información incorrecta o alguna otra cosa que quieras avisar en este ejemplar, por favor comunicalo a los administradores.",
   "reportItem.success": "El ejemplar ha sido reportado.<br/>Muchas gracias.",
   "reportItem.title": "REPORTE DE EJEMPLAR:",
+  "reportItem.by": "Reportado por",
   "result.table.item_to": "Doy",
   "result.table.member_to": "A",
   "result.table.item_from": "Recibo",

@@ -7,7 +7,7 @@ import CommentEditor from "./editor";
 import List from "./list";
 import ReportButton from "../reportButton";
 
-const ItemComments = ({ className, rightContent }) => {
+const ItemComments = ({ className = "", rightContent = null }) => {
   const { item } = useContext(ItemContext);
   const { commentsCount } = item;
 
@@ -20,7 +20,7 @@ const ItemComments = ({ className, rightContent }) => {
   return typeof commentsCount === "undefined" ? null : (
     <div className={className}>
       <header className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 min-w-0">
           <h3
             className="flex items-center cursor-pointer h-5 w-fit pl-1"
             onClick={toggleShowComments}
@@ -39,10 +39,11 @@ const ItemComments = ({ className, rightContent }) => {
               <Icon type="chevron-right" />
             </span>
           </h3>
-          <ReportButton />
+          <ReportButton part="button" />
         </div>
-        {rightContent || null}
+        {rightContent ? <div className="shrink-0">{rightContent}</div> : null}
       </header>
+      <ReportButton part="report" className="mt-2" />
 
       {showComments && (
         <div className="px-4">
