@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import { FloatingPortal } from "@floating-ui/react";
 import { GOOGLE_RECAPTCHA_CLIENT_KEY } from "@/config";
@@ -40,13 +40,36 @@ const BugReportButtonInner = ({
     setOpen((v) => !v);
   }, []);
 
+  // html2canvas runs on the main thread and can take seconds on slow
+  // phones; without feedback the tap looks like a freeze. `capturing`
+  // drives a portaled "Preparando captura…" overlay; the ref blocks
+  // repeated taps before React re-renders the disabled button.
+  const [capturing, setCapturing] = useState(false);
+  const busyRef = useRef(false);
+
   const openWithCapture = useCallback(async () => {
+    if (busyRef.current) return;
+    busyRef.current = true;
     // Close chrome overlays first, then capture — preview === payload.
     onAction?.();
-    const shot = await captureScreenshot();
+    setCapturing(true);
+    // Let the browser paint the overlay before html2canvas blocks the
+    // thread (rAF fires before paint; the timeout lands after it).
+    await new Promise<void>((resolve) => {
+      requestAnimationFrame(() => setTimeout(resolve, 0));
+    });
+    let shot: string | null = null;
+    try {
+      shot = await captureScreenshot();
+    } catch {
+      // A failed capture must not block the report: open without image.
+      shot = null;
+    }
     setScreenshot(shot);
     setConsoleLog(getConsoleBuffer().join("\n"));
     setNetworkLog(formatNetworkBuffer());
+    setCapturing(false);
+    busyRef.current = false;
     setOpen(true);
   }, [onAction]);
 
@@ -61,12 +84,33 @@ const BugReportButtonInner = ({
             : "text-white/80 hover:text-white hover:bg-white/5"
         )}
         onClick={openWithCapture}
+        disabled={capturing}
+        aria-busy={capturing}
       >
         <Icon type="report" className="text-lg shrink-0" />
         <span className={fadeLabelClass(!collapsed)}>
           <I18N id="bugReport.menu" />
         </span>
       </button>
+
+      {/* Portaled for the same reason as the modal below: on mobile the
+          trigger sits in the closing "Más" sheet. Ignored by html2canvas
+          (the /sign fallback captures body, where the portal lives). */}
+      {capturing ? (
+        <FloatingPortal>
+          <div
+            data-html2canvas-ignore
+            role="status"
+            aria-live="polite"
+            className="fixed inset-0 z-modal flex items-center justify-center bg-black/20"
+          >
+            <div className="flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm text-gray-900 shadow-lg">
+              <Icon type="loading" className="animate-spin" />
+              <I18N id="bugReport.capturing" />
+            </div>
+          </div>
+        </FloatingPortal>
+      ) : null}
 
       {/* Portaled to body: components/modal renders in place, and on mobile
           this button lives in the "Más" sheet, which onAction closes before
