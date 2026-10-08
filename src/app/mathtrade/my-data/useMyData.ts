@@ -6,7 +6,12 @@ import { formatLocations } from "@/utils";
 import { formatDateString } from "@/utils/dateUtils";
 import { useOptions } from "@/store";
 
-const selectLocationById = (locations, id) => {
+type Location = { id: number; mandatory_attendance?: boolean; [key: string]: unknown };
+
+const selectLocationById = (
+  locations: Location[] | null | undefined,
+  id: number | null | undefined
+): Location | null => {
   const item = locations ? locations.filter((loc) => loc.id === id) : [];
   return item[0] || null;
 };
@@ -29,8 +34,10 @@ const useMyData = () => {
   const { membership, mathtrade } = store;
   const updateStore = useStore((state) => state.updateStore);
 
-  const [currentLocation, setCurrentLocation] = useState(null);
-  const [currentEventAttendance, setCurrentEventAttendance] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState<Location | null>(null);
+  const [currentEventAttendance, setCurrentEventAttendance] = useState<
+    boolean | null
+  >(null);
 
   const { mathtradeName, meetingDay } = useMemo(() => {
     return {
@@ -50,7 +57,7 @@ const useMyData = () => {
   }, [membership]);
 
   const changeCurrentLocation = useCallback(
-    (newLocationId) => {
+    (newLocationId: number) => {
       const newLocation = selectLocationById(locations, newLocationId);
       setCurrentLocation(newLocation);
 
