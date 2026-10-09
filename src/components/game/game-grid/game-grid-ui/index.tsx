@@ -1,13 +1,34 @@
 import clsx from "clsx";
+import { useContext } from "react";
 import { cardSurfaceClass } from "@/components/badgeType/cardKind";
+import { GameContext } from "@/context/game";
+import {
+  useSelectableCard,
+  selectedCardClass,
+} from "@/components/ban/bulk/useBulkSelect";
 import useGameGrid from "./useGameGrid";
 import GameGridMD from "./md";
 import GameGridXL from "./xl";
 
-const GameGridUI = ({ expanded, setExpanded, tourAnchor = undefined }) => {
+type GameGridUIProps = {
+  expanded: number | null;
+  setExpanded: (bggId: number | null) => void;
+  tourAnchor?: string;
+};
+
+const GameGridUI = ({
+  expanded,
+  setExpanded,
+  tourAnchor = undefined,
+}: GameGridUIProps) => {
   const { gameNode, isExpanded, onToggleExpanse } = useGameGrid(
     expanded,
     setExpanded
+  );
+  const { game, showAsIgnored } = useContext(GameContext);
+  const { isSelected } = useSelectableCard(
+    game?.bgg_id,
+    game?.ban_id || showAsIgnored ? "ignored" : null
   );
   return (
     <article
@@ -24,7 +45,8 @@ const GameGridUI = ({ expanded, setExpanded, tourAnchor = undefined }) => {
           {
             "sm:max-w-[420px] h-full rounded-lg": !isExpanded,
             "bg-white shadow-xl duration-700 max-w-5xl": isExpanded,
-          }
+          },
+          isSelected && selectedCardClass
         )}
       >
         {!isExpanded ? (

@@ -4,6 +4,7 @@ import { GameContext } from "@/context/game";
 import { PageContext } from "@/context/page";
 import { useOptions } from "@/store";
 import useFetch from "@/hooks/useFetch";
+import { isWantedGame } from "../isWanted";
 
 const useBanButton = (type = "item") => {
   const { forceReloadPage, myWants } = useContext(PageContext);
@@ -97,15 +98,7 @@ const useBanButton = (type = "item") => {
     if (type === "item") {
       return !!wantGroup || !!otherWantGroups?.length || !!wantedViaTag;
     }
-    if (!game) return false;
-    const copyIds = new Set((game.items || []).map(({ id }) => `${id}`));
-    return (myWants || []).some(
-      (w) =>
-        (w.type === "game" &&
-          game.bgg_id &&
-          `${w.bgg_id}` === `${game.bgg_id}`) ||
-        (w.wants || []).some(({ id }) => copyIds.has(`${id}`))
-    );
+    return isWantedGame(game, myWants);
   }, [type, wantGroup, otherWantGroups, wantedViaTag, game, myWants]);
 
   const [confirmOpen, setConfirmOpen] = useState(false);

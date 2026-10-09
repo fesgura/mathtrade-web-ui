@@ -11,6 +11,7 @@ import ActiveFilterChips from "@/components/filters/activeChips";
 import ListToolbar from "@/components/list-toolbar";
 import ListSearch from "@/components/list-toolbar/search";
 import ClearAllScores from "@/components/value/clear-all";
+import SelectModeButton from "@/components/ban/bulk/SelectModeButton";
 import { useOptions } from "@/store";
 
 const Header = () => {
@@ -65,6 +66,7 @@ const Header = () => {
       }
       trailing={
         <>
+          <SelectModeButton />
           <ClearAllScores scope="others" className="" />
           <PageSize type="game" />
           <Pagination type="game" count={count} />

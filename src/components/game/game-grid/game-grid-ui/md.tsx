@@ -22,6 +22,8 @@ import BGGlink from "@/components/bggInfo/bggLink";
 import BGGPlayers from "@/components/bggInfo/players";
 import TaxonomyDisclosure from "@/components/bggInfo/taxonomyDisclosure";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
+import SelectTick from "@/components/ban/bulk/SelectTick";
+import { useSelectableCard } from "@/components/ban/bulk/useBulkSelect";
 
 type GameCardData = {
   ban_id?: number | string | null;
@@ -46,6 +48,7 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
 
   const {
     ban_id,
+    bgg_id,
     title,
     titleLink,
     typeNum,
@@ -56,6 +59,11 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
     notGame,
   } = game as GameCardData;
   /* end GAME CONTEXT */
+
+  /* BULK SELECT: while selecting, a click on the card toggles it. */
+  const disabledReason = ban_id || showAsIgnored ? "ignored" : null;
+  const { selecting, toggleCard } = useSelectableCard(bgg_id, disabledReason);
+  const onCardClick = selecting ? toggleCard : onToggleExpanse;
 
   const {
     isInBGG,
@@ -91,6 +99,7 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
         }
       )}
     >
+      <SelectTick id={bgg_id} disabledReason={disabledReason} />
       <div className="flex flex-col grow">
         <div className="relative overflow-hidden rounded-t-lg">
           <Thumbnail
@@ -100,10 +109,18 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
             className="w-full h-44"
           />
           <div
-            className="absolute top-0 left-0 w-full h-full bg-black/40 grid place-content-center backdrop-blur-sm cursor-pointer opacity-0 hover:opacity-100 transition-opacity"
-            onClick={onToggleExpanse}
+            className={clsx(
+              "absolute top-0 left-0 w-full h-full cursor-pointer",
+              {
+                "bg-black/40 grid place-content-center backdrop-blur-sm opacity-0 hover:opacity-100 transition-opacity":
+                  !selecting,
+              }
+            )}
+            onClick={onCardClick}
           >
-            <Icon type="plus" className="text-2xl text-white" />
+            {selecting ? null : (
+              <Icon type="plus" className="text-2xl text-white" />
+            )}
           </div>
         </div>
 
@@ -115,15 +132,15 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
             />
             <div className="flex items-center justify-end gap-2 shrink-0 w-full">
               <FavoriteButton type="game" />
-              <BanButton size="md" type="game" />
+              {selecting ? null : <BanButton size="md" type="game" />}
               {ban_id ? null : <Value type="game" />}
             </div>
           </div>
 
           <div
-            data-tooltip={getI18Ntext("Enlarge")}
+            data-tooltip={selecting ? undefined : getI18Ntext("Enlarge")}
             className="cursor-pointer w-full"
-            onClick={onToggleExpanse}
+            onClick={onCardClick}
           >
             {/* Two lines are reserved even for a one-line title: the title is
                 clamped at 2, and letting it collapse to 1 pushes the rating

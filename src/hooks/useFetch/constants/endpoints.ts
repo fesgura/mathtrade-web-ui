@@ -133,6 +133,7 @@ const endpoints = {
   // BAN
   GET_BANS: "api/bans/users/",
   POST_BAN: "api/bans/",
+  POST_BAN_BULK: "api/bans/bulk/",
   DELETE_BAN_USER: "api/bans/users/$[1]/",
   DELETE_BAN_ITEM: "api/bans/items/$[1]/",
   DELETE_BAN_GAME: "api/bans/games/$[1]/",

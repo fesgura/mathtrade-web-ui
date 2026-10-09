@@ -22,6 +22,8 @@ import BGGlink from "@/components/bggInfo/bggLink";
 import BGGPlayers from "@/components/bggInfo/players";
 import TaxonomyDisclosure from "@/components/bggInfo/taxonomyDisclosure";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
+import SelectTick from "@/components/ban/bulk/SelectTick";
+import { useSelectableCard } from "@/components/ban/bulk/useBulkSelect";
 
 const WantButtonGame = lazy(() => import("../wantButtonGame"));
 
@@ -47,6 +49,7 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
 
   const {
     ban_id,
+    bgg_id,
     title,
     year,
     titleLink,
@@ -56,6 +59,11 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
     notGame,
   } = game as GameCardData;
   /* end GAME CONTEXT */
+
+  /* BULK SELECT: while selecting, the cover and title toggle the card. */
+  const disabledReason = ban_id || showAsIgnored ? "ignored" : null;
+  const { selecting, toggleCard } = useSelectableCard(bgg_id, disabledReason);
+  const onSelectClick = selecting ? toggleCard : undefined;
 
   const {
     isInBGG,
@@ -92,8 +100,14 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
           }
         )}
       >
+        <SelectTick id={bgg_id} disabledReason={disabledReason} />
         <div className="flex flex-col">
-          <div className="relative overflow-hidden rounded-t-lg">
+          <div
+            className={clsx("relative overflow-hidden rounded-t-lg", {
+              "cursor-pointer": selecting,
+            })}
+            onClick={onSelectClick}
+          >
             <Thumbnail
               fill
               contain
@@ -109,7 +123,7 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
               />
               <div className="flex items-center gap-2 shrink-0">
                 <FavoriteButton type="game" />
-                <BanButton size="md" type="game" />
+                {selecting ? null : <BanButton size="md" type="game" />}
                 {ban_id ? null : (
                   <>
                     <div className="w-[1px] h-4 bg-black/10" />
@@ -119,7 +133,12 @@ const GameGridXL = ({ onToggleExpanse }: GameGridXLProps) => {
               </div>
             </div>
 
-            <h3 className="text-heading leading-tight w-full break-words">{`${title}${
+            <h3
+              className={clsx("text-heading leading-tight w-full break-words", {
+                "cursor-pointer": selecting,
+              })}
+              onClick={onSelectClick}
+            >{`${title}${
               year ? ` (${year})` : ""
             }`}</h3>
 
