@@ -4,7 +4,7 @@ import type { BggStats } from "./types";
 
 const useBGGdata = ({ game }: { game: unknown }): BggStats => {
   return useMemo(
-    () => getStatsOfElement(game) as BggStats,
+    () => getStatsOfElement(game),
     [game]
   );
 };

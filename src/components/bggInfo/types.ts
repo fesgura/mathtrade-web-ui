@@ -3,7 +3,7 @@ export type BggTaxonomyItem = { bgg_id?: number; name?: string };
 /** Shape returned by `getStatsOfElement` / `useBGGdata`. */
 export type BggStats = {
   isInBGG?: boolean;
-  rate: number;
+  rate: number | null;
   rateColor: string;
   averageRate: number | null;
   averageRateColor: string;

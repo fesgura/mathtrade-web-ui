@@ -1,9 +1,10 @@
 import { getI18Ntext } from "@/i18n";
 import { noBGGgame } from "@/config/no-bgggame";
 import { dependencyLabel } from "@/config/dependencyTypes";
+import type { BggStats } from "./types";
 
 // Ratings BGG
-const ratingsBGG = {
+const ratingsBGG: Record<number, string> = {
   0: "#666e75",
   1: "#b2151f",
   2: "#b2151f",
@@ -16,13 +17,18 @@ const ratingsBGG = {
   9: "#186b40",
   10: "#186b40",
 };
+const GRAY = ratingsBGG[0];
+export const MIN_VOTES_FOR_AVERAGE_COLOR = 30;
 
-const dependencyToData = (dependency) => {
+const dependencyToData = (dependency: {
+  value: number;
+  votes: Record<string, unknown>;
+}) => {
   // dependency.votes is the backend's Game.dependency_votes JSONField, a
   // {level: voteCount} object (e.g. {"1": 12, "2": 3}), not a delimited string.
-  const totalVotes = Object.values(dependency.votes || {}).reduce(
+  const totalVotes = Object.values(dependency.votes || {}).reduce<number>(
     (accumulator, currentValue) => {
-      return accumulator + (parseInt(currentValue, 10) || 0);
+      return accumulator + (parseInt(String(currentValue), 10) || 0);
     },
     0
   );
@@ -40,15 +46,31 @@ const dependencyToData = (dependency) => {
   };
 };
 //
-const roundRate = (value) => Math.round((value || 0) * 10) / 10;
+const roundRate = (value: unknown): number =>
+  Math.round((Number(value) || 0) * 10) / 10;
 
-export const getStatsOfElement = (element) => {
+/** BGG's bucket: floor of the 1-decimal value (7.96 → "8.0" → 8), gray when
+ * missing/0 or with fewer than minVotes votes. */
+export const ratingColor = (
+  value: number | null,
+  votes?: number,
+  minVotes = 0
+): string => {
+  if (value == null || value <= 0) return GRAY;
+  if (minVotes && (votes ?? 0) < minVotes) return GRAY;
+  const bucket = Math.min(10, Math.max(0, Math.floor(roundRate(value))));
+  return ratingsBGG[bucket];
+};
+
+export const getStatsOfElement = (
+  element: Record<string, any> | null | undefined
+): BggStats => {
   if (!element) {
     return {
       rate: 1,
-      rateColor: ratingsBGG[0],
+      rateColor: GRAY,
       averageRate: null,
-      averageRateColor: ratingsBGG[0],
+      averageRateColor: GRAY,
       rateVotes: 1,
       weight: 1,
       weightVotes: 1,
@@ -82,21 +104,27 @@ export const getStatsOfElement = (element) => {
   const hasAverage =
     average_rate !== null && average_rate !== undefined && average_rate !== "";
 
-  const toNullableInt = (value) => {
+  const toNullableInt = (value: unknown): number | null => {
     if (value === null || value === undefined || value === "") return null;
-    const n = parseInt(value, 10);
+    const n = parseInt(String(value), 10);
     return Number.isNaN(n) ? null : n;
   };
 
+  const geek = roundRate(rate);
+  const rateVotes = parseInt(rate_votes || 0, 10) || 0;
+  const averageRate = hasAverage ? roundRate(average_rate) : null;
+
   return {
     isInBGG: `${bgg_id}` !== noBGGgame.element.bgg_id,
-    rate: roundRate(rate),
-    rateColor: ratingsBGG[Math.floor(rate || 0)],
-    averageRate: hasAverage ? roundRate(average_rate) : null,
-    averageRateColor: hasAverage
-      ? ratingsBGG[Math.floor(average_rate || 0)]
-      : ratingsBGG[0],
-    rateVotes: parseInt(rate_votes || 0, 10),
+    rate: geek > 0 ? geek : null, // "—" when missing/0
+    rateColor: ratingColor(geek > 0 ? geek : null),
+    averageRate,
+    averageRateColor: ratingColor(
+      averageRate,
+      rateVotes,
+      MIN_VOTES_FOR_AVERAGE_COLOR
+    ),
+    rateVotes,
     rank,
     weight: Math.round((weight || 0) * 100) / 100,
     weightVotes: parseInt(weight_votes || 0, 10),
