@@ -9,8 +9,11 @@ import XlsButton from "@/components/xlsButton";
 import I18N, { getI18Ntext } from "@/i18n";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import { whatsappLink } from "@/utils/whatsapp";
-import useAdminUsers, { AdminUserRow } from "./useAdminUsers";
-import { AdminUserName } from "@/components/adminUserModal";
+import useAdminUsers, { AdminUserRow, SortKey } from "./useAdminUsers";
+import { readyCopies } from "./useSortedRows";
+import SortableTh from "./sortableTh";
+import Copies from "./copies";
+import { AdminUserName, useAdminUser } from "@/components/adminUserModal";
 
 const selectClass =
   "border border-stroke rounded-md p-2 text-sm bg-white w-full sm:w-auto max-w-full min-w-0";
@@ -22,11 +25,21 @@ const STATUS_COLORS: Record<AdminUserRow["contribution_status"], string> = {
   rejected: "bg-red-100 text-red-800",
 };
 
+const COLUMNS: { key: SortKey; className: string }[] = [
+  { key: "name", className: "py-2 pr-4" },
+  { key: "city", className: "py-2 pr-4" },
+  { key: "contact", className: "py-2 pr-4" },
+  { key: "referring", className: "py-2 pr-4" },
+  { key: "copies", className: "py-2 pr-4 text-right" },
+  { key: "status", className: "py-2 pr-4" },
+  { key: "flags", className: "py-2" },
+];
+
 const tgLink = (telegram: string) => `https://t.me/${telegram.replace(/^@/, "")}`;
 
 const hasNoContact = (row: AdminUserRow) => !row.whatsapp && !row.telegram;
 
-// Flat rows for the Excel download: what is on screen, with the filters applied.
+// Flat rows for the Excel download: what is on screen, with the filters and sort applied.
 const toExport = (list: AdminUserRow[]) =>
   list.map((row) => ({
     Nombre: row.first_name,
@@ -37,10 +50,12 @@ const toExport = (list: AdminUserRow[]) =>
     WhatsApp: row.whatsapp || "",
     Telegram: row.telegram || "",
     "Sin contacto": hasNoContact(row) ? "Sí" : "No",
+    Nuevo: row.is_new ? "Sí" : "No",
     BGG: row.bgg_user || "",
     Ciudad: row.location || "",
     "Referido por": row.referring || "",
-    Ejemplares: row.copies,
+    "Ejemplares listos": readyCopies(row),
+    "Ejemplares cargados": row.copies,
     Aporte: getI18Ntext(`adminUsers.status.${row.contribution_status}`),
     Autoexcluido: row.self_excluded ? "Sí" : "No",
     Confirmó: row.commitment ? "Sí" : "No",
@@ -55,6 +70,8 @@ const AdminUsersPage = () => {
     list,
     loading,
     error,
+    sort,
+    toggleSort,
     search,
     setSearch,
     contact,
@@ -64,7 +81,11 @@ const AdminUsersPage = () => {
     location,
     setLocation,
     locations,
+    onlyNew,
+    setOnlyNew,
+    newCount,
   } = useAdminUsers();
+  const { openAdminUser, isNewUser } = useAdminUser();
 
   const quickButton = (active: boolean) =>
     clsx(
@@ -88,8 +109,11 @@ const AdminUsersPage = () => {
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <button
               type="button"
-              className={quickButton(contact === "")}
-              onClick={() => setContact("")}
+              className={quickButton(contact === "" && !onlyNew)}
+              onClick={() => {
+                setContact("");
+                setOnlyNew(false);
+              }}
             >
               <I18N id="adminUsers.quick.all" />
             </button>
@@ -99,6 +123,14 @@ const AdminUsersPage = () => {
               onClick={() => setContact("missing")}
             >
               <I18N id="adminUsers.quick.noContact" />
+            </button>
+            {/* A toggle: combines with "Sin contacto" and the other filters. */}
+            <button
+              type="button"
+              className={quickButton(onlyNew)}
+              onClick={() => setOnlyNew((v) => !v)}
+            >
+              <I18N id="adminUsers.quick.new" /> ({newCount})
             </button>
             {contact === "missing" ? (
               <span className="text-xs text-gray-500">
@@ -185,18 +217,26 @@ const AdminUsersPage = () => {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="text-left text-gray-500 border-b border-gray-200">
-                    <th className="py-2 pr-4"><I18N id="adminUsers.col.name" /></th>
-                    <th className="py-2 pr-4"><I18N id="adminUsers.col.city" /></th>
-                    <th className="py-2 pr-4"><I18N id="adminUsers.col.contact" /></th>
-                    <th className="py-2 pr-4"><I18N id="adminUsers.col.referring" /></th>
-                    <th className="py-2 pr-4 text-right"><I18N id="adminUsers.col.copies" /></th>
-                    <th className="py-2 pr-4"><I18N id="adminUsers.col.status" /></th>
-                    <th className="py-2"><I18N id="adminUsers.col.flags" /></th>
+                    {COLUMNS.map(({ key, className }) => (
+                      <SortableTh
+                        key={key}
+                        sortKey={key}
+                        labelId={`adminUsers.col.${key}`}
+                        sort={sort}
+                        onSort={toggleSort}
+                        className={className}
+                      />
+                    ))}
                   </tr>
                 </thead>
                 <tbody>
                   {list.map((row) => (
-                    <tr key={row.user_id} className="border-b border-gray-100 align-top">
+                    <tr
+                      key={row.user_id}
+                      className={clsx("border-b border-gray-100 align-top", {
+                        "bg-violet-50": isNewUser(row.user_id),
+                      })}
+                    >
                       <td className="py-2 pr-4">
                         <AdminUserName userId={row.user_id}>
                           <div className="font-semibold">
@@ -244,7 +284,13 @@ const AdminUsersPage = () => {
                         ) : null}
                       </td>
                       <td className="py-2 pr-4">{row.referring || "-"}</td>
-                      <td className="py-2 pr-4 text-right">{row.copies}</td>
+                      <td className="py-2 pr-4 text-right">
+                        <Copies
+                          ready={readyCopies(row)}
+                          total={row.copies}
+                          onClick={() => openAdminUser(row.user_id, { section: "items" })}
+                        />
+                      </td>
                       <td className="py-2 pr-4">
                         <span
                           className={clsx(

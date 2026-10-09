@@ -97,6 +97,7 @@ module.exports = {
       sky: colors.sky,
       yellow: colors.yellow,
       teal: colors.teal,
+      violet: colors.violet,
     },
 
     extend: {

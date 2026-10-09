@@ -1,10 +1,11 @@
 "use client";
 import { useContext } from "react";
+import clsx from "clsx";
 import { ResultsContext } from "@/context/results";
 import { PageContext } from "@/context/page";
 import Avatar from "@/components/avatar";
 import I18N from "@/i18n";
-import { AdminUserName } from "@/components/adminUserModal";
+import { AdminUserName, NewUserBadge, useAdminUser } from "@/components/adminUserModal";
 
 type ResultUser = {
   id?: string | number;
@@ -41,6 +42,7 @@ export const UserCaption = ({
 const UserHub = () => {
   const { currentUser } = useContext(ResultsContext);
   const { userId, user } = useContext(PageContext);
+  const { isNewUser } = useAdminUser();
   const hub = currentUser || user;
 
   if (!hub) {
@@ -59,9 +61,14 @@ const UserHub = () => {
           width={40}
         />
       </div>
-      <p className="text-caption font-semibold mt-1.5 mb-0 leading-snug line-clamp-2">
+      <p
+        className={clsx("text-caption font-semibold mt-1.5 mb-0 leading-snug line-clamp-2", {
+          "text-violet-700": !isSelf && isNewUser(hub.id),
+        })}
+      >
         {isSelf ? <I18N id="results.mySelf" /> : name || "—"}
       </p>
+      {isSelf ? null : <NewUserBadge userId={hub.id} className="ml-0" />}
     </div>
   );
 };

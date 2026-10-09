@@ -4,8 +4,27 @@ import I18N from "@/i18n";
 import Avatar from "@/components/avatar";
 import useUserBanRow from "./useUserBanRow";
 import ConfirmModal from "@/components/confirmModal";
+import { NewUserBadge, useAdminUser } from "@/components/adminUserModal";
 
-const Button = ({ user, userBans, setUserBans }) => {
+type BanUserRow = {
+  id: number;
+  avatar?: string | null;
+  name: string;
+  last_name?: string;
+  location?: string;
+};
+type UserBans = Record<string | number, number>;
+type SetUserBans = (bans: UserBans) => void;
+
+const Button = ({
+  user,
+  userBans,
+  setUserBans,
+}: {
+  user: BanUserRow;
+  userBans: UserBans;
+  setUserBans: SetUserBans;
+}) => {
   const { ban_id, onClick, loading, confirmOpen, onConfirm, onCancel } =
     useUserBanRow(user, userBans, setUserBans);
   return (
@@ -36,25 +55,36 @@ const Button = ({ user, userBans, setUserBans }) => {
   );
 };
 
-const getColumns = (userBans, setUserBans) => {
+// New members (admins only): violet name plus badge.
+const Name = ({ id, name }: { id: number; name: string }) => {
+  const { isNewUser } = useAdminUser();
+  return (
+    <div className={clsx({ "text-violet-700": isNewUser(id) })}>
+      {name}
+      <NewUserBadge userId={id} />
+    </div>
+  );
+};
+
+const getColumns = (userBans: UserBans, setUserBans: SetUserBans) => {
   return [
     {
       header: "ban.table.name",
       value: "name",
-      render: ({ avatar, name }) => {
+      render: ({ id, avatar, name }: BanUserRow) => {
         return (
           <div className="flex items-center gap-2">
             <div>
               <Avatar avatar={avatar || ""} width={30} />
             </div>
-            <div>{name}</div>
+            <Name id={id} name={name} />
           </div>
         );
       },
-      sort: (a, b, dir) => {
+      sort: (a: BanUserRow, b: BanUserRow, dir: number) => {
         return a.last_name < b.last_name ? -1 * dir : dir;
       },
-      excel: ({ name }) => {
+      excel: ({ name }: BanUserRow) => {
         return `${name}`;
       },
     },
@@ -66,15 +96,15 @@ const getColumns = (userBans, setUserBans) => {
     {
       header: "ban.table.status",
       value: "status",
-      render: (user) => {
+      render: (user: BanUserRow) => {
         return (
           <Button user={user} userBans={userBans} setUserBans={setUserBans} />
         );
       },
-      sort: (a, b, dir) => {
+      sort: (a: BanUserRow, b: BanUserRow, dir: number) => {
         return typeof userBans[a.id] !== "undefined" ? -1 * dir : dir;
       },
-      excel: ({ id }) => {
+      excel: ({ id }: BanUserRow) => {
         return typeof userBans[id] !== "undefined" ? "Ignorado" : "No ignorado";
       },
     },

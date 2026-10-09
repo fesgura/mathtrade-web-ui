@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useMemo, useState } from "react";
 import Link from "next/link";
+import clsx from "clsx";
 import PageHeader from "@/components/pageHeader";
 import SectionCommon from "@/components/sections/common";
 import ErrorAlert from "@/components/errorAlert";
@@ -10,7 +11,7 @@ import I18N, { getI18Ntext } from "@/i18n";
 import useFetch from "@/hooks/useFetch";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import { whatsappLink } from "@/utils/whatsapp";
-import { AdminUserName } from "@/components/adminUserModal";
+import { AdminUserName, useAdminUser } from "@/components/adminUserModal";
 
 type Person = { id: number; first_name: string; last_name: string } | null;
 
@@ -101,6 +102,7 @@ const Label = ({ id }: { id: string }) => (
 // Admins only (route "onlyForAdmin"): the edition's item, user and box
 // reports, the same ones volunteers see in the logistics app.
 const AdminReportsPage = () => {
+  const { isNewUser } = useAdminUser();
   const [filter, setFilter] = useState("open");
   const [reloadValue, setReloadValue] = useState(0);
   const reload = useCallback(() => setReloadValue((v) => v + 1), []);
@@ -282,7 +284,14 @@ const AdminReportsPage = () => {
                   ) : null}
 
                   {row.reported_user ? (
-                    <section className="mb-3 text-sm">
+                    // The one single-user block of a report: the reported member.
+                    // Reporter/owner lines sit among other users, so only the
+                    // name and badge mark them.
+                    <section
+                      className={clsx("mb-3 text-sm", {
+                        "bg-violet-50 rounded-md px-1.5 -mx-1.5 py-0.5": isNewUser(row.reported_user.id),
+                      })}
+                    >
                       <Label id="adminReports.user" />
                       <AdminUserName userId={row.reported_user.id}>{fullName(row.reported_user)}</AdminUserName>
                     </section>
