@@ -1150,6 +1150,8 @@
   "adminUsers.col.contact": "Contacto",
   "adminUsers.col.referring": "Referido por",
   "adminUsers.col.copies": "Ejemplares",
+  "adminUsers.copies.help": "Listos / cargados. Los no listos son ítems con elementos sin completar (por ejemplo, copiados de otra edición) y no se ven en Juegos Ofrecidos.",
+  "adminUsers.sort.help": "Ordenar",
   "adminUsers.col.status": "Aporte",
   "adminUsers.col.flags": "Marcas",
   "adminUsers.flag.selfExcluded": "Autoexcluido",

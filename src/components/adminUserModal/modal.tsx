@@ -9,6 +9,8 @@ import I18N from "@/i18n";
 import useFetch from "@/hooks/useFetch";
 import { whatsappLink } from "@/utils/whatsapp";
 import type { AdminUserRow } from "@/app/mathtrade/admin/users/useAdminUsers";
+import { readyCopies } from "@/app/mathtrade/admin/users/useSortedRows";
+import Copies from "@/app/mathtrade/admin/users/copies";
 
 const STATUS_COLORS: Record<AdminUserRow["contribution_status"], string> = {
   missing: "bg-gray-100 text-gray-700",
@@ -89,7 +91,9 @@ const Detail = ({ user }: { user: AdminUserRow }) => {
       </Row>
       <Row label="adminUsers.col.city">{user.location || "-"}</Row>
       <Row label="adminUsers.col.referring">{user.referring || "-"}</Row>
-      <Row label="adminUsers.col.copies">{user.copies}</Row>
+      <Row label="adminUsers.col.copies">
+        <Copies ready={readyCopies(user)} total={user.copies} />
+      </Row>
       <Row label="adminUsers.col.status">
         <span
           className={clsx(

@@ -2,6 +2,7 @@
 import { useEffect, useMemo, useState } from "react";
 import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store";
+import useSortedRows from "./useSortedRows";
 
 export type AdminUserRow = {
   user_id: number;
@@ -18,17 +19,24 @@ export type AdminUserRow = {
   location_id: number | null;
   location: string | null;
   copies: number;
+  // Optional: tolerate a backend that doesn't send it yet (falls back to copies).
+  ready_copies?: number;
   contribution_status: "missing" | "pending" | "approved" | "rejected";
   self_excluded: boolean;
   commitment: boolean;
   roles: ("admin" | "volunteer" | "referrer")[];
 };
 
+export type SortKey = "name" | "city" | "contact" | "referring" | "copies" | "status" | "flags";
+export type SortDir = "asc" | "desc";
+export type SortState = { key: SortKey; dir: SortDir } | null;
+
 export type ContactFilter = "" | "missing" | "partial";
 
 type LocationRef = { id: number; name: string };
 
 const SEARCH_DEBOUNCE_MS = 350;
+const EMPTY: AdminUserRow[] = [];
 
 /* Admin users list (BE admin-users/, IsAdminAuthenticated). The filters are
  * server-side; the search is debounced so typing doesn't fire a request per
@@ -39,6 +47,8 @@ const useAdminUsers = () => {
   const [contact, setContact] = useState<ContactFilter>("");
   const [status, setStatus] = useState("");
   const [location, setLocation] = useState("");
+  // Client-side, independent of the filters, so it survives filter changes.
+  const [sort, setSort] = useState<SortState>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setQ(search.trim()), SEARCH_DEBOUNCE_MS);
@@ -61,7 +71,13 @@ const useAdminUsers = () => {
     initialState: [],
     autoLoad: true,
   });
-  const list: AdminUserRow[] = Array.isArray(rows) ? rows : [];
+  const list = useSortedRows(Array.isArray(rows) ? (rows as AdminUserRow[]) : EMPTY, sort);
+
+  // asc → desc → none (back to the backend order: name).
+  const toggleSort = (key: SortKey) =>
+    setSort((s) =>
+      s?.key !== key ? { key, dir: "asc" } : s.dir === "asc" ? { key, dir: "desc" } : null
+    );
 
   const storeLocations = useStore((state) => state.locations);
   const locations: LocationRef[] = useMemo(
@@ -76,6 +92,8 @@ const useAdminUsers = () => {
     list,
     loading,
     error,
+    sort,
+    toggleSort,
     search,
     setSearch,
     contact,
