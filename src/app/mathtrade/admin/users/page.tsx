@@ -13,7 +13,7 @@ import useAdminUsers, { AdminUserRow, SortKey } from "./useAdminUsers";
 import { readyCopies } from "./useSortedRows";
 import SortableTh from "./sortableTh";
 import Copies from "./copies";
-import { AdminUserName } from "@/components/adminUserModal";
+import { AdminUserName, useAdminUser } from "@/components/adminUserModal";
 
 const selectClass =
   "border border-stroke rounded-md p-2 text-sm bg-white w-full sm:w-auto max-w-full min-w-0";
@@ -81,6 +81,7 @@ const AdminUsersPage = () => {
     setLocation,
     locations,
   } = useAdminUsers();
+  const { openAdminUser } = useAdminUser();
 
   const quickButton = (active: boolean) =>
     clsx(
@@ -264,7 +265,11 @@ const AdminUsersPage = () => {
                       </td>
                       <td className="py-2 pr-4">{row.referring || "-"}</td>
                       <td className="py-2 pr-4 text-right">
-                        <Copies ready={readyCopies(row)} total={row.copies} />
+                        <Copies
+                          ready={readyCopies(row)}
+                          total={row.copies}
+                          onClick={() => openAdminUser(row.user_id, { section: "items" })}
+                        />
                       </td>
                       <td className="py-2 pr-4">
                         <span

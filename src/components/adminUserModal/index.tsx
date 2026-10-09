@@ -13,10 +13,13 @@ import { FloatingPortal } from "@floating-ui/react";
 import { useStore } from "@/store";
 import AdminUserModal from "./modal";
 
+// section "items": open with the user's copies (Ejemplares) expanded.
+export type OpenAdminUserOptions = { section?: "items" };
+
 type AdminUserContextValue = {
   // false outside the provider (e.g. public pages): nothing is clickable.
   available: boolean;
-  openAdminUser: (userId: number) => void;
+  openAdminUser: (userId: number, opts?: OpenAdminUserOptions) => void;
 };
 
 const AdminUserContext = createContext<AdminUserContextValue>({
@@ -29,10 +32,13 @@ const AdminUserContext = createContext<AdminUserContextValue>({
  * whole private area, portaled to <body> so it stacks above the item preview
  * and want modals it can be opened from. */
 export const AdminUserModalProvider = ({ children = null }: { children?: ReactNode }) => {
-  const [userId, setUserId] = useState<number | null>(null);
+  // n: bumped on every open, to key the portal.
+  const [open, setOpen] = useState<{ userId: number; section?: "items"; n: number } | null>(
+    null
+  );
 
-  const openAdminUser = useCallback((id: number) => {
-    setUserId(id);
+  const openAdminUser = useCallback((id: number, opts?: OpenAdminUserOptions) => {
+    setOpen((prev) => ({ userId: id, section: opts?.section, n: (prev?.n || 0) + 1 }));
   }, []);
 
   const value = useMemo(() => ({ available: true, openAdminUser }), [openAdminUser]);
@@ -40,9 +46,15 @@ export const AdminUserModalProvider = ({ children = null }: { children?: ReactNo
   return (
     <AdminUserContext.Provider value={value}>
       {children}
-      {userId ? (
-        <FloatingPortal>
-          <AdminUserModal key={userId} userId={userId} onClose={() => setUserId(null)} />
+      {open ? (
+        // Keyed portal: every open re-appends it to <body>, so it lands above
+        // an item previewer opened from it (the previewer portals too).
+        <FloatingPortal key={open.n}>
+          <AdminUserModal
+            userId={open.userId}
+            initialSection={open.section}
+            onClose={() => setOpen(null)}
+          />
         </FloatingPortal>
       ) : null}
     </AdminUserContext.Provider>
@@ -57,8 +69,8 @@ export const useAdminUser = () => {
   const isAdmin = available && !!mathAdmin;
 
   const open = useCallback(
-    (userId: number) => {
-      if (isAdmin && userId) openAdminUser(userId);
+    (userId: number, opts?: OpenAdminUserOptions) => {
+      if (isAdmin && userId) openAdminUser(userId, opts);
     },
     [isAdmin, openAdminUser]
   );
