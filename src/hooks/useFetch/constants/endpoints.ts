@@ -147,6 +147,7 @@ const endpoints = {
   ADMIN_GET_USERS: "api/mathtrades/$[mathtradeId]/admin-users/",
   ADMIN_GET_USER: "api/mathtrades/$[mathtradeId]/admin-users/$[1]/",
   ADMIN_GET_USER_ITEMS: "api/mathtrades/$[mathtradeId]/admin-users/$[1]/items/",
+  ADMIN_GET_NEW_USER_IDS: "api/mathtrades/$[mathtradeId]/admin-users/new-ids/",
   POST_SELF_EXCLUDE: "api/mathtrades/$[mathtradeId]/self-exclude/",
 
   // IMAGES

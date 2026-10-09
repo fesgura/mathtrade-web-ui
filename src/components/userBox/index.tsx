@@ -3,7 +3,7 @@ import { useStore } from "@/store";
 import Avatar from "@/components/avatar";
 import { useMemo, useContext, type MouseEvent } from "react";
 import { ItemContext } from "@/context/item";
-import { useAdminUser } from "@/components/adminUserModal";
+import { NewUserBadge, useAdminUser } from "@/components/adminUserModal";
 
 type UserBoxUser = {
   id?: number | null;
@@ -36,8 +36,9 @@ const UserBox = ({
   const locations = useStore((state) => state.locations);
 
   // Admins open the user's data; everybody else sees a plain box.
-  const { isAdmin, openAdminUser } = useAdminUser();
+  const { isAdmin, openAdminUser, isNewUser } = useAdminUser();
   const clickable = isAdmin && !!user?.id;
+  const isNew = isNewUser(user?.id);
 
   const locationName = useMemo(() => {
     if (user.customLocation) {
@@ -69,15 +70,30 @@ const UserBox = ({
           "order-2": toLeft || toCenter,
         })}
       >
-        <div
-          className={clsx("text-[11px] font-bold leading-tight truncate", {
-            "text-right": !toLeft && !toCenter,
-            "text-center": toCenter,
-          })}
-          title={user?.name || undefined}
-        >
-          {user?.name}
-        </div>
+        {isNew ? (
+          // New member (admins only): violet name, truncated, with the badge
+          // kept visible beside it.
+          <div
+            className={clsx("flex items-center min-w-0 text-[11px] font-bold leading-tight text-violet-700", {
+              "justify-end": !toLeft && !toCenter,
+              "justify-center": toCenter,
+            })}
+            title={user?.name || undefined}
+          >
+            <span className="truncate min-w-0">{user?.name}</span>
+            <NewUserBadge userId={user?.id} className="shrink-0" />
+          </div>
+        ) : (
+          <div
+            className={clsx("text-[11px] font-bold leading-tight truncate", {
+              "text-right": !toLeft && !toCenter,
+              "text-center": toCenter,
+            })}
+            title={user?.name || undefined}
+          >
+            {user?.name}
+          </div>
+        )}
         <div
           className={clsx("text-[11px] leading-tight opacity-90 truncate", {
             "text-right": !toLeft && !toCenter,

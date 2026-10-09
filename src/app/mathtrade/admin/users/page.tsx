@@ -50,6 +50,7 @@ const toExport = (list: AdminUserRow[]) =>
     WhatsApp: row.whatsapp || "",
     Telegram: row.telegram || "",
     "Sin contacto": hasNoContact(row) ? "Sí" : "No",
+    Nuevo: row.is_new ? "Sí" : "No",
     BGG: row.bgg_user || "",
     Ciudad: row.location || "",
     "Referido por": row.referring || "",
@@ -80,6 +81,9 @@ const AdminUsersPage = () => {
     location,
     setLocation,
     locations,
+    onlyNew,
+    setOnlyNew,
+    newCount,
   } = useAdminUsers();
   const { openAdminUser } = useAdminUser();
 
@@ -105,8 +109,11 @@ const AdminUsersPage = () => {
           <div className="flex flex-wrap items-center gap-2 mb-3">
             <button
               type="button"
-              className={quickButton(contact === "")}
-              onClick={() => setContact("")}
+              className={quickButton(contact === "" && !onlyNew)}
+              onClick={() => {
+                setContact("");
+                setOnlyNew(false);
+              }}
             >
               <I18N id="adminUsers.quick.all" />
             </button>
@@ -116,6 +123,14 @@ const AdminUsersPage = () => {
               onClick={() => setContact("missing")}
             >
               <I18N id="adminUsers.quick.noContact" />
+            </button>
+            {/* A toggle: combines with "Sin contacto" and the other filters. */}
+            <button
+              type="button"
+              className={quickButton(onlyNew)}
+              onClick={() => setOnlyNew((v) => !v)}
+            >
+              <I18N id="adminUsers.quick.new" /> ({newCount})
             </button>
             {contact === "missing" ? (
               <span className="text-xs text-gray-500">

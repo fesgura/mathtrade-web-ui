@@ -1,11 +1,13 @@
 "use client";
 import { useContext } from "react";
+import clsx from "clsx";
 import I18N from "@/i18n";
 import { ResultsContext } from "@/context/results";
 import { ItemContext, ItemContextProvider } from "@/context/item";
 import Thumbnail from "@/components/thumbnail";
 import Previewer from "@/components/previewer";
 import Chip from "@/components/chip";
+import { NewUserBadge, useAdminUser } from "@/components/adminUserModal";
 
 const ItemChangeUI = ({
   delivered = false,
@@ -64,13 +66,18 @@ const ItemChange = ({
 };
 
 const UserChange = ({ user = null }: { user?: any }) => {
+  const { isNewUser } = useAdminUser();
   if (!user) {
     return <span className="text-gray-400">—</span>;
   }
-  const { location, first_name, last_name } = user;
+  // membership id = the user id
+  const { id, location, first_name, last_name } = user;
   return (
     <div className="text-body">
-      <div className="font-semibold">{`${first_name || ""} ${last_name || ""}`.trim()}</div>
+      <div className={clsx("font-semibold", { "text-violet-700": isNewUser(id) })}>
+        {`${first_name || ""} ${last_name || ""}`.trim()}
+        <NewUserBadge userId={id} />
+      </div>
       {location?.name ? (
         <div className="text-caption text-gray-500">{location.name}</div>
       ) : null}

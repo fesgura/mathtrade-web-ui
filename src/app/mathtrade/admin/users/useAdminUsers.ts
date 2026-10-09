@@ -24,6 +24,8 @@ export type AdminUserRow = {
   contribution_status: "missing" | "pending" | "approved" | "rejected";
   self_excluded: boolean;
   commitment: boolean;
+  // No items in any other edition. Optional like ready_copies.
+  is_new?: boolean;
   roles: ("admin" | "volunteer" | "referrer")[];
 };
 
@@ -47,6 +49,8 @@ const useAdminUsers = () => {
   const [contact, setContact] = useState<ContactFilter>("");
   const [status, setStatus] = useState("");
   const [location, setLocation] = useState("");
+  // "Nuevos": client-side, on top of the server filters.
+  const [onlyNew, setOnlyNew] = useState(false);
   // Client-side, independent of the filters, so it survives filter changes.
   const [sort, setSort] = useState<SortState>(null);
 
@@ -71,7 +75,13 @@ const useAdminUsers = () => {
     initialState: [],
     autoLoad: true,
   });
-  const list = useSortedRows(Array.isArray(rows) ? (rows as AdminUserRow[]) : EMPTY, sort);
+  const all = Array.isArray(rows) ? (rows as AdminUserRow[]) : EMPTY;
+  const newCount = useMemo(() => all.filter((row) => row.is_new).length, [all]);
+  const filtered = useMemo(
+    () => (onlyNew ? all.filter((row) => row.is_new) : all),
+    [all, onlyNew]
+  );
+  const list = useSortedRows(filtered, sort);
 
   // asc → desc → none (back to the backend order: name).
   const toggleSort = (key: SortKey) =>
@@ -103,6 +113,9 @@ const useAdminUsers = () => {
     location,
     setLocation,
     locations,
+    onlyNew,
+    setOnlyNew,
+    newCount,
   };
 };
 
