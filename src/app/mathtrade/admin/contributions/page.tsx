@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import clsx from "clsx";
 import PageHeader from "@/components/pageHeader";
 import SectionCommon from "@/components/sections/common";
 import ErrorAlert from "@/components/errorAlert";
@@ -8,7 +9,7 @@ import Modal from "@/components/modal";
 import ConfirmModal from "@/components/confirmModal";
 import I18N, { getI18Ntext } from "@/i18n";
 import { formatAmount } from "@/app/mathtrade/my-data/ContributionBox";
-import { AdminUserName } from "@/components/adminUserModal";
+import { AdminUserName, useAdminUser } from "@/components/adminUserModal";
 import useContributionsReview, {
   ContributionRow,
   MissingRow,
@@ -104,6 +105,7 @@ const RejectModal = ({
 };
 
 const ContributionsReviewPage = () => {
+  const { isNewUser } = useAdminUser();
   const {
     mathtrades,
     mathtradeId,
@@ -142,7 +144,12 @@ const ContributionsReviewPage = () => {
   };
 
   const renderMissing = (row: MissingRow) => (
-    <div key={`m-${row.membership_id}`} className="border border-stroke rounded-lg p-4 mb-3">
+    <div
+      key={`m-${row.membership_id}`}
+      className={clsx("border border-stroke rounded-lg p-4 mb-3", {
+        "bg-violet-50": isNewUser(row.user_id),
+      })}
+    >
       <div className="flex flex-wrap items-start justify-between gap-3 min-w-0">
         <div className="text-sm min-w-0 max-w-full break-words">
           <p className="font-bold text-base break-words">
@@ -223,7 +230,12 @@ const ContributionsReviewPage = () => {
 
           {contributions.map((row) =>
             isMissingRow(row) ? renderMissing(row) : (
-            <div key={row.id} className="border border-stroke rounded-lg p-4 mb-3">
+            <div
+              key={row.id}
+              className={clsx("border border-stroke rounded-lg p-4 mb-3", {
+                "bg-violet-50": isNewUser(row.user_id),
+              })}
+            >
               <div className="flex flex-wrap items-start justify-between gap-3 min-w-0">
                 <div className="text-sm min-w-0 max-w-full break-words">
                   <p className="font-bold text-base break-words">

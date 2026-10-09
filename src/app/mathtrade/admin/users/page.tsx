@@ -85,7 +85,7 @@ const AdminUsersPage = () => {
     setOnlyNew,
     newCount,
   } = useAdminUsers();
-  const { openAdminUser } = useAdminUser();
+  const { openAdminUser, isNewUser } = useAdminUser();
 
   const quickButton = (active: boolean) =>
     clsx(
@@ -231,7 +231,12 @@ const AdminUsersPage = () => {
                 </thead>
                 <tbody>
                   {list.map((row) => (
-                    <tr key={row.user_id} className="border-b border-gray-100 align-top">
+                    <tr
+                      key={row.user_id}
+                      className={clsx("border-b border-gray-100 align-top", {
+                        "bg-violet-50": isNewUser(row.user_id),
+                      })}
+                    >
                       <td className="py-2 pr-4">
                         <AdminUserName userId={row.user_id}>
                           <div className="font-semibold">

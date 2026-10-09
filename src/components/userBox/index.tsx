@@ -61,6 +61,9 @@ const UserBox = ({
     "flex-col": toCenter,
     // A button would center its text; keep the inherited alignment.
     "cursor-pointer hover:underline [text-align:inherit]": clickable,
+    // New member (admins only): a soft background; the negative margins
+    // offset the padding so the box doesn't shift the card layout.
+    "bg-violet-50 rounded-md px-1.5 -mx-1.5 py-0.5 -my-0.5": isNew,
   });
 
   const content = (

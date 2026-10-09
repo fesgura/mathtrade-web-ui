@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import clsx from "clsx";
 import PageHeader from "@/components/pageHeader";
 import SectionCommon from "@/components/sections/common";
 import ErrorAlert from "@/components/errorAlert";
@@ -7,7 +8,7 @@ import EmptyList from "@/components/emptyList";
 import I18N from "@/i18n";
 import useFetch from "@/hooks/useFetch";
 import { PRIVATE_ROUTES } from "@/config/routes";
-import { AdminUserName } from "@/components/adminUserModal";
+import { AdminUserName, useAdminUser } from "@/components/adminUserModal";
 
 type SelfExcludedRow = {
   user_id: number;
@@ -31,6 +32,7 @@ const formatDate = (iso: string) =>
 // who self-excluded from the current edition, and a way to see the
 // provisional results they saw.
 const AdminSelfExcludedPage = () => {
+  const { isNewUser } = useAdminUser();
   const [, rows, loading, error] = useFetch({
     endpoint: "GET_SELF_EXCLUDED",
     initialState: [],
@@ -70,7 +72,12 @@ const AdminSelfExcludedPage = () => {
                 </thead>
                 <tbody>
                   {list.map((row) => (
-                    <tr key={row.user_id} className="border-b border-gray-100">
+                    <tr
+                      key={row.user_id}
+                      className={clsx("border-b border-gray-100", {
+                        "bg-violet-50": isNewUser(row.user_id),
+                      })}
+                    >
                       <td className="py-2 pr-4">
                         <AdminUserName userId={row.user_id}>
                           <div className="font-semibold">
