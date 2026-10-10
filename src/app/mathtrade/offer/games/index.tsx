@@ -16,6 +16,12 @@ import { useTourDemo } from "@/tours/context";
 import TourDemo from "@/tours/demo/TourDemo";
 import { demoGame } from "@/tours/demo/demoData";
 import NewSinceNotice from "@/components/newSinceNotice";
+import { useCallback, useContext, useMemo } from "react";
+import { PageContext } from "@/context/page";
+import { useOptions } from "@/store";
+import BulkSelectProvider from "@/components/ban/bulk/BulkSelectProvider";
+import SelectionBar from "@/components/ban/bulk/SelectionBar";
+import { isWantedGame } from "@/components/ban/isWanted";
 
 const GamesView = () => {
   const {
@@ -33,9 +39,23 @@ const GamesView = () => {
   useTour("offer", { ready: !loading && isLoaded });
   const showDemo = useTourDemo("offer") && !games.list.length;
 
+  // Bulk ignore: a new page or filter clears the selection.
+  const filters = useOptions((state) => state.filters_game);
+  const resetKey = useMemo(() => JSON.stringify(filters || {}), [filters]);
+  const { myWants } = useContext(PageContext);
+  const isWanted = useCallback(
+    (bggId: number) =>
+      isWantedGame(
+        games.list.find((g) => g.bgg_id === bggId),
+        myWants
+      ),
+    [games.list, myWants]
+  );
+
   return (
     <SectionWithSidebar name="games" loading={loading} topNotRounded>
       <GotoTopContextProvider>
+      <BulkSelectProvider kind="game" resetKey={resetKey}>
         <SidebarGrid>
           <Sidebar topNotRounded>
             <Filters type="game" />
@@ -78,6 +98,8 @@ const GamesView = () => {
           </div>
         </SidebarGrid>
         <Footer />
+        <SelectionBar isWanted={isWanted} />
+      </BulkSelectProvider>
       </GotoTopContextProvider>
     </SectionWithSidebar>
   );

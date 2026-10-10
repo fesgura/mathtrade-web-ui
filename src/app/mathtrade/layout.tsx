@@ -13,6 +13,7 @@ import AdvSolidario from "@/components/header/advSolidario";
 import PrivateEnvironmentNoSSR from "@/environments/private/no-ssr";
 import EarlyPayPopup from "@/components/earlyPayPopup";
 import { AdminUserModalProvider } from "@/components/adminUserModal";
+import ToastProvider from "@/components/toast/ToastProvider";
 import type { ReactNode } from "react";
 
 export default function MathTradeLayout({ children }: { children: ReactNode }) {
@@ -20,6 +21,7 @@ export default function MathTradeLayout({ children }: { children: ReactNode }) {
     <>
       <PrivateEnvironmentNoSSR>
         <PageContextProvider>
+        <ToastProvider>
         <AdminUserModalProvider>
         <TourContextProvider>
           {/* Mobile: shell is exactly the viewport; bottom padding reserves the
@@ -48,6 +50,7 @@ export default function MathTradeLayout({ children }: { children: ReactNode }) {
           <EarlyPayPopup />
         </TourContextProvider>
         </AdminUserModalProvider>
+        </ToastProvider>
         </PageContextProvider>
       </PrivateEnvironmentNoSSR>
     </>

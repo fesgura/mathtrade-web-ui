@@ -18,6 +18,12 @@ import { useTourDemo } from "@/tours/context";
 import TourDemo from "@/tours/demo/TourDemo";
 import { demoOtherItem } from "@/tours/demo/demoData";
 import NewSinceNotice from "@/components/newSinceNotice";
+import { useCallback, useContext, useMemo } from "react";
+import { PageContext } from "@/context/page";
+import { useOptions } from "@/store";
+import BulkSelectProvider from "@/components/ban/bulk/BulkSelectProvider";
+import SelectionBar from "@/components/ban/bulk/SelectionBar";
+import { isWantedItem } from "@/components/ban/isWanted";
 
 const ItemsView = () => {
   const {
@@ -35,9 +41,23 @@ const ItemsView = () => {
   useTour("items", { ready: !loading && isLoaded });
   const showDemo = useTourDemo("items");
 
+  // Bulk ignore: a new page or filter clears the selection.
+  const filters = useOptions((state) => state.filters_item);
+  const resetKey = useMemo(() => JSON.stringify(filters || {}), [filters]);
+  const { myWants } = useContext(PageContext);
+  const isWanted = useCallback(
+    (itemId: number) =>
+      isWantedItem(
+        items.list.find((i) => i.id === itemId),
+        myWants
+      ),
+    [items.list, myWants]
+  );
+
   return (
     <SectionWithSidebar name="items" loading={loading} topNotRounded>
       <GotoTopContextProvider>
+      <BulkSelectProvider kind="item" resetKey={resetKey}>
         <SidebarGrid>
           <Sidebar topNotRounded>
             <Filters type="item" />
@@ -75,6 +95,8 @@ const ItemsView = () => {
           </div>
         </SidebarGrid>
         <Footer />
+        <SelectionBar isWanted={isWanted} />
+      </BulkSelectProvider>
       </GotoTopContextProvider>
     </SectionWithSidebar>
   );
