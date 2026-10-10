@@ -6,6 +6,8 @@ import I18N from "@/i18n";
 import ErrorAlert from "@/components/errorAlert";
 import useBulkSelect from "./useBulkSelect";
 import useBulkIgnore from "./useBulkIgnore";
+import useBulkUndo from "./useBulkUndo";
+import useToast from "@/components/toast/useToast";
 import BulkConfirmModal from "./BulkConfirmModal";
 
 type Props = {
@@ -14,16 +16,22 @@ type Props = {
 };
 
 // Floating bar while selecting: count, Cancelar, Ignorar N. Owns the confirm
-// modal and the bulk request. On mobile it sits above the TabBar.
+// modal and the bulk request (then an undo toast). On mobile it sits above
+// the TabBar.
 const SelectionBar = ({ isWanted }: Props) => {
   const { kind, selecting, selected, cancel } = useBulkSelect();
-  const { ignoreSelected, loading, error } = useBulkIgnore();
+  const onIgnored = useBulkUndo();
+  const { ignoreSelected, loading, error } = useBulkIgnore({ onIgnored });
   const [confirmOpen, setConfirmOpen] = useState(false);
   const count = selected.size;
 
+  const { hide: hideToast } = useToast();
+
+  // The toast and the bar share the same spot: a new selection replaces it.
   useEffect(() => {
-    if (!selecting) setConfirmOpen(false);
-  }, [selecting]);
+    if (selecting) hideToast();
+    else setConfirmOpen(false);
+  }, [selecting, hideToast]);
 
   const wantedCount = useMemo(() => {
     if (!confirmOpen || !isWanted) return 0;
