@@ -5,6 +5,8 @@ import StatusBadge from "@/components/status-badge";
 import LanguagePills from "@/components/chip/languagePills";
 import { ElementContext } from "@/context/element";
 import { useContext } from "react";
+import clsx from "clsx";
+import useBulkSelect from "@/components/ban/bulk/useBulkSelect";
 
 type ElementInComboProps = {
   onToggleExpanse: () => void;
@@ -12,6 +14,8 @@ type ElementInComboProps = {
 
 const ElementInCombo = ({ onToggleExpanse }: ElementInComboProps) => {
   const { element } = useContext(ElementContext);
+  // While selecting, onToggleExpanse toggles the selection: no "+" overlay.
+  const { selecting } = useBulkSelect();
 
   const { title, language, languageRaw, extraData } = element as {
     title: string;
@@ -31,10 +35,18 @@ const ElementInCombo = ({ onToggleExpanse }: ElementInComboProps) => {
           className="rounded-lg w-full h-full"
         />
         <div
-          className="absolute top-0 left-0 w-full h-full bg-black/40 rounded-lg grid place-content-center backdrop-blur-sm cursor-pointer opacity-0 hover:opacity-100 transition-opacity"
+          className={clsx(
+            "absolute top-0 left-0 w-full h-full rounded-lg cursor-pointer",
+            {
+              "bg-black/40 grid place-content-center backdrop-blur-sm opacity-0 hover:opacity-100 transition-opacity":
+                !selecting,
+            }
+          )}
           onClick={onToggleExpanse}
         >
-          <Icon type="plus" className="text-lg text-white" />
+          {selecting ? null : (
+            <Icon type="plus" className="text-lg text-white" />
+          )}
         </div>
       </div>
 

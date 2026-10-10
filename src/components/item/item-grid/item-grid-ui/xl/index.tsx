@@ -12,15 +12,25 @@ import Dynamic from "@/components/dynamic";
 
 const WantButton = lazy(() => import("@/components/want-button"));
 
+type ItemXLProps = {
+  onToggleExpanse?: () => void;
+  hideWant?: boolean;
+  hideTags?: boolean;
+  onChangeValue?: (value: unknown) => void;
+};
+
 const ItemXL = ({
   onToggleExpanse = undefined,
   hideWant = false,
   hideTags = false,
   onChangeValue = undefined,
-}) => {
+}: ItemXLProps) => {
   /* ITEM CONTEXT **********************************************/
   const { item, loadingItem, showAsIgnored } = useContext(ItemContext);
-  const { ban_id, elements } = item;
+  const { ban_id, elements } = item as {
+    ban_id?: number | string | null;
+    elements: { id: number | string }[];
+  };
   /* end ITEM CONTEXT */
 
   return (
@@ -32,7 +42,11 @@ const ItemXL = ({
     >
       <div className="pt-2 px-3 pb-3">
         <div className="pr-6">
-          <ItemGridHeader onChangeValue={onChangeValue} hideTags={hideTags} />
+          <ItemGridHeader
+            onChangeValue={onChangeValue}
+            hideTags={hideTags}
+            atCardTop
+          />
           {onToggleExpanse ? (
             <button
               className="absolute top-1 right-1 aspect-square w-7 flex items-center justify-center opacity-50 hover:opacity-100"

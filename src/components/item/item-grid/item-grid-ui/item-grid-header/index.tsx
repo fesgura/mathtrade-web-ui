@@ -5,19 +5,48 @@ import BanButton from "@/components/ban/button";
 import FavoriteButton from "@/components/favorite/button";
 import Value from "@/components/value";
 import ItemTagList from "@/components/item-tags/item-taglist";
+import SelectTick from "@/components/ban/bulk/SelectTick";
+import useBulkSelect from "@/components/ban/bulk/useBulkSelect";
+import { itemDisabledReason } from "@/components/ban/bulk/itemDisabledReason";
+
+type ItemGridHeaderProps = {
+  onChangeValue?: (value: unknown) => void;
+  hideTags?: boolean;
+  className?: string;
+  // The header is the card's top edge (combo card, expanded card): while
+  // selecting, the tick pill sits over the tag chips, so they step aside.
+  atCardTop?: boolean;
+};
+
+type ItemHeaderData = {
+  id?: number;
+  isCombo?: boolean;
+  ban_id?: number | string | null;
+  isOwned?: boolean;
+};
 
 const ItemGridHeader = ({
   onChangeValue = undefined,
   hideTags = false,
   className = "mb-2",
-}) => {
-  const { item } = useContext(ItemContext);
-  const { isCombo, ban_id, isOwned } = item;
+  atCardTop = false,
+}: ItemGridHeaderProps) => {
+  const { item, showAsIgnored } = useContext(ItemContext);
+  const { id, isCombo, ban_id, isOwned } = (item || {}) as ItemHeaderData;
+  const { selecting } = useBulkSelect();
 
   return (
     <header className={className}>
+      {/* While selecting, the tick replaces the ignore button; it is placed
+          at the card's top-left corner (same as the game cards). */}
+      {selecting ? (
+        <SelectTick
+          id={id}
+          disabledReason={itemDisabledReason({ isOwned, ban_id, showAsIgnored })}
+        />
+      ) : null}
       <div className="flex items-start justify-between gap-3 min-w-0 w-full">
-        {ban_id || hideTags ? (
+        {ban_id || hideTags || (selecting && atCardTop) ? (
           <div className="min-w-0" />
         ) : (
           <div className="min-w-0 flex-1">
@@ -29,11 +58,11 @@ const ItemGridHeader = ({
               the ignore/ban control, which both preview modals need
               (they pass hideTags for the tags, not to hide this). */}
           <FavoriteButton type="item" />
-          <BanButton size="xl" type="item" />
+          {selecting ? null : <BanButton size="xl" type="item" />}
           {ban_id ? null : (
             <>
               {isOwned ? null : <div className="w-[1px] h-4 bg-gray-500"></div>}
-              <Value size="xl" type="item" onChange={onChangeValue} />
+              <Value type="item" onChange={onChangeValue} />
             </>
           )}
         </div>

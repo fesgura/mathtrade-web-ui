@@ -7,6 +7,8 @@ import WantButton from "@/components/want-button";
 import ElementMD from "./element";
 import ItemGridHeader from "../item-grid-header";
 import I18N from "@/i18n";
+import { useSelectableCard } from "@/components/ban/bulk/useBulkSelect";
+import { itemDisabledReason } from "@/components/ban/bulk/itemDisabledReason";
 
 type ItemMDProps = {
   onToggleExpanse: () => void;
@@ -15,7 +17,14 @@ type ItemMDProps = {
 const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
   const { item, showAsIgnored } = useContext(ItemContext);
 
-  const { ban_id, isCombo, elements, user, commentsCount, isOwned, staff_observation: staffObservation } = item;
+  const { id, ban_id, isCombo, elements, user, commentsCount, isOwned, staff_observation: staffObservation } = item;
+
+  /* BULK SELECT: while selecting, a click on the card toggles it. */
+  const { selecting, toggleCard } = useSelectableCard(
+    id,
+    itemDisabledReason({ isOwned, ban_id, showAsIgnored })
+  );
+  const onCardClick = selecting ? toggleCard : onToggleExpanse;
 
   return (
     <div
@@ -29,7 +38,7 @@ const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
           reaches the card's top-left corner. */}
       {isCombo ? (
         <div className="px-3 pt-2 pb-1">
-          <ItemGridHeader />
+          <ItemGridHeader atCardTop />
         </div>
       ) : null}
       {isOwned && staffObservation ? (
@@ -56,7 +65,7 @@ const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
               key={element.id}
               element={element}
               isCombo={isCombo}
-              onToggleExpanse={onToggleExpanse}
+              onToggleExpanse={onCardClick}
               header={
                 isCombo || k > 0 ? null : <ItemGridHeader className="w-full" />
               }

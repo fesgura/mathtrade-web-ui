@@ -28,3 +28,23 @@ export const isWantedGame = (
       (w.wants || []).some(({ id }) => copyIds.has(`${id}`))
   );
 };
+
+type ItemLike = {
+  id?: number | string | null;
+  owner?: boolean | null;
+};
+
+// A copy is wanted when any want (item, game or tag) lists it: the union of
+// ItemContext's wantGroup / otherWantGroups / wantedViaTag (a tag want counts
+// only once the copy is in its `wants`, so it's already in that union). Like
+// ItemContext, own copies are never "wanted".
+export const isWantedItem = (
+  item: ItemLike | null | undefined,
+  myWants: WantLike[] | null | undefined
+): boolean => {
+  if (!item || item.id == null || item.owner) return false;
+  const id = `${item.id}`;
+  return (myWants || []).some((w) =>
+    (w.wants || []).some((itm) => `${itm.id}` === id)
+  );
+};

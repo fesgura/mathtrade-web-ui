@@ -16,6 +16,7 @@ import TaxonomyDisclosure from "@/components/bggInfo/taxonomyDisclosure";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
 import { boxSizesValues, boxSizeIdToReview } from "@/config/boxSizes";
 import clsx from "clsx";
+import useBulkSelect from "@/components/ban/bulk/useBulkSelect";
 
 type ElementCompleteProps = {
   onToggleExpanse: () => void;
@@ -29,6 +30,8 @@ const ElementComplete = ({
   header = null,
 }: ElementCompleteProps) => {
   const { element } = useContext(ElementContext);
+  // While selecting, onToggleExpanse toggles the selection: no "+" overlay.
+  const { selecting } = useBulkSelect();
 
   const {
     typeNum,
@@ -86,10 +89,18 @@ const ElementComplete = ({
       <div className="relative overflow-hidden rounded-t-lg">
         <Thumbnail fill contain elements={[element]} className="w-full h-40" />
         <div
-          className="absolute top-0 left-0 w-full h-full bg-black/40 grid place-content-center backdrop-blur-sm cursor-pointer opacity-0 hover:opacity-100 transition-opacity"
+          className={clsx(
+            "absolute top-0 left-0 w-full h-full cursor-pointer",
+            {
+              "bg-black/40 grid place-content-center backdrop-blur-sm opacity-0 hover:opacity-100 transition-opacity":
+                !selecting,
+            }
+          )}
           onClick={onToggleExpanse}
         >
-          <Icon type="plus" className="text-2xl text-white" />
+          {selecting ? null : (
+            <Icon type="plus" className="text-2xl text-white" />
+          )}
         </div>
       </div>
 
@@ -108,7 +119,7 @@ const ElementComplete = ({
         </div>
 
         <div
-          data-tooltip={getI18Ntext("Enlarge")}
+          data-tooltip={selecting ? undefined : getI18Ntext("Enlarge")}
           className="cursor-pointer w-full"
           onClick={onToggleExpanse}
         >
