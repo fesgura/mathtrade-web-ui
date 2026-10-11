@@ -32,9 +32,9 @@ const ListSearch = ({
   return (
     <label
       data-tour={tourAnchor}
-      className="flex items-center gap-2 w-full h-[34px] px-2.5 bg-gray-100 border border-gray-200 rounded-full"
+      className="flex w-full min-w-0 items-center gap-2 rounded-full border border-gray-200 bg-gray-100 px-2.5 h-[34px]"
     >
-      <Icon type="search" className="text-gray-500 text-sm shrink-0" />
+      <Icon type="search" className="shrink-0 text-sm text-gray-500" />
       <input
         autoComplete="off"
         type="search"
@@ -44,7 +44,7 @@ const ListSearch = ({
           placeholder || getI18Ntext("filter.Search.placeholder.short")
         }
         aria-label={getI18Ntext("filter.Search")}
-        className="flex-1 min-w-0 bg-transparent text-body text-gray-900 placeholder:text-gray-400 outline-none"
+        className="min-w-0 flex-1 bg-transparent text-body text-gray-900 placeholder:text-gray-400 outline-none"
       />
     </label>
   );

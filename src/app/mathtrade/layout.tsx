@@ -28,7 +28,7 @@ export default function MathTradeLayout({ children }: { children: ReactNode }) {
               fixed TabBar so the content column's scrollport is the band above
               it. Sticky list headers then stick within that middle band.
               Desktop: unchanged row + min-height page column. */}
-          <div className="lg:flex max-lg:flex max-lg:flex-col max-lg:h-dvh max-lg:max-h-dvh max-lg:overflow-hidden max-lg:box-border max-lg:pb-[var(--mt-tabbar-h)]">
+          <div className="lg:flex max-lg:flex max-lg:flex-col max-lg:h-dvh max-lg:max-h-dvh max-lg:overflow-hidden max-lg:box-border max-lg:pb-[var(--mt-tabbar-h)] max-lg:min-w-0">
             <Sidebar />
             <TabBar />
             <div

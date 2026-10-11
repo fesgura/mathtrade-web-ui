@@ -35,7 +35,7 @@ const ItemXL = ({
 
   return (
     <div
-      className={clsx("relative min-w-0 max-w-full w-full overflow-x-hidden transition-opacity pb-5", {
+      className={clsx("relative min-w-0 max-w-full w-full overflow-visible transition-opacity pb-5", {
         "opacity-30 pointer-events-none": showAsIgnored,
         "shadow-[0_0_0_7px_rgba(255,0,0,1)]": ban_id,
       })}
@@ -49,10 +49,10 @@ const ItemXL = ({
           />
           {onToggleExpanse ? (
             <button
-              className="absolute top-1 right-1 aspect-square w-7 flex items-center justify-center opacity-50 hover:opacity-100"
+              className="absolute right-2 top-2 z-20 flex aspect-square w-7 items-center justify-center rounded-full border border-white/80 bg-white/80 text-gray-700 shadow-sm opacity-60 hover:opacity-100"
               onClick={onToggleExpanse}
             >
-              <div data-tooltip={getI18Ntext("minimize")} className="w-full h-full flex items-center justify-center">
+              <div data-tooltip={getI18Ntext("minimize")} className="flex h-full w-full items-center justify-center">
                 <Icon />
               </div>
             </button>
@@ -76,7 +76,7 @@ const ItemXL = ({
       <LoadingBox loading={loadingItem} />
       {onToggleExpanse ? (
         <button
-          className="absolute -bottom-2 left-1/2 hover:opacity-100 text-white bg-gray-700 hover:bg-black transition-colors leading-none text-[9px] uppercase p-1 w-24 -ml-12 rounded-full"
+          className="absolute -bottom-2 left-1/2 z-20 w-24 -ml-12 rounded-full bg-gray-700 p-1 text-[9px] uppercase leading-none text-white shadow-sm transition-colors hover:bg-black hover:opacity-100"
           onClick={onToggleExpanse}
         >
           <Icon /> <I18N id="minimize" />

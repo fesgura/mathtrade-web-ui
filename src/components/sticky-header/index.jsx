@@ -1,9 +1,9 @@
 const StickyHeader = ({ children, size = "" }) => {
-  // bg-white so list rows scrolling underneath the stuck bar don't show through.
-  // Sticks to the top of the mathtrade content scrollport (layout column on
-  // mobile = viewport minus the bottom TabBar), not under the tab bar.
+  // Keep the list toolbar pinned on desktop, but avoid stealing viewport space on
+  // mobile where the entire content scrollport is already the real viewport
+  // band above the TabBar.
   return (
-    <header className="sticky top-0 z-sticky bg-white shadow-md">
+    <header className="lg:sticky max-lg:relative top-0 z-sticky bg-white shadow-md max-lg:shadow-none">
       {children}
     </header>
   );

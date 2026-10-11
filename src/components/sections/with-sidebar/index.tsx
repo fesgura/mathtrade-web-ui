@@ -123,7 +123,7 @@ const SectionWithSidebar = ({
       <Wrapper>
         <section
           className={clsx(
-            "relative bg-white shadow-main",
+            "relative min-w-0 max-w-full overflow-hidden bg-white shadow-main",
             {
               "rounded-b-main": topNotRounded,
               "rounded-main": !topNotRounded,

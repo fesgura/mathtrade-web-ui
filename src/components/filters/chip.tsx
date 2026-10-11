@@ -27,9 +27,9 @@ const FilterChip = ({
     <button
       type={type}
       className={clsx(
-        "inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold max-w-full",
+        "inline-flex max-w-full items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold",
         ghost && "border border-dashed border-gray-400 bg-transparent text-gray-600",
-        selected && ghost && "border-primary text-primary bg-primary/10",
+        selected && ghost && "border-primary bg-primary/10 text-primary",
         selected && !colored && !ghost && "bg-primary text-white",
         !selected && !ghost && "bg-gray-100 text-gray-600",
         className
