@@ -35,7 +35,7 @@ const TabBar = () => {
   return (
     <>
       <nav
-        className="lg:hidden fixed bottom-0 left-0 w-full z-nav bg-black flex shadow-[0_-4px_16px_rgba(0,0,0,0.2)]"
+        className="lg:hidden fixed bottom-0 left-0 w-full z-nav bg-black flex shadow-[0_-4px_16px_rgba(0,0,0,0.2)] max-w-full"
         data-tour="home.tabbar"
         data-html2canvas-ignore=""
       >

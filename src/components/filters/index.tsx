@@ -30,17 +30,17 @@ const Filters = ({ type = "item" }: { type?: "item" | "game" }) => {
           )
         ) : null}
       </div>
-      <div className="shrink-0 flex items-center justify-center gap-4 py-3 px-3 bg-white border-t border-gray-200">
+      <div className="shrink-0 flex items-center justify-center gap-3 py-3 px-3 bg-white border-t border-gray-200">
         <button
           type="submit"
-          className="h-9 px-4 rounded-full bg-primary text-white text-sm font-semibold inline-flex items-center gap-1.5 hover:opacity-90"
+          className="h-9 min-w-0 flex-1 rounded-full bg-primary px-4 text-sm font-semibold text-white inline-flex items-center justify-center gap-1.5 hover:opacity-90 max-w-[8rem]"
         >
-          <Icon type="filters" className="text-sm" />
-          <I18N id="btn.filter.Filter" />
+          <Icon type="filters" className="text-sm shrink-0" />
+          <span className="truncate"><I18N id="btn.filter.Filter" /></span>
         </button>
         <button
           type="button"
-          className="text-primary hover:text-sky-800 text-sm font-semibold"
+          className="min-w-0 shrink-0 text-primary hover:text-sky-800 text-sm font-semibold"
           onClick={clearFilters}
         >
           <I18N id="btn.filter.Clear" />
