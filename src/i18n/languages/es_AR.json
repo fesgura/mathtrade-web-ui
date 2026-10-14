@@ -354,6 +354,7 @@
   "element.Offered-NotOffered": "Ofrecidos/No ofrecidos",
   "element.PublishedBy": "Publicado por",
   "element.Publisher": "Editorial",
+  "element.Publisher.noneInBGG": "BGG no informa editorial para esta versión",
   "element.Status": "Estado",
   "element.BoxStatus": "Estado de la caja",
   "element.ComponentsStatus": "Estado de los componentes",
