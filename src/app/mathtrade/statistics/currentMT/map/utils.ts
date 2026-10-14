@@ -6,7 +6,20 @@ const defValues = {
   users_count: 0,
 };
 
-const userRegiones = [
+type Region = { id: string; title: string };
+
+type LocationStat = {
+  location: { province: string };
+  games_count: number;
+  items_count: number;
+  users_count: number;
+};
+
+type RegionCounts = Pick<LocationStat, "games_count" | "items_count" | "users_count">;
+
+type ColorRange = { less?: number; from?: number; to?: number };
+
+const userRegiones: Region[] = [
   { id: "AR.SC", title: "Santa Cruz" },
   { id: "AR.TF", title: "Tierra del Fuego" },
   { id: "AR.SJ", title: "San Juan" },
@@ -30,11 +43,15 @@ const userRegiones = [
   { id: "AR.ER", title: "Entre Ríos" },
   { id: "AR.SF", title: "Santa Fe" },
   { id: "AR.MN", title: "Misiones" },
+  { id: "AR.MV", title: "Islas Malvinas" },
+  { id: "AR.AT", title: "Islas del Atlántico Sur" },
+  { id: "AR.AN", title: "Antártida Argentina" },
+  // AMBA goes last: its value is the remainder up to 100%.
   { id: "AR.DF", title: "AMBA" },
 ];
 
-export const locsToGraph = (stats) => {
-  const pool = {};
+export const locsToGraph = (stats: { locations: LocationStat[] }) => {
+  const pool: Record<string, RegionCounts> = {};
 
   let items_count_total = 0;
 
@@ -59,7 +76,7 @@ export const locsToGraph = (stats) => {
 
   userRegiones.forEach((reg) => {
     const { title } = reg;
-    const d = pool[title] || {};
+    const d: Partial<RegionCounts> = pool[title] || {};
 
     const items_count = d?.items_count || 0;
 
@@ -90,7 +107,7 @@ export const locsToGraph = (stats) => {
 
   const segments = 6;
 
-  const listCol = [];
+  const listCol: number[] = [];
   const frac = 1 / segments;
 
   let df = 1;
@@ -102,7 +119,7 @@ export const locsToGraph = (stats) => {
   }
   listCol.push(max);
 
-  const ordinalColor = [{ less: 0.1 }];
+  const ordinalColor: ColorRange[] = [{ less: 0.1 }];
 
   listCol.forEach((n, i) => {
     if (i === 0) {

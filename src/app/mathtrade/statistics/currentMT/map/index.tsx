@@ -3,12 +3,15 @@ import geoArgentina from "./geoArgentina";
 import { locsToGraph } from "./utils";
 import I18N, { getI18Ntext } from "@/i18n";
 
-const Map = ({ data }) => {
-  const graphRef = useRef(null);
+// AnyChart is loaded from its CDN bundle in statistics/page.tsx.
+declare const anychart: any;
+
+const Map = ({ data }: { data: Parameters<typeof locsToGraph>[0] }) => {
+  const graphRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let timer = setInterval(() => {
-      if (window.anychart && graphRef && graphRef.current) {
+      if ((window as any).anychart && graphRef && graphRef.current) {
         graphRef.current.innerHTML = "";
         clearInterval(timer);
 
