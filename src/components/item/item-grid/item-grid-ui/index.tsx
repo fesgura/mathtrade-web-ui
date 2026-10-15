@@ -47,7 +47,7 @@ const ItemGridUI = ({ expanded, setExpanded }: ItemGridUIProps) => {
     >
       <div
         className={clsx(
-          "transition-all relative mx-auto rounded-lg",
+          "transition-[max-width] relative mx-auto rounded-lg",
           cardSurfaceClass,
           cardKindBorderClass(cardKind),
           {

@@ -92,7 +92,7 @@ const ElementComplete = ({
           className={clsx(
             "absolute top-0 left-0 w-full h-full cursor-pointer",
             {
-              "bg-black/40 grid place-content-center backdrop-blur-sm opacity-0 hover:opacity-100 transition-opacity":
+              "bg-black/50 grid place-content-center opacity-0 hover:opacity-100 transition-opacity":
                 !selecting,
             }
           )}
