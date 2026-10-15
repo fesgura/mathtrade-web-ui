@@ -10,10 +10,11 @@ import {
 } from "@/components/badgeType/cardKind";
 import I18N from "@/i18n";
 import clsx from "clsx";
+import ReportThread from "./reportThread";
 
 const AddElementToMyItem = lazy(() => import("../addElement"));
 
-const ItemUI = ({ tourAnchor = undefined }) => {
+const ItemUI = ({ tourAnchor = undefined }: { tourAnchor?: string }) => {
   /* PAGE CONTEXT **********************************************/
   const { canI } = useContext(PageContext);
   /* end PAGE CONTEXT **********************************************/
@@ -71,6 +72,10 @@ const ItemUI = ({ tourAnchor = undefined }) => {
           <p className="mt-1 text-xs opacity-90">
             <I18N id="myOffer.staffObservation.corrida" />
           </p>
+          <ReportThread
+            reportId={staffObservation.id}
+            initialCount={staffObservation.comments_count}
+          />
         </div>
       ) : null}
       <div className="flex flex-col gap-3">
