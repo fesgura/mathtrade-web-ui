@@ -345,6 +345,13 @@ const ElementView = ({
                 <ButtonAlert
                   className="text-danger font-bold px-5 py-1 text-sm hover:text-red-900 transition-colors"
                   title="Delete.Element"
+                  description={
+                    offeredItem
+                      ? isCombo
+                        ? "Delete.Element.offeredCombo"
+                        : "Delete.Element.offered"
+                      : ""
+                  }
                   onClick={deleteElement}
                 >
                   <InnerButton>

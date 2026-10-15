@@ -37,6 +37,8 @@
   "dayWeek.6": "Sábado",
   "Delete": "Eliminar",
   "Delete.Element": "¿Eliminar artículo?",
+  "Delete.Element.offered": "Este juego está ofrecido en el Math Trade: al eliminarlo también se retira el ejemplar.",
+  "Delete.Element.offeredCombo": "Este juego está en un combo ofrecido: al eliminarlo se quita del combo.",
   "ElementAlreadyLoaded": "Ya tenés una copia de este artículo cargado. Revisá si quieres cargarlo nuevamente.",
   "EmptyList": "Sin resultados.",
   "EmptyList.games": "Sin juegos que mostrar.",
