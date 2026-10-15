@@ -4,8 +4,14 @@ import { ItemContextProvider } from "@/context/item";
 import useFetch from "@/hooks/useFetch";
 import { useMemo } from "react";
 import ItemUI from "./ui";
+import { ReportablePreviewContext } from "@/components/reportButton";
 
-const ItemPreview = ({ id, customMathtradeId }) => {
+type ItemPreviewProps = {
+  id?: number | string | null;
+  customMathtradeId?: number | string | null;
+};
+
+const ItemPreview = ({ id = null, customMathtradeId = null }: ItemPreviewProps) => {
   /* LOAD ITEM ***************************/
 
   const urlParamsItem = useMemo(() => {
@@ -33,9 +39,14 @@ const ItemPreview = ({ id, customMathtradeId }) => {
   return (
     <div className="min-h-[240px]">
       {itemRaw ? (
-        <ItemContextProvider itemRaw={itemRaw}>
-          <ItemUI />
-        </ItemContextProvider>
+        // The preview modal (item permalinks included) can be opened from any
+        // page, so it allows "Reportar" itself instead of relying on the
+        // host page's pageType. Past-edition items are never reportable.
+        <ReportablePreviewContext.Provider value={!customMathtradeId}>
+          <ItemContextProvider itemRaw={itemRaw}>
+            <ItemUI />
+          </ItemContextProvider>
+        </ReportablePreviewContext.Provider>
       ) : null}
       <ErrorAlert error={error} className="mt-7" />
       <LoadingBox loading={loading} />
