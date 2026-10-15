@@ -4,7 +4,22 @@ import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
 import { NotificationsContext } from "@/context/notifications";
 
-const useNotification = (data, type, noMembership) => {
+type CounterSetter = (update: (oldNum: number) => number) => void;
+
+type NotificationData = {
+  id?: number;
+  type?: string;
+  message?: any;
+  created?: string;
+  unread?: boolean;
+  version_ui?: unknown;
+};
+
+const useNotification = (
+  data: NotificationData,
+  type?: string,
+  noMembership = false
+) => {
   /* CONTEXT *************************************************/
   const {
     setItemNotifUnread,
@@ -14,7 +29,12 @@ const useNotification = (data, type, noMembership) => {
     setAdminNotifUnread,
     //
     toggleMobile,
-  } = useContext(NotificationsContext);
+  } = useContext(NotificationsContext) as {
+    setItemNotifUnread: CounterSetter;
+    setWantNotifUnread: CounterSetter;
+    setAdminNotifUnread: CounterSetter;
+    toggleMobile: () => void;
+  };
   /* end CONTEXT *************************************************/
 
   const {
@@ -39,9 +59,9 @@ const useNotification = (data, type, noMembership) => {
       const date = DateIntlFormat(created);
 
       let body = message?.text || null;
-      const values = [];
+      const values: string[] = [];
       let suffix = "";
-      let linkFunction = null;
+      let linkFunction: (() => void) | null = null;
       let linkText = "";
 
       switch (type) {
@@ -57,6 +77,10 @@ const useNotification = (data, type, noMembership) => {
         case "WGR":
         case "WGD":
         case "WGA":
+          // WGD/WGC (BE math_item/withdrawal.py) name the copy and the want.
+          if (type === "WGD" || type === "WGC") {
+            values.push(message?.item_name || "");
+          }
           values.push(message?.uwg_name || "");
           linkFunction = message?.uwg_id
             ? () => {
