@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
 import PageHeader from "@/components/pageHeader";
@@ -13,6 +13,7 @@ import { PRIVATE_ROUTES } from "@/config/routes";
 import { whatsappLink } from "@/utils/whatsapp";
 import { AdminUserName, useAdminUser } from "@/components/adminUserModal";
 import { ReplyBox } from "@/components/item/item-my/item-ui/reportThread";
+import { PageContext } from "@/context/page";
 
 type Person = { id: number; first_name: string; last_name: string } | null;
 
@@ -67,6 +68,11 @@ type ReportRow = {
   // until an admin shares them.
   source?: string;
   shared_with_owner_at?: string | null;
+  // Owner activity after the report (BE: item last_update / owner comments).
+  edited_after_report?: boolean;
+  owner_replied?: boolean;
+  // "withdrawn" when the owner withdrew the item (auto-resolved).
+  resolution?: string | null;
 };
 
 const isInternal = (row: ReportRow) =>
@@ -119,6 +125,7 @@ const Label = ({ id }: { id: string }) => (
 // reports, the same ones volunteers see in the logistics app.
 const AdminReportsPage = () => {
   const { isNewUser } = useAdminUser();
+  const { setItemPreviewId, setShowModalPreview } = useContext(PageContext);
   const [filter, setFilter] = useState("open");
   const [reloadValue, setReloadValue] = useState(0);
   const reload = useCallback(() => setReloadValue((v) => v + 1), []);
@@ -202,6 +209,12 @@ const AdminReportsPage = () => {
                         {row.resolved_at ? (
                           <span className="text-green-700">
                             <I18N id="adminReports.resolvedAt" values={[row.resolved_at]} />
+                            {row.resolution === "withdrawn" ? (
+                              <>
+                                {" · "}
+                                <I18N id="adminReports.resolution.withdrawn" />
+                              </>
+                            ) : null}
                           </span>
                         ) : (
                           <span className="text-danger font-semibold">
@@ -266,10 +279,29 @@ const AdminReportsPage = () => {
                     <section className="mb-3 rounded-md bg-gray-50 p-3">
                       <Label id="adminReports.item" />
                       <div className="text-sm mb-2">
-                        <strong>
+                        <button
+                          type="button"
+                          className="font-bold text-left underline decoration-dotted underline-offset-2 hover:text-primary"
+                          title={getI18Ntext("adminReports.openItem")}
+                          onClick={() => {
+                            // Admins can open the item even while it isn't ready.
+                            setItemPreviewId(row.item_detail?.id);
+                            setShowModalPreview(true);
+                          }}
+                        >
                           {row.assigned_trade_code ? `${row.assigned_trade_code} - ` : ""}
                           {row.item_detail.title}
-                        </strong>
+                        </button>
+                        {row.edited_after_report ? (
+                          <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-900">
+                            <I18N id="adminReports.badge.edited" />
+                          </span>
+                        ) : null}
+                        {row.owner_replied ? (
+                          <span className="ml-2 rounded-full bg-sky-100 px-2 py-0.5 text-xs font-semibold text-sky-900">
+                            <I18N id="adminReports.badge.ownerReplied" />
+                          </span>
+                        ) : null}
                         {row.item_detail.owner ? (
                           <>
                             {" · "}
