@@ -431,6 +431,7 @@ const AdminReportsPage = () => {
             title="adminReports.shareConfirmTitle"
             description="adminReports.shareConfirmText"
             confirmId="adminReports.shareWithOwner"
+            variant="primary"
           />
         </div>
       </SectionCommon>
