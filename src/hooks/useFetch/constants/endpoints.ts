@@ -181,6 +181,7 @@ const endpoints = {
   // REPORT
   POST_REPORT: "api/reports/",
   ADMIN_GET_REPORTS: "api/reports/",
+  ADMIN_GET_REPORT: "api/reports/$[1]/",
   ADMIN_RESOLVE_REPORT: "api/reports/$[1]/resolve/",
   ADMIN_DELETE_REPORT: "api/reports/$[1]/",
   // One report shaped for the viewer (staff / item owner / reporter): the

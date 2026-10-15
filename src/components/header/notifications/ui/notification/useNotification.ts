@@ -4,7 +4,7 @@ import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
 import { NotificationsContext } from "@/context/notifications";
 import { closeActivePanel } from "@/components/header/head-content/activePanelStore";
-import { openReport } from "@/components/reportModal/reportModalStore";
+import { useOpenReport } from "@/components/reportModal/adminReportFocus";
 
 type CounterSetter = (update: (oldNum: number) => number) => void;
 
@@ -45,6 +45,7 @@ const useNotification = (
     setPreviewWantGroupId,
     setShowPreviewWantGroupModal,
   } = useContext(PageContext);
+  const openReport = useOpenReport();
 
   const [unreaded, setUnreaded] = useState(data?.unread || false);
 
@@ -149,6 +150,7 @@ const useNotification = (
             reportLinkFunction = () => {
               toggleMobile();
               closeActivePanel();
+              // Admins: the reports page, scrolled to it; others: the modal.
               openReport(message?.report_id);
             };
           }
@@ -191,6 +193,7 @@ const useNotification = (
       setPreviewWantGroupId,
       setShowPreviewWantGroupModal,
       toggleMobile,
+      openReport,
     ]);
 
   /* FETCH *************************************************/
