@@ -23,3 +23,10 @@ export function subscribe(listener: () => void) {
   listeners.add(listener);
   return () => listeners.delete(listener);
 }
+
+// Closes whichever desktop hover panel is open (useHoverPanel closes itself
+// when it no longer owns the active slot). For in-panel actions that move
+// on elsewhere, e.g. a notification's "Ver" link opening a preview.
+export function closeActivePanel() {
+  setActivePanel(null);
+}
