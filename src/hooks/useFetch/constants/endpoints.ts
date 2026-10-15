@@ -31,6 +31,8 @@ const endpoints = {
   PUT_MYITEM: "api/mathtrades/$[mathtradeId]/user-elements/$[1]/",
   DELETE_MYITEM_ELEMENT: "api/mathtrades/$[mathtradeId]/user-elements/$[1]/",
   DELETE_MYITEM: "api/mathtrades/$[mathtradeId]/user-items/$[1]/",
+  // Own items with an open report the owner can see (AdvReportedItems)
+  GET_MY_REPORTED_COUNT: "api/mathtrades/$[mathtradeId]/user-items/reported-count/",
 
   // ITEMS PREVIOUS MT
   GET_RECEIVED_COPIES: "api/mathtrades/$[mathtradeId]/received-copies/",

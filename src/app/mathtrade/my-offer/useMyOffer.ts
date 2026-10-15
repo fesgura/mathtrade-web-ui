@@ -126,19 +126,28 @@ const useMyOffer = () => {
 
     // ORDER
     const order = filters_myoffer?.order || "none";
-    if (order === "none") {
-      return itemsFiltered;
-    }
-    if (order === "-none") {
-      return [...itemsFiltered].reverse();
-    }
+    const ordered = (() => {
+      if (order === "none") {
+        return itemsFiltered;
+      }
+      if (order === "-none") {
+        return [...itemsFiltered].reverse();
+      }
 
-    const dir = order.indexOf("-") === 0 ? -1 : 1;
-    const key = order.indexOf("-") === 0 ? order.substring(1) : order;
+      const dir = order.indexOf("-") === 0 ? -1 : 1;
+      const key = order.indexOf("-") === 0 ? order.substring(1) : order;
 
-    return [...itemsFiltered].sort((a, b) => {
-      return a[key] < b[key] ? -1 * dir : dir;
-    });
+      return [...itemsFiltered].sort((a, b) => {
+        return a[key] < b[key] ? -1 * dir : dir;
+      });
+    })();
+
+    // REPORTED FIRST: copies with an open report you can see (the amber
+    // box) go on top in any order; a stable split keeps the chosen order
+    // within each part. The BE already sends them first for "none".
+    const reported = ordered.filter((item) => !!item.staff_observation);
+    if (!reported.length) return ordered;
+    return [...reported, ...ordered.filter((item) => !item.staff_observation)];
   }, [myItemsInMT, myGroups, filters_myoffer]);
 
   // END Order Items ********************************************
