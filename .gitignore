@@ -36,3 +36,5 @@ next-env.d.ts
 
 # styles
 /styles/
+# Local-only scratch pages for browser checks (never served in prod)
+/public/_*.html
