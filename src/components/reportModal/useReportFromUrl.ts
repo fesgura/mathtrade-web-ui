@@ -36,6 +36,8 @@ const useReportFromUrl = () => {
   useEffect(() => {
     if (done.current) return;
     done.current = true;
+    // The admin reports page reads `?report=` itself (scrolls to the row).
+    if (window.location.pathname === PRIVATE_ROUTES.ADMIN_REPORTS.path) return;
     const raw = new URLSearchParams(window.location.search).get(REPORT_PARAM);
     if (raw === null) return;
     const id = /^\d+$/.test(raw.trim()) ? Number(raw.trim()) : 0;

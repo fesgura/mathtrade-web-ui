@@ -9,12 +9,12 @@ import PhotoGallery from "@/components/photoGallery";
 import I18N from "@/i18n";
 import useFetch from "@/hooks/useFetch";
 import { PageContext } from "@/context/page";
-import { PRIVATE_ROUTES } from "@/config/routes";
 import { useStore } from "@/store";
 import { AdminUserName } from "@/components/adminUserModal";
 import CopyLinkButton from "@/components/previewer/modal/copyLinkButton";
 import ReportThread from "@/components/item/item-my/item-ui/reportThread";
 import { closeReport, useReportModalState } from "./reportModalStore";
+import { adminReportPath, focusAdminReport } from "./adminReportFocus";
 import useReportFromUrl, {
   clearReportParam,
   reportPermalink,
@@ -176,11 +176,13 @@ const ReportDetail = ({ reportId }: { reportId: number }) => {
 
       {report.role === "staff" && isAdmin ? (
         <Link
-          href={PRIVATE_ROUTES.ADMIN_REPORTS.path}
+          href={adminReportPath(report.id)}
           className="text-sm text-primary underline"
           onClick={() => {
             closeReport();
             clearReportParam();
+            // The page scrolls to this report (also when already on it).
+            focusAdminReport(report.id);
           }}
         >
           <I18N id="reportView.adminLink" />

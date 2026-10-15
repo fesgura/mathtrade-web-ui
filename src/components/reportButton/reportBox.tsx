@@ -1,13 +1,15 @@
 import { useMemo } from "react";
 import I18N, { getI18Ntext } from "@/i18n";
 import UserBox from "../userBox";
-import { openReport } from "../reportModal/reportModalStore";
+import { useOpenReport } from "../reportModal/adminReportFocus";
 
 // Staff: the open report on the item card. The report itself (title,
-// comment) opens the report detail (its permalink modal). Deleting a report
+// comment) opens the report detail: the admin reports page scrolled to it
+// for admins, the permalink modal for volunteers. Deleting a report
 // erases its whole thread, so it only happens from the admin reports page,
 // behind a confirmation.
 const ReportBox = ({ id = null, reported = null }) => {
+  const openReport = useOpenReport();
   const { user, comment } = useMemo(() => {
     const { user: user_reported, comment: comment_reported } = reported || {};
 
