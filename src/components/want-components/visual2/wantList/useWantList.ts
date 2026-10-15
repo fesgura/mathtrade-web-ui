@@ -9,11 +9,14 @@ import {
 import { PageContext } from "@/context/page";
 import { MyWantsContext } from "@/context/myWants/all";
 import { WantVisualSectionContext } from "@/context/wantVisualSection";
-import { getRightValue } from "@/components/want-components/utils";
+import {
+  changedWantsFirst,
+  getRightValue,
+} from "@/components/want-components/utils";
 
 const useWantList = (item = null) => {
   const itemId = item?.id;
-  const { canI, myWants } = useContext(PageContext);
+  const { canI, myWants, changedWantIds } = useContext(PageContext);
   const { matchValues, changes } = useContext(MyWantsContext);
   const { setForceShow } = useContext(WantVisualSectionContext);
 
@@ -62,8 +65,11 @@ const useWantList = (item = null) => {
       setAddOpen(false);
     }
 
-    return { wantsAdded, wantsToAdd };
-  }, [myWants, itemId, canI, matchValues, changes]);
+    return {
+      wantsAdded: changedWantsFirst(wantsAdded, changedWantIds),
+      wantsToAdd,
+    };
+  }, [myWants, itemId, canI, matchValues, changes, changedWantIds]);
 
   return {
     itemId,

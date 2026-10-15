@@ -3,6 +3,7 @@ import { useOptions } from "@/store";
 import { PageContext } from "@/context/page";
 import { MyWantsContext } from "@/context/myWants/all";
 import useFetch from "@/hooks/useFetch";
+import useLoadAllMyWants from "@/hooks/useLoadAllMyWants";
 
 /** An unread WGD/WGC notification on one of my want groups. */
 export type WantChange = {
@@ -66,6 +67,7 @@ const useWants = () => {
     setMyGroups_forWants,
     refreshMembership,
     setWantChanges,
+    setChangedWantIds,
   } = useContext(PageContext);
 
   const {
@@ -76,7 +78,7 @@ const useWants = () => {
   } = useContext(MyWantsContext);
 
   const afterLoadMyWants = useCallback(
-    ({ results }) => {
+    (results: any[]) => {
       setMyWants(results);
       setIsLoadedWants(true);
       setChanges({});
@@ -84,21 +86,20 @@ const useWants = () => {
     },
     [setIsLoadedWants, setMyWants, setChanges, setDeletedWantgroupIds]
   );
-  const myWantsParams = useMemo(() => ({ page_size: 200 }), []);
-  const [, , loadingMyWants, errorMyWants] = useFetch({
-    endpoint: "MYWANTS",
+  // Every page: a member may have more than the BE's 200 per page.
+  const { loading: loadingMyWants, error: errorMyWants } = useLoadAllMyWants({
     autoLoad: true,
-    initialState: { results: [] },
-    params: myWantsParams,
-    afterLoad: afterLoadMyWants,
+    onLoad: afterLoadMyWants,
   });
 
   // Wants whose copies were withdrawn/changed since the wanter last saw them.
   const afterLoadWantChanges = useCallback(
     ({ results }) => {
-      setWantChanges(groupWantChanges(results || []));
+      const map = groupWantChanges(results || []);
+      setWantChanges(map);
+      setChangedWantIds(new Set(map.keys()));
     },
-    [setWantChanges]
+    [setWantChanges, setChangedWantIds]
   );
   const wantChangesParams = useMemo(
     () => ({ type: "want", unread: "true", page_size: WANT_CHANGES_PAGE_SIZE }),

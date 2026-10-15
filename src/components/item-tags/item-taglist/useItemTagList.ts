@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import useFetch from "@/hooks/useFetch";
+import useLoadAllMyWants from "@/hooks/useLoadAllMyWants";
 import { PageContext } from "@/context/page";
 import { ItemContext } from "@/context/item";
 
@@ -18,13 +19,13 @@ const useItemTagList = () => {
   /* end ITEM CONTEXT */
 
   const afterLoadItemTags = useCallback(
-    ({ results }) => {
-      const tags = results.map((tag, i) => {
+    ({ results }: { results: any[] }) => {
+      const tags = results.map((tag: any, i: number) => {
         return {
           ...tag,
           id: `${tag?.id || i}`,
           itemsComplete: tag.items,
-          items: tag.items.map(({ id }) => id),
+          items: tag.items.map(({ id }: { id: number }) => id),
         };
       });
       setItemTags(tags);
@@ -39,21 +40,17 @@ const useItemTagList = () => {
   });
 
   // Untagging an item that was wanted through its tag keeps it wanted as its
-  // own want (backend). Reload wants (one call) so the item doesn't look
+  // own want (backend). Reload wants (every page) so the item doesn't look
   // unwanted, which could lead to wanting it again as a duplicate.
-  const [loadMyWants] = useFetch({
-    endpoint: "MYWANTS",
-    initialState: { results: [] },
-    afterLoad: useCallback(
-      ({ results }) => {
-        if (results) setMyWants(results);
-      },
-      [setMyWants]
-    ),
-  });
+  const { loadAll: loadAllMyWants } = useLoadAllMyWants();
+  const loadMyWants = useCallback(() => {
+    loadAllMyWants().then((wants) => {
+      if (wants) setMyWants(wants);
+    });
+  }, [loadAllMyWants, setMyWants]);
   // A ref, not state: it is set right before the PUT and read in its
   // afterLoad, which would otherwise see a stale value.
-  const pendingNotice = useRef(false);
+  const pendingNotice = useRef<"" | "untagged" | "moved" | false>(false);
 
   const afterLoad = useCallback(() => {
     // My own tags are inherently bounded to one user's own entries - request
@@ -65,7 +62,7 @@ const useItemTagList = () => {
       if (pendingNotice.current === "moved") setMustConfirm(true);
       setNotice(pendingNotice.current);
       pendingNotice.current = false;
-      loadMyWants({ params: { page_size: 200 } });
+      loadMyWants();
     }
   }, [getTagList, loadMyWants, setMustConfirm]);
 
@@ -85,7 +82,11 @@ const useItemTagList = () => {
   });
 
   const updateTag = useCallback(
-    (id, params, { removingThisItem = false } = {}) => {
+    (
+      id: number | string,
+      params: { items?: (number | string)[]; [key: string]: any },
+      { removingThisItem = false }: { removingThisItem?: boolean } = {}
+    ) => {
       if (removingThisItem && wantedViaTag) pendingNotice.current = "untagged";
       const tagging = (params?.items || []).some((i) => `${i}` === `${itemId}`);
       if (!removingThisItem && tagging && wantGroup) {
@@ -100,12 +101,12 @@ const useItemTagList = () => {
   );
 
   const tagCollection = useMemo(() => {
-    const current = [];
-    const options = [];
+    const current: any[] = [];
+    const options: any[] = [];
 
     if (itemId && itemTags.length) {
-      itemTags.forEach((t) => {
-        if (t.items.map((tId) => `${tId}`).indexOf(`${itemId}`) >= 0) {
+      itemTags.forEach((t: any) => {
+        if (t.items.map((tId: number | string) => `${tId}`).indexOf(`${itemId}`) >= 0) {
           current.push(t);
         } else {
           options.push(t);

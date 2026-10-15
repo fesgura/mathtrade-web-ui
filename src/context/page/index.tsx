@@ -98,6 +98,10 @@ export const PageContext = createContext({
   wantChanges: new Map<number, WantChange[]>(),
   setWantChanges: (_value?: any) => {},
   markWantSeen: async (_uwgId: number): Promise<void> => {},
+  // Ids that had changes when Mis deseos loaded: they go first until the
+  // next load (seeing one doesn't make the list jump under the user).
+  changedWantIds: new Set<number>(),
+  setChangedWantIds: (_value?: any) => {},
   //
   filterData: {} as Record<string, any>,
   setFilterData: (_value?: any) => {},
@@ -333,6 +337,9 @@ const PageContextProvider = ({ children = null }) => {
   const [wantChanges, setWantChanges] = useState<Map<number, WantChange[]>>(
     () => new Map()
   );
+  const [changedWantIds, setChangedWantIds] = useState<Set<number>>(
+    () => new Set()
+  );
   const [postNotificationsBulk] = useFetch({
     endpoint: "POST_NOTIFICATIONS_BULK",
     method: "POST",
@@ -545,6 +552,8 @@ const PageContextProvider = ({ children = null }) => {
         wantChanges,
         setWantChanges,
         markWantSeen,
+        changedWantIds,
+        setChangedWantIds,
         //
         filterData,
         setFilterData,
