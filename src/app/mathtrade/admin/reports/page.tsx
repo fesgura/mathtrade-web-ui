@@ -14,75 +14,14 @@ import { whatsappLink } from "@/utils/whatsapp";
 import { AdminUserName, useAdminUser } from "@/components/adminUserModal";
 import { ReplyBox } from "@/components/item/item-my/item-ui/reportThread";
 import { PageContext } from "@/context/page";
+import { isInternal, type Person, type ReportRow } from "./reportTypes";
+import useReportFilters, { STATUSES, type Shared, type Source } from "./useReportFilters";
 import { REPORT_PARAM, clearReportParam } from "@/components/reportModal/useReportFromUrl";
 import {
   clearAdminReportFocus,
   focusAdminReport,
   useAdminReportFocus,
 } from "@/components/reportModal/adminReportFocus";
-
-type Person = { id: number; first_name: string; last_name: string } | null;
-
-type ItemElement = {
-  name: string;
-  thumbnail: string | null;
-  box_status: string;
-  component_status: string;
-  comment: string;
-  images: string;
-};
-
-type ItemDetail = {
-  id: number;
-  title: string;
-  owner:
-    | (Person & {
-        username: string;
-        whatsapp?: string | null;
-        telegram?: string | null;
-      })
-    | null;
-  location: string | null;
-  elements: ItemElement[];
-} | null;
-
-type ReportComment = {
-  id: number;
-  user_info: Person;
-  comment: string;
-  created: string;
-};
-
-type ReportRow = {
-  id: number;
-  user: Person;
-  reported_user: Person;
-  item_title: string | null;
-  item_detail: ItemDetail;
-  images: string | null;
-  comments: ReportComment[];
-  assigned_trade_code: string | number | null;
-  box: number | null;
-  box_number: number | null;
-  box_origin_name: string | null;
-  box_destination_name: string | null;
-  found_in_box_number: number | null;
-  comment: string;
-  created: string;
-  resolved_at: string | null;
-  // "logistics" reports (or any with a box) stay hidden from the item owner
-  // until an admin shares them.
-  source?: string;
-  shared_with_owner_at?: string | null;
-  // Owner activity after the report (BE: item last_update / owner comments).
-  edited_after_report?: boolean;
-  owner_replied?: boolean;
-  // "withdrawn" when the owner withdrew the item (auto-resolved).
-  resolution?: string | null;
-};
-
-const isInternal = (row: ReportRow) =>
-  !!row.item_detail && (row.source === "logistics" || !!row.box);
 
 // Next to the "Enviar al dueño" button: what went wrong, in plain words.
 const shareErrorKey = (error: any): string => {
@@ -91,11 +30,17 @@ const shareErrorKey = (error: any): string => {
   return "adminReports.shareError";
 };
 
-const FILTERS = [
-  { key: "open", label: "adminReports.filter.open", resolved: "0" },
-  { key: "resolved", label: "adminReports.filter.resolved", resolved: "1" },
-  { key: "all", label: "adminReports.filter.all", resolved: undefined },
-];
+const selectClass =
+  "border border-stroke rounded-md p-2 text-sm bg-white w-full sm:w-auto max-w-full min-w-0";
+
+// Same quick filter buttons as the admin users page.
+const quickButton = (active: boolean) =>
+  clsx(
+    "rounded-full text-sm font-semibold px-4 py-1.5 border",
+    active
+      ? "bg-primary text-white border-primary"
+      : "bg-white text-primary border-primary hover:bg-primary/10"
+  );
 
 const fullName = (person: Person) =>
   person ? `${person.first_name} ${person.last_name}`.trim() : "-";
@@ -132,22 +77,17 @@ const Label = ({ id }: { id: string }) => (
 const AdminReportsPage = () => {
   const { isNewUser } = useAdminUser();
   const { setItemPreviewId, setShowModalPreview } = useContext(PageContext);
-  const [filter, setFilter] = useState("open");
   const [reloadValue, setReloadValue] = useState(0);
   const reload = useCallback(() => setReloadValue((v) => v + 1), []);
 
-  const params = useMemo(() => {
-    const resolved = FILTERS.find((f) => f.key === filter)?.resolved;
-    return { event: "1", ...(resolved ? { resolved } : {}) };
-  }, [filter]);
+  // The whole edition (open and resolved): the filter bar works on it
+  // client-side, so the status counts come for free.
+  const params = useMemo(() => ({ event: "1" }), []);
 
-  // Which params the list on screen was loaded with: the deep link below
-  // must not conclude "not in the list" from the previous filter's rows.
-  const paramsKey = JSON.stringify(params);
-  const paramsKeyRef = useRef(paramsKey);
-  paramsKeyRef.current = paramsKey;
-  const [loadedKey, setLoadedKey] = useState<string | null>(null);
-  const onListLoaded = useCallback(() => setLoadedKey(paramsKeyRef.current), []);
+  // The deep link below must not conclude "not in the list" before the
+  // first load.
+  const [listLoaded, setListLoaded] = useState(false);
+  const onListLoaded = useCallback(() => setListLoaded(true), []);
 
   const [, rows, loading, error] = useFetch({
     endpoint: "ADMIN_GET_REPORTS",
@@ -157,26 +97,27 @@ const AdminReportsPage = () => {
     reloadValue,
     afterLoad: onListLoaded,
   });
-  const list: ReportRow[] = useMemo(
+  const allRows: ReportRow[] = useMemo(
     () => (Array.isArray(rows) ? rows : rows?.results || []),
     [rows]
   );
-  const listReady = !loading && loadedKey === paramsKey;
+  const listReady = !loading && listLoaded;
+  const filters = useReportFilters(allRows);
+  const { list, reveal } = filters;
 
   /* DEEP LINK: ?report=<id> ("Ver reporte" for admins) *******************/
-  // The list loads asynchronously and only holds the current filter's
-  // reports of the active edition. Once it's loaded: if the report is there,
-  // scroll to it and highlight it; if not, fetch it, switch to its status
-  // filter and look again; if it still isn't listed (another edition), show
-  // it on its own above the list; if it doesn't exist, say so.
+  // The list loads asynchronously and holds the active edition's reports.
+  // Once it's loaded: if the report is on screen, scroll to it and highlight
+  // it; if the filters or the search hide it, reset them; if it isn't in the
+  // edition's list, fetch it and show it on its own above the list; if it
+  // doesn't exist, say so.
   const focus = useAdminReportFocus();
   const [targetId, setTargetId] = useState<number | null>(null);
   const [highlight, setHighlight] = useState<{ id: number; seq: number } | null>(null);
   const [pinned, setPinned] = useState<ReportRow | null>(null);
   const [notFoundId, setNotFoundId] = useState<number | null>(null);
-  const [retry, setRetry] = useState(0);
-  // The single-report fetch for the target: row undefined while loading.
-  const singleRef = useRef<{ id: number; row?: ReportRow } | null>(null);
+  // The report the single fetch is for (a deep link outside the list).
+  const singleRef = useRef<{ id: number } | null>(null);
 
   const [getReport] = useFetch({ endpoint: "ADMIN_GET_REPORT" });
 
@@ -208,13 +149,12 @@ const AdminReportsPage = () => {
       clearReportParam();
       return;
     }
-    const single = singleRef.current;
-    if (single?.id === targetId) {
-      if (!single.row) return; // still loading
-      // Its status filter is on and it still isn't listed: another edition.
-      setPinned(single.row);
+    const hidden = allRows.find((row) => row.id === targetId);
+    if (hidden) {
+      reveal(hidden);
       return;
     }
+    if (singleRef.current?.id === targetId) return; // already fetching
     singleRef.current = { id: targetId };
     getReport({ urlParams: [targetId] }).then((row?: ReportRow) => {
       if (singleRef.current?.id !== targetId) return;
@@ -225,12 +165,10 @@ const AdminReportsPage = () => {
         clearReportParam();
         return;
       }
-      singleRef.current = { id: targetId, row };
-      const wanted = row.resolved_at ? "resolved" : "open";
-      if (filter !== "all" && filter !== wanted) setFilter(wanted);
-      else setRetry((v) => v + 1);
+      // Not in the edition's list: another edition.
+      setPinned(row);
     });
-  }, [targetId, listReady, list, pinned, filter, getReport, retry]);
+  }, [targetId, listReady, list, allRows, pinned, reveal, getReport]);
 
   useEffect(() => {
     if (!highlight) return;
@@ -486,33 +424,100 @@ const AdminReportsPage = () => {
       <PageHeader title="adminReports.title" variant="minimal" />
       <SectionCommon loading={loading || resolving || deleting || sharing}>
         <div className="md:px-7 px-3 py-7">
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="mb-4">
             <Link href={PRIVATE_ROUTES.ADMIN_PANEL.path} className="text-primary underline">
               <I18N id="adminReports.back" />
             </Link>
-            <div className="flex gap-2">
-              {FILTERS.map((f) => (
-                <button
-                  key={f.key}
-                  type="button"
-                  onClick={() => setFilter(f.key)}
-                  className={
-                    filter === f.key
-                      ? "rounded-full bg-primary text-white text-xs font-semibold px-3 py-1.5"
-                      : "rounded-full bg-gray-100 text-gray-700 text-xs font-semibold px-3 py-1.5 hover:bg-gray-200"
-                  }
-                >
-                  <I18N id={f.label} />
-                </button>
-              ))}
-            </div>
+          </div>
+
+          {/* Filter bar: status (with counts) and owner-activity toggles. */}
+          <div className="flex flex-wrap items-center gap-2 mb-3">
+            {STATUSES.map((s) => (
+              <button
+                key={s.key}
+                type="button"
+                className={quickButton(filters.status === s.key)}
+                onClick={() => filters.setStatus(s.key)}
+              >
+                <I18N id={s.label} /> ({filters.statusCounts[s.key]})
+              </button>
+            ))}
+            <button
+              type="button"
+              className={quickButton(filters.onlyEdited)}
+              onClick={() => filters.setOnlyEdited((v) => !v)}
+            >
+              <I18N id="adminReports.badge.edited" /> ({filters.editedCount})
+            </button>
+            <button
+              type="button"
+              className={quickButton(filters.onlyReplied)}
+              onClick={() => filters.setOnlyReplied((v) => !v)}
+            >
+              <I18N id="adminReports.badge.ownerReplied" /> ({filters.repliedCount})
+            </button>
+          </div>
+
+          <div className="flex flex-wrap items-end gap-3 mb-4">
+            <input
+              type="search"
+              className="border border-stroke rounded-md p-2 text-sm w-full sm:w-80"
+              placeholder={getI18Ntext("adminReports.search")}
+              aria-label={getI18Ntext("adminReports.search")}
+              value={filters.search}
+              onChange={(e) => filters.setSearch(e.target.value)}
+            />
+            <label className="text-xs text-gray-500 flex flex-col gap-1 w-full sm:w-auto">
+              <I18N id="adminReports.filter.source" />
+              <select
+                className={selectClass}
+                value={filters.source}
+                onChange={(e) => filters.setSource(e.target.value as Source)}
+              >
+                <option value="">{getI18Ntext("adminReports.source.all")}</option>
+                <option value="web">{getI18Ntext("adminReports.source.web")}</option>
+                <option value="logistics">{getI18Ntext("adminReports.source.logistics")}</option>
+              </select>
+            </label>
+            <label className="text-xs text-gray-500 flex flex-col gap-1 w-full sm:w-auto">
+              <I18N id="adminReports.filter.shared" />
+              <select
+                className={selectClass}
+                value={filters.shared}
+                onChange={(e) => filters.setShared(e.target.value as Shared)}
+              >
+                <option value="">{getI18Ntext("adminReports.shared.all")}</option>
+                <option value="shared">{getI18Ntext("adminReports.shared.shared")}</option>
+                <option value="internal">{getI18Ntext("adminReports.shared.internal")}</option>
+              </select>
+            </label>
+            {filters.isFiltered ? (
+              <button
+                type="button"
+                className="text-sm text-primary underline pb-2"
+                onClick={filters.clearFilters}
+              >
+                <I18N id="adminReports.clearFilters" />
+              </button>
+            ) : null}
+          </div>
+
+          <div className="mb-2 font-semibold">
+            <I18N
+              id={list.length === 1 ? "adminReports.count.one" : "adminReports.count"}
+              values={[list.length]}
+            />
           </div>
           <p className="mb-4 text-sm text-gray-600">
             <I18N id="adminReports.corridaHint" />
           </p>
           <ErrorAlert error={error || errorResolve || errorDelete} />
           {!loading && !list.length ? (
-            <EmptyList visible icon="status-box" message="adminReports.none" />
+            <EmptyList
+              visible
+              icon="status-box"
+              message={allRows.length ? "adminReports.noneFiltered" : "adminReports.none"}
+            />
           ) : null}
           {notFoundId ? (
             <div className="mb-4 rounded-md border border-amber-300 bg-amber-50 px-3 py-2 text-sm text-amber-950">
