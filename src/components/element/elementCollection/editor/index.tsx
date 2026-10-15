@@ -41,6 +41,7 @@ const ElementEditor = ({ newBGGinfo = null, toggleEditingMode = () => {} }) => {
     language,
     publisher,
     year,
+    publisherRequired,
     setName,
     setThumbnail,
     setBgg_version_id,
@@ -89,6 +90,7 @@ const ElementEditor = ({ newBGGinfo = null, toggleEditingMode = () => {} }) => {
               <PhotoUploader
                 className=" border border-gray-300 text-gray-500 rounded-full block w-full p-1 hover:bg-primary hover:text-white hover:border-primary transition-colors"
                 onLoaded={onLoadedNewThumbnail}
+                noEdit={false}
               >
                 <InnerButton>
                   <Icon type="photo" />
@@ -196,7 +198,7 @@ const ElementEditor = ({ newBGGinfo = null, toggleEditingMode = () => {} }) => {
                       <Label
                         text="element.Publisher"
                         name="publisher"
-                        required
+                        required={publisherRequired}
                       />
                       <Input
                         data={{ publisher }}
@@ -207,6 +209,11 @@ const ElementEditor = ({ newBGGinfo = null, toggleEditingMode = () => {} }) => {
                           setPublisher(v.target.value);
                         }}
                       />
+                      {!publisherRequired ? (
+                        <p className="text-xs text-gray-600 mt-1">
+                          <I18N id="element.Publisher.noneInBGG" />
+                        </p>
+                      ) : null}
                     </InputContainer>
                   </div>
                   <div className="w-32">
@@ -239,6 +246,7 @@ const ElementEditor = ({ newBGGinfo = null, toggleEditingMode = () => {} }) => {
                   data={{ box_size }}
                   options={boxSizesOptionsList}
                   onChange={setBox_size}
+                  translateOptions={false}
                 />
               </InputContainer>
             </div>

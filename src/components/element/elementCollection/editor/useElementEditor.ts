@@ -140,6 +140,15 @@ const useElementEditor = ({
     return BGGinfoClone;
   }, [BGGinfo, element]);
 
+  // A real BGG edition without a publisher can be saved with it empty; the
+  // backend checks it against the BGG data. "other" and unknown editions
+  // still need one.
+  const selectedVersion = (dataComplete.versions || []).find(
+    (v: any) => String(v.value) === String(bgg_version_id)
+  );
+  const publisherRequired =
+    bgg_version_id === "other" || !selectedVersion || !!selectedVersion.publisher;
+
   const onLoadedNewThumbnail = useCallback((newThumbnail: string) => {
     setThumbnail(`${photoUploaderConfig.urlBase}${newThumbnail}`);
   }, []);
@@ -183,6 +192,7 @@ const useElementEditor = ({
     language,
     publisher,
     year,
+    publisherRequired,
     setName,
     setThumbnail,
     setBgg_version_id,
@@ -203,7 +213,7 @@ const useElementEditor = ({
       bgg_version_id: ["required"],
       name: ["required"],
       language: ["required"],
-      publisher: ["required"],
+      publisher: publisherRequired ? ["required"] : [],
       year: bgg_version_id === "other" ? ["required"] : [],
       box_size: ["required"],
     },
