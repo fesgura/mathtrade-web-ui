@@ -108,6 +108,10 @@ const useNotification = (
             // Staff answered on a report about the owner's copy.
             suffix = ".staff_reply";
           }
+          if (type === "RI" && message?.kind === "rereport") {
+            // A new report on the copy joined an open one (BE merges it).
+            suffix = ".rereport";
+          }
           if (type === "RIU") {
             // Admins: the owner of a reported copy replied ("reply") or
             // edited it ("edit", no text).

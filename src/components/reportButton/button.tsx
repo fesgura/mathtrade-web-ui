@@ -8,7 +8,15 @@ import ErrorAlert from "../errorAlert";
 import { resolveApiErrorMessage } from "@/utils/apiError";
 import { LoadingBox } from "../loading";
 
-const ReportButtonBtn = ({ id = null }: { id?: number | string | null }) => {
+// again: the item already has an open report (staff view); same modal, the
+// backend adds the text to that report's conversation.
+const ReportButtonBtn = ({
+  id = null,
+  again = false,
+}: {
+  id?: number | string | null;
+  again?: boolean;
+}) => {
   const {
     showModal,
     onOpen,
@@ -17,20 +25,24 @@ const ReportButtonBtn = ({ id = null }: { id?: number | string | null }) => {
     onSubmit,
     loading,
     showSuccess,
+    merged,
     error,
   } = useReport(id);
 
   return (
     <>
-      <div className="w-fit" data-tooltip={getI18Ntext("reportItem.tooltip")}>
+      <div
+        className="w-fit shrink-0"
+        data-tooltip={getI18Ntext(again ? "reportItem.again.tooltip" : "reportItem.tooltip")}
+      >
         <button
           className="flex items-center gap-1 text-[13px] leading-none  border border-yellow-600 text-yellow-700 py-[1px] px-1 rounded-full"
           onClick={onOpen}
         >
           <Icon type="report" />
 
-          <span className="text-[10px] font-bold">
-            <I18N id="reportItem.btn" />
+          <span className="text-[10px] font-bold whitespace-nowrap">
+            <I18N id={again ? "reportItem.again" : "reportItem.btn"} />
           </span>
         </button>
       </div>
@@ -43,7 +55,7 @@ const ReportButtonBtn = ({ id = null }: { id?: number | string | null }) => {
             <Label text="report.Comment" name="comment" required />
             <Textarea name="comment" data={{}} className="" />
           </InputContainer>
-          {showSuccess ? <SuccessAlert text="reportItem.success" /> : null}
+          {showSuccess ? <SuccessAlert text={merged ? "reportItem.success.merged" : "reportItem.success"} /> : null}
           <ErrorAlert error={error} errorMessage={resolveApiErrorMessage(error)} />
           <div className="flex items-center justify-center gap-4 pt-2 pb-5">
             <button
