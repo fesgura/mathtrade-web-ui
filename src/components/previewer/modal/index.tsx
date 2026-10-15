@@ -5,6 +5,8 @@ import Modal from "@/components/modal";
 import I18N from "@/i18n";
 import { PageContext } from "@/context/page";
 import ItemPreview from "./item";
+import CopyLinkButton from "./copyLinkButton";
+import useItemFromUrl, { clearItemParam } from "./useItemFromUrl";
 
 const ModalPreviewer = () => {
   const {
@@ -15,9 +17,13 @@ const ModalPreviewer = () => {
     setShowModalPreview,
   } = useContext(PageContext);
 
+  // ?item=<id> opens this modal on load (item permalinks).
+  useItemFromUrl();
+
   const onClose = useCallback(() => {
     setCustomMathtradeId(null);
     setShowModalPreview(false);
+    clearItemParam();
   }, [setCustomMathtradeId, setShowModalPreview]);
 
   /* Portaled, and mounted only while open, so it stacks above whatever opened
@@ -26,6 +32,8 @@ const ModalPreviewer = () => {
   return showModalPreview ? (
     <FloatingPortal key={itemPreviewId}>
       <Modal isOpen onClose={onClose} size="md2">
+        {/* Past-edition items (customMathtradeId) have no permalink. */}
+        {customMathtradeId ? null : <CopyLinkButton id={itemPreviewId} />}
         <ItemPreview id={itemPreviewId} customMathtradeId={customMathtradeId} />
         <div className="text-center pt-8">
           <button

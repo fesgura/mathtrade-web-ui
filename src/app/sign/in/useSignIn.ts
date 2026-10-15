@@ -8,6 +8,7 @@ import { COOKIE_AUTH_TOKEN, DAYS_EXPIRE_TOKEN } from "@/config/apiConfig";
 import { useRouter, useSearchParams } from "next/navigation";
 import { setCookie } from "@/utils/cookies";
 import { PRIVATE_ROUTES } from "@/config/routes";
+import { safeRedirectPath } from "@/utils/safeRedirect";
 
 const useSignIn = () => {
   const updateStore = useStore((state) => state.updateStore);
@@ -45,7 +46,12 @@ const useSignIn = () => {
         });
         setCookie(COOKIE_AUTH_TOKEN, token, DAYS_EXPIRE_TOKEN);
 
-        router.push(redirectUrl || PRIVATE_ROUTES.DEFAULT.path);
+        // Same-origin paths only (no open redirect); keeps the query, e.g.
+        // an item permalink's ?item=.
+        router.push(
+          safeRedirectPath(redirectUrl, window.location.origin) ||
+            PRIVATE_ROUTES.DEFAULT.path
+        );
       }
     },
     [updateStore, router, redirectUrl]
