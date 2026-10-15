@@ -1411,7 +1411,6 @@
   "reportItem.btn": "Reportar ejemplar",
   "reportItem.again": "Reportar de nuevo",
   "reportItem.again.tooltip": "Este ejemplar ya tiene un reporte abierto: tu mensaje se suma a esa conversación.",
-  "reportItem.quit": "Eliminar reporte",
   "reportItem.open": "Ver reporte",
   "report.Comment": "Comentario",
   "reportItem.tooltip": "Si ves alguna información incorrecta o alguna otra cosa que quieras avisar en este ejemplar, por favor comunicalo a los administradores.",

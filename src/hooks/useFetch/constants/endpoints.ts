@@ -183,7 +183,6 @@ const endpoints = {
   ADMIN_GET_REPORTS: "api/reports/",
   ADMIN_RESOLVE_REPORT: "api/reports/$[1]/resolve/",
   ADMIN_DELETE_REPORT: "api/reports/$[1]/",
-  QUIT_REPORT: "api/reports/$[1]/",
   // One report shaped for the viewer (staff / item owner / reporter): the
   // report permalink, `/mathtrade?report=<id>`.
   GET_REPORT_VIEW: "api/reports/$[1]/view/",
