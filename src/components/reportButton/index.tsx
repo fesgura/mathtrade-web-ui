@@ -21,10 +21,27 @@ const ReportButton = ({ className = "", part = "all" }) => {
   const { item } = useContext(ItemContext);
   const { id, isOwned, reported } = item;
 
+  const canReport =
+    Boolean(id) && availablePages.indexOf(pageType) >= 0 && !isOwned;
+
   if (id && reported) {
-    if (part === "button") return null;
+    // Staff only (`reported` comes from the admin item serializer): the
+    // open report box, plus "Reportar de nuevo", which the backend merges
+    // into the open thread (POST reports/ answers merged: true).
+    if (part === "button") {
+      return canReport ? (
+        <div className={className}>
+          <ReportButtonBtn id={id} again />
+        </div>
+      ) : null;
+    }
     return (
       <div className={className}>
+        {part === "all" && canReport ? (
+          <div className="mb-2">
+            <ReportButtonBtn id={id} again />
+          </div>
+        ) : null}
         <QuitReport id={reported.id} reported={reported} />
       </div>
     );
@@ -32,7 +49,7 @@ const ReportButton = ({ className = "", part = "all" }) => {
 
   if (part === "report") return null;
 
-  if (id && availablePages.indexOf(pageType) >= 0 && !isOwned) {
+  if (canReport) {
     return (
       <div className={className}>
         <ReportButtonBtn id={id} />
