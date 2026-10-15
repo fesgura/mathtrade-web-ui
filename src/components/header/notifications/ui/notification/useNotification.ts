@@ -3,6 +3,7 @@ import { DateIntlFormat } from "@/utils/dateUtils";
 import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
 import { NotificationsContext } from "@/context/notifications";
+import { closeActivePanel } from "@/components/header/head-content/activePanelStore";
 
 type CounterSetter = (update: (oldNum: number) => number) => void;
 
@@ -85,6 +86,7 @@ const useNotification = (
           linkFunction = message?.uwg_id
             ? () => {
                 toggleMobile();
+                closeActivePanel();
                 setPreviewWantGroupId(message?.uwg_id);
                 setShowPreviewWantGroupModal(true);
               }
@@ -108,6 +110,11 @@ const useNotification = (
             // Staff answered on a report about the owner's copy.
             suffix = ".staff_reply";
           }
+          if (type === "RI" && message?.kind === "reply") {
+            // Someone else (e.g. the anonymous reporter) commented on a
+            // report about the owner's copy.
+            suffix = ".reply";
+          }
           if (type === "RI" && message?.kind === "rereport") {
             // A new report on the copy joined an open one (BE merges it).
             suffix = ".rereport";
@@ -121,6 +128,7 @@ const useNotification = (
           linkFunction = message?.item_id
             ? () => {
                 toggleMobile();
+                closeActivePanel();
                 setItemPreviewId(message?.item_id);
                 setShowModalPreview(true);
               }
@@ -137,6 +145,7 @@ const useNotification = (
           linkFunction = message?.item_id
             ? () => {
                 toggleMobile();
+                closeActivePanel();
                 setItemPreviewId(message?.item_id);
                 setShowModalPreview(true);
               }

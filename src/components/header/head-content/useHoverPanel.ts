@@ -1,4 +1,12 @@
-import { useEffect, useId, useLayoutEffect, useState, useSyncExternalStore } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useState,
+  useSyncExternalStore,
+} from "react";
+import type { HTMLProps } from "react";
 import {
   useFloating,
   useHover,
@@ -90,11 +98,34 @@ const useHoverPanel = (placement: "below" | "right" = "below") => {
   const click = useClick(context, { enabled: isLg });
   const dismiss = useDismiss(context, { enabled: isLg });
 
-  const { getReferenceProps, getFloatingProps } = useInteractions([
-    hover,
-    click,
-    dismiss,
-  ]);
+  const { getReferenceProps, getFloatingProps: getInteractionFloatingProps } =
+    useInteractions([hover, click, dismiss]);
+
+  // Interacting with a hover-opened panel pins it, exactly as if the trigger
+  // had been clicked. Without this, a click that changes the panel's size
+  // (a notifications tab, "marcar como leído" swapping the list for a
+  // spinner) slides its edge out from under the pointer — the "right-end"
+  // flyout is anchored at the bottom, so it shrinks from the top — and the
+  // resulting mouseleave lets useHover/safePolygon close it. useHover
+  // ignores leaves while the open event is click-like, and useClick then
+  // closes it on the next trigger click, as for a clicked-open panel.
+  const pin = useCallback(() => {
+    const data = context.dataRef.current;
+    const type = data.openEvent?.type;
+    if (!context.open || type === "click" || type === "mousedown") return;
+    data.openEvent = new MouseEvent("click");
+  }, [context]);
+
+  const getFloatingProps = useCallback(
+    (userProps?: HTMLProps<HTMLElement>) =>
+      getInteractionFloatingProps({
+        ...userProps,
+        onPointerDown: pin,
+        onWheel: pin,
+        onKeyDown: pin,
+      }),
+    [getInteractionFloatingProps, pin]
+  );
 
   return {
     isLg,

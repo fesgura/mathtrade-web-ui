@@ -862,6 +862,7 @@
   "notifications.message.RI": "<strong>REPORTE DE EJEMPLAR:</strong><br/>$$$ reportó \"$$$\":",
   "notifications.message.RI.rereport": "<strong>REPORTE DE EJEMPLAR:</strong><br/>$$$ volvió a reportar \"$$$\":",
   "notifications.message.RI.staff_reply": "<strong>REPORTE DE EJEMPLAR:</strong><br/>$$$ respondió sobre \"$$$\":",
+  "notifications.message.RI.reply": "<strong>REPORTE DE EJEMPLAR:</strong><br/>$$$ comentó en el reporte sobre \"$$$\":",
   "notifications.message.RIU.reply": "<strong>REPORTE:</strong> $$$ respondió sobre \"$$$\":",
   "notifications.message.RIU.edit": "<strong>REPORTE:</strong> $$$ editó \"$$$\" después del reporte.",
   "notifications.message.MTC.close": "Te esperamos en el próximo Math Trade.",
