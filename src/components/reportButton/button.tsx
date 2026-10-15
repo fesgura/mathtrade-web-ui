@@ -17,6 +17,7 @@ const ReportButtonBtn = ({ id = null }: { id?: number | string | null }) => {
     onSubmit,
     loading,
     showSuccess,
+    merged,
     error,
   } = useReport(id);
 
@@ -43,7 +44,7 @@ const ReportButtonBtn = ({ id = null }: { id?: number | string | null }) => {
             <Label text="report.Comment" name="comment" required />
             <Textarea name="comment" data={{}} className="" />
           </InputContainer>
-          {showSuccess ? <SuccessAlert text="reportItem.success" /> : null}
+          {showSuccess ? <SuccessAlert text={merged ? "reportItem.success.merged" : "reportItem.success"} /> : null}
           <ErrorAlert error={error} errorMessage={resolveApiErrorMessage(error)} />
           <div className="flex items-center justify-center gap-4 pt-2 pb-5">
             <button

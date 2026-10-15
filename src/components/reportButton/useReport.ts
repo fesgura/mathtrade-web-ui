@@ -13,6 +13,9 @@ const useReport = (id: number | string | null = null) => {
 
   /*****************************/
   const [showSuccess, setShowSuccess] = useState(false);
+  // The backend added the text to an open report of this copy instead of
+  // creating a new one (POST reports/ answers `merged: true`).
+  const [merged, setMerged] = useState(false);
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout> | null = null;
@@ -20,7 +23,7 @@ const useReport = (id: number | string | null = null) => {
       timer = setTimeout(() => {
         setShowSuccess(false);
         setShowModal(false);
-      }, 1600);
+      }, merged ? 4000 : 1600);
     }
 
     return () => {
@@ -28,9 +31,10 @@ const useReport = (id: number | string | null = null) => {
         clearTimeout(timer);
       }
     };
-  }, [showSuccess]);
+  }, [showSuccess, merged]);
 
-  const afterLoad = useCallback(() => {
+  const afterLoad = useCallback((data: { merged?: boolean } | null) => {
+    setMerged(Boolean(data?.merged));
     setShowSuccess(true);
   }, []);
 
@@ -63,6 +67,7 @@ const useReport = (id: number | string | null = null) => {
     onSubmit,
     loading,
     showSuccess,
+    merged,
     error,
   };
 };
