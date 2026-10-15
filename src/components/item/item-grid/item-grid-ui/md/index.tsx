@@ -38,7 +38,7 @@ const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
           reaches the card's top-left corner. */}
       {isCombo ? (
         <div className="px-3 pt-2 pb-1">
-          <ItemGridHeader atCardTop />
+          <ItemGridHeader atCardTop copyLink />
         </div>
       ) : null}
       {isOwned && staffObservation ? (
@@ -81,7 +81,7 @@ const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
               isCombo={isCombo}
               onToggleExpanse={onCardClick}
               header={
-                isCombo || k > 0 ? null : <ItemGridHeader className="w-full" />
+                isCombo || k > 0 ? null : <ItemGridHeader className="w-full" copyLink />
               }
             />
           );

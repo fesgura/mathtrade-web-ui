@@ -1,10 +1,14 @@
 import { useState, useCallback, useMemo } from "react";
 import useFetch from "@/hooks/useFetch";
-import I18N from "@/i18n";
+import I18N, { getI18Ntext } from "@/i18n";
 import Icon from "../icon";
 import clsx from "clsx";
 import UserBox from "../userBox";
+import { openReport } from "../reportModal/reportModalStore";
 
+// Staff: the open report on the item card. The report itself (title,
+// comment) opens the report detail (its permalink modal); "Eliminar reporte"
+// is a separate button below and never navigates.
 const QuitReport = ({ id = null, reported = null }) => {
   const urlParams = useMemo(() => {
     return [id || ""];
@@ -52,14 +56,27 @@ const QuitReport = ({ id = null, reported = null }) => {
   return showBtn ? (
     <div className="border border-teal-400 rounded-lg px-3 min-w-0">
       <div className="border-b border-teal-400/50  py-2">
-        <div className="text-[9px] font-bold text-black">
-          <I18N id="reportItem.title" />
-        </div>
-        {comment ? (
-          <div className="text-[12px] break-words whitespace-pre-line">
-            {comment}
-          </div>
-        ) : null}
+        <button
+          type="button"
+          className="group block w-full min-w-0 text-left"
+          title={getI18Ntext("reportItem.open")}
+          onClick={(e) => {
+            e.stopPropagation();
+            openReport(id);
+          }}
+        >
+          <span className="flex items-center justify-between gap-2 text-[9px] font-bold text-black">
+            <I18N id="reportItem.title" />
+            <span className="text-[11px] font-bold text-teal-600 underline group-hover:opacity-70">
+              <I18N id="reportItem.open" />
+            </span>
+          </span>
+          {comment ? (
+            <span className="block text-[12px] break-words whitespace-pre-line group-hover:text-teal-700">
+              {comment}
+            </span>
+          ) : null}
+        </button>
         {user ? (
           <div className="flex items-center gap-2 mt-1 min-w-0">
             <span className="text-[11px] text-gray-600 shrink-0">
@@ -79,7 +96,11 @@ const QuitReport = ({ id = null, reported = null }) => {
               "opacity-30": loading,
             }
           )}
-          onClick={onSubmit}
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            onSubmit();
+          }}
           disabled={loading}
         >
           <Icon type="report" />

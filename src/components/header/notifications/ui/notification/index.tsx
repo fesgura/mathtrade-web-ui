@@ -3,7 +3,17 @@ import I18N, { getI18Ntext } from "@/i18n";
 import clsx from "clsx";
 import useNotification from "./useNotification";
 
-const Notification = ({ data, type, noMembership }) => {
+type NotificationProps = {
+  data: Parameters<typeof useNotification>[0];
+  type?: string;
+  noMembership?: boolean;
+};
+
+const Notification = ({
+  data,
+  type = undefined,
+  noMembership = false,
+}: NotificationProps) => {
   const {
     unreaded,
     toggleReaded,
@@ -13,6 +23,7 @@ const Notification = ({ data, type, noMembership }) => {
     values,
     linkFunction,
     linkText,
+    reportLinkFunction,
     loading,
   } = useNotification(data, type, noMembership);
 
@@ -49,14 +60,26 @@ const Notification = ({ data, type, noMembership }) => {
             <p className="text-gray-600 mb-2 italic">{body}</p>
           </div>
 
-          {linkFunction ? (
-            <div>
-              <button
-                className="underline text-primary font-bold"
-                onClick={linkFunction}
-              >
-                <I18N id={linkText} />
-              </button>
+          {linkFunction || reportLinkFunction ? (
+            <div className="flex flex-wrap gap-x-4 gap-y-1">
+              {linkFunction ? (
+                <button
+                  type="button"
+                  className="underline text-primary font-bold"
+                  onClick={linkFunction}
+                >
+                  <I18N id={linkText} />
+                </button>
+              ) : null}
+              {reportLinkFunction ? (
+                <button
+                  type="button"
+                  className="underline text-primary font-bold"
+                  onClick={reportLinkFunction}
+                >
+                  <I18N id="notifications.message.RI.btnReport" />
+                </button>
+              ) : null}
             </div>
           ) : null}
         </div>

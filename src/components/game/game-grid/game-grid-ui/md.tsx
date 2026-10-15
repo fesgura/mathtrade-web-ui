@@ -24,6 +24,8 @@ import TaxonomyDisclosure from "@/components/bggInfo/taxonomyDisclosure";
 import { NO_RANK_VALUE } from "@/config/no-bgggame";
 import SelectTick from "@/components/ban/bulk/SelectTick";
 import { useSelectableCard } from "@/components/ban/bulk/useBulkSelect";
+import CopyLinkButton from "@/components/previewer/modal/copyLinkButton";
+import { canLinkGame, gamePermalink } from "@/components/game/gamePermalink";
 
 type GameCardData = {
   ban_id?: number | string | null;
@@ -131,6 +133,14 @@ const GameGridMD = ({ onToggleExpanse }: GameGridMDProps) => {
               subtype={notGame ? 3 : typeNum || 1}
             />
             <div className="flex items-center justify-end gap-2 shrink-0 w-full">
+              {/* Admins: a link to this game's copies (Ejemplares tab). */}
+              {!selecting && canLinkGame(bgg_id) ? (
+                <CopyLinkButton
+                  link={gamePermalink(bgg_id)}
+                  variant="compact"
+                  labelIdleId="gameLink.copy"
+                />
+              ) : null}
               <FavoriteButton type="game" />
               {selecting ? null : <BanButton size="md" type="game" />}
               {ban_id ? null : <Value type="game" />}

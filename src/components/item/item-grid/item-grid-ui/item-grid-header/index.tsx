@@ -8,6 +8,7 @@ import ItemTagList from "@/components/item-tags/item-taglist";
 import SelectTick from "@/components/ban/bulk/SelectTick";
 import useBulkSelect from "@/components/ban/bulk/useBulkSelect";
 import { itemDisabledReason } from "@/components/ban/bulk/itemDisabledReason";
+import CopyLinkButton from "@/components/previewer/modal/copyLinkButton";
 
 type ItemGridHeaderProps = {
   onChangeValue?: (value: unknown) => void;
@@ -16,6 +17,9 @@ type ItemGridHeaderProps = {
   // The header is the card's top edge (combo card, expanded card): while
   // selecting, the tick pill sits over the tag chips, so they step aside.
   atCardTop?: boolean;
+  // Admin-only "Copiar link" (item permalink) on grid cards. The preview
+  // modal has its own, bigger one in the modal header.
+  copyLink?: boolean;
 };
 
 type ItemHeaderData = {
@@ -30,6 +34,7 @@ const ItemGridHeader = ({
   hideTags = false,
   className = "mb-2",
   atCardTop = false,
+  copyLink = false,
 }: ItemGridHeaderProps) => {
   const { item, showAsIgnored } = useContext(ItemContext);
   const { id, isCombo, ban_id, isOwned } = (item || {}) as ItemHeaderData;
@@ -57,6 +62,9 @@ const ItemGridHeader = ({
           {/* hideTags only means "no tag chips" — it shouldn't also hide
               the ignore/ban control, which both preview modals need
               (they pass hideTags for the tags, not to hide this). */}
+          {copyLink && !selecting ? (
+            <CopyLinkButton id={id} variant="compact" />
+          ) : null}
           <FavoriteButton type="item" />
           {selecting ? null : <BanButton size="xl" type="item" />}
           {ban_id ? null : (

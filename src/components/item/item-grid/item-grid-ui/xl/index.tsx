@@ -46,6 +46,7 @@ const ItemXL = ({
             onChangeValue={onChangeValue}
             hideTags={hideTags}
             atCardTop
+            copyLink={!!onToggleExpanse}
           />
           {onToggleExpanse ? (
             <button
