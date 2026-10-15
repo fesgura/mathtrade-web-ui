@@ -65,12 +65,26 @@ const ItemUI = ({ tourAnchor = undefined }: { tourAnchor?: string }) => {
           )}
           role="status"
         >
+          {/* from_staff false = another participant's report: anonymous to
+              the owner, and it doesn't keep the copy out of the corrida. */}
           <p className="font-semibold">
-            <I18N id="myOffer.staffObservation.title" />
+            <I18N
+              id={
+                staffObservation.from_staff === false
+                  ? "myOffer.userReport.title"
+                  : "myOffer.staffObservation.title"
+              }
+            />
           </p>
           <p className="mt-1 break-words">“{staffObservation.comment}”</p>
           <p className="mt-1 text-xs opacity-90">
-            <I18N id="myOffer.staffObservation.corrida" />
+            <I18N
+              id={
+                staffObservation.from_staff === false
+                  ? "myOffer.userReport.hint"
+                  : "myOffer.staffObservation.corrida"
+              }
+            />
           </p>
           <ReportThread
             reportId={staffObservation.id}

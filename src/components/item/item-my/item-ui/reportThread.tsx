@@ -9,7 +9,8 @@ import { resolveApiErrorMessage } from "@/utils/apiError";
 
 type ThreadComment = {
   id: number;
-  user_info: { id: number; first_name: string; last_name: string } | null;
+  // id is null for an anonymized participant reporter ("Otro usuario").
+  user_info: { id: number | null; first_name: string; last_name: string } | null;
   comment: string;
   created: string;
 };

@@ -43,11 +43,25 @@ const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
       ) : null}
       {isOwned && staffObservation ? (
         <div className="mx-3 mt-2 min-w-0 max-w-full rounded border border-amber-300 bg-amber-50 px-2 py-1.5 text-[11px] leading-snug text-amber-950 break-words">
+          {/* from_staff false = another participant's report (anonymous to
+              the owner; it doesn't keep the copy out of the corrida). */}
           <span className="font-semibold">
-            <I18N id="myOffer.staffObservation.title" />
+            <I18N
+              id={
+                staffObservation.from_staff === false
+                  ? "myOffer.userReport.title"
+                  : "myOffer.staffObservation.title"
+              }
+            />
           </span>
           {": "}
-          <I18N id="myOffer.staffObservation.corrida" />
+          <I18N
+            id={
+              staffObservation.from_staff === false
+                ? "myOffer.userReport.review"
+                : "myOffer.staffObservation.corrida"
+            }
+          />
         </div>
       ) : null}
 
