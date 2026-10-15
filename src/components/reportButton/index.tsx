@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { PageContext } from "@/context/page";
 import { ItemContext } from "@/context/item";
 import ReportButtonBtn from "./button";
-import QuitReport from "./quitReport";
+import ReportBox from "./reportBox";
 
 const availablePages = [
   "items",
@@ -42,7 +42,7 @@ const ReportButton = ({ className = "", part = "all" }) => {
             <ReportButtonBtn id={id} again />
           </div>
         ) : null}
-        <QuitReport id={reported.id} reported={reported} />
+        <ReportBox id={reported.id} reported={reported} />
       </div>
     );
   }
