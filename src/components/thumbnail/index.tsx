@@ -48,9 +48,9 @@ const Thumbnail = ({
       {contain && hasImage ? (
         <span
           aria-hidden="true"
-          // scale-125 keeps the blur's soft edges outside the box, otherwise
+          // scale-110 keeps the blur's soft edges outside the box, otherwise
           // the fade to transparent is visible as a lighter frame.
-          className="absolute inset-0 bg-center bg-cover blur-2xl scale-125 opacity-80"
+          className="absolute inset-0 bg-center bg-cover blur-lg scale-110 opacity-80"
           style={{ backgroundImage: `url("${image}")` }}
         />
       ) : null}
