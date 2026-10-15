@@ -19,7 +19,7 @@ const useItemHeader = () => {
     forceReloadPage();
   }, [forceReloadPage]);
 
-  const [deleteItemApi, , loading] = useFetch({
+  const [deleteItemApi, , loading, error] = useFetch({
     endpoint: "DELETE_MYITEM",
     method: "DELETE",
     afterLoad,
@@ -36,10 +36,12 @@ const useItemHeader = () => {
   return {
     deleteItem,
     loading,
+    error,
     isCombo,
     // Withdrawing your own item from this Math Trade (it stays in the
-    // ludoteca) is allowed through the want-list phase — the backend drops
-    // every want involving it; adding/editing is geek-list only.
+    // ludoteca) is allowed through the want-list phase — it leaves every want
+    // list and its wanters get a notice (BE math_item/withdrawal.py);
+    // adding/editing is geek-list only.
     canIdelete: canI.offer || canI.want,
     isWantPhase: canI.want,
     elementsLength: elements?.length,
