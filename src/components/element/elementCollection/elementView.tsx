@@ -6,6 +6,7 @@ import ButtonAlert from "@/components/buttonAlert";
 import InnerButton from "@/components/button/inner-button";
 import useDeleteElement from "./useDeleteElement";
 import useWithdrawFromMT from "./useWithdrawFromMT";
+import useNewUserOfferLimit from "@/hooks/useNewUserOfferLimit";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
 import Question from "@/components/question";
@@ -124,6 +125,10 @@ const ElementView = ({
   // MAT-131: only while the offer window is open, and only for a copy not
   // already offered — matches showEdition's own offer-window awareness.
   const canAddToMT = showAddToMT && !insideItem && canI.offer && !offered && box_size !== null;
+  // First Math Trade: at the item cap the button stays, disabled, with the
+  // reason underneath (the BE would reject the new item anyway).
+  const { reached: offerLimitReached, limit: offerLimit } = useNewUserOfferLimit();
+  const addToMTBlocked = canAddToMT && offerLimitReached;
 
   // The reverse, same place: withdraw the item that offers this copy. Allowed
   // while offering and during wants, like from the offered items; during
@@ -322,9 +327,23 @@ const ElementView = ({
             ) : null}
             {canAddToMT ? (
               <button
-                className="bg-want text-white px-5 py-1 rounded-full font-bold text-sm hover:bg-emerald-700 transition-colors"
-                onClick={onAddToMT}
-                title={getI18Ntext("collection.addToMT.single.short")}
+                type="button"
+                className={clsx(
+                  "bg-want text-white px-5 py-1 rounded-full font-bold text-sm transition-colors",
+                  addToMTBlocked
+                    ? "opacity-50 cursor-not-allowed"
+                    : "hover:bg-emerald-700"
+                )}
+                onClick={addToMTBlocked ? undefined : onAddToMT}
+                disabled={addToMTBlocked}
+                aria-describedby={
+                  addToMTBlocked ? `offer-limit-${element.id}` : undefined
+                }
+                title={
+                  addToMTBlocked
+                    ? getI18Ntext("collection.addToMT.newUserLimit", [offerLimit])
+                    : getI18Ntext("collection.addToMT.single.short")
+                }
                 data-tour-part="addToMT"
               >
                 <InnerButton>
@@ -332,6 +351,20 @@ const ElementView = ({
                   <I18N id="btn.AddToMT" />
                 </InnerButton>
               </button>
+            ) : null}
+            {addToMTBlocked ? (
+              <p
+                id={`offer-limit-${element.id}`}
+                className={clsx(META_TEXT, "w-full flex items-start gap-1 pt-1")}
+              >
+                <Icon type="lock" />
+                <span>
+                  <I18N
+                    id="collection.addToMT.newUserLimit"
+                    values={[offerLimit]}
+                  />
+                </span>
+              </p>
             ) : null}
             {showEdition ? (
               <>

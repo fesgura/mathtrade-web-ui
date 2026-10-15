@@ -3,7 +3,7 @@ import { useCallback, useContext, useMemo, useEffect, useState } from "react";
 import { PageContext } from "@/context/page";
 import { useOptions } from "@/store";
 import { normalizeString } from "@/utils";
-import { NEW_USER_OFFER_LIMIT } from "@/config/newUserOfferLimit";
+import useNewUserOfferLimit from "@/hooks/useNewUserOfferLimit";
 
 const useMyOffer = () => {
   /* PAGE CONTEXT **********************************************/
@@ -16,9 +16,9 @@ const useMyOffer = () => {
     setMyCollection,
     myGroups,
     setMyGroups,
-    //
-    isNewUser,
   } = useContext(PageContext);
+  // First Math Trade: no new item once the cap is reached (the BE rejects it).
+  const { reached: offerLimitReached } = useNewUserOfferLimit();
 
   useEffect(() => {
     setPageType("myOffer");
@@ -148,9 +148,7 @@ const useMyOffer = () => {
     items,
     loading: loadingMyItemsInMT || loadingMyCollection || loadingMyGropus,
     error: errorMyItemsInMT || errorMyCollection || errorGropusMyGropus,
-    canAddNewElement: !isNewUser
-      ? true
-      : myItemsInMT.length < NEW_USER_OFFER_LIMIT,
+    canAddNewElement: !offerLimitReached,
   };
 };
 

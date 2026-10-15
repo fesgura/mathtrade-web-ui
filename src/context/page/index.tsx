@@ -3,7 +3,6 @@ import { createContext, useState, useCallback, useEffect, useMemo, useRef } from
 import useLocations from "@/hooks/useLocations";
 import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store";
-import { NEW_USER_OFFER_LIMIT } from "@/config/newUserOfferLimit";
 import { REFERRAL_LIMIT } from "@/config/referral";
 import { DateIntlFormat } from "@/utils/dateUtils";
 
@@ -420,9 +419,14 @@ const PageContextProvider = ({ children = null }) => {
 
   /* end CollectionFILTERED ********************************************/
 
+  // First Math Trade: the BE rule (no membership in any other edition), which
+  // also drives the item cap and the admin "Nuevo" badge. Stores saved before
+  // `is_new` existed fall back to the login history.
   const isNewUser = useMemo(() => {
-    return NEW_USER_OFFER_LIMIT && mathtrade_history.length === 0;
-  }, [mathtrade_history]);
+    return typeof membership?.is_new === "boolean"
+      ? membership.is_new
+      : mathtrade_history.length === 0;
+  }, [membership, mathtrade_history]);
 
   const isUserEarlyPay = useMemo(() => {
     return user?.comment && user.comment.indexOf("early-pay") >= 0;

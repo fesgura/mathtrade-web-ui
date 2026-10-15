@@ -4,6 +4,9 @@ type DetailRule = { test: (detail: string) => boolean; key: string };
 const FIELD_RULES: FieldRule[] = [
   { field: "item_id", test: (m) => m === "Math item already cloned", key: "error.item.alreadyCloned" },
   { field: "item", test: (m) => m === "Only one new item possible", key: "error.item.draftExists" },
+  // First Math Trade item cap (BE math_item/limits.py NEW_USER_LIMIT_MESSAGE).
+  // ErrorAlert fills in the limit from the store membership.
+  { field: "item", test: (m) => m === "New user offer limit reached.", key: "error.item.newUserLimit" },
   {
     field: "item_id",
     test: (m) => m.startsWith("Invalid pk") && m.endsWith("object does not exist."),

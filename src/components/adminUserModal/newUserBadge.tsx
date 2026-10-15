@@ -3,7 +3,7 @@ import I18N, { getI18Ntext } from "@/i18n";
 // Circular with ./index, but only used at render time.
 import { useAdminUser } from ".";
 
-/** Admins only: a violet "Nuevo" pill for members with no items in other
+/** Admins only: a violet "Nuevo" pill for members with no membership in other
  *  editions. Renders nothing for everybody else. */
 const NewUserBadge = ({
   userId = null,
