@@ -64,6 +64,10 @@ const Thumbnail = ({
         {hasImage ? (
           <img
             src={image}
+            // Grids render ~50 covers: load them as they scroll into view and
+            // decode off the main thread.
+            loading="lazy"
+            decoding="async"
             alt={`${getI18Ntext("thumbnail.alt.prefix")} ${elements[0]?.name}`}
             width={widthImage}
             height={widthImage}
