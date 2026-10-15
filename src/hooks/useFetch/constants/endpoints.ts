@@ -184,6 +184,9 @@ const endpoints = {
   ADMIN_RESOLVE_REPORT: "api/reports/$[1]/resolve/",
   ADMIN_DELETE_REPORT: "api/reports/$[1]/",
   QUIT_REPORT: "api/reports/$[1]/",
+  // One report shaped for the viewer (staff / item owner / reporter): the
+  // report permalink, `/mathtrade?report=<id>`.
+  GET_REPORT_VIEW: "api/reports/$[1]/view/",
   // Report thread: staff, or the item owner on a staff report they can see.
   GET_REPORT_COMMENTS: "api/reports/$[1]/comments/",
   POST_REPORT_COMMENT: "api/reports/$[1]/comments/",

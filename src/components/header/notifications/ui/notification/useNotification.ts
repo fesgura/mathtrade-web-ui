@@ -4,6 +4,7 @@ import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
 import { NotificationsContext } from "@/context/notifications";
 import { closeActivePanel } from "@/components/header/head-content/activePanelStore";
+import { openReport } from "@/components/reportModal/reportModalStore";
 
 type CounterSetter = (update: (oldNum: number) => number) => void;
 
@@ -51,8 +52,15 @@ const useNotification = (
     setUnreaded(data?.unread || false);
   }, [data?.unread, data?.version_ui]);
 
-  const { date, body, messageText, values, linkFunction, linkText } =
-    useMemo(() => {
+  const {
+    date,
+    body,
+    messageText,
+    values,
+    linkFunction,
+    linkText,
+    reportLinkFunction,
+  } = useMemo(() => {
       //WGC,WGR,ADM,MTC,COMC,COME,COMR,COMRE,COMD
 
       const { type, message, created } = data;
@@ -64,6 +72,8 @@ const useNotification = (
       let suffix = "";
       let linkFunction: (() => void) | null = null;
       let linkText = "";
+      // "Ver reporte": every report notification (RI, RIU) carries report_id.
+      let reportLinkFunction: (() => void) | null = null;
 
       switch (type) {
         case "ADM":
@@ -135,6 +145,13 @@ const useNotification = (
             : null;
 
           linkText = "notifications.message.COM.btn";
+          if ((type === "RI" || type === "RIU") && message?.report_id) {
+            reportLinkFunction = () => {
+              toggleMobile();
+              closeActivePanel();
+              openReport(message?.report_id);
+            };
+          }
           break;
 
         case "FAV":
@@ -163,6 +180,8 @@ const useNotification = (
         values,
         linkFunction: noMembership ? null : linkFunction,
         linkText,
+        // The report view needs no membership (unlike the item preview).
+        reportLinkFunction,
       };
     }, [
       noMembership,
@@ -232,6 +251,7 @@ const useNotification = (
     values,
     linkFunction,
     linkText,
+    reportLinkFunction,
     loading,
   };
 };

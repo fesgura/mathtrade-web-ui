@@ -4,6 +4,7 @@ import Footer from "@/components/footer";
 import PageContextProvider from "@/context/page";
 import { TourContextProvider } from "@/tours/context";
 import ModalPreviewer from "@/components/previewer/modal";
+import ReportModal from "@/components/reportModal";
 import ModalPreviewerWantGroup from "@/components/previewerWantGroup/modal";
 import AdvCompromise from "@/components/header/advCompromise";
 import AdvSelfExcluded from "@/components/header/advSelfExcluded";
@@ -49,6 +50,7 @@ export default function MathTradeLayout({ children }: { children: ReactNode }) {
           </div>
           <ModalPreviewerWantGroup />
           <ModalPreviewer />
+          <ReportModal />
           <EarlyPayPopup />
         </TourContextProvider>
         </AdminUserModalProvider>
