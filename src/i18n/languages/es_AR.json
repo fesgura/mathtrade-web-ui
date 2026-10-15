@@ -1507,6 +1507,7 @@
   "addElementToItem.move.confirm": "Sí, mover",
   "collection.addToMT.single": "Así se ofrece <strong>solo este juego</strong>, como un ejemplar individual. Para ofrecer varios juegos juntos (un <strong>combo</strong>), hacelo desde <strong>Yo ofrezco</strong>.",
   "collection.addToMT.single.short": "Se ofrece solo este juego. Para un combo, usá Yo ofrezco.",
+  "collection.addToMT.limitReached": "Límite alcanzado · $$$/$$$",
   "collection.addToMT.newUserLimit": "Como es tu primer Math Trade, podés ofrecer hasta $$$ ejemplares, y ya llegaste a ese límite.",
   "btn.AddToMT": "Ofertar al Math Trade",
   "btn.AddToItem": "Agregar a ítem",

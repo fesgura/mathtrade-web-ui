@@ -7,6 +7,7 @@ import ErrorAlert from "@/components/errorAlert";
 import ElementWrapperOuter from "@/components/element/elementCollection/elementWrapperOuter";
 import ElementCollection from "@/components/element/elementCollection";
 import NewElement from "@/components/element/newElement";
+import NewUserOfferAlert from "@/components/NewUserOfferAlert";
 import I18N from "@/i18n";
 import PageHeader from "@/components/pageHeader";
 import OrderBy from "@/components/orderBy";
@@ -112,6 +113,13 @@ const MyCollectionPage = () => {
 
           <div className="md:px-7 px-3 py-7">
             <Faq data={collectionFaq} translate accent />
+            {/* First Math Trade: the item limit, once for the whole page
+                (each card at the limit shows only a short pill). */}
+            {canI.offer ? (
+              <div className="max-w-[860px] mx-auto">
+                <NewUserOfferAlert />
+              </div>
+            ) : null}
             <ElementWrapperOuter tourAnchor="mycollection.new">
               <NewElement onOpenImportBgg={handleOpenImportModal} />
             </ElementWrapperOuter>
