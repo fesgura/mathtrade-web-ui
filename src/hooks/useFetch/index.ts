@@ -109,6 +109,8 @@ const useFetch = ({
             afterLoad(jsonData);
           }
           setData(jsonData);
+          // Also resolve with it, for callers that chain requests (pages).
+          return errors ? undefined : jsonData;
         }
       } finally {
         setLoading(false);

@@ -3,6 +3,52 @@ import { useOptions } from "@/store";
 import { PageContext } from "@/context/page";
 import { MyWantsContext } from "@/context/myWants/all";
 import useFetch from "@/hooks/useFetch";
+import useLoadAllMyWants from "@/hooks/useLoadAllMyWants";
+
+/** An unread WGD/WGC notification on one of my want groups. */
+export type WantChange = {
+  type: "WGD" | "WGC";
+  item_id: number;
+  item_name: string;
+  notification_id: number;
+};
+
+// The BE max page size; more unread want notices than this is accepted as
+// out of scope (design 2026-10-14).
+const WANT_CHANGES_PAGE_SIZE = 200;
+
+const parseMessage = (message: unknown): Record<string, any> => {
+  if (message && typeof message === "object") return message as any;
+  if (typeof message === "string" && message.startsWith("{")) {
+    try {
+      return JSON.parse(message);
+    } catch {
+      return {};
+    }
+  }
+  return {};
+};
+
+export const groupWantChanges = (
+  notifications: { id: number; type: string; message: unknown }[]
+): Map<number, WantChange[]> => {
+  const map = new Map<number, WantChange[]>();
+  (notifications || []).forEach(({ id, type, message }) => {
+    if (type !== "WGD" && type !== "WGC") return;
+    const { uwg_id, item_id, item_name } = parseMessage(message);
+    const uwgId = Number(uwg_id);
+    if (!uwgId) return;
+    const list = map.get(uwgId) || [];
+    list.push({
+      type,
+      item_id: Number(item_id) || 0,
+      item_name: item_name || "",
+      notification_id: id,
+    });
+    map.set(uwgId, list);
+  });
+  return map;
+};
 
 const useWants = () => {
   const options = useOptions((state) => state.options);
@@ -20,6 +66,8 @@ const useWants = () => {
     setMyItemsInMT_forWants,
     setMyGroups_forWants,
     refreshMembership,
+    setWantChanges,
+    setChangedWantIds,
   } = useContext(PageContext);
 
   const {
@@ -30,7 +78,7 @@ const useWants = () => {
   } = useContext(MyWantsContext);
 
   const afterLoadMyWants = useCallback(
-    ({ results }) => {
+    (results: any[]) => {
       setMyWants(results);
       setIsLoadedWants(true);
       setChanges({});
@@ -38,13 +86,31 @@ const useWants = () => {
     },
     [setIsLoadedWants, setMyWants, setChanges, setDeletedWantgroupIds]
   );
-  const myWantsParams = useMemo(() => ({ page_size: 200 }), []);
-  const [, , loadingMyWants, errorMyWants] = useFetch({
-    endpoint: "MYWANTS",
+  // Every page: a member may have more than the BE's 200 per page.
+  const { loading: loadingMyWants, error: errorMyWants } = useLoadAllMyWants({
+    autoLoad: true,
+    onLoad: afterLoadMyWants,
+  });
+
+  // Wants whose copies were withdrawn/changed since the wanter last saw them.
+  const afterLoadWantChanges = useCallback(
+    ({ results }) => {
+      const map = groupWantChanges(results || []);
+      setWantChanges(map);
+      setChangedWantIds(new Set(map.keys()));
+    },
+    [setWantChanges, setChangedWantIds]
+  );
+  const wantChangesParams = useMemo(
+    () => ({ type: "want", unread: "true", page_size: WANT_CHANGES_PAGE_SIZE }),
+    []
+  );
+  useFetch({
+    endpoint: "GET_NOTIFICATIONS",
     autoLoad: true,
     initialState: { results: [] },
-    params: myWantsParams,
-    afterLoad: afterLoadMyWants,
+    params: wantChangesParams,
+    afterLoad: afterLoadWantChanges,
   });
 
   const afterLoadMyItems = useCallback(

@@ -1,5 +1,6 @@
 "use client";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
+import { PageContext } from "@/context/page";
 import PreviewerWantGroup from "@/components/previewerWantGroup";
 import { colorTagStyles } from "@/utils/color";
 import WantMiniCard from "@/components/want-components/mini-card";
@@ -9,6 +10,7 @@ const WantGroupUI = ({ wantGroup = null }) => {
   const { name, type, game_type, tag, wants, bgg_id, value, availables } =
     wantGroup || {};
 
+  const { wantChanges } = useContext(PageContext);
   const isCombo = type === "item" && wants?.[0]?.elements?.length > 1;
   const kind = wantGroup ? resolveWantGroupKind(wantGroup) : null;
   const badgeSubtype =
@@ -59,6 +61,7 @@ const WantGroupUI = ({ wantGroup = null }) => {
       isCombo={isCombo}
       value={value}
       empty={!wants?.length}
+      changed={wantChanges.has(wantGroup.id)}
       tagStyle={tagStyle}
       preview={
         <PreviewerWantGroup

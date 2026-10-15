@@ -2,6 +2,8 @@
 import PreviewerWantGroup from "@/components/previewerWantGroup";
 import WantMiniCard from "@/components/want-components/mini-card";
 import { resolveWantGroupKind } from "@/components/badgeType/cardKind";
+import { useContext } from "react";
+import { PageContext } from "@/context/page";
 import useWantGroup from "./useWantGroup";
 
 const WantGroupVisual2 = ({
@@ -20,6 +22,7 @@ const WantGroupVisual2 = ({
     onToggle,
     canIwant,
   } = useWantGroup(wantGroup, itemId);
+  const { wantChanges } = useContext(PageContext);
 
   if (!wantGroup) return null;
 
@@ -35,6 +38,7 @@ const WantGroupVisual2 = ({
           : wantGroup?.wants?.[0]?.elements?.[0]?.element?.game?.type || 1
       }
       isCombo={isCombo}
+      changed={!toAdd && wantChanges.has(wantGroup.id)}
       value={value}
       tagStyle={type === "tag" ? style : null}
       toAdd={toAdd}

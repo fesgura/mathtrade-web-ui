@@ -29,6 +29,8 @@ type WantMiniCardProps = {
   onAdd?: () => void;
   onRemove?: () => void;
   empty?: boolean;
+  /** The want has unread changes (a copy withdrawn/changed): amber ring. */
+  changed?: boolean;
   tagStyle?: CSSProperties | null;
   className?: string;
 };
@@ -48,6 +50,7 @@ const WantMiniCard = ({
   onAdd,
   onRemove,
   empty = false,
+  changed = false,
   tagStyle = null,
   className = "",
 }: WantMiniCardProps) => {
@@ -65,6 +68,7 @@ const WantMiniCard = ({
         tagStyle ? null : cardKindBorderClass(kind, 4),
         {
           "shadow-[inset_0_0_0_3px_red]": empty,
+          "ring-2 ring-amber-400": changed,
         },
         className
       )}
@@ -73,6 +77,18 @@ const WantMiniCard = ({
       {empty ? (
         <div className="absolute top-0 left-0 w-full bg-red-600 text-white text-center z-raised py-1 px-2 text-[10px] font-semibold">
           <I18N id="noOptionsInWant" />
+        </div>
+      ) : null}
+      {changed ? (
+        <div
+          className={clsx(
+            "absolute left-1.5 z-raised rounded-full bg-amber-400 text-amber-950 px-1.5 py-0.5 text-[10px] font-bold leading-none flex items-center gap-0.5 pointer-events-none",
+            empty ? "top-7" : "top-1.5"
+          )}
+          title={getI18Ntext("myWants.changed.help")}
+        >
+          <Icon type="notifications" />
+          <I18N id="myWants.changed.badge" />
         </div>
       ) : null}
       {onRemove ? (

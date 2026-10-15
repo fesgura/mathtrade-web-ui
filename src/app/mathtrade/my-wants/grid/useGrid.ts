@@ -6,6 +6,7 @@ import { useOptions } from "@/store";
 import { normalizeString } from "@/utils";
 import useFetch from "@/hooks/useFetch";
 import { visibleWants } from "@/utils/visibleWants";
+import { changedWantsFirst } from "@/components/want-components/utils";
 
 // My own tags are few; one page covers them. Module-level so useFetch's
 // autoLoad doesn't refetch on every render.
@@ -19,8 +20,13 @@ const orders: Record<string, number> = {
 
 const useGrid = () => {
   /* PAGE CONTEXT **********************************************/
-  const { setPageType, myWants, myGroups_forWants, myItemsInMT_forWants } =
-    useContext(PageContext);
+  const {
+    setPageType,
+    myWants,
+    changedWantIds,
+    myGroups_forWants,
+    myItemsInMT_forWants,
+  } = useContext(PageContext);
 
   useEffect(() => {
     setPageType("wants-grid");
@@ -41,61 +47,65 @@ const useGrid = () => {
 
   /* WANTLIST **********************************************/
   const wantList = useMemo(() => {
-    let myWantsFiltered = visibleWants(myWants);
+    const sorted = (() => {
+      let myWantsFiltered = visibleWants(myWants);
 
-    const filtersKeyword = filters?.keyword || null;
+      const filtersKeyword = filters?.keyword || null;
 
-    if (filtersKeyword) {
-      const filtersKeywordNormalized = normalizeString(filtersKeyword);
-      myWantsFiltered = myWantsFiltered.filter((w) => {
-        return normalizeString(w.name).indexOf(filtersKeywordNormalized) >= 0;
-      });
-    }
-
-    const orderRaw = filters?.order || "type";
-
-    const dir = orderRaw.indexOf("-") >= 0 ? -1 : 1;
-
-    const order = orderRaw.replace("-", "");
-
-    switch (order) {
-      case "name":
-        return myWantsFiltered.sort((a, b) => {
-          return a.name < b.name ? -1 * dir : 1 * dir;
+      if (filtersKeyword) {
+        const filtersKeywordNormalized = normalizeString(filtersKeyword);
+        myWantsFiltered = myWantsFiltered.filter((w) => {
+          return normalizeString(w.name).indexOf(filtersKeywordNormalized) >= 0;
         });
-      case "value":
-        return myWantsFiltered.sort((a, b) => {
-          const a_value = a.value === null ? 0 : parseFloat(a.value);
-          const b_value = b.value === null ? 0 : parseFloat(b.value);
+      }
 
-          if (a_value === b_value) {
-            return a.name < b.name ? -1 : 1;
-          } else {
-            return a_value < b_value ? -1 * dir : 1 * dir;
-          }
-        });
+      const orderRaw = filters?.order || "type";
 
-      case "most_wanted":
-        return myWantsFiltered.sort((a, b) => {
-          const a_items = a?.items?.length || 0;
-          const b_items = b?.items?.length || 0;
+      const dir = orderRaw.indexOf("-") >= 0 ? -1 : 1;
 
-          if (a_items === b_items) {
-            return a.title < b.title ? -1 : 1;
-          } else {
-            return a_items < b_items ? -1 * dir : 1 * dir;
-          }
-        });
-      default:
-        return myWantsFiltered.sort((a, b) => {
-          if (orders[a.type] === orders[b.type]) {
+      const order = orderRaw.replace("-", "");
+
+      switch (order) {
+        case "name":
+          return myWantsFiltered.sort((a, b) => {
             return a.name < b.name ? -1 * dir : 1 * dir;
-          } else {
-            return orders[a.type] < orders[b.type] ? -1 * dir : 1 * dir;
-          }
-        });
-    }
-  }, [myWants, filters]);
+          });
+        case "value":
+          return myWantsFiltered.sort((a, b) => {
+            const a_value = a.value === null ? 0 : parseFloat(a.value);
+            const b_value = b.value === null ? 0 : parseFloat(b.value);
+
+            if (a_value === b_value) {
+              return a.name < b.name ? -1 : 1;
+            } else {
+              return a_value < b_value ? -1 * dir : 1 * dir;
+            }
+          });
+
+        case "most_wanted":
+          return myWantsFiltered.sort((a, b) => {
+            const a_items = a?.items?.length || 0;
+            const b_items = b?.items?.length || 0;
+
+            if (a_items === b_items) {
+              return a.title < b.title ? -1 : 1;
+            } else {
+              return a_items < b_items ? -1 * dir : 1 * dir;
+            }
+          });
+        default:
+          return myWantsFiltered.sort((a, b) => {
+            if (orders[a.type] === orders[b.type]) {
+              return a.name < b.name ? -1 * dir : 1 * dir;
+            } else {
+              return orders[a.type] < orders[b.type] ? -1 * dir : 1 * dir;
+            }
+          });
+      }
+    })();
+    // Wants with unread changes always go first.
+    return changedWantsFirst(sorted, changedWantIds);
+  }, [myWants, filters, changedWantIds]);
 
   /* end WANTLIST **********************************************/
 
@@ -142,7 +152,11 @@ const useGrid = () => {
       // Default order is grouped by type: a thin separator per section
       // (Juegos / Etiquetas / Ejemplares) instead of a label on every row.
       if (want.type !== lastType) {
-        result.push({ isSection: true, sectionType: want.type, _key: `section-${want.type}` });
+        result.push({
+          isSection: true,
+          sectionType: want.type,
+          _key: `section-${want.type}`,
+        });
         lastType = want.type;
       }
       result.push(want);
@@ -199,7 +213,7 @@ const useGrid = () => {
 
         return arr;
       },
-      [{}, {}]
+      [{}, {}],
     );
 
     const allItemsAlone = [];

@@ -1,10 +1,11 @@
 import useFetch from "@/hooks/useFetch";
+import useLoadAllMyWants from "@/hooks/useLoadAllMyWants";
 import useListSnapshot from "@/hooks/useListSnapshot";
 import { useCallback, useState, useContext, useEffect, useMemo } from "react";
 import { useOptions } from "@/store";
 import { PageContext } from "@/context/page";
 
-// My own tags/want-list are inherently bounded to one user's own entries,
+// My own tags are inherently bounded to one user's own entries,
 // unlike a browsable list of everyone's items - request the max page size
 // so they aren't silently truncated at the default page size (50).
 const MY_OWN_DATA_PARAMS = { page_size: 200 };
@@ -135,24 +136,23 @@ const useItems = () => {
   /* end ITEM TAGS *********************************************/
 
   /* MY WANTS *************************************************/
-  const beforeLoadMyWants = useCallback(() => {
-    setLoadingMyWants(true);
-  }, [setLoadingMyWants]);
+  // Every page: a member may have more than the BE's 200 per page.
   const afterLoadMyWants = useCallback(
-    ({ results }) => {
+    (results: any[]) => {
       setLoadingMyWants(false);
       setMyWants(results);
     },
     [setLoadingMyWants, setMyWants]
   );
-  useFetch({
-    endpoint: "MYWANTS",
+  const { loading: loadingAllMyWants } = useLoadAllMyWants({
     autoLoad: true,
-    initialState: { results: [] },
-    params: MY_OWN_DATA_PARAMS,
-    beforeLoad: beforeLoadMyWants,
-    afterLoad: afterLoadMyWants,
+    onLoad: afterLoadMyWants,
   });
+  useEffect(() => {
+    // Only raise it here: the error path keeps today's behavior (stays on
+    // until the next load), and onLoad clears it.
+    if (loadingAllMyWants) setLoadingMyWants(true);
+  }, [loadingAllMyWants, setLoadingMyWants]);
   /* end MY WANTS */
 
   return {
