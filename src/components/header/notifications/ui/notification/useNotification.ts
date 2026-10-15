@@ -98,11 +98,22 @@ const useNotification = (
         case "COMRE":
         case "COMD":
         case "RI":
+        case "RIU":
           values.push(
             `${message?.user_first_name || ""} ${message?.user_last_name || ""}`
           );
           values.push(message?.item_name || "");
           body = type === "COMD" ? null : `"${message?.comment || body}"`;
+          if (type === "RI" && message?.kind === "staff_reply") {
+            // Staff answered on a report about the owner's copy.
+            suffix = ".staff_reply";
+          }
+          if (type === "RIU") {
+            // Admins: the owner of a reported copy replied ("reply") or
+            // edited it ("edit", no text).
+            suffix = message?.kind === "edit" ? ".edit" : ".reply";
+            body = message?.kind === "edit" ? null : `"${message?.comment || ""}"`;
+          }
           linkFunction = message?.item_id
             ? () => {
                 toggleMobile();

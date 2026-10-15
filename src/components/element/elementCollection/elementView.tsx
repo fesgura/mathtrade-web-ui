@@ -6,6 +6,7 @@ import ButtonAlert from "@/components/buttonAlert";
 import InnerButton from "@/components/button/inner-button";
 import useDeleteElement from "./useDeleteElement";
 import useWithdrawFromMT from "./useWithdrawFromMT";
+import useNewUserOfferLimit from "@/hooks/useNewUserOfferLimit";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
 import Question from "@/components/question";
@@ -124,6 +125,14 @@ const ElementView = ({
   // MAT-131: only while the offer window is open, and only for a copy not
   // already offered — matches showEdition's own offer-window awareness.
   const canAddToMT = showAddToMT && !insideItem && canI.offer && !offered && box_size !== null;
+  // First Math Trade: at the item cap the button becomes a "limit reached"
+  // pill (the BE would reject the new item anyway); the full explanation is
+  // in NewUserOfferAlert at the top of the page.
+  const { reached: offerLimitReached, limit: offerLimit } = useNewUserOfferLimit();
+  const addToMTBlocked = canAddToMT && offerLimitReached;
+  const offerLimitText = addToMTBlocked
+    ? getI18Ntext("collection.addToMT.newUserLimit", [offerLimit])
+    : "";
 
   // The reverse, same place: withdraw the item that offers this copy. Allowed
   // while offering and during wants, like from the offered items; during
@@ -320,8 +329,25 @@ const ElementView = ({
                 </InnerButton>
               </ButtonAlert>
             ) : null}
-            {canAddToMT ? (
+            {addToMTBlocked ? (
+              // At the first-Math-Trade cap: a status pill where the button
+              // was, same size and place. Not interactive.
+              <span
+                role="note"
+                aria-label={offerLimitText}
+                title={offerLimitText}
+                data-tour-part="addToMT"
+                className="inline-flex items-center gap-1 whitespace-nowrap bg-gray-200 text-gray-600 px-5 py-1 rounded-full font-bold text-sm"
+              >
+                <Icon type="lock" />
+                <I18N
+                  id="collection.addToMT.limitReached"
+                  values={[offerLimit, offerLimit]}
+                />
+              </span>
+            ) : canAddToMT ? (
               <button
+                type="button"
                 className="bg-want text-white px-5 py-1 rounded-full font-bold text-sm hover:bg-emerald-700 transition-colors"
                 onClick={onAddToMT}
                 title={getI18Ntext("collection.addToMT.single.short")}

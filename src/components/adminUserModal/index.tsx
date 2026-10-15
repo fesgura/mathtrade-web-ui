@@ -90,7 +90,7 @@ export const AdminUserModalProvider = ({ children = null }: { children?: ReactNo
 
 /** `isAdmin`: the session user is a math_admin (inside the private area).
  *  `openAdminUser`: a no-op for everybody else.
- *  `isNewUser(id)`: a member with no items in other editions; always false
+ *  `isNewUser(id)`: a member with no membership in other editions; always false
  *  for non-admins. */
 export const useAdminUser = () => {
   const { available, openAdminUser, isNewUser: isNew } = useContext(AdminUserContext);

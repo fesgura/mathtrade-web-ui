@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
 import PageHeader from "@/components/pageHeader";
@@ -12,6 +12,8 @@ import useFetch from "@/hooks/useFetch";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import { whatsappLink } from "@/utils/whatsapp";
 import { AdminUserName, useAdminUser } from "@/components/adminUserModal";
+import { ReplyBox } from "@/components/item/item-my/item-ui/reportThread";
+import { PageContext } from "@/context/page";
 
 type Person = { id: number; first_name: string; last_name: string } | null;
 
@@ -54,6 +56,7 @@ type ReportRow = {
   images: string | null;
   comments: ReportComment[];
   assigned_trade_code: string | number | null;
+  box: number | null;
   box_number: number | null;
   box_origin_name: string | null;
   box_destination_name: string | null;
@@ -61,6 +64,25 @@ type ReportRow = {
   comment: string;
   created: string;
   resolved_at: string | null;
+  // "logistics" reports (or any with a box) stay hidden from the item owner
+  // until an admin shares them.
+  source?: string;
+  shared_with_owner_at?: string | null;
+  // Owner activity after the report (BE: item last_update / owner comments).
+  edited_after_report?: boolean;
+  owner_replied?: boolean;
+  // "withdrawn" when the owner withdrew the item (auto-resolved).
+  resolution?: string | null;
+};
+
+const isInternal = (row: ReportRow) =>
+  !!row.item_detail && (row.source === "logistics" || !!row.box);
+
+// Next to the "Enviar al dueño" button: what went wrong, in plain words.
+const shareErrorKey = (error: any): string => {
+  if (error?.status === 403) return "adminReports.shareErrorForbidden";
+  if (error?.status === 400 && error?.data?.item) return "adminReports.shareErrorNoItem";
+  return "adminReports.shareError";
 };
 
 const FILTERS = [
@@ -103,6 +125,7 @@ const Label = ({ id }: { id: string }) => (
 // reports, the same ones volunteers see in the logistics app.
 const AdminReportsPage = () => {
   const { isNewUser } = useAdminUser();
+  const { setItemPreviewId, setShowModalPreview } = useContext(PageContext);
   const [filter, setFilter] = useState("open");
   const [reloadValue, setReloadValue] = useState(0);
   const reload = useCallback(() => setReloadValue((v) => v + 1), []);
@@ -132,11 +155,19 @@ const AdminReportsPage = () => {
     afterLoad: reload,
   });
   const [toDelete, setToDelete] = useState<number | null>(null);
+  const [shareReport, , sharing, errorShare] = useFetch({
+    endpoint: "ADMIN_SHARE_REPORT",
+    method: "POST",
+    afterLoad: reload,
+  });
+  const [toShare, setToShare] = useState<number | null>(null);
+  // The row of the last share attempt, so its error shows next to its button.
+  const [sharedRowId, setSharedRowId] = useState<number | null>(null);
 
   return (
     <>
       <PageHeader title="adminReports.title" variant="minimal" />
-      <SectionCommon loading={loading || resolving || deleting}>
+      <SectionCommon loading={loading || resolving || deleting || sharing}>
         <div className="md:px-7 px-3 py-7">
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
             <Link href={PRIVATE_ROUTES.ADMIN_PANEL.path} className="text-primary underline">
@@ -178,15 +209,44 @@ const AdminReportsPage = () => {
                         {row.resolved_at ? (
                           <span className="text-green-700">
                             <I18N id="adminReports.resolvedAt" values={[row.resolved_at]} />
+                            {row.resolution === "withdrawn" ? (
+                              <>
+                                {" · "}
+                                <I18N id="adminReports.resolution.withdrawn" />
+                              </>
+                            ) : null}
                           </span>
                         ) : (
                           <span className="text-danger font-semibold">
                             <I18N id="adminReports.open" />
                           </span>
                         )}
+                        {isInternal(row) ? (
+                          row.shared_with_owner_at ? (
+                            <span className="ml-2 text-xs text-gray-600">
+                              <I18N id="adminReports.sharedAt" values={[row.shared_with_owner_at]} />
+                            </span>
+                          ) : (
+                            <span
+                              className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-900"
+                              title={getI18Ntext("adminReports.internalHint")}
+                            >
+                              <I18N id="adminReports.internal" />
+                            </span>
+                          )
+                        ) : null}
                       </div>
                     </div>
                     <div className="whitespace-nowrap">
+                      {isInternal(row) && !row.shared_with_owner_at ? (
+                        <button
+                          type="button"
+                          onClick={() => setToShare(row.id)}
+                          className="rounded-full border border-primary text-primary text-xs font-semibold px-3 py-1.5 hover:bg-primary hover:text-white mr-2"
+                        >
+                          <I18N id="adminReports.shareWithOwner" />
+                        </button>
+                      ) : null}
                       {!row.resolved_at ? (
                         <button
                           type="button"
@@ -205,6 +265,9 @@ const AdminReportsPage = () => {
                       </button>
                     </div>
                   </header>
+                  {errorShare && sharedRowId === row.id ? (
+                    <ErrorAlert error={errorShare} errorMessage={shareErrorKey(errorShare)} />
+                  ) : null}
 
                   <section className="mb-3">
                     <Label id="adminReports.col.comment" />
@@ -216,10 +279,29 @@ const AdminReportsPage = () => {
                     <section className="mb-3 rounded-md bg-gray-50 p-3">
                       <Label id="adminReports.item" />
                       <div className="text-sm mb-2">
-                        <strong>
+                        <button
+                          type="button"
+                          className="font-bold text-left underline decoration-dotted underline-offset-2 hover:text-primary"
+                          title={getI18Ntext("adminReports.openItem")}
+                          onClick={() => {
+                            // Admins can open the item even while it isn't ready.
+                            setItemPreviewId(row.item_detail?.id);
+                            setShowModalPreview(true);
+                          }}
+                        >
                           {row.assigned_trade_code ? `${row.assigned_trade_code} - ` : ""}
                           {row.item_detail.title}
-                        </strong>
+                        </button>
+                        {row.edited_after_report ? (
+                          <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-900">
+                            <I18N id="adminReports.badge.edited" />
+                          </span>
+                        ) : null}
+                        {row.owner_replied ? (
+                          <span className="ml-2 rounded-full bg-sky-100 px-2 py-0.5 text-xs font-semibold text-sky-900">
+                            <I18N id="adminReports.badge.ownerReplied" />
+                          </span>
+                        ) : null}
                         {row.item_detail.owner ? (
                           <>
                             {" · "}
@@ -311,16 +393,15 @@ const AdminReportsPage = () => {
                     </section>
                   ) : null}
 
-                  {row.comments?.length ? (
-                    <section className="text-sm border-t border-gray-200 pt-2">
-                      <Label id="adminReports.thread" />
-                      {row.comments.map((c) => (
-                        <p key={c.id} className="mb-1">
-                          <strong><AdminUserName userId={c.user_info?.id}>{fullName(c.user_info)}</AdminUserName></strong> ({c.created}): {c.comment}
-                        </p>
-                      ))}
-                    </section>
-                  ) : null}
+                  <section className="text-sm border-t border-gray-200 pt-2">
+                    <Label id={row.comments?.length ? "adminReports.thread" : "adminReports.reply"} />
+                    {(row.comments || []).map((c) => (
+                      <p key={c.id} className="mb-1">
+                        <strong><AdminUserName userId={c.user_info?.id}>{fullName(c.user_info)}</AdminUserName></strong> ({c.created}): {c.comment}
+                      </p>
+                    ))}
+                    <ReplyBox reportId={row.id} onSent={reload} />
+                  </section>
                 </article>
               ))}
             </div>
@@ -335,6 +416,22 @@ const AdminReportsPage = () => {
             }}
             title="adminReports.deleteTitle"
             description="adminReports.deleteText"
+          />
+          <ConfirmModal
+            isOpen={toShare !== null}
+            onCancel={() => setToShare(null)}
+            onConfirm={() => {
+              const id = toShare;
+              setToShare(null);
+              if (id !== null) {
+                setSharedRowId(id);
+                shareReport({ urlParams: [id] });
+              }
+            }}
+            title="adminReports.shareConfirmTitle"
+            description="adminReports.shareConfirmText"
+            confirmId="adminReports.shareWithOwner"
+            variant="primary"
           />
         </div>
       </SectionCommon>

@@ -182,6 +182,11 @@ const endpoints = {
   ADMIN_RESOLVE_REPORT: "api/reports/$[1]/resolve/",
   ADMIN_DELETE_REPORT: "api/reports/$[1]/",
   QUIT_REPORT: "api/reports/$[1]/",
+  // Report thread: staff, or the item owner on a staff report they can see.
+  GET_REPORT_COMMENTS: "api/reports/$[1]/comments/",
+  POST_REPORT_COMMENT: "api/reports/$[1]/comments/",
+  // math_admin: make an internal (logistics) report visible to the owner.
+  ADMIN_SHARE_REPORT: "api/reports/$[1]/share-with-owner/",
 
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/
   // https://api.mathtrade.com.ar/api/mathtrades/1/user-want-groups/1/
