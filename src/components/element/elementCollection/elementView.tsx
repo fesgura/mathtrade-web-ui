@@ -127,9 +127,14 @@ const ElementView = ({
 
   // The reverse, same place: withdraw the item that offers this copy. Allowed
   // while offering and during wants, like from the offered items; during
-  // wants every want involving it is deleted (the warning says so).
+  // wants it leaves every want list and its wanters get a notice (the
+  // warning says so).
   const offeredItem =
     offered && typeof offered === "object" ? (offered as any) : null;
+  // Outside the offer phase the BE refuses to edit or delete an offered copy
+  // (items/permissions.py IsEditEnabled, 403). Show the buttons disabled with
+  // the reason instead of letting the user hit that error.
+  const offeredLocked = !insideItem && !!offered && !canI.offer;
   const canWithdraw =
     showAddToMT && !insideItem && !!offeredItem && (canI.offer || canI.want);
   const {
@@ -300,7 +305,7 @@ const ElementView = ({
           </div>
         </div>
 
-        {showEdition || canAddToMT || canWithdraw ? (
+        {showEdition || canAddToMT || canWithdraw || offeredLocked ? (
           <div className="flex items-center gap-1 flex-wrap border-t border-black/10 text-gray-600 pt-3">
             {canWithdraw ? (
               <ButtonAlert
@@ -345,6 +350,13 @@ const ElementView = ({
                 <ButtonAlert
                   className="text-danger font-bold px-5 py-1 text-sm hover:text-red-900 transition-colors"
                   title="Delete.Element"
+                  description={
+                    offeredItem
+                      ? isCombo
+                        ? "Delete.Element.offeredCombo"
+                        : "Delete.Element.offered"
+                      : ""
+                  }
                   onClick={deleteElement}
                 >
                   <InnerButton>
@@ -352,6 +364,47 @@ const ElementView = ({
                     <I18N id="btn.Delete" />
                   </InnerButton>
                 </ButtonAlert>
+              </>
+            ) : null}
+            {offeredLocked ? (
+              <>
+                <button
+                  type="button"
+                  disabled
+                  aria-describedby={`offered-locked-${element.id}`}
+                  className="bg-gray-300 text-gray-600 px-5 py-1 rounded-full font-bold text-sm cursor-not-allowed"
+                >
+                  <InnerButton>
+                    <Icon type="edit" />
+                    <I18N id="element.Edit" />
+                  </InnerButton>
+                </button>
+                <button
+                  type="button"
+                  disabled
+                  aria-describedby={`offered-locked-${element.id}`}
+                  className="text-gray-500 font-bold px-5 py-1 text-sm cursor-not-allowed"
+                >
+                  <InnerButton>
+                    <Icon type="trash" />
+                    <I18N id="btn.Delete" />
+                  </InnerButton>
+                </button>
+                <p
+                  id={`offered-locked-${element.id}`}
+                  className={clsx(META_TEXT, "w-full flex items-start gap-1 pt-1")}
+                >
+                  <Icon type="lock" />
+                  <span>
+                    <I18N
+                      id={
+                        canI.want
+                          ? "element.offeredLocked.wants"
+                          : "element.offeredLocked"
+                      }
+                    />
+                  </span>
+                </p>
               </>
             ) : null}
           </div>

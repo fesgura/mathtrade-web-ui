@@ -8,11 +8,13 @@ import InnerButton from "@/components/button/inner-button";
 import Icon from "@/components/icon";
 import Chip from "@/components/chip";
 import { LoadingBox } from "@/components/loading";
+import ErrorAlert from "@/components/errorAlert";
 
 const HeaderItem = ({ className = "mb-2" }) => {
   const {
     deleteItem,
     loading,
+    error,
     isCombo,
     canIdelete,
     isWantPhase,
@@ -30,7 +32,7 @@ const HeaderItem = ({ className = "mb-2" }) => {
                 <MyGroupsInItem className="" />
               </span>
               <span className="inline-flex shrink-0" data-tour-part="value">
-                <Value size="xl" type="item" />
+                <Value type="item" />
               </span>
               {ready === false ? (
                 <Chip tone="alert">
@@ -65,6 +67,7 @@ const HeaderItem = ({ className = "mb-2" }) => {
           </h3>
         ) : null}
       </header>
+      <ErrorAlert error={error} />
       <LoadingBox loading={loading} min />
     </>
   );

@@ -2,7 +2,7 @@ import { useCallback, useContext, useMemo, useState } from "react";
 import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
 
-const useDeleteElement = (element) => {
+const useDeleteElement = (element: { id: number }) => {
   // PAGE CONTEXT *************************************/
   const { forceReloadPage } = useContext(PageContext);
   // end PAGE CONTEXT *************************************/

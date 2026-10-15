@@ -21,9 +21,21 @@ const FIELD_RULES: FieldRule[] = [
 ];
 
 const DETAIL_RULES: DetailRule[] = [
-  { test: (d) => d === "No MathElement matches the given query.", key: "error.mathElement.notFound" },
+  // DRF get_object_or_404 on any model (MathElement, MathItem, Element…).
+  { test: (d) => /^No \w+ matches the given query\.$/.test(d), key: "error.mathElement.notFound" },
   { test: (d) => d === "You do not have permission to perform this action.", key: "error.mathtrade.geekListClosed" },
+  // Offered-copy removal (BE items/permissions.py, math_item/withdrawal.py).
+  // Prefix match, so a wording tweak in the BE still lands on the key.
+  { test: (d) => d.startsWith("Ya cerró la etapa de ofertas: este juego está ofrecido"), key: "error.element.offeredLocked.wants" },
+  { test: (d) => d.startsWith("Este juego está ofrecido en el Math Trade: no se puede editar"), key: "error.element.offeredLocked" },
+  { test: (d) => d.startsWith("Ya cerró la etapa de deseos: no se pueden retirar"), key: "error.item.withdrawClosed" },
+  { test: (d) => d.startsWith("Este ejemplar ya forma parte de los resultados"), key: "error.item.inResults" },
+  // Older BE wording of the same trade guard.
+  { test: (d) => d.startsWith("No se puede eliminar un item que ya forma parte de un trade"), key: "error.item.inResults" },
 ];
+
+const ruleKey = (message: string): string =>
+  DETAIL_RULES.find(({ test }) => test(message))?.key || message;
 
 // Typed errors: the backend sends a "code" next to the detail.
 const CODE_KEYS: Record<string, string> = {
@@ -66,7 +78,8 @@ export const resolveApiErrorMessage = (error: any): string | undefined => {
 
   // DRF `ValidationError("msg")` serializes as a bare JSON array: ["msg"].
   if (Array.isArray(data)) {
-    return firstString(data);
+    const message = firstString(data);
+    return message ? ruleKey(message) : undefined;
   }
 
   const codeKey = resolveApiErrorCode(error);
@@ -74,7 +87,7 @@ export const resolveApiErrorMessage = (error: any): string | undefined => {
 
   const detail = firstString(data.detail);
   if (detail) {
-    return DETAIL_RULES.find(({ test }) => test(detail))?.key || detail;
+    return ruleKey(detail);
   }
 
   for (const { field, test, key } of FIELD_RULES) {

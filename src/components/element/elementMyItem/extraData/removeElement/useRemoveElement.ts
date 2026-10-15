@@ -23,7 +23,7 @@ const useRemoveElement = () => {
     forceReloadPage();
   }, [forceReloadPage]);
 
-  const [deleteElement, , loading] = useFetch({
+  const [deleteElement, , loading, error] = useFetch({
     endpoint: "DELETE_MYITEM_ELEMENT",
     method: "DELETE",
     afterLoad,
@@ -41,6 +41,7 @@ const useRemoveElement = () => {
     canRemoveElement: (item?.elements?.length || 1) > 1 && canI.offer,
     removeElement,
     loading,
+    error,
   };
 };
 

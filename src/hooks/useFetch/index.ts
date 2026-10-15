@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import * as Sentry from "@sentry/nextjs";
 import { callToAPI } from "./utils";
+import endpoints from "./constants/endpoints";
 import { useStore } from "@/store";
 import useSignOut from "../useSignOut";
 
@@ -21,6 +22,18 @@ const reportAutoLoadLoop = (endpoint: string) => {
     tags: { endpoint },
     extra: { path },
   });
+};
+
+// Every $[n] in an endpoint is a path segment ("items/$[1]/"), so an empty or
+// missing value builds a wrong URL ("items//") that can only 404. Skip it.
+const missingUrlParam = (endpoint: string, urlParams: unknown[]): boolean => {
+  const template: string | undefined = (endpoints as Record<string, string>)[endpoint];
+  const count = template?.match(/\$\[\d+\]/g)?.length || 0;
+  for (let i = 0; i < count; i++) {
+    const value = urlParams[i];
+    if (value === undefined || value === null || value === "") return true;
+  }
+  return false;
 };
 
 const useFetch = ({
@@ -62,6 +75,12 @@ const useFetch = ({
         ...props,
       };
 
+      const allUrlParams = defaultUrlParams.concat(urlParams);
+      if (!path && endpoint && missingUrlParam(endpoint, allUrlParams)) {
+        console.warn(`[useFetch] ${endpoint}: missing id in the URL, request skipped`);
+        return;
+      }
+
       if (beforeLoad) beforeLoad();
       setErrorMessage(null);
       setLoading(true);
@@ -71,7 +90,7 @@ const useFetch = ({
           method,
           endpoint,
           path,
-          urlParams: defaultUrlParams.concat(urlParams),
+          urlParams: allUrlParams,
           params,
           mathtradeId: mathtradeId || optionMathtradeId || storedMathtradeId || 0,
         });

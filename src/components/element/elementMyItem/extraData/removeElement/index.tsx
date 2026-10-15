@@ -4,9 +4,10 @@ import I18N from "@/i18n";
 import ButtonAlert from "@/components/buttonAlert";
 import useRemoveElement from "./useRemoveElement";
 import { LoadingBox } from "@/components/loading";
+import ErrorAlert from "@/components/errorAlert";
 
-const RemoveElement = ({ editingMode }) => {
-  const { canRemoveElement, removeElement, loading } = useRemoveElement();
+const RemoveElement = ({ editingMode = false }: { editingMode?: boolean }) => {
+  const { canRemoveElement, removeElement, loading, error } = useRemoveElement();
 
   return !editingMode && canRemoveElement ? (
     <>
@@ -22,6 +23,7 @@ const RemoveElement = ({ editingMode }) => {
           </InnerButton>
         </ButtonAlert>
       </div>
+      <ErrorAlert error={error} className="mt-2 mb-0" />
       <LoadingBox loading={loading} min />
     </>
   ) : null;
