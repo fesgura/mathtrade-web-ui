@@ -2,6 +2,7 @@
 import { useContext, useEffect, useMemo } from "react";
 import PreviewerWantGroup from "@/components/previewerWantGroup";
 import { GridContext } from "@/context/myWants/grid";
+import { PageContext } from "@/context/page";
 import clsx from "clsx";
 import { colorTagStyles } from "@/utils/color";
 import ValueMini from "@/components/value/mini";
@@ -16,7 +17,16 @@ import {
 const WantGroupLabelUI = ({ wantGroup = null }) => {
   const { setShowNoOptionsAdv, tagsVisible, setTagsVisible } =
     useContext(GridContext);
+  const { wantChanges, setPreviewWantGroup, tooglePreviewWantGroupModal } =
+    useContext(PageContext);
   const { id, name, type, tag, wants, value } = wantGroup || {};
+  // Unread WGD/WGC on this want: a copy was withdrawn or changed.
+  const changes = (id && wantChanges.get(id)) || [];
+  const changedText = changes
+    .map(({ type: changeType, item_name }) =>
+      getI18Ntext(`myWants.changed.${changeType}`, [item_name])
+    )
+    .join("\n");
   const expanded = type === "tag" && !!tagsVisible?.[id];
   const empty = !(wants?.length);
   // A tag is a want from the moment it's created; an empty one isn't an
@@ -40,13 +50,36 @@ const WantGroupLabelUI = ({ wantGroup = null }) => {
   return (
     <div
       className={clsx(
-        "h-8 w-64 border-b border-r flex items-center justify-between gap-1 pl-2",
+        "relative h-8 w-64 border-b border-r flex items-center justify-between gap-1 pl-2",
         tagStyle ? "bg-white border-gray-300" : cardKindBorderClass(kind, 4),
         { "shadow-[inset_0_0_0_3px_red]": empty && !emptyTag }
       )}
       style={tagStyle || undefined}
     >
+      {changes.length ? (
+        // Amber stripe next to the kind border (which keeps its color).
+        <span
+          className="absolute inset-y-0 left-0 w-1 bg-amber-400 pointer-events-none"
+          aria-hidden="true"
+        />
+      ) : null}
       <div className="flex items-center gap-1 min-w-0">
+        {changes.length ? (
+          // Tapping it opens the preview, which lists the changes (phones
+          // have no tooltip) and marks them seen.
+          <button
+            type="button"
+            className="w-5 h-5 shrink-0 rounded-full bg-amber-400 text-amber-950 text-xs leading-none flex items-center justify-center"
+            title={changedText}
+            aria-label={`${getI18Ntext("myWants.changed.title")}: ${changedText}`}
+            onClick={() => {
+              setPreviewWantGroup(wantGroup);
+              tooglePreviewWantGroupModal();
+            }}
+          >
+            <Icon type="notifications" />
+          </button>
+        ) : null}
         {type === "tag" ? (
           // Expand to list the tagged items, like item groups in the columns.
           <button

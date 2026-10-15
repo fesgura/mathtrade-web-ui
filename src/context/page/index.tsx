@@ -5,6 +5,7 @@ import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store";
 import { REFERRAL_LIMIT } from "@/config/referral";
 import { DateIntlFormat } from "@/utils/dateUtils";
+import type { WantChange } from "@/app/mathtrade/my-wants/useWants";
 
 // Only the login response persists `data.mathtrade` (dates, active, etc.),
 // so an admin's date change never reaches an already-open tab until it
@@ -93,6 +94,10 @@ export const PageContext = createContext({
   showPreviewWantGroupModal: false,
   setShowPreviewWantGroupModal: (_value?: any) => {},
   tooglePreviewWantGroupModal: (_value?: any) => {},
+  // Unread WGD/WGC notifications per want group (Mis deseos highlight).
+  wantChanges: new Map<number, WantChange[]>(),
+  setWantChanges: (_value?: any) => {},
+  markWantSeen: async (_uwgId: number): Promise<void> => {},
   //
   filterData: {} as Record<string, any>,
   setFilterData: (_value?: any) => {},
@@ -320,6 +325,36 @@ const PageContextProvider = ({ children = null }) => {
     setShowPreviewWantGroupModal((v) => !v);
   }, []);
 
+  /* WANT CHANGES ***************************************************
+   * Unread WGD/WGC notifications grouped by want group id, loaded by Mis
+   * deseos (useWants). Lives here because the want preview modal is mounted
+   * in the mathtrade layout, outside that page. Seeing a group's preview
+   * marks its notifications read, so "seen" is the same for the bell. */
+  const [wantChanges, setWantChanges] = useState<Map<number, WantChange[]>>(
+    () => new Map()
+  );
+  const [postNotificationsBulk] = useFetch({
+    endpoint: "POST_NOTIFICATIONS_BULK",
+    method: "POST",
+  });
+  const markWantSeen = useCallback(
+    async (uwgId: number) => {
+      const ids = (wantChanges.get(uwgId) || []).map(
+        ({ notification_id }) => notification_id
+      );
+      // An empty `ids` would mark every unread notification as read (BE).
+      if (!ids.length) return;
+      await postNotificationsBulk({ params: { ids, unread: false } });
+      setWantChanges((old) => {
+        const next = new Map(old);
+        next.delete(uwgId);
+        return next;
+      });
+    },
+    [wantChanges, postNotificationsBulk]
+  );
+  /* end WANT CHANGES */
+
   const [filterData, setFilterData] = useState<Record<string, any>>({});
 
   const [mustConfirm, setMustConfirm] = useState(false);
@@ -507,6 +542,9 @@ const PageContextProvider = ({ children = null }) => {
         showPreviewWantGroupModal,
         setShowPreviewWantGroupModal,
         tooglePreviewWantGroupModal,
+        wantChanges,
+        setWantChanges,
+        markWantSeen,
         //
         filterData,
         setFilterData,
