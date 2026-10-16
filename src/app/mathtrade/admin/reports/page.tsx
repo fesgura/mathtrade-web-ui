@@ -390,6 +390,16 @@ const AdminReportsPage = () => {
               <I18N id="adminReports.badge.deleted" />
             </span>
           </div>
+          {row.item_owner?.name ? (
+            <div className="mt-1">
+              <I18N id="adminReports.owner" />:{" "}
+              {row.item_owner.id ? (
+                <AdminUserName userId={row.item_owner.id}>{row.item_owner.name}</AdminUserName>
+              ) : (
+                row.item_owner.name
+              )}
+            </div>
+          ) : null}
           {row.game_name && row.game_name !== row.item_title ? (
             <div className="text-xs text-gray-600 mt-1">
               <I18N id="adminReports.gameName" values={[row.game_name]} />

@@ -34,6 +34,7 @@ const searchText = (row: ReportRow) =>
       row.assigned_trade_code,
       ...(row.item_detail?.elements || []).map((element) => element.name),
       name(row.item_detail?.owner || null),
+      row.item_owner?.name,
       row.item_detail?.owner?.username,
       name(row.user),
       name(row.reported_user),

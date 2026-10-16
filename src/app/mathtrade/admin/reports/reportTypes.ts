@@ -44,6 +44,8 @@ export type ReportRow = {
   item_deleted?: boolean;
   // The report's edition (null for old reports the backfill couldn't date).
   mathtrade?: number | null;
+  // Whose item it was, stored with the report (shown once the item is gone).
+  item_owner?: { id: number | null; name: string | null } | null;
   item_detail: ItemDetail;
   images: string | null;
   comments: ReportComment[];
