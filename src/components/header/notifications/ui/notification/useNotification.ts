@@ -175,6 +175,26 @@ const useNotification = (
             : null;
           linkText = "notifications.message.COM.btn";
           break;
+
+        case "RIR": {
+          // The participant's own report was closed (BE reports/notify.py):
+          // resolved by an admin, the missing copy found, or withdrawn.
+          const kind = message?.kind;
+          values.push(message?.item_name || "");
+          body = null;
+          suffix = kind === "found" || kind === "withdrawn" ? `.${kind}` : ".resolved";
+          // A withdrawn copy is gone: nothing to preview.
+          linkFunction = message?.item_id && kind !== "withdrawn"
+            ? () => {
+                toggleMobile();
+                closeActivePanel();
+                setItemPreviewId(message?.item_id);
+                setShowModalPreview(true);
+              }
+            : null;
+          linkText = "notifications.message.COM.btn";
+          break;
+        }
       }
 
       const messageText = `notifications.message.${type}${suffix}`;
