@@ -131,12 +131,16 @@ const useNotification = (
             suffix = ".rereport";
           }
           if (type === "RIU") {
-            // Admins: the owner of a reported copy replied ("reply") or
-            // edited it ("edit", no text).
-            suffix = message?.kind === "edit" ? ".edit" : ".reply";
-            body = message?.kind === "edit" ? null : `"${message?.comment || ""}"`;
+            // Admins: the owner of a reported copy replied ("reply"),
+            // edited it ("edit", no text) or deleted it ("deleted", no text;
+            // item_name is the title stored before the delete).
+            const kind = message?.kind;
+            suffix = kind === "edit" || kind === "deleted" ? `.${kind}` : ".reply";
+            body = kind === "edit" || kind === "deleted" ? null : `"${message?.comment || ""}"`;
           }
-          linkFunction = message?.item_id
+          // A deleted copy has nothing to preview: only "Ver reporte".
+          const itemGone = type === "RIU" && message?.kind === "deleted";
+          linkFunction = message?.item_id && !itemGone
             ? () => {
                 toggleMobile();
                 closeActivePanel();

@@ -29,6 +29,9 @@ type ReportView = {
   resolution: string | null;
   comment: string;
   item: { id: number; title: string } | null;
+  // The owner deleted the copy: only the title stored with the report.
+  item_deleted?: boolean;
+  item_title?: string | null;
   from_staff: boolean;
   can_comment: boolean;
   // staff: with id; owner: name or "Otro usuario"; reporter: null (it's you).
@@ -132,6 +135,13 @@ const ReportDetail = ({ reportId }: { reportId: number }) => {
             >
               {report.item.title}
             </button>
+          ) : report.item_deleted ? (
+            <>
+              <span className="font-bold">{report.item_title}</span>
+              <span className="ml-2 rounded-full bg-rose-100 px-2 py-0.5 text-xs font-semibold text-rose-900">
+                <I18N id="adminReports.badge.deleted" />
+              </span>
+            </>
           ) : (
             <I18N id="reportView.noItem" />
           )}
