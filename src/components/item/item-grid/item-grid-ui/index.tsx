@@ -24,7 +24,7 @@ const ItemGridUI = ({ expanded, setExpanded }: ItemGridUIProps) => {
   const { itemNode, isExpanded, isCombo, typeNum, onToggleExpanse } =
     useItemGrid(expanded, setExpanded);
   // The selected highlight goes here, not on the md/xl root: this surface
-  // clips (overflow-x-hidden), so a ring on the inner root would be cut.
+  // clips (overflow-x-clip), so a ring on the inner root would be cut.
   const { item, showAsIgnored } = useContext(ItemContext);
   const { isSelected } = useSelectableCard(
     item?.id,

@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useMemo, type ReactNode } from "react";
 import { getI18Ntext } from "@/i18n";
-import { formatPublisherWithYear } from "@/utils/text";
+import { formatPublisherWithYear, withYearSuffix } from "@/utils/text";
 
 export const ElementContext = createContext({
   element: null as any,
@@ -57,7 +57,8 @@ export const ElementContextProvider = ({
       typeNum: game?.type || 1,
       game,
       thumbnail,
-      title,
+      title: withYearSuffix(title, year, game?.year),
+      titleRaw: title,
       titleLink: notGame
         ? null
         : `https://boardgamegeek.com/boardgame/${game?.bgg_id}/`,

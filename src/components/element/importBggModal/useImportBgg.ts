@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import useFetch from "@/hooks/useFetch";
+import { withYearSuffix } from "@/utils/text";
 
 const useImportBgg = ({ isOpen = false, onClose, onSuccess }) => {
   const [selectedGames, setSelectedGames] = useState<Set<number>>(new Set());
@@ -69,7 +70,7 @@ const useImportBgg = ({ isOpen = false, onClose, onSuccess }) => {
       bgg_id: g.bgg_id,
       type: g.type,
       bgg_version_id: g.version_id ? String(g.version_id) : "other",
-      name: g.primary_name,
+      name: withYearSuffix(g.primary_name, g.version_year, g.year),
       thumbnail: g.thumbnail,
       language: g.version_language || "",
       publisher: g.version_publisher || "",

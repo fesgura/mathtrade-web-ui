@@ -64,7 +64,7 @@ export const cardKindBorderClass = (kind: CardKind, edge: 4 | 6 = 6) =>
  * not the page/viewport. Apply on the element that paints the card surface
  * (wrapper, offer-grid shell, my-offer article, previewer shell, …). */
 export const cardSurfaceClass =
-  "min-w-0 max-w-full w-full overflow-x-hidden";
+  "min-w-0 max-w-full w-full overflow-x-clip";
 
 type WantGroupLike = {
   type?: string;
