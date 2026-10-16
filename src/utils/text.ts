@@ -45,3 +45,21 @@ export const formatPublisherWithYear = (
 
 export const isBggExpansionType = (type: unknown = 1) =>
   type === 2 || type === "2" || type === "boardgameexpansion";
+
+const YEAR_SUFFIX = /\(\d{4}\)\s*$/;
+
+/** True when the name already ends with "(YYYY)". */
+export const hasYearSuffix = (name = ""): boolean =>
+  YEAR_SUFFIX.test(name || "");
+
+const usableYear = (y: unknown): string | null => {
+  const s = `${y ?? ""}`.trim();
+  return /^\d{4}$/.test(s) && s !== "0000" ? s : null;
+};
+
+/** Append " (YYYY)" using the first usable year, unless the name already ends with one. */
+export const withYearSuffix = (name = "", ...years: unknown[]): string => {
+  if (!name || hasYearSuffix(name)) return name || "";
+  const year = years.map(usableYear).find(Boolean);
+  return year ? `${name.trimEnd()} (${year})` : name;
+};

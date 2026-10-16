@@ -108,7 +108,7 @@ const useElementEditor = ({
       versions: BGGinfo ? BGGinfo.versions : [],
     };
 
-    setName(BGGinfoClone.element?.title || BGGinfoClone.element?.name || "");
+    setName(BGGinfoClone.element?.titleRaw || BGGinfoClone.element?.title || BGGinfoClone.element?.name || "");
     setThumbnail(BGGinfoClone.element?.thumbnail || "");
     const versionId = `${BGGinfoClone.element?.bgg_version_id || ""}`.toLowerCase();
     // Bulk-imported with no edition: saved as "other", but nobody chose it.
