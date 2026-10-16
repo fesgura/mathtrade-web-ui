@@ -57,7 +57,7 @@ export const ElementContextProvider = ({
       typeNum: game?.type || 1,
       game,
       thumbnail,
-      title: withYearSuffix(title, game?.year, year),
+      title: withYearSuffix(title, year, game?.year),
       titleRaw: title,
       titleLink: notGame
         ? null
