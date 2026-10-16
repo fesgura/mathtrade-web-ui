@@ -29,6 +29,7 @@ const searchText = (row: ReportRow) =>
     [
       `#${row.id}`,
       row.item_title,
+      row.game_name,
       row.item_detail?.title,
       row.assigned_trade_code,
       ...(row.item_detail?.elements || []).map((element) => element.name),
@@ -52,6 +53,7 @@ const useReportFilters = (rows: ReportRow[]) => {
   const [shared, setShared] = useState<Shared>("");
   const [onlyEdited, setOnlyEdited] = useState(false);
   const [onlyReplied, setOnlyReplied] = useState(false);
+  const [onlyDeleted, setOnlyDeleted] = useState(false);
   const [search, setSearch] = useState("");
 
   const indexed = useMemo(
@@ -71,12 +73,13 @@ const useReportFilters = (rows: ReportRow[]) => {
       }
       if (onlyEdited && !row.edited_after_report) return false;
       if (onlyReplied && !row.owner_replied) return false;
+      if (onlyDeleted && !row.item_deleted) return false;
       if (!query) return true;
       return row.id === idQuery || text.includes(query);
     };
-  }, [search, source, shared, onlyEdited, onlyReplied]);
+  }, [search, source, shared, onlyEdited, onlyReplied, onlyDeleted]);
 
-  const { list, statusCounts, editedCount, repliedCount } = useMemo(() => {
+  const { list, statusCounts, editedCount, repliedCount, deletedCount } = useMemo(() => {
     const others = indexed.filter(matchesOthers).map(({ row }) => row);
     const statusCounts: Record<Status, number> = {
       open: others.filter((row) => !row.resolved_at).length,
@@ -88,11 +91,18 @@ const useReportFilters = (rows: ReportRow[]) => {
       statusCounts,
       editedCount: rows.filter((row) => row.edited_after_report).length,
       repliedCount: rows.filter((row) => row.owner_replied).length,
+      deletedCount: rows.filter((row) => row.item_deleted).length,
     };
   }, [indexed, matchesOthers, status, rows]);
 
   const isFiltered =
-    status !== DEFAULT_STATUS || !!source || !!shared || onlyEdited || onlyReplied || !!search;
+    status !== DEFAULT_STATUS ||
+    !!source ||
+    !!shared ||
+    onlyEdited ||
+    onlyReplied ||
+    onlyDeleted ||
+    !!search;
 
   const clearFilters = useCallback(() => {
     setStatus(DEFAULT_STATUS);
@@ -100,6 +110,7 @@ const useReportFilters = (rows: ReportRow[]) => {
     setShared("");
     setOnlyEdited(false);
     setOnlyReplied(false);
+    setOnlyDeleted(false);
     setSearch("");
   }, []);
 
@@ -118,6 +129,7 @@ const useReportFilters = (rows: ReportRow[]) => {
     statusCounts,
     editedCount,
     repliedCount,
+    deletedCount,
     status,
     setStatus,
     source,
@@ -128,6 +140,8 @@ const useReportFilters = (rows: ReportRow[]) => {
     setOnlyEdited,
     onlyReplied,
     setOnlyReplied,
+    onlyDeleted,
+    setOnlyDeleted,
     search,
     setSearch,
     isFiltered,

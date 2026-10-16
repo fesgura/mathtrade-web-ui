@@ -14,6 +14,7 @@ import { whatsappLink } from "@/utils/whatsapp";
 import { AdminUserName, useAdminUser } from "@/components/adminUserModal";
 import { ReplyBox } from "@/components/item/item-my/item-ui/reportThread";
 import { PageContext } from "@/context/page";
+import { useStore } from "@/store";
 import { isInternal, type Person, type ReportRow } from "./reportTypes";
 import useReportFilters, { STATUSES, type Shared, type Source } from "./useReportFilters";
 import { REPORT_PARAM, clearReportParam } from "@/components/reportModal/useReportFromUrl";
@@ -77,6 +78,11 @@ const Label = ({ id }: { id: string }) => (
 const AdminReportsPage = () => {
   const { isNewUser } = useAdminUser();
   const { setItemPreviewId, setShowModalPreview } = useContext(PageContext);
+  // The edition in course: a deep-linked report outside the list is only
+  // "from another edition" when its own edition says so.
+  const currentMathtradeId = useStore(
+    (state: any) => state.data?.mathtrade?.id ?? null
+  );
   const [reloadValue, setReloadValue] = useState(0);
   const reload = useCallback(() => setReloadValue((v) => v + 1), []);
 
@@ -165,7 +171,8 @@ const AdminReportsPage = () => {
         clearReportParam();
         return;
       }
-      // Not in the edition's list: another edition.
+      // Not in the edition's list: shown on its own. The note says "another
+      // edition" only when its edition really is another one.
       setPinned(row);
     });
   }, [targetId, listReady, list, allRows, pinned, reveal, getReport]);
@@ -372,6 +379,26 @@ const AdminReportsPage = () => {
             </div>
           ))}
         </section>
+      ) : row.item_deleted ? (
+        // The owner deleted the copy: only the title stored with the report
+        // is left, so there is nothing to link to.
+        <section className="mb-3 rounded-md border border-rose-200 bg-rose-50 p-3 text-sm">
+          <Label id="adminReports.item" />
+          <div className="font-bold">
+            {row.item_title}
+            <span className="ml-2 rounded-full bg-rose-100 px-2 py-0.5 text-xs font-semibold text-rose-900">
+              <I18N id="adminReports.badge.deleted" />
+            </span>
+          </div>
+          {row.game_name && row.game_name !== row.item_title ? (
+            <div className="text-xs text-gray-600 mt-1">
+              <I18N id="adminReports.gameName" values={[row.game_name]} />
+            </div>
+          ) : null}
+          <p className="text-xs text-gray-600 mt-1">
+            <I18N id="adminReports.deletedHint" />
+          </p>
+        </section>
       ) : row.item_title ? (
         <section className="mb-3 text-sm">
           <Label id="adminReports.item" />
@@ -456,6 +483,15 @@ const AdminReportsPage = () => {
             >
               <I18N id="adminReports.badge.ownerReplied" /> ({filters.repliedCount})
             </button>
+            {filters.deletedCount || filters.onlyDeleted ? (
+              <button
+                type="button"
+                className={quickButton(filters.onlyDeleted)}
+                onClick={() => filters.setOnlyDeleted((v) => !v)}
+              >
+                <I18N id="adminReports.filter.deleted" /> ({filters.deletedCount})
+              </button>
+            ) : null}
           </div>
 
           <div className="flex flex-wrap items-end gap-3 mb-4">
@@ -527,7 +563,13 @@ const AdminReportsPage = () => {
           {pinned ? (
             <div className="mb-6">
               <p className="mb-2 text-sm text-gray-600">
-                <I18N id="adminReports.focus.otherEdition" />
+                <I18N
+                  id={
+                    pinned.mathtrade && pinned.mathtrade !== currentMathtradeId
+                      ? "adminReports.focus.otherEdition"
+                      : "adminReports.focus.notListed"
+                  }
+                />
               </p>
               {renderRow(pinned)}
             </div>

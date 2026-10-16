@@ -34,7 +34,16 @@ export type ReportRow = {
   id: number;
   user: Person;
   reported_user: Person;
+  // The item's title, or the one stored with the report once the item is
+  // gone (BE reports/snapshot.py).
   item_title: string | null;
+  // BGG names of the item's copies, stored with the report.
+  game_name?: string | null;
+  // The owner deleted (or withdrew) the item: no item_detail, only the
+  // stored title and game.
+  item_deleted?: boolean;
+  // The report's edition (null for old reports the backfill couldn't date).
+  mathtrade?: number | null;
   item_detail: ItemDetail;
   images: string | null;
   comments: ReportComment[];
