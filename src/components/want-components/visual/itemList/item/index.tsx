@@ -36,12 +36,17 @@ const ItemUI = ({ toAdd = false, onToggle, canIwant = false }) => {
   );
 };
 
-const ItemToOffer = ({ item = null, toAdd = false, wantGroupId = null }) => {
+const ItemToOffer = ({
+  item = null,
+  toAdd = false,
+  wantGroupId = null,
+  disabled = false,
+}) => {
   const { onToggle, canIwant } = useItem(item, wantGroupId);
 
   return (
     <ItemContextProvider itemRaw={item}>
-      <ItemUI toAdd={toAdd} onToggle={onToggle} canIwant={canIwant} />
+      <ItemUI toAdd={toAdd} onToggle={onToggle} canIwant={canIwant && !disabled} />
     </ItemContextProvider>
   );
 };

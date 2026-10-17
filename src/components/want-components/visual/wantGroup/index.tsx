@@ -5,6 +5,8 @@ import PreviewerWantGroup from "@/components/previewerWantGroup";
 import { colorTagStyles } from "@/utils/color";
 import WantMiniCard from "@/components/want-components/mini-card";
 import { resolveWantGroupKind } from "@/components/badgeType/cardKind";
+import TagPendingWants from "@/components/want-components/tag-pending";
+import { tagCounter } from "@/components/want-components/utils";
 
 const WantGroupUI = ({ wantGroup = null }) => {
   const { name, type, game_type, tag, wants, bgg_id, value, availables } =
@@ -51,25 +53,30 @@ const WantGroupUI = ({ wantGroup = null }) => {
   if (!wantGroup) return null;
 
   return (
-    <WantMiniCard
-      size="anchor"
-      title={`${name}${type === "tag" ? ` (${wants.length})` : ""}`}
-      elements={elementsThumbnails}
-      kind={kind}
-      badgeType={type}
-      badgeSubtype={badgeSubtype}
-      isCombo={isCombo}
-      value={value}
-      empty={!wants?.length}
-      changed={wantChanges.has(wantGroup.id)}
-      tagStyle={tagStyle}
-      preview={
-        <PreviewerWantGroup
-          wantGroup={wantGroup}
-          className="w-[18px] h-[18px] rounded-full bg-primary text-white flex items-center justify-center text-[10px]"
-        />
-      }
-    />
+    <>
+      <WantMiniCard
+        size="anchor"
+        title={`${name}${type === "tag" ? ` (${tagCounter(wantGroup)})` : ""}`}
+        elements={elementsThumbnails}
+        kind={kind}
+        badgeType={type}
+        badgeSubtype={badgeSubtype}
+        isCombo={isCombo}
+        value={value}
+        // An empty tag isn't an error (nothing wanted yet): the notice below
+        // explains it and offers to want its games.
+        empty={!wants?.length && type !== "tag"}
+        changed={wantChanges.has(wantGroup.id)}
+        tagStyle={tagStyle}
+        preview={
+          <PreviewerWantGroup
+            wantGroup={wantGroup}
+            className="w-[18px] h-[18px] rounded-full bg-primary text-white flex items-center justify-center text-[10px]"
+          />
+        }
+      />
+      {type === "tag" ? <TagPendingWants wantGroup={wantGroup} /> : null}
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
 "use client";
 import clsx from "clsx";
+import { createPortal } from "react-dom";
 import Icon from "../icon";
 
 const Modal = ({
@@ -10,7 +11,9 @@ const Modal = ({
   size = "lg",
   canNotClose = false,
 }) => {
-  return isOpen ? (
+  if (!isOpen) return null;
+
+  const modal = (
     <>
       {/* Below lg the page scrolls in the [data-bug-report-capture] column
           (app/mathtrade/layout.tsx), not the body, so lock that too. */}
@@ -46,6 +49,13 @@ const Modal = ({
         </div>
       </dialog>
     </>
-  ) : null;
+  );
+
+  // Rendered in <body>: inline, a parent that creates a stacking context
+  // (sticky/relative + z-index) trapped the modal and its blur under other
+  // cards. Same React tree, so context and events still work.
+  return typeof document === "undefined"
+    ? modal
+    : createPortal(modal, document.body);
 };
 export default Modal;

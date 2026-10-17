@@ -15,6 +15,7 @@ const ItemList = ({ wantGroup = {}, myItemList = [] }) => {
     toggleAddOpen,
     addPadRef,
     canIwant,
+    emptyGroup,
   } = useItemList(wantGroup, myItemList);
 
   const isEmpty = !itemsAdded.length;
@@ -24,7 +25,12 @@ const ItemList = ({ wantGroup = {}, myItemList = [] }) => {
     <>
       <div className={clsx("flex flex-wrap gap-3", isEmpty && "flex-1 items-stretch min-w-0")}>
         {itemsAdded.map((item) => (
-          <ItemToOffer key={item.id} item={item} wantGroupId={wantGroupId} />
+          <ItemToOffer
+            key={item.id}
+            item={item}
+            wantGroupId={wantGroupId}
+            disabled={!canIwant}
+          />
         ))}
 
         {canAdd ? (
@@ -37,7 +43,9 @@ const ItemList = ({ wantGroup = {}, myItemList = [] }) => {
           />
         ) : isEmpty ? (
           <p className="italic text-gray-500 text-sm max-w-[11rem]">
-            <I18N id="notOfferedVisual" />
+            <I18N
+              id={emptyGroup ? "tagPending.offerDisabled" : "notOfferedVisual"}
+            />
           </p>
         ) : null}
       </div>

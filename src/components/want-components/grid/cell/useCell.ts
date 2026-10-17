@@ -1,10 +1,12 @@
 import { useMemo, useContext, useCallback } from "react";
 import { PageContext } from "@/context/page";
 import { MyWantsContext } from "@/context/myWants/all";
-import { getRightValue } from "../../utils";
+import { getI18Ntext } from "@/i18n";
+import { getRightValue, isEmptyWantGroup } from "../../utils";
 
-const useCell = (wantGroup, myItem) => {
-  const { color } = myItem;
+const useCell = (wantGroup = null, myItem = null) => {
+  const { color } = myItem || {};
+  const emptyGroup = isEmptyWantGroup(wantGroup);
 
   /* PAGE CONTEXT **********************************************/
   const { canI } = useContext(PageContext);
@@ -46,10 +48,17 @@ const useCell = (wantGroup, myItem) => {
   }, [wantGroup, myItem, matchValues, changes]);
 
   const title = useMemo(() => {
-    return `${wantGroup?.name || ""}\n↓↑\n${myItem?.title || ""}`;
-  }, [wantGroup, myItem]);
+    const base = `${wantGroup?.name || ""}\n↓↑\n${myItem?.title || ""}`;
+    return emptyGroup
+      ? `${base}\n\n${getI18Ntext("tagPending.cellDisabled")}`
+      : base;
+  }, [wantGroup, myItem, emptyGroup]);
+
+  // `canIwant` is false (cell disabled) while the group has no wants.
+  const canIwant = canI.want && !emptyGroup;
 
   const onClick = useCallback(() => {
+    if (emptyGroup) return;
     let itemsToChange = [];
     let valueToChange = !value;
     if (myItem?.isGroup) {
@@ -71,10 +80,19 @@ const useCell = (wantGroup, myItem) => {
     myItem,
     value,
     isIndeterminate,
+    emptyGroup,
     setChanges /*, setMatchValues*/,
   ]);
 
-  return { value, isIndeterminate, onClick, color, canIwant: canI.want, title };
+  return {
+    value,
+    isIndeterminate,
+    onClick,
+    color,
+    canIwant,
+    emptyGroup,
+    title,
+  };
 };
 
 export default useCell;

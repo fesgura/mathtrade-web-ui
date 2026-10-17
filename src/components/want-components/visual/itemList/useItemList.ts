@@ -9,12 +9,18 @@ import {
 import { PageContext } from "@/context/page";
 import { MyWantsContext } from "@/context/myWants/all";
 import { WantVisualSectionContext } from "@/context/wantVisualSection";
-import { getRightValue } from "@/components/want-components/utils";
+import {
+  getRightValue,
+  isEmptyWantGroup,
+} from "@/components/want-components/utils";
 
 const useItemList = (wantGroup = null, myItemList = []) => {
   const { canI } = useContext(PageContext);
   const { matchValues, changes } = useContext(MyWantsContext);
   const { setForceShow } = useContext(WantVisualSectionContext);
+  // An empty group (no wants) can't be saved with offered items.
+  const emptyGroup = isEmptyWantGroup(wantGroup);
+  const canIwant = canI.want && !emptyGroup;
 
   const [addOpen, setAddOpen] = useState(false);
 
@@ -57,7 +63,7 @@ const useItemList = (wantGroup = null, myItemList = []) => {
       );
       if (value) {
         itemsAdded.push(item);
-      } else if (canI.want) {
+      } else if (canIwant) {
         itemsToAdd.push(item);
       }
     });
@@ -67,7 +73,7 @@ const useItemList = (wantGroup = null, myItemList = []) => {
     }
 
     return { itemsAdded, itemsToAdd };
-  }, [wantGroup, matchValues, changes, myItemList, canI]);
+  }, [wantGroup, matchValues, changes, myItemList, canIwant]);
 
   return {
     wantGroupId: wantGroup?.id,
@@ -76,7 +82,9 @@ const useItemList = (wantGroup = null, myItemList = []) => {
     addOpen,
     toggleAddOpen,
     addPadRef,
-    canIwant: canI.want,
+    canIwant,
+    // Only worth explaining while wants can be edited at all.
+    emptyGroup: canI.want && emptyGroup,
   };
 };
 
