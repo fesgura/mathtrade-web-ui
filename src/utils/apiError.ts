@@ -29,6 +29,9 @@ const DETAIL_RULES: DetailRule[] = [
   // DRF get_object_or_404 on any model (MathElement, MathItem, Element…).
   { test: (d) => /^No \w+ matches the given query\.$/.test(d), key: "error.mathElement.notFound" },
   { test: (d) => d === "You do not have permission to perform this action.", key: "error.mathtrade.geekListClosed" },
+  // Box delete (BE logistics/views/referrers.py ItemBoxViewSet.destroy).
+  { test: (d) => d === "Cannot delete a closed box.", key: "error.box.closedDelete" },
+  { test: (d) => d === "Cannot delete a box that has items.", key: "error.box.hasItems" },
   // Offered-copy removal (BE items/permissions.py, math_item/withdrawal.py).
   // Prefix match, so a wording tweak in the BE still lands on the key.
   { test: (d) => d.startsWith("Ya cerró la etapa de ofertas: este juego está ofrecido"), key: "error.element.offeredLocked.wants" },

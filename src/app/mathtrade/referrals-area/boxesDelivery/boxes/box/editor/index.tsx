@@ -35,17 +35,19 @@ const BoxEditor = ({ box }) => {
 
   return (
     <Form validations={validations} onSubmit={onSubmit}>
-      <div className="flex flex-col gap-5">
-        <div className="flex items-start gap-5">
-          <div className="w-24">
-            <Label text="boxesDelivery.number" name="number" />
-            <div className="bg-white/20 border border-gray-400/70 text-xl font-bold py-1 rounded-md text-center px-3">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-wrap items-start gap-x-6 gap-y-3">
+          <div>
+            <span className="block text-caption text-gray-600 mb-1">
+              <I18N id="boxesDelivery.number" />
+            </span>
+            <strong className="block text-heading text-gray-900">
               {number}
-              <input type="hidden" name="number" value={number} />
-            </div>
+            </strong>
+            <input type="hidden" name="number" value={number} />
           </div>
           <InputContainer validate="destiny">
-            <Label text="boxesDelivery.city" name="destiny" required />
+            <Label text="boxesDelivery.city" name="destiny" size="sm" required />
             <Select
               data={{ destiny: locationId }}
               name="destiny"
@@ -64,6 +66,7 @@ const BoxEditor = ({ box }) => {
             text="boxesDelivery.items"
             name="math_items"
             values={[itemCount]}
+            size="sm"
             required
           />
 
@@ -79,7 +82,7 @@ const BoxEditor = ({ box }) => {
               customRenderTag={(item, deleteBtn) => {
                 return (
                   <div
-                    className="flex items-center justify-between gap-2 w-full bg-sky-100 border border-sky-400 font-bold rounded px-2  py-1 text-sm"
+                    className="flex items-center justify-between gap-2 w-full bg-gray-50 border border-gray-200 rounded-md px-2.5 py-1.5 text-body text-gray-900"
                     key={item.value}
                   >
                     <div className="">{item.text}</div>
@@ -96,14 +99,14 @@ const BoxEditor = ({ box }) => {
               }}
             />
           ) : (
-            <div className="bg-white rounded-md border border-gray-400 p-2"></div>
+            <div className="bg-white rounded-md border border-gray-200 p-2"></div>
           )}
         </InputContainer>
         <InputContainer>
           <div className="flex items-center gap-2">
-            <Label text="boxesDelivery.comment" name="comment" />
+            <Label text="boxesDelivery.comment" name="comment" size="sm" />
             <span
-              className={clsx("text-xs", {
+              className={clsx("text-caption", {
                 "text-gray-500":
                   maxCharacters - comment.length > charactersDanger,
                 "text-danger font-bold":
@@ -126,41 +129,20 @@ const BoxEditor = ({ box }) => {
           />
         </InputContainer>
         <ErrorAlert error={error} />
-        <div
-          className={clsx("flex items-end gap-4", {
-            "justify-center": !id,
-            "justify-between": id,
-          })}
-        >
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              className="text-gray-500 border border-gray-400  font-bold text-lg px-8 py-2 rounded-full  hover:text-white hover:bg-gray-500 transition-colors"
-              onClick={onCancel}
-            >
-              <I18N id="btn.Cancel" />
-            </button>
-            <button
-              type="submit"
-              className={clsx(
-                "text-white  font-bold text-lg px-8 py-2 rounded-full  hover:text-white transition-colors",
-                {
-                  "bg-primary hover:bg-sky-700": id,
-                  "bg-green-600 hover:bg-green-800": !id,
-                }
-              )}
-              //  onClick={onClickBtn}
-            >
-              <I18N id={`boxesDelivery.btn.${id ? "update" : "create"}`} />
-            </button>
-          </div>
-
-          {/* {id ? (
-            <button className="text-sm flex items-center gap-1 text-red-600">
-              <Icon type="trash" />
-              <I18N id="boxesDelivery.btn.delete" />
-            </button>
-          ) : null} */}
+        <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+          <button
+            type="button"
+            className="w-full sm:w-auto min-h-10 px-6 text-body font-bold text-gray-600 border border-gray-300 rounded-full hover:bg-gray-100 transition-colors"
+            onClick={onCancel}
+          >
+            <I18N id="btn.Cancel" />
+          </button>
+          <button
+            type="submit"
+            className="w-full sm:w-auto min-h-10 px-6 text-body font-bold text-white bg-primary rounded-full hover:opacity-90 transition-opacity"
+          >
+            <I18N id={`boxesDelivery.btn.${id ? "update" : "create"}`} />
+          </button>
         </div>
       </div>
       <LoadingBox loading={loading} transparent />
