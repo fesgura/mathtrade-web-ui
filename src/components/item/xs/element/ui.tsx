@@ -1,4 +1,5 @@
 import Thumbnail from "@/components/thumbnail";
+import LinkExternal from "@/components/link-external";
 import StatusBadge from "@/components/status-badge";
 import LanguagePills from "@/components/chip/languagePills";
 import { ElementContext } from "@/context/element";
@@ -14,7 +15,8 @@ import DescriptionNote from "./descriptionNote";
 const ElementXSUI = ({ isCombo = false }: { isCombo?: boolean }) => {
   const { element } = useContext(ElementContext);
 
-  const { title, language, languageRaw, extraData } = element;
+  const { title, language, languageRaw, extraData, versionNickname, publisherLink } =
+    element;
 
   const {
     box_status,
@@ -39,15 +41,32 @@ const ElementXSUI = ({ isCombo = false }: { isCombo?: boolean }) => {
           elements={[element]}
           className="w-8 h-8 rounded shrink-0"
         />
-        <div data-tooltip={title}>
+        <div className="min-w-0 flex flex-wrap items-baseline gap-x-1.5">
           <h5
-            className={clsx("font-semibold text-body cropped_1", {
-              "max-w-[220px]": !isCombo,
-              "text-[9px] leading-none max-w-40": isCombo,
+            className={clsx("font-semibold text-body break-words", {
+              "text-[9px] leading-none": isCombo,
             })}
+            data-tooltip={title}
           >
             {title}
           </h5>
+          {versionNickname ? (
+            <span
+              className={clsx("font-normal text-gray-700", {
+                "text-[9px] leading-none": isCombo,
+                "text-caption": !isCombo,
+              })}
+            >
+              {"· "}
+              <LinkExternal
+                href={publisherLink}
+                tooltip="element.BGG.OpenEditionInBGG"
+                className="underline"
+              >
+                {versionNickname}
+              </LinkExternal>
+            </span>
+          ) : null}
         </div>
       </div>
       <div className="flex flex-wrap gap-1 items-center pl-10 min-w-0 max-w-full">

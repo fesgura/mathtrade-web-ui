@@ -1,5 +1,4 @@
 import Thumbnail from "@/components/thumbnail";
-import LinkExternal from "@/components/link-external";
 import I18N, { getI18Ntext } from "@/i18n";
 import StatusChip from "@/components/status-badge/statusChip";
 import Chip from "@/components/chip";
@@ -14,7 +13,7 @@ import BGGratings from "@/components/bggInfo/ratings";
 import BGGlink from "@/components/bggInfo/bggLink";
 import BGGPlayers from "@/components/bggInfo/players";
 import TaxonomyDisclosure from "@/components/bggInfo/taxonomyDisclosure";
-import { NO_RANK_VALUE } from "@/config/no-bgggame";
+import EditionMeta from "@/components/element/editionMeta";
 import { boxSizesValues, boxSizeIdToReview } from "@/config/boxSizes";
 import clsx from "clsx";
 
@@ -28,6 +27,7 @@ const ElementCompleteUI = () => {
     titleLink,
     publisher,
     publisherLink,
+    versionNickname,
     language,
     languageRaw,
     notGame,
@@ -41,6 +41,7 @@ const ElementCompleteUI = () => {
     titleLink?: string | null;
     publisher?: string | null;
     publisherLink?: string | null;
+    versionNickname?: string | null;
     language?: string;
     languageRaw?: string;
     notGame?: boolean;
@@ -185,15 +186,14 @@ const ElementCompleteUI = () => {
               publisherLink ? getI18Ntext("element.BGG.OpenEditionInBGG") : undefined
             }
           >
-            <div className="truncate">
-              {showBGGstats ? (
-                <>
-                  <I18N id="element.BGG.rank" />{" "}
-                  {rank === NO_RANK_VALUE || rank == null ? "-" : rank}
-                  {" · "}
-                </>
-              ) : null}
-              <LinkExternal href={publisherLink}>{publisher}</LinkExternal>
+            <div className="break-words">
+              <EditionMeta
+                showRank={!!showBGGstats}
+                rank={rank}
+                publisher={publisher}
+                publisherLink={publisherLink}
+                versionNickname={versionNickname}
+              />
             </div>
           </div>
         </div>
