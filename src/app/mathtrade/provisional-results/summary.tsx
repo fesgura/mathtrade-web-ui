@@ -86,8 +86,9 @@ const ResultTile = ({ item }: { item: ProvisionalItem }) => (
 // One card per offered game, with a tile for each thing it could be traded
 // for. The backend already sends them sorted by title and without any count:
 // the order says nothing about likelihood and the runs can't be told apart.
-// Each card is as tall as its own tiles: a game with five possible results
-// must not stretch the cards next to it, which have one or none.
+// Cards in the same row share its height (the row is as tall as its tallest
+// card), but each row sizes to its own content: with auto-rows-fr every row
+// took the height of the tallest card of the whole grid.
 const SummaryCard = ({
   row,
   tourAnchor,
@@ -101,7 +102,7 @@ const SummaryCard = ({
     <article
       data-tour={tourAnchor}
       className={clsx(
-        "flex flex-col bg-white rounded-xl shadow-lg overflow-hidden",
+        "h-full flex flex-col bg-white rounded-xl shadow-lg overflow-hidden",
         cardKindBorderClass(resolveItemKind(item))
       )}
     >
@@ -126,7 +127,7 @@ const SummaryCard = ({
           </h3>
         </div>
       </div>
-      <div className="p-4">
+      <div className="flex-1 p-4">
         <p className="text-sm font-semibold text-gray-700 mb-2">
           <I18N
             id={
@@ -156,7 +157,7 @@ const ProvisionalSummary = ({ rows = [] }: { rows?: ProvisionalSummaryRow[] }) =
       <h2 className="text-base font-bold mb-3">
         <I18N id="provisional.summary.title" />
       </h2>
-      <div className="grid items-start gap-6 [grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr))]">
+      <div className="grid gap-6 [grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr))]">
         {rows.map((row, index) => (
           <SummaryCard
             key={row.item.id}
