@@ -11,19 +11,29 @@ import Wrapper from "@/components/wrapper";
 import { LoadingBox } from "@/components/loading";
 
 const Grid = lazy(() => import("./grid"));
+const Swipe = lazy(() => import("./swipe"));
+
+const SCREENS = ["visual", "swipe", "grid"] as const;
 
 export default function MyWantsUI() {
-  const { screenView, setScreenView, loading, error } = useWants();
+  const { screen, setScreen, loading, error } = useWants();
 
   return (
     <>
       <div className="relative">
         <Wrapper className="mb-1">
-            <div className="bg-white rounded-t-main shadow-main" data-tour="mywants.tabs">
+          <div className="bg-white rounded-t-main shadow-main" data-tour="mywants.tabs">
             <Tabs
-              list={["want.screen.visual", "want.screen.grid"]}
-              value={screenView}
-              onChange={setScreenView}
+              list={[
+                "want.screen.visual",
+                "want.screen.swipe",
+                "want.screen.grid",
+              ]}
+              value={SCREENS.indexOf(screen)}
+              onChange={(index) => {
+                const next = SCREENS[index];
+                if (next) setScreen(next);
+              }}
             />
           </div>
         </Wrapper>
@@ -33,8 +43,12 @@ export default function MyWantsUI() {
           </Wrapper>
         ) : null}
         <GotoTopContextProvider>
-          {screenView === 0 ? (
+          {screen === "visual" ? (
             <Visual />
+          ) : screen === "swipe" ? (
+            <Dynamic h={800}>
+              <Swipe onOpenVisual={() => setScreen("visual")} />
+            </Dynamic>
           ) : (
             <Dynamic h={800}>
               <Grid />

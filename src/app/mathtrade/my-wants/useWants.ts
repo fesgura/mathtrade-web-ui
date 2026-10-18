@@ -50,15 +50,27 @@ export const groupWantChanges = (
   return map;
 };
 
+export type WantsScreen = "visual" | "swipe" | "grid";
+
+const isWantsScreen = (value: unknown): value is WantsScreen =>
+  value === "visual" || value === "swipe" || value === "grid";
+
+// A name, not the tab index: inserting Swipe between Visual and Grilla must
+// keep someone who had the grid open on the grid.
+const initialScreen = (options: { wantsScreen?: unknown; screenView?: number }): WantsScreen => {
+  if (isWantsScreen(options?.wantsScreen)) return options.wantsScreen;
+  return options?.screenView === 1 ? "grid" : "visual";
+};
+
 const useWants = () => {
   const options = useOptions((state) => state.options);
   const updateOptions = useOptions((state) => state.updateOptions);
-  const [screenView, setScreenView] = useState(options?.screenView || 0);
+  const [screen, setScreen] = useState<WantsScreen>(() => initialScreen(options));
   useEffect(() => {
     updateOptions({
-      screenView,
+      wantsScreen: screen,
     });
-  }, [updateOptions, screenView]);
+  }, [updateOptions, screen]);
 
   const {
     myWants,
@@ -151,10 +163,10 @@ const useWants = () => {
     afterLoad: afterLoadMyGroups,
   });
   useEffect(() => {
-    if (screenView === 1) {
+    if (screen === "grid") {
       loadMyGropus();
     }
-  }, [loadMyGropus, screenView]);
+  }, [loadMyGropus, screen]);
 
   // The commit state (mustConfirm) comes from the membership: refresh it on
   // entering, in case of a commit or a want edit on another device.
@@ -177,8 +189,8 @@ const useWants = () => {
   }, []);
 
   return {
-    screenView,
-    setScreenView,
+    screen,
+    setScreen,
     loading: loadingMyWants || loadingMyItemsInMT || loadingMyGropus,
     error: errorMyWants || errorMyItemsInMT || errorGropusMyGropus,
   };
