@@ -8,7 +8,11 @@ import { LoadingBox } from "@/components/loading";
 import I18N from "@/i18n";
 import useFetch from "@/hooks/useFetch";
 import { whatsappLink } from "@/utils/whatsapp";
-import type { AdminUserRow } from "@/app/mathtrade/admin/users/useAdminUsers";
+import {
+  notifyAdminUsersChanged,
+  type AdminUserRow,
+} from "@/app/mathtrade/admin/users/useAdminUsers";
+import { useStore } from "@/store";
 import { readyCopies } from "@/app/mathtrade/admin/users/useSortedRows";
 import Copies from "@/app/mathtrade/admin/users/copies";
 import AdminUserItems from "./items";
@@ -32,10 +36,28 @@ const Row = ({ label = "", children = null }: { label?: string; children?: React
   </div>
 );
 
-const Detail = ({ user, initialSection }: { user: AdminUserRow; initialSection?: "items" }) => {
+const Detail = ({
+  user,
+  initialSection,
+  onReinstated,
+}: {
+  user: AdminUserRow;
+  initialSection?: "items";
+  onReinstated: () => void;
+}) => {
   const [showItems, setShowItems] = useState(initialSection === "items");
+  const mathtradeId = useStore((state) => state.data?.mathtrade?.id);
+  const [reinstate, , reinstating, reinstateError] = useFetch({
+    endpoint: "POST_ADMIN_USER_REINSTATE",
+    method: "POST",
+  });
   const wa = whatsappLink(user.whatsapp);
   const name = `${user.first_name || ""} ${user.last_name || ""}`.trim();
+
+  const onReinstate = async () => {
+    const updated = await reinstate({ urlParams: [mathtradeId, user.user_id] });
+    if (updated) onReinstated();
+  };
 
   return (
     <div>
@@ -121,6 +143,19 @@ const Detail = ({ user, initialSection }: { user: AdminUserRow; initialSection?:
       <Row label="adminUsers.flag.selfExcluded">
         <I18N id={user.self_excluded ? "Yes" : "No"} />
       </Row>
+      {user.unpaid_removed_at ? (
+        <Row label="adminUsers.unpaidRemoved">
+          <button
+            type="button"
+            className="rounded bg-primary text-white text-xs font-semibold px-2 py-0.5 disabled:opacity-50"
+            disabled={reinstating}
+            onClick={onReinstate}
+          >
+            <I18N id="adminUsers.reinstate" />
+          </button>
+          {reinstateError ? <ErrorAlert error={reinstateError} /> : null}
+        </Row>
+      ) : null}
       <Row label="adminUserModal.commitment">
         <I18N id={user.commitment ? "Yes" : "No"} />
       </Row>
@@ -168,8 +203,11 @@ const AdminUserModal = ({
     autoLoad: true,
   });
 
+  const [reinstated, setReinstated] = useState(false);
   const notMember = (error as { status?: number } | null)?.status === 404;
-  const user = data as AdminUserRow | null;
+  const fetched = data as AdminUserRow | null;
+  // Clear the mark on the open user so the button goes away without a reload.
+  const user = fetched && reinstated ? { ...fetched, unpaid_removed_at: null } : fetched;
 
   return (
     <Modal isOpen size="md" onClose={onClose}>
@@ -182,7 +220,14 @@ const AdminUserModal = ({
         ) : error ? (
           <ErrorAlert error={error} />
         ) : user && !loading ? (
-          <Detail user={user} initialSection={initialSection} />
+          <Detail
+            user={user}
+            initialSection={initialSection}
+            onReinstated={() => {
+              setReinstated(true);
+              notifyAdminUsersChanged();
+            }}
+          />
         ) : null}
       </div>
     </Modal>

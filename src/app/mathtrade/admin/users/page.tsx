@@ -1,6 +1,8 @@
 "use client";
 import Link from "next/link";
 import clsx from "clsx";
+import useFetch from "@/hooks/useFetch";
+import { useStore } from "@/store";
 import PageHeader from "@/components/pageHeader";
 import SectionCommon from "@/components/sections/common";
 import ErrorAlert from "@/components/errorAlert";
@@ -58,6 +60,7 @@ const toExport = (list: AdminUserRow[]) =>
     "Ejemplares cargados": row.copies,
     Aporte: getI18Ntext(`adminUsers.status.${row.contribution_status}`),
     Autoexcluido: row.self_excluded ? "Sí" : "No",
+    "Baja por aporte": row.unpaid_removed_at ? "Sí" : "No",
     Confirmó: row.commitment ? "Sí" : "No",
     Roles: row.roles.map((role) => getI18Ntext(`adminUsers.role.${role}`)).join(", "),
   }));
@@ -84,8 +87,19 @@ const AdminUsersPage = () => {
     onlyNew,
     setOnlyNew,
     newCount,
+    reload,
   } = useAdminUsers();
   const { openAdminUser, isNewUser } = useAdminUser();
+  const mathtradeId = useStore((state) => state.data?.mathtrade?.id);
+  const [reinstate, , reinstating, reinstateError] = useFetch({
+    endpoint: "POST_ADMIN_USER_REINSTATE",
+    method: "POST",
+  });
+
+  const onReinstate = async (userId: number) => {
+    const updated = await reinstate({ urlParams: [mathtradeId, userId] });
+    if (updated) reload();
+  };
 
   const quickButton = (active: boolean) =>
     clsx(
@@ -191,7 +205,7 @@ const AdminUsersPage = () => {
             </label>
           </div>
 
-          <ErrorAlert error={error} />
+          <ErrorAlert error={reinstateError || error} />
 
           <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
             <div className="font-semibold">
@@ -312,6 +326,16 @@ const AdminUsersPage = () => {
                             <span className="rounded bg-red-100 text-red-800 px-1.5 py-0.5">
                               <I18N id="adminUsers.flag.selfExcluded" />
                             </span>
+                          ) : null}
+                          {row.unpaid_removed_at ? (
+                            <button
+                              type="button"
+                              className="rounded bg-primary text-white px-1.5 py-0.5 disabled:opacity-50"
+                              disabled={reinstating}
+                              onClick={() => onReinstate(row.user_id)}
+                            >
+                              <I18N id="adminUsers.reinstate" />
+                            </button>
                           ) : null}
                           {row.commitment ? (
                             <span className="rounded bg-green-100 text-green-800 px-1.5 py-0.5">

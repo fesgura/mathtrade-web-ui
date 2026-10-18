@@ -1273,6 +1273,8 @@
   "adminUsers.col.flags": "Marcas",
   "adminUsers.flag.selfExcluded": "Autoexcluido",
   "adminUsers.flag.committed": "Confirmó",
+  "adminUsers.reinstate": "Reincorporar",
+  "adminUsers.unpaidRemoved": "Baja por aporte",
   "adminUsers.role.admin": "Admin",
   "adminUsers.role.volunteer": "Voluntario",
   "adminUsers.role.referrer": "Referente",

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store";
 import useSortedRows from "./useSortedRows";
@@ -23,6 +23,7 @@ export type AdminUserRow = {
   ready_copies?: number;
   contribution_status: "missing" | "pending" | "approved" | "rejected";
   self_excluded: boolean;
+  unpaid_removed_at: string | null;
   commitment: boolean;
   // No items in any other edition. Optional like ready_copies.
   is_new?: boolean;
@@ -39,6 +40,21 @@ type LocationRef = { id: number; name: string };
 
 const SEARCH_DEBOUNCE_MS = 350;
 const EMPTY: AdminUserRow[] = [];
+
+// The user modal does not own this list. It calls notify after Reincorporar
+// so the open page refetches.
+const adminUserListeners = new Set<() => void>();
+
+export const notifyAdminUsersChanged = () => {
+  adminUserListeners.forEach((listener) => listener());
+};
+
+const subscribeAdminUsersChanged = (listener: () => void) => {
+  adminUserListeners.add(listener);
+  return () => {
+    adminUserListeners.delete(listener);
+  };
+};
 
 /* Admin users list (BE admin-users/, IsAdminAuthenticated). The filters are
  * server-side; the search is debounced so typing doesn't fire a request per
@@ -69,12 +85,18 @@ const useAdminUsers = () => {
     return p;
   }, [q, contact, status, location]);
 
-  const [, rows, loading, error] = useFetch({
+  const [loadRows, rows, loading, error] = useFetch({
     endpoint: "ADMIN_GET_USERS",
     params,
     initialState: [],
     autoLoad: true,
   });
+  const reload = useCallback(() => {
+    loadRows({ params });
+  }, [loadRows, params]);
+
+  useEffect(() => subscribeAdminUsersChanged(reload), [reload]);
+
   const all = Array.isArray(rows) ? (rows as AdminUserRow[]) : EMPTY;
   const newCount = useMemo(() => all.filter((row) => row.is_new).length, [all]);
   const filtered = useMemo(
@@ -116,6 +138,7 @@ const useAdminUsers = () => {
     onlyNew,
     setOnlyNew,
     newCount,
+    reload,
   };
 };
 
