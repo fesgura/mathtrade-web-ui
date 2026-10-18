@@ -23,6 +23,11 @@ const nextConfig = {
       "https://b4ac0541c4621809c28e81452d8477a3@o4512179076071424.ingest.us.sentry.io/4512179093766144",
   },
   reactStrictMode: false,
+  // @import still works; Dart Sass only warns it will go away in 3.0.
+  // Silence it so dev reloads are not a wall of the same warning.
+  sassOptions: {
+    silenceDeprecations: ["import"],
+  },
 };
 
 // No source map upload for now: it needs a Sentry auth token in the build.

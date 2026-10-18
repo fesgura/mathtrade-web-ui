@@ -1274,6 +1274,8 @@
   "adminUsers.flag.selfExcluded": "Autoexcluido",
   "adminUsers.flag.committed": "Confirmó",
   "adminUsers.reinstate": "Reincorporar",
+  "adminUsers.reinstateConfirm": "¿Reincorporar a $$$?",
+  "adminUsers.reinstateConfirmText": "Sus juegos vuelven al catálogo. Siguen fuera del algoritmo hasta que el aporte esté aprobado.",
   "adminUsers.unpaidRemoved": "Baja por aporte",
   "adminUsers.role.admin": "Admin",
   "adminUsers.role.volunteer": "Voluntario",

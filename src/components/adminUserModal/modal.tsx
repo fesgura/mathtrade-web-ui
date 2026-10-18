@@ -2,6 +2,8 @@
 import { useMemo, useState, type ReactNode } from "react";
 import clsx from "clsx";
 import Modal from "@/components/modal";
+import Button from "@/components/button";
+import ConfirmModal from "@/components/confirmModal";
 import Avatar from "@/components/avatar";
 import ErrorAlert from "@/components/errorAlert";
 import { LoadingBox } from "@/components/loading";
@@ -27,6 +29,10 @@ const STATUS_COLORS: Record<AdminUserRow["contribution_status"], string> = {
 
 const linkClass = "text-primary underline break-all";
 
+// I18N renders text containing "<" as HTML: keep member names as text.
+const escapeHtml = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
 const Row = ({ label = "", children = null }: { label?: string; children?: ReactNode }) => (
   <div className="flex gap-3 py-1.5 border-b border-gray-100 text-sm">
     <div className="w-32 shrink-0 text-gray-500">
@@ -51,6 +57,7 @@ const Detail = ({
     endpoint: "POST_ADMIN_USER_REINSTATE",
     method: "POST",
   });
+  const [confirming, setConfirming] = useState(false);
   const wa = whatsappLink(user.whatsapp);
   const name = `${user.first_name || ""} ${user.last_name || ""}`.trim();
 
@@ -145,15 +152,23 @@ const Detail = ({
       </Row>
       {user.unpaid_removed_at ? (
         <Row label="adminUsers.unpaidRemoved">
-          <button
-            type="button"
-            className="rounded bg-primary text-white text-xs font-semibold px-2 py-0.5 disabled:opacity-50"
-            disabled={reinstating}
-            onClick={onReinstate}
-          >
+          <Button sm type="button" disabled={reinstating} onClick={() => setConfirming(true)}>
             <I18N id="adminUsers.reinstate" />
-          </button>
+          </Button>
           {reinstateError ? <ErrorAlert error={reinstateError} /> : null}
+          <ConfirmModal
+            isOpen={confirming}
+            onCancel={() => setConfirming(false)}
+            onConfirm={() => {
+              setConfirming(false);
+              onReinstate();
+            }}
+            title="adminUsers.reinstateConfirm"
+            titleValues={[escapeHtml(name)]}
+            description="adminUsers.reinstateConfirmText"
+            confirmId="adminUsers.reinstate"
+            variant="primary"
+          />
         </Row>
       ) : null}
       <Row label="adminUserModal.commitment">

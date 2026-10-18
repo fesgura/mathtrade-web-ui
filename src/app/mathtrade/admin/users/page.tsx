@@ -1,5 +1,7 @@
 "use client";
+import { useState } from "react";
 import Button from "@/components/button";
+import ConfirmModal from "@/components/confirmModal";
 import clsx from "clsx";
 import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store";
@@ -19,6 +21,13 @@ import { AdminUserName, useAdminUser } from "@/components/adminUserModal";
 
 const selectClass =
   "border border-stroke rounded-md p-2 text-sm bg-white w-full sm:w-auto max-w-full min-w-0";
+
+// I18N renders text containing "<" as HTML: keep member names as text.
+const escapeHtml = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+const fullName = (row: { first_name: string; last_name: string }) =>
+  `${row.first_name} ${row.last_name}`.trim();
 
 const STATUS_COLORS: Record<AdminUserRow["contribution_status"], string> = {
   missing: "bg-gray-100 text-gray-700",
@@ -95,9 +104,11 @@ const AdminUsersPage = () => {
     endpoint: "POST_ADMIN_USER_REINSTATE",
     method: "POST",
   });
+  const [confirming, setConfirming] = useState<AdminUserRow | null>(null);
 
   const onReinstate = async (userId: number) => {
     const updated = await reinstate({ urlParams: [mathtradeId, userId] });
+    setConfirming(null);
     if (updated) reload();
   };
 
@@ -328,14 +339,14 @@ const AdminUsersPage = () => {
                             </span>
                           ) : null}
                           {row.unpaid_removed_at ? (
-                            <button
+                            <Button
+                              sm
                               type="button"
-                              className="rounded bg-primary text-white px-1.5 py-0.5 disabled:opacity-50"
                               disabled={reinstating}
-                              onClick={() => onReinstate(row.user_id)}
+                              onClick={() => setConfirming(row)}
                             >
                               <I18N id="adminUsers.reinstate" />
-                            </button>
+                            </Button>
                           ) : null}
                           {row.commitment ? (
                             <span className="rounded bg-green-100 text-green-800 px-1.5 py-0.5">
@@ -352,6 +363,16 @@ const AdminUsersPage = () => {
           ) : null}
         </div>
       </SectionCommon>
+      <ConfirmModal
+        isOpen={!!confirming}
+        onCancel={() => setConfirming(null)}
+        onConfirm={() => confirming && onReinstate(confirming.user_id)}
+        title="adminUsers.reinstateConfirm"
+        titleValues={[escapeHtml(confirming ? fullName(confirming) : "")]}
+        description="adminUsers.reinstateConfirmText"
+        confirmId="adminUsers.reinstate"
+        variant="primary"
+      />
     </>
   );
 };
