@@ -197,7 +197,7 @@ const SwipeDeck = ({
       <div className="mt-4 flex items-center justify-center gap-4">
         <button
           type="button"
-          className="h-14 w-14 rounded-full border-2 border-danger text-danger text-xl flex flex-col items-center justify-center disabled:opacity-40"
+          className="h-14 w-14 rounded-full bg-rose-500 text-white text-xl flex flex-col items-center justify-center hover:bg-rose-600 disabled:opacity-40"
           aria-label={getI18Ntext("swipe.no")}
           disabled={disabled || busy}
           onClick={() => commit(false)}
@@ -206,7 +206,7 @@ const SwipeDeck = ({
         </button>
         <button
           type="button"
-          className="h-10 px-3 rounded-full text-caption font-bold text-gray-500 hover:bg-gray-100 disabled:opacity-40"
+          className="h-14 px-4 rounded-full border border-gray-300 bg-white text-gray-700 font-bold hover:bg-gray-50 disabled:opacity-40"
           disabled={disabled || busy || !canUndo}
           onClick={onUndo}
         >

@@ -16,6 +16,31 @@ import SwipeFace from "./face";
 import SwipeDeck from "./deck";
 import type { Direction } from "./model";
 
+const MissingToggle = ({
+  pressed,
+  onClick,
+  tall = false,
+}: {
+  pressed: boolean;
+  onClick: () => void;
+  tall?: boolean;
+}) => (
+  <button
+    type="button"
+    aria-pressed={pressed}
+    className={clsx(
+      "shrink-0 whitespace-nowrap px-3 rounded-full border text-caption font-bold transition-colors",
+      tall ? "h-10" : "h-8",
+      pressed
+        ? "bg-primary text-white border-primary"
+        : "bg-white border-gray-200 text-gray-500 hover:text-gray-800"
+    )}
+    onClick={onClick}
+  >
+    <I18N id="swipe.filter.missing" />
+  </button>
+);
+
 const DirectionButton = ({
   active,
   label,
@@ -43,7 +68,7 @@ const DeckSave = () => {
   const { changesCount, enabledBtn, onClick } = useFooter();
   if (changesCount < 1) return null;
   return (
-    <div className="lg:hidden flex flex-wrap items-center justify-center gap-3 pt-2">
+    <div className="lg:hidden mt-6 -mx-4 border-t border-gray-300 px-4 pt-4 flex flex-wrap items-center justify-center gap-3">
       <span className="text-center text-amber-700 text-caption font-semibold">
         <I18N
           id={
@@ -123,7 +148,7 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
         className={clsx(
           "px-3 sm:px-8 pt-4",
           pending
-            ? "pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))] lg:pb-24"
+            ? "pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))] lg:pb-32"
             : "pb-6"
         )}
       >
@@ -154,19 +179,10 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
               onClick={() => setDirection(value)}
             />
           ))}
-          <button
-            type="button"
-            aria-pressed={onlyMissing}
-            className={clsx(
-              "h-8 px-3 rounded-full border text-caption font-bold transition-colors",
-              onlyMissing
-                ? "bg-primary text-white border-primary"
-                : "bg-white border-gray-200 text-gray-500 hover:text-gray-800"
-            )}
+          <MissingToggle
+            pressed={onlyMissing}
             onClick={() => setOnlyMissing(!onlyMissing)}
-          >
-            <I18N id="swipe.filter.missing" />
-          </button>
+          />
         </div>
 
         {!hasWants ? (
@@ -214,6 +230,13 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
               <p className="min-w-0 flex-1 font-bold text-sm leading-snug line-clamp-2">
                 {session.anchor.title}
               </p>
+              <div className="lg:hidden">
+                <MissingToggle
+                  tall
+                  pressed={onlyMissing}
+                  onClick={() => setOnlyMissing(!onlyMissing)}
+                />
+              </div>
               <button
                 type="button"
                 className="max-lg:hidden shrink-0 h-8 px-3 rounded-full border border-gray-200 text-caption font-bold text-gray-600 hover:bg-gray-50"
