@@ -148,7 +148,7 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
         className={clsx(
           "px-3 sm:px-8 pt-4",
           pending
-            ? "pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))] lg:pb-32"
+            ? "pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))] lg:pb-24"
             : "pb-6"
         )}
       >

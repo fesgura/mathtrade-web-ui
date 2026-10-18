@@ -142,7 +142,6 @@ const Footer = ({ swipe = false }: { swipe?: boolean }) => {
         <div
           className={clsx(
             "fixed z-nav right-0 left-0 pb-3 transition-[left] duration-300 ease-out motion-reduce:transition-none",
-            swipe && "border-t border-gray-300 bg-gray-100 pt-4",
             "bottom-[var(--mt-tabbar-h)] lg:bottom-0",
             collapsed ? "lg:left-[76px]" : "lg:left-[260px]"
           )}
