@@ -32,7 +32,7 @@ Two zustand stores, both persisted to `localStorage` (`src/store/index.js`): `us
 
 ## Trade-chain graph
 
-`GraphViewer`/`GraphCanvas` (`src/components/interactiveGraph/`) renders trade chains with `cytoscape`+`cytoscape-fcose`. **This does not read live backend data** — it fetches static bundled JSON (`public/data/graph_results_{year}.json`), an apparently manually-produced export of a past event's solved trade chains. Easy to assume it's live; it isn't.
+`GraphViewer`/`GraphCanvas` (`src/components/interactiveGraph/`) renders trade chains with `cytoscape`. It reads `GET /api/mathtrades/<id>/chains/` (`GET_MT_CHAINS`), the graph stored on `MathTrade.chain_graph` when results are published. Historial picks an edition; the current Results tab uses the stored mathtrade.
 
 ## i18n
 

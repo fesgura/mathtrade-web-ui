@@ -50,9 +50,9 @@ export default function Results() {
             </Dynamic>
           </ResultsContextProvider>
         ) : (
-          <div className="min-h-96 relative p-6">
+          <div className="min-h-96 relative">
             <Dynamic>
-              <GraphViewer years={["2025"]} />
+              <GraphViewer />
             </Dynamic>
           </div>
         )}
