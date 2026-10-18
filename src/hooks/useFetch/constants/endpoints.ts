@@ -153,6 +153,7 @@ const endpoints = {
   ADMIN_GET_USER: "api/mathtrades/$[mathtradeId]/admin-users/$[1]/",
   ADMIN_GET_USER_ITEMS: "api/mathtrades/$[mathtradeId]/admin-users/$[1]/items/",
   ADMIN_GET_NEW_USER_IDS: "api/mathtrades/$[mathtradeId]/admin-users/new-ids/",
+  POST_ADMIN_USER_REINSTATE: "api/mathtrades/$[1]/admin-users/$[2]/reinstate/",
   POST_SELF_EXCLUDE: "api/mathtrades/$[mathtradeId]/self-exclude/",
 
   // IMAGES

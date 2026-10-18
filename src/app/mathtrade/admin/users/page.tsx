@@ -1,6 +1,10 @@
 "use client";
-import Link from "next/link";
+import { useState } from "react";
+import Button from "@/components/button";
+import ConfirmModal from "@/components/confirmModal";
 import clsx from "clsx";
+import useFetch from "@/hooks/useFetch";
+import { useStore } from "@/store";
 import PageHeader from "@/components/pageHeader";
 import SectionCommon from "@/components/sections/common";
 import ErrorAlert from "@/components/errorAlert";
@@ -17,6 +21,13 @@ import { AdminUserName, useAdminUser } from "@/components/adminUserModal";
 
 const selectClass =
   "border border-stroke rounded-md p-2 text-sm bg-white w-full sm:w-auto max-w-full min-w-0";
+
+// I18N renders text containing "<" as HTML: keep member names as text.
+const escapeHtml = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+const fullName = (row: { first_name: string; last_name: string }) =>
+  `${row.first_name} ${row.last_name}`.trim();
 
 const STATUS_COLORS: Record<AdminUserRow["contribution_status"], string> = {
   missing: "bg-gray-100 text-gray-700",
@@ -58,6 +69,7 @@ const toExport = (list: AdminUserRow[]) =>
     "Ejemplares cargados": row.copies,
     Aporte: getI18Ntext(`adminUsers.status.${row.contribution_status}`),
     Autoexcluido: row.self_excluded ? "Sí" : "No",
+    "Baja por aporte": row.unpaid_removed_at ? "Sí" : "No",
     Confirmó: row.commitment ? "Sí" : "No",
     Roles: row.roles.map((role) => getI18Ntext(`adminUsers.role.${role}`)).join(", "),
   }));
@@ -84,8 +96,21 @@ const AdminUsersPage = () => {
     onlyNew,
     setOnlyNew,
     newCount,
+    reload,
   } = useAdminUsers();
   const { openAdminUser, isNewUser } = useAdminUser();
+  const mathtradeId = useStore((state) => state.data?.mathtrade?.id);
+  const [reinstate, , reinstating, reinstateError] = useFetch({
+    endpoint: "POST_ADMIN_USER_REINSTATE",
+    method: "POST",
+  });
+  const [confirming, setConfirming] = useState<AdminUserRow | null>(null);
+
+  const onReinstate = async (userId: number) => {
+    const updated = await reinstate({ urlParams: [mathtradeId, userId] });
+    setConfirming(null);
+    if (updated) reload();
+  };
 
   const quickButton = (active: boolean) =>
     clsx(
@@ -101,9 +126,9 @@ const AdminUsersPage = () => {
       <SectionCommon loading={loading}>
         <div className="md:px-7 px-3 py-7">
           <div className="mb-4">
-            <Link href={PRIVATE_ROUTES.ADMIN_PANEL.path} className="text-primary underline">
+            <Button tag="link" href={PRIVATE_ROUTES.ADMIN_PANEL.path} sm outline>
               <I18N id="adminUsers.back" />
-            </Link>
+            </Button>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 mb-3">
@@ -191,7 +216,7 @@ const AdminUsersPage = () => {
             </label>
           </div>
 
-          <ErrorAlert error={error} />
+          <ErrorAlert error={reinstateError || error} />
 
           <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
             <div className="font-semibold">
@@ -313,6 +338,16 @@ const AdminUsersPage = () => {
                               <I18N id="adminUsers.flag.selfExcluded" />
                             </span>
                           ) : null}
+                          {row.unpaid_removed_at ? (
+                            <Button
+                              sm
+                              type="button"
+                              disabled={reinstating}
+                              onClick={() => setConfirming(row)}
+                            >
+                              <I18N id="adminUsers.reinstate" />
+                            </Button>
+                          ) : null}
                           {row.commitment ? (
                             <span className="rounded bg-green-100 text-green-800 px-1.5 py-0.5">
                               <I18N id="adminUsers.flag.committed" />
@@ -328,6 +363,16 @@ const AdminUsersPage = () => {
           ) : null}
         </div>
       </SectionCommon>
+      <ConfirmModal
+        isOpen={!!confirming}
+        onCancel={() => setConfirming(null)}
+        onConfirm={() => confirming && onReinstate(confirming.user_id)}
+        title="adminUsers.reinstateConfirm"
+        titleValues={[escapeHtml(confirming ? fullName(confirming) : "")]}
+        description="adminUsers.reinstateConfirmText"
+        confirmId="adminUsers.reinstate"
+        variant="primary"
+      />
     </>
   );
 };
