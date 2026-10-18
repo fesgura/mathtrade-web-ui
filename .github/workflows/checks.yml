@@ -35,8 +35,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Before the type check: `next lint` generates next-env.d.ts (gitignored),
-      # which declares the image imports (*.jpg, *.png) the type check needs.
+      # Before the type check: Next writes next-env.d.ts (gitignored), which
+      # declares the image imports (*.jpg, *.png) the type check needs.
+      # `next lint` no longer exists; `next typegen` is what emits that file.
+      - name: Generate Next types
+        run: npx next typegen
+
       - name: Lint
         run: npm run lint
 

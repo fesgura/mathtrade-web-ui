@@ -9,7 +9,7 @@ type HeadButtonProps = {
   num?: number;
   href?: string;
   forWants?: boolean;
-  buttonRef?: RefObject<HTMLButtonElement>;
+  buttonRef?: RefObject<HTMLButtonElement | null>;
   onMouseEnter?: () => void;
 };
 

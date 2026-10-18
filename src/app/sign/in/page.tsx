@@ -38,8 +38,8 @@ const SignInContent = () => {
         />
       ) : (
         <>
-          <div className="text-center pb-3">
-            <h1 className="text-3xl  font-bold mb-3">
+          <div className="text-center pb-2">
+            <h1 className="text-3xl  font-bold mb-2">
               <I18N id="sign.Title" />
             </h1>
             <p className="text-gray-400">
@@ -78,7 +78,7 @@ const SignInContent = () => {
               </InputContainer>
             </fieldset>
             {
-              <div className="text-center pt-1 mb-6 text-xs">
+              <div className="text-center pt-1 mb-3 text-xs">
                 {pausedSite !== "yes" ? (
                   <Alink href={PUBLIC_ROUTES.FORGOT_PASSWORD.path}>
                     <I18N id="sign.ForgotPassword" />
@@ -88,17 +88,17 @@ const SignInContent = () => {
             }
             <ErrorAlert error={error} />
 
-            <div className="text-center mb-5">
+            <div className="text-center mb-3">
               <Button ariaLabel="btn.Enter">
                 <I18N id="btn.Enter" />
               </Button>
             </div>
             <RecaptchaNotice />
           </Form>
-          <hr className="my-5" />
+          <hr className="my-3" />
           {pausedSite !== "yes" ? (
             <div className="text-center">
-              <p className="text-gray-500 text-xs mb-4">
+              <p className="text-gray-500 text-xs mb-2">
                 <I18N id="sign.IfDontCreateAccount" />
               </p>
               <Button

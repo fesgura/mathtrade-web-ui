@@ -42,7 +42,7 @@ const ItemGridUI = ({ expanded, setExpanded }: ItemGridUIProps) => {
       className={clsx("transition-[padding_0.2s]", {
         "col-span-full  pt-[100px]": isExpanded,
       })}
-      ref={itemNode as React.RefObject<HTMLElement>}
+      ref={itemNode as React.RefObject<HTMLElement | null>}
       data-tour-item=""
     >
       <div
