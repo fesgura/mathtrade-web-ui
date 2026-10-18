@@ -11,6 +11,11 @@ const TONES: Record<string, string> = {
   // carry a background tint of their own, and a solid fill at this size ends up
   // competing with the card's title.
   alert: "text-red-800 font-bold bg-danger/10",
+  // Condition of a copy (see statusTone in config/statusTypes): how good it is
+  // at a glance. Tinted, same as alert, and the text stays next to the color.
+  good: "text-green-800 font-semibold bg-green-100",
+  used: "text-orange-800 font-semibold bg-orange-100",
+  none: "text-gray-600 font-semibold bg-gray-200",
   want: "text-[#0a7a4d] font-bold bg-want/10",
   done: "text-gray-800 font-bold bg-gray-200",
   // Same hue as the "en disputa" status badge: purple is reserved for team

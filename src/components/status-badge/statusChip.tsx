@@ -3,7 +3,9 @@ import {
   boxStatusTypes,
   componentsStatusTypes,
   INVALID_STATUS_KEY,
+  statusTone,
 } from "@/config/statusTypes";
+import type { StatusTone } from "@/config/statusTypes";
 import { getI18Ntext } from "@/i18n";
 
 type StatusTypeMap = Record<string, { min?: string } | undefined>;
@@ -14,6 +16,17 @@ type StatusTypeMap = Record<string, { min?: string } | undefined>;
 // (e.g. the item editor), so strip tags here rather than showing them as
 // literal text (MAT-121).
 const stripHtml = (text: string) => text.replace(/<[^>]*>/g, "");
+
+// The dot in front of each value carries the condition color (same scale as
+// the tones of StatusBadge) while the chip itself stays neutral, so the chip
+// keeps one background even when box and components differ.
+const DOT_CLASS: Record<StatusTone, string> = {
+  good: "bg-green-600",
+  used: "bg-orange-500",
+  none: "bg-gray-400",
+  alert: "bg-red-600",
+  neutral: "bg-gray-300",
+};
 
 const shortValue = (types: StatusTypeMap, status: string) =>
   types[status]?.min || types[INVALID_STATUS_KEY]?.min || "";
@@ -32,16 +45,17 @@ const StatusChip = ({
   componentStatus,
   className,
 }: StatusChipProps) => {
-  const parts: string[] = [];
+  const parts: { text: string; tone: StatusTone }[] = [];
   const tooltips: string[] = [];
 
   if (boxStatus) {
-    parts.push(
-      `${getI18Ntext("status.label.box")} ${shortValue(
+    parts.push({
+      text: `${getI18Ntext("status.label.box")} ${shortValue(
         boxStatusTypes as StatusTypeMap,
         boxStatus
-      )}`
-    );
+      )}`,
+      tone: statusTone(boxStatus),
+    });
     tooltips.push(
       `${getI18Ntext("status.label.box")}: ${stripHtml(
         getI18Ntext(`statusType.box.desc.${boxStatus}`)
@@ -50,12 +64,13 @@ const StatusChip = ({
   }
 
   if (componentStatus) {
-    parts.push(
-      `${getI18Ntext("status.label.components.min")} ${shortValue(
+    parts.push({
+      text: `${getI18Ntext("status.label.components.min")} ${shortValue(
         componentsStatusTypes as StatusTypeMap,
         componentStatus
-      )}`
-    );
+      )}`,
+      tone: statusTone(componentStatus),
+    });
     tooltips.push(
       `${getI18Ntext("status.label.components")}: ${stripHtml(
         getI18Ntext(`statusType.components.desc.${componentStatus}`)
@@ -79,7 +94,16 @@ const StatusChip = ({
       tooltip={tooltips.join(" — ")}
       className={className}
     >
-      {parts.join(" · ")}
+      {parts.map(({ text, tone }, index) => (
+        <span key={text}>
+          {index ? <span className="mx-1.5 text-gray-400">·</span> : null}
+          <span
+            aria-hidden
+            className={`inline-block w-2 h-2 rounded-full mr-1 align-middle ${DOT_CLASS[tone]}`}
+          />
+          {text}
+        </span>
+      ))}
     </Chip>
   );
 };
