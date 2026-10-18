@@ -21,8 +21,34 @@ import OfferSwipe from "./swipe";
 import { PageContext } from "@/context/page";
 import { useOptions } from "@/store";
 import BulkSelectProvider from "@/components/ban/bulk/BulkSelectProvider";
+import useBulkSelect from "@/components/ban/bulk/useBulkSelect";
 import SelectionBar from "@/components/ban/bulk/SelectionBar";
+import I18N from "@/i18n";
+import Icon from "@/components/icon";
 import { isWantedGame } from "@/components/ban/isWanted";
+
+// Fixed over the list, not in the filter bar: the bar stays short and the
+// button stays reachable while scrolling. Hidden while bulk-selecting,
+// because that bar already sits in this spot.
+const SwipeButton = ({ onClick }: { onClick: () => void }) => {
+  const { selecting } = useBulkSelect();
+  if (selecting) return null;
+  return (
+    <>
+      <div className="h-20" aria-hidden="true" />
+      <button
+        type="button"
+        className="fixed z-nav right-4 bottom-[calc(var(--mt-tabbar-h)+0.75rem)] lg:bottom-6 h-14 w-14 lg:h-12 lg:w-auto lg:px-4 lg:gap-2 rounded-full bg-primary text-white shadow-[0_8px_24px_rgba(0,0,0,0.28)] hover:bg-sky-700 flex items-center justify-center"
+        onClick={onClick}
+      >
+        <Icon type="swipe" className="text-[28px] lg:text-[22px]" />
+        <span className="max-lg:sr-only text-sm font-bold">
+          <I18N id="offer.swipe.open" />
+        </span>
+      </button>
+    </>
+  );
+};
 
 const GamesView = () => {
   const {
@@ -63,9 +89,11 @@ const GamesView = () => {
             <Filters type="game" />
           </Sidebar>
           <div>
-            <StickyHeader>
-              <Header onSwipe={() => setSwipeOpen(true)} />
-            </StickyHeader>
+            {swipeOpen ? null : (
+              <StickyHeader>
+                <Header />
+              </StickyHeader>
+            )}
             <NewSinceNotice count={newCount} onRefresh={refreshList} />
             <div className="md:px-7 px-3 py-7">
               {swipeOpen ? (
@@ -102,7 +130,10 @@ const GamesView = () => {
             </div>
           </div>
         </SidebarGrid>
-        <Footer />
+        {swipeOpen ? null : <Footer />}
+        {swipeOpen ? null : (
+          <SwipeButton onClick={() => setSwipeOpen(true)} />
+        )}
         <SelectionBar isWanted={isWanted} />
       </BulkSelectProvider>
       </GotoTopContextProvider>
