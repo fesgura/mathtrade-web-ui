@@ -8,11 +8,12 @@ export type ProvisionalItem = {
   membership?: any;
 };
 
-// One row per item the member offers: what they'd receive in each of the
-// runs they took part in (numbered 1..n; the runs can't be told apart).
+// One row per item the member offers: the items they could receive for it
+// (up to 5, sorted by title). No counts and no per-run data: the runs can't be
+// told apart. Empty when the item didn't trade in any run.
 export type ProvisionalSummaryRow = {
   item: ProvisionalItem;
-  outcomes: { run: number; received: ProvisionalItem | null }[];
+  possible_trades: ProvisionalItem[];
 };
 
 // Set when an admin looks at someone else's results (?member=<user_id>).
@@ -28,6 +29,7 @@ export type ProvisionalResultsPayload = {
   self_excluded?: boolean;
   can_self_exclude?: boolean;
   member?: ProvisionalMember | null;
+  // Total published runs, the same for everybody.
   runs_count: number;
   summary: ProvisionalSummaryRow[];
 };

@@ -13,23 +13,11 @@ import type { ProvisionalItem, ProvisionalSummaryRow } from "./useProvisionalRes
 const coverOf = (item?: ProvisionalItem | null) =>
   item?.elements?.[0]?.element?.thumbnail || "";
 
-const TimesChip = ({ count }: { count: number }) => (
-  <span
-    data-tour-part="times"
-    className="inline-block shrink-0 whitespace-nowrap rounded-full bg-primary/10 text-primary text-xs font-bold px-2 py-0.5">
-    {/* "1 vez" has no placeholder: pass the count only to "$$$ veces". */}
-    <I18N
-      id={`provisional.tile.times.${count === 1 ? "one" : "many"}`}
-      values={count === 1 ? [] : [count]}
-    />
-  </span>
-);
-
-// One result: what this item got in some of the runs, and how many times.
+// One possible result: something the member could receive for the item.
 // It shows exactly which copy it is (edition, language, publisher, year,
 // box and components condition, the owner's comment) so a wrong language or
 // edition can be spotted — but not who gives it.
-const ResultTile = ({ item, count }: { item: ProvisionalItem; count: number }) => (
+const ResultTile = ({ item }: { item: ProvisionalItem }) => (
   <div
     className={clsx(
       "flex gap-3 rounded-lg border border-gray-200 bg-white p-2",
@@ -46,12 +34,9 @@ const ResultTile = ({ item, count }: { item: ProvisionalItem; count: number }) =
       />
     </div>
     <div className="min-w-0 flex-1">
-      <div className="flex items-start justify-between gap-2">
-        <p className="min-w-0 text-sm font-semibold leading-snug" title={item.title || ""}>
-          {item.title}
-        </p>
-        <TimesChip count={count} />
-      </div>
+      <p className="text-sm font-semibold leading-snug" title={item.title || ""}>
+        {item.title}
+      </p>
       {(item.elements || []).map((copy: any) => {
         const edition = copy?.element || {};
         const facts = [
@@ -98,18 +83,10 @@ const ResultTile = ({ item, count }: { item: ProvisionalItem; count: number }) =
   </div>
 );
 
-// The runs where the item didn't trade.
-const NoTradeTile = ({ count }: { count: number }) => (
-  <div className="flex flex-col items-center justify-center gap-1.5 rounded-lg border border-dashed border-gray-300 bg-gray-50 p-3 text-center">
-    <p className="text-xs font-semibold text-gray-600">
-      <I18N id="provisional.tile.noTrade" />
-    </p>
-    <TimesChip count={count} />
-  </div>
-);
-
-// One card per offered game, with a card for each thing it got across the
-// runs the member took part in. All cards share the grid row height.
+// One card per offered game, with a tile for each thing it could be traded
+// for. The backend already sends them sorted by title and without any count:
+// the order says nothing about likelihood and the runs can't be told apart.
+// All cards share the grid row height.
 const SummaryCard = ({
   row,
   tourAnchor,
@@ -117,21 +94,7 @@ const SummaryCard = ({
   row: ProvisionalSummaryRow;
   tourAnchor?: string;
 }) => {
-  const { item, outcomes } = row;
-  const counts = new Map<string, { item: ProvisionalItem; count: number }>();
-  let noTrade = 0;
-
-  outcomes.forEach((outcome) => {
-    if (!outcome.received) {
-      noTrade += 1;
-      return;
-    }
-    const key = String(outcome.received.id);
-    const prev = counts.get(key) || { item: outcome.received, count: 0 };
-    prev.count += 1;
-    counts.set(key, prev);
-  });
-  const received = Array.from(counts.values()).sort((a, b) => b.count - a.count);
+  const { item, possible_trades: possibleTrades = [] } = row;
 
   return (
     <article
@@ -166,18 +129,16 @@ const SummaryCard = ({
         <p className="text-sm font-semibold text-gray-700 mb-2">
           <I18N
             id={
-              received.length
+              possibleTrades.length
                 ? "provisional.card.got"
                 : "provisional.card.never"
             }
-            values={[outcomes.length]}
           />
         </p>
         <div className="flex flex-col gap-2">
-          {received.map(({ item: got, count }) => (
-            <ResultTile key={got.id} item={got} count={count} />
+          {possibleTrades.map((got) => (
+            <ResultTile key={got.id} item={got} />
           ))}
-          {noTrade ? <NoTradeTile count={noTrade} /> : null}
         </div>
       </div>
     </article>
