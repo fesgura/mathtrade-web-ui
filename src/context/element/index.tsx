@@ -46,6 +46,7 @@ export const ElementContextProvider = ({
       year,
       language,
       box_size,
+      version_nickname,
     } = elementOriginal;
 
     const type = getI18Ntext(`element-type-badge-${game?.type || 1}`);
@@ -66,6 +67,7 @@ export const ElementContextProvider = ({
       year,
       publisherRaw: publisher || "",
       publisher: formatPublisherWithYear(publisher, year),
+      versionNickname: `${version_nickname ?? ""}`.trim() || null,
       publisherLink:
         bgg_version_id && bgg_version_id === "other"
           ? null

@@ -1,5 +1,4 @@
 import Thumbnail from "@/components/thumbnail";
-import LinkExternal from "@/components/link-external";
 import Icon from "@/components/icon";
 import I18N from "@/i18n";
 import ButtonAlert from "@/components/buttonAlert";
@@ -25,10 +24,10 @@ import BGGlink from "@/components/bggInfo/bggLink";
 import BGGPlayers from "@/components/bggInfo/players";
 import TaxonomyDisclosure from "@/components/bggInfo/taxonomyDisclosure";
 import { getI18Ntext } from "@/i18n";
-import { NO_RANK_VALUE } from "@/config/no-bgggame";
 import { boxSizesValues, boxSizeIdToReview } from "@/config/boxSizes";
 import clsx from "clsx";
 import LanguagePills from "@/components/chip/languagePills";
+import EditionMeta from "@/components/element/editionMeta";
 
 const META_TEXT = "text-caption text-gray-700";
 const TAG_PILL =
@@ -74,6 +73,7 @@ const ElementView = ({
     titleLink,
     publisher,
     publisherLink,
+    versionNickname,
     language,
     languageRaw,
     notGame,
@@ -302,15 +302,14 @@ const ElementView = ({
             publisherLink ? getI18Ntext("element.BGG.OpenEditionInBGG") : undefined
           }
         >
-          <div className="truncate">
-            {showBGGstats ? (
-              <>
-                <I18N id="element.BGG.rank" />{" "}
-                {rank === NO_RANK_VALUE ? "-" : rank}
-                {" · "}
-              </>
-            ) : null}
-            <LinkExternal href={publisherLink}>{publisher}</LinkExternal>
+          <div className="break-words">
+            <EditionMeta
+              showRank={!!showBGGstats}
+              rank={rank}
+              publisher={publisher}
+              publisherLink={publisherLink}
+              versionNickname={versionNickname}
+            />
           </div>
         </div>
 
