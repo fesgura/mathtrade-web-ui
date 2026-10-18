@@ -35,11 +35,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Type check
-        run: npx tsc --noEmit
-
+      # Before the type check: `next lint` generates next-env.d.ts (gitignored),
+      # which declares the image imports (*.jpg, *.png) the type check needs.
       - name: Lint
         run: npm run lint
+
+      - name: Type check
+        run: npx tsc --noEmit
 
       # No env vars needed: the app's config is hardcoded in next.config.js.
       - name: Build
