@@ -288,17 +288,11 @@ export const TOURS: Record<string, Tour> = {
   },
   // Resultados provisorios: what the runs mean, and self-exclusion.
   provisional: {
-    key: "provisional.v1",
+    key: "provisional.v2",
     when: (canI) => Boolean(canI?.provisionalResults),
     steps: [
       { anchor: "provisional.intro", id: "provisional.intro", side: "bottom" },
       { anchor: "provisional.card", id: "provisional.card", side: "right" },
-      {
-        anchor: "provisional.times",
-        selector: '[data-tour="provisional.card"] [data-tour-part="times"]',
-        id: "provisional.times",
-        side: "bottom",
-      },
       {
         anchor: "provisional.exclude",
         id: "provisional.exclude",
