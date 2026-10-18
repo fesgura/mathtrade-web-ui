@@ -40,7 +40,7 @@ const Footer = ({ swipe = false }: { swipe?: boolean }) => {
       <span
         className={clsx(
           "text-amber-700 text-caption font-semibold",
-          swipe ? "min-w-0 flex-1" : "hidden md:block whitespace-nowrap"
+          swipe ? "text-center" : "hidden md:block whitespace-nowrap"
         )}
       >
         <I18N
@@ -75,7 +75,7 @@ const Footer = ({ swipe = false }: { swipe?: boolean }) => {
   // apply there; the bar only reports drafts that still need saving.
   const swipeBar = swipe ? (
     changesCount > 0 ? (
-      <div className="rounded-main border border-gray-200 shadow-sm bg-white px-3 py-2 flex items-center gap-3">
+      <div className="rounded-main border border-gray-200 shadow-sm bg-white px-3 py-2 flex flex-wrap items-center justify-center gap-3">
         {unsaved}
         {saveButton}
       </div>

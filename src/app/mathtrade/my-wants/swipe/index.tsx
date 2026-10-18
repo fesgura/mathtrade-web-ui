@@ -43,8 +43,8 @@ const DeckSave = () => {
   const { changesCount, enabledBtn, onClick } = useFooter();
   if (changesCount < 1) return null;
   return (
-    <div className="lg:hidden flex items-center gap-3 pt-2">
-      <span className="min-w-0 flex-1 text-amber-700 text-caption font-semibold">
+    <div className="lg:hidden flex flex-wrap items-center justify-center gap-3 pt-2">
+      <span className="text-center text-amber-700 text-caption font-semibold">
         <I18N
           id={
             changesCount === 1

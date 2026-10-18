@@ -1399,7 +1399,7 @@
   "want.screen.grid.disabled": "La <strong>vista de grilla</strong> sólo puede utilizarse en pantallas de <strong>$$$px</strong> o más de ancho (<strong>PC de escritorio, laptop, etc.</strong>).<br />De esta manera, <strong> prevenimos confusiones y errores</strong> que puedan surgir por el uso de la interfaz.",
   "want.screen.swipe": "Swipe",
   "want.screen.visual": "Visual",
-  "swipe.already": "Ya estaba en sí",
+  "swipe.already": "Ya lo tenés elegido",
   "swipe.change": "Cambiar",
   "swipe.commit.btn": "Ir a Visual",
   "swipe.commit.lead": "Para comprometer tus cambios, hacelo desde la vista Visual.",
