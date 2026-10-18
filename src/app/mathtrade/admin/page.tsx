@@ -4,7 +4,6 @@ import SectionCommon from "@/components/sections/common";
 import ErrorAlert from "@/components/errorAlert";
 import useAdminPanel from "./useAdminPanel";
 import EditionRow from "./EditionRow";
-import Link from "next/link";
 import I18N from "@/i18n";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import { useMemo, useState } from "react";
@@ -13,6 +12,14 @@ import ConfirmModal from "@/components/confirmModal";
 import { getI18Ntext } from "@/i18n";
 import EditionForm from "./EditionForm";
 import { parseAmount } from "./useAdminPanel";
+
+const ADMIN_LINKS = [
+  { path: PRIVATE_ROUTES.ADMIN_USERS.path, label: "adminUsers.link" },
+  { path: PRIVATE_ROUTES.ADMIN_CONTRIBUTIONS.path, label: "adminContributions.link" },
+  { path: PRIVATE_ROUTES.ADMIN_RULES_QUESTIONS.path, label: "adminRulesQuestions.link" },
+  { path: PRIVATE_ROUTES.ADMIN_SELF_EXCLUDED.path, label: "adminSelfExcluded.link" },
+  { path: PRIVATE_ROUTES.ADMIN_REPORTS.path, label: "adminReports.link" },
+];
 
 const AdminPanelPage = () => {
   const {
@@ -77,37 +84,12 @@ const AdminPanelPage = () => {
       <PageHeader title="title.AdminPanel" variant="minimal" />
       <SectionCommon loading={loadingList}>
         <div className="md:px-7 px-3 py-7">
-          <div className="mb-4 text-right">
-            <Link
-              href={PRIVATE_ROUTES.ADMIN_USERS.path}
-              className="text-primary underline"
-            >
-              <I18N id="adminUsers.link" />
-            </Link>
-            <Link
-              href={PRIVATE_ROUTES.ADMIN_CONTRIBUTIONS.path}
-              className="text-primary underline ml-4"
-            >
-              <I18N id="adminContributions.link" />
-            </Link>
-            <Link
-              href={PRIVATE_ROUTES.ADMIN_RULES_QUESTIONS.path}
-              className="text-primary underline ml-4"
-            >
-              <I18N id="adminRulesQuestions.link" />
-            </Link>
-            <Link
-              href={PRIVATE_ROUTES.ADMIN_SELF_EXCLUDED.path}
-              className="text-primary underline ml-4"
-            >
-              <I18N id="adminSelfExcluded.link" />
-            </Link>
-            <Link
-              href={PRIVATE_ROUTES.ADMIN_REPORTS.path}
-              className="text-primary underline ml-4"
-            >
-              <I18N id="adminReports.link" />
-            </Link>
+          <div className="mb-4 flex flex-wrap justify-end gap-2">
+            {ADMIN_LINKS.map(({ path, label }) => (
+              <Button key={path} tag="link" href={path} sm outline>
+                <I18N id={label} />
+              </Button>
+            ))}
           </div>
           <ErrorAlert error={errorList} />
           {creating ? (

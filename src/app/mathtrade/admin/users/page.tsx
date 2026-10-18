@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import Button from "@/components/button";
 import clsx from "clsx";
 import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store";
@@ -115,9 +115,9 @@ const AdminUsersPage = () => {
       <SectionCommon loading={loading}>
         <div className="md:px-7 px-3 py-7">
           <div className="mb-4">
-            <Link href={PRIVATE_ROUTES.ADMIN_PANEL.path} className="text-primary underline">
+            <Button tag="link" href={PRIVATE_ROUTES.ADMIN_PANEL.path} sm outline>
               <I18N id="adminUsers.back" />
-            </Link>
+            </Button>
           </div>
 
           <div className="flex flex-wrap items-center gap-2 mb-3">

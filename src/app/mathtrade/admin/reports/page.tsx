@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
+import Button from "@/components/button";
 import clsx from "clsx";
 import PageHeader from "@/components/pageHeader";
 import SectionCommon from "@/components/sections/common";
@@ -462,9 +462,9 @@ const AdminReportsPage = () => {
       <SectionCommon loading={loading || resolving || deleting || sharing}>
         <div className="md:px-7 px-3 py-7">
           <div className="mb-4">
-            <Link href={PRIVATE_ROUTES.ADMIN_PANEL.path} className="text-primary underline">
+            <Button tag="link" href={PRIVATE_ROUTES.ADMIN_PANEL.path} sm outline>
               <I18N id="adminReports.back" />
-            </Link>
+            </Button>
           </div>
 
           {/* Filter bar: status (with counts) and owner-activity toggles. */}
