@@ -24,6 +24,8 @@ const FIELD_RULES: FieldRule[] = [
 ];
 
 const DETAIL_RULES: DetailRule[] = [
+  // BE results/views.py ProvisionalResultsView, before provisional_results_date.
+  { test: (d) => d === "Provisional results are not available yet.", key: "error.provisional.notAvailable" },
   // DRF get_object_or_404 on any model (MathElement, MathItem, Element…).
   { test: (d) => /^No \w+ matches the given query\.$/.test(d), key: "error.mathElement.notFound" },
   { test: (d) => d === "You do not have permission to perform this action.", key: "error.mathtrade.geekListClosed" },
@@ -69,6 +71,11 @@ export const resolveApiErrorMessage = (error: any): string | undefined => {
     problem === "ECONNABORTED"
   ) {
     return "error.Network";
+  }
+
+  // Server failures: never show whatever text the body carries.
+  if (typeof error?.status === "number" && error.status >= 500) {
+    return "error.General";
   }
 
   const data = error?.data;

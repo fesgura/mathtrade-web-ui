@@ -30,6 +30,7 @@
   "error.mathElement.notFound": "No se encontró este ítem. Recargá la página e intentá de nuevo.",
   "error.mathtrade.notMember": "Todavía no estás inscripto/a en este Math Trade. Para cargar juegos, valuarlos o armar tus deseos, primero <a href=\"/mathtrade/my-data\" style=\"text-decoration:underline;font-weight:bold\">inscribite desde Mis datos</a>.",
   "error.mathtrade.geekListClosed": "La carga de objetos está cerrada en este momento.",
+  "error.provisional.notAvailable": "Todavía no están disponibles los resultados provisorios. Vas a poder verlos a partir de la fecha publicada.",
   "Back": "Atrás",
   "Cerrar": "Cerrar",
   "Combo": "Combo",
