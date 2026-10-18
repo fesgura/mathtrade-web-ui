@@ -17,7 +17,7 @@ const toSignIn = (request: NextRequest) => {
   );
 };
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   try {
     const token = request.cookies.get(COOKIE_AUTH_TOKEN);
 

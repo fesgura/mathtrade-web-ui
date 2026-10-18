@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import LogoSVG from "./svg";
 
-export const LogoBig = ({ className }) => {
+export const LogoBig = ({ className = "" }: { className?: string }) => {
   return (
     <div className={clsx("flex items-center justify-center", className)}>
       <div className="md:w-[160px] w-[80px]">
