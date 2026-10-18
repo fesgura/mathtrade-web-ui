@@ -1,13 +1,16 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import clsx from "clsx";
 import I18N from "@/i18n";
+import Icon from "@/components/icon";
 import Thumbnail from "@/components/thumbnail";
 import EmptyList from "@/components/emptyList";
 import SectionCommon from "@/components/sections/common";
 import CommitHeaderVisual from "@/components/want-components/commit/headers/header-visual";
 import { PageContext } from "@/context/page";
+import { MyWantsContext } from "@/context/myWants/all";
 import { PRIVATE_ROUTES } from "@/config/routes";
+import useFooter from "../footer/useFooter";
 import useSwipe from "./useSwipe";
 import SwipeFace from "./face";
 import SwipeDeck from "./deck";
@@ -36,6 +39,33 @@ const DirectionButton = ({
   </button>
 );
 
+const DeckSave = () => {
+  const { changesCount, enabledBtn, onClick } = useFooter();
+  if (changesCount < 1) return null;
+  return (
+    <div className="lg:hidden flex items-center gap-3 pt-2">
+      <span className="min-w-0 flex-1 text-amber-700 text-caption font-semibold">
+        <I18N
+          id={
+            changesCount === 1
+              ? "MyWants.unsavedChanges.1"
+              : "MyWants.unsavedChanges.more"
+          }
+          values={[changesCount]}
+        />
+      </span>
+      <button
+        type="button"
+        className="h-[34px] shrink-0 rounded-full bg-want text-white px-4 text-body font-bold whitespace-nowrap disabled:opacity-40"
+        onClick={onClick}
+        disabled={!enabledBtn}
+      >
+        <I18N id="MyWants.btn.Save" />
+      </button>
+    </div>
+  );
+};
+
 const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
   const { mustConfirm, canI, isUserEarlyPay } = useContext(PageContext);
   // That legend describes the checkbox at the bottom of Visual. On Swipe it
@@ -58,6 +88,27 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
     undo,
     step,
   } = useSwipe();
+  const { changes, deletedWantgroupIds } = useContext(MyWantsContext);
+  const pending =
+    Object.keys(changes || {}).length +
+    Object.keys(deletedWantgroupIds || {}).length;
+
+  // The open deck covers the page on a phone, including the scroller behind it.
+  useEffect(() => {
+    if (!session) return;
+    const scroller = document.querySelector("[data-bug-report-capture]");
+    if (!(scroller instanceof HTMLElement)) return;
+    const mq = window.matchMedia("(max-width: 1023px)");
+    const apply = () => {
+      scroller.style.overflow = mq.matches ? "hidden" : "";
+    };
+    apply();
+    mq.addEventListener("change", apply);
+    return () => {
+      mq.removeEventListener("change", apply);
+      scroller.style.overflow = "";
+    };
+  }, [session]);
 
   if (!ready) return null;
 
@@ -68,7 +119,14 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
 
   return (
     <SectionCommon topNotRounded>
-      <div className="px-3 sm:px-8 pt-4 pb-[calc(14rem+env(safe-area-inset-bottom,0px))] lg:pb-28">
+      <div
+        className={clsx(
+          "px-3 sm:px-8 pt-4",
+          pending
+            ? "pb-[calc(6.5rem+env(safe-area-inset-bottom,0px))] lg:pb-24"
+            : "pb-6"
+        )}
+      >
         {commitReview ? (
           <div className="max-w-3xl mx-auto text-center text-balance pb-5">
             <p className="font-bold text-danger mb-3">
@@ -128,9 +186,19 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
             ctaHref={PRIVATE_ROUTES.OFFER.path}
           />
         ) : session ? (
-          <div>
-            <div className="max-w-sm mx-auto flex items-center gap-2 mb-3">
-              <div className="w-11 h-11 shrink-0 rounded-lg overflow-hidden border border-gray-200">
+          <div className="max-lg:fixed max-lg:inset-0 max-lg:z-modal max-lg:flex max-lg:flex-col max-lg:bg-gray-100 max-lg:px-4 max-lg:pt-[max(0.75rem,env(safe-area-inset-top))] max-lg:pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+            <div className="max-w-sm mx-auto w-full max-lg:max-w-none flex items-center gap-2 mb-3 max-lg:mb-2">
+              <button
+                type="button"
+                className="lg:hidden h-10 w-10 shrink-0 rounded-full bg-white border border-gray-200 text-gray-700 flex items-center justify-center"
+                onClick={exit}
+              >
+                <span className="sr-only">
+                  <I18N id="swipe.change" />
+                </span>
+                <Icon type="chevron-left" />
+              </button>
+              <div className="max-lg:hidden w-11 h-11 shrink-0 rounded-lg overflow-hidden border border-gray-200">
                 <Thumbnail
                   fill
                   contain
@@ -148,7 +216,7 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
               </p>
               <button
                 type="button"
-                className="shrink-0 h-8 px-3 rounded-full border border-gray-200 text-caption font-bold text-gray-600 hover:bg-gray-50"
+                className="max-lg:hidden shrink-0 h-8 px-3 rounded-full border border-gray-200 text-caption font-bold text-gray-600 hover:bg-gray-50"
                 onClick={exit}
               >
                 <I18N id="swipe.change" />
@@ -156,7 +224,7 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
             </div>
 
             {session.total === 0 ? (
-              <div className="max-w-sm mx-auto text-center py-8">
+              <div className="max-w-sm mx-auto text-center py-8 max-lg:flex-1 max-lg:flex max-lg:flex-col max-lg:items-center max-lg:justify-center">
                 <p className="font-bold text-balance mb-4">
                   <I18N
                     id={
@@ -175,7 +243,7 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
                 />
               </div>
             ) : session.done ? (
-              <div className="max-w-sm mx-auto text-center py-6">
+              <div className="max-w-sm mx-auto text-center py-6 max-lg:flex-1 max-lg:flex max-lg:flex-col max-lg:items-center max-lg:justify-center">
                 <h3 className="text-lg font-bold mb-1">
                   <I18N id="swipe.done.title" />
                 </h3>
@@ -193,13 +261,13 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
                 />
               </div>
             ) : session.card ? (
-              <div>
+              <div className="max-lg:flex-1 max-lg:min-h-0 max-lg:flex max-lg:flex-col">
                 {!canEdit ? (
                   <p className="text-center text-caption font-semibold text-danger mb-2">
                     <I18N id="swipe.locked" />
                   </p>
                 ) : null}
-                <p className="text-center text-base sm:text-lg font-bold text-balance mb-1">
+                <p className="text-center text-base sm:text-lg font-bold text-balance mb-1 max-lg:text-sm max-lg:line-clamp-2">
                   <I18N
                     id={session.promptId}
                     values={[session.anchor.title]}
@@ -211,7 +279,7 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
                     values={[session.index + 1, session.total]}
                   />
                 </p>
-                <div className="max-w-sm mx-auto h-1 rounded-full bg-gray-100 mb-3 overflow-hidden">
+                <div className="max-w-sm mx-auto max-lg:max-w-none h-1 rounded-full bg-gray-200 mb-3 max-lg:mb-2 overflow-hidden">
                   <div
                     className="h-full bg-want"
                     style={{
@@ -232,8 +300,9 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
                   onSwipe={swipe}
                   onUndo={undo}
                   onStep={step}
+                  fill
                 >
-                  <SwipeFace face={session.card.face} />
+                  <SwipeFace face={session.card.face} fill />
                 </SwipeDeck>
                 {!canEdit ? (
                   <div className="mt-3 flex items-center justify-center gap-2">
@@ -256,6 +325,7 @@ const Swipe = ({ onOpenVisual = () => {} }: { onOpenVisual?: () => void }) => {
                 ) : null}
               </div>
             ) : null}
+            <DeckSave />
           </div>
         ) : (
           <div>

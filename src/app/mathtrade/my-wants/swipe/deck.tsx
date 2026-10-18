@@ -22,6 +22,7 @@ const SwipeDeck = ({
   onSwipe,
   onUndo,
   onStep,
+  fill = false,
   children,
 }: {
   cardKey: string;
@@ -31,6 +32,7 @@ const SwipeDeck = ({
   onSwipe: (yes: boolean) => void;
   onUndo: () => void;
   onStep?: (delta: 1 | -1) => void;
+  fill?: boolean;
   children: ReactNode;
 }) => {
   const pos = useRef({ x: 0, y: 0, active: false, id: -1, sx: 0, sy: 0 });
@@ -112,6 +114,9 @@ const SwipeDeck = ({
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (disabled || lock.current || event.button !== 0) return;
     event.currentTarget.setPointerCapture(event.pointerId);
+    // A cover is an <img>. On desktop the browser would drag that image
+    // instead of the card, so the gesture never reaches the swipe.
+    event.preventDefault();
     pos.current = {
       x: 0,
       y: 0,
@@ -148,7 +153,12 @@ const SwipeDeck = ({
   const noOpacity = Math.max(0, Math.min(1, -x / THRESHOLD));
 
   return (
-    <div className="max-w-sm mx-auto w-full">
+    <div
+      className={clsx(
+        "max-w-sm mx-auto w-full",
+        fill && "max-lg:max-w-none max-lg:flex-1 max-lg:min-h-0 max-lg:flex max-lg:flex-col"
+      )}
+    >
       <div
         role="group"
         aria-label={title}
@@ -156,8 +166,10 @@ const SwipeDeck = ({
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
+        onDragStart={(event) => event.preventDefault()}
         className={clsx(
-          "relative touch-none select-none",
+          "relative touch-none select-none [&_img]:pointer-events-none [&_img]:[-webkit-user-drag:none]",
+          fill && "max-lg:flex-1 max-lg:min-h-0 max-lg:flex max-lg:flex-col",
           disabled ? "cursor-default" : "cursor-grab active:cursor-grabbing"
         )}
         style={{
@@ -211,7 +223,12 @@ const SwipeDeck = ({
         </button>
       </div>
       {disabled ? null : (
-        <p className="mt-3 text-center text-caption text-gray-500 text-balance">
+        <p
+          className={clsx(
+            "mt-3 text-center text-caption text-gray-500 text-balance",
+            fill && "max-lg:hidden"
+          )}
+        >
           <I18N id="swipe.hint" />
         </p>
       )}

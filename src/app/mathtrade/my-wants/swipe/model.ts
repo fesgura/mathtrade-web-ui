@@ -1,5 +1,4 @@
 import type { CSSProperties } from "react";
-import { normalizeString } from "@/utils";
 import { colorTagStyles } from "@/utils/color";
 import { visibleWants } from "@/utils/visibleWants";
 import {
@@ -162,11 +161,6 @@ export const orderedItems = (items: any[], wants: any[], orderRaw: string): any[
     (item) => (item?.value == null ? 0 : parseFloat(item.value)),
     (item) => offeredCount[item?.id] || 0
   );
-};
-
-export const matchesKeyword = (text: string, keyword?: string) => {
-  if (!keyword) return true;
-  return normalizeString(text || "").indexOf(normalizeString(keyword)) >= 0;
 };
 
 type DeckArgs = {

@@ -54,7 +54,7 @@ export default function MyWantsUI() {
               <Grid />
             </Dynamic>
           )}
-          <Footer />
+          <Footer swipe={screen === "swipe"} />
         </GotoTopContextProvider>
         <LoadingBox loading={loading} transparent />
       </div>

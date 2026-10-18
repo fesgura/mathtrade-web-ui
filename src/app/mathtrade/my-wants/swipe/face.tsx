@@ -9,15 +9,18 @@ import type { Face } from "./model";
 const SwipeFace = ({
   face,
   size = "deck",
+  fill = false,
 }: {
   face: Face;
   size?: "deck" | "mini";
+  fill?: boolean;
 }) => {
   const deck = size === "deck";
   return (
     <div
       className={clsx(
         "relative rounded-2xl border border-gray-200 overflow-hidden flex flex-col min-w-0 w-full bg-white",
+        fill && "max-lg:flex-1 max-lg:min-h-0",
         face.tagStyle ? null : cardKindBorderClass(face.kind, 4),
         face.empty && "shadow-[inset_0_0_0_3px_red]",
         face.changed && "ring-2 ring-amber-400"
@@ -27,7 +30,10 @@ const SwipeFace = ({
       <div
         className={clsx(
           "relative overflow-hidden",
-          deck ? "h-[26dvh] min-h-[7.5rem] max-h-72 sm:h-64" : "h-28 sm:h-32"
+          deck
+            ? "h-[26dvh] min-h-[7.5rem] max-h-72 sm:h-64"
+            : "h-28 sm:h-32",
+          fill && deck && "max-lg:h-auto max-lg:max-h-none max-lg:min-h-0 max-lg:flex-1"
         )}
       >
         <Thumbnail

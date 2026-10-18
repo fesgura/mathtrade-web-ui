@@ -8,7 +8,6 @@ import {
   buildDeck,
   countYes,
   itemFace,
-  matchesKeyword,
   orderedItems,
   orderedWants,
   wantFace,
@@ -77,23 +76,19 @@ const useSwipe = () => {
     [myItemsInMT_forWants, myWants, orderRaw]
   );
 
-  const keyword = filters?.keyword || "";
-
   const anchorRows = useMemo(() => {
-    const rows =
-      direction === "item"
-        ? items.map((item) => ({
-            id: Number(item.id),
-            face: itemFace(item),
-            disabled: false,
-          }))
-        : wants.map((want) => ({
-            id: Number(want.id),
-            face: wantFace(want, changedWantIds.has(Number(want.id))),
-            disabled: isEmptyWantGroup(want),
-          }));
-    return rows.filter((row) => matchesKeyword(row.face.title, keyword));
-  }, [direction, items, wants, keyword, changedWantIds]);
+    return direction === "item"
+      ? items.map((item) => ({
+          id: Number(item.id),
+          face: itemFace(item),
+          disabled: false,
+        }))
+      : wants.map((want) => ({
+          id: Number(want.id),
+          face: wantFace(want, changedWantIds.has(Number(want.id))),
+          disabled: isEmptyWantGroup(want),
+        }));
+  }, [direction, items, wants, changedWantIds]);
 
   // Yes-counts walk every pair. Skip that while a deck is open: each swipe
   // would otherwise rebuild the whole grid just to redraw a hidden picker.
