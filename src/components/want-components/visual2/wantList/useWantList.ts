@@ -12,6 +12,7 @@ import { WantVisualSectionContext } from "@/context/wantVisualSection";
 import {
   changedWantsFirst,
   getRightValue,
+  isEmptyWantGroup,
 } from "@/components/want-components/utils";
 
 const useWantList = (item = null) => {
@@ -56,7 +57,7 @@ const useWantList = (item = null) => {
       const value = getRightValue(matchValues, changes, `${wg.id}_${itemId}`);
       if (value) {
         wantsAdded.push(wg);
-      } else if (canI.want) {
+      } else if (canI.want && !isEmptyWantGroup(wg)) {
         wantsToAdd.push(wg);
       }
     });

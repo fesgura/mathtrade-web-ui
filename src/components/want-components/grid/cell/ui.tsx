@@ -1,13 +1,14 @@
 import Icon from "@/components/icon";
 import useCell from "./useCell";
 
-const CellUI = ({ wantGroup, myItem }) => {
+const CellUI = ({ wantGroup = null, myItem = null }) => {
   const {
     value,
     isIndeterminate,
     onClick,
     color: backgroundColor,
     canIwant,
+    emptyGroup,
     title,
   } = useCell(wantGroup, myItem);
 
@@ -35,7 +36,9 @@ const CellUI = ({ wantGroup, myItem }) => {
         <button
           className={
             "w-5 h-5 border rounded cursor-not-allowed" +
-            (value
+            (emptyGroup
+              ? " bg-gray-200 border-gray-300 text-gray-200 opacity-60"
+              : value
               ? " bg-gray-400 border-gray-400 text-white"
               : isIndeterminate
               ? " bg-gray-200 border-gray-400 text-gray-500"

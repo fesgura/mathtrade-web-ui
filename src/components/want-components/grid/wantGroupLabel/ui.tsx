@@ -9,6 +9,8 @@ import ValueMini from "@/components/value/mini";
 import Icon from "@/components/icon";
 import I18N, { getI18Ntext } from "@/i18n";
 import TagRowControls from "../tagRowControls";
+import TagPendingWants from "../../tag-pending";
+import { tagCounter, tagPendingCount } from "../../utils";
 import {
   cardKindBorderClass,
   resolveWantGroupKind,
@@ -32,6 +34,7 @@ const WantGroupLabelUI = ({ wantGroup = null }) => {
   // A tag is a want from the moment it's created; an empty one isn't an
   // error ("no options"), it just has nothing wanted yet.
   const emptyTag = type === "tag" && empty;
+  const hasPending = tagPendingCount(wantGroup) > 0;
   const kind = wantGroup ? resolveWantGroupKind(wantGroup) : null;
 
   useEffect(() => {
@@ -110,9 +113,12 @@ const WantGroupLabelUI = ({ wantGroup = null }) => {
           </span>
         ) : null}
         <h4 className="cropped_1 text-xs font-bold" title={name}>
-          {`${name}${type === "tag" ? ` (${wants.length})` : ""}`}
+          {`${name}${type === "tag" ? ` (${tagCounter(wantGroup)})` : ""}`}
         </h4>
-        {emptyTag ? (
+        {type === "tag" ? (
+          <TagPendingWants wantGroup={wantGroup} variant="chip" />
+        ) : null}
+        {emptyTag && !hasPending ? (
           <span
             className="text-[10px] text-gray-600 bg-white/70 rounded px-1 shrink-0"
             title={getI18Ntext("tagRow.empty")}

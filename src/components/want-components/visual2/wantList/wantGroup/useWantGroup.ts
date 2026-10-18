@@ -2,6 +2,7 @@ import { useMemo, useCallback, useContext } from "react";
 import { PageContext } from "@/context/page";
 import { MyWantsContext } from "@/context/myWants/all";
 import { colorTagStyles } from "@/utils/color";
+import { isEmptyWantGroup } from "@/components/want-components/utils";
 
 const useWantGroup = (wantGroup = null, itemId = null) => {
   const { canI } = useContext(PageContext);
@@ -74,7 +75,7 @@ const useWantGroup = (wantGroup = null, itemId = null) => {
     type,
     game_type,
     value,
-    canIwant: canI.want,
+    canIwant: canI.want && !isEmptyWantGroup(wantGroup),
     onToggle,
   };
 };
