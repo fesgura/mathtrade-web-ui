@@ -994,6 +994,8 @@
   "provisional.tile.box": "Caja",
   "provisional.tile.components": "Componentes",
   "provisional.summary.title": "Qué podría pasar con tus juegos",
+  "provisional.search.placeholder": "Buscar entre tus juegos",
+  "provisional.search.none": "Ninguno de tus juegos coincide con «$$$».",
   "provisional.exclude.cta": "Autoexcluirme de este Math Trade",
   "provisional.exclude.modal.title": "¿Confirmás que querés autoexcluirte?",
   "provisional.exclude.modal.body": "Esta decisión es <strong>irreversible</strong>. No vas a participar en el Math Trade: tus deseos no se van a usar en la corrida final y al final del evento hay una penalización. Los detalles están en el ",
