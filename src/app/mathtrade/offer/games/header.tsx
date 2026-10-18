@@ -14,7 +14,7 @@ import ClearAllScores from "@/components/value/clear-all";
 import SelectModeButton from "@/components/ban/bulk/SelectModeButton";
 import { useOptions } from "@/store";
 
-const Header = () => {
+const Header = ({ onSwipe }: { onSwipe?: () => void }) => {
   const { games } = useContext(PageContext);
   const { count } = games;
   const { gotoTop } = useContext(GotoTopContext);
@@ -66,6 +66,15 @@ const Header = () => {
       }
       trailing={
         <>
+          {onSwipe ? (
+            <button
+              type="button"
+              className="shrink-0 h-[34px] px-3 rounded-full border border-gray-200 bg-white text-caption font-semibold text-gray-900 hover:bg-gray-100"
+              onClick={onSwipe}
+            >
+              <I18N id="offer.swipe.open" />
+            </button>
+          ) : null}
           <SelectModeButton />
           <ClearAllScores scope="others" className="" />
           <PageSize type="game" />

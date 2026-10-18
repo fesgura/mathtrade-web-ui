@@ -16,7 +16,8 @@ import { useTourDemo } from "@/tours/context";
 import TourDemo from "@/tours/demo/TourDemo";
 import { demoGame } from "@/tours/demo/demoData";
 import NewSinceNotice from "@/components/newSinceNotice";
-import { useCallback, useContext, useMemo } from "react";
+import { useCallback, useContext, useMemo, useState } from "react";
+import OfferSwipe from "./swipe";
 import { PageContext } from "@/context/page";
 import { useOptions } from "@/store";
 import BulkSelectProvider from "@/components/ban/bulk/BulkSelectProvider";
@@ -40,6 +41,7 @@ const GamesView = () => {
   const showDemo = useTourDemo("offer") && !games.list.length;
 
   // Bulk ignore: a new page or filter clears the selection.
+  const [swipeOpen, setSwipeOpen] = useState(false);
   const filters = useOptions((state) => state.filters_game);
   const resetKey = useMemo(() => JSON.stringify(filters || {}), [filters]);
   const { myWants } = useContext(PageContext);
@@ -62,11 +64,14 @@ const GamesView = () => {
           </Sidebar>
           <div>
             <StickyHeader>
-              <Header />
+              <Header onSwipe={() => setSwipeOpen(true)} />
             </StickyHeader>
             <NewSinceNotice count={newCount} onRefresh={refreshList} />
             <div className="md:px-7 px-3 py-7">
-              <div className="game-grid">
+              {swipeOpen ? (
+                <OfferSwipe onClose={() => setSwipeOpen(false)} />
+              ) : null}
+              <div className={swipeOpen ? "hidden" : "game-grid"}>
                 {showDemo ? (
                   <TourDemo>
                     <GameGrid
@@ -90,7 +95,7 @@ const GamesView = () => {
                 })}
               </div>
               <EmptyList
-                visible={isLoaded && !(games?.list?.length || 0) && !error && !showDemo}
+                visible={!swipeOpen && isLoaded && !(games?.list?.length || 0) && !error && !showDemo}
                 message="EmptyList.games"
               />
               <ErrorAlert error={error} className="mt-3" />
