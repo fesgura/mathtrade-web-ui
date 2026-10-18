@@ -136,7 +136,7 @@ export const TOURS: Record<string, Tour> = {
   },
   // Mis deseos (Visual, Recibo -> Ofrezco): building the possible trades.
   "my-wants": {
-    key: "my-wants.v1",
+    key: "my-wants.v2",
     // Rows paint lazily: their always-present container means "has wishes".
     demo: { screen: "my-wants", has: ".visual-section-want" },
     when: (canI) => Boolean(canI?.want),
@@ -162,6 +162,12 @@ export const TOURS: Record<string, Tour> = {
         align: "center",
       },
       { anchor: "mywants.tabs", id: "mywants.tabs", side: "bottom" },
+      {
+        anchor: "mywants.tabs",
+        selector: tab("mywants.tabs", 2),
+        id: "mywants.swipe",
+        side: "bottom",
+      },
       { anchor: "mywants.autocomplete", id: "mywants.autocomplete", side: "top" },
       { anchor: "mywants.save", id: "mywants.save", side: "top" },
     ],

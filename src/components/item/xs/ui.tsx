@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import I18N from "@/i18n";
 import Previewer from "@/components/previewer";
 import UserBox from "@/components/userBox";
@@ -7,16 +8,29 @@ import clsx from "clsx";
 import ValueMini from "@/components/value/mini";
 import ElementXS from "./element";
 
+type ItemXSUIProps = {
+  className?: string;
+  extraContent?: ReactNode;
+  excluded?: boolean;
+  hideUser?: boolean;
+  hideValue?: boolean;
+  // The eye opens the full copy, which names its owner. Provisional results
+  // must not say who gives an item, so that screen turns the eye off.
+  hidePreview?: boolean;
+};
+
 const ItemXSUI = ({
   className = "",
   extraContent = null,
   excluded = false,
   hideUser = false,
   hideValue = false,
-}) => {
+  hidePreview = false,
+}: ItemXSUIProps) => {
   const { item } = useContext(ItemContext);
 
   const { isCombo, elements, value, ban_id } = item;
+  const showMeta = !hideUser || !hideValue || !hidePreview;
 
   return (
     <div
@@ -51,13 +65,15 @@ const ItemXSUI = ({
             <I18N id="item.xs.ignoredLegend" />
           </p>
         ) : null}
-        <div className="flex items-center gap-2 flex-wrap">
-          {!hideUser ? <UserBox toLeft /> : null}
-          <div className="flex items-center gap-2 ml-auto shrink-0">
-            {!hideValue ? <ValueMini currentValue={value} /> : null}
-            <Previewer />
+        {showMeta ? (
+          <div className="flex items-center gap-2 flex-wrap">
+            {!hideUser ? <UserBox toLeft /> : null}
+            <div className="flex items-center gap-2 ml-auto shrink-0">
+              {!hideValue ? <ValueMini currentValue={value} /> : null}
+              {hidePreview ? null : <Previewer />}
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
     </div>
   );
