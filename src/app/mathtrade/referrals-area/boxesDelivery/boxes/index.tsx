@@ -14,7 +14,8 @@ const Boxes = () => {
   // A box being created has no id yet. It goes first, right under the button
   // that made it, instead of at the bottom of a long list.
   const drafts = boxes.filter((box: any) => !box.id);
-  const saved = boxes.filter((box: any) => box.id);
+  const open = boxes.filter((box: any) => box.id && !box.closed_at);
+  const closed = boxes.filter((box: any) => box.id && box.closed_at);
 
   // Scroll to a new draft: the bar is sticky, so the user can be far down.
   const draftRef = useRef<HTMLDivElement>(null);
@@ -43,15 +44,18 @@ const Boxes = () => {
       <ErrorAlert error={error} />
       {drafts.map((box: any, index: number) => (
         <div
-          key={box.number}
+          key={box.id || `draft-${box.number}`}
           ref={index === 0 ? draftRef : undefined}
           className="scroll-mt-16"
         >
           <Box box={box} />
         </div>
       ))}
-      {saved.map((box: any) => (
-        <Box key={box.number} box={box} />
+      {open.map((box: any) => (
+        <Box key={box.id} box={box} />
+      ))}
+      {closed.map((box: any) => (
+        <Box key={box.id} box={box} />
       ))}
       <LoadingBox loading={loading} transparent />
     </section>

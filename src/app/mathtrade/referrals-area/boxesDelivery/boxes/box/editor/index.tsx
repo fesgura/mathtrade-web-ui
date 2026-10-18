@@ -42,7 +42,11 @@ const BoxEditor = ({ box }) => {
               <I18N id="boxesDelivery.number" />
             </span>
             <strong className="block text-heading text-gray-900">
-              {number}
+              {id && (box.displayNumber || box.number) ? (
+                box.displayNumber || box.number
+              ) : (
+                <I18N id="boxesDelivery.number.open" />
+              )}
             </strong>
             <input type="hidden" name="number" value={number} />
           </div>
@@ -67,7 +71,6 @@ const BoxEditor = ({ box }) => {
             name="math_items"
             values={[itemCount]}
             size="sm"
-            required
           />
 
           {itemOptions.length > 0 ? (
@@ -77,7 +80,10 @@ const BoxEditor = ({ box }) => {
               options={itemOptions}
               multiple
               onChange={(a) => {
-                setItemCount(a.split(",").length);
+                const next = String(a || "")
+                  .split(",")
+                  .filter((value) => value.trim() !== "");
+                setItemCount(next.length);
               }}
               customRenderTag={(item, deleteBtn) => {
                 return (
