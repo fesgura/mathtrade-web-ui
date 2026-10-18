@@ -146,6 +146,7 @@ const endpoints = {
   AUTOCOMPLETE_WANTS: "api/mathtrades/$[mathtradeId]/user-want-groups-match/",
   GET_MT_RESULTS: "api/mathtrades/$[mathtradeId]/results/",
   GET_MT_RESULTS_HISTORIAL: "api/mathtrades/$[1]/results/",
+  GET_MT_CHAINS: "api/mathtrades/$[mathtradeId]/chains/",
   GET_PROVISIONAL_RESULTS: "api/mathtrades/$[mathtradeId]/provisional-results/",
   GET_SELF_EXCLUDED: "api/mathtrades/$[mathtradeId]/self-excluded/",
   ADMIN_GET_USERS: "api/mathtrades/$[mathtradeId]/admin-users/",
