@@ -43,7 +43,7 @@ export const TOURS: Record<string, Tour> = {
   // Referrers area, Envíos tab: packing boxes and loading shipments. Every
   // step points at a tab button, there with or without data.
   "referrals-delivery": {
-    key: "referrals-delivery.v1",
+    key: "referrals-delivery.v2",
     when: () => true,
     steps: [
       {
@@ -55,12 +55,6 @@ export const TOURS: Record<string, Tour> = {
       {
         anchor: "referrals.delivery.tabs",
         selector: tab("referrals.delivery.tabs", 2),
-        id: "referrals.boxes",
-        side: "bottom",
-      },
-      {
-        anchor: "referrals.delivery.tabs",
-        selector: tab("referrals.delivery.tabs", 3),
         id: "referrals.tracking",
         side: "bottom",
       },

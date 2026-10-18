@@ -6,7 +6,7 @@ const useTable = () => {
   const { itemListRaw, loading, error } = useContext(BoxDeliveryContext);
 
   const itemTable = useMemo(() => {
-    return itemListRaw.map(({ boxNumber, destinyName, itemRaw }) => {
+    return itemListRaw.map(({ boxNumber, boxLabel, destinyName, itemRaw }) => {
       const { id, assigned_trade_code, first_name, last_name, title } = itemRaw;
 
       return {
@@ -15,7 +15,7 @@ const useTable = () => {
         user: `${first_name} ${last_name}`,
         last_name,
         title,
-        boxNumber,
+        boxNumber: boxLabel || boxNumber,
         destinyName,
       };
     });

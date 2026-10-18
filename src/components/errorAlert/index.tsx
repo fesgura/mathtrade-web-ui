@@ -5,10 +5,17 @@ import { useStore } from "@/store";
 import { getNewUserOfferLimit } from "@/config/newUserOfferLimit";
 
 // Error texts that need a number filled in.
-const useErrorValues = (id: string): (string | number)[] => {
+const useErrorValues = (id: string, error?: any): (string | number)[] => {
   const membership = useStore((state) => state.data?.membership);
   if (id === "error.item.newUserLimit") {
     return [getNewUserOfferLimit(membership)];
+  }
+  if (
+    id === "error.box.notPackable" ||
+    id === "error.box.itemInOther" ||
+    id === "error.box.wrongDestiny"
+  ) {
+    return [error?.itemLabel || "Ese ejemplar"];
   }
   return [];
 };
@@ -29,7 +36,7 @@ const ErrorAlert = ({
     : typeof error === "string"
     ? error
     : resolveApiErrorMessage(error) || "error.General";
-  const values = useErrorValues(id);
+  const values = useErrorValues(id, error);
 
   return error ? (
     <div

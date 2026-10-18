@@ -9,7 +9,7 @@ const items = [img2, img4, img5];
 
 const TutBoxes = () => {
   return (
-    <div className="py-11 px-3 max-w-5xl mx-auto ">
+    <div className="px-3 max-w-5xl mx-auto ">
       <h2 className="text-center text-balance text-2xl mb-5 text-gray-600 italic">
         Reglas para preparar las cajas para los envíos
       </h2>

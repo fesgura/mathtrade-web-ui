@@ -11,7 +11,7 @@ import ViewSelector from "./viewSelector";
 const UserTable = lazy(() => import("./userTable"));
 const BoxesDelivery = lazy(() => import("./boxesDelivery"));
 const BoxesReceived = lazy(() => import("./boxesReceived"));
-const TutBoxes = lazy(() => import("./tut-boxes"));
+const PrepareBoxes = lazy(() => import("./prepareBoxes"));
 
 const tablist = [
   "referral.tab.prepareBoxes",
@@ -37,7 +37,7 @@ export default function ReferralToRegisterUI() {
       <SectionCommon topNotRounded>
         {tabView === 0 ? (
           <Dynamic>
-            <TutBoxes />
+            <PrepareBoxes />
           </Dynamic>
         ) : tabView === 1 ? (
           <Dynamic>

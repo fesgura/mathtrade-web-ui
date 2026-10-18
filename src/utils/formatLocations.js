@@ -1,3 +1,5 @@
+const EVENT_LOCATION_ID = 1;
+
 const normalizeNumKeys = (arrData) => {
   if (!arrData) {
     return {};
@@ -7,6 +9,16 @@ const normalizeNumKeys = (arrData) => {
     return obj;
   }, {});
 };
+
+export const destinyPathLabel = (locationName, locationId, viaMeeting) => {
+  if (viaMeeting && Number(locationId) !== EVENT_LOCATION_ID && locationName) {
+    return `AMBA ➡️ ${locationName}`;
+  }
+  return locationName || "";
+};
+
+const filterSaysViaMeeting = (entry) =>
+  Boolean(entry && typeof entry === "object" && entry.via_meeting);
 
 export const formatLocations = (locationsFromAPI, filterLocationsRaw) => {
   const list = [];
@@ -76,7 +88,11 @@ export const formatLocationsOptionsFiltered = (
 
         list.push({
           value: `${id}`,
-          text: name,
+          text: destinyPathLabel(
+            name,
+            id,
+            filterSaysViaMeeting(locationIdFilter[id])
+          ),
         });
       }
     });

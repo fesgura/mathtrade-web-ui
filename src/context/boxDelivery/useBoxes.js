@@ -1,6 +1,7 @@
 import useFetch from "@/hooks/useFetch";
 import { useState, useCallback, useEffect, useMemo } from "react";
-import { codeNumToString } from "./utils";
+import { destinyPathLabel } from "@/utils";
+import { assignDisplayNumbers, codeNumToString } from "./utils";
 
 const useBoxes = (locations, viewParams) => {
   const [boxes, setBoxes] = useState([]);
@@ -9,21 +10,26 @@ const useBoxes = (locations, viewParams) => {
   const afterLoad = useCallback(
     (newBoxes) => {
       setBoxes(
-        newBoxes
+        assignDisplayNumbers(
+          newBoxes
           .map((b) => {
-            const loc = locations.find((l) => l.id === b.destiny);
+            const loc = (locations || []).find((l) => `${l.id}` === `${b.destiny}`);
+            const items = Array.isArray(b.math_items) ? [...b.math_items] : [];
+            const viaBox = items.some((item) => item.via_meeting);
 
-            const math_items_full = b.math_items
+            const math_items_full = items
               .sort((a, b) => {
                 return a?.assigned_trade_code > b?.assigned_trade_code ? 1 : -1;
               })
-              .map(({ id, title, location, assigned_trade_code }) => {
-                const lo = locations.find((l) => l.id === location);
+              .map(({ id, title, location, assigned_trade_code, via_meeting }) => {
+                const lo = (locations || []).find((l) => `${l.id}` === `${location}`);
                 return {
                   id: `${id}`,
-                  text: `${codeNumToString(
-                    assigned_trade_code
-                  )} - ${title} ➡️ ${lo?.name || ""}`,
+                  text: `${codeNumToString(assigned_trade_code)} - ${title} ➡️ ${destinyPathLabel(
+                    lo?.name || "",
+                    location,
+                    via_meeting
+                  )}`,
                 };
               });
 
@@ -31,12 +37,24 @@ const useBoxes = (locations, viewParams) => {
               ...b,
               id: `${b.id}`,
               destiny: `${b.destiny}`,
-              destinyName: loc ? loc.name : "",
+              destinyName: destinyPathLabel(loc ? loc.name : "", b.destiny, viaBox),
               math_items: math_items_full.map(({ id }) => id),
               math_items_full,
             };
           })
-          .sort((a, b) => a.number - b.number)
+        )
+          .sort((a, b) => {
+            const aOpen = !a.closed_at;
+            const bOpen = !b.closed_at;
+            if (aOpen !== bOpen) return aOpen ? -1 : 1;
+            if (!aOpen) {
+              const ao = a.origin_number == null ? -1 : a.origin_number;
+              const bo = b.origin_number == null ? -1 : b.origin_number;
+              if (ao !== bo) return bo - ao;
+              return (b.number || 0) - (a.number || 0);
+            }
+            return Number(a.id) - Number(b.id);
+          })
       );
     },
     [locations]
@@ -64,7 +82,7 @@ const useBoxes = (locations, viewParams) => {
       locationIdFilt[box.destiny] = true;
       return {
         value: `${box.id}`,
-        text: `Caja Nº ${box.number} - ${box.destinyName}`,
+        text: `Caja Nº ${box.displayNumber || box.number} - ${box.destinyName}`,
         destiny: `${box.destiny}`,
       };
     });

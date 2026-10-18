@@ -1,5 +1,5 @@
 import { useStore } from "@/store";
-import { formatLocationsOptionsFiltered } from "@/utils/formatLocations";
+import { formatLocationsOptionsFiltered, destinyPathLabel } from "@/utils/formatLocations";
 import { createContext, useMemo } from "react";
 import { useReferrerView } from "@/context/referrerView";
 import useItems from "./useItems";
@@ -59,8 +59,37 @@ const BoxDeliveryContextProvider = ({ children }) => {
   /* END BOXES **********************************************/
 
   /* ITEM LIST **********************************************/
-  const { itemList, itemListRaw, locationIdFilter, loadingItems, errorItems } =
-    useItems(boxes, locations, localLocation, viewParams);
+  const {
+    itemList,
+    itemListRaw,
+    locationIdFilter,
+    viaDestinations,
+    loadingItems,
+    errorItems,
+  } = useItems(boxes, locations, localLocation, viewParams);
+
+  const boxesWithPath = useMemo(() => {
+    return (boxes || []).map((box) => {
+      const loc = (locations || []).find((l) => `${l.id}` === `${box.destiny}`);
+      return {
+        ...box,
+        destinyName: destinyPathLabel(
+          loc ? loc.name : "",
+          box.destiny,
+          Boolean(viaDestinations?.[`${box.destiny}`])
+        ),
+      };
+    });
+  }, [boxes, locations, viaDestinations]);
+
+  const boxesListWithPath = useMemo(() => {
+    return (boxesList || []).map((box) => {
+      const match = boxesWithPath.find((b) => `${b.id}` === `${box.value}`);
+      return match
+        ? { ...box, text: `Caja Nº ${match.displayNumber || match.number} - ${match.destinyName}` }
+        : box;
+    });
+  }, [boxesList, boxesWithPath]);
   /* END ITEM LIST **********************************************/
 
   /* TRACKING **********************************************/
@@ -80,7 +109,6 @@ const BoxDeliveryContextProvider = ({ children }) => {
     return formatLocationsOptionsFiltered(locations, {
       ...locationIdFilter,
       [localLocation]: false,
-      [1]: true,
     });
   }, [locations, localLocation, locationIdFilter]);
 
@@ -98,8 +126,8 @@ const BoxDeliveryContextProvider = ({ children }) => {
         itemList,
         itemListRaw,
         //
-        boxes,
-        boxesList,
+        boxes: boxesWithPath,
+        boxesList: boxesListWithPath,
         reloadBoxes,
         addNewBox,
         cancelAddNewBox,
