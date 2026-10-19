@@ -140,10 +140,10 @@ const useGrid = () => {
 
     // Items the user already wants outside a tag (their own item want or a
     // game want): shown as "por separado", not offered to add to the tag.
-    const wantedElsewhere = new Set<number>();
+    const wantedElsewhere = new Set<string>();
     wantList.forEach((w: any) => {
       if (w.type === "tag") return;
-      (w.wants || []).forEach((itm: any) => wantedElsewhere.add(itm.id));
+      (w.wants || []).forEach((itm: any) => wantedElsewhere.add(`${itm.id}`));
     });
 
     const result: any[] = [];
@@ -162,7 +162,7 @@ const useGrid = () => {
       result.push(want);
       if (want.type !== "tag" || !tagsVisible?.[want.id]) return;
       const color = want.tag?.color || "#999999";
-      const wantedIds = new Set((want.wants || []).map((itm: any) => itm.id));
+      const wantedIds = new Set((want.wants || []).map((itm: any) => `${itm.id}`));
       const tagId = want.tag?.id ?? want.tag;
       // Every tagged item; the wanted ones are the tag's want members.
       const items = tagItems[tagId] || want.wants || [];
@@ -172,8 +172,8 @@ const useGrid = () => {
           _key: `tagitem-${want.id}-${item.id}`,
           item,
           color,
-          wanted: wantedIds.has(item.id),
-          wantedElsewhere: wantedElsewhere.has(item.id),
+          wanted: wantedIds.has(`${item.id}`),
+          wantedElsewhere: wantedElsewhere.has(`${item.id}`),
           tagId,
           tagWantId: want.id,
         });

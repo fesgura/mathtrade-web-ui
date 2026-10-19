@@ -10,17 +10,30 @@ import InnerButton from "@/components/button/inner-button";
 import { colorTagStyles } from "@/utils/color";
 import { replaceWant } from "@/utils/replaceWant";
 
+// DRF sends field errors as a string or a one-element list.
+const apiErrorText = (error) => {
+  const data = error?.data;
+  if (!data || typeof data !== "object") return null;
+  const raw = data.item_id ?? data.detail;
+  const value = Array.isArray(raw) ? raw[0] : raw;
+  return typeof value === "string" ? value : null;
+};
+
 /* "Lo quiero" on an item that has a tag: the tag is the want, so wanting the
  * item adds it to the tag's want (and "Ya no lo quiero" takes it out, keeping
  * the tag), instead of creating a separate want that could bring a duplicate. */
 const BtnTagWant = () => {
   const { itemTag, wantedViaTag, item } = useContext(ItemContext);
-  const { setMyWants } = useContext(PageContext);
+  const { setMyWants, setMustConfirm } = useContext(PageContext);
 
   // The backend returns the updated tag want (full data): swap it in.
+  // Wanting changes the commitment, same as any other want edit.
   const afterLoad = useCallback(
-    (updated) => setMyWants((wants) => replaceWant(wants, updated)),
-    [setMyWants]
+    (updated) => {
+      setMustConfirm(true);
+      setMyWants((wants) => replaceWant(wants, updated));
+    },
+    [setMyWants, setMustConfirm]
   );
 
   const [consolidate, , loadingAdd, errorAdd] = useFetch({
@@ -76,7 +89,7 @@ const BtnTagWant = () => {
       )}
       {errorAdd || errorRemove ? (
         <p className="text-xs text-red-600 mt-2">
-          <I18N id="tagWant.error" />
+          {apiErrorText(errorAdd || errorRemove) || <I18N id="tagWant.error" />}
         </p>
       ) : null}
       <div className="mt-2 flex justify-center">

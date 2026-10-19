@@ -21,14 +21,17 @@ const TagPendingWants = ({
   wantGroup?: any;
   variant?: "chip" | "block";
 }) => {
-  const { setMyWants, canI } = useContext(PageContext);
+  const { setMyWants, setMustConfirm, canI } = useContext(PageContext);
   const pending = tagPendingCount(wantGroup);
   const tagId = wantGroup?.tag?.id;
 
   // The backend returns the updated tag want (full data): swap it in.
   const afterLoad = useCallback(
-    (updated: any) => setMyWants((wants: any[]) => replaceWant(wants, updated)),
-    [setMyWants],
+    (updated: any) => {
+      setMustConfirm(true);
+      setMyWants((wants: any[]) => replaceWant(wants, updated));
+    },
+    [setMyWants, setMustConfirm],
   );
 
   const [wantAll, , loading, error] = useFetch({

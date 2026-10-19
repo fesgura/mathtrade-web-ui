@@ -12,7 +12,7 @@ import I18N from "@/i18n";
  * confirmed "all" / "none" actions (replacing the generic want button,
  * whose "remove" would have deleted the tag's want). */
 const TagWantAll = () => {
-  const { myWants, setMyWants, canI } = useContext(PageContext);
+  const { myWants, setMyWants, setMustConfirm, canI } = useContext(PageContext);
   const { tag } = useContext(TagContext);
 
   const tagWant = useMemo(
@@ -27,8 +27,11 @@ const TagWantAll = () => {
 
   // The backend returns the updated tag want (full data): swap it in.
   const afterLoad = useCallback(
-    (updated) => setMyWants((wants) => replaceWant(wants, updated)),
-    [setMyWants]
+    (updated) => {
+      setMustConfirm(true);
+      setMyWants((wants) => replaceWant(wants, updated));
+    },
+    [setMyWants, setMustConfirm]
   );
 
   const [wantAll, , loadingAll] = useFetch({
