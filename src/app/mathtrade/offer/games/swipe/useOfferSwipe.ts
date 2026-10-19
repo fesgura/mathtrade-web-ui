@@ -19,7 +19,7 @@ type RawGame = {
   game_thumbnail?: string;
   year?: number | string | null;
   year_published?: number | string | null;
-  items?: { id?: number | string }[];
+  items?: { id?: number | string; user?: { id?: number | string } | null }[];
   ban_id?: number | null;
   favorite_id?: number | null;
   type?: number | null;
@@ -43,6 +43,12 @@ type Step =
       kind: "favorite";
       bggId: number;
       favoriteId: number | null;
+      created: boolean;
+    }
+  | {
+      kind: "want";
+      bggId: number;
+      wantId: number | null;
       created: boolean;
     }
   | { kind: "skip" };
@@ -101,8 +107,25 @@ const withMarks = (card: OfferCard, marks: Marks): OfferCard => {
   };
 };
 
+const wantableIds = (card: OfferCard, userId: string | number) =>
+  (card.raw.items || [])
+    .filter((item) => {
+      const owner = item.user?.id;
+      if (owner == null || `${owner}` === "") return true;
+      return `${owner}` !== `${userId}`;
+    })
+    .map((item) => item.id)
+    .filter((id): id is number | string => id != null);
+
 const useOfferSwipe = (onClose: () => void) => {
-  const { myWants, forceReloadPage } = useContext(PageContext);
+  const {
+    myWants,
+    forceReloadPage,
+    canI,
+    setMyWants,
+    setMustConfirm,
+    userId,
+  } = useContext(PageContext);
   const mathtradeId = useStore((state) => state.data?.mathtrade?.id);
   const filters = useOptions((state) => state.filters_game);
   const [deck, setDeck] = useState<OfferCard[]>([]);
@@ -202,6 +225,12 @@ const useOfferSwipe = (onClose: () => void) => {
     setRetry((current) => current + 1);
   }, []);
 
+  // Bring the card back without an error. Used when a down-swipe was not a want.
+  const bounce = useCallback(() => {
+    setBusy(false);
+    setRetry((current) => current + 1);
+  }, []);
+
   const favorite = useCallback(
     async (card: OfferCard) => {
       if (card.favoriteId) {
@@ -291,6 +320,80 @@ const useOfferSwipe = (onClose: () => void) => {
     advance({ kind: "skip" });
   }, [advance, busy]);
 
+  // Down wants the game, the same quick add as "Lo quiero": every copy that
+  // isn't the user's own. A closed want stage snaps the card back instead.
+  const prepareWant = useCallback(() => {
+    if (!canI?.want || !shown) return false;
+    if (isWantedGame(shown.raw, wantsRef.current)) return true;
+    return wantableIds(shown, userId).length > 0;
+  }, [canI, shown, userId]);
+
+  const want = useCallback(
+    async (card: OfferCard) => {
+      if (!canI?.want) {
+        bounce();
+        return;
+      }
+      if (isWantedGame(card.raw, wantsRef.current)) {
+        advance({
+          kind: "want",
+          bggId: card.bggId,
+          wantId: null,
+          created: false,
+        });
+        return;
+      }
+      const ids = wantableIds(card, userId);
+      if (!ids.length) {
+        bounce();
+        return;
+      }
+      const notGame =
+        card.raw.type === 3 || card.bggId === 23953 || card.bggId < 0;
+      setBusy(true);
+      const [errors, , data] = await request({
+        method: "POST",
+        endpoint: "POST_MYWANTS",
+        mathtradeId,
+        params: {
+          name: card.title,
+          bgg_id: notGame ? null : card.bggId,
+          want_ids: ids,
+          item_ids: [],
+          dup_protection: true,
+        },
+      });
+      setBusy(false);
+      if (errors || !data?.id) {
+        fail();
+        return;
+      }
+      setMyWants((current: { id?: number }[] = []) => [
+        ...current,
+        {
+          ...data,
+          type: data.type || "game",
+          bgg_id: data.bgg_id ?? card.bggId,
+          wants: data.wants || ids.map((id) => ({ id })),
+          isNewHot: true,
+        },
+      ]);
+      setMustConfirm(true);
+      advance({
+        kind: "want",
+        bggId: card.bggId,
+        wantId: data.id,
+        created: true,
+      });
+    },
+    [advance, bounce, canI, fail, mathtradeId, setMustConfirm, setMyWants, userId]
+  );
+
+  const onWant = useCallback(() => {
+    if (!shown || busy) return;
+    void want(shown);
+  }, [busy, shown, want]);
+
   const onUndo = useCallback(async () => {
     const last = history[history.length - 1];
     if (!last || busy) return;
@@ -312,6 +415,24 @@ const useOfferSwipe = (onClose: () => void) => {
         [last.bggId]: { ...current[last.bggId], banId: null },
       }));
     }
+    if (last.kind === "want" && last.created && last.wantId) {
+      setBusy(true);
+      const [errors] = await request({
+        method: "DELETE",
+        endpoint: "DELETE_MYWANTS",
+        urlParams: [last.wantId],
+        mathtradeId,
+      });
+      setBusy(false);
+      if (errors) {
+        setError(true);
+        return;
+      }
+      const removed = last.wantId;
+      setMyWants((current: { id?: number }[] = []) =>
+        current.filter((group) => group.id !== removed)
+      );
+    }
     if (last.kind === "favorite" && last.created && last.favoriteId) {
       setBusy(true);
       const [errors] = await request({
@@ -331,7 +452,7 @@ const useOfferSwipe = (onClose: () => void) => {
     }
     setHistory((current) => current.slice(0, -1));
     setIndex((current) => Math.max(0, current - 1));
-  }, [busy, history]);
+  }, [busy, history, mathtradeId, setMyWants]);
 
   const confirm = useCallback(() => {
     if (shown) ignore(shown);
@@ -352,6 +473,9 @@ const useOfferSwipe = (onClose: () => void) => {
     (step) => step.kind === "favorite" && step.created
   ).length;
   const skipped = history.filter((step) => step.kind === "skip").length;
+  const wantedCount = history.filter(
+    (step) => step.kind === "want" && step.created
+  ).length;
 
   return {
     card: shown,
@@ -366,10 +490,14 @@ const useOfferSwipe = (onClose: () => void) => {
     empty: finished && deck.length === 0,
     booting: !finished && deck.length === 0 && !error,
     waiting: deck.length > 0 && index >= deck.length && !finished,
-    counts: { ignored, favored, skipped },
+    counts: { ignored, favored, skipped, wanted: wantedCount },
+    canWant: Boolean(canI?.want),
+    wanted: shown ? isWantedGame(shown.raw, myWants) : false,
     prepare,
+    prepareWant,
     onSwipe,
     onSkip,
+    onWant,
     onUndo,
     confirm,
     cancelConfirm,

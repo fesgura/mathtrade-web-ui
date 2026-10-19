@@ -23,10 +23,14 @@ const SwipeDeck = ({
   onUndo,
   onStep,
   onSkip,
+  onDown,
+  onBeforeDown,
+  downEnabled = true,
   onBeforeSwipe,
   stampYes = "swipe.yes",
   stampNo = "swipe.no",
   stampSkip = "offer.swipe.skip",
+  stampDown = "offer.swipe.want",
   yesIcon = "heart",
   noIcon = "close",
   yesButtonClass = "h-14 w-14 rounded-full bg-want text-white text-xl flex items-center justify-center disabled:opacity-40",
@@ -44,13 +48,19 @@ const SwipeDeck = ({
   onSwipe: (yes: boolean) => void;
   onUndo: () => void;
   onStep?: (delta: 1 | -1) => void;
-  // Up or down leaves the card unmarked. Wants swipe does not pass this.
+  // Up leaves the card unmarked. Wants swipe does not pass this.
   onSkip?: () => void;
+  // Down wants the game. Without it, down skips too.
+  onDown?: () => void;
+  // Return false to snap the card back instead of wanting it.
+  onBeforeDown?: () => boolean;
+  downEnabled?: boolean;
   // Return false to cancel the fly-off (a confirm step, for example).
   onBeforeSwipe?: (yes: boolean) => boolean;
   stampYes?: string;
   stampNo?: string;
   stampSkip?: string;
+  stampDown?: string;
   yesIcon?: string;
   noIcon?: string;
   yesButtonClass?: string;
@@ -67,6 +77,12 @@ const SwipeDeck = ({
   onSwipeRef.current = onSwipe;
   const onSkipRef = useRef(onSkip);
   onSkipRef.current = onSkip;
+  const onDownRef = useRef(onDown);
+  onDownRef.current = onDown;
+  const onBeforeDownRef = useRef(onBeforeDown);
+  onBeforeDownRef.current = onBeforeDown;
+  const downEnabledRef = useRef(downEnabled);
+  downEnabledRef.current = downEnabled;
   const onBeforeSwipeRef = useRef(onBeforeSwipe);
   onBeforeSwipeRef.current = onBeforeSwipe;
   const [frame, setFrame] = useState({ x: 0, y: 0, active: false });
@@ -136,6 +152,35 @@ const SwipeDeck = ({
     [disabled]
   );
 
+  const commitDown = useCallback(() => {
+    if (disabled || lock.current || !onDownRef.current) return;
+    if (!downEnabledRef.current) {
+      pos.current.active = false;
+      setFrame({ x: 0, y: 0, active: false });
+      return;
+    }
+    if (onBeforeDownRef.current && onBeforeDownRef.current() === false) {
+      pos.current.active = false;
+      setFrame({ x: 0, y: 0, active: false });
+      return;
+    }
+    lock.current = true;
+    setBusy(true);
+    setFrame((current) => ({ ...current, active: false }));
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const go = () => {
+      setExitY(-1);
+      window.setTimeout(
+        () => onDownRef.current?.(),
+        reduced ? 0 : EXIT_MS
+      );
+    };
+    if (reduced) go();
+    else requestAnimationFrame(go);
+  }, [disabled]);
+
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
@@ -161,12 +206,15 @@ const SwipeDeck = ({
       } else if (event.key === "ArrowLeft") {
         event.preventDefault();
         commit(false);
-      } else if (
-        onSkipRef.current &&
-        (event.key === "ArrowUp" || event.key === "ArrowDown")
-      ) {
+      } else if (event.key === "ArrowUp" && onSkipRef.current) {
         event.preventDefault();
-        commitSkip(event.key === "ArrowUp" ? "up" : "down");
+        commitSkip("up");
+      } else if (event.key === "ArrowDown" && onDownRef.current) {
+        event.preventDefault();
+        commitDown();
+      } else if (event.key === "ArrowDown" && onSkipRef.current) {
+        event.preventDefault();
+        commitSkip("down");
       } else if ((event.key === "z" || event.key === "Backspace") && canUndo) {
         event.preventDefault();
         onUndo();
@@ -174,7 +222,7 @@ const SwipeDeck = ({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [canUndo, commit, commitSkip, disabled, onStep, onUndo]);
+  }, [canUndo, commit, commitDown, commitSkip, disabled, onStep, onUndo]);
 
   const onPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
     if (disabled || lock.current || event.button !== 0) return;
@@ -210,12 +258,11 @@ const SwipeDeck = ({
     const x = pos.current.x;
     const y = pos.current.y;
     pos.current.active = false;
-    if (
-      onSkipRef.current &&
-      Math.abs(y) > Math.abs(x) &&
-      Math.abs(y) > THRESHOLD
-    ) {
-      commitSkip(y < 0 ? "up" : "down");
+    if (Math.abs(y) > Math.abs(x) && Math.abs(y) > THRESHOLD) {
+      if (y < 0 && onSkipRef.current) commitSkip("up");
+      else if (y > 0 && onDownRef.current) commitDown();
+      else if (onSkipRef.current) commitSkip(y < 0 ? "up" : "down");
+      else setFrame({ x: 0, y: 0, active: false });
     } else if (x > THRESHOLD) commit(true);
     else if (x < -THRESHOLD) commit(false);
     else setFrame({ x: 0, y: 0, active: false });
@@ -225,12 +272,20 @@ const SwipeDeck = ({
   const y = exitY !== 0 ? exitY * -680 : exit === 0 ? frame.y : 0;
   const rot = Math.max(-18, Math.min(18, x / 18));
   const vertical =
-    Boolean(onSkip) && Math.abs(frame.y) > Math.abs(frame.x) && exit === 0 && exitY === 0;
+    Boolean(onSkip || onDown) &&
+    Math.abs(frame.y) > Math.abs(frame.x) &&
+    exit === 0 &&
+    exitY === 0;
   const yesOpacity = vertical ? 0 : Math.max(0, Math.min(1, x / THRESHOLD));
   const noOpacity = vertical ? 0 : Math.max(0, Math.min(1, -x / THRESHOLD));
-  const skipOpacity = vertical
-    ? Math.max(0, Math.min(1, Math.abs(frame.y) / THRESHOLD))
-    : 0;
+  const skipOpacity =
+    vertical && (onDown ? frame.y < 0 : true)
+      ? Math.max(0, Math.min(1, Math.abs(frame.y) / THRESHOLD))
+      : 0;
+  const downOpacity =
+    vertical && onDown && downEnabled && frame.y > 0
+      ? Math.max(0, Math.min(1, frame.y / THRESHOLD))
+      : 0;
 
   return (
     <div
@@ -287,48 +342,104 @@ const SwipeDeck = ({
             <I18N id={stampSkip} />
           </div>
         ) : null}
+        {onDown ? (
+          <div
+            className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-lg border-[3px] border-want text-want font-black uppercase tracking-wide px-2 py-0.5 text-xl"
+            style={{ opacity: downOpacity }}
+            aria-hidden
+          >
+            <I18N id={stampDown} />
+          </div>
+        ) : null}
       </div>
 
-      <div className="mt-4 flex items-center justify-center gap-4">
-        <button
-          type="button"
-          className={noButtonClass}
-          aria-label={getI18Ntext(stampNo)}
-          disabled={disabled || busy}
-          onClick={() => commit(false)}
-        >
-          <Icon type={noIcon} />
-        </button>
-        <button
-          type="button"
-          className="h-14 px-4 rounded-full border border-gray-300 bg-white text-gray-700 font-bold hover:bg-gray-50 disabled:opacity-40"
-          disabled={disabled || busy || !canUndo}
-          onClick={onUndo}
-        >
-          <I18N id="swipe.undo" />
-        </button>
-        <button
-          type="button"
-          className={yesButtonClass}
-          aria-label={getI18Ntext(stampYes)}
-          disabled={disabled || busy}
-          onClick={() => commit(true)}
-        >
-          <Icon type={yesIcon} />
-        </button>
-      </div>
-      {onSkip ? (
-        <div className="mt-3 flex justify-center">
+      {onSkip || onDown ? (
+        <div className="mt-4 grid grid-cols-3 items-center justify-items-center gap-y-3">
+          <span />
+          {onSkip ? (
+            <button
+              type="button"
+              className="h-14 px-5 rounded-full border border-gray-300 bg-white text-gray-700 font-bold hover:bg-gray-50 disabled:opacity-40"
+              disabled={disabled || busy}
+              onClick={() => commitSkip("up")}
+            >
+              <I18N id={stampSkip} />
+            </button>
+          ) : (
+            <span />
+          )}
+          <span />
           <button
             type="button"
-            className="h-14 px-5 rounded-full border border-gray-300 bg-white text-gray-700 font-bold hover:bg-gray-50 disabled:opacity-40"
+            className={noButtonClass}
+            aria-label={getI18Ntext(stampNo)}
             disabled={disabled || busy}
-            onClick={() => commitSkip("down")}
+            onClick={() => commit(false)}
           >
-            <I18N id={stampSkip} />
+            <Icon type={noIcon} />
+          </button>
+          <button
+            type="button"
+            className="h-14 px-4 rounded-full border border-gray-300 bg-white text-gray-700 font-bold hover:bg-gray-50 disabled:opacity-40"
+            disabled={disabled || busy || !canUndo}
+            onClick={onUndo}
+          >
+            <I18N id="swipe.undo" />
+          </button>
+          <button
+            type="button"
+            className={yesButtonClass}
+            aria-label={getI18Ntext(stampYes)}
+            disabled={disabled || busy}
+            onClick={() => commit(true)}
+          >
+            <Icon type={yesIcon} />
+          </button>
+          <span />
+          {onDown && downEnabled ? (
+            <button
+              type="button"
+              className="h-14 px-5 rounded-full bg-want text-white font-bold hover:opacity-80 disabled:opacity-40"
+              disabled={disabled || busy}
+              onClick={commitDown}
+            >
+              <I18N id={stampDown} />
+            </button>
+          ) : (
+            <span />
+          )}
+          <span />
+        </div>
+      ) : (
+        <div className="mt-4 flex items-center justify-center gap-4">
+          <button
+            type="button"
+            className={noButtonClass}
+            aria-label={getI18Ntext(stampNo)}
+            disabled={disabled || busy}
+            onClick={() => commit(false)}
+          >
+            <Icon type={noIcon} />
+          </button>
+          <button
+            type="button"
+            className="h-14 px-4 rounded-full border border-gray-300 bg-white text-gray-700 font-bold hover:bg-gray-50 disabled:opacity-40"
+            disabled={disabled || busy || !canUndo}
+            onClick={onUndo}
+          >
+            <I18N id="swipe.undo" />
+          </button>
+          <button
+            type="button"
+            className={yesButtonClass}
+            aria-label={getI18Ntext(stampYes)}
+            disabled={disabled || busy}
+            onClick={() => commit(true)}
+          >
+            <Icon type={yesIcon} />
           </button>
         </div>
-      ) : null}
+      )}
       {disabled ? null : (
         <p
           className={clsx(
