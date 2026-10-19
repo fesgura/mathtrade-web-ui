@@ -12,12 +12,16 @@ import { replaceWant } from "@/utils/replaceWant";
  * you want it (add it to the tag) or stop wanting it, right here. */
 const TagItemLabel = ({ row }: { row: any }) => {
   const { item, color, wanted, wantedElsewhere, tagId } = row;
-  const { setMyWants, canI } = useContext(PageContext);
+  const { setMyWants, setMustConfirm, canI } = useContext(PageContext);
 
   // The backend returns the updated tag want (full data): swap it in.
+  // Wanting changes the commitment, same as any other want edit.
   const afterLoad = useCallback(
-    (updated: any) => setMyWants((wants: any[]) => replaceWant(wants, updated)),
-    [setMyWants]
+    (updated: any) => {
+      setMustConfirm(true);
+      setMyWants((wants: any[]) => replaceWant(wants, updated));
+    },
+    [setMyWants, setMustConfirm]
   );
 
   const [add, , adding, errorAdd] = useFetch({

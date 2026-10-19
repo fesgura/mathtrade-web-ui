@@ -177,7 +177,7 @@ export const ItemContextProvider = ({
       if (w.wants && w.wants.length && itemLoaded?.id) {
         return (
           w.wants.filter((itm) => {
-            return itm.id === itemLoaded.id;
+            return `${itm.id}` === `${itemLoaded.id}`;
           }).length > 0
         );
       }
@@ -215,7 +215,7 @@ export const ItemContextProvider = ({
     return {
       itemTag: tag,
       tagWant: want,
-      wantedViaTag: !!want?.wants?.some((itm) => itm.id === id),
+      wantedViaTag: !!want?.wants?.some((itm) => `${itm.id}` === `${id}`),
     };
   }, [itemLoaded, itemTags, myWants]);
 
