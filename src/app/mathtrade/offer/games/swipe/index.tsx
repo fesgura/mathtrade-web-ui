@@ -81,6 +81,7 @@ const OfferSwipe = ({
               values={[
                 swipe.counts.ignored,
                 swipe.counts.favored,
+                swipe.counts.wanted,
                 swipe.counts.skipped,
               ]}
             />
@@ -116,10 +117,14 @@ const OfferSwipe = ({
             onSwipe={swipe.onSwipe}
             onUndo={swipe.onUndo}
             onSkip={swipe.onSkip}
+            onDown={swipe.onWant}
+            onBeforeDown={swipe.prepareWant}
+            downEnabled={swipe.canWant}
             onBeforeSwipe={swipe.prepare}
             stampYes="offer.swipe.favorite"
             stampNo="offer.swipe.ignore"
             stampSkip="offer.swipe.skip"
+            stampDown="offer.swipe.want"
             yesIcon="star"
             noIcon="eye-hide"
             yesButtonClass="h-14 w-14 rounded-full bg-amber-500 text-white text-xl flex items-center justify-center hover:bg-amber-600 disabled:opacity-40"
@@ -176,6 +181,11 @@ const OfferSwipe = ({
                 {swipe.card.favoriteId ? (
                   <p className="text-caption font-bold text-amber-600 mt-1">
                     <I18N id="offer.swipe.alreadyFavorite" />
+                  </p>
+                ) : null}
+                {swipe.wanted ? (
+                  <p className="text-caption font-bold text-want mt-1">
+                    <I18N id="offer.swipe.alreadyWanted" />
                   </p>
                 ) : null}
                 {swipe.card.banId ? (
