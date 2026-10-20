@@ -34,7 +34,10 @@ const useOffer = () => {
 
   const afterLoadMyItems = useCallback(
     (newMyItemsInMT: unknown) => {
-      setMyItemsInMT_forWants(newMyItemsInMT);
+      const readyItems = Array.isArray(newMyItemsInMT)
+        ? newMyItemsInMT.filter((item: any) => item?.ready !== false)
+        : [];
+      setMyItemsInMT_forWants(readyItems);
     },
     [setMyItemsInMT_forWants]
   );
