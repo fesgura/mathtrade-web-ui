@@ -5,6 +5,8 @@ import StatusChip from "@/components/status-badge/statusChip";
 import Chip from "@/components/chip";
 import LanguagePills from "@/components/chip/languagePills";
 import { ElementContext } from "@/context/element";
+import { ItemContext } from "@/context/item";
+import ItemTagList from "@/components/item-tags/item-taglist";
 import { useContext, type ReactNode } from "react";
 import BadgeType from "@/components/badgeType";
 import useBGGdata from "@/components/bggInfo/useBGGdata";
@@ -29,6 +31,7 @@ const ElementComplete = ({
   header = null,
 }: ElementCompleteProps) => {
   const { element } = useContext(ElementContext);
+  const { item } = useContext(ItemContext);
   // While selecting, onToggleExpanse toggles the selection: no "+" overlay.
   const { selecting } = useBulkSelect();
 
@@ -104,6 +107,15 @@ const ElementComplete = ({
           )}
         </div>
       </div>
+      {/* On the foot of the cover, centered, instead of sharing the row with
+          ignore / favorite / score. That row is too narrow on a phone, so
+          the button was covered and a tap never reached it. */}
+      {header && !(item as { ban_id?: unknown } | null)?.ban_id ? (
+        <ItemTagList
+          className="pointer-events-none relative z-20 -mt-5 mb-1 w-full justify-center px-3 [&>*]:pointer-events-auto"
+          onCover
+        />
+      ) : null}
 
       <div className="grow min-w-0 py-3 px-4 flex flex-col gap-2.5 items-start">
         {header}

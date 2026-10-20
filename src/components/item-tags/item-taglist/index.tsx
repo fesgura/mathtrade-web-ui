@@ -1,11 +1,18 @@
 "use client";
+import clsx from "clsx";
 import { colorTagStyles } from "@/utils/color";
 import useItemTagList from "./useItemTagList";
 import Icon from "@/components/icon";
 import AddTag from "./addTag";
 import I18N from "@/i18n";
 
-const ItemTagList = () => {
+const ItemTagList = ({
+  className = "",
+  onCover = false,
+}: {
+  className?: string;
+  onCover?: boolean;
+}) => {
   const {
     isOwned,
     isSameBGGId,
@@ -19,8 +26,17 @@ const ItemTagList = () => {
     tagWant,
   } = useItemTagList();
 
-  return isOwned || isSameBGGId ? null : (
-    <div className="flex flex-wrap items-center gap-1.5">
+  const showAdd = canIEdit && !tagCollection.current.length;
+  if (
+    isOwned ||
+    isSameBGGId ||
+    (!tagCollection.current.length && !notice && !showAdd)
+  ) {
+    return null;
+  }
+
+  return (
+    <div className={clsx("flex flex-wrap items-center gap-1.5", className)}>
       {tagCollection.current.map((tag) => {
         const { id, color, name, items } = tag;
 
@@ -90,12 +106,13 @@ const ItemTagList = () => {
         </div>
       ) : null}
       {/* An item has at most one tag: once tagged, no "+ Agregar etiqueta". */}
-      {canIEdit && !tagCollection.current.length ? (
+      {showAdd ? (
         <AddTag
           updateTag={updateTag}
           options={tagCollection.options}
           itemId={itemId}
           loading={loadingUpdateTag || loadingTags}
+          onCover={onCover}
         />
       ) : null}
     </div>
