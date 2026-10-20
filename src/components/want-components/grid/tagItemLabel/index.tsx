@@ -44,7 +44,7 @@ const TagItemLabel = ({ row }: { row: any }) => {
   return (
     <div
       className={clsx(
-        "h-7 w-[32rem] border-b border-r border-gray-200 flex items-center justify-between gap-1 pl-6 pr-1",
+        "h-7 w-52 sm:w-80 lg:w-[32rem] border-b border-r border-gray-200 flex items-center justify-between gap-1 pl-6 pr-1",
         { "opacity-70": state === "none" }
       )}
       style={{ backgroundColor: state === "wanted" ? `${color}25` : "#f3f4f6" }}

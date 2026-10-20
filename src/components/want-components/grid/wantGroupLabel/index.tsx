@@ -8,7 +8,7 @@ const WantGroupLabel = ({ rootRef = null, wantGroup = null }) => {
   const visible = useIntersectionObserver(rootRef, targetRef);
 
   return (
-    <div className="h-8 w-[32rem]" ref={targetRef}>
+    <div className="h-8 w-52 sm:w-80 lg:w-[32rem]" ref={targetRef}>
       {visible ? <WantGroupLabelUI wantGroup={wantGroup} /> : null}
     </div>
   );
