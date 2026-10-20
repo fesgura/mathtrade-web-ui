@@ -127,7 +127,10 @@ const useWants = () => {
 
   const afterLoadMyItems = useCallback(
     (newMyItemsInMT) => {
-      setMyItemsInMT_forWants(newMyItemsInMT);
+      const readyItems = Array.isArray(newMyItemsInMT)
+        ? newMyItemsInMT.filter((item) => item?.ready !== false)
+        : [];
+      setMyItemsInMT_forWants(readyItems);
       setChanges({});
     },
     [setMyItemsInMT_forWants, setChanges]
