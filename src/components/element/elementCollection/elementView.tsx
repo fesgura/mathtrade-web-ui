@@ -1,4 +1,6 @@
 import Thumbnail from "@/components/thumbnail";
+import Link from "next/link";
+import { PRIVATE_ROUTES } from "@/config/routes";
 import Icon from "@/components/icon";
 import I18N from "@/i18n";
 import ButtonAlert from "@/components/buttonAlert";
@@ -194,6 +196,13 @@ const ElementView = ({
               <div className="bg-red-100 text-red-700 font-bold text-[10px] px-2 py-[2px] rounded uppercase whitespace-nowrap">
                 <I18N id="myOffer.item.missingInfo" />
               </div>
+            ) : !insideItem && offeredItem && offeredItem.itemReady === false ? (
+              <Link
+                href={PRIVATE_ROUTES.MY_OFFER.path}
+                className="bg-red-100 text-red-700 font-bold text-[10px] px-2 py-[2px] rounded uppercase whitespace-nowrap underline hover:opacity-80"
+              >
+                <I18N id="myOffer.item.missingInfo" />
+              </Link>
             ) : null}
           </div>
           {offered ? (

@@ -80,14 +80,15 @@ const useMyCollection = () => {
   const offeredByElementId = useMemo(() => {
     return (myItemsInMT || []).reduce(
       (
-        map: Record<string, { itemId: number; elementsCount: number }>,
-        { id, elements }: any = {}
+        map: Record<string, { itemId: number; elementsCount: number; itemReady: boolean }>,
+        { id, ready, elements }: any = {}
       ) => {
         (elements || []).forEach(({ element }: any = {}) => {
           if (element?.id != null) {
             map[`${element.id}`] = {
               itemId: id,
               elementsCount: (elements || []).length,
+              itemReady: ready !== false,
             };
           }
         });
@@ -154,9 +155,13 @@ const useMyCollection = () => {
 
     const readyFilter = filters_collection?.ready;
     if (readyFilter === "ready") {
-      elementFiltered = elementFiltered.filter((item: any) => item.box_size !== null);
+      elementFiltered = elementFiltered.filter(
+        (item: any) => item.box_size !== null && (!item.offered || item.offered.itemReady !== false)
+      );
     } else if (readyFilter === "missing") {
-      elementFiltered = elementFiltered.filter((item: any) => item.box_size === null);
+      elementFiltered = elementFiltered.filter(
+        (item: any) => item.box_size === null || (item.offered && item.offered.itemReady === false)
+      );
     }
 
     const order = filters_collection?.order || "none";

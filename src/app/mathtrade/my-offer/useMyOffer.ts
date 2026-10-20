@@ -142,12 +142,18 @@ const useMyOffer = () => {
       });
     })();
 
-    // REPORTED FIRST: copies with an open report you can see (the amber
-    // box) go on top in any order; a stable split keeps the chosen order
-    // within each part. The BE already sends them first for "none".
+    // REPORTED & UNREADY FIRST: copies with an open report or missing box/component
+    // status (ready === false) go on top in any order; a stable split keeps the
+    // chosen order within each part.
     const reported = ordered.filter((item) => !!item.staff_observation);
-    if (!reported.length) return ordered;
-    return [...reported, ...ordered.filter((item) => !item.staff_observation)];
+    const restAfterReported = reported.length
+      ? ordered.filter((item) => !item.staff_observation)
+      : ordered;
+    const unready = restAfterReported.filter((item) => item.ready === false);
+    const readyRest = unready.length
+      ? restAfterReported.filter((item) => item.ready !== false)
+      : restAfterReported;
+    return [...reported, ...unready, ...readyRest];
   }, [myItemsInMT, myGroups, filters_myoffer]);
 
   // END Order Items ********************************************
