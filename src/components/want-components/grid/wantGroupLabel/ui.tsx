@@ -53,7 +53,7 @@ const WantGroupLabelUI = ({ wantGroup = null }) => {
   return (
     <div
       className={clsx(
-        "relative h-8 w-64 border-b border-r flex items-center justify-between gap-1 pl-2",
+        "relative h-8 w-52 sm:w-80 lg:w-[32rem] border-b border-r flex items-center gap-1 pl-2",
         tagStyle ? "bg-white border-gray-300" : cardKindBorderClass(kind, 4),
         { "shadow-[inset_0_0_0_3px_red]": empty && !emptyTag }
       )}
@@ -66,7 +66,7 @@ const WantGroupLabelUI = ({ wantGroup = null }) => {
           aria-hidden="true"
         />
       ) : null}
-      <div className="flex items-center gap-1 min-w-0">
+      <div className="flex items-center gap-1 min-w-0 flex-1">
         {changes.length ? (
           // Tapping it opens the preview, which lists the changes (phones
           // have no tooltip) and marks them seen.
@@ -112,9 +112,11 @@ const WantGroupLabelUI = ({ wantGroup = null }) => {
             <I18N id={`grid.wantType.${type}`} />
           </span>
         ) : null}
-        <h4 className="cropped_1 text-xs font-bold" title={name}>
+        <h4 className="cropped_1 min-w-0 flex-1 text-xs font-bold" title={name}>
           {`${name}${type === "tag" ? ` (${tagCounter(wantGroup)})` : ""}`}
         </h4>
+      </div>
+      <div className="flex items-center gap-1 shrink-0">
         {type === "tag" ? (
           <TagPendingWants wantGroup={wantGroup} variant="chip" />
         ) : null}
@@ -127,8 +129,6 @@ const WantGroupLabelUI = ({ wantGroup = null }) => {
           </span>
         ) : null}
         {type === "tag" ? <TagRowControls wantGroup={wantGroup} /> : null}
-      </div>
-      <div className="flex items-center gap-1">
         <ValueMini currentValue={value} />
         <div className="w-6">
           <PreviewerWantGroup

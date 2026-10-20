@@ -28,7 +28,9 @@ const useGameList = () => {
       });
 
       items.forEach((itm) => {
-        if (itm?.membership?.id === userId) {
+        // A combo that also contains a game this member offers is not
+        // wanted: the rest of the copies still are.
+        if (itm?.membership?.id === userId || itm?.contains_offered) {
           newGroupWantList[itm?.id || "_"] = false;
           newOwnList[itm?.id || "_"] = true;
         } else {
@@ -37,7 +39,7 @@ const useGameList = () => {
       });
     } else {
       items.forEach((itm) => {
-        if (itm?.membership?.id === userId) {
+        if (itm?.membership?.id === userId || itm?.contains_offered) {
           newGroupWantList[itm?.id || "_"] = false;
           newOwnList[itm?.id || "_"] = true;
         } else {

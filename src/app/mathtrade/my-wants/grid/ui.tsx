@@ -78,7 +78,7 @@ const GridUI = () => {
                         colSpan={myItemList.length}
                         className="border-spacing-0 m-0 p-0"
                       >
-                        <div className="sticky left-0 w-64 h-6 flex items-center px-2 text-[10px] font-bold uppercase tracking-wide text-gray-600 bg-gray-100 border-b border-r border-gray-300">
+                        <div className="sticky left-0 w-52 sm:w-80 lg:w-[32rem] h-6 flex items-center px-2 text-[10px] font-bold uppercase tracking-wide text-gray-600 bg-gray-100 border-b border-r border-gray-300">
                           <I18N id={`grid.section.${wantGroup.sectionType}`} />
                         </div>
                       </td>

@@ -1,6 +1,7 @@
 import { useCallback, useContext } from "react";
 import { PageContext } from "@/context/page";
 import { WantGroupContext } from "@/context/wantGroup";
+import { getI18Ntext } from "@/i18n";
 
 import ItemXS from "@/components/item/xs";
 
@@ -32,6 +33,11 @@ const ItemOfGame = ({ item }) => {
         <input
           type="checkbox"
           name={`item-${item?.id}`}
+          title={
+            item?.contains_offered
+              ? getI18Ntext("want.skipOfferedCombo")
+              : undefined
+          }
           className={
             !canI.want || ownList[item?.id]
               ? "cursor-not-allowed"

@@ -7,6 +7,7 @@ const FIELD_RULES: FieldRule[] = [
   // First Math Trade item cap (BE math_item/limits.py NEW_USER_LIMIT_MESSAGE).
   // ErrorAlert fills in the limit from the store membership.
   { field: "item", test: (m) => m === "New user offer limit reached.", key: "error.item.newUserLimit" },
+  { field: "want_ids", test: (m) => m === "You cannot want your own game", key: "error.want.ownGame" },
   {
     field: "item_id",
     test: (m) => m.startsWith("Invalid pk") && m.endsWith("object does not exist."),

@@ -94,16 +94,18 @@ const BtnQuickAdd = () => {
     let want_ids = [];
 
     if (game && game.items) {
-      want_ids = game.items
-        .filter(({ user }) => {
-          if (user && user.id) {
-            return user.id !== userId;
-          }
-          return true;
-        })
-        .map((itm) => {
-          return itm.id;
-        });
+      const offeredByOthers = game.items.filter(({ user }) => {
+        if (user && user.id) {
+          return user.id !== userId;
+        }
+        return true;
+      });
+      const wantable = offeredByOthers.filter((itm) => !itm.contains_offered);
+      // Every copy bundles a game this user offers. Send them anyway so the
+      // backend rejects the want, instead of posting an empty list.
+      want_ids = (wantable.length ? wantable : offeredByOthers).map(
+        (itm) => itm.id
+      );
     }
 
     if (item && item.id) {
@@ -150,11 +152,11 @@ const BtnQuickAdd = () => {
       <div className="text-center">
         <button
           className={clsx(
-            "inline-flex items-center gap-2 text-sm font-semibold transition-colors",
+            "rounded-full inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold transition-colors",
             {
-              "text-gray-400 hover:text-want": !loadingMyWants && !loading,
-              "text-gray-400": loadingMyWants || loading,
-              "opacity-60": loadingMyWants || loading,
+              "bg-want text-white hover:opacity-90": !loadingMyWants && !loading,
+              "bg-gray-400 text-white": loadingMyWants || loading,
+              "opacity-50": loadingMyWants || loading,
             }
           )}
           disabled={loadingMyWants || loading}

@@ -19,7 +19,11 @@ type RawGame = {
   game_thumbnail?: string;
   year?: number | string | null;
   year_published?: number | string | null;
-  items?: { id?: number | string; user?: { id?: number | string } | null }[];
+  items?: {
+    id?: number | string;
+    user?: { id?: number | string } | null;
+    contains_offered?: boolean;
+  }[];
   ban_id?: number | null;
   favorite_id?: number | null;
   type?: number | null;
@@ -109,6 +113,7 @@ const withMarks = (card: OfferCard, marks: Marks): OfferCard => {
 
 const wantableIds = (card: OfferCard, userId: string | number) =>
   (card.raw.items || [])
+    .filter((item) => !item.contains_offered)
     .filter((item) => {
       const owner = item.user?.id;
       if (owner == null || `${owner}` === "") return true;

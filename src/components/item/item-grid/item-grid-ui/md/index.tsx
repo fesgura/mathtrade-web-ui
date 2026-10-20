@@ -81,7 +81,9 @@ const ItemMD = ({ onToggleExpanse }: ItemMDProps) => {
               isCombo={isCombo}
               onToggleExpanse={onCardClick}
               header={
-                isCombo || k > 0 ? null : <ItemGridHeader className="w-full" copyLink />
+                isCombo || k > 0 ? null : (
+                  <ItemGridHeader className="w-full" copyLink hideTags />
+                )
               }
             />
           );
