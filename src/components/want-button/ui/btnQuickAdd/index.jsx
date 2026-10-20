@@ -95,6 +95,7 @@ const BtnQuickAdd = () => {
 
     if (game && game.items) {
       want_ids = game.items
+        .filter((itm) => !itm.contains_offered)
         .filter(({ user }) => {
           if (user && user.id) {
             return user.id !== userId;
@@ -150,11 +151,11 @@ const BtnQuickAdd = () => {
       <div className="text-center">
         <button
           className={clsx(
-            "inline-flex items-center gap-2 text-sm font-semibold transition-colors",
+            "rounded-full inline-flex items-center gap-2 px-5 py-2 text-sm font-semibold transition-colors",
             {
-              "text-gray-400 hover:text-want": !loadingMyWants && !loading,
-              "text-gray-400": loadingMyWants || loading,
-              "opacity-60": loadingMyWants || loading,
+              "bg-want text-white hover:opacity-90": !loadingMyWants && !loading,
+              "bg-gray-400 text-white": loadingMyWants || loading,
+              "opacity-50": loadingMyWants || loading,
             }
           )}
           disabled={loadingMyWants || loading}

@@ -96,10 +96,13 @@ const useTag = (wantGroup) => {
   /* end PUT *************************************/
 
   const putWant = useCallback(() => {
+    const blocked = new Set(
+      (items || [])
+        .filter((itm) => itm.contains_offered)
+        .map((itm) => `${itm.id}`)
+    );
     const want_ids = Object.entries(itemIdsSelected)
-      .filter((ent) => {
-        return ent[1];
-      })
+      .filter(([key, on]) => on && !blocked.has(`${key}`))
       .map(([key]) => {
         return key;
       });
@@ -119,7 +122,7 @@ const useTag = (wantGroup) => {
 
       putMyWant({ params });
     }
-  }, [putMyWant, dup_protection, itemIdsSelected, wantGroup]);
+  }, [putMyWant, dup_protection, itemIdsSelected, wantGroup, items]);
 
   /***************************************************************/
 

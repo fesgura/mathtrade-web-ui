@@ -7,19 +7,43 @@ type WantLike = {
   wants?: { id?: number | string }[];
 };
 
+type CopyLike = {
+  id?: number | string;
+  elements?: {
+    element?: { game?: { bgg_id?: number | string | null } | null } | null;
+    game_id?: number | string | null;
+  }[];
+};
+
 type GameLike = {
   bgg_id?: number | string | null;
-  items?: { id?: number | string }[];
+  items?: CopyLike[];
+};
+
+// A combo stays wanted until every game in it is ignored. A copy counts
+// here only when ignoring this game would actually drop it: the copy is
+// this game alone. A combo wanted because of another game must not open
+// the "nothing you want will count" warning.
+const copyCountsForGame = (item: CopyLike, bggId: number | string) => {
+  const ids = (item.elements || [])
+    .map((el) => el?.element?.game?.bgg_id ?? el?.game_id)
+    .filter((id) => id != null && `${id}` !== "");
+  if (!ids.length) return true;
+  return ids.every((id) => `${id}` === `${bggId}`);
 };
 
 // A game is wanted when a game-want targets it, or any want lists one of
-// its copies.
+// its copies (not a combo that also contains other games).
 export const isWantedGame = (
   game: GameLike | null | undefined,
   myWants: WantLike[] | null | undefined
 ): boolean => {
   if (!game) return false;
-  const copyIds = new Set((game.items || []).map(({ id }) => `${id}`));
+  const copyIds = new Set(
+    (game.items || [])
+      .filter((item) => !game.bgg_id || copyCountsForGame(item, game.bgg_id))
+      .map(({ id }) => `${id}`)
+  );
   return (myWants || []).some(
     (w) =>
       (w.type === "game" &&

@@ -44,13 +44,15 @@ const TagItemLabel = ({ row }: { row: any }) => {
   return (
     <div
       className={clsx(
-        "h-7 w-64 border-b border-r border-gray-200 flex items-center justify-between gap-1 pl-6 pr-1",
+        "h-7 w-[32rem] border-b border-r border-gray-200 flex items-center justify-between gap-1 pl-6 pr-1",
         { "opacity-70": state === "none" }
       )}
       style={{ backgroundColor: state === "wanted" ? `${color}25` : "#f3f4f6" }}
       title={getI18Ntext(`grid.tagItem.${state}`)}
     >
-      <h5 className="cropped_1 text-[11px]">{item.title}</h5>
+      <h5 className="cropped_1 min-w-0 flex-1 text-[11px]" title={item.title}>
+        {item.title}
+      </h5>
       <div className="flex items-center gap-1 shrink-0">
         {errorAdd || errorRemove ? (
           <span className="text-[10px] text-red-600">!</span>
@@ -58,6 +60,13 @@ const TagItemLabel = ({ row }: { row: any }) => {
         {state === "elsewhere" ? (
           <span className="text-[10px] text-gray-600 whitespace-nowrap">
             <I18N id="grid.tagItem.elsewhereShort" />
+          </span>
+        ) : canI?.want && item.contains_offered && state !== "wanted" ? (
+          <span
+            className="text-[10px] text-gray-600 whitespace-nowrap"
+            title={getI18Ntext("want.skipOfferedCombo")}
+          >
+            <I18N id="want.skipOfferedComboShort" />
           </span>
         ) : canI?.want ? (
           <button

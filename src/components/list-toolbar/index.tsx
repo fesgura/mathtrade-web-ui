@@ -35,7 +35,12 @@ const ListToolbar = ({
         </div>
       ) : null}
       {search ? (
-        <div className="w-full min-w-0 sm:w-auto sm:flex-1">{search}</div>
+        // flex-1 is basis 0, so once chips and the right-hand controls fill
+        // the row the field shrinks to nothing (1920px with several filters).
+        // A real minimum makes it wrap onto the next line, where it can grow.
+        <div className="w-full min-w-[14rem] grow shrink-0 basis-full sm:w-auto sm:basis-[14rem]">
+          {search}
+        </div>
       ) : null}
       {count ? (
         <span

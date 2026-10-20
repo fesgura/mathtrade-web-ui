@@ -29,6 +29,8 @@ export const GameContextProvider = ({ gameRaw = null, children = null }) => {
     setShowAsIgnored(false);
     setBanIdOverride(undefined);
     setFavoriteIdOverride(undefined);
+    // A new list payload is the source of truth again.
+    setUpdatedValue(null);
   }, [gameRaw]);
 
   const game = useMemo(() => {
@@ -77,7 +79,11 @@ export const GameContextProvider = ({ gameRaw = null, children = null }) => {
           ? favoriteIdOverride
           : (favorite_id ?? null),
       notGame,
-      value: value || updatedValue,
+      // The edit from this session wins over the list payload, including a
+      // change to 0 and a change to a game that already had a score.
+      // `value || updatedValue` kept the old score whenever it was non-zero,
+      // and the badge then painted that stale number back on the first confirm.
+      value: updatedValue != null ? updatedValue : value,
       isSameBGGId,
     };
   }, [gameRaw, updatedValue, banIdOverride, favoriteIdOverride]);
