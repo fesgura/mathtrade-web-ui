@@ -6,6 +6,7 @@ import useFetch from "@/hooks/useFetch";
 import ButtonAlert from "@/components/buttonAlert";
 import { replaceWant } from "@/utils/replaceWant";
 import I18N from "@/i18n";
+import { visibleTagItems } from "@/utils/tagItems";
 
 /* Tag header: a tag is a want, and each game in it is wanted only when you
  * say so. This block states how many are wanted and offers explicit,
@@ -22,12 +23,13 @@ const TagWantAll = () => {
       ) || null,
     [myWants, tag]
   );
-  const total = tag?.items?.length || 0;
+  // Ignored copies can't be wanted ("all" skips them): not in the total.
+  const total = visibleTagItems(tag?.itemsComplete).length;
   const wanted = tagWant?.wants?.length || 0;
 
   // The backend returns the updated tag want (full data): swap it in.
   const afterLoad = useCallback(
-    (updated) => {
+    (updated: any) => {
       setMustConfirm(true);
       setMyWants((wants) => replaceWant(wants, updated));
     },

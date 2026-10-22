@@ -11,6 +11,7 @@ import {
 import useFetch from "@/hooks/useFetch";
 import { PageContext } from "@/context/page";
 import I18N from "@/i18n";
+import { isIgnoredInTag } from "@/utils/tagItems";
 
 export const ItemContext = createContext({
   itemRaw: null,
@@ -26,6 +27,7 @@ export const ItemContext = createContext({
   itemTag: null,
   tagWant: null,
   wantedViaTag: false,
+  ignoredInTag: false,
   otherWantGroups: [],
 });
 
@@ -200,7 +202,9 @@ export const ItemContextProvider = ({
   /* TAG (an item has at most one) **************************/
   // A tag is a want; a tagged item is wanted only once added to it
   // ("Lo quiero" on the item). itemTags is loaded on the offered-items page.
-  const { itemTag, tagWant, wantedViaTag } = useMemo(() => {
+  // An ignored tagged copy keeps its tag (itemTag) but can't be wanted:
+  // ignoredInTag hides the tag's "Lo quiero" (MYTAGS `ignored`).
+  const { itemTag, tagWant, wantedViaTag, ignoredInTag } = useMemo(() => {
     const id = itemLoaded?.id;
     const tag = id
       ? (itemTags || []).find((t) =>
@@ -216,6 +220,7 @@ export const ItemContextProvider = ({
       itemTag: tag,
       tagWant: want,
       wantedViaTag: !!want?.wants?.some((itm) => `${itm.id}` === `${id}`),
+      ignoredInTag: id ? isIgnoredInTag(tag, id) : false,
     };
   }, [itemLoaded, itemTags, myWants]);
 
@@ -236,6 +241,7 @@ export const ItemContextProvider = ({
         itemTag,
         tagWant,
         wantedViaTag,
+        ignoredInTag,
       }}
     >
       {item.elements && item.elements.length > 0 ? (

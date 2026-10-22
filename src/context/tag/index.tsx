@@ -1,16 +1,28 @@
 "use client";
-import { createContext, useMemo, useState, useContext } from "react";
+import { createContext, useMemo, useContext, type ReactNode } from "react";
 import { useOptions } from "@/store";
 import { PageContext } from "@/context/page";
+import type { MyTag } from "@/utils/tagItems";
 
-export const TagContext = createContext({
+type TagContextValue = {
+  tag: MyTag | null;
+  showingBans: boolean;
+  wantGroup: any;
+  isSameBGGId?: boolean;
+};
+
+export const TagContext = createContext<TagContextValue>({
   tag: null,
   showingBans: false,
   wantGroup: null,
   isSameBGGId: false,
 });
 
-export const TagContextProvider = ({ children }) => {
+export const TagContextProvider = ({
+  children = null,
+}: {
+  children?: ReactNode;
+}) => {
   /* PAGE CONTEXT **********************************************/
   const { itemTags, myWants } = useContext(PageContext);
   /* end PAGE CONTEXT */
@@ -19,7 +31,10 @@ export const TagContextProvider = ({ children }) => {
   const filters = useOptions((state) => state.filters_item);
   /* end FILTERS */
 
-  const { tag, showingBans } = useMemo(() => {
+  const { tag, showingBans } = useMemo((): {
+    tag: MyTag | null;
+    showingBans: boolean;
+  } => {
     const showingBans = filters?.ignored || false;
     if (filters.tag && filters.tag[0] && itemTags) {
       const tagsFiltered = itemTags.filter((t) => {

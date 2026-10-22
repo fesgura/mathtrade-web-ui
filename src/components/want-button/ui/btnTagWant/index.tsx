@@ -11,7 +11,7 @@ import { colorTagStyles } from "@/utils/color";
 import { replaceWant } from "@/utils/replaceWant";
 
 // DRF sends field errors as a string or a one-element list.
-const apiErrorText = (error) => {
+const apiErrorText = (error: any): string | null => {
   const data = error?.data;
   if (!data || typeof data !== "object") return null;
   const raw = data.item_id ?? data.detail;
@@ -23,13 +23,14 @@ const apiErrorText = (error) => {
  * item adds it to the tag's want (and "Ya no lo quiero" takes it out, keeping
  * the tag), instead of creating a separate want that could bring a duplicate. */
 const BtnTagWant = () => {
-  const { itemTag, wantedViaTag, item } = useContext(ItemContext);
+  const { itemTag, wantedViaTag, ignoredInTag, item } =
+    useContext(ItemContext);
   const { setMyWants, setMustConfirm } = useContext(PageContext);
 
   // The backend returns the updated tag want (full data): swap it in.
   // Wanting changes the commitment, same as any other want edit.
   const afterLoad = useCallback(
-    (updated) => {
+    (updated: any) => {
       setMustConfirm(true);
       setMyWants((wants) => replaceWant(wants, updated));
     },
@@ -48,6 +49,9 @@ const BtnTagWant = () => {
   });
 
   if (!itemTag) return null;
+  // An ignored copy can't be wanted (the backend refuses it); it stays
+  // tagged, so only the button goes.
+  if (ignoredInTag && !wantedViaTag) return null;
   const loading = loadingAdd || loadingRemove;
   const params = { urlParams: [itemTag.id], params: { item_id: item.id } };
 
