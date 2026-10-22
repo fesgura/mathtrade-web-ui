@@ -112,6 +112,8 @@ export const PageContext = createContext({
   //
   mustConfirm: false,
   setMustConfirm: (_value?: any) => {},
+  wantsVersion: 0,
+  bumpWantsVersion: () => {},
   mustConfirmDate: null,
   setMustConfirmDate: (_value?: any) => {},
   refreshMembership: () => {},
@@ -372,7 +374,23 @@ const PageContextProvider = ({ children = null }) => {
 
   const [filterData, setFilterData] = useState<Record<string, any>>({});
 
-  const [mustConfirm, setMustConfirm] = useState(false);
+  const [mustConfirm, setMustConfirmRaw] = useState(false);
+  // Bumped on every "a want changed" signal; the duplicates banner refetches
+  // on it. Every want edit calls setMustConfirm(true) (only ever with
+  // literals), which bumps it. A wants reload after an ignore/unignore
+  // (useReloadWantsAndTags) bumps it directly: it changes the wants but must
+  // not touch the commitment.
+  const [wantsVersion, setWantsVersion] = useState(0);
+  const bumpWantsVersion = useCallback(() => {
+    setWantsVersion((n) => n + 1);
+  }, []);
+  const setMustConfirm = useCallback(
+    (value: boolean) => {
+      setMustConfirmRaw(value);
+      if (value === true) bumpWantsVersion();
+    },
+    [bumpWantsVersion]
+  );
   const [mustConfirmDate, setMustConfirmDate] = useState(null);
 
   /* COMMITMENT ****************************************************
@@ -386,7 +404,8 @@ const PageContextProvider = ({ children = null }) => {
   const isCommitted = !!membership?.is_committed;
   const commitmentAt = membership?.commitment ?? null;
   useEffect(() => {
-    setMustConfirm(hasMembership && !isCommitted);
+    // Raw setter: a page load must not count as a want edit.
+    setMustConfirmRaw(hasMembership && !isCommitted);
     setMustConfirmDate(commitmentAt ? DateIntlFormat(commitmentAt) : null);
   }, [hasMembership, isCommitted, commitmentAt]);
 
@@ -569,6 +588,8 @@ const PageContextProvider = ({ children = null }) => {
         setFilterData,
         mustConfirm,
         setMustConfirm,
+        wantsVersion,
+        bumpWantsVersion,
         mustConfirmDate,
         setMustConfirmDate,
         refreshMembership,

@@ -13,6 +13,7 @@ import AdvContact from "@/components/header/advContact";
 import AdvSolidario from "@/components/header/advSolidario";
 import AdvReportedItems from "@/components/header/advReportedItems";
 import AdvUnreadyItems from "@/components/header/advUnreadyItems";
+import AdvDuplicateWants from "@/components/header/advDuplicateWants";
 import PrivateEnvironmentNoSSR from "@/environments/private/no-ssr";
 import EarlyPayPopup from "@/components/earlyPayPopup";
 import { AdminUserModalProvider } from "@/components/adminUserModal";
@@ -44,6 +45,7 @@ export default function MathTradeLayout({ children }: { children: ReactNode }) {
               <AdvContact />
               <AdvReportedItems />
               <AdvUnreadyItems />
+              <AdvDuplicateWants />
               <AdvCompromise />
               <AdvSelfExcluded />
               <main className="relative py-main">{children}</main>

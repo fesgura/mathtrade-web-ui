@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Button from "@/components/button";
 import Modal from "@/components/modal";
 import I18N from "@/i18n";
@@ -16,6 +17,8 @@ type ConfirmModalProps = {
   // when confirming something that isn't destructive (e.g. sending a
   // report to the owner).
   variant?: "danger" | "primary";
+  // Extra content between the description and the buttons.
+  children?: ReactNode;
 };
 
 // A controlled "are you sure?" modal, for confirmations that only apply in
@@ -31,6 +34,7 @@ const ConfirmModal = ({
   cancelId = "btn.Cancel",
   confirmId = "Yes",
   variant = "danger",
+  children = null,
 }: ConfirmModalProps) => (
   <Modal size="sm" isOpen={isOpen} onClose={onCancel}>
     <div className="text-center">
@@ -42,6 +46,7 @@ const ConfirmModal = ({
           <I18N id={description} values={descriptionValues} />
         </p>
       ) : null}
+      {children}
       <div className="flex items-center justify-center gap-3 pt-4">
         <Button type="button" color="cancel" outline onClick={onCancel}>
           <I18N id={cancelId} />

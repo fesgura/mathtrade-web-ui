@@ -1,19 +1,12 @@
 // Ignoring something you want removes it from your wants (BE, since
 // 2026-10-21) and un-ignoring doesn't restore it: callers warn before
 // ignoring a wanted target (single and bulk ignore).
+import { gameIdsOf, type CopyLike } from "@/utils/duplicateWants";
 
 type WantLike = {
   type?: string;
   bgg_id?: number | string | null;
   wants?: { id?: number | string }[];
-};
-
-type CopyLike = {
-  id?: number | string;
-  elements?: {
-    element?: { game?: { bgg_id?: number | string | null } | null } | null;
-    game_id?: number | string | null;
-  }[];
 };
 
 type GameLike = {
@@ -26,11 +19,9 @@ type GameLike = {
 // this game alone. A combo wanted because of another game must not open
 // the "nothing you want will count" warning.
 const copyCountsForGame = (item: CopyLike, bggId: number | string) => {
-  const ids = (item.elements || [])
-    .map((el) => el?.element?.game?.bgg_id ?? el?.game_id)
-    .filter((id) => id != null && `${id}` !== "");
+  const ids = gameIdsOf(item);
   if (!ids.length) return true;
-  return ids.every((id) => `${id}` === `${bggId}`);
+  return ids.every((id) => id === `${bggId}`);
 };
 
 // A game is wanted when a game-want targets it, or any want lists one of
