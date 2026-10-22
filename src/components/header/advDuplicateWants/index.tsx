@@ -11,7 +11,7 @@ const MIN_REFRESH_INTERVAL_MS = 60 * 1000;
 /* Site-wide warning, during the want phase, for members whose wants could
  * bring the same game twice. Not dismissable: it hides once the duplicates
  * are gone or the want phase ends. Refreshes on focus/visibility (throttled)
- * and right after every want edit (`wantsVersion`). */
+ * and right after every want edit or ignore/unignore reload (`wantsVersion`). */
 const AdvDuplicateWants = () => {
   const { membership, canI, wantsVersion } = useContext(PageContext);
   const { load, data } = useDuplicateWants();

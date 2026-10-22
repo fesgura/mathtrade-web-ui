@@ -22,7 +22,8 @@ const TAGS_PARAMS = { page_size: 200 };
 // offer swipe) report those writes with wantAdded/wantRemoved, so the reload
 // result doesn't wipe them. Only the latest reload of this hook applies.
 const useReloadWantsAndTags = () => {
-  const { setMyWants, setItemTags, bumpTagsReload } = useContext(PageContext);
+  const { setMyWants, setItemTags, bumpTagsReload, bumpWantsVersion } =
+    useContext(PageContext);
   const { loadAll } = useLoadAllMyWants();
   const [getTags] = useFetch({
     endpoint: "MYTAGS",
@@ -45,7 +46,12 @@ const useReloadWantsAndTags = () => {
       // A newer reload started after this one: it has fresher data.
       if (mine !== generation.current) return;
       journal.current = null;
-      if (wants) setMyWants(mergeReloadedWants(wants, writes));
+      if (wants) {
+        setMyWants(mergeReloadedWants(wants, writes));
+        // The duplicates banner refetches (an ignore drops copies from wants).
+        // Not setMustConfirm: an ignore must not touch the commitment.
+        bumpWantsVersion();
+      }
       if (tags?.results) setItemTags(toItemTags(tags.results));
       bumpTagsReload();
     } finally {
@@ -54,7 +60,14 @@ const useReloadWantsAndTags = () => {
         setLoading(false);
       }
     }
-  }, [loadAll, getTags, setMyWants, setItemTags, bumpTagsReload]);
+  }, [
+    loadAll,
+    getTags,
+    setMyWants,
+    setItemTags,
+    bumpTagsReload,
+    bumpWantsVersion,
+  ]);
 
   const wantAdded = useCallback((want: WantGroup) => {
     if (journal.current) noteWantAdded(journal.current, want);
