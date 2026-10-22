@@ -1,0 +1,139 @@
+[
+  {
+    "name": "game_want_plus_tag_other_copy",
+    "copies": { "c1": { "games": [9001] }, "c2": { "games": [9001] } },
+    "groups": [
+      { "key": "g", "type": "game", "bgg_id": 9001, "wants": ["c1"] },
+      { "key": "t", "type": "tag", "wants": ["c2"] }
+    ],
+    "expected": [{ "kind": "game", "bgg": 9001, "groups": ["g", "t"] }]
+  },
+  {
+    "name": "item_want_plus_tag_same_game",
+    "copies": { "c1": { "games": [9001] }, "c2": { "games": [9001] } },
+    "groups": [
+      { "key": "i", "type": "item", "wants": ["c1"] },
+      { "key": "t", "type": "tag", "wants": ["c2"] }
+    ],
+    "expected": [{ "kind": "game", "bgg": 9001, "groups": ["i", "t"] }]
+  },
+  {
+    "name": "same_single_copy_game_and_tag",
+    "copies": { "c1": { "games": [9001] } },
+    "groups": [
+      { "key": "g", "type": "game", "bgg_id": 9001, "wants": ["c1"] },
+      { "key": "t", "type": "tag", "wants": ["c1"] }
+    ],
+    "expected": [{ "kind": "game", "bgg": 9001, "groups": ["g", "t"] }]
+  },
+  {
+    "name": "combo_in_two_game_wants",
+    "copies": { "c1": { "games": [9001, 9002] } },
+    "groups": [
+      { "key": "g1", "type": "game", "bgg_id": 9001, "wants": ["c1"] },
+      { "key": "g2", "type": "game", "bgg_id": 9002, "wants": ["c1"] }
+    ],
+    "expected": []
+  },
+  {
+    "name": "combo_in_game_want_and_tag",
+    "copies": { "c1": { "games": [9001, 9002] } },
+    "groups": [
+      { "key": "g1", "type": "game", "bgg_id": 9001, "wants": ["c1"] },
+      { "key": "t", "type": "tag", "wants": ["c1"] }
+    ],
+    "expected": [{ "kind": "combo", "copy": "c1", "groups": ["g1", "t"] }]
+  },
+  {
+    "name": "combo_in_item_and_tag",
+    "copies": { "c1": { "games": [9001, 9002] } },
+    "groups": [
+      { "key": "i", "type": "item", "wants": ["c1"] },
+      { "key": "t", "type": "tag", "wants": ["c1"] }
+    ],
+    "expected": [{ "kind": "combo", "copy": "c1", "groups": ["i", "t"] }]
+  },
+  {
+    "name": "combo_vs_single_of_its_game",
+    "copies": { "c1": { "games": [9001, 9002] }, "c2": { "games": [9001] } },
+    "groups": [
+      { "key": "i", "type": "item", "wants": ["c1"] },
+      { "key": "t", "type": "tag", "wants": ["c2"] }
+    ],
+    "expected": []
+  },
+  {
+    "name": "two_copies_same_game_one_group",
+    "copies": { "c1": { "games": [9001] }, "c2": { "games": [9001] } },
+    "groups": [{ "key": "t", "type": "tag", "wants": ["c1", "c2"] }],
+    "expected": []
+  },
+  {
+    "name": "no_game_data_copy_in_two_groups",
+    "copies": { "c1": { "games": [] } },
+    "groups": [
+      { "key": "i", "type": "item", "wants": ["c1"] },
+      { "key": "t", "type": "tag", "wants": ["c1"] }
+    ],
+    "expected": []
+  },
+  {
+    "name": "single_group",
+    "copies": { "c1": { "games": [9001] } },
+    "groups": [{ "key": "g", "type": "game", "bgg_id": 9001, "wants": ["c1"] }],
+    "expected": []
+  },
+  {
+    "name": "empty_wants",
+    "copies": {},
+    "groups": [{ "key": "t", "type": "tag", "wants": [] }],
+    "expected": []
+  },
+  {
+    "name": "game_want_only_copy_ignored",
+    "copies": {
+      "c1": { "games": [9001], "ignored": true },
+      "c2": { "games": [9001] }
+    },
+    "groups": [
+      { "key": "g", "type": "game", "bgg_id": 9001, "wants": ["c1"] },
+      { "key": "t", "type": "tag", "wants": ["c2"] }
+    ],
+    "expected": []
+  },
+  {
+    "name": "ignored_copy_in_tag",
+    "copies": {
+      "c1": { "games": [9001] },
+      "c2": { "games": [9001], "ignored": true }
+    },
+    "groups": [
+      { "key": "g", "type": "game", "bgg_id": 9001, "wants": ["c1"] },
+      { "key": "t", "type": "tag", "wants": ["c2"] }
+    ],
+    "expected": []
+  },
+  {
+    "name": "three_groups_same_game",
+    "copies": {
+      "c1": { "games": [9001] },
+      "c2": { "games": [9001] },
+      "c3": { "games": [9001] }
+    },
+    "groups": [
+      { "key": "g", "type": "game", "bgg_id": 9001, "wants": ["c1"] },
+      { "key": "i", "type": "item", "wants": ["c2"] },
+      { "key": "t", "type": "tag", "wants": ["c3"] }
+    ],
+    "expected": [{ "kind": "game", "bgg": 9001, "groups": ["g", "i", "t"] }]
+  },
+  {
+    "name": "game_want_without_copies",
+    "copies": { "c2": { "games": [9001] } },
+    "groups": [
+      { "key": "g", "type": "game", "bgg_id": 9001, "wants": [] },
+      { "key": "t", "type": "tag", "wants": ["c2"] }
+    ],
+    "expected": []
+  }
+]

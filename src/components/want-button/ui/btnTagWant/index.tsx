@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useState } from "react";
 import clsx from "clsx";
 import { ItemContext } from "@/context/item";
 import { PageContext } from "@/context/page";
@@ -9,6 +9,11 @@ import Icon from "@/components/icon";
 import InnerButton from "@/components/button/inner-button";
 import { colorTagStyles } from "@/utils/color";
 import { replaceWant } from "@/utils/replaceWant";
+import {
+  duplicateRuleForCopies,
+  type DuplicateRule,
+} from "@/utils/duplicateWants";
+import ConfirmModal from "@/components/confirmModal";
 
 // DRF sends field errors as a string or a one-element list.
 const apiErrorText = (error: any): string | null => {
@@ -21,11 +26,13 @@ const apiErrorText = (error: any): string | null => {
 
 /* "Lo quiero" on an item that has a tag: the tag is the want, so wanting the
  * item adds it to the tag's want (and "Ya no lo quiero" takes it out, keeping
- * the tag), instead of creating a separate want that could bring a duplicate. */
+ * the tag), instead of creating a separate want that could bring a duplicate.
+ * If another want already has this copy or its game, it asks first. */
 const BtnTagWant = () => {
-  const { itemTag, wantedViaTag, ignoredInTag, item } =
+  const { itemTag, tagWant, wantedViaTag, ignoredInTag, item, itemRaw } =
     useContext(ItemContext);
-  const { setMyWants, setMustConfirm } = useContext(PageContext);
+  const { myWants, setMyWants, setMustConfirm } = useContext(PageContext);
+  const [dupRule, setDupRule] = useState<DuplicateRule | null>(null);
 
   // The backend returns the updated tag want (full data): swap it in.
   // Wanting changes the commitment, same as any other want edit.
@@ -55,6 +62,16 @@ const BtnTagWant = () => {
   const loading = loadingAdd || loadingRemove;
   const params = { urlParams: [itemTag.id], params: { item_id: item.id } };
 
+  // Checked on click only: Ejemplares mounts one button per card.
+  const onWant = () => {
+    const copy = itemRaw || item;
+    const rule = duplicateRuleForCopies(myWants || [], tagWant?.id ?? null, [
+      copy,
+    ]).get(`${copy.id}`);
+    if (rule) setDupRule(rule);
+    else consolidate(params);
+  };
+
   return (
     <div className="text-center py-2">
       {wantedViaTag ? (
@@ -69,27 +86,52 @@ const BtnTagWant = () => {
             onClick={() => unconsolidate(params)}
           >
             <InnerButton>
-              <Icon type={loading ? "loading" : "close"} className="text-base" />
+              <Icon
+                type={loading ? "loading" : "close"}
+                className="text-base"
+              />
               <I18N id="tagWant.remove" />
             </InnerButton>
           </button>
         </>
       ) : (
-        <button
-          type="button"
-          disabled={loading}
-          title={getI18Ntext("tagWant.addHelp", [itemTag.name])}
-          className={clsx(
-            "rounded-full px-5 py-2 text-sm font-semibold bg-want text-white hover:opacity-90",
-            { "opacity-50": loading }
-          )}
-          onClick={() => consolidate(params)}
-        >
-          <InnerButton>
-            <Icon type={loading ? "loading" : "heart"} className="text-base" />
-            <I18N id="tagWant.add" values={[itemTag.name]} />
-          </InnerButton>
-        </button>
+        <>
+          <button
+            type="button"
+            disabled={loading}
+            title={getI18Ntext("tagWant.addHelp", [itemTag.name])}
+            className={clsx(
+              "rounded-full px-5 py-2 text-sm font-semibold bg-want text-white hover:opacity-90",
+              { "opacity-50": loading }
+            )}
+            onClick={onWant}
+          >
+            <InnerButton>
+              <Icon
+                type={loading ? "loading" : "heart"}
+                className="text-base"
+              />
+              <I18N id="tagWant.add" values={[itemTag.name]} />
+            </InnerButton>
+          </button>
+          <ConfirmModal
+            isOpen={!!dupRule}
+            onCancel={() => setDupRule(null)}
+            onConfirm={() => {
+              setDupRule(null);
+              consolidate(params);
+            }}
+            title="wantEditor.IsItemInOther.tag"
+            description={
+              dupRule === "game"
+                ? "wantEditor.IsItemInOther.tagGame"
+                : "wantEditor.IsItemInOther.tagItem"
+            }
+            cancelId="wantEditor.IsItemInOther.btn.Cancel"
+            confirmId="wantEditor.IsItemInOther.btn.Yes"
+            variant="primary"
+          />
+        </>
       )}
       {errorAdd || errorRemove ? (
         <p className="text-xs text-red-600 mt-2">
