@@ -3,6 +3,7 @@ import { PageContext } from "@/context/page";
 import { SidebarContext } from "@/context/sidebar";
 import { useOptions } from "@/store";
 import useFetch from "@/hooks/useFetch";
+import useReloadWantsAndTags from "@/hooks/useReloadWantsAndTags";
 
 // "Designorar todos" always clears both individually-ignored games and
 // items together, regardless of which tab (Juegos/Ejemplares) it was
@@ -14,6 +15,7 @@ const useUnignoreAll = () => {
   const { forceReloadPage } = useContext(PageContext);
   const { hideSidebar } = useContext(SidebarContext);
   const updateFilters = useOptions((state) => state.updateFilters);
+  const { reload } = useReloadWantsAndTags();
 
   const [deleteGames, , loadingGames, errorGames] = useFetch({
     endpoint: "DELETE_BANNED_GAMES_ALL",
@@ -29,8 +31,17 @@ const useUnignoreAll = () => {
     updateFilters({ ignored: undefined, page: 1 }, "game");
     updateFilters({ ignored: undefined, page: 1 }, "item");
     forceReloadPage();
+    // MYTAGS `ignored` changes (wants are not restored).
+    reload();
     hideSidebar?.();
-  }, [deleteGames, deleteItems, updateFilters, forceReloadPage, hideSidebar]);
+  }, [
+    deleteGames,
+    deleteItems,
+    updateFilters,
+    forceReloadPage,
+    reload,
+    hideSidebar,
+  ]);
 
   return {
     unignoreAll,

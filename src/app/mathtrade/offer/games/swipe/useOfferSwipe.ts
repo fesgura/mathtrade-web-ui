@@ -5,6 +5,7 @@ import { useOptions } from "@/store";
 import { useStore } from "@/store";
 import { callToAPI } from "@/hooks/useFetch/utils";
 import { isWantedGame } from "@/components/ban/isWanted";
+import useReloadWantsAndTags from "@/hooks/useReloadWantsAndTags";
 
 // One screen of the catalog. The next screen is fetched as the deck runs
 // out, so the swipe covers every game in the current filter without
@@ -133,6 +134,11 @@ const useOfferSwipe = (onClose: () => void) => {
   } = useContext(PageContext);
   const mathtradeId = useStore((state) => state.data?.mathtrade?.id);
   const filters = useOptions((state) => state.filters_game);
+  // Ignoring removes the game's copies from your wants (BE): reload wants
+  // and tags; wantsRef picks up the new myWants on the next render. Wants
+  // saved or undone while that reload runs are reported to it so its result
+  // doesn't drop them.
+  const { reload, wantAdded, wantRemoved } = useReloadWantsAndTags();
   const [deck, setDeck] = useState<OfferCard[]>([]);
   const [total, setTotal] = useState(0);
   const [index, setIndex] = useState(0);
@@ -295,8 +301,9 @@ const useOfferSwipe = (onClose: () => void) => {
         [card.bggId]: { ...current[card.bggId], banId: data.id },
       }));
       advance({ kind: "ignore", bggId: card.bggId, banId: data.id });
+      reload();
     },
-    [advance, fail]
+    [advance, fail, reload]
   );
 
   const prepare = useCallback(
@@ -373,16 +380,15 @@ const useOfferSwipe = (onClose: () => void) => {
         fail();
         return;
       }
-      setMyWants((current: { id?: number }[] = []) => [
-        ...current,
-        {
-          ...data,
-          type: data.type || "game",
-          bgg_id: data.bgg_id ?? card.bggId,
-          wants: data.wants || ids.map((id) => ({ id })),
-          isNewHot: true,
-        },
-      ]);
+      const added = {
+        ...data,
+        type: data.type || "game",
+        bgg_id: data.bgg_id ?? card.bggId,
+        wants: data.wants || ids.map((id) => ({ id })),
+        isNewHot: true,
+      };
+      wantAdded(added);
+      setMyWants((current: { id?: number }[] = []) => [...current, added]);
       setMustConfirm(true);
       advance({
         kind: "want",
@@ -391,7 +397,17 @@ const useOfferSwipe = (onClose: () => void) => {
         created: true,
       });
     },
-    [advance, bounce, canI, fail, mathtradeId, setMustConfirm, setMyWants, userId]
+    [
+      advance,
+      bounce,
+      canI,
+      fail,
+      mathtradeId,
+      setMustConfirm,
+      setMyWants,
+      userId,
+      wantAdded,
+    ]
   );
 
   const onWant = useCallback(() => {
@@ -419,6 +435,8 @@ const useOfferSwipe = (onClose: () => void) => {
         ...current,
         [last.bggId]: { ...current[last.bggId], banId: null },
       }));
+      // Wants are not restored, but MYTAGS `ignored` changes.
+      reload();
     }
     if (last.kind === "want" && last.created && last.wantId) {
       setBusy(true);
@@ -434,6 +452,7 @@ const useOfferSwipe = (onClose: () => void) => {
         return;
       }
       const removed = last.wantId;
+      wantRemoved(removed);
       setMyWants((current: { id?: number }[] = []) =>
         current.filter((group) => group.id !== removed)
       );
@@ -457,7 +476,7 @@ const useOfferSwipe = (onClose: () => void) => {
     }
     setHistory((current) => current.slice(0, -1));
     setIndex((current) => Math.max(0, current - 1));
-  }, [busy, history, mathtradeId, setMyWants]);
+  }, [busy, history, mathtradeId, setMyWants, reload, wantRemoved]);
 
   const confirm = useCallback(() => {
     if (shown) ignore(shown);

@@ -55,6 +55,10 @@ export const PageContext = createContext({
   //
   itemTags: [],
   setItemTags: (_value?: any) => {},
+  // Bumped after an ignore/unignore so components with their own MYTAGS
+  // fetch (the Mis deseos grid) refetch it.
+  tagsReloadValue: 1,
+  bumpTagsReload: () => {},
   users: [],
   setUsers: (_value?: any) => {},
   loadingUsers: false,
@@ -147,6 +151,10 @@ const PageContextProvider = ({ children = null }) => {
   const [newMyWantsNum, setNewMyWantsNum] = useState(0);
   const [wantsNumPosition, setWantsNumPosition] = useState(null);
   const [itemTags, setItemTags] = useState([]);
+  const [tagsReloadValue, setTagsReloadValue] = useState(1);
+  const bumpTagsReload = useCallback(() => {
+    setTagsReloadValue(Date.now());
+  }, []);
   const [users, setUsers] = useState([]);
   const [loadingUsers, setLoadingUsers] = useState(false);
 
@@ -513,6 +521,8 @@ const PageContextProvider = ({ children = null }) => {
         //
         itemTags,
         setItemTags,
+        tagsReloadValue,
+        bumpTagsReload,
         users,
         setUsers,
         loadingUsers,

@@ -4,7 +4,7 @@ import { MyWantsContext } from "@/context/myWants/all";
 import { colorTagStyles } from "@/utils/color";
 import useFetch from "@/hooks/useFetch";
 
-const useTag = (wantGroup) => {
+const useTag = (wantGroup: any) => {
   /* PAGE CONTEXT **********************************************/
   const { setMyWants, canI, setMustConfirm } = useContext(PageContext);
   /* end PAGE CONTEXT */
@@ -28,17 +28,22 @@ const useTag = (wantGroup) => {
   }, [wantGroup]);
 
   const [dup_protection, setDup_protection] = useState(true);
-  const [itemIdsSelected, setItemIdsSelected] = useState({});
+  const [itemIdsSelected, setItemIdsSelected] = useState<
+    Record<string, boolean>
+  >({});
 
   useEffect(() => {
     if (wantGroup) {
       const { wants: items, dup_protection: new_dup_protection } = wantGroup;
       setDup_protection(new_dup_protection);
       //
-      const newItemIdsSelected = items.reduce((obj, { id }) => {
-        obj[id] = true;
-        return obj;
-      }, {});
+      const newItemIdsSelected = items.reduce(
+        (obj: Record<string, boolean>, { id }: { id: number | string }) => {
+          obj[id] = true;
+          return obj;
+        },
+        {}
+      );
       setItemIdsSelected(newItemIdsSelected);
     }
   }, [wantGroup]);
@@ -49,7 +54,7 @@ const useTag = (wantGroup) => {
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
   useEffect(() => {
-    let timer = null;
+    let timer: ReturnType<typeof setTimeout> | null = null;
     if (showSuccessAlert) {
       timer = setTimeout(() => {
         setShowSuccessAlert(false);
@@ -63,7 +68,7 @@ const useTag = (wantGroup) => {
 
   /* PUT *************************************/
   const afterLoad = useCallback(
-    (updatedWant) => {
+    (updatedWant: any) => {
       setMustConfirm(true);
       setShowSuccessAlert(true);
       setAcceptChecksCommit({
@@ -127,7 +132,7 @@ const useTag = (wantGroup) => {
   /***************************************************************/
 
   const onChangeValue = useCallback(
-    (newValue) => {
+    (newValue: any) => {
       setMyWants((oldMyWants) => {
         const oldMyWantsCopy = [...oldMyWants];
         const index = oldMyWantsCopy.findIndex((w) => w.id === wantGroup.id);

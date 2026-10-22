@@ -6,6 +6,7 @@ import { useOptions } from "@/store";
 import { normalizeString } from "@/utils";
 import useFetch from "@/hooks/useFetch";
 import { visibleWants } from "@/utils/visibleWants";
+import { visibleTagItems } from "@/utils/tagItems";
 import { changedWantsFirst } from "@/components/want-components/utils";
 
 // My own tags are few; one page covers them. Module-level so useFetch's
@@ -26,6 +27,7 @@ const useGrid = () => {
     changedWantIds,
     myGroups_forWants,
     myItemsInMT_forWants,
+    tagsReloadValue,
   } = useContext(PageContext);
 
   useEffect(() => {
@@ -122,11 +124,14 @@ const useGrid = () => {
     initialState: { results: [] },
     params: TAGS_PARAMS,
     autoLoad: true,
+    // Refetched after an ignore/unignore (useReloadWantsAndTags).
+    reloadValue: tagsReloadValue,
   });
   const tagItems = useMemo(() => {
     const byTag: Record<string, any[]> = {};
     (tagsData?.results || []).forEach((tag: any) => {
-      byTag[tag.id] = tag.items || [];
+      // Ignored copies stay tagged but can't be wanted: not listed.
+      byTag[tag.id] = visibleTagItems(tag.items);
     });
     return byTag;
   }, [tagsData]);

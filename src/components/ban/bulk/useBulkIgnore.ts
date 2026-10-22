@@ -2,6 +2,7 @@ import { useCallback, useContext, useRef } from "react";
 import { PageContext } from "@/context/page";
 import { useOptions } from "@/store";
 import useFetch from "@/hooks/useFetch";
+import useReloadWantsAndTags from "@/hooks/useReloadWantsAndTags";
 import useBulkSelect from "./useBulkSelect";
 
 export type BulkBanResponse = {
@@ -22,6 +23,7 @@ type Options = {
 const useBulkIgnore = ({ onIgnored }: Options = {}) => {
   const { forceReloadPage } = useContext(PageContext);
   const updateFilters = useOptions((state) => state.updateFilters);
+  const { reload } = useReloadWantsAndTags();
   const { kind, selected, cancel } = useBulkSelect();
   const sentRef = useRef<number[]>([]);
 
@@ -29,10 +31,12 @@ const useBulkIgnore = ({ onIgnored }: Options = {}) => {
     (res: BulkBanResponse) => {
       updateFilters({}, kind);
       forceReloadPage();
+      // The BE removed the ignored copies from your wants.
+      reload();
       cancel();
       onIgnored?.(res, sentRef.current);
     },
-    [updateFilters, kind, forceReloadPage, cancel, onIgnored]
+    [updateFilters, kind, forceReloadPage, reload, cancel, onIgnored]
   );
 
   const [postBulk, , loading, error] = useFetch({

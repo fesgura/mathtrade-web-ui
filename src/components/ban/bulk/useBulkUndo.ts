@@ -2,6 +2,7 @@ import { useCallback, useContext, useRef } from "react";
 import { PageContext } from "@/context/page";
 import { useOptions } from "@/store";
 import useFetch from "@/hooks/useFetch";
+import useReloadWantsAndTags from "@/hooks/useReloadWantsAndTags";
 import { getI18Ntext } from "@/i18n";
 import useToast from "@/components/toast/useToast";
 import type { BulkBanResponse } from "./useBulkIgnore";
@@ -18,6 +19,7 @@ const kindOf = (type: BulkBanResponse["type"]) =>
 const useBulkUndo = () => {
   const { forceReloadPage } = useContext(PageContext);
   const updateFilters = useOptions((state) => state.updateFilters);
+  const { reload } = useReloadWantsAndTags();
   const { show } = useToast();
   const sentRef = useRef<UndoParams | null>(null);
   const undoRef = useRef<() => void>(() => {});
@@ -26,7 +28,9 @@ const useBulkUndo = () => {
     if (!sentRef.current) return;
     updateFilters({}, kindOf(sentRef.current.type));
     forceReloadPage();
-  }, [updateFilters, forceReloadPage]);
+    // Un-ignoring doesn't restore wants, but MYTAGS `ignored` changes.
+    reload();
+  }, [updateFilters, forceReloadPage, reload]);
 
   const afterError = useCallback(() => {
     show({

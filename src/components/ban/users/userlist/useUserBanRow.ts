@@ -1,15 +1,25 @@
 import { useCallback, useMemo, useContext, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import useFetch from "@/hooks/useFetch";
 import { PageContext } from "@/context/page";
 import { useOptions } from "@/store";
+import useReloadWantsAndTags from "@/hooks/useReloadWantsAndTags";
 
-const useUserBanRow = (user, userBans, setUserBans) => {
+type UserBans = Record<string, number>;
+
+const useUserBanRow = (
+  user: { id: number },
+  userBans: UserBans,
+  setUserBans: Dispatch<SetStateAction<UserBans>>
+) => {
   const { forceReloadPage } = useContext(PageContext);
   const updateFilters = useOptions((state) => state.updateFilters);
+  // Ignoring a user removes their copies from your wants (BE).
+  const { reload } = useReloadWantsAndTags();
 
   /* POST BAN  **********************************************/
   const afterLoadBan = useCallback(
-    (res) => {
+    (res: { id: number; identity: number }) => {
       const { id, identity } = res;
       setUserBans((oldUserBans) => {
         const oldUserBansCopy = { ...oldUserBans };
@@ -25,8 +35,9 @@ const useUserBanRow = (user, userBans, setUserBans) => {
       updateFilters({}, "item");
       updateFilters({}, "game");
       forceReloadPage();
+      reload();
     },
-    [setUserBans, updateFilters, forceReloadPage]
+    [setUserBans, updateFilters, forceReloadPage, reload]
   );
 
   const [banUser, , loadingBan] = useFetch({
@@ -47,7 +58,8 @@ const useUserBanRow = (user, userBans, setUserBans) => {
     updateFilters({}, "item");
     updateFilters({}, "game");
     forceReloadPage();
-  }, [user, setUserBans, updateFilters, forceReloadPage]);
+    reload();
+  }, [user, setUserBans, updateFilters, forceReloadPage, reload]);
 
   const [unbanUser, , loadingUnBan] = useFetch({
     endpoint: "DELETE_BAN_USER",
@@ -60,8 +72,8 @@ const useUserBanRow = (user, userBans, setUserBans) => {
     return userBans[user.id] || null;
   }, [user, userBans]);
 
-  // Ignoring someone is explained before it's done: your wants on their
-  // items stop counting, but they can still receive something of yours.
+  // Ignoring someone is explained before it's done: their copies leave your
+  // wants, but they can still receive something of yours.
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const onClick = useCallback(() => {

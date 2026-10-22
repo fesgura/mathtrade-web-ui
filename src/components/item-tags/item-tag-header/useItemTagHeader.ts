@@ -1,9 +1,30 @@
-import { useState, useMemo, useContext, useCallback } from "react";
+import {
+  useState,
+  useMemo,
+  useContext,
+  useCallback,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { colorTagStyles } from "@/utils/color";
 import { TagContext } from "@/context/tag";
 import { PageContext } from "@/context/page";
+import { visibleTagItems, type MyTag } from "@/utils/tagItems";
 
-const useItemTagHeader = () => {
+type ItemTagHeaderState = {
+  tag: MyTag | null;
+  showingBans: boolean;
+  tagColor: ReturnType<typeof colorTagStyles>;
+  count: number;
+  expanded: boolean;
+  setExpanded: Dispatch<SetStateAction<boolean>>;
+  visibleEdit: boolean;
+  setVisibleEdit: Dispatch<SetStateAction<boolean>>;
+  onChangeValue: () => void;
+  canIEdit: boolean;
+};
+
+const useItemTagHeader = (): ItemTagHeaderState => {
   /* PAGE CONTEXT **********************************************/
   const { forceReloadPage, canI } = useContext(PageContext);
   /* end PAGE CONTEXT */
@@ -27,7 +48,8 @@ const useItemTagHeader = () => {
     tag,
     showingBans,
     tagColor,
-    count: tag?.items?.length || 0,
+    // Ignored copies stay tagged but can't be wanted: not counted.
+    count: visibleTagItems(tag?.itemsComplete).length,
     expanded,
     setExpanded,
     visibleEdit,
