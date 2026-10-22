@@ -4,7 +4,11 @@ import useFetch from "@/hooks/useFetch";
 import { useOptions } from "@/store";
 import { getRandomColor } from "@/utils/color";
 
-const useTagEditor = (tag, onClose, initialItemIds = []) => {
+const useTagEditor = (
+  tag: any = null,
+  onClose: () => void = () => {},
+  initialItemIds: (number | string)[] = []
+) => {
   /* PAGE CONTEXT **********************************************/
   const { setItemTags } = useContext(PageContext);
   /* end PAGE CONTEXT *********************************************/
@@ -14,10 +18,10 @@ const useTagEditor = (tag, onClose, initialItemIds = []) => {
   /* end FILTERS **********************************************/
 
   /* INPUT REF **********************************************/
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    inputRef.current.focus();
+    inputRef.current?.focus();
   }, []);
   /* end INPUT REF **********************************************/
 
@@ -32,13 +36,13 @@ const useTagEditor = (tag, onClose, initialItemIds = []) => {
 
   /* ITEM TAGS *********************************************/
   const afterLoadItemTags = useCallback(
-    ({ results }) => {
-      const tags = results.map((tag, i) => {
+    ({ results }: { results: any[] }) => {
+      const tags = results.map((tag: any, i: number) => {
         return {
           ...tag,
           id: `${tag?.id || i}`,
           itemsComplete: tag.items,
-          items: tag.items.map(({ id }) => id),
+          items: tag.items.map(({ id }: { id: number }) => id),
         };
       });
       setItemTags(tags);
@@ -94,7 +98,7 @@ const useTagEditor = (tag, onClose, initialItemIds = []) => {
   /* end DELETE TAG ************************************************/
 
   const onCancel = useCallback(
-    (e) => {
+    (e: { preventDefault: () => void }) => {
       e.preventDefault();
       onClose();
     },
@@ -102,7 +106,7 @@ const useTagEditor = (tag, onClose, initialItemIds = []) => {
   );
 
   const onSubmit = useCallback(
-    (e) => {
+    (e: { preventDefault: () => void }) => {
       e.preventDefault();
       if (tag) {
         const tagClone = { ...tag };
@@ -139,7 +143,7 @@ const useTagEditor = (tag, onClose, initialItemIds = []) => {
   );
 
   const onDelete = useCallback(
-    (e) => {
+    (e: { preventDefault: () => void }) => {
       e.preventDefault();
       const { id } = tag;
       deleteMyItemTag({
