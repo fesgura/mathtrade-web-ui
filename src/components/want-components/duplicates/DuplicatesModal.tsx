@@ -5,6 +5,7 @@ import Modal from "@/components/modal";
 import I18N from "@/i18n";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import type { DuplicatesResponse } from "@/hooks/useDuplicateWants";
+import { decodeEntities, displayGroups } from "@/utils/duplicateDisplay";
 
 type DuplicatesModalProps = {
   isOpen: boolean;
@@ -16,9 +17,19 @@ type DuplicatesModalProps = {
   onConfirm?: () => void;
 };
 
+// "ejemplar suelto" / "N ejemplares sueltos": item wants on the same copy
+// title, collapsed by displayGroups.
+const CopiesLabel = ({ count }: { count: number }) => (
+  <I18N
+    id={`commitDuplicates.items.${count === 1 ? "one" : "many"}`}
+    values={[count]}
+  />
+);
+
 // Lists the wants that could bring the same game twice. Names and owners are
 // user-provided, so they render as JSX text, never through I18N `values`
-// (I18N renders its text as HTML).
+// (I18N renders its text as HTML); decodeEntities only turns BGG's `&amp;`
+// and friends into plain characters.
 const DuplicatesModal = ({
   isOpen,
   data,
@@ -49,13 +60,24 @@ const DuplicatesModal = ({
               key={`${dup.kind}-${dup.bgg_id ?? dup.item_id}`}
               className="py-1.5 break-words"
             >
-              <strong>{dup.name}</strong>
-              {dup.owner ? <> · {dup.owner}</> : null}
+              <strong>{decodeEntities(dup.name)}</strong>
+              {dup.owner ? <> · {decodeEntities(dup.owner)}</> : null}
               {" — "}
-              {dup.groups.map((g, i) => (
-                <span key={g.id}>
+              {displayGroups(dup).map((g, i) => (
+                <span key={g.key}>
                   {i > 0 ? ", " : null}
-                  {g.name} (<I18N id={`commitDuplicates.type.${g.type}`} />)
+                  {g.type !== "item" ? (
+                    <>
+                      {g.name} (
+                      <I18N id={`commitDuplicates.type.${g.type}`} />)
+                    </>
+                  ) : g.name === null ? (
+                    <CopiesLabel count={g.count} />
+                  ) : (
+                    <>
+                      {g.name} (<CopiesLabel count={g.count} />)
+                    </>
+                  )}
                 </span>
               ))}
             </li>

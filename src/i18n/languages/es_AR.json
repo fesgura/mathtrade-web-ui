@@ -38,6 +38,8 @@
   "commitDuplicates.title.one": "Tenés $$$ juego en más de un deseo",
   "commitDuplicates.title.many": "Tenés $$$ juegos en más de un deseo",
   "commitDuplicates.intro": "Cada deseo se cumple por separado, así que <strong>podrías recibirlos dos veces</strong>. Revisalos en Mis deseos si no es lo que querés.",
+  "commitDuplicates.items.one": "ejemplar suelto",
+  "commitDuplicates.items.many": "$$$ ejemplares sueltos",
   "commitDuplicates.review": "Revisar",
   "commitDuplicates.confirm": "Confirmar igual",
   "commitDuplicates.close": "Cerrar",
