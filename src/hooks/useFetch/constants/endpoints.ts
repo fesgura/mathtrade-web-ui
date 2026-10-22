@@ -79,6 +79,8 @@ const endpoints = {
 
   // WANTS
   MYWANTS: "api/mathtrades/$[mathtradeId]/user-want-groups/",
+  GET_MYWANTS_DUPLICATES:
+    "api/mathtrades/$[mathtradeId]/user-want-groups/duplicates/",
   GET_WANT: "api/mathtrades/$[mathtradeId]/user-want-groups/$[1]/",
   POST_MYWANTS: "api/mathtrades/$[mathtradeId]/user-want-groups/",
   PUT_MYWANTS: "api/mathtrades/$[mathtradeId]/user-want-groups/$[1]/",
