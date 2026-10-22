@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import {
   visibleTagItems,
   isIgnoredInTag,
+  toItemTags,
   type MyTag,
   type TagItem,
 } from "./tagItems.ts";
@@ -61,4 +62,24 @@ test("isIgnoredInTag is false without itemsComplete or tag", () => {
   assert.equal(isIgnoredInTag(tag(), 1), false);
   assert.equal(isIgnoredInTag(null, 1), false);
   assert.equal(isIgnoredInTag(undefined, 1), false);
+});
+
+test("toItemTags maps MYTAGS results to itemTags (ids + itemsComplete)", () => {
+  const rows = [item(1, true), item(2)];
+  const [first, second] = toItemTags([
+    { id: 1260, name: "AEON", color: "#f00", items: rows },
+    { name: "Sin id", color: "#0f0", items: [] },
+  ]);
+  assert.equal(first.id, "1260");
+  assert.equal(first.name, "AEON");
+  assert.deepEqual(first.items, [1, 2]);
+  assert.equal(first.itemsComplete, rows);
+  assert.equal(isIgnoredInTag(first, 1), true);
+  assert.equal(second.id, "1");
+  assert.deepEqual(second.items, []);
+});
+
+test("toItemTags returns [] for null or undefined", () => {
+  assert.deepEqual(toItemTags(null), []);
+  assert.deepEqual(toItemTags(undefined), []);
 });

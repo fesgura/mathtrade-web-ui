@@ -34,3 +34,13 @@ export const isIgnoredInTag = (
 ): boolean =>
   !!(tag?.itemsComplete || []).find((item) => `${item.id}` === `${itemId}`)
     ?.ignored;
+
+/** MYTAGS `results` → PageContext.itemTags (same mapping as the offer page's
+ * loader): `items` become ids, the full rows go to `itemsComplete`. */
+export const toItemTags = (results: any[] | undefined | null): MyTag[] =>
+  (results || []).map((tag, i) => ({
+    ...tag,
+    id: `${tag?.id || i}`,
+    itemsComplete: tag.items,
+    items: (tag.items || []).map(({ id }: TagItem) => id),
+  }));

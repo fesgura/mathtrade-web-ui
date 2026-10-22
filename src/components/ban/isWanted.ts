@@ -1,5 +1,6 @@
-// Ignoring something you want doesn't delete the want, but the export skips
-// it: callers warn before ignoring a wanted target (single and bulk ignore).
+// Ignoring something you want removes it from your wants (BE, since
+// 2026-10-21) and un-ignoring doesn't restore it: callers warn before
+// ignoring a wanted target (single and bulk ignore).
 
 type WantLike = {
   type?: string;

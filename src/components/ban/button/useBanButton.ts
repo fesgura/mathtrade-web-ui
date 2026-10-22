@@ -4,11 +4,14 @@ import { GameContext } from "@/context/game";
 import { PageContext } from "@/context/page";
 import { useOptions } from "@/store";
 import useFetch from "@/hooks/useFetch";
+import useReloadWantsAndTags from "@/hooks/useReloadWantsAndTags";
 import { isWantedGame } from "../isWanted";
 
 const useBanButton = (type = "item") => {
   const { forceReloadPage, myWants } = useContext(PageContext);
   const updateFilters = useOptions((state) => state.updateFilters);
+  // Ignoring removes the copy from your wants (BE): reload wants and tags.
+  const { reload } = useReloadWantsAndTags();
 
   const {
     item,
@@ -47,6 +50,7 @@ const useBanButton = (type = "item") => {
       // unrelated filter change.
       updateFilters({}, type);
       forceReloadPage();
+      reload();
     },
     [
       type,
@@ -56,6 +60,7 @@ const useBanButton = (type = "item") => {
       setShowAsIgnoredGame,
       updateFilters,
       forceReloadPage,
+      reload,
     ]
   );
 
@@ -70,6 +75,7 @@ const useBanButton = (type = "item") => {
     }
     updateFilters({}, type);
     forceReloadPage();
+    reload();
   }, [
     type,
     setBanIdItem,
@@ -78,6 +84,7 @@ const useBanButton = (type = "item") => {
     setShowAsIgnoredGame,
     updateFilters,
     forceReloadPage,
+    reload,
   ]);
 
   const [banElement, , loadingBanElement] = useFetch({
@@ -92,8 +99,9 @@ const useBanButton = (type = "item") => {
     afterLoad: afterLoadUnban,
   });
 
-  // Ignoring something you want doesn't delete the want, but the export
-  // skips it: warn before, so nobody ignores a wanted game by accident.
+  // Ignoring something you want removes it from your wants (and a want left
+  // empty is deleted, with what you offered for it); un-ignoring doesn't
+  // bring it back. Warn before, so nobody ignores a wanted game by accident.
   const isWanted = useMemo(() => {
     if (type === "item") {
       return !!wantGroup || !!otherWantGroups?.length || !!wantedViaTag;

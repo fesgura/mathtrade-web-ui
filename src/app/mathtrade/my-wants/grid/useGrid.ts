@@ -27,6 +27,7 @@ const useGrid = () => {
     changedWantIds,
     myGroups_forWants,
     myItemsInMT_forWants,
+    tagsReloadValue,
   } = useContext(PageContext);
 
   useEffect(() => {
@@ -123,6 +124,8 @@ const useGrid = () => {
     initialState: { results: [] },
     params: TAGS_PARAMS,
     autoLoad: true,
+    // Refetched after an ignore/unignore (useReloadWantsAndTags).
+    reloadValue: tagsReloadValue,
   });
   const tagItems = useMemo(() => {
     const byTag: Record<string, any[]> = {};
