@@ -5,6 +5,7 @@ import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store";
 import { REFERRAL_LIMIT } from "@/config/referral";
 import { DateIntlFormat } from "@/utils/dateUtils";
+import { firstProvisional } from "@/utils/provisionalDates";
 import type { WantChange } from "@/app/mathtrade/my-wants/useWants";
 
 // Only the login response persists `data.mathtrade` (dates, active, etc.),
@@ -274,7 +275,6 @@ const PageContextProvider = ({ children = null }) => {
       "signup_close_date",
       "freeze_geek_date",
       "freeze_wants_date",
-      "provisional_results_date",
       "meeting_date",
       "show_results_date",
     ].reduce((obj: Record<string, number>, dateName) => {
@@ -291,9 +291,9 @@ const PageContextProvider = ({ children = null }) => {
     const want =
       $now >= $dates.freeze_geek_date && $now < $dates.freeze_wants_date;
     const commit = want;
-    const provisionalResults =
-      Number.isFinite($dates.provisional_results_date) &&
-      $now >= $dates.provisional_results_date;
+    // Unlocks at the first provisional run (list, or the old scalar).
+    const firstProv = firstProvisional(mathtrade);
+    const provisionalResults = firstProv !== null && $now >= firstProv;
     const results =
       Number.isFinite($dates.show_results_date) &&
       $now >= $dates.show_results_date &&
