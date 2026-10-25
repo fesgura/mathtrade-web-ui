@@ -13,6 +13,8 @@ export const PARTICIPANT_SORT_VALUES: SortValues<ParticipantRow, ParticipantSort
 export type ParticipantColumn = {
   key: ParticipantSortKey;
   labelId: string;
+  // Plain-text label for selects and cards (labelId may hold a <br/>).
+  shortLabelId?: string;
   className: string;
 };
 
@@ -24,4 +26,21 @@ export const COLUMNS: ParticipantColumn[] = [
     labelId: "result.userTable.ready_items",
     className: "py-2 pr-4 text-right",
   },
+  {
+    key: "commitment",
+    labelId: "result.userTable.commitment",
+    className: "py-2 pr-4",
+  },
+  {
+    key: "trades",
+    labelId: "result.userTable.trades",
+    shortLabelId: "result.userTable.tradesShort",
+    className: "py-2 pr-4 text-right",
+  },
 ];
+
+// The columns of the current phase.
+export const visibleColumns = (showCommitment: boolean, showTrades: boolean) =>
+  COLUMNS.filter(
+    ({ key }) => (key !== "commitment" || showCommitment) && (key !== "trades" || showTrades),
+  );
