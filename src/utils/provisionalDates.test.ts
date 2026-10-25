@@ -6,6 +6,7 @@ import {
   firstProvisional,
   nextProvisional,
   hasProvisional,
+  provisionalDatesParam,
 } from "./provisionalDates.ts";
 
 const A = "2026-11-01T11:00:00Z";
@@ -78,4 +79,17 @@ test("hasProvisional", () => {
   assert.equal(hasProvisional({ provisional_results_date: A }), true);
   assert.equal(hasProvisional({ provisional_results_dates: [] }), false);
   assert.equal(hasProvisional(null), false);
+});
+
+test("provisionalDatesParam drops empty and invalid rows, sorts", () => {
+  const iso = (v: string) => new Date(v).toISOString();
+  assert.deepEqual(
+    provisionalDatesParam(["2026-11-05T08:00", "", "garbage", "2026-11-01T08:00"]),
+    [iso("2026-11-01T08:00"), iso("2026-11-05T08:00")]
+  );
+});
+
+test("provisionalDatesParam keeps duplicates and maps [] to []", () => {
+  assert.deepEqual(provisionalDatesParam([]), []);
+  assert.equal(provisionalDatesParam(["2026-11-01T08:00", "2026-11-01T08:00"]).length, 2);
 });

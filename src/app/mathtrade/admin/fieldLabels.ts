@@ -13,7 +13,7 @@ export const FIELD_LABELS: Record<string, string> = {
   signup_close_date: "adminPanel.field.signupCloseDate",
   freeze_geek_date: "adminPanel.field.freezeGeekDate",
   freeze_wants_date: "adminPanel.field.freezeWantsDate",
-  provisional_results_date: "adminPanel.field.provisionalResultsDate",
+  provisional_results_dates: "adminPanel.field.provisionalResultsDates",
   show_results_date: "adminPanel.field.showResultsDate",
   meeting_date: "adminPanel.field.meetingDate",
 };

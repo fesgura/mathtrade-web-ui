@@ -30,3 +30,12 @@ export const nextProvisional = (mt: Source, now: number): number | null =>
 
 export const hasProvisional = (mt: Source): boolean =>
   getProvisionalDates(mt).length > 0;
+
+// datetime-local values (browser local time) -> sorted ISO strings; empty or
+// invalid rows dropped. Duplicates are kept: the backend rejects them.
+export const provisionalDatesParam = (values: string[]): string[] =>
+  values
+    .map((v) => (v ? new Date(v).getTime() : NaN))
+    .filter(Number.isFinite)
+    .sort((a, b) => a - b)
+    .map((t) => new Date(t).toISOString());

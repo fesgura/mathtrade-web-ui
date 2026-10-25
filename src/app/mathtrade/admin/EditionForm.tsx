@@ -4,6 +4,7 @@ import { Form, InputContainer, Label, Input, Select, Switch } from "@/components
 import Button from "@/components/button";
 import { DATE_FIELDS, VENUE_FIELDS, toLocalInput } from "./useAdminPanel";
 import FieldErrors from "./FieldErrors";
+import ProvisionalDatesField from "./ProvisionalDatesField";
 import { FIELD_LABELS } from "./fieldLabels";
 
 const VENUE_PLACEHOLDERS: Record<string, string> = {
@@ -127,6 +128,8 @@ const EditionForm = ({
         </InputContainer>
       ))}
     </div>
+
+    <ProvisionalDatesField initial={initial} />
 
     <FieldErrors error={error} />
 

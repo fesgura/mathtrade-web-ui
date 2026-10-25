@@ -4,13 +4,13 @@ import { PageContext } from "@/context/page";
 import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store";
 import { formatLocations } from "@/utils";
+import { provisionalDatesParam } from "@/utils/provisionalDates";
 
 export const DATE_FIELDS = [
   "start_date",
   "signup_close_date",
   "freeze_geek_date",
   "freeze_wants_date",
-  "provisional_results_date",
   "show_results_date",
   "meeting_date",
 ];
@@ -38,6 +38,17 @@ export const parseAmount = (value?: string | number | null) => {
     text = text.replace(/\./g, "");
   }
   return text;
+};
+
+// The hidden input of ProvisionalDatesField holds a JSON string array.
+const parseDateRows = (value: unknown): string[] => {
+  if (typeof value !== "string") return [];
+  try {
+    const rows = JSON.parse(value);
+    return Array.isArray(rows) && rows.every((r) => typeof r === "string") ? rows : [];
+  } catch {
+    return [];
+  }
 };
 
 const toISO = (value?: string) => {
@@ -71,11 +82,16 @@ export const buildParams = (
     params[field] = (formProps[field] || "").trim();
   });
   // A cleared date is left out instead of sent as "" (the backend keeps the
-  // stored value instead of erroring on an empty-string date).
+  // stored value instead of erroring on an empty-string date). The
+  // provisional list is the exception, below.
   DATE_FIELDS.forEach((field) => {
     const iso = toISO(formProps[field]);
     if (iso) params[field] = iso;
   });
+  // Always sent, [] included: an emptied list clears the provisional dates.
+  params.provisional_results_dates = provisionalDatesParam(
+    parseDateRows(formProps.provisional_results_dates)
+  );
   return params;
 };
 
@@ -116,7 +132,8 @@ const useAdminPanel = () => {
 
   // Fields left blank are simply omitted — all of them are optional on the
   // backend, and an omitted field on a full update just keeps its current
-  // value instead of erroring on an empty-string date.
+  // value instead of erroring on an empty-string date. The exception is
+  // provisional_results_dates: always sent, so [] clears the list.
   const submitEdit = useCallback(
     (id: number, formProps: Record<string, any>) => {
       saveMathtrade({ urlParams: [id], params: buildParams(formProps, "edit") });
