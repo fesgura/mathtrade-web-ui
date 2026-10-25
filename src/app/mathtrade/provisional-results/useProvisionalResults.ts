@@ -32,6 +32,8 @@ export type ProvisionalResultsPayload = {
   // Total published runs, the same for everybody.
   runs_count: number;
   summary: ProvisionalSummaryRow[];
+  // Latest publish of a run; null if nothing is published.
+  updated_at?: string | null;
 };
 
 const emptyPayload: ProvisionalResultsPayload = {
@@ -71,6 +73,8 @@ const useProvisionalResults = () => {
     runsCount: payload.runs_count,
     summary: payload.summary,
     viewingMember: payload.member || null,
+    // An old backend doesn't send it: undefined -> null, so no line shows.
+    updatedAt: payload.updated_at ?? null,
   };
 };
 

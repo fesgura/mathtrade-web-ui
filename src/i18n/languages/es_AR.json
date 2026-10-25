@@ -1015,6 +1015,8 @@
   "provisional.intro.exclude": "Si detectás algún error, podés autoexcluirte antes de que salgan los finales, pero <strong>tiene consecuencias</strong>: perdés el depósito, no participás de la edición siguiente y en la que vuelvas podés ofrecer hasta 5 ítems.",
   "provisional.viewingMember": "Estás viendo los resultados provisorios de <strong>$$$</strong>, autoexcluido el $$$. Es lo que vio esa persona.",
   "provisional.none": "Todavía no hay resultados provisorios publicados.",
+  "provisional.updatedAt": "Actualizado el $$$",
+  "provisional.nextRun": " · próxima corrida el $$$",
   "provisional.card.yours": "Tu juego",
   "provisional.card.got": "Podrías recibir:",
   "provisional.card.never": "En las simulaciones, este juego no se cambió por nada.",
