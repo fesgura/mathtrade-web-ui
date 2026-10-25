@@ -12,6 +12,7 @@ const DEFAULT_KEYS = ["MY_COLLECTION", "FAVORITES", "STATS"];
 // These require an accepted Membership in the active mathtrade to be usable at all.
 const MEMBERSHIP_GATED_KEYS = [
   "OFFER",
+  "PARTICIPANTS",
   "MY_OFFER",
   "WANTS",
   "PROVISIONAL_RESULTS",
@@ -32,6 +33,7 @@ export type NavGroup = {
 
 const EVENT_ORDER = [
   "OFFER",
+  "PARTICIPANTS",
   "MY_OFFER",
   "WANTS",
   "PROVISIONAL_RESULTS",

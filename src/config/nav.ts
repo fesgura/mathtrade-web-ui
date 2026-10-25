@@ -40,6 +40,12 @@ export const PRIMARY_NAV: NavEntry[] = [
     mobilePrimary: true,
   },
   {
+    key: "PARTICIPANTS",
+    path: PRIVATE_ROUTES.PARTICIPANTS.path,
+    titleI18nKey: "menu.participants",
+    icon: "users",
+  },
+  {
     key: "WANTS",
     path: PRIVATE_ROUTES.WANTS.path,
     titleI18nKey: `menu.${PRIVATE_ROUTES.WANTS.title}`,

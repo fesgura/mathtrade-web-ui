@@ -2,7 +2,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import useFetch from "@/hooks/useFetch";
 import { useStore } from "@/store";
-import useSortedRows from "./useSortedRows";
+import {
+  nextSort,
+  useSortedRows,
+  type SortState as GenericSortState,
+} from "@/components/sortableTable";
+import { ADMIN_SORT_VALUES, adminTieBreak, adminUserId } from "./sortValues";
 
 export type AdminUserRow = {
   user_id: number;
@@ -31,8 +36,7 @@ export type AdminUserRow = {
 };
 
 export type SortKey = "name" | "city" | "contact" | "referring" | "copies" | "status" | "flags";
-export type SortDir = "asc" | "desc";
-export type SortState = { key: SortKey; dir: SortDir } | null;
+export type SortState = GenericSortState<SortKey>;
 
 export type ContactFilter = "" | "missing" | "partial";
 
@@ -103,13 +107,10 @@ const useAdminUsers = () => {
     () => (onlyNew ? all.filter((row) => row.is_new) : all),
     [all, onlyNew]
   );
-  const list = useSortedRows(filtered, sort);
+  const list = useSortedRows(filtered, sort, ADMIN_SORT_VALUES, adminUserId, adminTieBreak);
 
   // asc → desc → none (back to the backend order: name).
-  const toggleSort = (key: SortKey) =>
-    setSort((s) =>
-      s?.key !== key ? { key, dir: "asc" } : s.dir === "asc" ? { key, dir: "desc" } : null
-    );
+  const toggleSort = (key: SortKey) => setSort((s) => nextSort(s, key));
 
   const storeLocations = useStore((state) => state.locations);
   const locations: LocationRef[] = useMemo(

@@ -14,8 +14,8 @@ import I18N, { getI18Ntext } from "@/i18n";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import { whatsappLink } from "@/utils/whatsapp";
 import useAdminUsers, { AdminUserRow, SortKey } from "./useAdminUsers";
-import { readyCopies } from "./useSortedRows";
-import SortableTh from "./sortableTh";
+import { readyCopies } from "./sortValues";
+import SortableTh from "@/components/sortableTable/sortableTh";
 import Copies from "./copies";
 import { AdminUserName, useAdminUser } from "@/components/adminUserModal";
 

@@ -1,25 +1,28 @@
 import clsx from "clsx";
 import I18N, { getI18Ntext } from "@/i18n";
-import type { SortKey, SortState } from "./useAdminUsers";
+import type { SortState } from "./index";
 
-type Props = {
-  sortKey: SortKey;
+type Props<K extends string> = {
+  sortKey: K;
   labelId: string;
-  sort?: SortState;
-  onSort?: (key: SortKey) => void;
+  sort?: SortState<K>;
+  onSort?: (key: K) => void;
+  // i18n id of the "Sort by" prefix of the button title.
+  helpId?: string;
   className?: string;
 };
 
 const ARIA_SORT = { asc: "ascending", desc: "descending" } as const;
 
 // Column header that cycles asc → desc → none on click.
-const SortableTh = ({
+const SortableTh = <K extends string>({
   sortKey,
   labelId,
   sort = null,
   onSort = () => {},
+  helpId = "adminUsers.sort.help",
   className = "",
-}: Props) => {
+}: Props<K>) => {
   const dir = sort?.key === sortKey ? sort.dir : null;
   const label = getI18Ntext(labelId);
   return (
@@ -30,7 +33,7 @@ const SortableTh = ({
           "inline-flex items-center gap-1 hover:text-gray-800",
           dir ? "text-gray-800" : null
         )}
-        title={`${getI18Ntext("adminUsers.sort.help")}: ${label}`}
+        title={`${getI18Ntext(helpId)}: ${label}`}
         onClick={() => onSort(sortKey)}
       >
         <I18N id={labelId} />
