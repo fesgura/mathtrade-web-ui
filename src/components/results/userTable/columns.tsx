@@ -1,102 +1,46 @@
-import I18N, { getI18Ntext } from "@/i18n";
-import useUserTable from "./useUserTable";
-import Avatar from "@/components/avatar";
-import { AdminUserName } from "@/components/adminUserModal";
-import Icon from "@/components/icon";
-import clsx from "clsx";
-import ErrorAlert from "@/components/errorAlert";
-import { LoadingBox } from "@/components/loading";
-import { DateIntlFormat } from "@/utils/dateUtils";
-import XlsButtonBtn from "@/components/xlsButton";
-import { render } from "@react-pdf/renderer";
+import type { SortValues } from "@/components/sortableTable";
+import type { ParticipantRow, ParticipantSortKey } from "./types";
 
-const columns = [
-  {
-    header: "result.userTable.name",
-    value: "name",
-    sort: (a, b, dir) => {
-      return a?.last_name < b?.last_name ? -1 * dir : dir;
-    },
-    excel: ({ first_name, last_name }) => {
-      return `${first_name} ${last_name}`;
-    },
-    render: ({ id, avatar, first_name, last_name }) => {
-      return (
-        <div className="flex items-center gap-2">
-          <div>
-            <Avatar avatar={avatar} />
-          </div>
+// The ascending value of each column; null sorts last.
+export const PARTICIPANT_SORT_VALUES: SortValues<ParticipantRow, ParticipantSortKey> = {
+  name: (row) => `${row.first_name || ""} ${row.last_name || ""}`.trim() || null,
+  city: (row) => row.location?.name || null,
+  ready_items: (row) => row.ready_items ?? null,
+  commitment: (row) => (row.commitment ? 1 : 0),
+  trades: (row) => row.trades ?? null,
+};
 
-          <div>
-            {/* Row id = the user id (MembershipMathtradesSerializer) */}
-            <AdminUserName userId={id}>
-              <div className="font-bold leading-none">{`${first_name} ${last_name}`}</div>
-            </AdminUserName>
-          </div>
-        </div>
-      );
-    },
+export type ParticipantColumn = {
+  key: ParticipantSortKey;
+  labelId: string;
+  // Plain-text label for selects and cards (labelId may hold a <br/>).
+  shortLabelId?: string;
+  className: string;
+};
+
+export const COLUMNS: ParticipantColumn[] = [
+  { key: "name", labelId: "result.userTable.name", className: "py-2 pr-4" },
+  { key: "city", labelId: "result.userTable.location", className: "py-2 pr-4" },
+  {
+    key: "ready_items",
+    labelId: "result.userTable.ready_items",
+    className: "py-2 pr-4 text-right",
   },
   {
-    header: "result.userTable.location",
-    value: "location",
-    sort: (a, b, dir) => {
-      return a?.location?.name < b?.location?.name ? -1 * dir : dir;
-    },
-    excel: (_, location) => {
-      return location?.name || "-";
-    },
-    render: (_, location) => {
-      return location?.name || "-";
-    },
+    key: "commitment",
+    labelId: "result.userTable.commitment",
+    className: "py-2 pr-4",
   },
   {
-    header: "result.userTable.items",
-    value: "items",
-    sort: (a, b, dir) => {
-      return parseInt(a?.items, 10) < parseInt(b?.items, 10) ? -1 * dir : dir;
-    },
-    excel: (_, items) => {
-      return items || 0;
-    },
-    render: (_, items) => {
-      return items || "0";
-    },
-  },
-  {
-    header: "result.userTable.trades",
-    value: "trades",
-    sort: (a, b, dir) => {
-      return parseInt(a?.trades, 10) < parseInt(b?.trades, 10) ? -1 * dir : dir;
-    },
-    excel: (_, trades) => {
-      return trades || 0;
-    },
-    render: (_, trades) => {
-      return trades || "0";
-    },
-  },
-  {
-    header: "result.userTable.commitment_datetime",
-    value: "commitment_datetime",
-    sort: true,
-    excel: (_, commitment_datetime) => {
-      return commitment_datetime ? DateIntlFormat(commitment_datetime) : "-";
-    },
-    render: (_, commitment_datetime) => {
-      return commitment_datetime ? DateIntlFormat(commitment_datetime) : "-";
-    },
-  },
-  {
-    header: "result.userTable.commitment",
-    value: "commitment",
-    sort: true,
-    excel: (_, commitment) => {
-      return commitment ? getI18Ntext("Yes") : getI18Ntext("No");
-    },
-    render: (_, commitment) => {
-      return commitment ? getI18Ntext("Yes") : getI18Ntext("No");
-    },
+    key: "trades",
+    labelId: "result.userTable.trades",
+    shortLabelId: "result.userTable.tradesShort",
+    className: "py-2 pr-4 text-right",
   },
 ];
-export default columns;
+
+// The columns of the current phase.
+export const visibleColumns = (showCommitment: boolean, showTrades: boolean) =>
+  COLUMNS.filter(
+    ({ key }) => (key !== "commitment" || showCommitment) && (key !== "trades" || showTrades),
+  );

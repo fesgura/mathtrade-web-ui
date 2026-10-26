@@ -15,7 +15,7 @@ import {
   type AdminUserRow,
 } from "@/app/mathtrade/admin/users/useAdminUsers";
 import { useStore } from "@/store";
-import { readyCopies } from "@/app/mathtrade/admin/users/useSortedRows";
+import { readyCopies } from "@/app/mathtrade/admin/users/sortValues";
 import Copies from "@/app/mathtrade/admin/users/copies";
 import AdminUserItems from "./items";
 import NewUserBadge from "./newUserBadge";
