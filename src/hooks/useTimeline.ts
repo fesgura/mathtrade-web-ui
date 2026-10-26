@@ -1,6 +1,7 @@
 import { useContext, useMemo } from "react";
 import { PageContext } from "@/context/page";
 import { formatMilestoneDate } from "@/utils/dateUtils";
+import { getProvisionalDates } from "@/utils/provisionalDates";
 
 export type Venue = { name: string; address: string; url: string };
 
@@ -22,10 +23,6 @@ const MILESTONE_TEXT: Record<string, { title: string; color: number }> = {
     title: "timeline.want",
     color: 2,
   },
-  provisional_results_date: {
-    title: "timeline.provisional",
-    color: 3,
-  },
   show_results_date: {
     title: "timeline.res",
     color: 4,
@@ -36,11 +33,15 @@ const MILESTONE_TEXT: Record<string, { title: string; color: number }> = {
   },
 };
 
+type MilestoneEntry = Omit<Milestone, "date" | "state">;
+
 export type MilestoneState = "past" | "next" | "future";
 
 export type Milestone = {
   key: string;
   title: string;
+  // Placeholder values for the title ($$$), e.g. the run number.
+  titleValues?: (string | number)[];
   color: number;
   // Only on the meeting, when the edition has a venue (set in the admin panel).
   venue?: Venue | null;
@@ -68,8 +69,8 @@ const useTimeline = () => {
         }
       : null;
 
-    const sorted = Object.entries(MILESTONE_TEXT)
-      .map(([key, value]) => {
+    const fields: MilestoneEntry[] = Object.entries(MILESTONE_TEXT).map(
+      ([key, value]) => {
         const dateRaw = mathtrade[key];
         // Receipts are also due when loading ends, if the edition asks for one.
         if (key === "freeze_geek_date" && mathtrade.contribution_amount) {
@@ -83,7 +84,24 @@ const useTimeline = () => {
           time,
           venue: key === "meeting_date" ? venue : null,
         };
-      })
+      },
+    );
+
+    // One milestone per provisional run: the first keeps its usual label,
+    // later ones are numbered reruns.
+    const provisional: MilestoneEntry[] = getProvisionalDates(mathtrade).map(
+      (time, i) => ({
+        key: `provisional_results_dates.${i}`,
+        title: i === 0 ? "timeline.provisional" : "timeline.provisionalRerun",
+        titleValues: i === 0 ? undefined : [i + 1],
+        color: 3,
+        dateRaw: new Date(time).toISOString(),
+        time,
+        venue: null,
+      }),
+    );
+
+    const sorted = [...fields, ...provisional]
       .filter(({ time }) => Number.isFinite(time))
       .sort((a, b) => a.time - b.time);
 

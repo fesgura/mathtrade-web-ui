@@ -7,6 +7,9 @@ import {
 import { usePathname } from "next/navigation";
 import { useStore } from "@/store";
 import { PageContext } from "@/context/page";
+import { hasProvisional } from "@/utils/provisionalDates";
+
+type MenuItem = { name: string; disabled?: boolean } & Record<string, unknown>;
 
 const useHeaderMenu = () => {
   const { canI } = useContext(PageContext);
@@ -16,14 +19,14 @@ const useHeaderMenu = () => {
   const currentPath = usePathname();
 
   const [visibleMobileMenu, setVisibleMobileMenu] = useState(false);
-  const [menuListOfItems, setMenuListOfItems] = useState([]);
+  const [menuListOfItems, setMenuListOfItems] = useState<MenuItem[]>([]);
 
   const toggleMobileMenu = useCallback(() => {
     setVisibleMobileMenu((v) => !v);
   }, []);
 
   useEffect(() => {
-    let list = [];
+    let list: MenuItem[] = [];
     if (mathtrade) {
       if (membership) {
         list = MenuList;
@@ -42,7 +45,7 @@ const useHeaderMenu = () => {
         (item) =>
           !item.disabled &&
           // An edition without provisional results has no page for them.
-          (item.name !== "provisionalResults" || mathtrade?.provisional_results_date)
+          (item.name !== "provisionalResults" || hasProvisional(mathtrade))
       )
     );
   }, [membership, mathtrade, canI]);

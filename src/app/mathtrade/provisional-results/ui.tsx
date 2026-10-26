@@ -1,4 +1,6 @@
 "use client";
+import { useContext, useMemo } from "react";
+import { PageContext } from "@/context/page";
 import EmptyList from "@/components/emptyList";
 import ErrorAlert from "@/components/errorAlert";
 import I18N from "@/i18n";
@@ -7,10 +9,24 @@ import useProvisionalResults from "./useProvisionalResults";
 import ProvisionalSummary from "./summary";
 import ProvisionalExclude from "./exclude";
 import useTour from "@/tours/useTour";
+import { nextProvisional } from "@/utils/provisionalDates";
+
+const formatAR = (value: string | number) =>
+  new Date(value).toLocaleString("es-AR", {
+    timeZone: "America/Argentina/Buenos_Aires",
+    dateStyle: "short",
+    timeStyle: "short",
+  });
 
 const ProvisionalResultsUI = () => {
-  const { loading, error, runsCount, summary, viewingMember } =
+  const { loading, error, runsCount, summary, viewingMember, updatedAt } =
     useProvisionalResults();
+  const { mathtrade } = useContext(PageContext);
+  // Computed when the edition changes, not on every render.
+  const next = useMemo(
+    () => nextProvisional(mathtrade, Date.now()),
+    [mathtrade]
+  );
   // Not when an admin looks at someone else's results.
   useTour("provisional", { ready: !loading && !viewingMember });
 
@@ -31,14 +47,7 @@ const ProvisionalResultsUI = () => {
             values={[
               `${viewingMember.first_name} ${viewingMember.last_name} (${viewingMember.username})`,
               viewingMember.self_excluded_at
-                ? new Date(viewingMember.self_excluded_at).toLocaleString(
-                    "es-AR",
-                    {
-                      timeZone: "America/Argentina/Buenos_Aires",
-                      dateStyle: "short",
-                      timeStyle: "short",
-                    }
-                  )
+                ? formatAR(viewingMember.self_excluded_at)
                 : "-",
             ]}
           />
@@ -63,6 +72,14 @@ const ProvisionalResultsUI = () => {
           <I18N id="provisional.intro.exclude" />
         </p>
       </section>
+      {runsCount > 0 && updatedAt ? (
+        <p className="text-sm text-gray-600 mb-4">
+          <I18N id="provisional.updatedAt" values={[formatAR(updatedAt)]} />
+          {next ? (
+            <I18N id="provisional.nextRun" values={[formatAR(next)]} />
+          ) : null}
+        </p>
+      ) : null}
       <ErrorAlert error={error} />
       {!runsCount ? (
         <EmptyList visible icon="status-box" message="provisional.none" />

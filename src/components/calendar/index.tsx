@@ -50,7 +50,7 @@ const Calendar = ({ compact = false }: { compact?: boolean }) => {
 
   return (
     <ol>
-      {milestones.map(({ key, title, color, venue, date, state }, i) => (
+      {milestones.map(({ key, title, titleValues, color, venue, date, state }, i) => (
         <li
           key={key}
           className={clsx("relative pl-7", compact ? "pb-3" : "pb-5", {
@@ -87,7 +87,7 @@ const Calendar = ({ compact = false }: { compact?: boolean }) => {
               "font-semibold text-gray-900": state === "next",
             })}
           >
-            <I18N id={title} />
+            <I18N id={title} values={titleValues} />
           </div>
           {venue ? <VenueCard venue={venue} /> : null}
         </li>

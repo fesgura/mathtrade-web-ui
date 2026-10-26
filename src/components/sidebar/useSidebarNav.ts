@@ -5,6 +5,7 @@ import { useStore, useOptions } from "@/store";
 import { HOME_ENTRY, PRIMARY_NAV, type NavEntry } from "@/config/nav";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import { formatDateString } from "@/utils/dateUtils";
+import { hasProvisional, nextProvisional } from "@/utils/provisionalDates";
 
 export const COLLAPSE_KEY = "sidebar_mainNav_collapsed";
 const DEFAULT_KEYS = ["MY_COLLECTION", "FAVORITES", "STATS"];
@@ -45,7 +46,7 @@ const SPACE_ORDER = ["MY_COLLECTION", "FAVORITES", "STATS", "RESULTS_HISTORIAL",
 const sortBy = (order: string[]) => (a: NavEntry, b: NavEntry) =>
   order.indexOf(a.key) - order.indexOf(b.key);
 
-const daysLeftUntil = (isoDate) =>
+const daysLeftUntil = (isoDate: string | number) =>
   Math.max(
     0,
     Math.ceil((new Date(isoDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
@@ -84,7 +85,7 @@ const useSidebarNav = () => {
         // An edition without provisional results has no page for them.
         .filter(
           (entry) =>
-            entry.key !== "PROVISIONAL_RESULTS" || mathtrade.provisional_results_date
+            entry.key !== "PROVISIONAL_RESULTS" || hasProvisional(mathtrade)
         )
         .map((entry) => {
           if (entry.key === "MY_DATA" && !membership) {
@@ -158,11 +159,11 @@ const useSidebarNav = () => {
         captionId: captionIdFor("wants", daysLeft),
       };
     }
-    if (
-      !canI.provisionalResults &&
-      mathtrade?.provisional_results_date
-    ) {
-      const daysLeft = daysLeftUntil(mathtrade.provisional_results_date);
+    // Only while locked, i.e. before the first date, so "next" = "first".
+    // Later runs are shown by the timeline and the provisional page.
+    const nextProv = nextProvisional(mathtrade, Date.now());
+    if (!canI.provisionalResults && nextProv !== null) {
+      const daysLeft = daysLeftUntil(nextProv);
       locked.PROVISIONAL_RESULTS = {
         daysLeft,
         captionId: captionIdFor("provisional", daysLeft),
