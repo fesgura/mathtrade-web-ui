@@ -1090,6 +1090,7 @@
   "sign.instruction": "Ingresá con tu email y contraseña",
   "stats.downloads.btn.results": "RESULTS.txt (archivo de resultados del <i>TradeMaximizer</i>)",
   "stats.downloads.btn.wants": "WANTS.txt (archivo que utiliza <i>TradeMaximizer</i> para generar los cambios.)",
+  "stats.downloads.seed": "Semilla (<i>SEED</i>) utilizada: <strong>$$$</strong>",
   "stats.downloads.text1": "Para generar los cambios utilizamos <strong>TradeMaximizer</strong> <i>(podés descargarlo <a href=\"$$$\" target=\"_blank\">aquí</a>)</i>.<br />Podés probar vos mismo/a generar los resultados <i>(instrucciones <a href=\"$$$\" target=\"_blank\">aquí</a>)</i>, utilizando el siguiente archivo de <strong>wants</strong>:",
   "stats.downloads.text2": "Con esto, se obtiene el siguiente archivo de <strong>resultados</strong>:",
   "stats.downloads.title": "¿Cómo se calculan los cambios?",
