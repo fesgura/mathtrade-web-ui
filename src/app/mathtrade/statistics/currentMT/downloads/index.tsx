@@ -7,14 +7,21 @@ import clsx from "clsx";
 import { useState } from "react";
 import ErrorAlert from "@/components/errorAlert";
 
+interface Stats {
+  wants?: string | null;
+  results?: string | null;
+  seed?: string | null;
+}
+
 const ContentDownload = () => {
   /* FETCH *************************************************/
 
-  const [, stats, loading, error] = useFetch({
+  const [, data, loading, error] = useFetch({
     endpoint: "GET_MATHTRADE_STATS",
     autoLoad: true,
     // format,
   });
+  const stats = data as Stats | null;
   /* end FETCH */
   // No link yet (before the final stage, or no file uploaded): hide the
   // button instead of showing one that does nothing.
@@ -41,9 +48,14 @@ const ContentDownload = () => {
             download
             target="_blank"
           >
-            <Icon type="download" className="me-2" download target="_blank" />
+            <Icon type="download" className="me-2" />
             <I18N id="stats.downloads.btn.wants" />
           </a>
+          {stats.seed ? (
+            <span className="block text-center mt-2">
+              <I18N id="stats.downloads.seed" values={[stats.seed]} />
+            </span>
+          ) : null}
         </p>
       ) : null}
       <p className="mb-4 text-balance">
@@ -57,7 +69,7 @@ const ContentDownload = () => {
             download
             target="_blank"
           >
-            <Icon type="download" className="me-2" download target="_blank" />
+            <Icon type="download" className="me-2" />
             <I18N id="stats.downloads.btn.results" />
           </a>
         </p>
@@ -67,7 +79,7 @@ const ContentDownload = () => {
   );
 };
 
-const Downloads = ({ accordion }) => {
+const Downloads = ({ accordion }: { accordion?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
