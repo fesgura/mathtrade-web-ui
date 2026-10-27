@@ -1,7 +1,7 @@
 export const JOKE_GAME_NAME = "Eso no es un sombrero";
 export const JOKE_GAME_PIC_URL = "https://cf.geekdo-images.com/y_8E6IhpFg5z-_9KHdQYYQ__imagepage/img/cBGHkeDjtqEjpMO8Jp0MJ8yfxY4=/fit-in/900x600/filters:no_upscale():strip_icc()/pic7386321.jpg";
 // 12:45 Argentina time (UTC−3), 27 Oct 2026.
-export const JOKE_GAME_ENDS = new Date("2026-10-27T12:50:00-03:00");
+export const JOKE_GAME_ENDS = new Date("2026-10-27T13:15:00-03:00");
 
 // Until JOKE_GAME_ENDS, show the gag instead of the received game.
 export function maskReceivedItem(item) {
