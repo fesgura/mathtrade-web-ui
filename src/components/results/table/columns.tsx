@@ -8,6 +8,7 @@ import Thumbnail from "@/components/thumbnail";
 import Previewer from "@/components/previewer";
 import Chip from "@/components/chip";
 import { NewUserBadge, useAdminUser } from "@/components/adminUserModal";
+import { maskReceivedItem } from "@/config/jokeGame";
 
 const ItemChangeUI = ({
   delivered = false,
@@ -93,10 +94,13 @@ const columns = [
       a?.item_from?.title < b?.item_from?.title ? -1 * dir : dir,
     render: (result, item_from) => {
       return (
-        <ItemChange item={item_from} received={result?.received} />
+        <ItemChange
+          item={maskReceivedItem(item_from)}
+          received={result?.received}
+        />
       );
     },
-    excel: ({ item_from }) => item_from?.title || "-",
+    excel: ({ item_from }) => maskReceivedItem(item_from)?.title || "-",
   },
   {
     header: "result.table.member_from",

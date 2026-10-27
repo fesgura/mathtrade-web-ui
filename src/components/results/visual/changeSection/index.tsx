@@ -4,6 +4,7 @@ import UserHub, { UserCaption } from "./user";
 import I18N from "@/i18n";
 import Chip from "@/components/chip";
 import { FlowArrow } from "@/components/svg/trade-arrows";
+import { maskReceivedItem } from "@/config/jokeGame";
 
 const ChangeSection = ({
   result,
@@ -32,7 +33,7 @@ const ChangeSection = ({
         </h3>
 
         <div className="col-start-1 row-start-2 min-w-0 h-full">
-          <ItemChange item={item_from} />
+          <ItemChange item={maskReceivedItem(item_from)} />
         </div>
         <div className="col-start-2 row-start-2 self-center">
           <FlowArrow tone="want" />

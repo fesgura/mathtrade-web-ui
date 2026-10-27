@@ -1,9 +1,11 @@
+"use client";
 import useReceivedItems from "./useReceivedItems";
 import I18N from "@/i18n";
 import ModalReceivedItem from "./modal";
 import { LoadingBox } from "@/components/loading";
 import ErrorAlert from "@/components/errorAlert";
 import Item from "./item";
+import { maskReceivedItem } from "@/config/jokeGame";
 
 const ReceivedItems = () => {
   const {
@@ -14,7 +16,6 @@ const ReceivedItems = () => {
     toggleModal,
     onOpenReceived,
     itemData,
-    setItemData,
     setReloadData,
   } = useReceivedItems();
 
@@ -33,7 +34,7 @@ const ReceivedItems = () => {
             return (
               <Item
                 key={item_from?.id}
-                itemRaw={item_from}
+                itemRaw={maskReceivedItem(item_from)}
                 idResult={idResult}
                 received={received}
                 onOpenReceived={onOpenReceived}
