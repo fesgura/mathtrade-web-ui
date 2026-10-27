@@ -72,7 +72,7 @@ const AdminSelfExcludedPage = () => {
                   {list.map((row) => (
                     <tr
                       key={row.user_id}
-                      className={clsx("border-b border-gray-100", {
+                      className={clsx("border-b border-gray-300", {
                         "bg-violet-50": isNewUser(row.user_id),
                       })}
                     >

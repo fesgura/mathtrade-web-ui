@@ -238,7 +238,7 @@ const ProvisionalSummary = ({ rows = [] }: { rows?: ProvisionalSummaryRow[] }) =
                 <I18N id="provisional.card.got" />
               </span>
             </div>
-            <ul className="divide-y divide-gray-200">
+            <ul className="divide-y-2 divide-gray-300">
               {visibleRows.map((row, rowIndex) => (
                 <li key={row.item.id}>
                   <OfferedGroup
