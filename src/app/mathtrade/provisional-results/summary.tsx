@@ -58,6 +58,11 @@ const OfferedGroup = ({
               {trades.map((got) => (
                 <CopyRow key={got.id} item={got} />
               ))}
+              {/* Possible trades are not guaranteed: the final run may not
+                  trade this copy at all. Say so as one more option. */}
+              <div className="rounded-lg border border-dashed border-gray-300 bg-gray-50 p-2.5 text-sm font-semibold uppercase text-gray-500">
+                <I18N id="provisional.card.nothing" />
+              </div>
             </div>
           </>
         ) : (
