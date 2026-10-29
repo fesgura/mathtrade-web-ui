@@ -9,6 +9,8 @@ import HelpContext from "@/components/help-context";
 import Icon from "@/components/icon";
 import { useIsMobile } from "@/hooks/useIsMobile";
 import useFetch from "@/hooks/useFetch";
+import { useStore } from "@/store";
+import type { MathtradeVersions } from "@/types/mathtrade";
 import GraphCanvas from "./graphCanvas";
 import ChainWalk from "./chainWalk";
 import {
@@ -65,6 +67,17 @@ const GraphViewer = ({ mathtradeId }: GraphViewerProps) => {
 
   const editionId = mathtradeId && mathtradeId > 0 ? mathtradeId : null;
 
+  // ?v= lets the CDN keep the chains until results change. Only the stored
+  // (current) edition's version is known; a past edition goes without it.
+  const storedMathtrade = useStore(
+    (state) => state.data?.mathtrade as ({ id?: number } & MathtradeVersions) | undefined
+  );
+  const version =
+    editionId === null || editionId === storedMathtrade?.id
+      ? storedMathtrade?.results_published_at ?? null
+      : null;
+  const chainParams = useMemo(() => (version ? { v: version } : null), [version]);
+
   useEffect(() => {
     setHasLoaded(false);
   }, [editionId]);
@@ -74,6 +87,7 @@ const GraphViewer = ({ mathtradeId }: GraphViewerProps) => {
     mathtradeId: editionId,
     autoLoad: !mathtradeId || mathtradeId > 0,
     reloadValue: editionId,
+    params: chainParams,
     afterLoad: applyGraph,
     afterError: clearGraph,
   });

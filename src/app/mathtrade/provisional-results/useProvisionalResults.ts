@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import useFetch from "@/hooks/useFetch";
+import { useStore } from "@/store";
+import type { MathtradeVersions } from "@/types/mathtrade";
 
 export type ProvisionalItem = {
   id: number;
@@ -26,8 +28,6 @@ export type ProvisionalMember = {
 };
 
 export type ProvisionalResultsPayload = {
-  self_excluded?: boolean;
-  can_self_exclude?: boolean;
   member?: ProvisionalMember | null;
   // Total published runs, the same for everybody.
   runs_count: number;
@@ -54,10 +54,19 @@ const useProvisionalResults = () => {
   useEffect(() => {
     setMember(new URLSearchParams(window.location.search).get("member"));
   }, []);
+  // ?v= changes with every publish, so the CDN's per-user copy is never
+  // older than the last round.
+  const version = useStore(
+    (state) =>
+      (state.data?.mathtrade as MathtradeVersions | undefined)
+        ?.provisional_published_at ?? null
+  );
   useEffect(() => {
     if (member === undefined) return;
-    getData(member ? { params: { member } } : {});
-  }, [member, getData]);
+    getData({
+      params: { ...(member ? { member } : {}), ...(version ? { v: version } : {}) },
+    });
+  }, [member, version, getData]);
 
   const payload = useMemo(() => {
     if (!data || typeof data.runs_count !== "number") {
