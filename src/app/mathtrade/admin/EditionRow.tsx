@@ -21,6 +21,7 @@ type Mathtrade = {
   rulebook_url?: string | null;
   contribution_amount?: string | null;
   rules_quiz_required?: boolean;
+  direct_shipping_threshold?: number;
   contribution_counts?: {
     missing: number;
     pending: number;

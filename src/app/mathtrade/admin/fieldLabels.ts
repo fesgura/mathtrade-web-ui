@@ -6,6 +6,7 @@ export const FIELD_LABELS: Record<string, string> = {
   admin_only: "adminPanel.field.adminOnly",
   rules_quiz_required: "adminPanel.field.rulesQuizRequired",
   contribution_amount: "adminPanel.contribution.amount",
+  direct_shipping_threshold: "adminPanel.field.directShippingThreshold",
   venue_name: "adminPanel.venue.name",
   venue_address: "adminPanel.venue.address",
   venue_map_url: "adminPanel.venue.mapUrl",

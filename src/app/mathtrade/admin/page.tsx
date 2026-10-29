@@ -56,6 +56,7 @@ const AdminPanelPage = () => {
       location: latest.location?.id ?? null,
       contribution_amount: latest.contribution_amount ?? "",
       rules_quiz_required: !!latest.rules_quiz_required,
+      direct_shipping_threshold: latest.direct_shipping_threshold ?? 5,
       venue_name: latest.venue_name || "",
       venue_address: latest.venue_address || "",
       venue_map_url: latest.venue_map_url || "",

@@ -77,6 +77,9 @@ export const buildParams = (
   if (formProps.location) params.location = formProps.location;
   // Blank clears it: no contribution required for this edition.
   params.contribution_amount = parseAmount(formProps.contribution_amount);
+  // Blank is left out: the backend keeps the stored value.
+  const threshold = parseInt(formProps.direct_shipping_threshold, 10);
+  if (!isNaN(threshold)) params.direct_shipping_threshold = threshold;
   // Blank clears the venue (the site then shows none).
   VENUE_FIELDS.forEach((field) => {
     params[field] = (formProps[field] || "").trim();

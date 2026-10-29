@@ -33,7 +33,14 @@ const routeKey = (route: ShippingRoute) =>
   [route.origin?.id, route.via?.id, route.destination?.id, route.kind].join("-");
 
 // Per-route totals: origin → stop at the hub (if any) → destination.
-const RoutesTable = ({ routes = [] }: { routes?: ShippingRoute[] }) => {
+// Clicking an origin filters the item detail by it.
+const RoutesTable = ({
+  routes = [],
+  onOriginClick = null,
+}: {
+  routes?: ShippingRoute[];
+  onOriginClick?: ((originId: number) => void) | null;
+}) => {
   const total = routes.reduce((sum, route) => sum + route.items, 0);
   return (
     <div className="overflow-x-auto">
@@ -50,7 +57,19 @@ const RoutesTable = ({ routes = [] }: { routes?: ShippingRoute[] }) => {
         <tbody>
           {routes.map((route) => (
             <tr key={routeKey(route)} className="border-b border-gray-300">
-              <td className="py-2 pr-4"><LocName loc={route.origin} /></td>
+              <td className="py-2 pr-4">
+                {route.origin && onOriginClick ? (
+                  <button
+                    type="button"
+                    className="text-left hover:underline"
+                    onClick={() => onOriginClick(route.origin.id)}
+                  >
+                    <LocName loc={route.origin} />
+                  </button>
+                ) : (
+                  <LocName loc={route.origin} />
+                )}
+              </td>
               <td className="py-2 pr-4"><LocName loc={route.via} /></td>
               <td className="py-2 pr-4"><LocName loc={route.destination} /></td>
               <td className="py-2 pr-4"><KindBadge kind={route.kind} /></td>
