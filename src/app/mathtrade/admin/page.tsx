@@ -18,6 +18,7 @@ const ADMIN_LINKS = [
   { path: PRIVATE_ROUTES.ADMIN_CONTRIBUTIONS.path, label: "adminContributions.link" },
   { path: PRIVATE_ROUTES.ADMIN_RULES_QUESTIONS.path, label: "adminRulesQuestions.link" },
   { path: PRIVATE_ROUTES.ADMIN_SELF_EXCLUDED.path, label: "adminSelfExcluded.link" },
+  { path: PRIVATE_ROUTES.ADMIN_SHIPPING.path, label: "adminShipping.link" },
   { path: PRIVATE_ROUTES.ADMIN_REPORTS.path, label: "adminReports.link" },
 ];
 

@@ -153,6 +153,7 @@ const endpoints = {
   GET_PROVISIONAL_RESULTS: "api/mathtrades/$[mathtradeId]/provisional-results/",
   GET_WANTS_OFFERED: "api/mathtrades/$[mathtradeId]/wants-offered/",
   GET_SELF_EXCLUDED: "api/mathtrades/$[mathtradeId]/self-excluded/",
+  GET_SHIPPING_ROUTES: "api/mathtrades/$[mathtradeId]/shipping-routes/",
   ADMIN_GET_USERS: "api/mathtrades/$[mathtradeId]/admin-users/",
   ADMIN_GET_USER: "api/mathtrades/$[mathtradeId]/admin-users/$[1]/",
   ADMIN_GET_USER_ITEMS: "api/mathtrades/$[mathtradeId]/admin-users/$[1]/items/",
