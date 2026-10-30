@@ -76,16 +76,41 @@ const fitRoute = (
   return text;
 };
 
-const hubName = ({ route, viaHub }: Tag) =>
-  viaHub ? route[1] : route[route.length - 1];
-
-// Text of the black band, or null for a plain direct shipment.
-const bandText = (data: Tag) => {
-  const { isLocal, staysAtHub, viaHub, mesa } = data;
+// Text of the black band, or null for a plain interior→interior shipment.
+const bandText = ({ isLocal, hubRole, hub, viaHub, destCode, mesa }: Tag) => {
   if (isLocal) return "CAMBIO LOCAL · ENTREGA EN MANO";
-  if (!staysAtHub && !viaHub) return null;
-  const text = `${staysAtHub ? "QUEDA EN" : "PASA POR"} ${hubName(data)}`;
-  return mesa ? `${text} · MESA ${mesa}` : text;
+  if (hubRole === "stays") {
+    return `QUEDA EN ${hub} · MESA ${mesa || "SIN ASIGNAR"}`;
+  }
+  if (hubRole === "leaves") {
+    return `${viaHub ? "PASA POR" : "SALE DE"} ${hub} · CAJA A ${destCode}`;
+  }
+  return null;
+};
+
+// Solid black hub symbol centered on (cx, cy), `size` wide and tall:
+// ● circle = stays at the hub (MESA), ◆ rhombus = leaves in a box (CAJA).
+const drawHubSymbol = (
+  ctx: CanvasRenderingContext2D,
+  role: Tag["hubRole"],
+  cx: number,
+  cy: number,
+  size: number
+) => {
+  if (!role) return;
+  ctx.fillStyle = "#000000";
+  ctx.beginPath();
+  if (role === "stays") {
+    ctx.arc(cx, cy, size * 0.42, 0, 2 * Math.PI);
+  } else {
+    const r = size / 2;
+    ctx.moveTo(cx, cy - r);
+    ctx.lineTo(cx + r * 0.8, cy);
+    ctx.lineTo(cx, cy + r);
+    ctx.lineTo(cx - r * 0.8, cy);
+    ctx.closePath();
+  }
+  ctx.fill();
 };
 
 type BoxSizes = {
@@ -99,6 +124,8 @@ type BoxSizes = {
 };
 
 // Full-width black band (hub / local trade) and, under it, the route box.
+// When the item has a hub role, the left end of the band is a white square
+// with the big ● / ◆ symbol, and the band text is fitted to the rest.
 // `top` is the top of the band slot; the slot stays empty when there's no
 // band, so every label keeps the same layout.
 const drawRouteBlock = (
@@ -118,18 +145,31 @@ const drawRouteBlock = (
   ctx.textBaseline = "middle";
 
   if (band) {
+    const cell = data.hubRole ? s.band : 0; // symbol square
     ctx.fillStyle = "#000000";
-    ctx.fillRect(left, top, boxWidth, s.band);
+    ctx.fillRect(left + cell, top, boxWidth - cell, s.band);
+    if (cell) {
+      ctx.lineWidth = 2 * K;
+      ctx.strokeStyle = "#000000";
+      ctx.strokeRect(left + K, top + K, cell - 2 * K, s.band - 2 * K);
+      drawHubSymbol(
+        ctx,
+        data.hubRole,
+        left + cell / 2,
+        top + s.band / 2,
+        s.band * 0.82
+      );
+    }
     ctx.fillStyle = "#FFFFFF";
     const text = fitText(
       ctx,
       band,
-      boxWidth - 2 * routeGap,
+      boxWidth - cell - 2 * routeGap,
       s.bandText,
       s.bandTextMin,
       "bold "
     );
-    ctx.fillText(text, centerX, top + s.band / 2 + K);
+    ctx.fillText(text, left + cell + (boxWidth - cell) / 2, top + s.band / 2 + K);
   }
 
   const boxTop = top + s.band + s.gap;
@@ -184,6 +224,15 @@ export const drawTag = (
   //
   ctx.font = `${60 * K}px Arial`;
   ctx.fillText(id, centerX, yPos);
+  // Copy of the hub symbol in the top-right corner, beside the big ID
+  const corner = 46 * K;
+  drawHubSymbol(
+    ctx,
+    data.hubRole,
+    x + padding + wQuad - textMargin - corner / 2,
+    yPos + corner / 2 + K,
+    corner
+  );
   //
   yPos += 60 * K;
   ctx.fillText(fitText(ctx, name, textWidth, 28 * K, 18 * K), centerX, yPos);
@@ -198,11 +247,11 @@ export const drawTag = (
   // Band where the old "Mandar a …" line was, then the full-width route.
   yPos += 30 * K;
   yPos = drawRouteBlock(data, ctx, x, width, yPos, {
-    band: 30 * K,
+    band: 44 * K,
     bandText: 24 * K,
     bandTextMin: 12 * K,
-    gap: 10 * K,
-    box: 100 * K,
+    gap: 8 * K,
+    box: 88 * K,
     route: 60 * K,
     routeMin: 16 * K,
   });
@@ -265,11 +314,11 @@ export const drawTag = (
     // Band + route, small
     yPos += 18 * K;
     yPos = drawRouteBlock(data, ctx, x, width, yPos, {
-      band: 20 * K,
+      band: 30 * K,
       bandText: 15 * K,
       bandTextMin: 9 * K,
-      gap: 6 * K,
-      box: 52 * K,
+      gap: 5 * K,
+      box: 43 * K,
       route: 36 * K,
       routeMin: 12 * K,
     });
