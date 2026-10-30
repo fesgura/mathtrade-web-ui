@@ -80,7 +80,7 @@ const fitRoute = (
 const bandText = ({ isLocal, hubRole, hub, viaHub, destCode, mesa }: Tag) => {
   if (isLocal) return "CAMBIO LOCAL · ENTREGA EN MANO";
   if (hubRole === "stays") {
-    return `QUEDA EN ${hub} · MESA ${mesa || "SIN ASIGNAR"}`;
+    return mesa ? `QUEDA EN ${hub} · MESA ${mesa}` : `QUEDA EN ${hub}`;
   }
   if (hubRole === "leaves") {
     return `${viaHub ? "PASA POR" : "SALE DE"} ${hub} · CAJA A ${destCode}`;
