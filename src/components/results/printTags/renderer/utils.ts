@@ -142,11 +142,10 @@ type BoxSizes = {
   routeMin: number;
 };
 
-// Full-width black band (hub / local trade) and, under it, the route box.
-// When the item has a hub role, the left end of the band is a white square
-// with the big ● / crate symbol, and the band text is fitted to the rest.
-// `top` is the top of the band slot; the slot stays empty when there's no
-// band, so every label keeps the same layout.
+// Full-width black band (hub text) and, under it, the route box. `top` is
+// the top of the band slot; the slot stays empty when there's no band, so
+// every label keeps the same layout. The ● / crate symbol is not repeated
+// here: each half shows it big beside the ID.
 const drawRouteBlock = (
   data: Tag,
   ctx: CanvasRenderingContext2D,
@@ -164,31 +163,18 @@ const drawRouteBlock = (
   ctx.textBaseline = "middle";
 
   if (band) {
-    const cell = data.hubRole ? s.band : 0; // symbol square
     ctx.fillStyle = "#000000";
-    ctx.fillRect(left + cell, top, boxWidth - cell, s.band);
-    if (cell) {
-      ctx.lineWidth = 2 * K;
-      ctx.strokeStyle = "#000000";
-      ctx.strokeRect(left + K, top + K, cell - 2 * K, s.band - 2 * K);
-      drawHubSymbol(
-        ctx,
-        data.hubRole,
-        left + cell / 2,
-        top + s.band / 2,
-        s.band * 0.84
-      );
-    }
+    ctx.fillRect(left, top, boxWidth, s.band);
     ctx.fillStyle = "#FFFFFF";
     const text = fitText(
       ctx,
       band,
-      boxWidth - cell - 2 * routeGap,
+      boxWidth - 2 * routeGap,
       s.bandText,
       s.bandTextMin,
       "bold "
     );
-    ctx.fillText(text, left + cell + (boxWidth - cell) / 2, top + s.band / 2 + K);
+    ctx.fillText(text, centerX, top + s.band / 2 + K);
   }
 
   const boxTop = top + s.band + s.gap;
@@ -209,6 +195,12 @@ const drawRouteBlock = (
   return boxTop + s.box;
 };
 
+// Sides of the big ● / crate symbol beside the ID, in each half. It is how
+// volunteers sort packages at the hub (MESA vs CAJA) from a distance, so it
+// is the biggest graphic on the label.
+const SYMBOL_TOP = 116 * K; // ≈ 29.5 mm box (crate 25 mm, ● 26.5 mm)
+const SYMBOL_FOLDED = 70 * K; // ≈ 18 mm box (crate 15.3 mm, ● 16 mm)
+
 export const drawTag = (
   data: Tag,
   ctx: CanvasRenderingContext2D,
@@ -217,12 +209,14 @@ export const drawTag = (
   x: number,
   y: number
 ) => {
-  const { id, from, name, to } = data;
+  const { id, from, name, to, hubRole } = data;
 
   const centerX = x + width / 2;
   const wQuad = width - 2 * padding;
   const hQuad = height - 2 * padding;
   const textWidth = wQuad - 2 * textMargin;
+  const textLeft = x + padding + textMargin;
+  const textRight = x + padding + wQuad - textMargin;
 
   ctx.save();
 
@@ -239,35 +233,41 @@ export const drawTag = (
 
   ctx.textBaseline = "top";
   ctx.textAlign = "center";
-  let yPos = y + padding + paddingInt;
-  //
-  ctx.font = `${60 * K}px Arial`;
-  ctx.fillText(id, centerX, yPos);
-  // Copy of the hub symbol in the top-right corner, beside the big ID
-  const corner = 46 * K;
-  drawHubSymbol(
-    ctx,
-    data.hubRole,
-    x + padding + wQuad - textMargin - corner / 2,
-    yPos + corner / 2 + K,
-    corner
-  );
-  //
-  yPos += 60 * K;
-  ctx.fillText(fitText(ctx, name, textWidth, 28 * K, 18 * K), centerX, yPos);
+  const top = y + padding + paddingInt;
 
-  yPos += 45 * K;
+  // ID + title: centered on the label when there's no hub role, otherwise in
+  // the left column, with the big symbol on the right spanning both.
+  let headX = centerX;
+  let headWidth = textWidth;
+  if (hubRole) {
+    const symbolLeft = textRight - SYMBOL_TOP;
+    drawHubSymbol(
+      ctx,
+      hubRole,
+      symbolLeft + SYMBOL_TOP / 2,
+      top + SYMBOL_TOP / 2,
+      SYMBOL_TOP
+    );
+    headWidth = symbolLeft - 16 * K - textLeft;
+    headX = textLeft + headWidth / 2;
+  }
+  ctx.fillText(fitText(ctx, id, headWidth, 60 * K, 40 * K), headX, top + 8 * K);
+  ctx.fillText(
+    fitText(ctx, name, headWidth, 28 * K, 16 * K),
+    headX,
+    top + 72 * K
+  );
+
   ctx.fillText(
     fitText(ctx, "De: " + from, textWidth, 20 * K, 12 * K),
     centerX,
-    yPos
+    top + 118 * K
   );
 
   // Band where the old "Mandar a …" line was, then the full-width route.
-  yPos += 30 * K;
-  yPos = drawRouteBlock(data, ctx, x, width, yPos, {
+  let yPos = drawRouteBlock(data, ctx, x, width, top + 144 * K, {
     band: 44 * K,
-    bandText: 24 * K,
+    bandText: 26 * K,
     bandTextMin: 12 * K,
     gap: 8 * K,
     box: 88 * K,
@@ -285,7 +285,7 @@ export const drawTag = (
 
   if (elementPerPage === 4) {
     // DOBLEZ
-    yPos += 58 * K;
+    const fold = y + 353 * K;
     let xD = x + padding;
     const lD = 8 * K;
     const eD = 6 * K;
@@ -293,8 +293,8 @@ export const drawTag = (
     ctx.lineWidth = 4;
     while (xD < x + width) {
       ctx.beginPath();
-      ctx.moveTo(xD, yPos);
-      ctx.lineTo(xD + lD, yPos);
+      ctx.moveTo(xD, fold);
+      ctx.lineTo(xD + lD, fold);
       ctx.closePath();
       ctx.stroke();
       xD += lD + eD;
@@ -304,37 +304,50 @@ export const drawTag = (
     ctx.fillStyle = "#444444";
     ctx.textAlign = "left";
     ctx.font = `${7 * K}px Arial`;
-    ctx.fillText("DOBLAR POR AQUÍ", x + padding + 10, yPos - 7 * K - 2);
+    ctx.fillText("DOBLAR POR AQUÍ", x + padding + 10, fold - 7 * K - 2);
     ctx.fillStyle = "#000000";
 
+    // Big symbol at the right of the ID row
+    let nameRight = textRight;
+    if (hubRole) {
+      drawHubSymbol(
+        ctx,
+        hubRole,
+        textRight - SYMBOL_FOLDED / 2,
+        fold + 10 * K + SYMBOL_FOLDED / 2,
+        SYMBOL_FOLDED
+      );
+      nameRight = textRight - SYMBOL_FOLDED - 12 * K;
+    }
+
     // ID
-    yPos += 28 * K;
-    const idX = x + padding + textMargin;
+    const idY = fold + 22 * K;
     ctx.textAlign = "left";
     ctx.font = `${50 * K}px Arial`;
-    ctx.fillText(id, idX, yPos);
+    ctx.fillText(id, textLeft, idY);
 
     // NAME, beside the ID and fitted to the rest of the width
-    const nameX = idX + ctx.measureText(id).width + 15 * K;
-    const nameWidth = x + padding + wQuad - textMargin - nameX;
+    const nameX = textLeft + ctx.measureText(id).width + 15 * K;
     ctx.textBaseline = "middle";
-    ctx.fillText(fitText(ctx, name, nameWidth, 19 * K, 12 * K), nameX, yPos + 23 * K);
+    ctx.fillText(
+      fitText(ctx, name, nameRight - nameX, 19 * K, 11 * K),
+      nameX,
+      idY + 23 * K
+    );
     ctx.textBaseline = "top";
 
     // De:
-    yPos += 52 * K;
     ctx.textAlign = "center";
     ctx.fillText(
       fitText(ctx, "De: " + from, textWidth, 13 * K, 10 * K),
       centerX,
-      yPos
+      fold + 81 * K
     );
 
     // Band + route, small
-    yPos += 18 * K;
-    yPos = drawRouteBlock(data, ctx, x, width, yPos, {
-      band: 34 * K,
-      bandText: 15 * K,
+    yPos = drawRouteBlock(data, ctx, x, width, fold + 97 * K, {
+      band: 32 * K,
+      bandText: 17 * K,
       bandTextMin: 9 * K,
       gap: 4 * K,
       box: 41 * K,
