@@ -3,7 +3,9 @@ import type { Tag } from "../types";
 
 // The label drawing as it was on main (last year's printed labels): kept
 // identical on purpose, only the data now comes from the shipping routes
-// (see shippingTags.ts).
+// (see shippingTags.ts). One change: free text (title, De, Para, Mandar a)
+// that doesn't fit shrinks and, at its minimum size, ends in "…" instead of
+// running off the label.
 
 const K = Math.round(0.01 * dpi);
 
@@ -14,6 +16,29 @@ const heightRect = 100 * K;
 const sideHex = 130 * K;
 
 const blackRectWidth = 150 * K;
+
+// Sets ctx.font to the largest size from `size` down to `minSize` at which
+// `text` fits `maxWidth`, and returns the text, cut with "…" if it doesn't
+// fit even at `minSize`. Text that fits at `size` is drawn exactly as before.
+const fitLine = (
+  ctx: CanvasRenderingContext2D,
+  text: string,
+  maxWidth: number,
+  size: number,
+  minSize: number
+) => {
+  ctx.font = `${size}px Arial`;
+  const width = ctx.measureText(text).width;
+  if (width <= maxWidth) return text;
+  const fitted = Math.max(minSize, Math.floor((size * maxWidth) / width));
+  ctx.font = `${fitted}px Arial`;
+  if (ctx.measureText(text).width <= maxWidth) return text;
+  let cut = text;
+  while (cut.length > 1 && ctx.measureText(cut + "…").width > maxWidth) {
+    cut = cut.slice(0, -1);
+  }
+  return cut.trimEnd() + "…";
+};
 
 export const drawTag = (
   data: Tag,
@@ -28,6 +53,8 @@ export const drawTag = (
   const centerX = x + width / 2;
   const wQuad = width - 2 * padding;
   const hQuad = height - 2 * padding;
+  // Room for a centered line, with the inner padding on both sides.
+  const wText = wQuad - 2 * paddingInt;
 
   ctx.save();
 
@@ -38,9 +65,9 @@ export const drawTag = (
   ctx.strokeRect(x + padding, y + padding, wQuad, hQuad);
   ctx.beginPath();
   ctx.moveTo(x + padding, y + padding);
-  ctx.lineTo(x + wQuad, y + padding);
-  ctx.lineTo(x + wQuad, y + hQuad);
-  ctx.lineTo(x + padding, y + hQuad);
+  ctx.lineTo(x + padding + wQuad, y + padding);
+  ctx.lineTo(x + padding + wQuad, y + padding + hQuad);
+  ctx.lineTo(x + padding, y + padding + hQuad);
   ctx.lineTo(x + padding, y + padding);
   ctx.clip();
 
@@ -54,31 +81,22 @@ export const drawTag = (
   ctx.fillText(id, centerX, yPos);
   //
   yPos += 60 * K;
-  ctx.font = `${28 * K}px Arial`;
-  const wTextName = ctx.measureText(name).width;
-
-  if (wTextName > wQuad) {
-    ctx.font = `${20 * K}px Arial`;
-  }
-  ctx.fillText(name, centerX, yPos);
+  ctx.fillText(fitLine(ctx, name, wText, 28 * K, 18 * K), centerX, yPos);
 
   yPos += 45 * K;
-  ctx.font = `${20 * K}px Arial`;
   const fromComplete = "De: " + from;
-  const wText = ctx.measureText(fromComplete).width;
-
-  if (wText > wQuad) {
-    ctx.font = `${18 * K}px Arial`;
-  }
-  ctx.fillText(fromComplete, centerX, yPos);
+  ctx.fillText(fitLine(ctx, fromComplete, wText, 20 * K, 13 * K), centerX, yPos);
 
   yPos += 40 * K;
-  ctx.font = `${18 * K}px Arial`;
   const altLocationComplete = !via
     ? "Mandar a " + altLocation
     : "Mandar a CABA";
 
-  ctx.fillText(altLocationComplete, centerX, yPos);
+  ctx.fillText(
+    fitLine(ctx, altLocationComplete, wText, 18 * K, 13 * K),
+    centerX,
+    yPos
+  );
 
   yPos += 40 * K;
 
@@ -138,14 +156,8 @@ export const drawTag = (
   ctx.fillStyle = "#000000";
 
   yPos += heightRect;
-  ctx.font = `${20 * K}px Arial`;
   const toComplete = "Para: " + to;
-  const wTextTo = ctx.measureText(toComplete).width;
-
-  if (wTextTo > wQuad) {
-    ctx.font = `${14 * K}px Arial`;
-  }
-  ctx.fillText(toComplete, centerX, yPos);
+  ctx.fillText(fitLine(ctx, toComplete, wText, 20 * K, 13 * K), centerX, yPos);
 
   if (elementPerPage === 4) {
     // DOBLEZ
@@ -178,32 +190,30 @@ export const drawTag = (
     ctx.fillText(id, x + padding + 20, yPos);
 
     // NAME
-    ctx.font = `${19 * K}px Arial`;
-    const wTextNameB = ctx.measureText(name).width;
     const wTextNameB_x = padding + 20 + 275;
-
-    if (wTextNameB > wQuad - wTextNameB_x) {
-      ctx.font = `${14 * K}px Arial`;
-    }
-    ctx.fillText(name, x + wTextNameB_x, yPos + 20);
+    ctx.fillText(
+      fitLine(
+        ctx,
+        name,
+        padding + wQuad - paddingInt - wTextNameB_x,
+        19 * K,
+        12 * K
+      ),
+      x + wTextNameB_x,
+      yPos + 20
+    );
     // De:
     yPos += 50 * K;
     ctx.textAlign = "center";
-    ctx.font = `${13 * K}px Arial`;
     const fromCompleteB = "De: " + from;
-    const wTextB = ctx.measureText(fromCompleteB).width;
-    if (wTextB > wQuad) {
-      ctx.font = `${11 * K}px Arial`;
-    }
-    ctx.fillText(fromCompleteB, centerX, yPos);
+    ctx.fillText(fitLine(ctx, fromCompleteB, wText, 13 * K, 9 * K), centerX, yPos);
     //Mandar a:
     yPos += 22 * K;
-    ctx.font = `${13 * K}px Arial`;
     const altLocationCompleteB = !via
       ? "Mandar a " + altLocation
       : "Mandar a CABA";
     ctx.fillText(
-      altLocationCompleteB,
+      fitLine(ctx, altLocationCompleteB, wText, 13 * K, 9 * K),
       isAMBA ? centerX - blackRectWidth / 2 : centerX,
       yPos
     );
@@ -263,14 +273,8 @@ export const drawTag = (
     ctx.fillStyle = "#000000";
     // a quien:
     yPos += heightRectB;
-    ctx.font = `${14 * K}px Arial`;
     const toCompleteB = "Para: " + to;
-    const wTextToB = ctx.measureText(toCompleteB).width;
-
-    if (wTextToB > wQuad) {
-      ctx.font = `${11 * K}px Arial`;
-    }
-    ctx.fillText(toCompleteB, centerX, yPos);
+    ctx.fillText(fitLine(ctx, toCompleteB, wText, 14 * K, 9 * K), centerX, yPos);
   }
   ctx.restore();
 };
