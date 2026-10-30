@@ -18,6 +18,7 @@ const ADMIN_LINKS = [
   { path: PRIVATE_ROUTES.ADMIN_CONTRIBUTIONS.path, label: "adminContributions.link" },
   { path: PRIVATE_ROUTES.ADMIN_RULES_QUESTIONS.path, label: "adminRulesQuestions.link" },
   { path: PRIVATE_ROUTES.ADMIN_SELF_EXCLUDED.path, label: "adminSelfExcluded.link" },
+  { path: PRIVATE_ROUTES.ADMIN_SHIPPING.path, label: "adminShipping.link" },
   { path: PRIVATE_ROUTES.ADMIN_REPORTS.path, label: "adminReports.link" },
 ];
 
@@ -55,6 +56,7 @@ const AdminPanelPage = () => {
       location: latest.location?.id ?? null,
       contribution_amount: latest.contribution_amount ?? "",
       rules_quiz_required: !!latest.rules_quiz_required,
+      direct_shipping_threshold: latest.direct_shipping_threshold ?? 5,
       venue_name: latest.venue_name || "",
       venue_address: latest.venue_address || "",
       venue_map_url: latest.venue_map_url || "",

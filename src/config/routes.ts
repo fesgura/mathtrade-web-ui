@@ -151,6 +151,11 @@ export const PRIVATE_ROUTES = {
     path: privateRoot + "/admin/self-excluded",
     enabled: "onlyForAdmin",
   },
+  ADMIN_SHIPPING: {
+    title: "adminShipping",
+    path: privateRoot + "/admin/shipping",
+    enabled: "onlyForAdmin",
+  },
   ADMIN_REPORTS: {
     title: "adminReports",
     path: privateRoot + "/admin/reports",

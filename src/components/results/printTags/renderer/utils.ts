@@ -1,39 +1,9 @@
-import { cropWord } from "@/utils/text";
 import { dpi, elementPerPage } from "../config";
+import type { Tag } from "../types";
 
-export const dataToTag = (data) => {
-  if (!data.table_number || !data.show_label) {
-    return null;
-  }
-
-  const {
-    table_number,
-    via_meeting,
-    membership: user,
-    item_to,
-    membership_to: member_to,
-    assigned_trade_code,
-  } = data;
-
-  const id = String(assigned_trade_code || 0).padStart(4, "0");
-
-  return {
-    id,
-    name: item_to ? cropWord(item_to?.title, 40) : "-",
-    from: `${user.first_name} ${user.last_name} (${user.location.name})`, //"LOLCESE (Córdoba)",
-    to: member_to
-      ? `${member_to?.first_name} ${member_to?.last_name} (${member_to?.location.name})`
-      : "-", //"GENEZE_CB (AMBA)",
-    mesa: table_number || "0",
-    via: via_meeting,
-    altLocation: member_to
-      ? `${member_to?.location.name}, ${member_to?.location.province}`
-      : "-",
-    isAMBA: member_to?.location?.name === "AMBA",
-  };
-};
-
-////////////////////////////
+// The label drawing as it was on main (last year's printed labels): kept
+// identical on purpose, only the data now comes from the shipping routes
+// (see shippingTags.ts).
 
 const K = Math.round(0.01 * dpi);
 
@@ -45,7 +15,14 @@ const sideHex = 130 * K;
 
 const blackRectWidth = 150 * K;
 
-export const drawTag = (data, ctx, width, height, x, y) => {
+export const drawTag = (
+  data: Tag,
+  ctx: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  x: number,
+  y: number
+) => {
   const { id, altLocation, from, mesa, name, to, via, isAMBA } = data;
 
   const centerX = x + width / 2;
@@ -288,7 +265,7 @@ export const drawTag = (data, ctx, width, height, x, y) => {
     yPos += heightRectB;
     ctx.font = `${14 * K}px Arial`;
     const toCompleteB = "Para: " + to;
-    const wTextToB = ctx.measureText(toComplete).width;
+    const wTextToB = ctx.measureText(toCompleteB).width;
 
     if (wTextToB > wQuad) {
       ctx.font = `${11 * K}px Arial`;

@@ -97,6 +97,21 @@ const EditionForm = ({
       />
     </InputContainer>
 
+    <InputContainer>
+      <Label
+        text="adminPanel.field.directShippingThreshold"
+        name="direct_shipping_threshold"
+      />
+      {/* Text, not number, like the amount above. */}
+      <Input
+        name="direct_shipping_threshold"
+        data={{ direct_shipping_threshold: initial.direct_shipping_threshold ?? 5 }}
+      />
+      <p className="text-xs text-gray-600 mt-1">
+        <I18N id="adminPanel.field.directShippingThresholdHelp" />
+      </p>
+    </InputContainer>
+
     <fieldset className="border border-stroke rounded-lg p-3 mb-4">
       <legend className="px-1 text-sm font-semibold">
         <I18N id="adminPanel.venue.title" />
