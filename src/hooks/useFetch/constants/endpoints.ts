@@ -151,6 +151,7 @@ const endpoints = {
   GET_MT_CHAINS: "api/mathtrades/$[mathtradeId]/chains/",
   GET_RESULTS_SUMMARY: "api/mathtrades/$[mathtradeId]/results-summary/",
   GET_PROVISIONAL_RESULTS: "api/mathtrades/$[mathtradeId]/provisional-results/",
+  GET_WANTS_OFFERED: "api/mathtrades/$[mathtradeId]/wants-offered/",
   GET_SELF_EXCLUDED: "api/mathtrades/$[mathtradeId]/self-excluded/",
   ADMIN_GET_USERS: "api/mathtrades/$[mathtradeId]/admin-users/",
   ADMIN_GET_USER: "api/mathtrades/$[mathtradeId]/admin-users/$[1]/",

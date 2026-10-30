@@ -310,6 +310,7 @@ export const TOURS: Record<string, Tour> = {
       { anchor: "results.row", id: "results.row", side: "bottom" },
       { anchor: "results.views", id: "results.views", side: "bottom", align: "end" },
       { anchor: "results.user", id: "results.user", side: "bottom" },
+      { anchor: "results.wants", id: "results.wants", side: "top" },
     ],
   },
   // Ejemplares (avanzado): one copy per card, and tags.
