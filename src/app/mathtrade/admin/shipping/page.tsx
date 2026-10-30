@@ -24,9 +24,14 @@ import type {
 
 const KINDS: ShippingKind[] = ["local", "direct", "via_hub"];
 
-const TABS = ["adminShipping.tab.routes", "adminShipping.tab.items"];
+const TABS = [
+  "adminShipping.tab.routes",
+  "adminShipping.tab.items",
+  "adminShipping.tab.labels",
+];
 const TAB_ROUTES = 0;
 const TAB_ITEMS = 1;
+const TAB_LABELS = 2;
 
 type Filters = { origin: number | "all"; kind: ShippingKind | "all" };
 
@@ -64,8 +69,8 @@ const itemsToExport = (items: ShippingItem[]) =>
 
 // Admins only (route "onlyForAdmin", endpoint IsAdminAuthenticated): where
 // every item of the edition ships from, whether it stops at the hub (AMBA)
-// and where it goes. Two tabs: "Por ruta" (totals per route, publishing) and
-// "Por ítem" (filtered item detail and the labels PDF).
+// and where it goes. Three tabs: "Por ruta" (totals per route), "Por ítem"
+// (filtered item detail) and "Etiquetas" (labels PDF per origin, publishing).
 const AdminShippingPage = () => {
   const [reload, data, loading, error] = useFetch({
     endpoint: "GET_SHIPPING_ROUTES",
@@ -78,6 +83,9 @@ const AdminShippingPage = () => {
 
   const [filters, setFilters] = useState<Filters>({ origin: "all", kind: "all" });
   const [tab, setTab] = useState(TAB_ROUTES);
+  // The labels tab picks its own origin: one PDF per origin, whatever the
+  // detail is filtered by.
+  const [labelsOrigin, setLabelsOrigin] = useState<number | "all">("all");
 
   // Distinct origins of the items, by name, for the origin filter.
   const origins = useMemo(() => {
@@ -102,6 +110,42 @@ const AdminShippingPage = () => {
     filters.origin === "all"
       ? null
       : origins.find(({ id }) => id === filters.origin) || null;
+
+  const labelsOriginLoc =
+    labelsOrigin === "all"
+      ? null
+      : origins.find(({ id }) => id === labelsOrigin) || null;
+  const labelsItems = useMemo(
+    () =>
+      labelsOrigin === "all"
+        ? []
+        : items.filter((item) => item.origin?.id === labelsOrigin),
+    [items, labelsOrigin]
+  );
+
+  const originSelect = (
+    value: number | "all",
+    onChange: (value: number | "all") => void
+  ) => (
+    <label className="text-xs text-gray-500 flex flex-col gap-1 w-full sm:w-auto">
+      <I18N id="adminShipping.filter.origin" />
+      <select
+        className={selectClass}
+        value={String(value)}
+        onChange={(e) => {
+          const { value } = e.target;
+          onChange(value === "all" ? "all" : Number(value));
+        }}
+      >
+        <option value="all">{getI18Ntext("adminShipping.filter.allOrigins")}</option>
+        {origins.map(({ id, name }) => (
+          <option key={id} value={String(id)}>
+            {name}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
 
   const onOriginClick = (originId: number) => {
     setFilters((current) => ({ ...current, origin: originId }));
@@ -132,10 +176,6 @@ const AdminShippingPage = () => {
                     {" · "}
                     <I18N id="adminShipping.hub" values={[shipping.hub?.name || "-"]} />
                   </p>
-                  <PublishControl
-                    publishedAt={shipping.published_at ?? null}
-                    onChange={() => reload()}
-                  />
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                     <h2 className="font-semibold">
                       <I18N id="adminShipping.summary" />
@@ -148,33 +188,15 @@ const AdminShippingPage = () => {
                   </div>
                   <RoutesTable routes={routes} onOriginClick={onOriginClick} />
                 </>
-              ) : (
+              ) : tab === TAB_ITEMS ? (
                 <>
                   <h2 className="font-semibold mb-2">
                     <I18N id="adminShipping.detail" />
                   </h2>
                   <div className="flex flex-wrap items-end gap-3 mb-4">
-                    <label className="text-xs text-gray-500 flex flex-col gap-1 w-full sm:w-auto">
-                      <I18N id="adminShipping.filter.origin" />
-                      <select
-                        className={selectClass}
-                        value={String(filters.origin)}
-                        onChange={(e) => {
-                          const { value } = e.target;
-                          setFilters((current) => ({
-                            ...current,
-                            origin: value === "all" ? "all" : Number(value),
-                          }));
-                        }}
-                      >
-                        <option value="all">{getI18Ntext("adminShipping.filter.allOrigins")}</option>
-                        {origins.map(({ id, name }) => (
-                          <option key={id} value={String(id)}>
-                            {name}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
+                    {originSelect(filters.origin, (origin) =>
+                      setFilters((current) => ({ ...current, origin }))
+                    )}
                     <label className="text-xs text-gray-500 flex flex-col gap-1 w-full sm:w-auto">
                       <I18N id="adminShipping.filter.kind" />
                       <select
@@ -210,10 +232,20 @@ const AdminShippingPage = () => {
                     ) : null}
                   </div>
                   <ItemsTable items={filteredItems} />
+                </>
+              ) : (
+                <>
+                  <PublishControl
+                    publishedAt={shipping.published_at ?? null}
+                    onChange={() => reload()}
+                  />
+                  <div className="flex flex-wrap items-end gap-3 mb-2">
+                    {originSelect(labelsOrigin, setLabelsOrigin)}
+                  </div>
                   <LabelsPanel
-                    items={filteredItems}
+                    items={labelsItems}
                     hubId={shipping?.hub?.id ?? null}
-                    originName={originName}
+                    originName={labelsOriginLoc}
                   />
                 </>
               )}

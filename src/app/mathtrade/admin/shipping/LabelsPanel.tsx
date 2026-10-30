@@ -13,7 +13,7 @@ const PrintTags = dynamic(() => import("@/components/results/printTags"), {
   ssr: false,
 });
 
-// Shipping labels (PDF) for the filtered items of one origin. Nothing is
+// Shipping labels (PDF) for the items of one origin. Nothing is
 // generated until "Ver etiquetas": PrintTags is mounted only after the click,
 // and only for the exact `tags` it was opened for, so any change of filter,
 // of the include-local checkbox or of tab (which unmounts this panel) hides
@@ -42,10 +42,7 @@ const LabelsPanel = ({
   const fileName = `etiquetas_${originName?.code || originName?.name || "todos"}`;
 
   return (
-    <div className="mt-8">
-      <h2 className="font-semibold mb-2">
-        <I18N id="adminShipping.labels.title" />
-      </h2>
+    <div className="mt-4">
       <div className="flex flex-wrap items-center gap-3 mb-3">
         <label className="text-sm flex items-center gap-2">
           <input
