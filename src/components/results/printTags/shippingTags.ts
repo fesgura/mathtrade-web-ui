@@ -25,6 +25,7 @@ export const shippingItemToTag = (
       ? [stop(origin), stop(via), stop(destination)]
       : [stop(origin), stop(destination)],
     viaHub: kind === "via_hub",
+    isLocal: kind === "local",
     staysAtHub: hubId != null && destination?.id === hubId,
     mesa: item.table_number || null,
   };

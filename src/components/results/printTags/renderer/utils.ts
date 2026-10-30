@@ -7,87 +7,147 @@ const K = Math.round(0.01 * dpi);
 
 const padding = 5 * K;
 const paddingInt = 5 * K;
-const paddingRect = 30 * K;
-const heightRect = 100 * K;
-const routeGap = 10 * K;
+const paddingRect = 30 * K; // side margin of the band and the route box
+const textMargin = 10 * K; // side margin of the free text lines
+const routeGap = 10 * K; // inner margin of the route box
+const ELLIPSIS = "…";
 
-const blackRectWidth = 150 * K;
+type Weight = "" | "bold ";
 
-const routeText = ({ route, staysAtHub, mesa }: Tag) => {
-  const text = route.join(" → ");
-  return staysAtHub && mesa ? `${text}  Mesa ${mesa}` : text;
+const setFont = (ctx: CanvasRenderingContext2D, weight: Weight, size: number) => {
+  ctx.font = `${weight}${size}px Arial`;
 };
 
-// Draws `text` centered on (cx, cy) at `maxSize`, shrinking it so it fits
-// in `maxWidth` (never below `minSize`; the tag clip cuts anything longer).
-const drawFitted = (
+// Picks the biggest font size in [minSize, maxSize] at which `text` fits in
+// `maxWidth` and leaves it set on `ctx`. If it doesn't fit even at `minSize`,
+// cuts the end of the text and adds "…". Returns the text to draw.
+const fitText = (
   ctx: CanvasRenderingContext2D,
   text: string,
-  cx: number,
-  cy: number,
+  maxWidth: number,
+  maxSize: number,
+  minSize: number,
+  weight: Weight = ""
+) => {
+  let size = maxSize;
+  setFont(ctx, weight, size);
+  const w = ctx.measureText(text).width;
+  if (w > maxWidth) {
+    size = Math.max(minSize, Math.floor((maxSize * maxWidth) / w));
+    setFont(ctx, weight, size);
+    while (size > minSize && ctx.measureText(text).width > maxWidth) {
+      size -= 1;
+      setFont(ctx, weight, size);
+    }
+  }
+  if (ctx.measureText(text).width <= maxWidth) return text;
+  let cut = text;
+  while (cut.length > 1 && ctx.measureText(cut + ELLIPSIS).width > maxWidth) {
+    cut = cut.slice(0, -1);
+  }
+  return cut.trimEnd() + ELLIPSIS;
+};
+
+// Same as fitText for the route, but when it doesn't fit at `minSize` it
+// shortens the longest stop names ("Santa F…") instead of cutting the end,
+// so the destination always stays visible.
+const fitRoute = (
+  ctx: CanvasRenderingContext2D,
+  route: string[],
   maxWidth: number,
   maxSize: number,
   minSize: number
 ) => {
-  ctx.font = `bold ${maxSize}px Arial`;
-  const w = ctx.measureText(text).width;
-  if (w > maxWidth) {
-    const size = Math.max(minSize, Math.floor((maxSize * maxWidth) / w));
-    ctx.font = `bold ${size}px Arial`;
+  const stops = [...route];
+  const join = () => stops.join(" → ");
+  let text = fitText(ctx, join(), maxWidth, maxSize, minSize, "bold ");
+  while (text.endsWith(ELLIPSIS) && text !== join() + ELLIPSIS) {
+    let longest = -1;
+    stops.forEach((s, i) => {
+      if (s.length > 2 && (longest < 0 || s.length > stops[longest].length)) {
+        longest = i;
+      }
+    });
+    if (longest < 0) break;
+    const base = stops[longest].replace(ELLIPSIS, "");
+    stops[longest] = base.slice(0, -1).trimEnd() + ELLIPSIS;
+    text = fitText(ctx, join(), maxWidth, minSize, minSize, "bold ");
   }
-  ctx.textBaseline = "middle";
-  ctx.fillText(text, cx, cy);
-  ctx.textBaseline = "top";
+  return text;
 };
 
-// Route box: the route in big letters and, when the item goes through the
-// hub or stays there, the black block on the right ("PASA POR" / "QUEDA EN").
-const drawRouteBox = (
+const hubName = ({ route, viaHub }: Tag) =>
+  viaHub ? route[1] : route[route.length - 1];
+
+// Text of the black band, or null for a plain direct shipment.
+const bandText = (data: Tag) => {
+  const { isLocal, staysAtHub, viaHub, mesa } = data;
+  if (isLocal) return "CAMBIO LOCAL · ENTREGA EN MANO";
+  if (!staysAtHub && !viaHub) return null;
+  const text = `${staysAtHub ? "QUEDA EN" : "PASA POR"} ${hubName(data)}`;
+  return mesa ? `${text} · MESA ${mesa}` : text;
+};
+
+type BoxSizes = {
+  band: number; // band height
+  bandText: number;
+  bandTextMin: number;
+  gap: number; // between the band and the route box
+  box: number; // route box height
+  route: number;
+  routeMin: number;
+};
+
+// Full-width black band (hub / local trade) and, under it, the route box.
+// `top` is the top of the band slot; the slot stays empty when there's no
+// band, so every label keeps the same layout.
+const drawRouteBlock = (
   data: Tag,
   ctx: CanvasRenderingContext2D,
   x: number,
   width: number,
   top: number,
-  boxHeight: number,
-  sizes: { route: number; routeMin: number; label: number; hub: number }
+  s: BoxSizes
 ) => {
-  const { viaHub, staysAtHub } = data;
-  const withBlock = viaHub || staysAtHub;
-  const centerX = x + width / 2;
+  const left = x + paddingRect;
   const boxWidth = width - 2 * paddingRect;
-  const blockX = x + width - (blackRectWidth + paddingRect);
+  const centerX = x + width / 2;
+  const band = bandText(data);
 
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+
+  if (band) {
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(left, top, boxWidth, s.band);
+    ctx.fillStyle = "#FFFFFF";
+    const text = fitText(
+      ctx,
+      band,
+      boxWidth - 2 * routeGap,
+      s.bandText,
+      s.bandTextMin,
+      "bold "
+    );
+    ctx.fillText(text, centerX, top + s.band / 2 + K);
+  }
+
+  const boxTop = top + s.band + s.gap;
+  ctx.fillStyle = "#000000";
   ctx.lineWidth = 2;
   ctx.strokeStyle = "#000000";
-  ctx.strokeRect(x + paddingRect, top, boxWidth, boxHeight);
-
-  ctx.fillStyle = "#000000";
-  ctx.textAlign = "center";
-  drawFitted(
+  ctx.strokeRect(left, boxTop, boxWidth, s.box);
+  const route = fitRoute(
     ctx,
-    routeText(data),
-    withBlock ? centerX - blackRectWidth / 2 : centerX,
-    top + boxHeight / 2,
-    (withBlock ? boxWidth - blackRectWidth : boxWidth) - 2 * routeGap,
-    sizes.route,
-    sizes.routeMin
+    data.route,
+    boxWidth - 2 * routeGap,
+    s.route,
+    s.routeMin
   );
+  ctx.fillText(route, centerX, boxTop + s.box / 2 + K);
 
-  if (withBlock) {
-    ctx.fillRect(blockX, top, blackRectWidth, boxHeight);
-    ctx.fillStyle = "#FFFFFF";
-    ctx.textBaseline = "middle";
-    ctx.font = `bold ${sizes.label}px Arial`;
-    ctx.fillText(
-      staysAtHub ? "QUEDA EN" : "PASA POR",
-      blockX + blackRectWidth / 2,
-      top + boxHeight * 0.3
-    );
-    ctx.font = `bold ${sizes.hub}px Arial`;
-    ctx.fillText("AMBA", blockX + blackRectWidth / 2, top + boxHeight * 0.68);
-    ctx.textBaseline = "top";
-  }
-  ctx.fillStyle = "#000000";
+  ctx.textBaseline = "top";
+  return boxTop + s.box;
 };
 
 export const drawTag = (
@@ -103,6 +163,7 @@ export const drawTag = (
   const centerX = x + width / 2;
   const wQuad = width - 2 * padding;
   const hQuad = height - 2 * padding;
+  const textWidth = wQuad - 2 * textMargin;
 
   ctx.save();
 
@@ -112,11 +173,7 @@ export const drawTag = (
   ctx.fillRect(x + padding, y + padding, wQuad, hQuad);
   ctx.strokeRect(x + padding, y + padding, wQuad, hQuad);
   ctx.beginPath();
-  ctx.moveTo(x + padding, y + padding);
-  ctx.lineTo(x + wQuad, y + padding);
-  ctx.lineTo(x + wQuad, y + hQuad);
-  ctx.lineTo(x + padding, y + hQuad);
-  ctx.lineTo(x + padding, y + padding);
+  ctx.rect(x + padding, y + padding, wQuad, hQuad);
   ctx.clip();
 
   ctx.fillStyle = "#000000";
@@ -129,44 +186,34 @@ export const drawTag = (
   ctx.fillText(id, centerX, yPos);
   //
   yPos += 60 * K;
-  ctx.font = `${28 * K}px Arial`;
-  const wTextName = ctx.measureText(name).width;
-
-  if (wTextName > wQuad) {
-    ctx.font = `${20 * K}px Arial`;
-  }
-  ctx.fillText(name, centerX, yPos);
+  ctx.fillText(fitText(ctx, name, textWidth, 28 * K, 18 * K), centerX, yPos);
 
   yPos += 45 * K;
-  ctx.font = `${20 * K}px Arial`;
-  const fromComplete = "De: " + from;
-  const wText = ctx.measureText(fromComplete).width;
+  ctx.fillText(
+    fitText(ctx, "De: " + from, textWidth, 20 * K, 12 * K),
+    centerX,
+    yPos
+  );
 
-  if (wText > wQuad) {
-    ctx.font = `${18 * K}px Arial`;
-  }
-  ctx.fillText(fromComplete, centerX, yPos);
-
-  // Route box (where the old "Mandar a …" line and the table box were).
-  yPos += 40 * K;
-  yPos += 40 * K;
-  drawRouteBox(data, ctx, x, width, yPos - 10 * K, heightRect, {
+  // Band where the old "Mandar a …" line was, then the full-width route.
+  yPos += 30 * K;
+  yPos = drawRouteBlock(data, ctx, x, width, yPos, {
+    band: 30 * K,
+    bandText: 24 * K,
+    bandTextMin: 12 * K,
+    gap: 10 * K,
+    box: 100 * K,
     route: 60 * K,
-    routeMin: 22 * K,
-    label: 26 * K,
-    hub: 45 * K,
+    routeMin: 16 * K,
   });
 
-  yPos += heightRect;
+  yPos += 10 * K;
   ctx.textAlign = "center";
-  ctx.font = `${20 * K}px Arial`;
-  const toComplete = "Para: " + to;
-  const wTextTo = ctx.measureText(toComplete).width;
-
-  if (wTextTo > wQuad) {
-    ctx.font = `${14 * K}px Arial`;
-  }
-  ctx.fillText(toComplete, centerX, yPos);
+  ctx.fillText(
+    fitText(ctx, "Para: " + to, textWidth, 20 * K, 12 * K),
+    centerX,
+    yPos
+  );
 
   if (elementPerPage === 4) {
     // DOBLEZ
@@ -193,54 +240,48 @@ export const drawTag = (
     ctx.fillStyle = "#000000";
 
     // ID
-    yPos += 38 * K;
+    yPos += 28 * K;
+    const idX = x + padding + textMargin;
     ctx.textAlign = "left";
     ctx.font = `${50 * K}px Arial`;
-    ctx.fillText(id, x + padding + 20, yPos);
+    ctx.fillText(id, idX, yPos);
 
-    // NAME
-    ctx.font = `${19 * K}px Arial`;
-    const wTextNameB = ctx.measureText(name).width;
-    const wTextNameB_x = padding + 20 + 275;
+    // NAME, beside the ID and fitted to the rest of the width
+    const nameX = idX + ctx.measureText(id).width + 15 * K;
+    const nameWidth = x + padding + wQuad - textMargin - nameX;
+    ctx.textBaseline = "middle";
+    ctx.fillText(fitText(ctx, name, nameWidth, 19 * K, 12 * K), nameX, yPos + 23 * K);
+    ctx.textBaseline = "top";
 
-    if (wTextNameB > wQuad - wTextNameB_x) {
-      ctx.font = `${14 * K}px Arial`;
-    }
-    ctx.fillText(name, x + wTextNameB_x, yPos + 20);
     // De:
-    yPos += 50 * K;
+    yPos += 52 * K;
     ctx.textAlign = "center";
-    ctx.font = `${13 * K}px Arial`;
-    const fromCompleteB = "De: " + from;
-    const wTextB = ctx.measureText(fromCompleteB).width;
-    if (wTextB > wQuad) {
-      ctx.font = `${11 * K}px Arial`;
-    }
-    ctx.fillText(fromCompleteB, centerX, yPos);
+    ctx.fillText(
+      fitText(ctx, "De: " + from, textWidth, 13 * K, 10 * K),
+      centerX,
+      yPos
+    );
 
-    // Route box, small (where the old "Mandar a …" line and the table were).
-    yPos += 22 * K;
-    yPos += 16 * K;
-    yPos += 8 * K;
-    const heightRectB = 56 * K;
-    drawRouteBox(data, ctx, x, width, yPos - 10 * K, heightRectB, {
+    // Band + route, small
+    yPos += 18 * K;
+    yPos = drawRouteBlock(data, ctx, x, width, yPos, {
+      band: 20 * K,
+      bandText: 15 * K,
+      bandTextMin: 9 * K,
+      gap: 6 * K,
+      box: 52 * K,
       route: 36 * K,
-      routeMin: 16 * K,
-      label: 20 * K,
-      hub: 30 * K,
+      routeMin: 12 * K,
     });
 
     // a quien:
-    yPos += heightRectB;
+    yPos += 6 * K;
     ctx.textAlign = "center";
-    ctx.font = `${14 * K}px Arial`;
-    const toCompleteB = "Para: " + to;
-    const wTextToB = ctx.measureText(toCompleteB).width;
-
-    if (wTextToB > wQuad) {
-      ctx.font = `${11 * K}px Arial`;
-    }
-    ctx.fillText(toCompleteB, centerX, yPos);
+    ctx.fillText(
+      fitText(ctx, "Para: " + to, textWidth, 14 * K, 10 * K),
+      centerX,
+      yPos
+    );
   }
   ctx.restore();
 };
