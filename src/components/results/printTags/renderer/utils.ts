@@ -153,13 +153,10 @@ const drawBox = (
   return top + height;
 };
 
-// Big datum of a hub label: "MESA N" when it stays at the hub (null when
-// there's no table: the box is left out), the destination code when it
-// leaves in a box.
-const hubDatum = ({ hubRole, mesa, destCode }: Tag) => {
-  if (hubRole === "stays") return mesa ? `MESA ${mesa}` : null;
-  return destCode;
-};
+// Big datum of a hub label: "MESA N" when it stays at the hub (every
+// hub-bound trade has a table), the destination code when it leaves in a box.
+const hubDatum = ({ hubRole, mesa, destCode }: Tag) =>
+  hubRole === "stays" ? `MESA ${mesa}` : destCode;
 
 // Sides of the big ● / crate symbol beside the ID, in each half. It is how
 // volunteers sort packages at the hub (MESA vs CAJA) from a distance, so it
@@ -239,23 +236,17 @@ export const drawTag = (
 
   // Hub labels: one big datum (MESA N / destination code) in a tall box.
   // Plain labels: the route, in the same place as before the hub labels.
-  // A "stays" label with no table has no box: De / Para move to the middle
-  // of the free space instead of hugging the edges of an empty gap.
-  const datum = hubRole ? hubDatum(data) : null;
-  const noBox = hubRole && !datum;
 
   ctx.fillText(
     fitText(ctx, "De: " + from, textWidth, 20 * K, 12 * K),
     centerX,
-    top + (noBox ? 168 : 118) * K
+    top + 118 * K
   );
 
   if (hubRole) {
-    if (datum) {
-      drawBox(ctx, x, width, top + 144 * K, 140 * K, (w) =>
-        fitText(ctx, datum, w, 116 * K, 24 * K, "bold ")
-      );
-    }
+    drawBox(ctx, x, width, top + 144 * K, 140 * K, (w) =>
+      fitText(ctx, hubDatum(data), w, 116 * K, 24 * K, "bold ")
+    );
   } else {
     drawBox(ctx, x, width, top + 196 * K, 88 * K, (w) =>
       fitRoute(ctx, data.route, w, 60 * K, 16 * K)
@@ -266,7 +257,7 @@ export const drawTag = (
   ctx.fillText(
     fitText(ctx, "Para: " + to, textWidth, 20 * K, 12 * K),
     centerX,
-    top + (noBox ? 236 : 294) * K
+    top + 294 * K
   );
 
   if (elementPerPage === 4) {
@@ -328,16 +319,14 @@ export const drawTag = (
     ctx.fillText(
       fitText(ctx, "De: " + from, textWidth, 13 * K, 10 * K),
       centerX,
-      fold + (noBox ? 104 : 81) * K
+      fold + 81 * K
     );
 
     // Big datum or route, small
     if (hubRole) {
-      if (datum) {
-        drawBox(ctx, x, width, fold + 97 * K, 77 * K, (w) =>
-          fitText(ctx, datum, w, 64 * K, 14 * K, "bold ")
-        );
-      }
+      drawBox(ctx, x, width, fold + 97 * K, 77 * K, (w) =>
+        fitText(ctx, hubDatum(data), w, 64 * K, 14 * K, "bold ")
+      );
     } else {
       drawBox(ctx, x, width, fold + 133 * K, 41 * K, (w) =>
         fitRoute(ctx, data.route, w, 36 * K, 12 * K)
@@ -349,7 +338,7 @@ export const drawTag = (
     ctx.fillText(
       fitText(ctx, "Para: " + to, textWidth, 14 * K, 10 * K),
       centerX,
-      fold + (noBox ? 142 : 180) * K
+      fold + 180 * K
     );
   }
   ctx.restore();
