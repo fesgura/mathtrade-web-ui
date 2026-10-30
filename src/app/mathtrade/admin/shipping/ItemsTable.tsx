@@ -20,12 +20,22 @@ const Person = ({ person = null }: { person?: ShippingPerson | null }) =>
     <span className="text-gray-400">-</span>
   );
 
-// One row per item: who gives it, its route and who receives it.
-const ItemsTable = ({ items = [] }: { items?: ShippingItem[] }) => (
+// One row per item: who gives it, its route and who receives it (and its
+// hub table, with showTable).
+const ItemsTable = ({
+  items = [],
+  showTable = false,
+}: {
+  items?: ShippingItem[];
+  showTable?: boolean;
+}) => (
   <div className="overflow-x-auto">
     <table className="w-full text-sm">
       <thead>
         <tr className="text-left text-gray-500 border-b border-gray-200">
+          {showTable ? (
+            <th className="py-2 pr-4"><I18N id="adminShipping.tables.col.table" /></th>
+          ) : null}
           <th className="py-2 pr-4"><I18N id="adminShipping.col.code" /></th>
           <th className="py-2 pr-4"><I18N id="adminShipping.col.item" /></th>
           <th className="py-2 pr-4"><I18N id="adminShipping.col.giver" /></th>
@@ -39,6 +49,9 @@ const ItemsTable = ({ items = [] }: { items?: ShippingItem[] }) => (
       <tbody>
         {items.map((item) => (
           <tr key={item.trade_id} className="border-b border-gray-300 align-top">
+            {showTable ? (
+              <td className="py-2 pr-4 font-semibold">{item.table_number || "-"}</td>
+            ) : null}
             <td className="py-2 pr-4 font-mono">{tradeCode(item.code)}</td>
             <td className="py-2 pr-4">{item.title}</td>
             <td className="py-2 pr-4"><Person person={item.giver} /></td>

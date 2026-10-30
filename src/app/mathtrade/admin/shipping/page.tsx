@@ -263,6 +263,7 @@ const AdminShippingPage = () => {
                   items={items}
                   hubId={shipping?.hub?.id ?? null}
                   selectClass={selectClass}
+                  onTablesChanged={() => reload()}
                 />
               ) : (
                 <>
