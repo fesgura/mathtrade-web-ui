@@ -235,7 +235,7 @@ export const drawTag = (
     ctx.textAlign = "center";
     ctx.font = `${14 * K}px Arial`;
     const toCompleteB = "Para: " + to;
-    const wTextToB = ctx.measureText(toComplete).width;
+    const wTextToB = ctx.measureText(toCompleteB).width;
 
     if (wTextToB > wQuad) {
       ctx.font = `${11 * K}px Arial`;
