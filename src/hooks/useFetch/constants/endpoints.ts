@@ -157,6 +157,8 @@ const endpoints = {
   POST_SHIPPING_LABELS_PUBLISH: "api/mathtrades/$[mathtradeId]/shipping-routes/publish/",
   DELETE_SHIPPING_LABELS_PUBLISH: "api/mathtrades/$[mathtradeId]/shipping-routes/publish/",
   GET_MY_SHIPPING_LABELS: "api/mathtrades/$[mathtradeId]/shipping-labels/mine/",
+  GET_SHIPPING_TABLES: "api/mathtrades/$[mathtradeId]/tables/",
+  POST_SHIPPING_TABLES: "api/mathtrades/$[mathtradeId]/tables/",
   ADMIN_GET_USERS: "api/mathtrades/$[mathtradeId]/admin-users/",
   ADMIN_GET_USER: "api/mathtrades/$[mathtradeId]/admin-users/$[1]/",
   ADMIN_GET_USER_ITEMS: "api/mathtrades/$[mathtradeId]/admin-users/$[1]/items/",

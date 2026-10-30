@@ -27,3 +27,12 @@ export type ShippingRoutes = {
   items: ShippingItem[];
   published_at?: string | null;
 };
+// Hub tables (BE results/tables.py): who receives at each table.
+export type TableMember = { id: number; username: string; name: string; items: number };
+export type HubTable = { table: string | null; items: number; users: number; members: TableMember[] };
+export type TablesParams = {
+  tables: number;
+  max_items_per_table: number | null;
+  big_user_threshold: number;
+};
+export type HubTables = { params: TablesParams; tables: HubTable[]; applied?: boolean };
