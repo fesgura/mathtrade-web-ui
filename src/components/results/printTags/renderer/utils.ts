@@ -76,9 +76,9 @@ const fitRoute = (
   return text;
 };
 
-// Text of the black band, or null for a plain interior→interior shipment.
-const bandText = ({ isLocal, hubRole, hub, viaHub, destCode, mesa }: Tag) => {
-  if (isLocal) return "CAMBIO LOCAL · ENTREGA EN MANO";
+// Text of the black band, or null when the item never touches the hub
+// (interior→interior direct, or a local trade).
+const bandText = ({ hubRole, hub, viaHub, destCode, mesa }: Tag) => {
   if (hubRole === "stays") {
     return mesa ? `QUEDA EN ${hub} · MESA ${mesa}` : `QUEDA EN ${hub}`;
   }
