@@ -1,11 +1,12 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { PrintTagsContext } from "../../context";
 import { elementPerPage, canvasWidth, canvasHeight } from "../../config";
 import { drawTag } from "../utils";
+import type { Tag } from "../../types";
 
-const useCanvasRenderer = (content) => {
+const useCanvasRenderer = (content: Tag[]) => {
   const { setPages } = useContext(PrintTagsContext);
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;

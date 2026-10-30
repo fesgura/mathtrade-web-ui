@@ -11,6 +11,7 @@ import useFetch from "@/hooks/useFetch";
 import { PRIVATE_ROUTES } from "@/config/routes";
 import RoutesTable from "./RoutesTable";
 import ItemsTable, { fullName, tradeCode } from "./ItemsTable";
+import LabelsPanel from "./LabelsPanel";
 import type {
   ShippingItem,
   ShippingKind,
@@ -196,6 +197,11 @@ const AdminShippingPage = () => {
                   ) : null}
                 </div>
                 <ItemsTable items={filteredItems} />
+                <LabelsPanel
+                  items={filteredItems}
+                  hubId={shipping?.hub?.id ?? null}
+                  originName={originName}
+                />
               </div>
             </>
           ) : null}

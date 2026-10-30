@@ -11,7 +11,7 @@ import I18N from "@/i18n";
 import Icon from "@/components/icon";
 import { PrintTagsContext } from "../context";
 import { useCallback, useContext, useState } from "react";
-import { dpi, padding, canvasWidth } from "../config";
+import { dpi, padding } from "../config";
 import Tutorial from "../tutorial";
 
 const styles = StyleSheet.create({
@@ -19,27 +19,18 @@ const styles = StyleSheet.create({
     margin: 0,
     padding,
   },
-  image: {
-    width: canvasWidth - 10,
-  },
 });
 
 //////////////////////////
 
-const Doc = ({ pages }) => {
+const Doc = ({ pages = [] }: { pages?: string[] }) => {
   return pages.length ? (
     <Document>
       {pages.map((src, k) => {
         return (
-          <Page size="A4" dpi={dpi} style={styles.page} key={k}>
+          <Page size="A4" dpi={dpi} key={k}>
             <View style={styles.section}>
-              {src ? (
-                <ImagePDF
-                  src={src}
-                  alt=""
-                  // style={styles.image}
-                />
-              ) : null}
+              {src ? <ImagePDF src={src} /> : null}
             </View>
           </Page>
         );
@@ -50,14 +41,29 @@ const Doc = ({ pages }) => {
   );
 };
 
-const Viewer = () => {
+const Viewer = ({
+  fileName = "etiquetas_para_imprimir",
+  total = 0,
+}: {
+  fileName?: string;
+  total?: number;
+}) => {
   const { pages } = useContext(PrintTagsContext);
 
-  const [urlDownload, setUrlDownload] = useState(null);
+  const [urlDownload, setUrlDownload] = useState<string | null>(null);
 
-  const changeUrlDownload = useCallback((url) => {
+  const changeUrlDownload = useCallback((url: string | null) => {
     setUrlDownload(url);
   }, []);
+
+  // Don't offer a PDF until every page has been drawn.
+  if (total && pages.length < total) {
+    return (
+      <div className="text-center py-4 text-xl">
+        <I18N id="results.tags.generating" values={[pages.length, total]} />
+      </div>
+    );
+  }
 
   return pages.length ? (
     <>
@@ -66,9 +72,9 @@ const Viewer = () => {
         <PDFDownloadLink
           className="bg-primary text-white  py-3  px-7  text-2xl rounded-xl"
           document={<Doc pages={pages} />}
-          fileName="etiquetas_para_imprimir.pdf"
+          fileName={`${fileName}.pdf`}
         >
-          {({ blob, url, loading, error }) => {
+          {({ url, loading }) => {
             changeUrlDownload(url);
             return loading ? (
               <I18N id="results.tags.btn.loading" />

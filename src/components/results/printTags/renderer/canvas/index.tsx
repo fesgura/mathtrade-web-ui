@@ -1,7 +1,8 @@
 import useCanvasRenderer from "./useCanvasRenderer";
 import { canvasWidth, canvasHeight } from "../../config";
+import type { Tag } from "../../types";
 
-const CanvasRenderer = ({ content }) => {
+const CanvasRenderer = ({ content = [] }: { content?: Tag[] }) => {
   const { canvasRef } = useCanvasRenderer(content);
 
   return (

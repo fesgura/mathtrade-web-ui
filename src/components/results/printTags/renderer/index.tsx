@@ -1,8 +1,9 @@
 import CanvasRenderer from "./canvas";
 import useRenderer from "./useRenderer";
+import type { Tag } from "../types";
 
-const PrintTagRenderer = () => {
-  const { canvasList } = useRenderer();
+const PrintTagRenderer = ({ tags = [] }: { tags?: Tag[] }) => {
+  const { canvasList } = useRenderer(tags);
 
   return canvasList.length ? (
     <div className="">
