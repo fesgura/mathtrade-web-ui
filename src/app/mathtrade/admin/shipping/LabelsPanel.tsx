@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import Button from "@/components/button";
 import I18N from "@/i18n";
 import { shippingItemToTag } from "@/components/results/printTags/shippingTags";
+import type { Tag } from "@/components/results/printTags/types";
 import type { ShippingItem, ShippingLoc } from "./types";
 
 // @react-pdf/renderer only runs in the browser; loading it on demand also
@@ -12,10 +13,11 @@ const PrintTags = dynamic(() => import("@/components/results/printTags"), {
   ssr: false,
 });
 
-const SLOW_THRESHOLD = 400;
-
-// Shipping labels (PDF) for the filtered items. PrintTags is mounted only
-// after the click: it draws one canvas per page, too heavy for page load.
+// Shipping labels (PDF) for the filtered items of one origin. Nothing is
+// generated until "Ver etiquetas": PrintTags is mounted only after the click,
+// and only for the exact `tags` it was opened for, so any change of filter,
+// of the include-local checkbox or of tab (which unmounts this panel) hides
+// the labels again. "All origins" can't be generated: hundreds of pages.
 const LabelsPanel = ({
   items = [],
   hubId = null,
@@ -26,7 +28,7 @@ const LabelsPanel = ({
   originName?: ShippingLoc | null;
 }) => {
   const [includeLocal, setIncludeLocal] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [openFor, setOpenFor] = useState<Tag[] | null>(null);
 
   const tags = useMemo(
     () =>
@@ -35,6 +37,7 @@ const LabelsPanel = ({
         .map((item) => shippingItemToTag(item, hubId)),
     [items, includeLocal, hubId]
   );
+  const open = !!originName && openFor === tags;
 
   const fileName = `etiquetas_${originName?.code || originName?.name || "todos"}`;
 
@@ -53,25 +56,25 @@ const LabelsPanel = ({
           <I18N id="adminShipping.labels.includeLocal" />
         </label>
         {open ? (
-          <Button type="button" sm outline onClick={() => setOpen(false)}>
+          <Button type="button" sm outline onClick={() => setOpenFor(null)}>
             <I18N id="adminShipping.labels.close" />
           </Button>
         ) : (
           <Button
             type="button"
             sm
-            disabled={!tags.length}
-            onClick={() => setOpen(true)}
+            disabled={!originName || !tags.length}
+            onClick={() => setOpenFor(tags)}
           >
             <I18N id="adminShipping.labels.show" values={[tags.length]} />
           </Button>
         )}
+        {!originName ? (
+          <span className="text-sm text-gray-600">
+            <I18N id="adminShipping.labels.pickOrigin" />
+          </span>
+        ) : null}
       </div>
-      {!originName && tags.length > SLOW_THRESHOLD ? (
-        <p className="mb-3 text-sm text-amber-700">
-          <I18N id="adminShipping.labels.slow" />
-        </p>
-      ) : null}
       {open ? <PrintTags tags={tags} fileName={fileName} /> : null}
     </div>
   );

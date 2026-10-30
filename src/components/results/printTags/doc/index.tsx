@@ -1,115 +1,76 @@
-import {
-  Page,
-  View,
-  Document,
-  StyleSheet,
-  Image as ImagePDF,
-  PDFDownloadLink,
-  PDFViewer,
-} from "@react-pdf/renderer";
 import I18N from "@/i18n";
 import Icon from "@/components/icon";
-import { PrintTagsContext } from "../context";
-import { useCallback, useContext, useState } from "react";
-import { dpi, padding } from "../config";
+import useLabelsPdf from "../useLabelsPdf";
 import Tutorial from "../tutorial";
+import type { Tag } from "../types";
 
-const styles = StyleSheet.create({
-  section: {
-    margin: 0,
-    padding,
-  },
-});
-
-//////////////////////////
-
-const Doc = ({ pages = [] }: { pages?: string[] }) => {
-  return pages.length ? (
-    <Document>
-      {pages.map((src, k) => {
-        return (
-          <Page size="A4" dpi={dpi} key={k}>
-            <View style={styles.section}>
-              {src ? <ImagePDF src={src} /> : null}
-            </View>
-          </Page>
-        );
-      })}
-    </Document>
-  ) : (
-    <Document />
-  );
-};
-
+// Preview + download of one PDF. The PDF is built once (useLabelsPdf) and
+// the same blob URL feeds the iframe, the download and the "open" link;
+// nothing is offered until it's ready.
 const Viewer = ({
+  tags = [],
   fileName = "etiquetas_para_imprimir",
-  total = 0,
 }: {
+  tags?: Tag[];
   fileName?: string;
-  total?: number;
 }) => {
-  const { pages } = useContext(PrintTagsContext);
+  const { status, drawn, total, url } = useLabelsPdf(tags);
 
-  const [urlDownload, setUrlDownload] = useState<string | null>(null);
-
-  const changeUrlDownload = useCallback((url: string | null) => {
-    setUrlDownload(url);
-  }, []);
-
-  // Don't offer a PDF until every page has been drawn.
-  if (total && pages.length < total) {
+  if (status === "error") {
     return (
-      <div className="text-center py-4 text-xl">
-        <I18N id="results.tags.generating" values={[pages.length, total]} />
+      <div className="text-center py-4 text-xl text-red-700">
+        <I18N id="results.tags.error" />
       </div>
     );
   }
 
-  return pages.length ? (
+  if (status !== "ready") {
+    return (
+      <div className="text-center py-4 text-xl">
+        {status === "building" ? (
+          <I18N id="results.tags.building" />
+        ) : (
+          <I18N id="results.tags.generating" values={[drawn, total]} />
+        )}
+      </div>
+    );
+  }
+
+  return (
     <>
       <div className="py-5 text-center">
         <Tutorial />
-        <PDFDownloadLink
-          className="bg-primary text-white  py-3  px-7  text-2xl rounded-xl"
-          document={<Doc pages={pages} />}
-          fileName={`${fileName}.pdf`}
+        <a
+          className="inline-block bg-primary text-white py-3 px-7 text-2xl rounded-xl"
+          href={url}
+          download={`${fileName}.pdf`}
         >
-          {({ url, loading }) => {
-            changeUrlDownload(url);
-            return loading ? (
-              <I18N id="results.tags.btn.loading" />
-            ) : (
-              <>
-                <Icon type="download" className="mr-1" />
-                <I18N id="results.tags.btn.download" />
-              </>
-            );
-          }}
-        </PDFDownloadLink>
-        {urlDownload ? (
-          <div className="pt-6 xl:hidden block">
-            <a
-              href={urlDownload}
-              className="text-primary hover:text-sky-900 underline"
-              target="_blank"
-            >
-              <I18N id="results.tags.btn.open" />
-              <Icon type="external-link" className="mr-1" />
-            </a>
-          </div>
-        ) : null}
+          <Icon type="download" className="mr-1" />
+          <I18N id="results.tags.btn.download" />
+        </a>
+        <div className="pt-6 xl:hidden block">
+          <a
+            href={url}
+            className="text-primary hover:text-sky-900 underline"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <I18N id="results.tags.btn.open" />
+            <Icon type="external-link" className="mr-1" />
+          </a>
+        </div>
       </div>
 
       <div className="xl:block hidden">
-        <PDFViewer width="100%" height={900}>
-          <Doc pages={pages} />
-        </PDFViewer>
+        <iframe
+          src={url}
+          title={fileName}
+          width="100%"
+          height={900}
+          className="border-0"
+        />
       </div>
     </>
-  ) : (
-    <div className="text-center py-4 text-xl">
-      <I18N id="results.tags.notags" />
-    </div>
   );
 };
 

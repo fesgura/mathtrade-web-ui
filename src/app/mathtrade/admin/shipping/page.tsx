@@ -1,11 +1,12 @@
 "use client";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Button from "@/components/button";
 import PageHeader from "@/components/pageHeader";
 import SectionCommon from "@/components/sections/common";
 import ErrorAlert from "@/components/errorAlert";
 import EmptyList from "@/components/emptyList";
 import XlsButton from "@/components/xlsButton";
+import Tabs from "@/components/tabs";
 import I18N, { getI18Ntext } from "@/i18n";
 import useFetch from "@/hooks/useFetch";
 import { PRIVATE_ROUTES } from "@/config/routes";
@@ -22,6 +23,10 @@ import type {
 } from "./types";
 
 const KINDS: ShippingKind[] = ["local", "direct", "via_hub"];
+
+const TABS = ["adminShipping.tab.routes", "adminShipping.tab.items"];
+const TAB_ROUTES = 0;
+const TAB_ITEMS = 1;
 
 type Filters = { origin: number | "all"; kind: ShippingKind | "all" };
 
@@ -59,7 +64,8 @@ const itemsToExport = (items: ShippingItem[]) =>
 
 // Admins only (route "onlyForAdmin", endpoint IsAdminAuthenticated): where
 // every item of the edition ships from, whether it stops at the hub (AMBA)
-// and where it goes, with the totals per route and the item detail.
+// and where it goes. Two tabs: "Por ruta" (totals per route, publishing) and
+// "Por ítem" (filtered item detail and the labels PDF).
 const AdminShippingPage = () => {
   const [reload, data, loading, error] = useFetch({
     endpoint: "GET_SHIPPING_ROUTES",
@@ -71,7 +77,7 @@ const AdminShippingPage = () => {
   const items = useMemo(() => shipping?.items || [], [shipping]);
 
   const [filters, setFilters] = useState<Filters>({ origin: "all", kind: "all" });
-  const detailRef = useRef<HTMLDivElement>(null);
+  const [tab, setTab] = useState(TAB_ROUTES);
 
   // Distinct origins of the items, by name, for the origin filter.
   const origins = useMemo(() => {
@@ -99,7 +105,7 @@ const AdminShippingPage = () => {
 
   const onOriginClick = (originId: number) => {
     setFilters((current) => ({ ...current, origin: originId }));
-    detailRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    setTab(TAB_ITEMS);
   };
 
   return (
@@ -113,103 +119,104 @@ const AdminShippingPage = () => {
             </Button>
           </div>
           <ErrorAlert error={error} />
-          {shipping ? (
-            <p className="mb-4 text-sm text-gray-600">
-              <I18N id="adminShipping.threshold" values={[shipping.threshold]} />
-              {" · "}
-              <I18N id="adminShipping.hub" values={[shipping.hub?.name || "-"]} />
-            </p>
-          ) : null}
-          {shipping ? (
-            <PublishControl
-              publishedAt={shipping.published_at ?? null}
-              onChange={() => reload()}
-            />
-          ) : null}
           {!loading && !routes.length ? (
             <EmptyList visible icon="status-box" message="adminShipping.none" />
           ) : null}
-          {routes.length ? (
+          {shipping && routes.length ? (
             <>
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                <h2 className="font-semibold">
-                  <I18N id="adminShipping.summary" />
-                </h2>
-                <XlsButton
-                  data={routesToExport(routes)}
-                  filename="rutas_envio"
-                  className=""
-                />
-              </div>
-              <RoutesTable routes={routes} onOriginClick={onOriginClick} />
-
-              <div ref={detailRef} className="mt-8 scroll-mt-4">
-                <h2 className="font-semibold mb-2">
-                  <I18N id="adminShipping.detail" />
-                </h2>
-                <div className="flex flex-wrap items-end gap-3 mb-4">
-                  <label className="text-xs text-gray-500 flex flex-col gap-1 w-full sm:w-auto">
-                    <I18N id="adminShipping.filter.origin" />
-                    <select
-                      className={selectClass}
-                      value={String(filters.origin)}
-                      onChange={(e) => {
-                        const { value } = e.target;
-                        setFilters((current) => ({
-                          ...current,
-                          origin: value === "all" ? "all" : Number(value),
-                        }));
-                      }}
-                    >
-                      <option value="all">{getI18Ntext("adminShipping.filter.allOrigins")}</option>
-                      {origins.map(({ id, name }) => (
-                        <option key={id} value={String(id)}>
-                          {name}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                  <label className="text-xs text-gray-500 flex flex-col gap-1 w-full sm:w-auto">
-                    <I18N id="adminShipping.filter.kind" />
-                    <select
-                      className={selectClass}
-                      value={filters.kind}
-                      onChange={(e) => {
-                        const { value } = e.target;
-                        setFilters((current) => ({
-                          ...current,
-                          kind: value as Filters["kind"],
-                        }));
-                      }}
-                    >
-                      <option value="all">{getI18Ntext("adminShipping.filter.allKinds")}</option>
-                      {KINDS.map((kind) => (
-                        <option key={kind} value={kind}>
-                          {kindText(kind)}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                </div>
-                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
-                  <div className="font-semibold">
-                    <I18N id="adminShipping.count" values={[filteredItems.length]} />
-                  </div>
-                  {filteredItems.length ? (
+              <Tabs list={TABS} value={tab} onChange={setTab} className="mb-4" />
+              {tab === TAB_ROUTES ? (
+                <>
+                  <p className="mb-4 text-sm text-gray-600">
+                    <I18N id="adminShipping.threshold" values={[shipping.threshold]} />
+                    {" · "}
+                    <I18N id="adminShipping.hub" values={[shipping.hub?.name || "-"]} />
+                  </p>
+                  <PublishControl
+                    publishedAt={shipping.published_at ?? null}
+                    onChange={() => reload()}
+                  />
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <h2 className="font-semibold">
+                      <I18N id="adminShipping.summary" />
+                    </h2>
                     <XlsButton
-                      data={itemsToExport(filteredItems)}
-                      filename={`envios_${originName?.code || originName?.name || "todos"}`}
+                      data={routesToExport(routes)}
+                      filename="rutas_envio"
                       className=""
                     />
-                  ) : null}
-                </div>
-                <ItemsTable items={filteredItems} />
-                <LabelsPanel
-                  items={filteredItems}
-                  hubId={shipping?.hub?.id ?? null}
-                  originName={originName}
-                />
-              </div>
+                  </div>
+                  <RoutesTable routes={routes} onOriginClick={onOriginClick} />
+                </>
+              ) : (
+                <>
+                  <h2 className="font-semibold mb-2">
+                    <I18N id="adminShipping.detail" />
+                  </h2>
+                  <div className="flex flex-wrap items-end gap-3 mb-4">
+                    <label className="text-xs text-gray-500 flex flex-col gap-1 w-full sm:w-auto">
+                      <I18N id="adminShipping.filter.origin" />
+                      <select
+                        className={selectClass}
+                        value={String(filters.origin)}
+                        onChange={(e) => {
+                          const { value } = e.target;
+                          setFilters((current) => ({
+                            ...current,
+                            origin: value === "all" ? "all" : Number(value),
+                          }));
+                        }}
+                      >
+                        <option value="all">{getI18Ntext("adminShipping.filter.allOrigins")}</option>
+                        {origins.map(({ id, name }) => (
+                          <option key={id} value={String(id)}>
+                            {name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                    <label className="text-xs text-gray-500 flex flex-col gap-1 w-full sm:w-auto">
+                      <I18N id="adminShipping.filter.kind" />
+                      <select
+                        className={selectClass}
+                        value={filters.kind}
+                        onChange={(e) => {
+                          const { value } = e.target;
+                          setFilters((current) => ({
+                            ...current,
+                            kind: value as Filters["kind"],
+                          }));
+                        }}
+                      >
+                        <option value="all">{getI18Ntext("adminShipping.filter.allKinds")}</option>
+                        {KINDS.map((kind) => (
+                          <option key={kind} value={kind}>
+                            {kindText(kind)}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  </div>
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                    <div className="font-semibold">
+                      <I18N id="adminShipping.count" values={[filteredItems.length]} />
+                    </div>
+                    {filteredItems.length ? (
+                      <XlsButton
+                        data={itemsToExport(filteredItems)}
+                        filename={`envios_${originName?.code || originName?.name || "todos"}`}
+                        className=""
+                      />
+                    ) : null}
+                  </div>
+                  <ItemsTable items={filteredItems} />
+                  <LabelsPanel
+                    items={filteredItems}
+                    hubId={shipping?.hub?.id ?? null}
+                    originName={originName}
+                  />
+                </>
+              )}
             </>
           ) : null}
         </div>
