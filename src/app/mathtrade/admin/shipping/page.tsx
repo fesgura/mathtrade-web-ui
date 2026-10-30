@@ -86,6 +86,8 @@ const AdminShippingPage = () => {
   // The labels tab picks its own origin: one PDF per origin, whatever the
   // detail is filtered by.
   const [labelsOrigin, setLabelsOrigin] = useState<number | "all">("all");
+  // Or one sender: the labels that member sees in "Mis etiquetas".
+  const [labelsGiver, setLabelsGiver] = useState<string>("all");
 
   // Distinct origins of the items, by name, for the origin filter.
   const origins = useMemo(() => {
@@ -115,13 +117,33 @@ const AdminShippingPage = () => {
     labelsOrigin === "all"
       ? null
       : origins.find(({ id }) => id === labelsOrigin) || null;
+  // Senders of the picked origin (all of them with no origin), by name.
+  const givers = useMemo(() => {
+    const byUsername = new Map<string, ShippingItem["giver"]>();
+    items.forEach(({ giver, origin }) => {
+      if (labelsOrigin === "all" || origin?.id === labelsOrigin) {
+        byUsername.set(giver.username, giver);
+      }
+    });
+    return Array.from(byUsername.values()).sort((a, b) =>
+      fullName(a).localeCompare(fullName(b))
+    );
+  }, [items, labelsOrigin]);
   const labelsItems = useMemo(
     () =>
-      labelsOrigin === "all"
+      labelsOrigin === "all" && labelsGiver === "all"
         ? []
-        : items.filter((item) => item.origin?.id === labelsOrigin),
-    [items, labelsOrigin]
+        : items.filter(
+            (item) =>
+              (labelsOrigin === "all" || item.origin?.id === labelsOrigin) &&
+              (labelsGiver === "all" || item.giver.username === labelsGiver)
+          ),
+    [items, labelsOrigin, labelsGiver]
   );
+  const labelsFor =
+    labelsGiver !== "all"
+      ? labelsGiver
+      : labelsOriginLoc?.code || labelsOriginLoc?.name || null;
 
   const originSelect = (
     value: number | "all",
@@ -240,12 +262,30 @@ const AdminShippingPage = () => {
                     onChange={() => reload()}
                   />
                   <div className="flex flex-wrap items-end gap-3 mb-2">
-                    {originSelect(labelsOrigin, setLabelsOrigin)}
+                    {originSelect(labelsOrigin, (origin) => {
+                      setLabelsOrigin(origin);
+                      setLabelsGiver("all");
+                    })}
+                    <label className="text-xs text-gray-500 flex flex-col gap-1 w-full sm:w-auto">
+                      <I18N id="adminShipping.filter.giver" />
+                      <select
+                        className={selectClass}
+                        value={labelsGiver}
+                        onChange={(e) => setLabelsGiver(e.target.value)}
+                      >
+                        <option value="all">{getI18Ntext("adminShipping.filter.allGivers")}</option>
+                        {givers.map((giver) => (
+                          <option key={giver.username} value={giver.username}>
+                            {fullName(giver) || giver.username} ({giver.username})
+                          </option>
+                        ))}
+                      </select>
+                    </label>
                   </div>
                   <LabelsPanel
                     items={labelsItems}
                     hubId={shipping?.hub?.id ?? null}
-                    originName={labelsOriginLoc}
+                    labelsFor={labelsFor}
                   />
                 </>
               )}
