@@ -13,6 +13,7 @@ import { PRIVATE_ROUTES } from "@/config/routes";
 import RoutesTable from "./RoutesTable";
 import ItemsTable, { fullName, tradeCode } from "./ItemsTable";
 import LabelsPanel from "./LabelsPanel";
+import TablesTab from "./TablesTab";
 import PublishControl from "./PublishControl";
 import type {
   ShippingItem,
@@ -27,11 +28,12 @@ const KINDS: ShippingKind[] = ["local", "direct", "via_hub"];
 const TABS = [
   "adminShipping.tab.routes",
   "adminShipping.tab.items",
+  "adminShipping.tab.tables",
   "adminShipping.tab.labels",
 ];
 const TAB_ROUTES = 0;
 const TAB_ITEMS = 1;
-const TAB_LABELS = 2;
+const TAB_TABLES = 2;
 
 type Filters = { origin: number | "all"; kind: ShippingKind | "all" };
 
@@ -69,8 +71,9 @@ const itemsToExport = (items: ShippingItem[]) =>
 
 // Admins only (route "onlyForAdmin", endpoint IsAdminAuthenticated): where
 // every item of the edition ships from, whether it stops at the hub (AMBA)
-// and where it goes. Three tabs: "Por ruta" (totals per route), "Por ítem"
-// (filtered item detail) and "Etiquetas" (labels PDF per origin, publishing).
+// and where it goes. Tabs: "Por ruta" (totals per route), "Por ítem"
+// (filtered item detail), "Mesas" (what each hub table gets) and "Etiquetas"
+// (labels PDF per origin or sender, publishing).
 const AdminShippingPage = () => {
   const [reload, data, loading, error] = useFetch({
     endpoint: "GET_SHIPPING_ROUTES",
@@ -255,6 +258,12 @@ const AdminShippingPage = () => {
                   </div>
                   <ItemsTable items={filteredItems} />
                 </>
+              ) : tab === TAB_TABLES ? (
+                <TablesTab
+                  items={items}
+                  hubId={shipping?.hub?.id ?? null}
+                  selectClass={selectClass}
+                />
               ) : (
                 <>
                   <PublishControl
