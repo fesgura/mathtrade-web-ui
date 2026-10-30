@@ -12,6 +12,7 @@ import { PRIVATE_ROUTES } from "@/config/routes";
 import RoutesTable from "./RoutesTable";
 import ItemsTable, { fullName, tradeCode } from "./ItemsTable";
 import LabelsPanel from "./LabelsPanel";
+import PublishControl from "./PublishControl";
 import type {
   ShippingItem,
   ShippingKind,
@@ -60,7 +61,7 @@ const itemsToExport = (items: ShippingItem[]) =>
 // every item of the edition ships from, whether it stops at the hub (AMBA)
 // and where it goes, with the totals per route and the item detail.
 const AdminShippingPage = () => {
-  const [, data, loading, error] = useFetch({
+  const [reload, data, loading, error] = useFetch({
     endpoint: "GET_SHIPPING_ROUTES",
     initialState: null,
     autoLoad: true,
@@ -118,6 +119,12 @@ const AdminShippingPage = () => {
               {" · "}
               <I18N id="adminShipping.hub" values={[shipping.hub?.name || "-"]} />
             </p>
+          ) : null}
+          {shipping ? (
+            <PublishControl
+              publishedAt={shipping.published_at ?? null}
+              onChange={() => reload()}
+            />
           ) : null}
           {!loading && !routes.length ? (
             <EmptyList visible icon="status-box" message="adminShipping.none" />

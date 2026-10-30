@@ -9,11 +9,14 @@ import Dynamic from "@/components/dynamic";
 import Wrapper from "@/components/wrapper";
 import SectionCommon from "@/components/sections/common";
 import { useRedirectIfNavLocked } from "@/components/sidebar/useSidebarNav";
+import useFetch from "@/hooks/useFetch";
+import type { MyShippingLabelsData } from "@/components/results/myShippingLabels";
 
 const ResultsUI = lazy(() => import("./ui"));
 const GraphViewer = lazy(() =>
   import("@/components/interactiveGraph/graphViewer")
 );
+const MyShippingLabels = lazy(() => import("@/components/results/myShippingLabels"));
 
 const CURRENT_TABS = ["results.tab.results", "results.tab.chains"];
 
@@ -21,6 +24,17 @@ export default function Results() {
   const { setPageType } = useContext(PageContext);
   const locked = useRedirectIfNavLocked("RESULTS");
   const [tabView, setTabView] = useState(0);
+
+  // Labels of the items the member sends: the tab shows up once the admins
+  // published them (unpublished is a 200 with no items).
+  const [, labelsData] = useFetch({
+    endpoint: "GET_MY_SHIPPING_LABELS",
+    initialState: null,
+    autoLoad: true,
+  });
+  const labels = labelsData as MyShippingLabelsData | null;
+  const hasLabels = !!labels?.items?.length;
+  const tabs = hasLabels ? [...CURRENT_TABS, "results.tab.labels"] : CURRENT_TABS;
 
   useEffect(() => {
     setPageType("results");
@@ -39,7 +53,7 @@ export default function Results() {
       />
       <Wrapper className="mb-1">
         <div className="bg-white rounded-t-main shadow-main">
-          <Tabs list={CURRENT_TABS} value={tabView} onChange={setTabView} />
+          <Tabs list={tabs} value={tabView} onChange={setTabView} />
         </div>
       </Wrapper>
       <SectionCommon topNotRounded>
@@ -49,6 +63,10 @@ export default function Results() {
               <ResultsUI />
             </Dynamic>
           </ResultsContextProvider>
+        ) : tabView === 2 && hasLabels ? (
+          <Dynamic>
+            <MyShippingLabels data={labels} />
+          </Dynamic>
         ) : (
           <div className="min-h-96 relative">
             <Dynamic>
