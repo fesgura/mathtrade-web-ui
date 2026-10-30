@@ -88,8 +88,10 @@ const bandText = ({ isLocal, hubRole, hub, viaHub, destCode, mesa }: Tag) => {
   return null;
 };
 
-// Solid black hub symbol centered on (cx, cy), `size` wide and tall:
-// ● circle = stays at the hub (MESA), ◆ rhombus = leaves in a box (CAJA).
+// Hub symbol centered on (cx, cy), `size` wide and tall, built to tell apart
+// in black & white even when small: ● solid circle = stays at the hub (MESA);
+// crate (hollow square with an X corner to corner) = leaves in a box (CAJA).
+// Stroke widths scale with `size`.
 const drawHubSymbol = (
   ctx: CanvasRenderingContext2D,
   role: Tag["hubRole"],
@@ -98,19 +100,36 @@ const drawHubSymbol = (
   size: number
 ) => {
   if (!role) return;
+  ctx.save();
   ctx.fillStyle = "#000000";
-  ctx.beginPath();
+  ctx.strokeStyle = "#000000";
   if (role === "stays") {
-    ctx.arc(cx, cy, size * 0.42, 0, 2 * Math.PI);
+    ctx.beginPath();
+    ctx.arc(cx, cy, size * 0.45, 0, 2 * Math.PI);
+    ctx.fill();
   } else {
-    const r = size / 2;
-    ctx.moveTo(cx, cy - r);
-    ctx.lineTo(cx + r * 0.8, cy);
-    ctx.lineTo(cx, cy + r);
-    ctx.lineTo(cx - r * 0.8, cy);
-    ctx.closePath();
+    const side = size * 0.86;
+    const lw = Math.max(2, size * 0.13);
+    const h = (side - lw) / 2; // half side, measured to the stroke center
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillRect(cx - side / 2, cy - side / 2, side, side);
+    ctx.lineWidth = lw;
+    ctx.lineJoin = "miter";
+    ctx.lineCap = "butt";
+    ctx.strokeRect(cx - h, cy - h, 2 * h, 2 * h);
+    // X clipped to the inside of the square so its ends stay square
+    ctx.beginPath();
+    ctx.rect(cx - h, cy - h, 2 * h, 2 * h);
+    ctx.clip();
+    ctx.lineWidth = lw * 0.85;
+    ctx.beginPath();
+    ctx.moveTo(cx - h, cy - h);
+    ctx.lineTo(cx + h, cy + h);
+    ctx.moveTo(cx + h, cy - h);
+    ctx.lineTo(cx - h, cy + h);
+    ctx.stroke();
   }
-  ctx.fill();
+  ctx.restore();
 };
 
 type BoxSizes = {
@@ -125,7 +144,7 @@ type BoxSizes = {
 
 // Full-width black band (hub / local trade) and, under it, the route box.
 // When the item has a hub role, the left end of the band is a white square
-// with the big ● / ◆ symbol, and the band text is fitted to the rest.
+// with the big ● / crate symbol, and the band text is fitted to the rest.
 // `top` is the top of the band slot; the slot stays empty when there's no
 // band, so every label keeps the same layout.
 const drawRouteBlock = (
@@ -157,7 +176,7 @@ const drawRouteBlock = (
         data.hubRole,
         left + cell / 2,
         top + s.band / 2,
-        s.band * 0.82
+        s.band * 0.84
       );
     }
     ctx.fillStyle = "#FFFFFF";
@@ -314,11 +333,11 @@ export const drawTag = (
     // Band + route, small
     yPos += 18 * K;
     yPos = drawRouteBlock(data, ctx, x, width, yPos, {
-      band: 30 * K,
+      band: 34 * K,
       bandText: 15 * K,
       bandTextMin: 9 * K,
-      gap: 5 * K,
-      box: 43 * K,
+      gap: 4 * K,
+      box: 41 * K,
       route: 36 * K,
       routeMin: 12 * K,
     });

@@ -1,6 +1,7 @@
 // What a volunteer at the hub does with the item:
 // "stays" = destination is the hub, it goes to a table (MESA, ●);
-// "leaves" = it goes from the hub to the interior, packed in a box (CAJA, ◆),
+// "leaves" = it goes from the hub to the interior, packed in a box (CAJA, crate:
+// hollow square with an X),
 // either passing through (via hub) or starting there (origin is the hub).
 export type HubRole = "stays" | "leaves";
 
