@@ -14,7 +14,11 @@ const ELLIPSIS = "…";
 
 type Weight = "" | "bold ";
 
-const setFont = (ctx: CanvasRenderingContext2D, weight: Weight, size: number) => {
+const setFont = (
+  ctx: CanvasRenderingContext2D,
+  weight: Weight,
+  size: number
+) => {
   ctx.font = `${weight}${size}px Arial`;
 };
 
@@ -76,18 +80,6 @@ const fitRoute = (
   return text;
 };
 
-// Text of the black band, or null when the item never touches the hub
-// (interior→interior direct, or a local trade).
-const bandText = ({ hubRole, hub, viaHub, destCode, mesa }: Tag) => {
-  if (hubRole === "stays") {
-    return mesa ? `QUEDA EN ${hub} · MESA ${mesa}` : `QUEDA EN ${hub}`;
-  }
-  if (hubRole === "leaves") {
-    return `${viaHub ? "PASA POR" : "SALE DE"} ${hub} · CAJA A ${destCode}`;
-  }
-  return null;
-};
-
 // Hub symbol centered on (cx, cy), `size` wide and tall, built to tell apart
 // in black & white even when small: ● solid circle = stays at the hub (MESA);
 // crate (hollow square with an X corner to corner) = leaves in a box (CAJA).
@@ -132,67 +124,41 @@ const drawHubSymbol = (
   ctx.restore();
 };
 
-type BoxSizes = {
-  band: number; // band height
-  bandText: number;
-  bandTextMin: number;
-  gap: number; // between the band and the route box
-  box: number; // route box height
-  route: number;
-  routeMin: number;
-};
-
-// Full-width black band (hub text) and, under it, the route box. `top` is
-// the top of the band slot; the slot stays empty when there's no band, so
-// every label keeps the same layout. The ● / crate symbol is not repeated
-// here: each half shows it big beside the ID.
-const drawRouteBlock = (
-  data: Tag,
+// Outlined box `boxWidth` wide (side margins `paddingRect`) with one bold
+// line centered in it: the route on plain labels, "MESA N" or the
+// destination code on hub labels. Returns the bottom of the box.
+const drawBox = (
   ctx: CanvasRenderingContext2D,
   x: number,
   width: number,
   top: number,
-  s: BoxSizes
+  height: number,
+  fit: (maxWidth: number) => string
 ) => {
   const left = x + paddingRect;
   const boxWidth = width - 2 * paddingRect;
-  const centerX = x + width / 2;
-  const band = bandText(data);
-
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-
-  if (band) {
-    ctx.fillStyle = "#000000";
-    ctx.fillRect(left, top, boxWidth, s.band);
-    ctx.fillStyle = "#FFFFFF";
-    const text = fitText(
-      ctx,
-      band,
-      boxWidth - 2 * routeGap,
-      s.bandText,
-      s.bandTextMin,
-      "bold "
-    );
-    ctx.fillText(text, centerX, top + s.band / 2 + K);
-  }
-
-  const boxTop = top + s.band + s.gap;
-  ctx.fillStyle = "#000000";
   ctx.lineWidth = 2;
   ctx.strokeStyle = "#000000";
-  ctx.strokeRect(left, boxTop, boxWidth, s.box);
-  const route = fitRoute(
-    ctx,
-    data.route,
-    boxWidth - 2 * routeGap,
-    s.route,
-    s.routeMin
+  ctx.fillStyle = "#000000";
+  ctx.strokeRect(left, top, boxWidth, height);
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  // fit() sets the font before the text is drawn
+  ctx.fillText(
+    fit(boxWidth - 2 * routeGap),
+    x + width / 2,
+    top + height / 2 + K
   );
-  ctx.fillText(route, centerX, boxTop + s.box / 2 + K);
-
   ctx.textBaseline = "top";
-  return boxTop + s.box;
+  return top + height;
+};
+
+// Big datum of a hub label: "MESA N" when it stays at the hub (null when
+// there's no table: the box is left out), the destination code when it
+// leaves in a box.
+const hubDatum = ({ hubRole, mesa, destCode }: Tag) => {
+  if (hubRole === "stays") return mesa ? `MESA ${mesa}` : null;
+  return destCode;
 };
 
 // Sides of the big ● / crate symbol beside the ID, in each half. It is how
@@ -251,36 +217,56 @@ export const drawTag = (
     headWidth = symbolLeft - 16 * K - textLeft;
     headX = textLeft + headWidth / 2;
   }
-  ctx.fillText(fitText(ctx, id, headWidth, 60 * K, 40 * K), headX, top + 8 * K);
-  ctx.fillText(
-    fitText(ctx, name, headWidth, 28 * K, 16 * K),
-    headX,
-    top + 72 * K
-  );
+  // "stays" labels drop the title: the ID alone, bigger, beside the symbol
+  if (hubRole === "stays") {
+    ctx.fillText(
+      fitText(ctx, id, headWidth, 76 * K, 40 * K),
+      headX,
+      top + 22 * K
+    );
+  } else {
+    ctx.fillText(
+      fitText(ctx, id, headWidth, 60 * K, 40 * K),
+      headX,
+      top + 8 * K
+    );
+    ctx.fillText(
+      fitText(ctx, name, headWidth, 28 * K, 16 * K),
+      headX,
+      top + 72 * K
+    );
+  }
+
+  // Hub labels: one big datum (MESA N / destination code) in a tall box.
+  // Plain labels: the route, in the same place as before the hub labels.
+  // A "stays" label with no table has no box: De / Para move to the middle
+  // of the free space instead of hugging the edges of an empty gap.
+  const datum = hubRole ? hubDatum(data) : null;
+  const noBox = hubRole && !datum;
 
   ctx.fillText(
     fitText(ctx, "De: " + from, textWidth, 20 * K, 12 * K),
     centerX,
-    top + 118 * K
+    top + (noBox ? 168 : 118) * K
   );
 
-  // Band where the old "Mandar a …" line was, then the full-width route.
-  let yPos = drawRouteBlock(data, ctx, x, width, top + 144 * K, {
-    band: 44 * K,
-    bandText: 26 * K,
-    bandTextMin: 12 * K,
-    gap: 8 * K,
-    box: 88 * K,
-    route: 60 * K,
-    routeMin: 16 * K,
-  });
+  if (hubRole) {
+    if (datum) {
+      drawBox(ctx, x, width, top + 144 * K, 140 * K, (w) =>
+        fitText(ctx, datum, w, 116 * K, 24 * K, "bold ")
+      );
+    }
+  } else {
+    drawBox(ctx, x, width, top + 196 * K, 88 * K, (w) =>
+      fitRoute(ctx, data.route, w, 60 * K, 16 * K)
+    );
+  }
 
-  yPos += 10 * K;
   ctx.textAlign = "center";
   ctx.fillText(
     fitText(ctx, "Para: " + to, textWidth, 20 * K, 12 * K),
     centerX,
-    yPos
+    top + (noBox ? 236 : 294) * K
   );
 
   if (elementPerPage === 4) {
@@ -320,48 +306,50 @@ export const drawTag = (
       nameRight = textRight - SYMBOL_FOLDED - 12 * K;
     }
 
-    // ID
+    // ID, and the title beside it fitted to the rest of the width
+    // ("stays" labels have no title)
     const idY = fold + 22 * K;
     ctx.textAlign = "left";
     ctx.font = `${50 * K}px Arial`;
     ctx.fillText(id, textLeft, idY);
-
-    // NAME, beside the ID and fitted to the rest of the width
-    const nameX = textLeft + ctx.measureText(id).width + 15 * K;
-    ctx.textBaseline = "middle";
-    ctx.fillText(
-      fitText(ctx, name, nameRight - nameX, 19 * K, 11 * K),
-      nameX,
-      idY + 23 * K
-    );
-    ctx.textBaseline = "top";
+    if (hubRole !== "stays") {
+      const nameX = textLeft + ctx.measureText(id).width + 15 * K;
+      ctx.textBaseline = "middle";
+      ctx.fillText(
+        fitText(ctx, name, nameRight - nameX, 19 * K, 11 * K),
+        nameX,
+        idY + 23 * K
+      );
+      ctx.textBaseline = "top";
+    }
 
     // De:
     ctx.textAlign = "center";
     ctx.fillText(
       fitText(ctx, "De: " + from, textWidth, 13 * K, 10 * K),
       centerX,
-      fold + 81 * K
+      fold + (noBox ? 104 : 81) * K
     );
 
-    // Band + route, small
-    yPos = drawRouteBlock(data, ctx, x, width, fold + 97 * K, {
-      band: 32 * K,
-      bandText: 17 * K,
-      bandTextMin: 9 * K,
-      gap: 4 * K,
-      box: 41 * K,
-      route: 36 * K,
-      routeMin: 12 * K,
-    });
+    // Big datum or route, small
+    if (hubRole) {
+      if (datum) {
+        drawBox(ctx, x, width, fold + 97 * K, 77 * K, (w) =>
+          fitText(ctx, datum, w, 64 * K, 14 * K, "bold ")
+        );
+      }
+    } else {
+      drawBox(ctx, x, width, fold + 133 * K, 41 * K, (w) =>
+        fitRoute(ctx, data.route, w, 36 * K, 12 * K)
+      );
+    }
 
     // a quien:
-    yPos += 6 * K;
     ctx.textAlign = "center";
     ctx.fillText(
       fitText(ctx, "Para: " + to, textWidth, 14 * K, 10 * K),
       centerX,
-      yPos
+      fold + (noBox ? 142 : 180) * K
     );
   }
   ctx.restore();
